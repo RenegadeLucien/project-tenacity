@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class Encounter {
 
+    //TODO: add restrictions (such as no armour, no weapons, must wear item X, etc.)
     List<Enemy> enemies;
 
     public Encounter(List<Enemy> enemies) {
