@@ -171,7 +171,7 @@ public class ActionDatabase {
         return database;
     }
     public int combatKills(Enemy enemy, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
-        CombatResults combatResults = new Encounter(Collections.singletonList(enemy)).calculateCombat(player, invenSpaces, combatStyle);
+        CombatResults combatResults = new Encounter(Collections.singletonList(Collections.singletonList(enemy)), new ArrayList<>()).calculateCombat(player, invenSpaces, combatStyle);
         int time = TICKS_PER_HOUR;
         double currentHp = player.getLevel("Constitution")*100;
         int kills = 0;

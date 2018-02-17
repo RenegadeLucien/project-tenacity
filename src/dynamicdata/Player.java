@@ -357,9 +357,11 @@ public class Player implements java.io.Serializable {
 
 		}
 		for (Encounter encounter : task.getEncounters()) {
-			for (Enemy enemy : encounter.getEnemies()) {
-				xp.put("Constitution", xp.get("Constitution") + enemy.getHpxp());
-				//xp.put("Attack", xp.get("Attack") + enemy.getCbxp());
+			for (List<Enemy> enemyGroup : encounter.getEnemyGroups()) {
+				for (Enemy enemy : enemyGroup) {
+					xp.put("Constitution", xp.get("Constitution") + enemy.getHpxp());
+					//xp.put("Attack", xp.get("Attack") + enemy.getCbxp());
+				}
 			}
 		}
 
