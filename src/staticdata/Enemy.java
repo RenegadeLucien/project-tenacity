@@ -33,6 +33,7 @@ public enum Enemy {
 	ZOMBIE_UI("Zombie (Uncharted Isles)", 4950, 0, 0, 268, 0, 0, 67, 0, 0, 5, 1372, 0, 0, 1372, 67, "Fire", 90, 55, 45, 65),
 	ZYCLOPS("Zyclops", 4950, 0, 0, 268, 0, 0, 67, 0, 0, 5, 1372, 0, 0, 1372, 67, "Fire", 90, 55, 45, 65),
 	ZYCLOPS_CANNONEER("Zyclops cannoneer", 4950, 0, 0, 268, 0, 0, 67, 0, 0, 5, 1372, 0, 0, 1372, 67, "Fire", 90, 55, 45, 65),
+	KALPHITE_GUARDIAN("Kalphite guardian", 5200, 274.5, 90.5, 208, 0, 0, 52, 0, 0, 4, 901, 0, 0, 91, 52, "Water", 90, 55, 45, 65),
 	WITCHS_EXPERIMENT_3("Witch's experiment 3", 6000, 146.2, 48.2, 388, 0, 0, 27, 0, 0, 4, 409, 0, 0, 409, 27, "Water", 90, 55, 45, 65),
 	GIANT_WORM("Giant worm", 6500, 274.5, 90.5, 0, 0, 600, 0, 0, 65, 5, 0, 0, 1924, 1299, 40, "Bolts", 90, 45, 65, 55),
     WITCHS_EXPERIMENT_4("Witch's experiment 4", 8000, 207.7, 68.5, 504, 0, 0, 35, 0, 0, 4, 536, 0, 0, 409, 27, "Water", 90, 55, 45, 65),
@@ -56,6 +57,7 @@ public enum Enemy {
 	CYCLOPS_LABOURER("Cyclops labourer", 15000, 0, 0, 1100, 0, 0, 70, 0, 0, 6, 1486, 0, 0, 1486, 70, "Fire", 90, 55, 45, 65),
 	SHADOW_NIHIL("Shadow nihil", 15000, 1447.2, 477.5, 0, 1000, 0, 0, 80, 0, 5, 0, 1924, 0, 1924, 80, "Melee", 40, 40, 40, 40),
 	ZYCLOPS_FD("Zyclops (Final Destination)", 15000, 0, 0, 268, 0, 0, 67, 0, 0, 5, 1372, 0, 0, 1372, 67, "Fire", 90, 55, 45, 65),
+	NEW_VARROCK_GUARD("New Varrock guard", 16250, 1033.2, 340.9, 384, 0, 0, 40, 0, 0, 4, 1486, 0, 0, 1132, 60, "Nothing", 0, 70, 70, 70),
 	AIRUT("Airut", 16875, 2052, 677.1, 816, 816, 0, 85, 85, 0, 4, 3031, 3031, 0, 2458, 90, "Nothing", 0, 65, 55, 45),
 	ICE_NIHIL("Ice nihil", 20000, 2170.8, 716.3, 0, 0, 768, 0, 0, 80, 4, 0, 0, 1924, 1924, 80, "Ranged", 90, 45, 65, 55),
 	SMOKE_NIHIL("Smoke nihil", 20000, 2170.8, 716.3, 0, 0, 768, 0, 0, 80, 4, 0, 0, 1924, 1924, 80, "Ranged", 90, 45, 65, 55),
@@ -63,6 +65,8 @@ public enum Enemy {
 	DAGANNOTH_SUPREME("Dagannoth Supreme", 35000, 2194.5, 724.1, 0, 1788, 0, 0, 68, 0, 4, 0, 1924, 0, 1409, 68, "Stab", 75, 60, 0, 0),
     GENERAL_GRAARDOR("General Graardor", 40000, 3204, 1057.3, 3000, 1676, 0, 75, 75, 0, 6, 2178, 1566, 0, 1299, 75, "Nothing", 0, 50, 10, 50),
     VANSTROM_KLAUSE("Vanstrom Klause", 40000, 2644.2, 872.5, 840, 0, 840, 70, 0, 70, 4, 1486, 0, 1486, 1486, 70, "Nothing", 0, 55, 55, 55),
+	KALPHITE_QUEEN_PHASE_1("Kalphite Queen (Phase 1)", 40000, 2680, 884.4, 980, 980, 980, 70, 70, 70, 6, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 40, 10, 10),
+	KALPHITE_QUEEN_PHASE_2("Kalphite Queen (Phase 2)", 40000, 2680, 884.4, 980, 980, 980, 70, 70, 70, 6, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 60, 40, 40),
 	KING_BLACK_DRAGON("King Black Dragon", 45000, 2155.2, 711.2, 864, 0, 864, 60, 0, 60, 4, 1924, 0, 1132, 1132, 60, "Nothing", 0, 40, 40, 40),
 	AHRIM_THE_BLIGHTED_ROTS("Ahrim the Blighted (ROTS)", 50000, 7149.6, 2359.3, 0, 0, 864, 0, 0, 90, 2, 0, 0, 2458, 1924, 90, "Nothing", 0, 40, 40, 40),
 	DHAROK_THE_WRETCHED_ROTS("Dharok the Wretched (ROTS)", 50000, 7149.6, 2359.3, 1296, 0, 0, 90, 0, 0, 5, 2458, 0, 0, 1924, 90, "Nothing", 0, 40, 40, 40),
@@ -85,6 +89,7 @@ public enum Enemy {
 	TUZ("Tuz", 700000, 500, 165, 2123, 0, 2123, 85, 0, 85, 4, 2178, 2178, 2178, 2178, 80, "Bolts", 90, 45, 65, 55),
 	VORAGO("Vorago", 1250000, 100000, 33000, 5000, 0, 5000, 90, 0, 90, 4, 2458, 0, 2458, 2178, 90, "Nothing", 0, 40, 40, 40),
 	BEASTMASTER_DURZAG("Beastmaster Durzag", 1500000, 1000, 330, 1788, 1788, 0, 85, 85, 0, 6, 2458, 2458, 0, 2458, 95, "Nothing", 0, 55, 55, 55),
+	NEX_ANGEL_OF_DEATH("Nex: Angel of Death", 3000000, 8000, 2640, 2123, 0, 2123, 90, 0, 90, 4, 2765, 0, 2765, 2765, 85, "Nothing", 0, 55, 55, 55),
 	YAKAMARU("Yakamaru", 5000000, 5000, 1650, 0, 1653, 1653, 0, 99, 99, 4, 0, 2458, 2458, 2765, 99, "Nothing", 0, 55, 55, 55);
 
 	private String name;
