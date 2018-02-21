@@ -155,10 +155,9 @@ public enum Item {
                 bufferedReader.close();
                 if (found == true) {
                     String[] nameAndPrice = line.split(" ");
-                    return Integer.parseInt(nameAndPrice[nameAndPrice.length-1]);
+                    return Integer.parseInt(nameAndPrice[nameAndPrice.length - 1]);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -186,8 +185,7 @@ public enum Item {
             bufferedWriter.newLine();
             bufferedWriter.close();
             return price;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
@@ -196,9 +194,8 @@ public enum Item {
     public int coinValue(Player player) {
         if (player.getStatus() == 0) {
             return geval;
-        }
-        else {
-            return (int)Math.floor(baseval*.3);
+        } else {
+            return (int) Math.floor(baseval * .3);
         }
     }
 }

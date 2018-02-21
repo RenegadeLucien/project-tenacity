@@ -30,7 +30,7 @@ public enum Ability {
     OMNIPOWER("Omnipower", "Magic", "Any", "Ultimate", 50, 3, Collections.singletonList(new Requirement("Magic", 2))),
     DRAGON_BREATH("Dragon Breath", "Magic", "Any", "Basic", 17, 1.128, Collections.singletonList(new Requirement("Magic", 5))),
     SONIC_WAVE("Sonic Wave", "Magic", "Two-handed", "Basic", 8, 0.942, Collections.singletonList(new Requirement("Magic", 8))),
-    SNAP_SHOT("Snap Shot", "Ranged", "Any","Threshold", 34, 2.65, new ArrayList<>()),
+    SNAP_SHOT("Snap Shot", "Ranged", "Any", "Threshold", 34, 2.65, new ArrayList<>()),
     PIERCING_SHOT("Piercing Shot", "Ranged", "Any", "Basic", 5, 0.564, new ArrayList<>()),
     DEADSHOT("Deadshot", "Ranged", "Any", "Ultimate", 50, 4.258, Collections.singletonList(new Requirement("Ranged", 2))),
     SNIPE("Snipe", "Ranged", "Any", "Basic", 17, 1.72, Collections.singletonList(new Requirement("Ranged", 5))),

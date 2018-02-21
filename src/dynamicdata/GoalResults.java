@@ -6,7 +6,7 @@ import java.util.Map;
 public class GoalResults {
     private double totalTime;
     private List<Requirement> requirements;
-    private Map<String,Double> actionsWithTimes;
+    private Map<String, Double> actionsWithTimes;
 
     public GoalResults(double totalTime, List requirements, Map actionsWithTimes) {
         this.totalTime = totalTime;

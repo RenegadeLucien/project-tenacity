@@ -3,9 +3,7 @@ package dynamicdata;
 import staticdata.Ability;
 import staticdata.Enemy;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Encounter {
 
@@ -15,6 +13,21 @@ public class Encounter {
     public Encounter(List<List<Enemy>> enemyGroups, List<Restriction> restrictions) {
         this.enemyGroups = enemyGroups;
         this.restrictions = restrictions;
+    }
+
+    public Encounter(List<List<Enemy>> enemyGroups) {
+        this.enemyGroups = enemyGroups;
+        this.restrictions = new ArrayList<>();
+    }
+
+    public Encounter(Enemy enemy, List<Restriction> restrictions) {
+        this.enemyGroups = Collections.singletonList(Collections.singletonList(enemy));
+        this.restrictions = restrictions;
+    }
+
+    public Encounter(Enemy enemy) {
+        this.enemyGroups = Collections.singletonList(Collections.singletonList(enemy));
+        this.restrictions = new ArrayList<>();
     }
 
     public List<List<Enemy>> getEnemyGroups() {
@@ -33,7 +46,7 @@ public class Encounter {
             int ticks = 0;
             double hpLost = 0;
             for (List<Enemy> enemyGroup : enemyGroups) {
-                for (Enemy enemy: enemyGroup) {
+                for (Enemy enemy : enemyGroup) {
                     //System.out.println("Began fighting: " + enemy.getName());
                     int affinity = 0;
                     String accuracySkill = null;

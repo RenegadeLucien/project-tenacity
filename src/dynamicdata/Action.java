@@ -55,18 +55,17 @@ public class Action {
             gainForThisAction = outputs.get(target);
             double timeTakenForInputs = 0.0;
             if (moneyFromAction(player) < 0) {
-                timeTakenForInputs += player.efficientGoalCompletion("Coins", (int)moneyFromAction(player)*-1).getTotalTime();
+                timeTakenForInputs += player.efficientGoalCompletion("Coins", (int) moneyFromAction(player) * -1).getTotalTime();
             }
-            for (Map.Entry<String, Integer> input : inputs.entrySet()){
+            for (Map.Entry<String, Integer> input : inputs.entrySet()) {
                 if (Item.getItemByName(input.getKey()) == null)
                     timeTakenForInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
             }
-            gainForThisAction /= (1+timeTakenForInputs);
-        }
-        else if ((player.getStatus() == 1 && ironman == true) || player.getStatus() == 2 && hardcore == true){
+            gainForThisAction /= (1 + timeTakenForInputs);
+        } else if ((player.getStatus() == 1 && ironman == true) || player.getStatus() == 2 && hardcore == true) {
             gainForThisAction = outputs.get(target);
             double timeToCollectInputs = 0.0;
-            for (Map.Entry<String, Integer> input : inputs.entrySet()){
+            for (Map.Entry<String, Integer> input : inputs.entrySet()) {
                 timeToCollectInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
             }
             gainForThisAction /= (1.0 + timeToCollectInputs);

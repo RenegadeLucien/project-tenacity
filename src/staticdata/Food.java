@@ -11,7 +11,7 @@ public enum Food {
     private String name;
     private int amountHealed;
 
-    Food(String name,int amountHealed) {
+    Food(String name, int amountHealed) {
         this.name = name;
         this.amountHealed = amountHealed;
     }

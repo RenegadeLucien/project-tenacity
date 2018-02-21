@@ -58,6 +58,6 @@ public class Loadout {
     }
 
     public double totalReduc() {
-        return  head.getReduc() + torso.getReduc() + legs.getReduc() + hands.getReduc() + feet.getReduc();
+        return head.getReduc() + torso.getReduc() + legs.getReduc() + hands.getReduc() + feet.getReduc();
     }
 }

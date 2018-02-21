@@ -11,7 +11,7 @@ public enum Spawn {
     private int respawn;
     private boolean hardcore;
 
-    Spawn (String itemName, int respawn, boolean hardcore) {
+    Spawn(String itemName, int respawn, boolean hardcore) {
         this.itemName = itemName;
         this.respawn = respawn;
         this.hardcore = hardcore;
