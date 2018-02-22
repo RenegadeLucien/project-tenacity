@@ -75,6 +75,7 @@ public enum Enemy {
     KARIL_THE_TAINTED_ROTS("Karil the Tainted (ROTS)", 50000, 7149.6, 2359.3, 0, 864, 0, 0, 90, 0, 2, 0, 2458, 0, 1924, 90, "Nothing", 0, 40, 40, 40),
     TORAG_THE_CORRUPTED_ROTS("Torag the Corrupted (ROTS)", 50000, 7149.6, 2359.3, 1296, 0, 0, 90, 0, 0, 5, 2458, 0, 0, 1924, 90, "Nothing", 0, 40, 40, 40),
     VERAC_THE_DEFILED_ROTS("Verac the Defiled (ROTS)", 50000, 7149.6, 2359.3, 1296, 0, 0, 90, 0, 0, 5, 2458, 0, 0, 1924, 90, "Nothing", 0, 40, 40, 40),
+    KRIL_TSUTSAROTH("K'ril Tsutsaroth", 55000, 5136, 1694.8, 1500, 0, 1500, 75, 0, 75, 5, 1486, 0, 1486, 1299, 75, "Fire", 75, 45, 40, 50),
     CAPN_EKAHI("Cap'n Ekahi", 65000, 0, 0, 1100, 0, 0, 80, 0, 0, 6, 1924, 0, 0, 1924, 80, "Nothing", 0, 40, 40, 40),
     KREEARRA("Kree'arra", 75000, 6573, 2169, 1676, 1080, 1080, 75, 75, 75, 3, 1694, 1694, 1694, 1299, 75, "Nothing", 0, 10, 70, 70),
     CORPOREAL_BEAST("Corporeal Beast", 100000, 7618, 2513.9, 3000, 0, 4500, 75, 0, 75, 4, 1694, 0, 1694, 1694, 75, "Nothing", 0, 40, 40, 40),
