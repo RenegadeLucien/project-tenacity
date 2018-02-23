@@ -1060,6 +1060,94 @@ public enum Achievement {
     KALPHITE_GRUBLING(new AchievementBuilder("Kalphite Grubling", 0, true).requirement("Kalphite Grubling", 1)),
     KAMI_SPIRITS_OF_THE_ARC(new AchievementBuilder("Kami Spirits of the Arc", 0, true).requirement("Kami", 16).reward("Hunter", 50000)),
     KARAMJA(new AchievementBuilder("Karamja", 0, true)),
+    KARAMJA_SET_TASKS_EASY(new AchievementBuilder("Karamja Set Tasks - Easy", 0, true).requirement("Five a Day", 1)
+        .requirement("I'm Lichen This!", 1).requirement("Golden Shores", 1).requirement("Put to Port in Port Sarim", 1)
+        .requirement("Avast Ardougne!", 1).requirement("Show That You Cairn", 1).requirement("Fruity Catch", 1)
+        .requirement("Beachcomber", 1).requirement("TzHaar Wars", 1).requirement("It's a Jungle Ogre", 1).lamp(Player.ALL_SKILLS, 1000, 30)),
+    KARAMJA_SET_TASKS_ELITE(new AchievementBuilder("Karamja Set Tasks - Elite", 0, true).requirement("The Power of Lava", 1)
+        .requirement("At One Plus Fifty-Five With Nature", 1).requirement("Boxing Clever", 1).requirement("It's a Snap", 1)
+        .requirement("Crunchy Coating", 1).requirement("Walkies!", 1).requirement("Tread Carefully", 1).requirement("Ten in a Row", 1)
+        .lamp(Player.ALL_SKILLS, 55000, 87).lamp(Player.ALL_SKILLS, 55000, 87).lamp(Player.ALL_SKILLS, 30000, 64)),
+    KARAMJA_SET_TASKS_HARD(new AchievementBuilder("Karamja Set Tasks - Hard", 0, true).requirement("Flawless Victory", 1)
+        .requirement("Play Dead, Doggy", 1).requirement("I'd Be Kharazi to Eat This", 1).requirement("At One With Nature", 1)
+        .requirement("Drop It Like It's Hot", 1).requirement("Deadwing", 1).requirement("Quick As a Shot", 1).requirement("Can Opener", 1)
+        .requirement("Yes, My Master", 1).requirement("A Palm For Each Finger", 1).lamp(Player.ALL_SKILLS, 10000, 50)),
+    KARAMJA_SET_TASKS_MEDIUM(new AchievementBuilder("Karamja Set Tasks - Medium", 0, true).requirement("Just the Ticket", 1)
+        .requirement("Back Cran-door", 1).requirement("Dungeons and Dragons", 1).requirement("Horseless Carriage", 1)
+        .requirement("They Like Me! They Really Like Me!", 1).requirement("Arachnophagia", 1).requirement("Romancing the Stone", 1)
+        .requirement("I'm a Lumberjack and I'm Okay", 1).requirement("I Sleep All Night and I Work All Day", 1)
+        .requirement("To Catch a Karambwan", 1).requirement("That's Not a Knife", 1).requirement("Falling With Style", 1)
+        .requirement("Scourge of Scurvy", 1).requirement("Hungers of the Horned Graahk", 1).requirement("The Roots of All Evil", 1)
+        .requirement("Points of No Return", 1).requirement("Stairway to Haven", 1).requirement("Thank You, Madam", 1)
+        .requirement("Shipping Out From the Shipyard", 1).lamp(Player.ALL_SKILLS, 5000, 40)),
+    KARIL_BOBBLEHEAD(new AchievementBuilder("Karil Bobblehead", 0, true).requirement("Karil the Bobbled", 1)),
+    KEEPER_OF_THE_FAITH(new AchievementBuilder("Keeper of the Faith", 0, true).requirement("Commander Zilyana uniques", 17)),
+    KEEPING_UP_WITH_THE_CARNILLEANS(new AchievementBuilder("Keeping Up with the Carnilleans", 0, true).requirement("Carnillean lamps", 7)),
+    KHARSHAIS_MEMORIES(new AchievementBuilder("Kharshai's Memories", 0, true).requirement("Mahjarrat memories", 15)
+        .reward("Divination", 150000)),
+    KILL_KRIL_I(new AchievementBuilder("Kill K'ril I", 0, true).requirement("K'ril Tsutsaroth", 5)),
+    KILL_KRIL_II(new AchievementBuilder("Kill K'ril II", 0, true).requirement("K'ril Tsutsaroth", 10)),
+    KILL_KRIL_III(new AchievementBuilder("Kill K'ril III", 0, true).requirement("K'ril Tsutsaroth", 25)),
+    KILL_KRIL_IV(new AchievementBuilder("Kill K'ril IV", 0, true).requirement("K'ril Tsutsaroth", 50)),
+    KILL_KRIL_V(new AchievementBuilder("Kill K'ril V", 0, true).requirement("K'ril Tsutsaroth", 75)),
+    KILL_KRIL_VI(new AchievementBuilder("Kill K'ril VI", 0, true).requirement("K'ril Tsutsaroth", 100)),
+    KILL_KRIL_VOL_2_I(new AchievementBuilder("Kill K'ril Vol 2 I", 0, true).requirement("K'ril Tsutsaroth (hard)", 5)),
+    KILL_KRIL_VOL_2_II(new AchievementBuilder("Kill K'ril Vol 2 II", 0, true).requirement("K'ril Tsutsaroth (hard)", 10)),
+    KILL_KRIL_VOL_2_III(new AchievementBuilder("Kill K'ril Vol 2 III", 0, true).requirement("K'ril Tsutsaroth (hard)", 25)),
+    KILL_KRIL_VOL_2_IV(new AchievementBuilder("Kill K'ril Vol 2 IV", 0, true).requirement("K'ril Tsutsaroth (hard)", 50)),
+    KILL_KRIL_VOL_2_V(new AchievementBuilder("Kill K'ril Vol 2 V", 0, true).requirement("K'ril Tsutsaroth (hard)", 75)),
+    KILL_KRIL_VOL_2_VI(new AchievementBuilder("Kill K'ril Vol 2 VI", 0, true).requirement("K'ril Tsutsaroth (hard)", 100)),
+    KILN_FIGHTER(new AchievementBuilder("Kiln Fighter", 0, true).requirement("Har-Aken", 1)),
+    KING_BLACK_DRAGONLING(new AchievementBuilder("King Black Dragonling", 0, true).requirement("King Black Dragonling", 1)),
+    KOSCHEIS_CACHE(new AchievementBuilder("Koschei's Cache", 0, true).requirement("Koschei gem colors", 1)),
+    KRAR_JNR(new AchievementBuilder("Krar Jnr", 0, true).requirement("Krar Jnr", 1)),
+    KUDOS_TO_YOU(new AchievementBuilder("Kudos to You", 0, true).requirement("Kudos", 198)),
+    LAST_OF_THE_SUMMER_SWINE(new AchievementBuilder("Last of the Summer Swine", 0, true).requirement("Pig creation machine", 3)),
+    LEARNING_FROM_MR_MORDAUT(new AchievementBuilder("Learning From Mr Mordaut", 0, true).requirement("One of a Kind", 1)
+        .reward("Divination", 5000)),
+    LEGIO_PRIMULUS(new AchievementBuilder("Legio Primulus", 0, true).requirement("Legio Primulus", 1)),
+    LEGIO_QUARTULUS(new AchievementBuilder("Legio Quartulus", 0, true).requirement("Legio Quartulus", 1)),
+    LEGIO_QUINTULUS(new AchievementBuilder("Legio Quintulus", 0, true).requirement("Legio Quintulus", 1)),
+    LEGIO_SECUNDULUS(new AchievementBuilder("Legio Secundulus", 0, true).requirement("Legio Secundulus", 1)),
+    LEGIO_SEXTULUS(new AchievementBuilder("Legio Sextulus", 0, true).requirement("Legio Sextulus", 1)),
+    LEGIO_TERTIOLUS(new AchievementBuilder("Legio Tertiolus", 0, true).requirement("Legio Tertiolus", 1)),
+    LETS_ENHANCE(new AchievementBuilder("Let's Enhance", 0, true).requirement("Pale energy", 5).reward("Divination", 4)),
+    LET_US_GIVE_UGTHANKS(new AchievementBuilder("Let Us Give Ugthanks", 0, true).requirement("Ugthanatos journal", 1)),
+    LIBERATED(new AchievementBuilder("Liberated", 0, true).requirement("Mazcab uniques", 19)),
+    LIBRARY_OF_NEX(new AchievementBuilder("Library of Nex", 0, true).requirement("Nex: Angel of Death", 1)),
+    LIGHT_AS_A_FEATHER(new AchievementBuilder("Light as a Feather", 0, true).requirement("Kree'arra uniques", 18)),
+    LIGHTER_LOG(new AchievementBuilder("Lighter Log", 0, true).requirement("Logs", 1).reward("Firemaking", 40)),
+    LIKE_A_BOSS(new AchievementBuilder("Like a Boss", 0, true).encounter(new Encounter(Arrays.asList(
+        Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN),
+        Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN),
+        Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN),
+        Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN),
+        Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN), Collections.singletonList(Enemy.GOBLIN),
+        Collections.singletonList(Enemy.BROKEFACE))))),
+    LIL_TUZZY(new AchievementBuilder("Lil' Tuzzy", 0, true).requirement("Lil' Tuzzy", 1)),
+    LILWYR(new AchievementBuilder("Lilwyr", 0, true).requirement("Lilwyr", 1)),
+    LITTLE_LEAGUER(new AchievementBuilder("Little Leaguer", 0, true).reward("Agility", 4).reward("Ranged", 4)),
+    LIVING_ON_A_PRAYER_SWITCH_I(new AchievementBuilder("Living on a Prayer Switch I", 0, true).requirement("TzTok-Jad", 5)),
+    LIVING_ON_A_PRAYER_SWITCH_II(new AchievementBuilder("Living on a Prayer Switch II", 0, true).requirement("TzTok-Jad", 10)),
+    LIVING_ON_A_PRAYER_SWITCH_III(new AchievementBuilder("Living on a Prayer Switch III", 0, true).requirement("TzTok-Jad", 25)),
+    LIVING_ON_A_PRAYER_SWITCH_IV(new AchievementBuilder("Living on a Prayer Switch IV", 0, true).requirement("TzTok-Jad", 50)),
+    LIVING_ON_A_PRAYER_SWITCH_V(new AchievementBuilder("Living on a Prayer Switch V", 0, true).requirement("TzTok-Jad", 75)),
+    LIVING_ON_A_PRAYER_SWITCH_VI(new AchievementBuilder("Living on a Prayer Switch VI", 0, true).requirement("TzTok-Jad", 100)),
+    LOAD_OF_BAKULLA(new AchievementBuilder("Load of Bakulla", 0.1, true).requirement("The Fremennik Trials", 1)),
+    LOCK_STOCK_AND_BARREL(new AchievementBuilder("Lock, Stock, and Barrel", 0, true).requirement("Merchant district reputation", 300000)),
+    LODESTONE_NETWORK(new AchievementBuilder("Lodestone Network", 0, true).requirement("Lodestones", 25)),
+    LODESTONE_NETWORK_FREE_AREA(new AchievementBuilder("Lodestone Network Free Area", 0, true).requirement("F2P Lodestones", 11)),
+    LODESTONE_NETWORK_MEMBERS_AREA(new AchievementBuilder("Lodestone Network Members Area", 0, true).requirement("P2P Lodestones", 14)),
+    LONG_LIVE_THE_QUEEN(new AchievementBuilder("Long Live the Queen", 0, true).requirement("Queen Black Dragon", 1)),
+    LOOT_PINATA_I(new AchievementBuilder("Loot Pinata I", 0, true).requirement("Queen Black Dragon", 5)),
+    LOOT_PINATA_II(new AchievementBuilder("Loot Pinata II", 0, true).requirement("Queen Black Dragon", 10)),
+    LOOT_PINATA_III(new AchievementBuilder("Loot Pinata III", 0, true).requirement("Queen Black Dragon", 25)),
+    LOOT_PINATA_IV(new AchievementBuilder("Loot Pinata IV", 0, true).requirement("Queen Black Dragon", 50)),
+    LOOT_PINATA_V(new AchievementBuilder("Loot Pinata V", 0, true).requirement("Queen Black Dragon", 75)),
+    LOOT_PINATA_VI(new AchievementBuilder("Loot Pinata VI", 0, true).requirement("Queen Black Dragon", 100)),
+    LOOTING_THE_DEMON_THRONE(new AchievementBuilder("Looting the Demon Throne", 0, true).requirement("The Golem", 1).reward("Sapphire", 2)
+        .reward("Emerald", 2).reward("Ruby", 2)),
+    LOST_TOYS(new AchievementBuilder("Lost Toys", 0, true).requirement("Morytania plushes", 14)),
     ;
 	/* Quests
 	COOKS_ASSISTANT("Cook's Assistant", 0.25, new ArrayList<>(), new ArrayList<>(), Arrays.asList(new Reward("Cooking", 300),
