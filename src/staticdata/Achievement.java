@@ -1148,6 +1148,72 @@ public enum Achievement {
     LOOTING_THE_DEMON_THRONE(new AchievementBuilder("Looting the Demon Throne", 0, true).requirement("The Golem", 1).reward("Sapphire", 2)
         .reward("Emerald", 2).reward("Ruby", 2)),
     LOST_TOYS(new AchievementBuilder("Lost Toys", 0, true).requirement("Morytania plushes", 14)),
+    LONG_LIVE_THE_KINGS(new AchievementBuilder("Long Live the Kings!", 0, true).requirement("Dagannoth Kings uniques", 10)),
+    LOYAL_SUBJECT(new AchievementBuilder("Loyal Subject", 0.35, true).requirement("Anti-dragon shield (mole)", 1)
+        .reward("Anti-dragon shield", 1)),
+    LUMBRIDGE(new AchievementBuilder("Lumbridge", 0, true)),
+    LUMBRIDGE_CATACOMBS(new AchievementBuilder("Lumbridge Catacombs", 0, true).requirement("The Blood Pact", 1)),
+    LUMBRDIGE_SET_TASKS_BEGINNER(new AchievementBuilder("Lumbridge Set Tasks - Beginner", 0, true).requirement("Master of All I Survey", 1)
+        .requirement("Raise the Roof", 1).requirement("Hail to the Duke, Baby", 1).requirement("Doom!", 1).requirement("Sage Advice", 1)
+        .requirement("Window Shopping", 1).requirement("Wait, That's Not a Sheep", 1).requirement("The Nexus Has You", 1)
+        .requirement("Clay More", 1).requirement("Just Add Water", 1).requirement("Very Potter", 1).requirement("Hotpot", 1)
+        .requirement("In the Countyard", 1).requirement("Grinding My Gears", 1).requirement("Beware of Pigzilla", 1)
+        .requirement("The Rules of Engagement", 1).requirement("Tower Power", 1).requirement("Take Your Pick", 1)
+        .requirement("Shrimpin' Ain't Easy", 1).requirement("The Fruit of the Sea", 1).requirement("A Grave Consideration", 1)
+        .requirement("Tickle the Ivories", 1).requirement("Ring My Bell", 1).requirement("Docking Out", 1).lamp(Player.ALL_SKILLS, 500, 1)),
+    LUMBRIDGE_SET_TASKS_EASY(new AchievementBuilder("Lumbridge Set Tasks - Easy", 0, true).requirement("Artisan Crafting", 1)
+        .requirement("Bless is More", 1).requirement("Morgan the Merrier", 1).requirement("Iron On", 1)
+        .requirement("And It Was THIS Big!", 1).requirement("Belter of a Smelter", 1).requirement("Nowt Tool Look At", 1)
+        .requirement("You Doity Rat", 1).requirement("It Was Dead Already!", 1).requirement("Camping Trip", 1).requirement("Ratatouille", 1)
+        .requirement("Slippery When Wet", 1).requirement("I Can't Hear Dead People", 1).requirement("Come In Here and Say That", 1)
+        .requirement("What Is This Place?", 1).requirement("Money Down the Drayn", 1).requirement("Klept-Old-Man-ia", 1)
+        .requirement("Eye on the Prize", 1).requirement("Draaaaaiiiiiins...", 1).lamp(Player.ALL_SKILLS, 1000, 30)),
+    LUMBRIDGE_SET_TASKS_HARD(new AchievementBuilder("Lumbridge Set Tasks - Hard", 0, true).requirement("A Body in the Sewers", 1)
+        .requirement("Building Up Strength", 1).requirement("Have Your Cake and Eat It", 1).requirement("Blast and Hellfire", 1)
+        .requirement("Gods, Give Me Strength", 1).requirement("Not Waving But Drowning", 1).requirement("Are Yew As Fired Up As I Am?", 1)
+        .lamp(Player.ALL_SKILLS, 9000, 49)),
+    LUMBRIDGE_SET_TASKS_MEDIUM(new AchievementBuilder("Lumbridge Set Tasks - Medium", 0, true).requirement("Steel Justice", 1)
+        .requirement("Ease of Access", 1).requirement("Everybody Loves Coal!", 1).requirement("Weeping Willow", 1)
+        .requirement("Willow the Wisp of Smoke", 1).requirement("A Meal Fit for a Duke", 1).requirement("Always Be Prepared", 1)
+        .requirement("Hi Ho, Silver", 1).requirement("Lovely With a Squeeze of Lemon", 1).requirement("One Day, You Shall Be a Fork", 1)
+        .requirement("Made to Order", 1).requirement("Where's The Beef?", 1).lamp(Player.ALL_SKILLS, 1500, 35)),
+    LUMBRIDGE_STRIKES_BACK(new AchievementBuilder("Lumbridge Strikes Back", 0, true).requirement("Bronze full helm", 1)
+        .requirement("Bronze platebody", 1).requirement("Bronze platelegs", 1).requirement("Bronze 2h sword", 1)
+        .encounter(new Encounter(Arrays.asList(Collections.singletonList(Enemy.ARAXXOR), Collections.singletonList(Enemy.ARAXXI)),
+            Arrays.asList(new Restriction("Bronze full helm", 1), new Restriction("Bronze platebody", 1),
+                new Restriction("Bronze platelegs", 1), new Restriction("Bronze 2h sword", 1))))),
+    LUNAR_ISLE(new AchievementBuilder("Lunar Isle", 0, true).requirement("Lunar Diplomacy", 1)),
+    LUNAR_MASTER(new AchievementBuilder("Lunar Master", 0, true).requirement("Lunar spells", 11)),
+    LURGONS_RUN(new AchievementBuilder("Lurgon's Run", 0.05, true).requirement("Death to the Dorgeshuun", 1)),
+    MAGIC_NEWTON(new AchievementBuilder("Magic - Newton", 0, true).requirement("Newton", 1)),
+    MAGIC_5(new AchievementBuilder("Magic 5", 0, true).requirement("Magic", 5)),
+    MAGIC_10(new AchievementBuilder("Magic 10", 0, true).requirement("Magic", 10)),
+    MAGIC_20(new AchievementBuilder("Magic 20", 0, true).requirement("Magic", 20)),
+    MAGIC_30(new AchievementBuilder("Magic 30", 0, true).requirement("Magic", 30)),
+    MAGIC_40(new AchievementBuilder("Magic 40", 0, true).requirement("Magic", 40)),
+    MAGIC_50(new AchievementBuilder("Magic 50", 0, true).requirement("Magic", 50)),
+    MAGIC_60(new AchievementBuilder("Magic 60", 0, true).requirement("Magic", 60)),
+    MAGIC_70(new AchievementBuilder("Magic 70", 0, true).requirement("Magic", 70)),
+    MAGIC_80(new AchievementBuilder("Magic 80", 0, true).requirement("Magic", 80)),
+    MAGIC_90(new AchievementBuilder("Magic 90", 0, true).requirement("Magic", 90)),
+    MAGIC_92(new AchievementBuilder("Magic 92", 0, true).requirement("Magic", 92)),
+    MAGIC_99(new AchievementBuilder("Magic 99", 0, true).requirement("Magic", 99)),
+    MAGISTER_SMAGISTER(new AchievementBuilder("Magister Smagister", 0.35, true)),
+    MAKE_FRIENDS_AND_INFLUENCE_PEOPLE(new AchievementBuilder("Make Friends and Influence People", 0, true)
+        .requirement("Beastmaster Durzag", 1).encounter(new Encounter(Arrays.asList(Collections.singletonList(Enemy.YAKAMARU),
+            Collections.singletonList(Enemy.IMAGE_OF_YAKAMARU), Collections.singletonList(Enemy.IMAGE_OF_YAKAMARU),
+            Collections.singletonList(Enemy.IMAGE_OF_YAKAMARU), Collections.singletonList(Enemy.IMAGE_OF_YAKAMARU))))),
+    MAKE_THEM_BLEED(new AchievementBuilder("Make Them Bleed", 0, true).requirement("Rush of Blood maximum waves", 20)
+        .reward("Slayer", 50000)),
+    MALLORY(new AchievementBuilder("Mallory", 0, true).requirement("Mallory", 1)),
+    MANY_SHADES_OF_A_CURE(new AchievementBuilder("Many Shades of a Cure", 0, true).requirement("Shades of Mort'ton", 1)
+        .requirement("Serum 208", 2).reward("Coins", 391)),
+    MARIA_YOU_GOTTA_SEE_HER(new AchievementBuilder("Maria, You Gotta See Her", 0, true).requirement("Broken Home challenges", 3)),
+    MARMAROS_AND_THOK_LETTERS(new AchievementBuilder("Marmaros and Thok Letters", 0, true).requirement("M. and thok letters", 10)),
+    MASTER_ANGLER(new AchievementBuilder("Master Angler", 0, true).requirement("Champion's tackle box", 1)),
+    MASTER_BOWGREMAN(new AchievementBuilder("Master Bowgreman", 0, true).requirement("Chompy kills", 30)),
+    MASTER_OTTO(new AchievementBuilder("Master Otto", 0, true).requirement("Barbarian Training", 1)),
+
     ;
 	/* Quests
 	COOKS_ASSISTANT("Cook's Assistant", 0.25, new ArrayList<>(), new ArrayList<>(), Arrays.asList(new Reward("Cooking", 300),
