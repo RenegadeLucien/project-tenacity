@@ -1213,7 +1213,181 @@ public enum Achievement {
     MASTER_ANGLER(new AchievementBuilder("Master Angler", 0, true).requirement("Champion's tackle box", 1)),
     MASTER_BOWGREMAN(new AchievementBuilder("Master Bowgreman", 0, true).requirement("Chompy kills", 30)),
     MASTER_OTTO(new AchievementBuilder("Master Otto", 0, true).requirement("Barbarian Training", 1)),
-
+    MASTER_QUEST_CAPE(new AchievementBuilder("Master Quest Cape", 0, true).requirement("Abyssal Reach", 1)
+        .requirement("Advanced Sweeping", 1).requirement("Aereck's Old Bones", 1).requirement("Ali The Trader", 1)
+        .requirement("All Rise", 1).requirement("Angs off my Ring", 1).requirement("Annihilator", 1).requirement("Any Odd Chicken", 1)
+        .requirement("Ape A'hollow", 1).requirement("Arc III - Spiritual Enlightenment", 1).requirement("Arc II - Head of the Family", 1)
+        .requirement("Arc IV - Jed Hunter", 1).requirement("Arc IX - Damage Control", 1).requirement("Arc I - Flag Fall", 1)
+        .requirement("Arc VIII - Ghosts from the Past", 1).requirement("Arc VII - Tuai Leit's Own", 1)
+        .requirement("Arc VI - Harbinger of Doom", 1).requirement("Arc V - Eye for an Eye", 1).requirement("Arc X - Final Destination", 1)
+        .requirement("Are You Needing Access?", 1).requirement("Arise from the Ash", 1).requirement("Around the World in Six Ways", 1)
+        .requirement("As Taxed as a Yak", 1).requirement("As clear as a Crystal Seed", 1).requirement("Azacorax's Rewards", 1)
+        .requirement("Azdaran Birthright", 1).requirement("Bandos's Memories", 1).requirement("Bane Tuner", 1)
+        .requirement("Banking History", 1).requirement("Behemoth Notes", 1).requirement("Blinded by Ramarno's Teaching", 1)
+        .requirement("Blood Stained Treasure", 1).requirement("Bridge over Fremmy Waters", 1).requirement("Brothers Gower", 1)
+        .requirement("Brutal Stuffies", 1).requirement("Buy and Sell Some XP", 1).requirement("Buying Up Ancient Artefacts", 1)
+        .requirement("Caving Into the Gains", 1).requirement("Cecilia, I'm Begging You, Please...", 1).requirement("Challenge Maria", 1)
+        .requirement("Challenging Chat", 1).requirement("Chilling with Arrav", 1).requirement("Chippy Transport", 1)
+        .requirement("Chivalry is Fed", 1).requirement("Chivalry is Threads", 1).requirement("Chivalry is Dead", 1)
+        .requirement("Circus of Fire", 1).requirement("Claiming Azzanadra's Heart", 1).requirement("Claus is Risng", 1)
+        .requirement("Clue's in the Monkey Drool", 1).requirement("Complete History of Droalak", 1).requirement("Complete Trekky", 1)
+        .requirement("Cook's Delights", 1).requirement("Count All Light Fingers", 1).requirement("Cower Behind the Chosen Commander", 1)
+        .requirement("Cran Door's Secret", 1).requirement("Daemonology of Celerity", 1).requirement("Daero Take This Experience?", 1)
+        .requirement("Deadlier Catch", 1).requirement("Death to the Mahjarrat", 1).requirement("Deep and Bloody Experience", 1)
+        .requirement("Diaries of the Clans", 1).requirement("Diary of Oreb", 1).requirement("Diary of the Gods", 1)
+        .requirement("Dishonourable Gains", 1).requirement("Dishonourable Loot", 1).requirement("Distorted Div", 1)
+        .requirement("Do No Elite", 1).requirement("Do a Minion, Take Notes", 1).requirement("Don't Fear the Ripper", 1)
+        .requirement("Dragonkin Logs", 1).requirement("Dusting Murial", 1).requirement("Eastern Adventurer", 1).requirement("Eeeeagle!", 1)
+        .requirement("Enough of the Crazy Walking", 1).requirement("Epi Logueque Experience", 1)
+        .requirement("Experience the Fate of the Gods", 1).requirement("Explore for Nestor", 1).requirement("Family Spirit Tree", 1)
+        .requirement("Fires are Mostly Harmless", 1).requirement("For the Love of Mabel", 1).requirement("Forcae's Mettle", 1)
+        .requirement("Fred's Shearings", 1).requirement("Gift from Sliske", 1).requirement("Goebie Relics", 1)
+        .requirement("Got a Vyre Reputation", 1).requirement("Grondabans' legacy", 1).requirement("Gunning for Jewellery", 1)
+        .requirement("Haul Comes to Templeton", 1).requirement("Herbi's Flax", 1).requirement("Here Was a Scabaras Mask", 1)
+        .requirement("History of Bilrach", 1).requirement("I'm Forever Washing Shadows", 1).requirement("I Can See For Miles and Miles", 1)
+        .requirement("I Dig This Transportation", 1).requirement("I Presume These Rewards Are Mine, Death?", 1)
+        .requirement("Ice Ice Chimpy", 1).requirement("Icthlarin's Little Chest", 1).requirement("Impressing Char", 1)
+        .requirement("Ivan is Flailing", 1).requirement("Kaiki's Tusks", 1).requirement("Kal'gerion Notes", 1)
+        .requirement("Keeping Up with the Carnilleans", 1).requirement("Koschei's Cache", 1).requirement("Kudos to You", 1)
+        .requirement("Last of the Summer Swine", 1).requirement("Learning from Mr. Mordaut", 1).requirement("Let us Give Ugthanks", 1)
+        .requirement("Library of Nex", 1).requirement("Load of Bakulla", 1).requirement("Looting the Demon Throne", 1)
+        .requirement("Lurgon's Run", 1).requirement("Make Them Bleed", 1).requirement("Many Shades of a Cure", 1)
+        .requirement("Marmaros and Thok Letters", 1).requirement("Master Bogreman", 1).requirement("Master Quester", 1)
+        .requirement("Measure of Old", 1).requirement("Memories of Guthix", 1).requirement("Memories of a Mahjarrat", 1)
+        .requirement("Met Het Yet?", 1).requirement("Milky Teeth", 1).requirement("Miscellaneous Notes", 1)
+        .requirement("Mixing in Ancient Circles", 1).requirement("My Adze is Bigger than Yours", 1).requirement("Myreque in Memoriam", 1)
+        .requirement("Mysteries of the TokHaar", 1).requirement("Nano To Kipple, Come In Kipple", 1).requirement("Naturally Muspah", 1)
+        .requirement("Nomad's Genesis", 1).requirement("Ocellus Virius Notus", 1).requirement("On a Mission From... The Gods", 1)
+        .requirement("One Final Ride", 1).requirement("One Foot in the Grave", 1).requirement("One Man's Junk...Is Mine", 1)
+        .requirement("Ornate Crockery", 1).requirement("Otto the Ancient", 1).requirement("Out into the Ourania", 1)
+        .requirement("Oyster Mash", 1).requirement("Paint it Red", 1).requirement("Penny for Your Life", 1).requirement("Post Fume", 1)
+        .requirement("Potion for a Lady", 1).requirement("Power of Three Spirits", 1).requirement("Quiet but Deadly Lore", 1)
+        .requirement("Relight my Fire", 1).requirement("Reliquary of Cithara", 1).requirement("Respect the Balance", 1)
+        .requirement("Rogue Down", 1).requirement("Rusty Reward", 1).requirement("Scabigail", 1).requirement("Scribbling in the Depths", 1)
+        .requirement("Scribblings of a Dragonkin", 1).requirement("Sentient Letters", 1).requirement("Seren Memories", 1)
+        .requirement("Shadow Hanging Over Me", 1).requirement("Sheep Shearer", 1).requirement("Sing for the Lady", 1)
+        .requirement("Skeletal Wishes", 1).requirement("Slime and Snails and God Wars Tales", 1).requirement("Soft Kitty, Purple Kitty", 1)
+        .requirement("Some Old Dusty Journals", 1).requirement("Squeal for Coins", 1).requirement("Stalker Notes", 1)
+        .requirement("Stay Safe", 1).requirement("Stay Secure", 1).requirement("Stealing Sedridor's Stones", 1)
+        .requirement("Summary Spirits", 1).requirement("Supply and Demand", 1).requirement("Tasty Bobbles", 1)
+        .requirement("Tell Tale Tarn", 1).requirement("That'll Teach Bill", 1).requirement("The History of Slayer", 1)
+        .requirement("Three's A Kiln", 1).requirement("To Ga'al or Not to Ga'al", 1).requirement("Trials of the Heart", 1)
+        .requirement("Triple Trouble", 1).requirement("Troublesome Crystal", 1).requirement("Ultimate Codex", 1)
+        .requirement("Uncorrupted Ore", 1).requirement("Under Croc and Key", 1).requirement("Unholy Crafting", 1)
+        .requirement("Uzer Master", 1).requirement("What's Mine Is Also Doric's", 1).requirement("White Knight Rises", 1)
+        .requirement("Witch's Potion", 1).requirement("Work for Idol Hands", 1).requirement("You're Not My Real Mah", 1)
+        .requirement("You Be Dead", 1).requirement("You Mistag This Brooch", 1).requirement("Zarosian Memories", 1)),
+    MASTER_QUESTER(new AchievementBuilder("Master Quester", 0, true).requirement("Quest Points", 396)),
+    MASTER_SKILLER(new AchievementBuilder("Master Skiller", 0, true).requirement("Attack", 99).requirement("Strength", 99)
+        .requirement("Ranged", 99).requirement("Magic", 99).requirement("Defense", 99).requirement("Constitution", 99)
+        .requirement("Prayer", 99).requirement("Agility", 99).requirement("Herblore", 99).requirement("Thieving", 99)
+        .requirement("Crafting", 99).requirement("Runecrafting", 99).requirement("Mining", 99).requirement("Smithing", 99)
+        .requirement("Fishing", 99).requirement("Cooking", 99).requirement("Firemaking", 99).requirement("Woodcutting", 99)
+        .requirement("Fletching", 99).requirement("Slayer", 120).requirement("Farming", 99).requirement("Construction", 99)
+        .requirement("Hunter", 99).requirement("Summoning", 99).requirement("Dungeoneering", 120).requirement("Divination", 99)
+        .requirement("Invention", 120)),
+    MASTER_OF_ALL(new AchievementBuilder("Master of All", 0, true).requirement("Skilling pets", 27)),
+    MASTER_OF_ASSAULT(new AchievementBuilder("Master of Assault", 0, true).requirement("Barbarian Assault attacker rank", 5)
+        .requirement("Barbarian Assualt collector rank", 5).requirement("Barbarian Assault defender rank", 5)
+        .requirement("Barbarian Assault healer rank", 5)),
+    MASTER_OF_BEATINGS_I(new AchievementBuilder("Master of Beatings I", 0, true).requirement("Beastmaster Durzag", 5)),
+    MASTER_OF_BEATINGS_II(new AchievementBuilder("Master of Beatings II", 0, true).requirement("Beastmaster Durzag", 10)),
+    MASTER_OF_BEATINGS_III(new AchievementBuilder("Master of Beatings III", 0, true).requirement("Beastmaster Durzag", 25)),
+    MASTER_OF_BEATINGS_IV(new AchievementBuilder("Master of Beatings IV", 0, true).requirement("Beastmaster Durzag", 50)),
+    MASTER_OF_BEATINGS_V(new AchievementBuilder("Master of Beatings V", 0, true).requirement("Beastmaster Durzag", 75)),
+    MASTER_OF_BEATINGS_VI(new AchievementBuilder("Master of Beatings VI", 0, true).requirement("Beastmaster Durzag", 100)),
+    MATRICIDE(new AchievementBuilder("Matricide", 0, true).requirement("Frozen key", 4).requirement("Blood nihil pouch", 1)
+        .requirement("Shadow nihil pouch", 1).requirement("Ice nihil pouch", 1).requirement("Smoke nihil pouch", 1)
+        .encounter(new Encounter(Enemy.NEX, Collections.singletonList(new Restriction("Blood nihil", 1))))
+        .encounter(new Encounter(Enemy.NEX, Collections.singletonList(new Restriction("Shadow nihil", 1))))
+        .encounter(new Encounter(Enemy.NEX, Collections.singletonList(new Restriction("Ice nihil", 1))))
+        .encounter(new Encounter(Enemy.NEX, Collections.singletonList(new Restriction("Smoke nihil", 1))))),
+    MAZCAB_TELEPORT(new AchievementBuilder("Mazcab Teleport", 0, true).requirement("Mazcab Teleport", 1)),
+    MEASURE_OF_OLD(new AchievementBuilder("Measure of Old", 0, true).requirement("Elder chronicle", 4)),
+    MEGA_DUCKLINGS(new AchievementBuilder("Mega Ducklings", 0, true).requirement("Mega Ducklings", 1)),
+    MEMORIALISED_MORE_THAN_ONCE(new AchievementBuilder("Memorialized More Than Once", 0, true).requirement("Memorial to Guthix", 3)),
+    MEMORIES_OF_GUTHIX(new AchievementBuilder("Memories of Guthix", 0, true).requirement("Memorial to Guthix", 1)),
+    MEMORIES_OF_A_MAHJARRAT(new AchievementBuilder("Memories of a Mahjarrat", 0, true).requirement("Mahjarrat Memories", 1)),
+    MENAPHOS(new AchievementBuilder("Menaphos", 0, true).requirement("The Jack of Spades", 1)),
+    MENAPHOS_PYRAMID_SCHEME(new AchievementBuilder("Menaphos Pyramid Scheme", 0, true).requirement("The Jack of Spades", 1)
+        .requirement("Our Man in the North", 1).requirement("Crocodile Tears", 1).requirement("'Phite Club", 1)
+        .requirement("Boys to Menaphites", 1)),
+    MET_HET_YET(new AchievementBuilder("Met Het Yet?", 0, true).requirement("Our Man in the North", 1).requirement("Strength", 80)
+        .reward("Strength", 20000)),
+    MICRO_BREW(new AchievementBuilder("Micro Brew", 0, true).requirement("Dimension of Disaster: Coin of the Realm", 1)
+        .requirement("Herblore", 65).requirement("Zemomark", 100).reward("Zemomark", 30)),
+    MIGHTY_MORPHING(new AchievementBuilder("Mighty Morphing", 0, true).requirement("Divination", 13).requirement("Logs", 3)
+        .requirement("Flickering energy", 2).reward("Oak logs", 1).requirement("Divination", 3)),
+    MILK_OF_CHOCOLATE_SNAPE_OF_GRASS(new AchievementBuilder("Milk of Chocolate, Snape of Grass", 0, true).requirement("Nettle tea", 1)
+        .requirement("Bucket of water", 1).requirement("Hangover cure", 1)),
+    MILKY_TEETH(new AchievementBuilder("Milky Teeth", 0, true).requirement("Tooth creatrue", 1)),
+    MINING_ROCKY(new AchievementBuilder("Mining - Rocky", 0, true).requirement("Rocky", 1)),
+    MINING_5(new AchievementBuilder("Mining 5", 0, true).requirement("Mining", 5)),
+    MINING_10(new AchievementBuilder("Mining 10", 0, true).requirement("Mining", 10)),
+    MINING_20(new AchievementBuilder("Mining 20", 0, true).requirement("Mining", 20)),
+    MINING_30(new AchievementBuilder("Mining 30", 0, true).requirement("Mining", 30)),
+    MINING_40(new AchievementBuilder("Mining 40", 0, true).requirement("Mining", 40)),
+    MINING_50(new AchievementBuilder("Mining 50", 0, true).requirement("Mining", 50)),
+    MINING_60(new AchievementBuilder("Mining 60", 0, true).requirement("Mining", 60)),
+    MINING_70(new AchievementBuilder("Mining 70", 0, true).requirement("Mining", 70)),
+    MINING_80(new AchievementBuilder("Mining 80", 0, true).requirement("Mining", 80)),
+    MINING_90(new AchievementBuilder("Mining 90", 0, true).requirement("Mining", 90)),
+    MINING_92(new AchievementBuilder("Mining 92", 0, true).requirement("Mining", 92)),
+    MINING_99(new AchievementBuilder("Mining 99", 0, true).requirement("Mining", 99)),
+    MINISTER(new AchievementBuilder("Minister", 0, true).requirement("Minister", 1)),
+    MISCELLANEOUS_NOTES(new AchievementBuilder("Miscellaneous Notes", 0, true).requirement("Miscellaneous journals", 15)),
+    MIXING_IN_ANCIENT_CIRCLES(new AchievementBuilder("Mixing in Ancient Circles", 0, true).requirement("Barbarian Firemaking", 1)
+        .requirement("Bittercap mushroom", 5)),
+    MOBILISE_THIS(new AchievementBuilder("Mobilise This", 0, true).requirement("Mobilising Armies rank", 401)),
+    MOLE_REMOVAL_I(new AchievementBuilder("Mole Removal I", 0, true).requirement("Giant Mole", 5)),
+    MOLE_REMOVAL_II(new AchievementBuilder("Mole Removal II", 0, true).requirement("Giant Mole", 10)),
+    MOLE_REMOVAL_III(new AchievementBuilder("Mole Removal III", 0, true).requirement("Giant Mole", 25)),
+    MOLE_REMOVAL_IV(new AchievementBuilder("Mole Removal IV", 0, true).requirement("Giant Mole", 50)),
+    MOLE_REMOVAL_V(new AchievementBuilder("Mole Removal V", 0, true).requirement("Giant Mole", 75)),
+    MOLE_REMOVAL_VI(new AchievementBuilder("Mole Removal VI", 0, true).requirement("Giant Mole", 100)),
+    MOLLY(new AchievementBuilder("Molly", 0, true).requirement("Molly", 1)),
+    MOOER_OF_ALL_BOMBS(new AchievementBuilder("Moo-er of All Bombs", 0, true).requirement("Dimension of Disaster: The Curse of Arrav", 1)),
+    MORE_FAST_MORE_FURIOUS_I(new AchievementBuilder("More Fast More Furious I", 0, true).requirement("Twin Furies (CM)", 5)),
+    MORE_FAST_MORE_FURIOUS_II(new AchievementBuilder("More Fast More Furious II", 0, true).requirement("Twin Furies (CM)", 10)),
+    MORE_FAST_MORE_FURIOUS_III(new AchievementBuilder("More Fast More Furious III", 0, true).requirement("Twin Furies (CM)", 25)),
+    MORE_FAST_MORE_FURIOUS_IV(new AchievementBuilder("More Fast More Furious IV", 0, true).requirement("Twin Furies (CM)", 50)),
+    MORE_FAST_MORE_FURIOUS_V(new AchievementBuilder("More Fast More Furious V", 0, true).requirement("Twin Furies (CM)", 75)),
+    MORE_FAST_MORE_FURIOUS_VI(new AchievementBuilder("More Fast More Furious VI", 0, true).requirement("Twin Furies (CM)", 100)),
+    MORYTANIA_SET_TASKS_EASY(new AchievementBuilder("Morytania Set Tasks - Easy", 0, true).requirement("Chisellin Conchiolin", 1)
+        .requirement("It's Only Water Thin", 1).requirement("Dislike-Anthrope", 1).requirement("Cranius Lupus", 1)
+        .requirement("Lab Clean-up Assistant", 1).requirement("Fortified Spirit", 1).requirement("Struck A-Ghast", 1)
+        .requirement("Blooming Marvellous", 1).requirement("Only Going Forward, We Can't Find Reverse", 1).requirement("If It Bleeds", 1)
+        .requirement("Wurt A Bundle", 1).lamp(Player.ALL_SKILLS, 4000, 25)),
+    MORYTANIA_SET_TASKS_ELITE(new AchievementBuilder("Morytania Set Tasks - Elite", 0, true).requirement("Whip: It Good", 1)
+        .requirement("As You Might Expect", 1).requirement("Thoroughly A-Ghast", 1).requirement("As Good As Renew", 1)
+        .requirement("Fremennik Export", 1).requirement("Not Such a Rotten Idea", 1).requirement("Set It On Fiyr", 1)
+        .requirement("Bros Before Barrows", 1).requirement("On Wings of Bling", 1).lamp(Player.ALL_SKILLS, 40000, 75)
+        .lamp(Player.ALL_SKILLS, 50000, 80).lamp(Player.ALL_SKILLS, 50000, 80)),
+    MORYTANIA_SET_TASKS_HARD(new AchievementBuilder("Morytania Set Tasks - Hard", 0, true).requirement("Detarnation", 1)
+        .requirement("Runecraft Carrier", 1).requirement("Shade-Shattering Ka-Bloom", 1).requirement("They'll Just Throw It Away Again", 1)
+        .requirement("Time Salver", 1).requirement("Huge Success", 1).requirement("I Brought Your Stuff Back", 1)
+        .requirement("Just One More Key", 1).requirement("Raising The Stakes", 1).requirement("Trekkin' Ain't Easy", 1)
+        .requirement("Better Than Cursing The Darkness", 1).lamp(Player.ALL_SKILLS, 20000, 65)),
+    MORYTANIA_SET_TASKS_MEDIUM(new AchievementBuilder("Morytania Set Tasks - Medium", 0, true).requirement("Charter A Course", 1)
+        .requirement("Travelling On The Slime Trail", 1).requirement("The Yeast They Can Do", 1)
+        .requirement("Flamtaer Will Get You Everywhere", 1).requirement("Who You Gonna Ring?", 1)
+        .requirement("Barking Up the Wrong Tree", 1).requirement("Gate Spectre-ations", 1).requirement("Ready? Trek!", 1)
+        .requirement("Don't Stop Me If I Start To Ramble", 1).requirement("Plenty Mort Where That Came From", 1)
+        .requirement("Izzy Wizzy Let's Get Lizzy", 1).requirement("Finding Your Balance", 1).requirement("The Beer Inn-spectre", 1)
+        .requirement("Brain Bending", 1).requirement("I Wonder How Far It Ghost?", 1).requirement("Obvious Forgery", 1)
+        .requirement("The Higher, The Better", 1).requirement("Fun Guy But Bitter", 1).requirement("Potterheist", 1)
+        .requirement("Ad-Myre The Goods", 1).lamp(Player.ALL_SKILLS, 10000, 46)),
+    MUMMY_RETURNS(new AchievementBuilder("Mummy Returns", 0, true).requirement("Cat's Bane", 1)),
+    MUSHROOMS_OF_THE_ARC(new AchievementBuilder("Mushrooms of the Arc", 0, true).requirement("Arc mushrooms", 17)),
+    MUSIC_MAESTRO(new AchievementBuilder("Music Maestro", 0, true).requirement("Music tracks", 1203)),
+    MY_ADZE_IS_BIGGER_THAN_YOURS(new AchievementBuilder("My Adze is Bigger than Yours", 0, true).requirement("Inferno adze", 1)),
+    MYREQUE_IN_MEMORIAM(new AchievementBuilder("Myreque in Memoriam", 0, true).requirement("In Memory of the Myreque", 1)),
+    MYSTERIES_OF_THE_TOKHAAR(new AchievementBuilder("Mysteries of the TokHaar", 0, true).requirement("One of a Kind statues", 5)),
+    NANO_TO_KIPPLE_COME_IN_KIPPLE(new AchievementBuilder("Nano to Kipple, Come In Kipple", 0, true).requirement("Nano Kipple", 1)),
+    NATURALLY_MUSPAH(new AchievementBuilder("Naturally Muspah", 0, true).requirement("The Tale of the Muspah", 1)
+        .lamp(Player.ALL_SKILLS, 200, 10)),
+    NATURIST(new AchievementBuilder("Naturist", 0, true).encounter(new Encounter(Enemy.CHAOS_ELEMENTAL))),
+    NEVER_EAT_SILK_WORKS(new AchievementBuilder("Never Eat Silk Worms", 0, true).encounter(new Encounter(Enemy.KALPHITE_KING))),
     ;
 	/* Quests
 	COOKS_ASSISTANT("Cook's Assistant", 0.25, new ArrayList<>(), new ArrayList<>(), Arrays.asList(new Reward("Cooking", 300),
