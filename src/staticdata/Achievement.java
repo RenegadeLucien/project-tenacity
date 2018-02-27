@@ -219,6 +219,7 @@ public enum Achievement {
     AZACORAXS_REWARDS(new AchievementBuilder("Azacorax's Rewards", 0, true).requirement("Rune Memories", 1).requirement("Magic", 50)
         .requirement("Prayer", 50).lamp(Arrays.asList("Magic", "Prayer"), 10000, 50)),
     AZDARAN_BIRTHRIGHT(new AchievementBuilder("Azdaran Birthright", 0, true).requirement("Azdaran fragment", 10)),
+    BALANCED_COMBAT_TRIANGLE(new AchievementBuilder("Balanced Combat Triangle", 0, true).requirement("Lockbox puzzle", 1)),
     BANDIT_CAMP(new AchievementBuilder("Bandit Camp", 0, true).requirement("Desert Treasure", 1)),
     BANDOSS_MEMORIES(new AchievementBuilder("Bandos's Memories", 0, true).requirement("Bandos chronicles", 13)),
     BANE_TUNER(new AchievementBuilder("Bane Tuner", 0, true).requirement("Tune Bane Ore", 1)),
@@ -403,6 +404,7 @@ public enum Achievement {
         Collections.singletonList(new Restriction("Defensive abilities", 0))))),
     CLAUS_IS_RISING(new AchievementBuilder("Claus Is Rising", 0, true).requirement("Claus the chef reward", 1)),
     CLAYMATION(new AchievementBuilder("Claymation", 0.33, true)),
+    CLUED_UP(new AchievementBuilder("Clued-Up", 0, true).reward("Sealed clue scroll (easy", 1)),
     CLUES_IN_THE_MONKEY_DROOL(new AchievementBuilder("Clue's In The Monkey Drool", 0, true).requirement("Monkey clue scroll", 1)),
     COLLECTING_MEMORABILIA(new AchievementBuilder("Collecting Memorabilia", 0, true).reward("Divination", 1)),
     COME_AND_HAVE_VORAGO_I(new AchievementBuilder("Come and Have Vorago I", 0, true).requirement("Vorago", 5)),
@@ -628,6 +630,8 @@ public enum Achievement {
     DIARY_OF_OREB(new AchievementBuilder("Diary of Oreb", 0, true).requirement("The Magister's Journals", 5)),
     DIARY_OF_THE_GODS(new AchievementBuilder("Diary of the Gods", 0, true).requirement("God journals", 5)),
     DIDDYZAG(new AchievementBuilder("Diddyzag", 0, true).requirement("Diddyzag", 1)),
+    DIGGING_FOR_TREASURE(new AchievementBuilder("Digging for Treasure", 0, true).requirement("Meerkat pouch", 1)
+        .requirement("Fetch casket scroll", 1).requirement("Summoning", 4).requirement("Clue scroll", 1).reward("Summoning", 1)),
     DISHONOURABLE_GAINS(new AchievementBuilder("Dishonourable Gains", 0, true).requirement("Zamorak hideout XP chests", 3)),
     DISHONOURABLE_LOOT(new AchievementBuilder("Dishonourable Gains", 0, true).requirement("Zamorak hideout loot chests", 6)),
     DISOWNED(new AchievementBuilder("Disowned", 0, true).requirement("Reforged Sunspear", 1).requirement("House Drakan hood", 1)
@@ -655,6 +659,8 @@ public enum Achievement {
         .requirement("Just Give Me a Sign", 1).requirement("Let's Enhance", 1).requirement("Mighty Morphing", 1)
         .requirement("Portentially Hazardous", 1).requirement("Simply Divine", 1).requirement("What an Experience", 1)
         .reward("Flickering energy", 500)),
+    DIVING_FOR_CLUES(new AchievementBuilder("Diving for Clues", 0, true).requirement("Treasure chest decoration", 1)
+        .reward("Elite clue scroll", 1)),
     DO_NO_ELITE(new AchievementBuilder("Do No Elite", 0, true).requirement("Do No Evil elite clue", 1)),
     DO_A_MINION_TAKE_NOTES(new AchievementBuilder("Do a Minion, Take Notes", 0, true).requirement("Dominion page", 20)),
     DOING_THE_IRONING(new AchievementBuilder("Doing the Ironing", 0, true).requirement("Mining", 15).reward("Iron ore", 1)),
@@ -757,6 +763,7 @@ public enum Achievement {
     FAST_AND_FURIOUS_V(new AchievementBuilder("Fast and Furious V", 0, true).requirement("Twin Furies", 75)),
     FAST_AND_FURIOUS_VI(new AchievementBuilder("Fast and Furious VI", 0, true).requirement("Twin Furies", 100)),
     FEROCIOUS_UPGRADE(new AchievementBuilder("Ferocious Upgrade", 0, true).requirement("Slayer", 90).requirement("Slayer point", 100)),
+    FILL_THEM_ALL(new AchievementBuilder("Fill Them All!", 0, true).requirement("Treasure Trail hidey-holes", 58)),
     FINAL_BOSS(new AchievementBuilder("Final Boss", 0, true).requirement("Who's the Boss? VI", 1).requirement("General Mayhem VI", 1)
         .requirement("Zilly Way to Die VI", 1).requirement("Three Heads are Deader than One VI", 1).requirement("Mole Removal VI", 1)
         .requirement("Along Came a Spider VI", 1).requirement("Bug Swatter VI", 1).requirement("Vindictive and Vexatious VI", 1)
@@ -855,6 +862,8 @@ public enum Achievement {
         .requirement("Herblore", 99).requirement("Thieving", 99).requirement("Magic", 99).requirement("Slayer", 99)
         .requirement("Farming", 99).requirement("Construction", 99).requirement("Hunter", 99).requirement("Summoning", 99)
         .requirement("Divination", 99)),
+    FRUIT_OF_THE_LOOM(new AchievementBuilder("Fruit of the Loom", 0, true).requirement("Willow branch", 6).requirement("Crafting", 36)
+        .reward("Basket", 1).reward("Crafting", 56)),
     GAME_OVER(new AchievementBuilder("Game Over", 0, true).requirement("Gregorovic uniques", 8)),
     GENERAL_AWWDOR(new AchievementBuilder("General Awwdor", 0, true).requirement("General Awwdor", 1)),
     GENERAL_DISASTER_I(new AchievementBuilder("General Disaster I", 0, true).requirement("General Graardor (hard)", 5)),
@@ -870,6 +879,7 @@ public enum Achievement {
     GENERAL_MAYHEM_V(new AchievementBuilder("General Mayhem V", 0, true).requirement("General Graardor", 75)),
     GENERAL_MAYHEM_VI(new AchievementBuilder("General Mayhem VI", 0, true).requirement("General Graardor", 100)),
     GIFT_FROM_SLISKE(new AchievementBuilder("Gift from Sliske", 0, true).requirement("Sliske after-quest tasks", 2)),
+    GLOBETROTTER(new AchievementBuilder("Globetrotter", 0, true).requirement("Globetrotter outfit pieces", 5)),
     GLUTTON_FOR_PUNISHMENT(new AchievementBuilder("Glutton for Punishment", 0, true).requirement("Dreadfowl pouch", 1)
         .requirement("Thorny snail pouch", 1).requirement("Pack pig pouch", 1).requirement("Evil turnip pouch", 1)
         .requirement("War tortoise pouch", 1).requirement("Fruit bat pouch", 1).requirement("Granite lobster pouch", 1)
@@ -1000,10 +1010,12 @@ public enum Achievement {
     I_CAN_SEE_FOR_MILES_AND_MILES(new AchievementBuilder("I Can See For Miles and Miles", 0, true)
         .requirement("Beacon keepers with macaws", 12)),
     I_DIG_THIS_TRANSPORTATION(new AchievementBuilder("I Dig This Transportation", 0, true).requirement("Digsite pendant unlock", 1)),
-    I_GOT_THIS(new AchievementBuilder("I Got This", 0, true).requirement("Slayer", 95)
-        .encounter(new Encounter(Arrays.asList(Collections.singletonList(Enemy.LEGIO), Collections.singletonList(Enemy.LEGIO),
+    I_GOT_THIS(new AchievementBuilder("I Got This", 0, true).requirement("Slayer", 95).requirement("Ascension Keystone Primus", 1)
+        .requirement("Ascension Keystone Secundus", 1).requirement("Ascension Keystone Tertius", 1)
+        .requirement("Ascension Keystone Quartus", 1).requirement("Ascension Keystone Quintus", 1)
+        .requirement("Ascension Keystone Sextus", 1).encounter(new Encounter(Arrays.asList(Collections.singletonList(Enemy.LEGIO),
             Collections.singletonList(Enemy.LEGIO), Collections.singletonList(Enemy.LEGIO), Collections.singletonList(Enemy.LEGIO),
-            Collections.singletonList(Enemy.LEGIO))))),
+            Collections.singletonList(Enemy.LEGIO), Collections.singletonList(Enemy.LEGIO))))),
     I_PRESUME_THESE_REWARDS_ARE_MINE_DEATH(new AchievementBuilder("I Presume Thes Rewards Are Mine, Death?", 0, true)
         .requirement("Missing, Presumed Death post-quest rewards", 4)),
     ICE_ICE_CHIMPY(new AchievementBuilder("Ice Ice Chimpy", 0, true).requirement("Chimp ice deliveries", 25)),
@@ -1615,6 +1627,152 @@ public enum Achievement {
             Arrays.asList(Enemy.TZTOK_JAD, Enemy.YT_HURKOT, Enemy.YT_HURKOT, Enemy.YT_HURKOT, Enemy.YT_HURKOT)),
             Collections.singletonList(new Restriction("Inventory spaces", 27))))),
     SEERS_VILLAGE(new AchievementBuilder("Seers' Village", 0, true)),
+    SEERS_VILLAGE_SET_TASKS_EASY(new AchievementBuilder("Seers' Village Set Tasks - Easy", 0, true).requirement("Reflax Actions", 1)
+        .requirement("Why?", 1).requirement("Stir, Galahad", 1).requirement("La Morte D'Arthur", 1)
+        .requirement("Another String to Your Bow", 1).requirement("Bunch of Flours", 1).requirement("Happy Hour", 1)
+        .requirement("Jute Alors!", 1).requirement("Sinclair Swirling", 1).requirement("Grand Candle", 1).requirement("A Seering Light", 1)
+        .requirement("Mack Rolled", 1).lamp(Player.ALL_SKILLS, 1000, 30)),
+    SEERS_VILLAGE_SET_TASKS_ELITE(new AchievementBuilder("Seers' Village Set Tasks - Elite", 0, true)
+        .requirement("It's a Trap! No, Wait, It's a Pie", 1).requirement("Make a Bolt For It", 1).requirement("The Long of It", 1)
+        .requirement("Plenty - potion - entiary", 1).requirement("Moon Raker", 1).lamp(Player.ALL_SKILLS, 30000, 83)
+        .lamp(Player.ALL_SKILLS, 30000, 83).lamp(Player.ALL_SKILLS, 30000, 83).lamp(Player.ALL_SKILLS, 30000, 83)
+        .lamp(Player.ALL_SKILLS, 25000, 70)),
+    SEERS_VILLAGE_SET_TASKS_HARD(new AchievementBuilder("Seers' Village Set Tasks - Hard", 0, true).requirement("At Home on the Range", 1)
+        .requirement("See Yew at Five", 1).requirement("The Short of It", 1).requirement("Prayer of Attorney", 1)
+        .requirement("Beware o the Dog", 1).requirement("TWisted Fire Starter", 1).requirement("Alch-aholic", 1)
+        .requirement("Gonna Need a Bigger Boat", 1).requirement("Gonna Need a Bigger Range", 1).requirement("Water Palaver", 1)
+        .requirement("Island Hopper", 1).lamp(Player.ALL_SKILLS, 10000, 50)),
+    SEERS_VILLAGE_SET_TASKS_MEDIUM(new AchievementBuilder("Seers' Village Set Tasks - Medium", 0, true).requirement("Fleeing the Scene", 1)
+        .requirement("It's a Slightly Magical Stick", 1).requirement("King Coal", 1).requirement("I Can Seer My House From Here", 1)
+        .requirement("Mastering the Elements", 1).requirement("It's Only a Model", 1).requirement("Sniper Training", 1)
+        .requirement("Arch Archer", 1).requirement("What, No Cuddly Toy?", 1).requirement("Familiar Fire Familiarity", 1)
+        .requirement("At Least It Doesn't Need Walking", 1).requirement("All Your Bass...", 1).lamp(Player.ALL_SKILLS, 5000, 40)),
+    SENTIENT_LETTERS(new AchievementBuilder("Sentient Letters", 0, true).requirement("Empty Throne Room letters", 4)),
+    SEREN_MEMORIES(new AchievementBuilder("Seren memories", 0, true).requirement("Crest of Seren override", 1)),
+    SEVEN_COLOURS_IN_THEIR_HAT(new AchievementBuilder("Seven Colours In Their Hat", 0, true).requirement("Chromatic partyhat", 1)),
+    SHADOW_HANGING_OVER_ME(new AchievementBuilder("Shadow Hanging Over Me", 0, true).requirement("A Shadow over Ashdale", 1)
+        .reward("Coins", 757).reward("Uncut sapphire", 4).reward("Uncut emerald", 1)),
+    SHADOWS_BELOW(new AchievementBuilder("Shadows Below", 0, true).requirement("Barrows: Rise of the Six", 1)),
+    SHATTERING_WORLDS_I(new AchievementBuilder("Shattering Worlds I", 0, true).requirement("Shattered Worlds max world", 10)),
+    SHATTERING_WORLDS_II(new AchievementBuilder("Shattering Worlds II", 0, true).requirement("Shattered Worlds max world", 25)),
+    SHATTERING_WORLDS_III(new AchievementBuilder("Shattering Worlds III", 0, true).requirement("Shattered Worlds max world", 50)),
+    SHATTERING_WORLDS_IV(new AchievementBuilder("Shattering Worlds IV", 0, true).requirement("Shattered Worlds max world", 100)),
+    SHATTERING_WORLDS_V(new AchievementBuilder("Shattering Worlds V", 0, true).requirement("Shattered Worlds max world", 150)),
+    SHATTERING_WORLDS_VI(new AchievementBuilder("Shattering Worlds VI", 0, true).requirement("Shattered Worlds max world", 200)),
+    SHEEP_SHEARER(new AchievementBuilder("Sheep Shearer", 0, true).requirement("Sheep Shearer", 1)),
+    SHRIMPY(new AchievementBuilder("Shrimpy", 0, true).requirement("Volcanic shard", 1)),
+    SILKY_SMOOTH(new AchievementBuilder("Silky Smooth", 0, true).requirement("Silk", 1)),
+    SIMPLY_DIVINE(new AchievementBuilder("Simply Divine", 0, true).requirement("Pale energy", 5).requirement("Raw crayfish", 20)),
+    SING_FOR_THE_LADY(new AchievementBuilder("Sing for the Lady", 0, true).requirement("Crystal items given to Lady Ithell", 4)
+        .reward("Magic", 50000)),
+    SKELETAL_WISHES(new AchievementBuilder("Skeletal Wishes", 0, true).requirement("Skeletal horror", 1)),
+    SKETRAIL_HORROR(new AchievementBuilder("Skeletrail Horror", 0, true).requirement("Skeletal horror", 1)),
+    SLAYER_CRABBE(new AchievementBuilder("Slayer - Crabbe", 0, true).requirement("Crabbe", 1)),
+    SLAYER_5(new AchievementBuilder("Slayer 5", 0, true).requirement("Slayer", 5)),
+    SLAYER_10(new AchievementBuilder("Slayer 10", 0, true).requirement("Slayer", 10)),
+    SLAYER_20(new AchievementBuilder("Slayer 20", 0, true).requirement("Slayer", 20)),
+    SLAYER_30(new AchievementBuilder("Slayer 30", 0, true).requirement("Slayer", 30)),
+    SLAYER_40(new AchievementBuilder("Slayer 40", 0, true).requirement("Slayer", 40)),
+    SLAYER_50(new AchievementBuilder("Slayer 50", 0, true).requirement("Slayer", 50)),
+    SLAYER_60(new AchievementBuilder("Slayer 60", 0, true).requirement("Slayer", 60)),
+    SLAYER_70(new AchievementBuilder("Slayer 70", 0, true).requirement("Slayer", 70)),
+    SLAYER_80(new AchievementBuilder("Slayer 80", 0, true).requirement("Slayer", 80)),
+    SLAYER_90(new AchievementBuilder("Slayer 90", 0, true).requirement("Slayer", 90)),
+    SLAYER_99(new AchievementBuilder("Slayer 99", 0, true).requirement("Slayer", 99)),
+    SLAYER_110(new AchievementBuilder("Slayer 110", 0, true).requirement("Slayer", 110)),
+    SLAYER_120(new AchievementBuilder("Slayer 120", 0, true).requirement("Slayer", 120)),
+    SLAYER_MASTER(new AchievementBuilder("Slayer Master", 0, true).requirement("Rush of Blood platinum wave max", 20)),
+    SLIDE_TO_THE_LEFT(new AchievementBuilder("Slide to the Left", 0, true).requirement("Puzzle box solved", 1)),
+    SLIME_AND_SNAILS_AND_GOD_WARS_TALES(new AchievementBuilder("Slime and Snails and God Wars Tales", 0, true)
+        .requirement("Tales of the God Wars", 1)),
+    SMITHING_SMITHY(new AchievementBuilder("Smithing - Smithy", 0, true).requirement("Smithy", 1)),
+    SMITHING_5(new AchievementBuilder("Smithing 5", 0, true).requirement("Smithing", 5)),
+    SMITHING_10(new AchievementBuilder("Smithing 10", 0, true).requirement("Smithing", 10)),
+    SMITHING_20(new AchievementBuilder("Smithing 20", 0, true).requirement("Smithing", 20)),
+    SMITHING_30(new AchievementBuilder("Smithing 30", 0, true).requirement("Smithing", 30)),
+    SMITHING_40(new AchievementBuilder("Smithing 40", 0, true).requirement("Smithing", 40)),
+    SMITHING_50(new AchievementBuilder("Smithing 50", 0, true).requirement("Smithing", 50)),
+    SMITHING_60(new AchievementBuilder("Smithing 60", 0, true).requirement("Smithing", 60)),
+    SMITHING_70(new AchievementBuilder("Smithing 70", 0, true).requirement("Smithing", 70)),
+    SMITHING_80(new AchievementBuilder("Smithing 80", 0, true).requirement("Smithing", 80)),
+    SMITHING_90(new AchievementBuilder("Smithing 90", 0, true).requirement("Smithing", 90)),
+    SMITHING_92(new AchievementBuilder("Smithing 92", 0, true).requirement("Smithing", 92)),
+    SMITHING_99(new AchievementBuilder("Smithing 99", 0, true).requirement("Smithing", 99)),
+    SO_YOU_THINK_YOU_CAN_GUARD(new AchievementBuilder("So You Think You Can Guard?", 0, true).requirement("Max Telos enrage", 1995)
+        .encounter(new Encounter(Enemy.TELOS_2000_ENRAGE))),
+    SOFT_KITTY_PURPLE_KITTY(new AchievementBuilder("Soft Kitty, Purple Kitty", 0, true).requirement("Purple Cat", 1)),
+    SOME_OLD_DUSTY_JOURNALS(new AchievementBuilder("Some Old, Dusty Journals", 0, true).requirement("Tarddian journals", 3)),
+    SOMETHING_BARROWED_I(new AchievementBuilder("Something Barrowed I", 0, true).requirement("Barrows", 5)),
+    SOMETHING_BARROWED_II(new AchievementBuilder("Something Barrowed II", 0, true).requirement("Barrows", 10)),
+    SOMETHING_BARROWED_III(new AchievementBuilder("Something Barrowed III", 0, true).requirement("Barrows", 25)),
+    SOMETHING_BARROWED_IV(new AchievementBuilder("Something Barrowed IV", 0, true).requirement("Barrows", 50)),
+    SOMETHING_BARROWED_V(new AchievementBuilder("Something Barrowed V", 0, true).requirement("Barrows", 75)),
+    SOMETHING_BARROWED_VI(new AchievementBuilder("Something Barrowed VI", 0, true).requirement("Barrows", 100)),
+    SOURCE_OF_DENIAL(new AchievementBuilder("Source of Denial", 0, true).requirement("Diamond in the Rough", 1).reward("Winter sq'irk", 1)
+        .reward("Farming", 30)),
+    SOUTH_AND_WEST_SIDE_STORY(new AchievementBuilder("South AND West Side Story", 0, true).requirement("Dimension of Disaster", 1)
+        .reward("Zemomark", 60)),
+    SPECIAL_SLAYER_DELIVERY(new AchievementBuilder("Special Slayer Delivery", 0, true).requirement("Slayer crafting abilities", 3)),
+    SQUEAL_FOR_COINS(new AchievementBuilder("Squeal for Coins", 0, true).requirement("The Mighty Fall", 1).reward("Coins", 73105)),
+    STAFF_ON_STRYKE(new AchievementBuilder("Staff on Stryke", 0, true).requirement("Slayer", 77)
+        .encounter(new Encounter(Enemy.DESERT_STRYKEWYRM, Arrays.asList(new Restriction("Fully charged full slayer helmet", 1),
+            new Restriction("Ancient staff", 1))))),
+    STALKER_NOTES(new AchievementBuilder("Stalker Notes", 0, true).requirement("Stalker notes", 5)),
+    STAND_YOUR_GROUND(new AchievementBuilder("Stand Your Ground", 0, true).requirement("Slayer", 95)
+        .requirement("Ascension Keystone Primus", 1).requirement("Ascension Keystone Secundus", 1)
+        .requirement("Ascension Keystone Tertius", 1).requirement("Ascension Keystone Quartus", 1)
+        .requirement("Ascension Keystone Quintus", 1).requirement("Ascension Keystone Sextus", 1)
+        .encounter(new Encounter(Collections.singletonList(Collections.singletonList(Enemy.LEGIO))))
+        .encounter(new Encounter(Collections.singletonList(Collections.singletonList(Enemy.LEGIO))))
+        .encounter(new Encounter(Collections.singletonList(Collections.singletonList(Enemy.LEGIO))))
+        .encounter(new Encounter(Collections.singletonList(Collections.singletonList(Enemy.LEGIO))))
+        .encounter(new Encounter(Collections.singletonList(Collections.singletonList(Enemy.LEGIO))))
+        .encounter(new Encounter(Collections.singletonList(Collections.singletonList(Enemy.LEGIO))))),
+    STAR_SEEKER(new AchievementBuilder("Star Seeker", 0, true)),
+    STAY_SAFE(new AchievementBuilder("Stay Safe", 0, true).reward("Coins", 10000).reward("Safety gloves", 1).lamp(Player.ALL_SKILLS, 500, 1)
+        .lamp(Player.ALL_SKILLS, 500, 1)),
+    STAY_SECURE(new AchievementBuilder("Stay Secure", 0, true).requirement("Stronghold of Security rewards", 4)),
+    STEALING_SEDRIDORS_STONES(new AchievementBuilder("Stealing Sedridor's Stones", 0, true).requirement("Sedridor chest rewards", 99)),
+    STEEL_STUD_OR_SILK_SALUTE(new AchievementBuilder("Steel, Stud, or Silk Salute", 0, true).requirement("New Varrock spider silk hood", 1)
+        .requirement("New Varrock spider silk robe top", 1).requirement("New Varrock spider silk robe bottoms", 1)),
+    STONES_THROW_AWAY(new AchievementBuilder("Stone's Throw Away", 0, true).requirement("Replica statue", 30)),
+    STRENGTH_KANGALI(new AchievementBuilder("Strength - Kangali", 0, true).requirement("Kangali", 1)),
+    STRENGTH_5(new AchievementBuilder("Strength 5", 0, true).requirement("Strength", 5)),
+    STRENGTH_10(new AchievementBuilder("Strength 10", 0, true).requirement("Strength", 10)),
+    STRENGTH_20(new AchievementBuilder("Strength 20", 0, true).requirement("Strength", 20)),
+    STRENGTH_30(new AchievementBuilder("Strength 30", 0, true).requirement("Strength", 30)),
+    STRENGTH_40(new AchievementBuilder("Strength 40", 0, true).requirement("Strength", 40)),
+    STRENGTH_50(new AchievementBuilder("Strength 50", 0, true).requirement("Strength", 50)),
+    STRENGTH_60(new AchievementBuilder("Strength 60", 0, true).requirement("Strength", 60)),
+    STRENGTH_70(new AchievementBuilder("Strength 70", 0, true).requirement("Strength", 70)),
+    STRENGTH_80(new AchievementBuilder("Strength 80", 0, true).requirement("Strength", 80)),
+    STRENGTH_90(new AchievementBuilder("Strength 90", 0, true).requirement("Strength", 90)),
+    STRENGTH_92(new AchievementBuilder("Strength 92", 0, true).requirement("Strength", 92)),
+    STRENGTH_99(new AchievementBuilder("Strength 99", 0, true).requirement("Strength", 99)),
+    STRIKE_A_POSE(new AchievementBuilder("Strike a Pose", 0, true)),
+    STUFFED_WITH_ANIMA(new AchievementBuilder("Stuffed With Anima", 0, true).requirement("Max Telos enrage", 95)
+        .encounter(new Encounter(Enemy.TELOS_100_ENRAGE))),
+    SUMMARY_SPIRITS(new AchievementBuilder("Summary Spirits", 0, true).requirement("Wilderness spirit portals", 8)),
+    SUMMONING_SHAMINI(new AchievementBuilder("Summoning - Shamini", 0, true).requirement("Shamini", 1)),
+    SUMMONING_5(new AchievementBuilder("Summoning 5", 0, true).requirement("Summoning", 5)),
+    SUMMONING_10(new AchievementBuilder("Summoning 10", 0, true).requirement("Summoning", 10)),
+    SUMMONING_20(new AchievementBuilder("Summoning 20", 0, true).requirement("Summoning", 20)),
+    SUMMONING_30(new AchievementBuilder("Summoning 30", 0, true).requirement("Summoning", 30)),
+    SUMMONING_40(new AchievementBuilder("Summoning 40", 0, true).requirement("Summoning", 40)),
+    SUMMONING_50(new AchievementBuilder("Summoning 50", 0, true).requirement("Summoning", 50)),
+    SUMMONING_60(new AchievementBuilder("Summoning 60", 0, true).requirement("Summoning", 60)),
+    SUMMONING_70(new AchievementBuilder("Summoning 70", 0, true).requirement("Summoning", 70)),
+    SUMMONING_80(new AchievementBuilder("Summoning 80", 0, true).requirement("Summoning", 80)),
+    SUMMONING_90(new AchievementBuilder("Summoning 90", 0, true).requirement("Summoning", 90)),
+    SUMMONING_92(new AchievementBuilder("Summoning 92", 0, true).requirement("Summoning", 92)),
+    SUMMONING_99(new AchievementBuilder("Summoning 99", 0, true).requirement("Summoning", 99)),
+    SUNSHINE_THROUGH_THE_RAIN(new AchievementBuilder("Sunshine Through the Rain", 0, true).requirement("Agility", 70)
+        .encounter(new Encounter(Enemy.COMMANDER_ZILYANA_HM, Collections.singletonList(new Restriction("Sunshine", 1))))),
+    SUPERIOR_SUCCESSOR(new AchievementBuilder("Superior Successor", 0, true).requirement("Magister uniques", 8)),
+    SUPPLY_AND_DEMAND(new AchievementBuilder("Supply and Demand", 0, true).requirement("Death Plateau supply runs", 5)),
+    SUPREME_HATCHLING(new AchievementBuilder("Supreme Hatchling", 0, true).requirement("Dagannoth scale", 1)),
+    TALK_TO_EXPLORER_JACK(new AchievementBuilder("Talk to Explorer Jack", 0, true)),
+    TAN_YOUR_HIDE(new AchievementBuilder("Tan Your Hide", 0, true).requirement("Cowhide", 1).reward("Leather", 1)),
     ;
 	/* Quests
 	COOKS_ASSISTANT("Cook's Assistant", 0.25, new ArrayList<>(), new ArrayList<>(), Arrays.asList(new Reward("Cooking", 300),
