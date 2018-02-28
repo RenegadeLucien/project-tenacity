@@ -1698,8 +1698,7 @@ public enum Achievement {
     SMITHING_90(new AchievementBuilder("Smithing 90", 0, true).requirement("Smithing", 90)),
     SMITHING_92(new AchievementBuilder("Smithing 92", 0, true).requirement("Smithing", 92)),
     SMITHING_99(new AchievementBuilder("Smithing 99", 0, true).requirement("Smithing", 99)),
-    SO_YOU_THINK_YOU_CAN_GUARD(new AchievementBuilder("So You Think You Can Guard?", 0, true).requirement("Max Telos enrage", 1995)
-        .encounter(new Encounter(Enemy.TELOS_2000_ENRAGE))),
+    SO_YOU_THINK_YOU_CAN_GUARD(new AchievementBuilder("So You Think You Can Guard?", 0, true).requirement("Max Telos enrage", 2000)),
     SOFT_KITTY_PURPLE_KITTY(new AchievementBuilder("Soft Kitty, Purple Kitty", 0, true).requirement("Purple Cat", 1)),
     SOME_OLD_DUSTY_JOURNALS(new AchievementBuilder("Some Old, Dusty Journals", 0, true).requirement("Tarddian journals", 3)),
     SOMETHING_BARROWED_I(new AchievementBuilder("Something Barrowed I", 0, true).requirement("Barrows", 5)),
@@ -1773,6 +1772,137 @@ public enum Achievement {
     SUPREME_HATCHLING(new AchievementBuilder("Supreme Hatchling", 0, true).requirement("Dagannoth scale", 1)),
     TALK_TO_EXPLORER_JACK(new AchievementBuilder("Talk to Explorer Jack", 0, true)),
     TAN_YOUR_HIDE(new AchievementBuilder("Tan Your Hide", 0, true).requirement("Cowhide", 1).reward("Leather", 1)),
+    TASK_MASTER(new AchievementBuilder("Task Master", 0, true).requirement("Ardougne Set Tasks - Easy", 1)
+        .requirement("Ardougne Set Tasks - Medium", 1).requirement("Ardougne Set Tasks - Hard", 1)
+        .requirement("Ardougne Set Tasks - Elite", 1).requirement("Desert Set Tasks - Easy", 1).requirement("Desert Set Tasks - Medium", 1)
+        .requirement("Desert Set Tasks - Hard", 1).requirement("Desert Set Tasks - Elite", 1).requirement("Daemonheim Set Tasks - Easy", 1)
+        .requirement("Daemonheim Set Tasks - Medium", 1).requirement("Daemonheim Set Tasks - Hard", 1)
+        .requirement("Daemonheim Set Tasks - Elite", 1).requirement("Falador Set Tasks - Easy", 1)
+        .requirement("Falador Set Tasks - Medium", 1).requirement("Falador Set Tasks - Hard", 1)
+        .requirement("Falador Set Tasks - Elite", 1).requirement("Fremennik Set Tasks - Easy", 1)
+        .requirement("Fremennik Set Tasks - Medium", 1).requirement("Fremennik Set Tasks - Hard", 1)
+        .requirement("Fremennik Set Tasks - Elite", 1).requirement("Karamja Set Tasks - Easy", 1)
+        .requirement("Karamja Set Tasks - Medium", 1).requirement("Karamja Set Tasks - Hard", 1).requirement("Karamja Set Tasks - Elite", 1)
+        .requirement("Lumbridge Set Tasks - Easy", 1).requirement("Lumbridge Set Tasks - Medium", 1)
+        .requirement("Lumbridge Set Tasks - Hard", 1).requirement("Lumbridge Set Tasks - Beginner", 1)
+        .requirement("Menaphos Pyramid Scheme", 1).requirement("Morytania Set Tasks - Easy", 1)
+        .requirement("Morytania Set Tasks - Medium", 1).requirement("Morytania Set Tasks - Hard", 1)
+        .requirement("Morytania Set Tasks - Elite", 1).requirement("Seers' Village Set Tasks - Easy", 1)
+        .requirement("Seers' Village Set Tasks - Medium", 1).requirement("Seers' Village Set Tasks - Hard", 1)
+        .requirement("Seers' Village Set Tasks - Elite", 1).requirement("Tirannwn Set Tasks - Easy", 1)
+        .requirement("Tirannwn Set Tasks - Medium", 1).requirement("Tirannwn Set Tasks - Hard", 1)
+        .requirement("Tirannwn Set Tasks - Elite", 1).requirement("Varrock Set Tasks - Easy", 1)
+        .requirement("Varrock Set Tasks - Medium", 1).requirement("Varrock Set Tasks - Hard", 1).requirement("Varrock Set Tasks - Elite", 1)
+        .requirement("Wilderness Set Tasks - Easy", 1).requirement("Wilderness Set Tasks - Medium", 1)
+        .requirement("Wilderness Set Tasks - Hard", 1).requirement("Wilderness Set Tasks - Elite", 1)),
+    TASTY_BOBBLES(new AchievementBuilder("Tasty Bobbles", 0, true).requirement("Gower Quest", 1)),
+    TAVERLEY(new AchievementBuilder("Taverley", 0, true)),
+    TELL_TALE_TARN(new AchievementBuilder("Tell Tale Tarn", 0, true).requirement("The Lair of Tarn Razorlor", 1)),
+    TELOS_IF_YOURE_ANGRY_I(new AchievementBuilder("Telos If You're Angry I", 0, true).requirement("Max Telos enrage", 50)),
+    TELOS_IF_YOURE_ANGRY_II(new AchievementBuilder("Telos If You're Angry II", 0, true).requirement("Max Telos enrage", 100)),
+    TELOS_IF_YOURE_ANGRY_III(new AchievementBuilder("Telos If You're Angry III", 0, true).requirement("Max Telos enrage", 250)),
+    TELOS_IF_YOURE_ANGRY_IV(new AchievementBuilder("Telos If You're Angry IV", 0, true).requirement("Max Telos enrage", 500)),
+    TELOS_IF_YOURE_ANGRY_V(new AchievementBuilder("Telos If You're Angry V", 0, true).requirement("Max Telos enrage", 750)),
+    TELOS_IF_YOURE_ANGRY_VI(new AchievementBuilder("Telos If You're Angry VI", 0, true).requirement("Max Telos enrage", 1000)),
+    TELOS_WHERE_IT_HURTS_I(new AchievementBuilder("Telos Where it Hurts I", 0, true).requirement("Telos", 5)),
+    TELOS_WHERE_IT_HURTS_II(new AchievementBuilder("Telos Where it Hurts II", 0, true).requirement("Telos", 10)),
+    TELOS_WHERE_IT_HURTS_III(new AchievementBuilder("Telos Where it Hurts III", 0, true).requirement("Telos", 25)),
+    TELOS_WHERE_IT_HURTS_IV(new AchievementBuilder("Telos Where it Hurts IV", 0, true).requirement("Telos", 50)),
+    TELOS_WHERE_IT_HURTS_V(new AchievementBuilder("Telos Where it Hurts V", 0, true).requirement("Telos", 75)),
+    TELOS_WHERE_IT_HURTS_VI(new AchievementBuilder("Telos Where it Hurts VI", 0, true).requirement("Telos", 100)),
+    TESS(new AchievementBuilder("Tess", 0, true).requirement("Telos' tendril", 1)),
+    THATLL_TEACH_BILL(new AchievementBuilder("That'll Teach Bill", 0, true).requirement("Cabin Fever", 1).reward("Coins", 10000)),
+    THE_CRESTED_GUEST_IS_BEST(new AchievementBuilder("The Crested Guest is Best", 0, true).requirement("Plague's End", 1)
+        .requirement("Crest of Seren", 1)),
+    THE_ESSENCE_OF_MAGIC(new AchievementBuilder("The Essence of Magic", 0, true)),
+    THE_HISTORY_OF_SLAYER(new AchievementBuilder("The History of Slayer", 0, true).requirement("Souls captured", 110)),
+    THE_JACK_OF_SPADES(new AchievementBuilder("The Jack of Spades", 0, true).requirement("The Jack of Spades", 1)),
+    THE_TRUE_WARDEN(new AchievementBuilder("The True Warden", 0, true).requirement("Max Telos enrage", 4000)),
+    THERES_NO_PLACE_LIKE_BURTHORPE(new AchievementBuilder("There's No Place Like Burthorpe", 0, true).requirement("Burthorpe", 1)),
+    THERES_NO_PLACE_LIKE_HOME(new AchievementBuilder("There's No Place Like Home", 0, true)),
+    THEYRE_LONG_AND_POINTY(new AchievementBuilder("They're Long and Pointy", 0, true)),
+    THEY_ALL_FELL_DOWN(new AchievementBuilder("They All Fell Down", 0, true)
+        .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.DAGANNOTH_SUPREME, Enemy.DAGANNOTH_PRIME,
+            Enemy.DAGANNOTH_REX))))),
+    THEY_HAD_A_GUDRUN(new AchievementBuilder("They Had a Gudrun", 0, true).requirement("NV Cadava potion", 1)
+        .requirement("NV Vial of orange mist", 1).reward("Zemomark", 40)),
+    /*THIEVING_RALPH(new AchievementBuilder("Thieving - Ralph", 0, true).requirement("Ralph", 1)),
+    THIEVING_5(new AchievementBuilder("Thieving 5", 0, true).requirement("Thieving", 5)),
+    THIEVING_10(new AchievementBuilder("Thieving 10", 0, true).requirement("Thieving", 10)),
+    THIEVING_20(new AchievementBuilder("Thieving 20", 0, true).requirement("Thieving", 20)),
+    THIEVING_30(new AchievementBuilder("Thieving 30", 0, true).requirement("Thieving", 30)),
+    THIEVING_40(new AchievementBuilder("Thieving 40", 0, true).requirement("Thieving", 40)),
+    THIEVING_50(new AchievementBuilder("Thieving 50", 0, true).requirement("Thieving", 50)),
+    THIEVING_60(new AchievementBuilder("Thieving 60", 0, true).requirement("Thieving", 60)),
+    THIEVING_70(new AchievementBuilder("Thieving 70", 0, true).requirement("Thieving", 70)),
+    THIEVING_80(new AchievementBuilder("Thieving 80", 0, true).requirement("Thieving", 80)),
+    THIEVING_90(new AchievementBuilder("Thieving 90", 0, true).requirement("Thieving", 90)),
+    THIEVING_92(new AchievementBuilder("Thieving 92", 0, true).requirement("Thieving", 92)),
+    THIEVING_99(new AchievementBuilder("Thieving 99", 0, true).requirement("Thieving", 99)),
+    THIS_HELWYR_IN_I(new AchievementBuilder("This Helwyr in I", 0, true).requirement("Helwyr", 5)),
+    THIS_HELWYR_IN_II(new AchievementBuilder("This Helwyr in II", 0, true).requirement("Helwyr", 10)),
+    THIS_HELWYR_IN_III(new AchievementBuilder("This Helwyr in III", 0, true).requirement("Helwyr", 25)),
+    THIS_HELWYR_IN_IV(new AchievementBuilder("This Helwyr in IV", 0, true).requirement("Helwyr", 50)),
+    THIS_HELWYR_IN_V(new AchievementBuilder("This Helwyr in V", 0, true).requirement("Helwyr", 75)),
+    THIS_HELWYR_IN_VI(new AchievementBuilder("This Helwyr in VI", 0, true).requirement("Helwyr", 100)),
+    THREES_A_KILN(new AchievementBuilder("Three's a Kiln", 0, true).requirement("TokHaar-Kal-Ket", 1).requirement("TokHaar-Kal-Xil", 1)
+        .requirement("TokHaar-Kal-Mej", 1)),
+    THREE_HEADS_ARE_DEADER_THAN_ONE_I(new AchievementBuilder("Three Heads are Deader than One I", 0, true)
+        .requirement("King Black Dragon", 5)),
+    THREE_HEADS_ARE_DEADER_THAN_ONE_II(new AchievementBuilder("Three Heads are Deader than One II", 0, true)
+        .requirement("King Black Dragon", 10)),
+    THREE_HEADS_ARE_DEADER_THAN_ONE_III(new AchievementBuilder("Three Heads are Deader than One III", 0, true)
+        .requirement("King Black Dragon", 25)),
+    THREE_HEADS_ARE_DEADER_THAN_ONE_IV(new AchievementBuilder("Three Heads are Deader than One IV", 0, true)
+        .requirement("King Black Dragon", 50)),
+    THREE_HEADS_ARE_DEADER_THAN_ONE_V(new AchievementBuilder("Three Heads are Deader than One V", 0, true)
+        .requirement("King Black Dragon", 75)),
+    THREE_HEADS_ARE_DEADER_THAN_ONE_VI(new AchievementBuilder("Three Heads are Deader than One VI", 0, true)
+        .requirement("King Black Dragon", 100)),
+    THROUGH_THE_FIRE_AND_FLAMES(new AchievementBuilder("Through the Fire and Flames", 0, true)
+        .encounter(new Encounter(Enemy.QUEEN_BLACK_DRAGON, Collections.singletonList(new Restriction("Royal crossbow", 1))))),
+    TIER_GEAR(new AchievementBuilder("Tier Gear", 0, true).requirement("NV imphider", 1).requirement("Crafting", 10)
+        .reward("NV imphide gloves", 1).reward("Zemomark", 40)),
+    TIRANNWN(new AchievementBuilder("Tirannwn", 0, true).requirement("Regicide", 1)),
+    TIRANNWN_SET_TASKS_EASY(new AchievementBuilder("Tirannwn Set Tasks - Easy", 0, true).requirement("Iban You from Hurting Me!", 1)
+        .requirement("Driven, Underground", 1).requirement("Arandar-bout Way", 1).requirement("Blowing Your Own Trumpet", 1)
+        .requirement("The Motherlode", 1).requirement("Tyrassed to Impress", 1).requirement("Lime Ordeal", 1)
+        .requirement("Leaf Me Alone", 1).requirement("Fairy Liquid", 1).requirement("Stand Still, Eluned!", 1)
+        .requirement("Casting Shadows", 1).requirement("Sick and Twisted", 1).lamp(Player.ALL_SKILLS, 10000, 47)),
+    TIRANNWN_SET_TASKS_ELITE(new AchievementBuilder("Tirannwn Set Tasks - Elite", 0, true).requirement("99 With a Flake", 1)
+        .requirement("Robot of Sherwood", 1).requirement("The Crested Guest is Best", 1).requirement("Ace of Dungeones", 1)
+        .requirement("Weave Come a Long Way", 1).requirement("Properly Metal", 1).requirement("Respect your Elders", 1)
+        .requirement("Xena-Phile", 1).requirement("A Screwball Scramble", 1).requirement("The Expensive Range", 1)
+        .reward("Crystal motherload shard", 50).reward("Corrupted ore", 100).reward("Cleansing crystal", 10).reward("Harmonic dust", 1000)
+        .reward("Crystal dagger", 1).lamp(Player.ALL_SKILLS, 60000, 95).lamp(Player.ALL_SKILLS, 60000, 95)
+        .lamp(Player.ALL_SKILLS, 40000, 87)),
+    TIRANNWN_SET_TASKS_HARD(new AchievementBuilder("Tirannwn Set Tasks - Hard", 0, true).requirement("Sing-Along-a-Seren Verse 1", 1)
+        .requirement("Sing-Along-a-Seren Verse 2", 1).requirement("Sing-Along-a-Seren Verse 3", 1)
+        .requirement("Sing-Along-a-Seren Verse 4", 1).requirement("Sing-Along-a-Seren Verse 5", 1)
+        .requirement("Sing-Along-a-Seren Verse 6", 1).requirement("Sing-Along-a-Seren Verse 7", 1).requirement("What a Rush", 1)
+        .requirement("The Diplomatic Approach", 1).requirement("Hefin ad Puffin'", 1).requirement("Long WWay From Home", 1)
+        .requirement("Because You're Iorwerth It", 1).requirement("Cadarn Tootin'", 1).requirement("A Face in the Clouds", 1)
+        .requirement("Brace for Additional Impact", 1).requirement("Thank You, Deer", 1).requirement("Disco Impling", 1)
+        .requirement("Can I Have Some Morvran?", 1).requirement("B Sharp, Not Flat", 1).requirement("Casting a Shadow", 1)
+        .requirement("A Clean Slate", 1).lamp(Player.ALL_SKILLS, 40000, 78)),
+    TIRANNWN_SET_TASKS_MEDIUM(new AchievementBuilder("Tirannwn Set Tasks - Medium", 0, true).requirement("Harrowed Lands", 1)
+        .requirement("Bowing Out and About", 1).requirement("An Act of War", 1).requirement("Sharks are Good for the Elf", 1)
+        .requirement("Gnome Roaming", 1).requirement("Mufflebirds", 1).requirement("The Circle of Life", 1).requirement("Papa Pawya", 1)
+        .requirement("Pretty and Witty and Dead", 1).requirement("Light Transit", 1).requirement("Stranger and Stranger", 1)
+        .lamp(Player.ALL_SKILLS, 30000, 68)),
+    TO_BE_A_MASTER(new AchievementBuilder("To Be a Master", 0, true).requirement("Souls captured", 151)),
+    TO_GAAL_OR_NOT_TO_GAAL(new AchievementBuilder("To Ga'al or Not to Ga'al", 0, true).requirement("TzHaar-Ga'al-Kot", 1)),
+    TO_THE_BONE(new AchievementBuilder("To the Bone", 0, true).requirement("Worker district reputation", 300000)),
+    TOKHAAR_MOK(new AchievementBuilder("TokHaar-Mok", 0, true).requirement("The Brink of Extinction", 1)
+        .encounter(new Encounter(Enemy.TOKHAAR_HOK)).reward("Obsidian shard", 16)
+        .lamp(Arrays.asList("Attack", "Strength", "Defense", "Constitution", "Magic", "Ranged", "Summoning", "Prayer", "Herblore",
+            "Slayer"), 20000, 80)),
+    TOP_HAT(new AchievementBuilder("Top Hat", 0.05, true).requirement("Smithing", 95)),
+    TOP_PICK(new AchievementBuilder("Top Pick", 0, true).requirement("Dimension of Disaster: The Curse of Arrav", 1)
+        .requirement("Thieving", 90).reward("Zemomark", 80)),
+    TORAG_BOBBLEHEAD(new AchievementBuilder("Torag Bobblehead", 0, true).requirement("Torag the Bobbled", 1)),
+    TOWERING_OVER_US_ALL(new AchievementBuilder("Towering Over Us All", 0, true).requirement("Master clue scroll", 1)),
+    TRADE_PARADE(new AchievementBuilder("Trade Parade", 0, true).requirement("Dimension of Disaster: Coin of the Realm", 1)),*/
     ;
 	/* Quests
 	COOKS_ASSISTANT("Cook's Assistant", 0.25, new ArrayList<>(), new ArrayList<>(), Arrays.asList(new Reward("Cooking", 300),
