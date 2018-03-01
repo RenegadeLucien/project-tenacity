@@ -1,14 +1,8 @@
 package dynamicdata;
 
 
-import staticdata.Armour;
-import staticdata.Food;
-import staticdata.Achievement;
-import staticdata.Weapon;
-import staticdata.Item;
-import staticdata.Enemy;
+import staticdata.*;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -52,7 +46,7 @@ public class Player implements java.io.Serializable {
         else if (status.equals("Hardcore"))
             this.status = 2;
         xp = setInitialXP();
-        for (Achievement t : Achievement.values()) {
+        for (Achievement t : AchievementDatabase.getAchievementDatabase().getAchievements()) {
             playerTasks.put(t, 1000000000.0);
         }
         weapons.add(Weapon.BRONZE_SWORD); //not technically obtained on startup but you can get these in 30 seconds and it is required to make the combat calcs work
