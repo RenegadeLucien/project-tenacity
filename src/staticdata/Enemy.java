@@ -36,6 +36,7 @@ public enum Enemy {
     BLACK_KNIGHT_TITAN("Black Knight Titan", 2500, 63.9, 21, 120, 0, 0, 20, 0, 0, 7, 316, 0, 0, 316, 20, "Nothing", 0, 20, 10, 40),
     COUNT_DRAYNOR("Count Draynor", 3000, 22.2, 7.3, 300, 0, 0, 20, 0, 0, 6, 316, 0, 0, 316, 20, "Fire", 90, 55, 45, 65),
     CYWIR_ALPHA("Cywir Alpha", 3000, 211.5, 69.7, 792, 0, 0, 55, 0, 0, 4, 983, 0, 0, 983, 55, "Water", 90, 55, 45, 65),
+    RUM_PUMPED_CRAB("'Rum'-pumped crab", 3000, 269.4, 88.9, 240,  0, 0, 60, 0, 0, 4, 1132, 0, 0, 1132, 60, "Stab", 90, 65, 55, 45),
     TZ_KIH("Tz-Kih", 3000, 141.6, 46.7, 244, 0, 0, 61, 0, 0, 4, 1164, 0, 0, 1164, 61, "Water", 90, 55, 45, 65),
     WITCHS_EXPERIMENT_2("Witch's experiment 2", 4000, 99, 32.6, 244, 0, 0, 17, 0, 0, 4, 280, 0, 0, 280, 17, "Water", 90, 55, 45, 65),
     ZOMBIE_UI("Zombie (Uncharted Isles)", 4950, 0, 0, 268, 0, 0, 67, 0, 0, 5, 1372, 0, 0, 1372, 67, "Fire", 90, 55, 45, 65),
