@@ -57,7 +57,13 @@ public class Achievement {
         }
 
         public AchievementBuilder requirement(String qualifier, int quantifier) {
-            reqs.add(new Requirement(qualifier, quantifier));
+            if (quantifier > 0) {
+                reqs.add(new Requirement(qualifier, quantifier));
+            }
+            else if (quantifier == 0) {
+                reqs.add(new Requirement(qualifier, 1));
+                rewards.add(new Reward(qualifier, 1));
+            }
             return this;
         }
 
