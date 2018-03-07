@@ -22,7 +22,8 @@ public class Lamp {
 
     public Reward getBestReward(Player player) {
         double maxGain = 0;
-        Reward maxReward = null;
+        //Placeholder so null reward doesn't get returned and cause a mess if can't use lamp yet. This should be overwritten
+        Reward maxReward = new Reward("Coins", 1);
         for (String choice : choices) {
             if (player.getLevel(choice) >= minLevel && player.getLevel(choice) < 99) {
                 int xpReward = xp;
