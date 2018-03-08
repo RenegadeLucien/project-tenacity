@@ -64,6 +64,10 @@ public class Achievement {
                 reqs.add(new Requirement(qualifier, 1));
                 rewards.add(new Reward(qualifier, 1));
             }
+            else  {
+                reqs.add(new Requirement(qualifier, quantifier*-1));
+                rewards.add(new Reward(qualifier, quantifier*-1));
+            }
             return this;
         }
 
@@ -134,11 +138,7 @@ public class Achievement {
             totalGainFromAllRewards += r.getGainFromReward(player);
         }
         for (Lamp lamp : lamps) {
-            try {
-                totalGainFromAllRewards += lamp.getBestReward(player).getGainFromReward(player);
-            } catch (NullPointerException e) { //can't access lamp yet
-                totalGainFromAllRewards -= 1000000000;
-            }
+            totalGainFromAllRewards += lamp.getBestReward(player).getGainFromReward(player);
         }
         for (Encounter e : encounters) {
             for (List<Enemy> enemyGroup : e.getEnemyGroups())

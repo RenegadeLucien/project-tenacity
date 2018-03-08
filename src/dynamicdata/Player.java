@@ -526,7 +526,7 @@ public class Player implements java.io.Serializable {
                 return new GoalResults(levelingByMagic, magicReqs, magicMap);
             }
         }
-        double minimum = 1000000000.0;
+        double minimum = Double.POSITIVE_INFINITY;
         String minAction = "";
         List<Requirement> minReqs = new ArrayList<>();
         Map<String, Double> efficiency = new HashMap<>();
@@ -560,6 +560,9 @@ public class Player implements java.io.Serializable {
                     minReqs = action.getReqs();
                 }
             }
+        }
+        if (minimum == Double.POSITIVE_INFINITY) {
+            minimum = 1000000000.0;
         }
         efficiency.put(minAction, minimum);
         //System.out.println(minReqs);
