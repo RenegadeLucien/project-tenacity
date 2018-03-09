@@ -81,6 +81,7 @@ public class Planner extends Application {
         for (Requirement r : row.getKey().getTimeForRequirements(player).getRequirements()) {
             System.out.print(r.getQualifier() + " " + r.getQuantifier() + ", ");
         }
+        System.out.println();
     }
 
     private void displayPlayer(Player p) {
