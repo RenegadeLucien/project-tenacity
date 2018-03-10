@@ -88,6 +88,8 @@ public enum Enemy {
     FLOCKLEADER_GEERIN("Flockleader Geerin", 10000, 766.3, 252.8, 0, 250, 0, 0, 73, 0, 5, 0, 1486, 0, 1299, 73, "Bolts", 90, 65, 55, 45),
     FLIGHT_KILISA("Flight Kilisa", 10000, 766.3, 252.8, 250, 0, 0, 73, 0, 0, 5, 1486, 0, 0, 1299, 73, "Air", 90, 55, 45, 65),
     DESERT_STRYKEWYRM("Desert Strykewyrm", 10000, 805, 265.6, 0, 296, 0, 0, 74, 0, 4, 0, 1650, 0, 1526, 74, "Stab", 90, 65, 55, 45),
+    IOWERTH_SCOUT("Iowerth scout", 10000, 615, 202.9, 816, 0, 0, 85, 0, 0, 4, 2178, 0, 0, 1694, 90, "Fire", 90, 55, 45, 65),
+    CADARN_MAGUS("Cadarn magus", 10000, 615, 202.9, 0, 0, 1083, 0, 0, 85, 6, 0, 0, 2178, 1694, 90, "Arrows", 90, 45, 65, 55),
     AHRIM_THE_BLIGHTED("Ahrim the Blighted", 12000, 881.4, 290.8, 0, 0, 1260, 0, 0, 70, 6, 0, 0, 1566, 1299, 70, "Arrows", 90, 45, 65, 55),
     AKRISAE_THE_DOOMED("Akrisae the Doomed", 12000, 881.4, 290.8, 0, 0, 2167, 0, 0, 70, 6, 0, 0, 1486, 1486, 70, "Nothing", 0, 45, 65, 55),
     DHAROK_THE_WRETCHED("Dharok the Wretched", 12000, 881.4, 290.8, 1260, 0, 0, 70, 0, 0, 6, 1566, 0, 0, 1299, 70, "Fire", 90, 55, 45, 65),
