@@ -32,7 +32,7 @@ public class Planner extends Application {
         TableView taskView = new TableView();
         root.add(taskView, 0, 0);
         root.setAlignment(Pos.TOP_LEFT);
-        taskView.setPrefWidth(300);
+        taskView.setPrefWidth(400);
         taskView.setPrefHeight(550);
         taskView.setEditable(true);
         TableColumn<Entry<Achievement, Double>, String> taskCol = new TableColumn<>("Achievement");
@@ -205,7 +205,7 @@ public class Planner extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.0.01pa (by Iron Lucien)");
+        primaryStage.setTitle("Project Tenacity v0.1.0pa (by Iron Lucien)");
         Text nameText = new Text("Enter profile name:");
         TextField nameEntry = new TextField();
         final ToggleGroup irongroup = new ToggleGroup();
