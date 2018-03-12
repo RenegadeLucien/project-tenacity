@@ -200,7 +200,7 @@ public class Planner extends Application {
         qualityView.getColumns().addAll(qualityCol, qualityCountCol);
 
         root.add(tabPane, 1, 0);
-        System.out.println(p.getPlayerTasks().size());
+        System.out.println(p.getPlayerTasks().values().stream().filter(a -> a > 1000000).collect(Collectors.toList()).size());
     }
 
     @Override

@@ -63,8 +63,35 @@ public class AchievementDatabase {
             .requirement("Smithing", 88).requirement("Fletching", 69).reward("Smithing", 75).reward("Fletching", 100).build());
         achievements.add(new AchievementBuilder("A Bridge Not Far", 0, true).requirement("Agility", 8).requirement("Strength", 19)
             .requirement("Ranged", 37).build());
+        achievements.add(new AchievementBuilder("Plague City", 0.5, false).requirement("Dwellberries", 1).requirement("Rope", 1)
+            .requirement("Chocolate dust", 1).requirement("Snape grass", 1).requirement("Bucket of milk", 1).reward("Quest points", 1)
+            .reward("Mining", 2425).reward("Gas mask", 1).build());
         achievements.add(new AchievementBuilder("A Cat is for Life...", 0, true).requirement("Plague City", 1)
             .requirement("Gertrude's Cat", 1).requirement("Cat", 1).build());
+        achievements.add(new AchievementBuilder("Plague's End", 2, false).requirement("Making History", 1)
+            .requirement("Catapult Construction", 1).requirement("Within the Light", 1).requirement("Agility", 75)
+            .requirement("Construction", 75).requirement("Crafting", 75).requirement("Dungeoneering", 75).requirement("Herblore", 75)
+            .requirement("Mining", 75).requirement("Prayer", 75).requirement("Ranged", 75).requirement("Summoning", 75)
+            .requirement("Woodcutting", 75).requirement("Gas mask", 0).requirement("Mourner boots", 0).requirement("Mourner cloak", 0)
+            .requirement("Mourner gloves", 0).requirement("Mourner top", 0).requirement("Mourner trousers", 0).requirement("Rune bar", 1)
+            .requirement("Plant cure", 1).requirement("Magic logs", 10).requirement("Spirit shards", 200).requirement("Gold charm", 1)
+            .requirement("Green charm", 1).requirement("Crimson charm", 1).requirement("Blue charm", 1).requirement("Pouch", 1)
+            .requirement("Super defence (3)", 1).encounter(new Encounter(Arrays.asList(Arrays.asList(Enemy.MOURNER, Enemy.MOURNER,
+                Enemy.MOURNER), Arrays.asList(Enemy.MOURNER, Enemy.MOURNER, Enemy.HEAD_MOURNER)))).encounter(new Encounter(Enemy.SIR_HUGO))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.TRAHAEARN_AUTOMATON, Enemy.TRAHAEARN_AUTOMATON,
+                Enemy.TRAHAEARN_AUTOMATON)))).encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.SHADOW_PE,
+                Enemy.SHADOW_PE)))).encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.SHADOW_PE,
+                Enemy.SHADOW_PE, Enemy.SHADOW_PE, Enemy.GREATER_SHADOW))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.DARK_LORD, Enemy.GREATER_SHADOW))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.DARK_LORD, Enemy.GREATER_SHADOW, Enemy.GREATER_SHADOW))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.DARK_LORD, Enemy.GREATER_SHADOW, Enemy.GREATER_SHADOW,
+                Enemy.GREATER_SHADOW)))).encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.DARK_LORD,
+                Enemy.GREATER_SHADOW, Enemy.GREATER_SHADOW, Enemy.GREATER_SHADOW))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.DARK_LORD, Enemy.GREATER_SHADOW, Enemy.GREATER_SHADOW,
+                Enemy.GREATER_SHADOW, Enemy.GREATER_SHADOW, Enemy.SHADOW_PE, Enemy.SHADOW_PE, Enemy.SHADOW_PE, Enemy.SHADOW_PE))))
+            .reward("Quest points", 2).reward("Agility", 50000).reward("Construction", 50000).reward("Crafting", 50000)
+            .reward("Dungeoneering", 50000).reward("Herblore", 50000).reward("Mining", 50000).reward("Prayer", 50000)
+            .reward("Ranged", 50000).reward("Summoning", 50000).reward("Woodcutting", 50000).build());
         achievements.add(new AchievementBuilder("A Clean Slate", 0.05, true).requirement("Plague's End", 1)
             .requirement("Cleansing crystal", 1).reward("Prayer", 9800).build());
         achievements.add(new AchievementBuilder("A Face In the Clouds", 0, true).requirement("Plague's End", 1)
@@ -292,6 +319,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Ardougne", 0, true).build());
         achievements.add(new AchievementBuilder("Ardougne Express", 0, true).requirement("Plague City", 1).requirement("Magic", 51)
             .requirement("Law rune", 2).requirement("Water rune", 2).reward("Magic", 61).build());
+        achievements.add(new AchievementBuilder("Creator and Destroyer", 0, true).requirement("Tower of Life", 1).requirement("Cowhide", 1)
+            .requirement("Unicorn horn", 1).encounter(new Encounter(Enemy.UNICOW)).build());
         achievements.add(new AchievementBuilder("Ardougne Set Tasks - Easy", 0, true).requirement("Yoink!", 1)
             .requirement("The Essence of Magic", 1).requirement("Silky Smooth", 1).requirement("Preaching to the Infected", 1)
             .requirement("Playing the Waiting Game", 1).requirement("Gone Fishing", 1).requirement("Boot Camp", 1)
@@ -687,6 +716,52 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Commerce Break", 0, true).build());
         achievements.add(new AchievementBuilder("Complete History of Droalak", 0, true).requirement("Making History", 1).build());
         achievements.add(new AchievementBuilder("Complete Trekky", 0, true).requirement("Temple Trekking total level", 594).build());
+        achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Hard", 0, true).requirement("Sing-Along-a-Seren Verse 1", 1)
+            .requirement("Sing-Along-a-Seren Verse 2", 1).requirement("Sing-Along-a-Seren Verse 3", 1)
+            .requirement("Sing-Along-a-Seren Verse 4", 1).requirement("Sing-Along-a-Seren Verse 5", 1)
+            .requirement("Sing-Along-a-Seren Verse 6", 1).requirement("Sing-Along-a-Seren Verse 7", 1).requirement("What a Rush", 1)
+            .requirement("The Diplomatic Approach", 1).requirement("Hefin ad Puffin'", 1).requirement("Long WWay From Home", 1)
+            .requirement("Because You're Iorwerth It", 1).requirement("Cadarn Tootin'", 1).requirement("A Face in the Clouds", 1)
+            .requirement("Brace for Additional Impact", 1).requirement("Thank You, Deer", 1).requirement("Disco Impling", 1)
+            .requirement("Can I Have Some Morvran?", 1).requirement("B Sharp, Not Flat", 1).requirement("Casting a Shadow", 1)
+            .requirement("A Clean Slate", 1).lamp(Player.ALL_SKILLS, 40000, 78).build());
+        achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Medium", 0, true).requirement("Harrowed Lands", 1)
+            .requirement("Bowing Out and About", 1).requirement("An Act of War", 1).requirement("Sharks are Good for the Elf", 1)
+            .requirement("Gnome Roaming", 1).requirement("Mufflebirds", 1).requirement("The Circle of Life", 1).requirement("Papa Pawya", 1)
+            .requirement("Pretty and Witty and Dead", 1).requirement("Light Transit", 1).requirement("Stranger and Stranger", 1)
+            .lamp(Player.ALL_SKILLS, 30000, 68).build());
+        achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Elite", 0, true).requirement("99 With a Flake", 1)
+            .requirement("Robot of Sherwood", 1).requirement("The Crested Guest is Best", 1).requirement("Ace of Dungeones", 1)
+            .requirement("Weave Come a Long Way", 1).requirement("Properly Metal", 1).requirement("Respect your Elders", 1)
+            .requirement("Xena-Phile", 1).requirement("A Screwball Scramble", 1).requirement("The Expensive Range", 1)
+            .reward("Crystal motherload shard", 50).reward("Corrupted ore", 100).reward("Cleansing crystal", 10)
+            .reward("Harmonic dust", 1000).reward("Crystal dagger", 1).lamp(Player.ALL_SKILLS, 60000, 95).lamp(Player.ALL_SKILLS, 60000, 95)
+            .lamp(Player.ALL_SKILLS, 40000, 87).build());
+        achievements.add(new AchievementBuilder("Task Master", 0, true).requirement("Ardougne Set Tasks - Easy", 1)
+            .requirement("Ardougne Set Tasks - Medium", 1).requirement("Ardougne Set Tasks - Hard", 1)
+            .requirement("Ardougne Set Tasks - Elite", 1).requirement("Desert Set Tasks - Easy", 1)
+            .requirement("Desert Set Tasks - Medium", 1).requirement("Desert Set Tasks - Hard", 1)
+            .requirement("Desert Set Tasks - Elite", 1).requirement("Daemonheim Set Tasks - Easy", 1)
+            .requirement("Daemonheim Set Tasks - Medium", 1).requirement("Daemonheim Set Tasks - Hard", 1)
+            .requirement("Daemonheim Set Tasks - Elite", 1).requirement("Falador Set Tasks - Easy", 1)
+            .requirement("Falador Set Tasks - Medium", 1).requirement("Falador Set Tasks - Hard", 1)
+            .requirement("Falador Set Tasks - Elite", 1).requirement("Fremennik Set Tasks - Easy", 1)
+            .requirement("Fremennik Set Tasks - Medium", 1).requirement("Fremennik Set Tasks - Hard", 1)
+            .requirement("Fremennik Set Tasks - Elite", 1).requirement("Karamja Set Tasks - Easy", 1)
+            .requirement("Karamja Set Tasks - Medium", 1).requirement("Karamja Set Tasks - Hard", 1)
+            .requirement("Karamja Set Tasks - Elite", 1).requirement("Lumbridge Set Tasks - Easy", 1)
+            .requirement("Lumbridge Set Tasks - Medium", 1).requirement("Lumbridge Set Tasks - Hard", 1)
+            .requirement("Lumbridge Set Tasks - Beginner", 1).requirement("Menaphos Pyramid Scheme", 1)
+            .requirement("Morytania Set Tasks - Easy", 1).requirement("Morytania Set Tasks - Medium", 1)
+            .requirement("Morytania Set Tasks - Hard", 1).requirement("Morytania Set Tasks - Elite", 1)
+            .requirement("Seers' Village Set Tasks - Easy", 1).requirement("Seers' Village Set Tasks - Medium", 1)
+            .requirement("Seers' Village Set Tasks - Hard", 1).requirement("Seers' Village Set Tasks - Elite", 1)
+            .requirement("Tirannwn Set Tasks - Easy", 1).requirement("Tirannwn Set Tasks - Medium", 1)
+            .requirement("Tirannwn Set Tasks - Hard", 1).requirement("Tirannwn Set Tasks - Elite", 1)
+            .requirement("Varrock Set Tasks - Easy", 1).requirement("Varrock Set Tasks - Medium", 1)
+            .requirement("Varrock Set Tasks - Hard", 1).requirement("Varrock Set Tasks - Elite", 1)
+            .requirement("Wilderness Set Tasks - Easy", 1).requirement("Wilderness Set Tasks - Medium", 1)
+            .requirement("Wilderness Set Tasks - Hard", 1).requirement("Wilderness Set Tasks - Elite", 1).build());
         achievements.add(new AchievementBuilder("Completionist Cape", 0, true).requirement("Abyssal Reach", 1)
             .requirement("Almost as Perky as a Prawn", 1).requirement("Annihilator", 1)
             .requirement("Arc - Ancient Eastern Tortle Portals", 1).requirement("Arc - Unlocking Waiko", 1)
@@ -794,8 +869,6 @@ public class AchievementDatabase {
             .reward("Agility", 750).build());
         achievements.add(new AchievementBuilder("Crayfish Roasting On An Open Fire", 0, true).requirement("Raw crayfish", 1)
             .reward("Crayfish", 1).reward("Cooking", 30).build());
-        achievements.add(new AchievementBuilder("Creator and Destroyer", 0, true).requirement("Tower of Life", 1).requirement("Cowhide", 1)
-            .requirement("Unicorn horn", 1).encounter(new Encounter(Enemy.UNICOW)).build());
         achievements.add(new AchievementBuilder("Crocodile Tears", 0, true).requirement("Crocodile Tears", 1).build());
         achievements.add(new AchievementBuilder("Crossing Over I", 0, true).requirement("The Magister", 5).build());
         achievements.add(new AchievementBuilder("Crossing Over II", 0, true).requirement("The Magister", 10).build());
@@ -2711,31 +2784,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Tales of Old", 0, true).requirement("Fremennik saga", 1).build());
         achievements.add(new AchievementBuilder("Talk to Explorer Jack", 0, true).build());
         achievements.add(new AchievementBuilder("Tan Your Hide", 0, true).requirement("Cowhide", 1).reward("Leather", 1).build());
-        achievements.add(new AchievementBuilder("Task Master", 0, true).requirement("Ardougne Set Tasks - Easy", 1)
-            .requirement("Ardougne Set Tasks - Medium", 1).requirement("Ardougne Set Tasks - Hard", 1)
-            .requirement("Ardougne Set Tasks - Elite", 1).requirement("Desert Set Tasks - Easy", 1)
-            .requirement("Desert Set Tasks - Medium", 1).requirement("Desert Set Tasks - Hard", 1)
-            .requirement("Desert Set Tasks - Elite", 1).requirement("Daemonheim Set Tasks - Easy", 1)
-            .requirement("Daemonheim Set Tasks - Medium", 1).requirement("Daemonheim Set Tasks - Hard", 1)
-            .requirement("Daemonheim Set Tasks - Elite", 1).requirement("Falador Set Tasks - Easy", 1)
-            .requirement("Falador Set Tasks - Medium", 1).requirement("Falador Set Tasks - Hard", 1)
-            .requirement("Falador Set Tasks - Elite", 1).requirement("Fremennik Set Tasks - Easy", 1)
-            .requirement("Fremennik Set Tasks - Medium", 1).requirement("Fremennik Set Tasks - Hard", 1)
-            .requirement("Fremennik Set Tasks - Elite", 1).requirement("Karamja Set Tasks - Easy", 1)
-            .requirement("Karamja Set Tasks - Medium", 1).requirement("Karamja Set Tasks - Hard", 1)
-            .requirement("Karamja Set Tasks - Elite", 1).requirement("Lumbridge Set Tasks - Easy", 1)
-            .requirement("Lumbridge Set Tasks - Medium", 1).requirement("Lumbridge Set Tasks - Hard", 1)
-            .requirement("Lumbridge Set Tasks - Beginner", 1).requirement("Menaphos Pyramid Scheme", 1)
-            .requirement("Morytania Set Tasks - Easy", 1).requirement("Morytania Set Tasks - Medium", 1)
-            .requirement("Morytania Set Tasks - Hard", 1).requirement("Morytania Set Tasks - Elite", 1)
-            .requirement("Seers' Village Set Tasks - Easy", 1).requirement("Seers' Village Set Tasks - Medium", 1)
-            .requirement("Seers' Village Set Tasks - Hard", 1).requirement("Seers' Village Set Tasks - Elite", 1)
-            .requirement("Tirannwn Set Tasks - Easy", 1).requirement("Tirannwn Set Tasks - Medium", 1)
-            .requirement("Tirannwn Set Tasks - Hard", 1).requirement("Tirannwn Set Tasks - Elite", 1)
-            .requirement("Varrock Set Tasks - Easy", 1).requirement("Varrock Set Tasks - Medium", 1)
-            .requirement("Varrock Set Tasks - Hard", 1).requirement("Varrock Set Tasks - Elite", 1)
-            .requirement("Wilderness Set Tasks - Easy", 1).requirement("Wilderness Set Tasks - Medium", 1)
-            .requirement("Wilderness Set Tasks - Hard", 1).requirement("Wilderness Set Tasks - Elite", 1).build());
         achievements.add(new AchievementBuilder("Tasty Bobbles", 0, true).requirement("Gower Quest", 1).build());
         achievements.add(new AchievementBuilder("Taverley", 0, true).build());
         achievements.add(new AchievementBuilder("Tell Tale Tarn", 0, true).requirement("The Lair of Tarn Razorlor", 1).build());
@@ -2788,7 +2836,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("The Higher, The Better", 0, true).requirement("Slayer", 45)
             .encounter(new Encounter(Enemy.INFERNAL_MAGE)).build());
         achievements.add(new AchievementBuilder("The History of Slayer", 0, true).requirement("Souls captured", 110).build());
-        achievements.add(new AchievementBuilder("The Jack of Spades", 0, true).requirement("The Jack of Spades", 1).build());
+        achievements.add(new AchievementBuilder("The Jack of Spades", 0, true).requirement("The Jack of Spades (quest)", 1).build());
         achievements.add(new AchievementBuilder("The Lone Dungeoneer", 0.05, true).build());
         achievements.add(new AchievementBuilder("The Long Of It", 0, true).requirement("Magic logs", 1).requirement("Fletching", 85)
             .reward("Fletching", 183).reward("Farming", 1).reward("Crafting", 15).reward("Magic shieldbow", 1).build());
@@ -2877,27 +2925,6 @@ public class AchievementDatabase {
             .requirement("The Motherlode", 1).requirement("Tyrassed to Impress", 1).requirement("Lime Ordeal", 1)
             .requirement("Leaf Me Alone", 1).requirement("Fairy Liquid", 1).requirement("Stand Still, Eluned!", 1)
             .requirement("Casting Shadows", 1).requirement("Sick and Twisted", 1).lamp(Player.ALL_SKILLS, 10000, 47).build());
-        achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Elite", 0, true).requirement("99 With a Flake", 1)
-            .requirement("Robot of Sherwood", 1).requirement("The Crested Guest is Best", 1).requirement("Ace of Dungeones", 1)
-            .requirement("Weave Come a Long Way", 1).requirement("Properly Metal", 1).requirement("Respect your Elders", 1)
-            .requirement("Xena-Phile", 1).requirement("A Screwball Scramble", 1).requirement("The Expensive Range", 1)
-            .reward("Crystal motherload shard", 50).reward("Corrupted ore", 100).reward("Cleansing crystal", 10)
-            .reward("Harmonic dust", 1000).reward("Crystal dagger", 1).lamp(Player.ALL_SKILLS, 60000, 95).lamp(Player.ALL_SKILLS, 60000, 95)
-            .lamp(Player.ALL_SKILLS, 40000, 87).build());
-        achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Hard", 0, true).requirement("Sing-Along-a-Seren Verse 1", 1)
-            .requirement("Sing-Along-a-Seren Verse 2", 1).requirement("Sing-Along-a-Seren Verse 3", 1)
-            .requirement("Sing-Along-a-Seren Verse 4", 1).requirement("Sing-Along-a-Seren Verse 5", 1)
-            .requirement("Sing-Along-a-Seren Verse 6", 1).requirement("Sing-Along-a-Seren Verse 7", 1).requirement("What a Rush", 1)
-            .requirement("The Diplomatic Approach", 1).requirement("Hefin ad Puffin'", 1).requirement("Long WWay From Home", 1)
-            .requirement("Because You're Iorwerth It", 1).requirement("Cadarn Tootin'", 1).requirement("A Face in the Clouds", 1)
-            .requirement("Brace for Additional Impact", 1).requirement("Thank You, Deer", 1).requirement("Disco Impling", 1)
-            .requirement("Can I Have Some Morvran?", 1).requirement("B Sharp, Not Flat", 1).requirement("Casting a Shadow", 1)
-            .requirement("A Clean Slate", 1).lamp(Player.ALL_SKILLS, 40000, 78).build());
-        achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Medium", 0, true).requirement("Harrowed Lands", 1)
-            .requirement("Bowing Out and About", 1).requirement("An Act of War", 1).requirement("Sharks are Good for the Elf", 1)
-            .requirement("Gnome Roaming", 1).requirement("Mufflebirds", 1).requirement("The Circle of Life", 1).requirement("Papa Pawya", 1)
-            .requirement("Pretty and Witty and Dead", 1).requirement("Light Transit", 1).requirement("Stranger and Stranger", 1)
-            .lamp(Player.ALL_SKILLS, 30000, 68).build());
         achievements.add(new AchievementBuilder("To Be a Master", 0, true).requirement("Souls captured", 151).build());
         achievements.add(new AchievementBuilder("To Catch a Karambwan", 0, true).requirement("Raw karambwanji", 1)
             .requirement("Tai Bwo Wannai Trio", 1).requirement("Fishing", 65).reward("Fishing", 105).reward("Raw karambwan", 1).build());

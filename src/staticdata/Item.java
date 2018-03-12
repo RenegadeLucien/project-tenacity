@@ -18,6 +18,7 @@ public enum Item {
     BONES("Bones", 1),
     WOLF_BONES("Wolf bones", 1),
     POUCH("Pouch", 1),
+    COWHIDE("Cowhide", 1),
     BUCKET_OF_SAND("Bucket of sand", 2),
     WIZARD_HAT_BLUE("Wizard hat (blue)", 2),
     SODA_ASH("Soda ash", 2),
@@ -61,6 +62,7 @@ public enum Item {
     CHOCOLATE_DUST("Chocolate dust", 20),
     COPPER_ORE("Copper ore", 20),
     TIN_ORE("Tin ore", 20),
+    UNICORN_HORN("Unicorn horn", 20),
     LEATHER_BODY("Leather body", 21),
     LEATHER_COWL("Leather cowl", 24),
     BRONZE_HELM("Bronze helm", 24),
@@ -112,7 +114,8 @@ public enum Item {
     SPIRIT_WOLF_POUCH("Spirit wolf pouch", 599),
     RUBY("Ruby", 1000),
     DIAMOND("Diamond", 2000),
-    AMULET_OF_ACCURACY("Amulet of accuracy", 5000);
+    AMULET_OF_ACCURACY("Amulet of accuracy", 5000),
+    RUNE_BAR("Rune bar", 5000);
 
     private String name;
     private int geval;

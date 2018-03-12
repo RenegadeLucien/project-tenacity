@@ -48,55 +48,38 @@ public class Requirement {
         }
         double time = 99999;
         Map<String, Double> actions = new HashMap<>();
-        List<Requirement> recursiveRequirements = new ArrayList<>();
+        GoalResults goalResults = null;
         if (qualifier.equals("Strength") || qualifier.equals("Attack")) {
-            GoalResults goalResults = player.efficientGoalCompletion("mCombat", player.getXpToLevel(qualifier, quantifier));
-            time = goalResults.getTotalTime();
-            addItemsToMap(actions, goalResults.getActionsWithTimes());
-            recursiveRequirements.addAll(goalResults.getRequirements());
+            goalResults = player.efficientGoalCompletion("mCombat", player.getXpToLevel(qualifier, quantifier));
         } else if (qualifier.equals("Ranged")) {
-            GoalResults goalResults = player.efficientGoalCompletion("rCombat", player.getXpToLevel(qualifier, quantifier));
-            time = goalResults.getTotalTime();
-            addItemsToMap(actions, goalResults.getActionsWithTimes());
-            recursiveRequirements.addAll(goalResults.getRequirements());
+            goalResults = player.efficientGoalCompletion("rCombat", player.getXpToLevel(qualifier, quantifier));
         } else if (qualifier.equals("Magic")) {
-            GoalResults goalResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
-            time = goalResults.getTotalTime();
-            addItemsToMap(actions, goalResults.getActionsWithTimes());
-            recursiveRequirements.addAll(goalResults.getRequirements());
+            goalResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
         } else if (qualifier.equals("Defense")) {
             GoalResults meleeResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
             GoalResults rangedResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
             GoalResults magicResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
             if (meleeResults.getTotalTime() < rangedResults.getTotalTime() && meleeResults.getTotalTime() < magicResults.getTotalTime()) {
-                time = meleeResults.getTotalTime();
-                addItemsToMap(actions, meleeResults.getActionsWithTimes());
-                recursiveRequirements.addAll(meleeResults.getRequirements());
+                goalResults = meleeResults;
             } else if (rangedResults.getTotalTime() < magicResults.getTotalTime()) {
-                time = rangedResults.getTotalTime();
-                addItemsToMap(actions, rangedResults.getActionsWithTimes());
-                recursiveRequirements.addAll(rangedResults.getRequirements());
+                goalResults = rangedResults;
             } else {
-                time = magicResults.getTotalTime();
-                addItemsToMap(actions, magicResults.getActionsWithTimes());
-                recursiveRequirements.addAll(magicResults.getRequirements());
+                goalResults = magicResults;
             }
         } else if (Player.ALL_SKILLS.contains(qualifier)) {
-            GoalResults goalResults = player.efficientGoalCompletion(qualifier, player.getXpToLevel(qualifier, quantifier));
-            time = goalResults.getTotalTime();
-            addItemsToMap(actions, goalResults.getActionsWithTimes());
-            recursiveRequirements.addAll(goalResults.getRequirements());
+            goalResults = player.efficientGoalCompletion(qualifier, player.getXpToLevel(qualifier, quantifier));
+
         } else {
-            GoalResults goalResults = player.efficientGoalCompletion(qualifier, quantifier);
+            goalResults = player.efficientGoalCompletion(qualifier, quantifier);
             if (Item.getItemByName(qualifier) != null && player.getStatus() == 0) {
                 if (player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier).getTotalTime() < time) {
                     goalResults = player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier);
                 }
             }
-            time = goalResults.getTotalTime();
-            addItemsToMap(actions, goalResults.getActionsWithTimes());
-            recursiveRequirements.addAll(goalResults.getRequirements());
         }
+        time = goalResults.getTotalTime();
+        addItemsToMap(actions, goalResults.getActionsWithTimes());
+        List<Requirement> recursiveRequirements = new ArrayList<>(goalResults.getRequirements());
         //System.out.println(quantifier + " " +qualifier + " will be achieved in " + time + " hours");
         return new GoalResults(time, recursiveRequirements, actions);
     }
