@@ -2,7 +2,7 @@ package dynamicdata;
 
 import staticdata.Item;
 
-public class Reward {
+public class Reward implements java.io.Serializable {
     private String qualifier;
     private int quantifier;
 

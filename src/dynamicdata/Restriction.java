@@ -1,6 +1,6 @@
 package dynamicdata;
 
-public class Restriction {
+public class Restriction implements java.io.Serializable {
 
     private String restriction;
     private int condition;

@@ -5,12 +5,17 @@ import staticdata.Enemy;
 import java.util.*;
 
 public class ActionDatabase {
+    
+    private static ActionDatabase actionDatabase;
 
     private static final int TICKS_PER_HOUR = 6000;
+    private List<Action> database = new ArrayList<>();
 
-    private ArrayList<Action> database = new ArrayList<>();
+    private ActionDatabase(Player player) {
+        //Placeholder for skills that have not yet been implemented
+        database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Woodcutting", 1, "Fletching", 1,
+            "Construction", 1, "Firemaking", 1, "Invention", 1), true, true, false));
 
-    public ActionDatabase(Player player) {
         //XP-less gathering
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
             true, true, false));
@@ -167,7 +172,7 @@ public class ActionDatabase {
             new HashMap<>(), Map.of("Shifting Tombs", 12), true, true, true));
     }
 
-    public ArrayList<Action> getDatabase() {
+    public List<Action> getDatabase() {
         return database;
     }
 
@@ -195,7 +200,7 @@ public class ActionDatabase {
                 kills++;
                 time -= ticksThisKill;
                 currentHp -= combatResults.getHpLost();
-                if (stackable == false) {
+                if (!stackable) {
                     spaceInInv--;
                 }
             } else
@@ -230,5 +235,12 @@ public class ActionDatabase {
         double successRate = Math.min(1.0, (145.0 + (playerLevel - effectiveLevel)) / 255.0);
         double timePerSuccess = (2 * successRate + 8 * (1 - successRate)) / successRate;
         return (int) Math.floor(TICKS_PER_HOUR / timePerSuccess);
+    }
+
+    public static ActionDatabase getActionDatabase(Player player) {
+        if (actionDatabase == null) {
+            actionDatabase = new ActionDatabase(player);
+        }
+        return actionDatabase;
     }
 }

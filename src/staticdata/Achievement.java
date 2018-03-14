@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-public class Achievement {
+public class Achievement implements java.io.Serializable {
 
     private String name; //name of the task
     private double time; //est. time taken in hours [not including time to gather items/complete requirements]
@@ -94,29 +94,16 @@ public class Achievement {
     public GoalResults getTimeForRequirements(Player player) {
         double totalTimeForAllReqs = 0;
         Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
-        List<Requirement> recursiveRequirements = new ArrayList<>();
-        Map<String, Double> originalMap = player.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
-        List<Weapon> weaponList = new ArrayList<>(player.getWeapons());
         for (Requirement r : reqs) {
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                 if (Achievement.getAchievementByName(actionWithTime.getKey()) == null || !totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
                     totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
-                    totalTimeForAllReqs += actionWithTime.getValue();
                 }
             }
-            recursiveRequirements.addAll(resultsForOneRequirement.getRequirements());
-            if (Player.ALL_SKILLS.contains(r.getQualifier())) {
-                player.getXp().put(r.getQualifier(), player.getXp().get(r.getQualifier()) + player.getXpToLevel(r.getQualifier(), r.getQuantifier()));
-            }
-            if (Weapon.getWeaponByName(r.getQualifier()) != null) {
-                player.addWeapon(Weapon.getWeaponByName(r.getQualifier()));
-            }
         }
-        for (Requirement r : recursiveRequirements) {
-            if (Player.ALL_SKILLS.contains(r.getQualifier())) {
-                player.getXp().put(r.getQualifier(), player.getXp().get(r.getQualifier()) + player.getXpToLevel(r.getQualifier(), r.getQuantifier()));
-            }
+        for (Entry<String, Double> action : totalActionsWithTimesForAllReqs.entrySet()) {
+            totalTimeForAllReqs += action.getValue();
         }
         for (Encounter e : encounters) {
             CombatResults meleeCombatResults = e.calculateCombat(player, 27, "Melee");
@@ -127,9 +114,7 @@ public class Achievement {
                 totalTimeForAllReqs += 2147000.0;
             }
         }
-        player.setXp(originalMap);
-        player.setWeapons(weaponList);
-        return new GoalResults(totalTimeForAllReqs, recursiveRequirements, totalActionsWithTimesForAllReqs);
+        return new GoalResults(totalTimeForAllReqs, totalActionsWithTimesForAllReqs);
     }
 
     public double getGainFromRewards(Player player) {
@@ -148,6 +133,33 @@ public class Achievement {
         }
         return totalGainFromAllRewards;
     }
+/*
+    public List<Requirement> getRecursiveRequirements() {
+        List<Requirement> recursiveReqs = reqs;
+        List<String> achievementsParsed = new ArrayList<>();
+        boolean newReqs = true;
+        while (newReqs) {
+            newReqs = false;
+            List<Requirement> newRecReqs = new ArrayList<>();
+            for (Requirement r : recursiveReqs) {
+                if (Achievement.getAchievementByName(r.getQualifier()) != null && !achievementsParsed.contains(r.getQualifier())) {
+                    newReqs = true;
+                    for (Requirement achievementReq : Achievement.getAchievementByName(r.getQualifier()).getReqs()) {
+                        if (!achievementsParsed.contains(achievementReq.getQualifier())) {
+                            newRecReqs.add(achievementReq);
+                        }
+                    }
+                    achievementsParsed.add(r.getQualifier());
+                    newRecReqs.add(r);
+                }
+                else if (!achievementsParsed.contains(r.getQualifier()) || newRecReqs.stream().noneMatch(a -> a.getQualifier().equals(r.getQualifier()))){
+                    newRecReqs.add(r);
+                }
+            }
+            recursiveReqs = newRecReqs;
+        }
+        return recursiveReqs;
+    }*/
 
     public String getName() {
         return name;

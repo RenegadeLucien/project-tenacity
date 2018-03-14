@@ -78,9 +78,6 @@ public class Planner extends Application {
     private void handleRow(Entry<Achievement, Double> row, Player player) {
         System.out.println(row.getKey().getTimeForRequirements(player).getTotalTime());
         System.out.println(row.getKey().getTimeForRequirements(player).getActionsWithTimes());
-        for (Requirement r : row.getKey().getTimeForRequirements(player).getRequirements()) {
-            System.out.print(r.getQualifier() + " " + r.getQuantifier() + ", ");
-        }
         System.out.println();
     }
 
@@ -200,7 +197,7 @@ public class Planner extends Application {
         qualityView.getColumns().addAll(qualityCol, qualityCountCol);
 
         root.add(tabPane, 1, 0);
-        System.out.println(p.getPlayerTasks().values().stream().filter(a -> a > 1000000).collect(Collectors.toList()).size());
+        System.out.println(p.getPlayerTasks().values().stream().filter(a -> a > 100000).collect(Collectors.toList()).size());
     }
 
     @Override

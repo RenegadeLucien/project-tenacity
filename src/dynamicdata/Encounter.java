@@ -5,7 +5,7 @@ import staticdata.Enemy;
 
 import java.util.*;
 
-public class Encounter {
+public class Encounter implements java.io.Serializable {
 
     List<List<Enemy>> enemyGroups;
     List<Restriction> restrictions;

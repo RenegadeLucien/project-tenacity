@@ -3,6 +3,7 @@ package dynamicdata;
 
 import staticdata.*;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -20,8 +21,6 @@ public class Player implements java.io.Serializable {
         "Hunter", "Invention", "Magic", "Mining", "Prayer", "Ranged", "Runecrafting",
         "Slayer", "Smithing", "Strength", "Summoning", "Thieving", "Woodcutting"));
 
-    public static final ArrayList<String> COMBAT_SKILLS = new ArrayList<>(Arrays.asList("Attack", "Strength", "Defense", "Magic", "Ranged"));
-
     public static final ArrayList<String> COMBAT_STYLES = new ArrayList<>(Arrays.asList("Melee", "Ranged", "Magic"));
 
     private static final long serialVersionUID = 1L;
@@ -29,13 +28,12 @@ public class Player implements java.io.Serializable {
     private String name;
     private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
     private Map<Achievement, Double> playerTasks = new LinkedHashMap<>();
-    private Map<String, Double> xp;
+    private Map<String, Double> xp = new HashMap<>();
     private Map<String, Integer> qualities = new HashMap<>();
     private Map<String, Integer> bank = new HashMap<>();
     private List<Weapon> weapons = new ArrayList<>();
     private List<Armour> armour = new ArrayList<>();
     private List<Food> food = new ArrayList<>();
-    private ActionDatabase actionDatabase;
 
     public Player(String name, String status) {
         this.name = name;
@@ -53,8 +51,7 @@ public class Player implements java.io.Serializable {
         weapons.add(Weapon.CHARGEBOW);
         weapons.add(Weapon.STAFF);
         calcFood();
-        actionDatabase = new ActionDatabase(this);
-        calcList();
+        calcAllAchievements();
     }
 
     public Map<Achievement, Double> getPlayerTasks() {
@@ -87,10 +84,6 @@ public class Player implements java.io.Serializable {
 
     public int getStatus() {
         return status;
-    }
-
-    public ActionDatabase getActionDatabase() {
-        return actionDatabase;
     }
 
     public void setWeapons(List<Weapon> newWeapons) {
@@ -275,7 +268,7 @@ public class Player implements java.io.Serializable {
         return loadouts;
     }
 
-    public void calcList() {
+    public void calcAllAchievements() {
         long time = System.nanoTime();
         calcFood();
         for (Entry<Achievement, Double> taskWithTime : playerTasks.entrySet()) {
@@ -293,9 +286,7 @@ public class Player implements java.io.Serializable {
     }
 
     public void completeTask(Achievement task) {
-        ArrayList<Requirement> masterListOfRequirements = new ArrayList<>(task.getReqs());
-        masterListOfRequirements.addAll(task.getTimeForRequirements(this).getRequirements());
-        for (Requirement requirement : masterListOfRequirements) {
+        for (Requirement requirement : task.getReqs()) {
             if (Achievement.getAchievementByName(requirement.getQualifier()) != null && playerTasks.containsKey(Achievement.getAchievementByName(requirement.getQualifier()))) {
                 completeTask(Achievement.getAchievementByName(requirement.getQualifier()));
             } else if (ALL_SKILLS.contains(requirement.getQualifier()) && getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()) > 0) {
@@ -347,24 +338,22 @@ public class Player implements java.io.Serializable {
         }
 
         playerTasks.remove(task);
-        calcList();
+        calcAllAchievements();
     }
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
         if (qualifier.equals("Coins")) {
             double money = 0;
             String bestAction = "";
-            List<Requirement> minReqs = new ArrayList<>();
-            for (Action action : actionDatabase.getDatabase()) {
+            for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
                 double moneyForThisAction = action.moneyFromAction(this);
                 if (moneyForThisAction > money) {
                     money = moneyForThisAction;
                     bestAction = action.getName();
-                    minReqs = action.getReqs();
                 }
             }
             //System.out.println("Best effective rate of money is " + money + " GP per hour.");
-            return new GoalResults(quantifier / money, minReqs, Map.of(bestAction, quantifier / money));
+            return new GoalResults(quantifier / money, Map.of(bestAction, quantifier / money));
         } else if (qualifier.equals("Combat")) {
             Map<String, Double> originalMap = this.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
             double levelingByMelee = 0;
@@ -373,9 +362,6 @@ public class Player implements java.io.Serializable {
             Map<String, Double> meleeMap = new HashMap();
             Map<String, Double> rangedMap = new HashMap();
             Map<String, Double> magicMap = new HashMap();
-            List<Requirement> meleeReqs = new ArrayList<>();
-            List<Requirement> rangedReqs = new ArrayList<>();
-            List<Requirement> magicReqs = new ArrayList<>();
             //Using melee
             while (this.calcCombatLevel() < quantifier) {
                 double attack = 0.325 / this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", this.getLevel("Attack") + 1)).getTotalTime();
@@ -409,24 +395,6 @@ public class Player implements java.io.Serializable {
                 else
                     meleeMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), bestSubReq.getTotalTime());
             }
-            if (this.getXp().get("Attack") > originalMap.get("Attack")) {
-                meleeReqs.add(new Requirement("Attack", this.getLevel("Attack")));
-            }
-            if (this.getXp().get("Strength") > originalMap.get("Strength")) {
-                meleeReqs.add(new Requirement("Strength", this.getLevel("Strength")));
-            }
-            if (this.getXp().get("Defense") > originalMap.get("Defense")) {
-                meleeReqs.add(new Requirement("Defense", this.getLevel("Defense")));
-            }
-            if (this.getXp().get("Constitution") > originalMap.get("Constitution")) {
-                meleeReqs.add(new Requirement("Constitution", this.getLevel("Constitution")));
-            }
-            if (this.getXp().get("Prayer") > originalMap.get("Prayer")) {
-                meleeReqs.add(new Requirement("Prayer", this.getLevel("Prayer")));
-            }
-            if (this.getXp().get("Summoning") > originalMap.get("Summoning")) {
-                meleeReqs.add(new Requirement("Summoning", this.getLevel("Summoning")));
-            }
             this.setXp(originalMap);
             originalMap = this.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
             //Using ranged
@@ -456,21 +424,6 @@ public class Player implements java.io.Serializable {
                     rangedMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(bestSubReq.getActionsWithTimes().keySet().iterator().next()) + bestSubReq.getTotalTime());
                 else
                     rangedMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), bestSubReq.getTotalTime());
-            }
-            if (this.getXp().get("Ranged") > originalMap.get("Ranged")) {
-                rangedReqs.add(new Requirement("Ranged", this.getLevel("Ranged")));
-            }
-            if (this.getXp().get("Defense") > originalMap.get("Defense")) {
-                rangedReqs.add(new Requirement("Defense", this.getLevel("Defense")));
-            }
-            if (this.getXp().get("Constitution") > originalMap.get("Constitution")) {
-                rangedReqs.add(new Requirement("Constitution", this.getLevel("Constitution")));
-            }
-            if (this.getXp().get("Prayer") > originalMap.get("Prayer")) {
-                rangedReqs.add(new Requirement("Prayer", this.getLevel("Prayer")));
-            }
-            if (this.getXp().get("Summoning") > originalMap.get("Summoning")) {
-                rangedReqs.add(new Requirement("Summoning", this.getLevel("Summoning")));
             }
             this.setXp(originalMap);
             originalMap = this.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
@@ -502,44 +455,27 @@ public class Player implements java.io.Serializable {
                 else
                     magicMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), bestSubReq.getTotalTime());
             }
-            if (this.getXp().get("Magic") > originalMap.get("Magic")) {
-                magicReqs.add(new Requirement("Magic", this.getLevel("Magic")));
-            }
-            if (this.getXp().get("Defense") > originalMap.get("Defense")) {
-                magicReqs.add(new Requirement("Defense", this.getLevel("Defense")));
-            }
-            if (this.getXp().get("Constitution") > originalMap.get("Constitution")) {
-                magicReqs.add(new Requirement("Constitution", this.getLevel("Constitution")));
-            }
-            if (this.getXp().get("Prayer") > originalMap.get("Prayer")) {
-                magicReqs.add(new Requirement("Prayer", this.getLevel("Prayer")));
-            }
-            if (this.getXp().get("Summoning") > originalMap.get("Summoning")) {
-                magicReqs.add(new Requirement("Summoning", this.getLevel("Summoning")));
-            }
             this.setXp(originalMap);
             if (levelingByMelee < levelingByMagic && levelingByMelee < levelingByRanged) {
-                return new GoalResults(levelingByMelee, meleeReqs, meleeMap);
+                return new GoalResults(levelingByMelee, meleeMap);
             } else if (levelingByRanged < levelingByMagic) {
-                return new GoalResults(levelingByRanged, rangedReqs, rangedMap);
+                return new GoalResults(levelingByRanged, rangedMap);
             } else {
-                return new GoalResults(levelingByMagic, magicReqs, magicMap);
+                return new GoalResults(levelingByMagic, magicMap);
             }
         }
         double minimum = Double.POSITIVE_INFINITY;
-        String minAction = "";
-        List<Requirement> minReqs = new ArrayList<>();
+        String minAction = qualifier;
         Map<String, Double> efficiency = new HashMap<>();
         for (Achievement achievement : playerTasks.keySet()) {
             for (Reward reward : achievement.getRewards()) {
                 if (reward.getQualifier().equals(qualifier) && reward.getQuantifier() >= quantifier) {
                     minimum = Math.min(minimum, playerTasks.get(achievement));
                     minAction = achievement.getName();
-                    minReqs = achievement.getReqs();
                 }
             }
         }
-        for (Action action : actionDatabase.getDatabase()) {
+        for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
             if (action.getOutputs().containsKey(qualifier)) {
                 double effectiveTimeThisAction = 0.0;
                 for (Requirement requirement : action.getReqs()) {
@@ -557,7 +493,6 @@ public class Player implements java.io.Serializable {
                 if (effectiveTimeThisAction < minimum) {
                     minimum = effectiveTimeThisAction;
                     minAction = action.getName();
-                    minReqs = action.getReqs();
                 }
             }
         }
@@ -568,7 +503,7 @@ public class Player implements java.io.Serializable {
         //System.out.println(minReqs);
         //System.out.println(efficiency);
         //System.out.println(minAction + " will achieve " + quantifier + " " +qualifier + " in " + minimum + " hours.");
-        return new GoalResults(minimum, minReqs, efficiency);
+        return new GoalResults(minimum, efficiency);
     }
 
     public Map addItemsToMap(Map<String, Double> a, Map<String, Double> b) {

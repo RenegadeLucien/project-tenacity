@@ -1,5 +1,6 @@
 package dynamicdata;
 
+import staticdata.Achievement;
 import staticdata.Item;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Requirement {
+public class Requirement implements java.io.Serializable {
     private String qualifier;
     private int quantifier;
 
@@ -44,11 +45,11 @@ public class Requirement {
 
     public GoalResults timeAndActionsToMeetRequirement(Player player) {
         if (meetsRequirement(player)) {
-            return new GoalResults(0, new ArrayList(), Map.of("", 0.0));
+            return new GoalResults(0, Map.of("", 0.0));
         }
-        double time = 99999;
+        double time;
         Map<String, Double> actions = new HashMap<>();
-        GoalResults goalResults = null;
+        GoalResults goalResults;
         if (qualifier.equals("Strength") || qualifier.equals("Attack")) {
             goalResults = player.efficientGoalCompletion("mCombat", player.getXpToLevel(qualifier, quantifier));
         } else if (qualifier.equals("Ranged")) {
@@ -69,22 +70,35 @@ public class Requirement {
         } else if (Player.ALL_SKILLS.contains(qualifier)) {
             goalResults = player.efficientGoalCompletion(qualifier, player.getXpToLevel(qualifier, quantifier));
 
+        } else if (Item.getItemByName(qualifier) != null && player.getStatus() == 0) {
+            goalResults = player.efficientGoalCompletion(qualifier, quantifier);
+            if (player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier).getTotalTime() < goalResults.getTotalTime()) {
+                goalResults = player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier);
+            }
+        } else if (Achievement.getAchievementByName(qualifier) != null) {
+            Achievement achievement = Achievement.getAchievementByName(qualifier);
+            double achievementTime = 0;
+            Map<String, Double> achievementActions = new HashMap<>();
+            List<GoalResults> subGoals = new ArrayList<>();
+            for (Requirement requirement : achievement.getReqs()) {
+                subGoals.add(requirement.timeAndActionsToMeetRequirement(player));
+            }
+            for (GoalResults subGoal : subGoals) {
+                 achievementTime += subGoal.getTotalTime();
+                 addItemsToMap(achievementActions, subGoal.getActionsWithTimes());
+            }
+            achievementActions.put(qualifier, achievement.getTime());
+            goalResults = new GoalResults(achievementTime, achievementActions);
         } else {
             goalResults = player.efficientGoalCompletion(qualifier, quantifier);
-            if (Item.getItemByName(qualifier) != null && player.getStatus() == 0) {
-                if (player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier).getTotalTime() < time) {
-                    goalResults = player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier);
-                }
-            }
         }
         time = goalResults.getTotalTime();
         addItemsToMap(actions, goalResults.getActionsWithTimes());
-        List<Requirement> recursiveRequirements = new ArrayList<>(goalResults.getRequirements());
         //System.out.println(quantifier + " " +qualifier + " will be achieved in " + time + " hours");
-        return new GoalResults(time, recursiveRequirements, actions);
+        return new GoalResults(time, actions);
     }
 
-    public Map addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
+    public void addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
         for (String item : b.keySet()) {
             if (a.containsKey(item)) {
                 a.put(item, a.get(item) + b.get(item));
@@ -92,6 +106,5 @@ public class Requirement {
                 a.put(item, b.get(item));
             }
         }
-        return a;
     }
 }
