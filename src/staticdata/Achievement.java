@@ -95,9 +95,9 @@ public class Achievement implements java.io.Serializable {
         double totalTimeForAllReqs = 0;
         Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
         for (Requirement r : reqs) {
-            GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
-            for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
-                if (Achievement.getAchievementByName(actionWithTime.getKey()) == null || !totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
+            if (Achievement.getAchievementByName(r.getQualifier()) == null || !totalActionsWithTimesForAllReqs.containsKey(r.getQualifier())) {
+                GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
+                for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                     totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
                 }
             }

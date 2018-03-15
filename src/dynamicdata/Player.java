@@ -479,7 +479,7 @@ public class Player implements java.io.Serializable {
             if (action.getOutputs().containsKey(qualifier)) {
                 double effectiveTimeThisAction = 0.0;
                 for (Requirement requirement : action.getReqs()) {
-                    if (requirement.getQualifier().equals(qualifier) && !requirement.meetsRequirement(this)) {
+                    if (!requirement.meetsRequirement(this)) {
                         // avoids a stack overflow (trying to train to unlock an action by training to unlock that action by training to unlock that action...)
                         effectiveTimeThisAction += 9999999;
                         break;

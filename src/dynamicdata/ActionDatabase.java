@@ -14,7 +14,7 @@ public class ActionDatabase {
     private ActionDatabase(Player player) {
         //Placeholder for skills that have not yet been implemented
         database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Woodcutting", 1, "Fletching", 1,
-            "Construction", 1, "Firemaking", 1, "Invention", 1), true, true, false));
+            "Construction", 1, "Firemaking", 1, "Invention", 1, "Hunter", 1), true, true, false));
 
         //XP-less gathering
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
@@ -29,8 +29,8 @@ public class ActionDatabase {
             true, true, true));
 
         //Construction
-        database.add(new Action("Building crude wooden chairs with bronze nails", Collections.singletonList(new Requirement("Parlour", 1)),
-            Map.of("Plank", 490, "Bronze nails", 1470), Map.of("Construction", 16170), true, true, false));
+        /*database.add(new Action("Building crude wooden chairs with bronze nails", Collections.singletonList(new Requirement("Parlour", 1)),
+            Map.of("Plank", 490, "Bronze nails", 1470), Map.of("Construction", 16170), true, true, false));*/
 
         //Cooking
         database.add(new Action("Cooking raw beef", new ArrayList<>(),
@@ -56,6 +56,10 @@ public class ActionDatabase {
         //Crafting
         database.add(new Action("Crafting molten glass", new ArrayList<>(), Map.of("Soda ash", 1050, "Bucket of sand", 1050),
             Map.of("Molten glass", 1050, "Crafting", 21000), true, true, false));
+
+        database.add(new Action("Ithell harps (w/o VoS)", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
+            Map.of("Crafting", 560*player.getLevel("Crafting"), "Harmonic dust", 7*player.getLevel("Crafting"), "Construction", 10000),
+            true, true, true));
 
         //Divination
         database.add(new Action("Pale wisps (no bought energy)", new ArrayList<>(), new HashMap<>(),

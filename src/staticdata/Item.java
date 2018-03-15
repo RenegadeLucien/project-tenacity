@@ -32,6 +32,7 @@ public enum Item {
     SHRIMPS("Shrimps", 5),
     CRAYFISH("Crayfish", 5),
     RAW_CRAYFISH("Raw crayfish", 5),
+    BALL_OF_WOOL("Ball of wool", 5),
     FEATHER("Feather", 6),
     RAW_SHRIMPS("Raw shrimps", 6),
     BLUE_DYE("Blue dye", 6),
@@ -72,6 +73,7 @@ public enum Item {
     COOKED_MEAT("Cooked meat", 30),
     CLEAN_GUAM("Clean guam", 30),
     GRIMY_GUAM("Grimy guam", 30),
+    PLANT_CURE("Plant cure", 40),
     BRONZE_SQ_SHIELD("Bronze sq shield", 48),
     SHORTBOW("Shortbow", 50),
     BRONZE_BATTLEAXE("Bronze battleaxe", 52),
@@ -103,19 +105,23 @@ public enum Item {
     IRON_CHAINBODY("Iron chainbody", 210),
     HARD_LEATHER_SHIELD("Hard leather shield", 238),
     SAPPHIRE("Sapphire", 250),
+    SUPER_DEFENCE_3("Super defence (3)", 264),
     IRON_PLATELEGS("Iron platelegs", 280),
     IRON_PLATESKIRT("Iron plateskirt", 280),
     IRON_2H_SWORD("Iron 2h sword", 280),
     GOLD_BAR("Gold bar", 300),
     MITHRIL_SEEDS("Mithril seeds", 300),
+    MAGIC_LOGS("Magic logs", 320),
     GOLD_RING("Gold ring", 350),
     EMERALD("Emerald", 500),
     IRON_PLATEBODY("Iron platebody", 560),
     SPIRIT_WOLF_POUCH("Spirit wolf pouch", 599),
+    SAPPHIRE_AMULET("Sapphire amulet", 900),
     RUBY("Ruby", 1000),
     DIAMOND("Diamond", 2000),
     AMULET_OF_ACCURACY("Amulet of accuracy", 5000),
-    RUNE_BAR("Rune bar", 5000);
+    RUNE_BAR("Rune bar", 5000),
+    CREST_OF_SEREN("Crest of Seren", 100000);
 
     private String name;
     private int geval;
