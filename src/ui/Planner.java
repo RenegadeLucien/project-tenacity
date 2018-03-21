@@ -78,7 +78,6 @@ public class Planner extends Application {
     private void handleRow(Entry<Achievement, Double> row, Player player) {
         System.out.println(row.getKey().getTimeForRequirements(player).getTotalTime());
         System.out.println(row.getKey().getTimeForRequirements(player).getActionsWithTimes());
-        System.out.println();
     }
 
     private void displayPlayer(Player p) {
@@ -202,7 +201,7 @@ public class Planner extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.1.0pa (by Iron Lucien)");
+        primaryStage.setTitle("Project Tenacity v0.2.0pa (by Iron Lucien)");
         Text nameText = new Text("Enter profile name:");
         TextField nameEntry = new TextField();
         final ToggleGroup irongroup = new ToggleGroup();

@@ -84,10 +84,12 @@ public class Requirement implements java.io.Serializable {
                 subGoals.add(requirement.timeAndActionsToMeetRequirement(player));
             }
             for (GoalResults subGoal : subGoals) {
-                 achievementTime += subGoal.getTotalTime();
-                 addItemsToMap(achievementActions, subGoal.getActionsWithTimes());
+                addItemsToMap(achievementActions, subGoal.getActionsWithTimes());
             }
             achievementActions.put(qualifier, achievement.getTime());
+            for (double actionTime : achievementActions.values()) {
+                achievementTime += actionTime;
+            }
             goalResults = new GoalResults(achievementTime, achievementActions);
         } else {
             goalResults = player.efficientGoalCompletion(qualifier, quantifier);
@@ -100,8 +102,10 @@ public class Requirement implements java.io.Serializable {
 
     public void addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
         for (String item : b.keySet()) {
-            if (a.containsKey(item)) {
+            if (a.containsKey(item) && Item.getItemByName(item) != null) {
                 a.put(item, a.get(item) + b.get(item));
+            } else if (a.containsKey(item)) {
+                a.put(item, Math.max(a.get(item), b.get(item)));
             } else {
                 a.put(item, b.get(item));
             }
