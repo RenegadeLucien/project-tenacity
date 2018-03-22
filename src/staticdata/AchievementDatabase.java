@@ -842,6 +842,102 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Respect Your Elders", 0, true).requirement("Grown elder tree", 1)
             .requirement("Woodcutting", 90).requirement("Fletching", 90).reward("Woodcutting", 325).reward("Fletching", 101)
             .reward("Elder shortbow (u)", 1).build());
+        achievements.add(new AchievementBuilder("The Graceful Barbarian", 0, true).requirement("Bar Crawl", 1).requirement("Agility", 35)
+            .reward("Agility", 174).build());
+        achievements.add(new AchievementBuilder("Runes on the Moon", 0, true).requirement("Lunar Diplomacy", 1).requirement("Mining", 60)
+            .reward("Pure essence", 1).reward("Mining", 5).build());
+        achievements.add(new AchievementBuilder("Pyre At Will", 0, true).requirement("Crafting", 52).requirement("Firemaking", 52)
+            .requirement("Arctic pine log", 1).requirement("Mangled bones", 1).reward("Crafting", 31).reward("Firemaking", 125).build());
+        achievements.add(new AchievementBuilder("How To Maim Your Dragon", 0, true).requirement("Barbarian Firemaking", 1)
+            .encounter(new Encounter(Enemy.MITHRIL_DRAGON)).build());
+        achievements.add(new AchievementBuilder("Fish Fingers", 0, true).requirement("Strength", 35).requirement("Fishing", 55)
+            .requirement("Barbarian Fishing Training", 1).reward("Fishing", 80).reward("Raw tuna", 1).build());
+        achievements.add(new AchievementBuilder("Easy As Pie", 0, true).requirement("Lunar Diplomacy", 1).requirement("Magic", 65)
+            .requirement("Astral rune", 1).requirement("Fire rune", 5).requirement("Water rune", 1).requirement("Uncooked berry pie", 1)
+            .requirement("Cooking", 10).reward("Redberry pie", 1).reward("Cooking", 78).reward("Magic", 60).build());
+        achievements.add(new AchievementBuilder("Dress to Impress", 0, true).requirement("Rock-shell helm", 0)
+            .requirement("Rock-shell plate", 0).requirement("Rock-shell legs", 0).requirement("Defense", 1)
+            .requirement("The Fremennik Trials", 1).build());
+        achievements.add(new AchievementBuilder("Defeating Deadly Dagannoths", 0, true).requirement("The Fremennik Trials", 1)
+            .encounter(new Encounter(Enemy.DAGANNOTH)).encounter(new Encounter(Enemy.DAGANNOTH)).encounter(new Encounter(Enemy.DAGANNOTH))
+            .build());
+        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Hard", 0, true).requirement("Pyre At Will", 1)
+            .requirement("Defeating Deadly Dagannoths", 1).requirement("Dress to Impress", 1).requirement("The Graceful Barbarian", 1)
+            .requirement("Runes on the Moon", 1).requirement("Fish Fingers", 1).requirement("Easy As Pie", 1)
+            .requirement("How to Maim Your Dragon", 1).requirement("A Periodic Table", 1).lamp(Player.ALL_SKILLS, 15000, 50).build());
+        achievements.add(new AchievementBuilder("You Really Don't Need Any More Shoes", 0, true).requirement("The Fremennik Trials", 1)
+            .build());
+        achievements.add(new AchievementBuilder("You Know You Want It!", 0, true).requirement("Raw bass", 1).requirement("Lyre", 1)
+            .requirement("Ring of charos (a)", 0).reward("Enchanted lyre", 1).build());
+        achievements.add(new AchievementBuilder("Yak Attack", 0, true).requirement("Yak-hide body armour", 0)
+            .requirement("Yak-hide leg armour", 0).requirement("The Fremennik Isles", 1).encounter(new Encounter(Enemy.ICE_TROLL_MALE,
+                Arrays.asList(new Restriction("Yak-hide body armour", 1), new Restriction("Yak-hide leg armour", 1)))).build());
+        achievements.add(new AchievementBuilder("Who's A Good Boy?", 0, true).requirement("Pet rock", 0).build());
+        achievements.add(new AchievementBuilder("Only Takes a Little Vial", 0, true).requirement("Molten glass", 3)
+            .requirement("Crafting", 33).reward("Vial", 3).reward("Crafting", 105).build());
+        achievements.add(new AchievementBuilder("Grand Theft Fish", 0, true).requirement("The Fremennik Trials", 1)
+            .requirement("Thieving", 42).reward("Thieving", 42).build());
+        achievements.add(new AchievementBuilder("Fremmental", 0, true).requirement("The Fremennik Trials", 1).requirement("Cooking", 48)
+            .requirement("Bucket of milk", 1).build());
+        achievements.add(new AchievementBuilder("Fremennik History 101", 0, true).requirement("The Fremennik Trials", 1).build());
+        achievements.add(new AchievementBuilder("Fairy Mountaineering", 0, true).requirement("Fairy Tale II - Cure a Queen", 1).build());
+        achievements.add(new AchievementBuilder("Cool Story, Bro", 0, true).requirement("The Fremennik Trials", 1).build());
+        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Medium", 0, true).requirement("Yak Attack", 1)
+            .requirement("Fremennik History 101", 1).requirement("Cool Story, Bro", 1).requirement("Who's a Good Boy?", 1)
+            .requirement("Only Takes a Little Vial", 1).requirement("You Know You Want It!", 1).requirement("Fremmental", 1)
+            .requirement("Fairy Mountaneering", 1).requirement("You Really Don't Need Any More Shoes", 1).requirement("Big Game Hunter", 1)
+            .requirement("Grand Theft Fish", 1).lamp(Player.ALL_SKILLS, 10000, 40).build());
+        achievements.add(new AchievementBuilder("Why Won't You Die?", 0, true).encounter(new Encounter(Enemy.ROCK_CRAB))
+            .encounter(new Encounter(Enemy.ROCK_CRAB)).encounter(new Encounter(Enemy.ROCK_CRAB)).encounter(new Encounter(Enemy.ROCK_CRAB))
+            .encounter(new Encounter(Enemy.ROCK_CRAB)).build());
+        achievements.add(new AchievementBuilder("Why Did the Lobster Blush?", 0, true).reward("Seaweed", 3).build());
+        achievements.add(new AchievementBuilder("Peer Off the Pier", 0, true).reward("Raw shrimps", 1).reward("Fishing", 10).build());
+        achievements.add(new AchievementBuilder("Oxymoron Incarnate", 0, true).build());
+        achievements.add(new AchievementBuilder("King Conifer", 0, true).build());
+        achievements.add(new AchievementBuilder("Hunting the Hunter", 0, true).build());
+        achievements.add(new AchievementBuilder("Endangered Species", 0, true).encounter(new Encounter(Enemy.BLACK_UNICORN)).build());
+        achievements.add(new AchievementBuilder("Assaulted Goodies", 0, true).build());
+        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Easy", 0, true).requirement("King Conifer", 1)
+            .requirement("Bring the Antipoisons", 1).requirement("Why Won't You Die?", 1).requirement("Assaulted Goodies", 1)
+            .requirement("Oxymoron Incarnate", 1).requirement("Why Did the Lobster Blush?", 1).requirement("Hunting the Hunter", 1)
+            .requirement("Peer Off the Pier", 1).requirement("A Familiar Feeling", 1).requirement("Endangered Species", 1)
+            .lamp(Player.ALL_SKILLS, 5000, 30).build());
+        achievements.add(new AchievementBuilder("Dream Mentor", 0.5, false).requirement("Lunar Diplomacy", 1)
+            .requirement("Eadgar's Ruse", 1).requirement("Goutweed", 1).requirement("Astral rune", 1)
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.THE_INADEQUACY, Enemy.THE_EVERLASTING,
+                Enemy.THE_UNTOUCHABLE, Enemy.THE_ILLUSIVE)))).reward("Quest points", 2).reward("Magic", 10000).reward("Constitution", 15000)
+            .lamp(Arrays.asList("Strength", "Ranged", "Magic", "Constitution", "Defense"), 15000, 1).build());
+        achievements.add(new AchievementBuilder("Blood Runs Deep", 1.5, false).requirement("Dream Mentor", 1)
+            .requirement("Glorious Memories", 1).requirement("Horror from the Deep", 1).requirement("Fremennik Set Tasks - Easy", 1)
+            .requirement("Fremennik Set Tasks - Medium", 1).requirement("Fremennik Set Tasks - Hard", 1).requirement("Attack", 75)
+            .requirement("Strength", 75).requirement("Slayer", 65)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH),
+                Collections.singletonList(Enemy.DAGANNOTH), Collections.singletonList(Enemy.DAGANNOTH))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.DAGANNOTH_SENTINEL, Enemy.DAGANNOTH_SENTINEL))))
+            .encounter(new Encounter(Enemy.DAGANNOTH_MOTHER_BRD)).reward("Quest points", 2).reward("Balmung", 1).build());
         achievements.add(new AchievementBuilder("Properly Metal", 0.15, true).requirement("Slayer", 95).requirement("Plague's End", 1)
             .requirement("Blood Runs Deep", 1).requirement("The Branches of Darkmeyer", 1).requirement("The Elder Kiln", 1)
             .requirement("Ritual of the Mahjarrat", 1).requirement("The Chosen Commander", 1).requirement("The Firemaker's Curse", 1)
@@ -1189,7 +1285,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Who You Gonna Ring?", 0, true).requirement("Fairy Tale II - Cure a Queen", 1).build());
         achievements.add(new AchievementBuilder("Travelling on the Slime Trail", 0, true).requirement("Ectophial", 1).build());
         achievements.add(new AchievementBuilder("The Yeast They Can Do", 0, true).requirement("Ecto-token", 5).requirement("Empty pot", 1)
-            .requirement("Ghostspeak amulet", 0).reward("Ale yeast", 1).build());
+            .requirement("The Restless Ghost", 1).reward("Ale yeast", 1).build());
         achievements.add(new AchievementBuilder("The Higher, The Better", 0, true).requirement("Slayer", 45)
             .encounter(new Encounter(Enemy.INFERNAL_MAGE)).build());
         achievements.add(new AchievementBuilder("The Beer Inn-spectre", 0, true).requirement("Cooking", 14).requirement("Cooking apple", 16)
@@ -1434,20 +1530,6 @@ public class AchievementDatabase {
             .requirement("Scourge of Scurvy", 1).requirement("Hunters of the Horned Graahk", 1).requirement("The Roots of All Evil", 1)
             .requirement("Points of No Return", 1).requirement("Stairway to Haven", 1).requirement("Thank You, Madam", 1)
             .requirement("Shipping Out From the Shipyard", 1).lamp(Player.ALL_SKILLS, 5000, 40).build());
-        achievements.add(new AchievementBuilder("Why Won't You Die?", 0, true).encounter(new Encounter(Enemy.ROCK_CRAB))
-            .encounter(new Encounter(Enemy.ROCK_CRAB)).encounter(new Encounter(Enemy.ROCK_CRAB)).encounter(new Encounter(Enemy.ROCK_CRAB))
-            .encounter(new Encounter(Enemy.ROCK_CRAB)).build());
-        achievements.add(new AchievementBuilder("Why Did the Lobster Blush?", 0, true).reward("Seaweed", 3).build());
-        achievements.add(new AchievementBuilder("Peer Off the Pier", 0, true).reward("Raw shrimps", 1).reward("Fishing", 10).build());
-        achievements.add(new AchievementBuilder("Oxymoron Incarnate", 0, true).build());
-        achievements.add(new AchievementBuilder("King Conifer", 0, true).build());
-        achievements.add(new AchievementBuilder("Hunting the Hunter", 0, true).build());
-        achievements.add(new AchievementBuilder("Endangered Species", 0, true).encounter(new Encounter(Enemy.BLACK_UNICORN)).build());
-        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Easy", 0, true).requirement("King Conifer", 1)
-            .requirement("Bring the Antipoisons", 1).requirement("Why Won't You Die?", 1).requirement("Assaulted Goodies", 1)
-            .requirement("Oxymoron Incarnate", 1).requirement("Why Did the Lobster Blush?", 1).requirement("Hunting the Hunter", 1)
-            .requirement("Peer Off the Pier", 1).requirement("A Familiar Feeling", 1).requirement("Endangered Species", 1)
-            .lamp(Player.ALL_SKILLS, 5000, 30).build());
         achievements.add(new AchievementBuilder("This Hasta Work", 0, true).requirement("Rune bar", 1).requirement("Magic logs", 1)
             .requirement("Smithing", 90).requirement("Tai Bwo Wannai Trio", 1).requirement("Barbarian Smithing", 1).reward("Smithing", 150)
             .reward("Rune hasta", 1).build());
@@ -1469,51 +1551,6 @@ public class AchievementDatabase {
             .requirement("Potting With Otto", 1).requirement("Axe'll Grease", 1).lamp(Player.ALL_SKILLS, 40000, 89)
             .lamp(Player.ALL_SKILLS, 30000, 86).lamp(Player.ALL_SKILLS, 30000, 86).lamp(Player.ALL_SKILLS, 30000, 86)
             .lamp(Player.ALL_SKILLS, 30000, 86).build());
-        achievements.add(new AchievementBuilder("The Graceful Barbarian", 0, true).requirement("Bar Crawl", 1).requirement("Agility", 35)
-            .reward("Agility", 174).build());
-        achievements.add(new AchievementBuilder("Runes on the Moon", 0, true).requirement("Lunar Diplomacy", 1).requirement("Mining", 60)
-            .reward("Pure essence", 1).reward("Mining", 5).build());
-        achievements.add(new AchievementBuilder("Pyre At Will", 0, true).requirement("Crafting", 52).requirement("Firemaking", 52)
-            .requirement("Arctic pine log", 1).requirement("Mangled bones", 1).reward("Crafting", 31).reward("Firemaking", 125).build());
-        achievements.add(new AchievementBuilder("How To Maim Your Dragon", 0, true).requirement("Barbarian Firemaking", 1)
-            .encounter(new Encounter(Enemy.MITHRIL_DRAGON)).build());
-        achievements.add(new AchievementBuilder("Fish Fingers", 0, true).requirement("Strength", 35).requirement("Fishing", 55)
-            .requirement("Barbarian Fishing Training", 1).reward("Fishing", 80).reward("Raw tuna", 1).build());
-        achievements.add(new AchievementBuilder("Easy As Pie", 0, true).requirement("Lunar Diplomacy", 1).requirement("Magic", 65)
-            .requirement("Astral rune", 1).requirement("Fire rune", 5).requirement("Water rune", 1).requirement("Uncooked berry pie", 1)
-            .requirement("Cooking", 10).reward("Redberry pie", 1).reward("Cooking", 78).reward("Magic", 60).build());
-        achievements.add(new AchievementBuilder("Dress to Impress", 0, true).requirement("Rock-shell helm", 0)
-            .requirement("Rock-shell plate", 0).requirement("Rock-shell legs", 0).requirement("Defense", 1)
-            .requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Defeating Deadly Dagannoths", 0, true).requirement("The Fremennik Trials", 1)
-            .encounter(new Encounter(Enemy.DAGANNOTH)).encounter(new Encounter(Enemy.DAGANNOTH)).encounter(new Encounter(Enemy.DAGANNOTH))
-            .build());
-        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Hard", 0, true).requirement("Pyre At Will", 1)
-            .requirement("Defeating Deadly Dagannoths", 1).requirement("Dress to Impress", 1).requirement("The Graceful Barbarian", 1)
-            .requirement("Runes on the Moon", 1).requirement("Fish Fingers", 1).requirement("Easy As Pie", 1)
-            .requirement("How to Maim Your Dragon", 1).requirement("A Periodic Table", 1).lamp(Player.ALL_SKILLS, 15000, 50).build());
-        achievements.add(new AchievementBuilder("You Really Don't Need Any More Shoes", 0, true).requirement("The Fremennik Trials", 1)
-            .build());
-        achievements.add(new AchievementBuilder("You Know You Want It!", 0, true).requirement("Raw bass", 1).requirement("Lyre", 1)
-            .requirement("Ring of charos (a)", 0).reward("Enchanted lyre", 1).build());
-        achievements.add(new AchievementBuilder("Yak Attack", 0, true).requirement("Yak-hide body armour", 0)
-            .requirement("Yak-hide leg armour", 0).requirement("The Fremennik Isles", 1).encounter(new Encounter(Enemy.ICE_TROLL_MALE,
-                Arrays.asList(new Restriction("Yak-hide body armour", 1), new Restriction("Yak-hide leg armour", 1)))).build());
-        achievements.add(new AchievementBuilder("Who's A Good Boy?", 0, true).requirement("Pet rock", 0).build());
-        achievements.add(new AchievementBuilder("Only Takes a Little Vial", 0, true).requirement("Molten glass", 3)
-            .requirement("Crafting", 33).reward("Vial", 3).reward("Crafting", 105).build());
-        achievements.add(new AchievementBuilder("Grand Theft Fish", 0, true).requirement("The Fremennik Trials", 1)
-            .requirement("Thieving", 42).reward("Thieving", 42).build());
-        achievements.add(new AchievementBuilder("Fremmental", 0, true).requirement("The Fremennik Trials", 1).requirement("Cooking", 48)
-            .requirement("Bucket of milk", 1).build());
-        achievements.add(new AchievementBuilder("Fremennik History 101", 0, true).requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Fairy Mountaineering", 0, true).requirement("Fairy Tale II - Cure a Queen", 1).build());
-        achievements.add(new AchievementBuilder("Cool Story, Bro", 0, true).requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Medium", 0, true).requirement("Yak Attack", 1)
-            .requirement("Fremennik History 101", 1).requirement("Cool Story, Bro", 1).requirement("Who's a Good Boy?", 1)
-            .requirement("Only Takes a Little Vial", 1).requirement("You Know You Want It!", 1).requirement("Fremmental", 1)
-            .requirement("Fairy Mountaneering", 1).requirement("You Really Don't Need Any More Shoes", 1).requirement("Big Game Hunter", 1)
-            .requirement("Grand Theft Fish", 1).lamp(Player.ALL_SKILLS, 10000, 40).build());
         achievements.add(new AchievementBuilder("The Good Stuff", 0, true).requirement("Coins", 3).build());
         achievements.add(new AchievementBuilder("Stand and Deliver", 0, true).encounter(new Encounter(Enemy.HIGHWAYMAN)).build());
         achievements.add(new AchievementBuilder("Sniffing Out the Mole", 0, true).build());

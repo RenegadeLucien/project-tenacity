@@ -20,6 +20,8 @@ public class ActionDatabase {
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
             true, true, false));
         database.add(new Action("Collecting planks", new ArrayList(), new HashMap(), Map.of("Plank", 240), true, true, false));
+        database.add(new Action("Buying cleansing crystals", Collections.singletonList(new Requirement("Plague's End", 1)),
+            Map.of("Coins", 39600000), Map.of("Cleansing crystal", 360), true, true, false));
 
         //Agility
         database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 7580),
@@ -86,9 +88,10 @@ public class ActionDatabase {
         //Mining
         database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250),
             true, true, false));
+        database.add(new Action("Mining pure essence", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(),
+            Map.of("Mining", 10220, "Pure essence", 2044), true, true, false));
 
         int copperMined = resourcesGained(40, 6.0, player, 100.0, "Mining");
-        System.out.println(copperMined);
         database.add(new Action("Mining copper ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Copper ore", copperMined,
             "Mining", (int) Math.floor(17.5 * copperMined)), true, true, true));
         database.add(new Action("Mining tin ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Tin ore", copperMined,
