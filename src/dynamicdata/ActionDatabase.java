@@ -14,7 +14,7 @@ public class ActionDatabase {
     private ActionDatabase(Player player) {
         //Placeholder for skills that have not yet been implemented
         database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Woodcutting", 1, "Fletching", 1,
-            "Construction", 1, "Firemaking", 1, "Invention", 1, "Hunter", 1), true, true, false));
+            "Construction", 1, "Firemaking", 1, "Invention", 1, "Hunter", 1, "Farming", 1), true, true, false));
 
         //XP-less gathering
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
@@ -92,15 +92,19 @@ public class ActionDatabase {
             Map.of("Mining", 10220, "Pure essence", 2044), true, true, false));
 
         int copperMined = resourcesGained(40, 6.0, player, 100.0, "Mining");
+        int coalMined = resourcesGained(70, 6.0, player, 30.0, "Mining");
         database.add(new Action("Mining copper ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Copper ore", copperMined,
             "Mining", (int) Math.floor(17.5 * copperMined)), true, true, true));
         database.add(new Action("Mining tin ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Tin ore", copperMined,
             "Mining", (int) Math.floor(17.5 * copperMined)), true, true, true));
+        database.add(new Action("Mining coal with bronze pickaxe", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(),
+            Map.of("Coal", coalMined, "Mining", 50*coalMined), true, true, true));
 
         //Prayer
         database.add(new Action("Offering bones to Chaos Altar", new ArrayList<>(), Map.of("Bones", 1400),
             Map.of("Prayer", 22050), true, false, false));
-
+        database.add(new Action("Offering bones to Ectofuntus", new ArrayList(), Map.of("Bones", 390), Map.of("Prayer", 7020, "Ecto-token",
+            1890), true, true, false));
         database.add(new Action("Burying bones", new ArrayList<>(), Map.of("Bones", 3600), Map.of("Prayer", 16200),
             true, true, false));
 

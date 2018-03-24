@@ -54,16 +54,15 @@ public class AchievementDatabase {
             .requirement("The Restless Ghost", 1).requirement("Spade", 0).requirement("Coins", 2600).requirement("Sapphire amulet", 1)
             .reward("Quest points", 3).reward("Crafting", 1000).reward("Prayer", 1000).reward("Coins", 750).reward("Kudos", 5)
             .reward("Enchanted key", 1).build());
-        achievements.add(new AchievementBuilder("Plague's End", 2, true).requirement("Making History", 1)
+        achievements.add(new AchievementBuilder("Plague's End", 2, false).requirement("Making History", 1)
             .requirement("Catapult Construction", 1).requirement("Within the Light", 1).requirement("Agility", 75)
             .requirement("Construction", 75).requirement("Crafting", 75).requirement("Dungeoneering", 75).requirement("Herblore", 75)
             .requirement("Mining", 75).requirement("Prayer", 75).requirement("Ranged", 75).requirement("Summoning", 75)
-            .requirement("Woodcutting", 75).requirement("Gas mask", 0).requirement("Mourner boots", 0).requirement("Mourner cloak", 0)
-            .requirement("Mourner gloves", 0).requirement("Mourner top", 0).requirement("Mourner trousers", 0).requirement("Rune bar", 1)
-            .requirement("Plant cure", 1).requirement("Magic logs", 10).requirement("Spirit shards", 200).requirement("Gold charm", 1)
-            .requirement("Green charm", 1).requirement("Crimson charm", 1).requirement("Blue charm", 1).requirement("Pouch", 1)
-            .requirement("Super defence (3)", 1).encounter(new Encounter(Arrays.asList(Arrays.asList(Enemy.MOURNER, Enemy.MOURNER,
-                Enemy.MOURNER), Arrays.asList(Enemy.MOURNER, Enemy.MOURNER, Enemy.HEAD_MOURNER)))).encounter(new Encounter(Enemy.SIR_HUGO))
+            .requirement("Woodcutting", 75).requirement("Rune bar", 1).requirement("Plant cure", 1).requirement("Magic logs", 10)
+            .requirement("Spirit shards", 200).requirement("Gold charm", 1).requirement("Green charm", 1).requirement("Crimson charm", 1)
+            .requirement("Blue charm", 1).requirement("Pouch", 1).requirement("Super defence (3)", 1)
+            .encounter(new Encounter(Arrays.asList(Arrays.asList(Enemy.MOURNER, Enemy.MOURNER, Enemy.MOURNER), Arrays.asList(Enemy.MOURNER,
+                Enemy.MOURNER, Enemy.HEAD_MOURNER)))).encounter(new Encounter(Enemy.SIR_HUGO))
             .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.TRAHAEARN_AUTOMATON, Enemy.TRAHAEARN_AUTOMATON,
                 Enemy.TRAHAEARN_AUTOMATON)))).encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.SHADOW_PE,
                 Enemy.SHADOW_PE)))).encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.SHADOW_PE,
@@ -110,6 +109,19 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("A Prayer Opportunity", 0.1, true).requirement("Constructiion", 75)
             .requirement("Smithing", 50).requirement("Complexity unlocked", 5).build());
         achievements.add(new AchievementBuilder("A Road Less Travelled", 0, true).build());
+        achievements.add(new AchievementBuilder("Biohazard", 0.75, false).requirement("Plague City", 1).requirement("Coins", 10)
+            .encounter(new Encounter(Enemy.MOURNER_ARDY)).reward("Quest points", 3).reward("Thieving", 1250).build());
+        achievements.add(new AchievementBuilder("Underground Pass", 2, false).requirement("Biohazard", 1).requirement("Ranged", 25)
+            .requirement("Rope", 2).requirement("Shortbow", 0).requirement("Bronze arrow", 1).encounter(new Encounter(Enemy.KALRAG))
+            .encounter(new Encounter(Enemy.PALADIN_UP)).encounter(new Encounter(Enemy.PALADIN_UP))
+            .encounter(new Encounter(Enemy.PALADIN_UP)).encounter(new Encounter(Enemy.DEMON_UP)).encounter(new Encounter(Enemy.DEMON_UP))
+            .encounter(new Encounter(Enemy.DEMON_UP)).encounter(new Encounter(Enemy.DISCIPLE_OF_IBAN)).reward("Quest points", 5)
+            .reward("Agility", 3000).reward("Attack", 3000).reward("Iban's staff", 1).reward("Fire rune", 15).reward("Death rune", 30)
+            .build());
+        achievements.add(new AchievementBuilder("Regicide", 1.5, false).requirement("Agility", 56).requirement("Crafting", 10)
+            .requirement("Underground Pass", 1).requirement("Shortbow", 0).requirement("Bronze arrow", 1).requirement("Rope", 1)
+            .requirement("Limestone", 1).requirement("Coal", 20).requirement("Strip of cloth", 1).requirement("Cooked rabbit", 1)
+            .encounter(new Encounter(Enemy.TYRAS_GUARD)).reward("Quest points", 3).reward("Agility", 13750).reward("Coins", 15000).build());
         achievements.add(new AchievementBuilder("A Screwball Scramble", 0, true).requirement("Regicide", 1).requirement("Agility", 85)
             .build());
         achievements.add(new AchievementBuilder("A Seer-ing Light", 0, true).build());
@@ -547,6 +559,25 @@ public class AchievementDatabase {
             .reward("Blood rune", 100).build());
         achievements.add(new AchievementBuilder("Blooming Marvellous", 0, true).requirement("Silver sickle (b)", 1)
             .reward("Mort myre fungus", 1).build());
+        achievements.add(new AchievementBuilder("Sheep Herder", 0.75, false).requirement("Coins", 100).reward("Coins", 3100)
+            .reward("Quest points", 4).build());
+        achievements.add(new AchievementBuilder("Big Chompy Bird Hunting", 0.75, false).requirement("Cooking", 30)
+            .requirement("Ranged", 30).requirement("Fletching", 5).requirement("Feather", 100).requirement("Wolf bones", 5)
+            .encounter(new Encounter(Enemy.CHOMPY_BIRD, Collections.singletonList(new Restriction("Ogre bow", 1))))
+            .reward("Quest points", 2).reward("Fletching", 262).reward("Cooking", 1470).reward("Ranged", 735).build());
+        achievements.add(new AchievementBuilder("Waterfall Quest", 0.75, false).requirement("Air rune", 6).requirement("Earth rune", 6)
+            .requirement("Water rune", 6).requirement("Rope", 0).reward("Quest points", 1).reward("Diamond", 2).reward("Gold bar", 2)
+            .reward("Mithril seeds", 40).reward("Attack", 13750).reward("Strength", 13750).build());
+        achievements.add(new AchievementBuilder("Roving Elves", 1, false).requirement("Waterfall Quest", 1).requirement("Regicide", 1)
+            .requirement("Rope", 0).encounter(new Encounter(Enemy.MOSS_GIANT_GLARIAL, Arrays.asList(new Restriction("Prayer", 0),
+                new Restriction("Weapons", 0), new Restriction("Armour", 0), new Restriction("Prayer", 0)))).reward("Quest points", 1)
+            .reward("Strength", 10000).reward("Crystal bow", 1).build());
+        achievements.add(new AchievementBuilder("Mourning's End Part I", 2, false).requirement("Big Chompy Bird Hunting", 1)
+            .requirement("Sheep Herder", 1).requirement("Roving Elves", 1).requirement("Ranged", 60).requirement("Thieving", 50)
+            .requirement("Bear fur", 1).requirement("Silk", 2).requirement("Bucket of water", 1).requirement("Feather", 1)
+            .requirement("Toad crunchies", 1).requirement("Leather", 1).requirement("Magic logs", 1).requirement("Coins", 24)
+            .requirement("Coal", 20).encounter(new Encounter(Enemy.MOURNER)).reward("Quest points", 2).reward("Thieving", 25000)
+            .reward("Constitution", 25000).build());
         achievements.add(new AchievementBuilder("Blowing Your Own Trumpet", 0, true).requirement("Mourning's End Part I", 1).build());
         achievements.add(new AchievementBuilder("Bombi", 0, true).requirement("Ancient artifact", 1).build());
         achievements.add(new AchievementBuilder("Bone I Fired", 0, true).requirement("Zanik's crossbow", 1).requirement("Bone bolt", 2)
@@ -637,6 +668,8 @@ public class AchievementDatabase {
             .requirement("Smithing", 40).requirement("Crafting", 50).requirement("Magic", 49).requirement("Fire rune", 5)
             .requirement("Cosmic rune", 1).reward("Smithing", 22).reward("Crafting", 176).reward("Magic", 59)
             .reward("Amulet of strength", 1).build());
+        achievements.add(new AchievementBuilder("Murder Mystery", 0.75, false).requirement("Empty pot", 1).reward("Quest points", 3)
+            .reward("Coins", 2000).reward("Pot of flour", 1).reward("Crafting", 1406).build());
         achievements.add(new AchievementBuilder("Bunch of Flours", 0, true).requirement("Murder Mystery", 1).requirement("Empty pot", 1)
             .reward("Pot of flour", 1).build());
         achievements.add(new AchievementBuilder("Burning Bush", 0, true).requirement("Grown poison ivy", 1).reward("Farming", 45).build());
@@ -668,6 +701,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Careful, There Are Snakes", 0.05, true).requirement("Thieving", 31).build());
         achievements.add(new AchievementBuilder("Casting a Shadow", 0, true).requirement("Blissful shadow core", 1)
             .requirement("Divination", 81).requirement("Plague's End", 1).reward("Divination", 455).build());
+        achievements.add(new AchievementBuilder("Mourning's End Part II", 2.5, false).requirement("Mourning's End Part I", 1)
+            .requirement("Rope", 1).requirement("Death talisman", 0).reward("Quest points", 2).reward("Agility", 20000).build());
         achievements.add(new AchievementBuilder("Casting Shadows", 0, true).requirement("Mourning's End Part II", 1)
             .requirement("Desert Treasure", 1).requirement("Magic", 52).requirement("Earth rune", 3).requirement("Death rune", 1)
             .encounter(new Encounter(Enemy.SHADOW, Collections.singletonList(new Restriction("Shadow spells", 1)))).build());
@@ -805,9 +840,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Pretty and Witty and Dead", 0, true).requirement("Death tiara", 0)
             .requirement("Pure essence", 20).requirement("Runecrafting", 65).requirement("Mourning's End Part II", 1)
             .reward("Runecrafting", 200).reward("Death rune", 20).build());
-        achievements.add(new AchievementBuilder("Papa Pawya", 0, true).requirement("Grown papaya tree", 1).requirement("Hunter", 66)
-            .requirement("Mourning's End Part I", 1).requirement("Box trap", 0).reward("Raw pawya meat", 1).reward("Farming", 27)
-            .reward("Hunter", 400).build());
+        achievements.add(new AchievementBuilder("Papa Pawya", 0.05, true).requirement("Papaya tree seed", 1).requirement("Hunter", 66)
+            .requirement("Farming", 57).requirement("Mourning's End Part I", 1).requirement("Box trap", 0).reward("Raw pawya meat", 1)
+            .reward("Farming", 6173).reward("Hunter", 400).build());
         achievements.add(new AchievementBuilder("Mufflebirds", 0, true).requirement("Regicide", 1).requirement("Agility", 56).build());
         achievements.add(new AchievementBuilder("Light Transit", 0, true).requirement("Within the Light", 1)
             .requirement("Crystal teleport charge", 1).build());
@@ -831,7 +866,7 @@ public class AchievementDatabase {
             .requirement("Dungeoneering", 90).requirement("Fletching", 90).requirement("Herblore", 90).requirement("Thieving", 90)
             .requirement("Magic", 90).requirement("Slayer", 90).requirement("Farming", 90).requirement("Construction", 90)
             .requirement("Hunter", 90).requirement("Summoning", 90).requirement("Divination", 90).reward("Crafting", 90).build());
-        achievements.add(new AchievementBuilder("The Expensive Range", 0.05, true).requirement("Crafting", 89).requirement("Miing", 81)
+        achievements.add(new AchievementBuilder("The Expensive Range", 0.05, true).requirement("Crafting", 89).requirement("Mining", 81)
             .requirement("Herblore", 76).requirement("Grand ranging potion recipe", 1).requirement("Ranging potion (4)", 1)
             .requirement("Super ranging potion (4)", 1).reward("Mining", 70).reward("Crafting", 150).reward("Herblore", 144)
             .reward("Grand ranging potion (6)", 1).build());
@@ -868,7 +903,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("You Really Don't Need Any More Shoes", 0, true).requirement("The Fremennik Trials", 1)
             .build());
         achievements.add(new AchievementBuilder("You Know You Want It!", 0, true).requirement("Raw bass", 1).requirement("Lyre", 1)
-            .requirement("Ring of charos (a)", 0).reward("Enchanted lyre", 1).build());
+            .requirement("Garden of Tranquility", 1).reward("Enchanted lyre", 1).build());
         achievements.add(new AchievementBuilder("Yak Attack", 0, true).requirement("Yak-hide body armour", 0)
             .requirement("Yak-hide leg armour", 0).requirement("The Fremennik Isles", 1).encounter(new Encounter(Enemy.ICE_TROLL_MALE,
                 Arrays.asList(new Restriction("Yak-hide body armour", 1), new Restriction("Yak-hide leg armour", 1)))).build());
@@ -1490,8 +1525,8 @@ public class AchievementDatabase {
             .requirement("Drop It Like It's Hot", 1).requirement("Deadwing", 1).requirement("Quick As a Shot", 1)
             .requirement("Can Opener", 1).requirement("Yes, My Master", 1).requirement("A Palm For Each Finger", 1)
             .lamp(Player.ALL_SKILLS, 10000, 50).build());
-        achievements.add(new AchievementBuilder("To Catch a Karambwan", 0, true).requirement("Raw karambwanji", 1)
-            .requirement("Tai Bwo Wannai Trio", 1).requirement("Fishing", 65).reward("Fishing", 105).reward("Raw karambwan", 1).build());
+        achievements.add(new AchievementBuilder("To Catch a Karambwan", 0, true).requirement("Tai Bwo Wannai Trio", 1)
+            .requirement("Fishing", 65).reward("Fishing", 110).reward("Raw karambwan", 1).build());
         achievements.add(new AchievementBuilder("They Like Me! They Really Like Me!", 0, true).requirement("Tai Bwo Wannai favour", 100)
             .build());
         achievements.add(new AchievementBuilder("The Roots of All Evil", 0, true).requirement("Coins", 875).requirement("Woodcutting", 10)
