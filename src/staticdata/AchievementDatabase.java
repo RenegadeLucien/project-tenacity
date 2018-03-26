@@ -50,6 +50,9 @@ public class AchievementDatabase {
             .requirement("Gertrude's Cat", 1).requirement("Cat", 1).build());
         achievements.add(new AchievementBuilder("The Restless Ghost", 0.25, false).reward("Quest points", 1).reward("Prayer", 1125)
             .build());
+        achievements.add(new AchievementBuilder("Priest in Peril", 0.75, false).requirement("Pure essence", 25).requirement("Bucket", 0)
+            .encounter(new Encounter(Enemy.CERBERUS)).encounter(new Encounter(Enemy.MONK_OF_ZAMORAK)).reward("Quest points", 1)
+            .lamp(Collections.singletonList("Prayer"), 1406, 10).build());
         achievements.add(new AchievementBuilder("Making History", 0.75, false).requirement("Priest in Peril", 1)
             .requirement("The Restless Ghost", 1).requirement("Spade", 0).requirement("Coins", 2600).requirement("Sapphire amulet", 1)
             .reward("Quest points", 3).reward("Crafting", 1000).reward("Prayer", 1000).reward("Coins", 750).reward("Kudos", 5)
@@ -224,6 +227,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Arandar-bout Way", 0, true).requirement("Gas mask", 0).requirement("Mourner top", 0)
             .requirement("Mourner trousers", 0).requirement("Mourner boots", 0).requirement("Mourner gloves", 0)
             .requirement("Mourner cloak", 0).requirement("Regicide", 1).build());
+        achievements.add(new AchievementBuilder("Impressing the Locals", 0.25, true).requirement("Coins", 1000).reward("Quest points", 1)
+            .build());
         achievements.add(new AchievementBuilder("Arc - All Your Energies", 0, true).requirement("Chimes", 5000).requirement("Tajitu", 5)
             .requirement("Impressing the Locals", 1).build());
         achievements.add(new AchievementBuilder("Arc - Ancient Eastern Tortle Portals", 0.05, true).requirement("Divination", 90)
@@ -295,7 +300,7 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Arc VI - Harbinger of Doom", 0.25, true).requirement("Arc V - Eye for an Eye", 1)
             .reward("Chimes", 250).reward("Tajitu", 2).lamp(Collections.singletonList("Construction"), -3, 1).build());
-        achievements.add(new AchievementBuilder("Arc VII - Tuai Let's Own", 0.5, true).requirement("Arc VI - Harbinger of Doom", 1)
+        achievements.add(new AchievementBuilder("Arc VII - Tuai Leit's Own", 0.5, true).requirement("Arc VI - Harbinger of Doom", 1)
             .requirement("Farming", 86).requirement("Divination", 90).requirement("Rumberry", 30).requirement("Positive energy", 30)
             .requirement("Spirit dragon charm", 1).reward("Chimes", 500).reward("Tajitu", 2).reward("Rumberry", 50)
             .reward("Ancestral energy", 50).build());
@@ -305,7 +310,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Arc IX - Damage Control", 0.25, true).requirement("Arc VI - Harbinger of Doom", 1)
             .requirement("Chimes", 2500).reward("Chimes", 3000).reward("Tajitu", 2).lamp(Collections.singletonList("Thieving"), -3, 1)
             .build());
-        achievements.add(new AchievementBuilder("Arc X - Final Destination", 0.25, true).requirement("Arc VII - Tuai Let's Own", 1)
+        achievements.add(new AchievementBuilder("Arc X - Final Destination", 0.25, true).requirement("Arc VII - Tuai Leit's Own", 1)
             .requirement("Arc IX - Damage Control", 1).requirement("Arc VIII - Ghosts from the Past", 1)
             .encounter(new Encounter(Arrays.asList(Arrays.asList(Enemy.ZYCLOPS_CANNONEER, Enemy.ZYCLOPS_CANNONEER, Enemy.ZYCLOPS_CANNONEER),
                 Arrays.asList(Enemy.ZOMBIE_UI, Enemy.ZOMBIE_UI, Enemy.ZOMBIE_UI, Enemy.ZOMBIE_UI, Enemy.ZOMBIE_UI, Enemy.ZOMBIE_UI),
@@ -438,14 +443,54 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Around the World in Six Ways", 0, true).requirement("Balloon transport system routes", 6)
             .build());
-        achievements.add(new AchievementBuilder("Artisan Crafting", 0, true).requirement("Unfired clay ring", 1).requirement("Crafting", 4)
-            .reward("Clay ring", 1).reward("Crafting", 11).build());
+        achievements.add(new AchievementBuilder("Artisan Crafting", 0, true).requirement("Clay ring (unfired)", 1)
+            .requirement("Crafting", 4).reward("Clay ring", 1).reward("Crafting", 11).build());
         achievements.add(new AchievementBuilder("As Good As Renew", 0.1, true).requirement("Farming", 91).requirement("Herblore", 94)
             .requirement("Fellstalk seed", 1).requirement("Morchella mushroom spore", 1).reward("Farming", 1400).reward("Herblore", 190)
             .reward("Prayer renewal (3)", 1).build());
         achievements.add(new AchievementBuilder("As Taxed as a Yak", 0, true).requirement("The Fremennik Isles", 1)
             .requirement("Coins", 5000).build());
         achievements.add(new AchievementBuilder("As Clear as a Crystal Seed", 0, true).requirement("Within the Light", 1).build());
+        achievements.add(new AchievementBuilder("Nature Spirit", 0.5, false).requirement("Priest in Peril", 1)
+            .requirement("The Restless Ghost", 1).requirement("Silver sickle", 1).encounter(new Encounter(Enemy.GHAST,
+                Collections.singletonList(new Restriction("Silver sickle (b)", 1)))).encounter(new Encounter(Enemy.GHAST,
+                Collections.singletonList(new Restriction("Silver sickle (b)", 1)))).encounter(new Encounter(Enemy.GHAST,
+                Collections.singletonList(new Restriction("Silver sickle (b)", 1)))).reward("Quest points", 2).reward("Apple pie", 3)
+            .reward("Meat pie", 3).reward("Constitution", 2000).reward("Prayer", 90).lamp(Collections.singletonList("Defense"), 2000, 3)
+            .lamp(Collections.singletonList("Crafting"), 3000, 4).build());
+        achievements.add(new AchievementBuilder("In Search of the Myreque", 0.25, false).requirement("Nature Spirit", 1)
+            .requirement("Agility", 25).requirement("Steel longsword", 1).requirement("Steel sword", 2).requirement("Steel mace", 1)
+            .requirement("Steel warhammer", 1).requirement("Steel dagger", 1).requirement("Steel nails", 75).requirement("Plank", 6)
+            .requirement("Mort myre stem", 3).encounter(new Encounter(Enemy.SKELETON_HELLHOUND)).reward("Quest points", 2)
+            .reward("Uncut ruby", 2).reward("Big bones", 4).lamp(Collections.singletonList("Attack"), 600, 4)
+            .lamp(Collections.singletonList("Defense"), 600, 4).lamp(Collections.singletonList("Strength"), 600, 4)
+            .lamp(Collections.singletonList("Constitution"), 600, 4).lamp(Collections.singletonList("Crafting"), 600, 4).build());
+        achievements.add(new AchievementBuilder("In Aid of the Myreque", 1.5, false).requirement("In Search of the Myreque", 1)
+            .requirement("Crafting", 25).requirement("Magic", 7).requirement("Mining", 15).requirement("Sardine", 1)
+            .requirement("Bucket", 0).requirement("Plank", 11).requirement("Bronze nails", 44).requirement("Bronze hatchet", 10)
+            .requirement("Raw mackerel", 10).requirement("Tinderbox", 3).requirement("Steel bar", 2).requirement("Coal", 1)
+            .requirement("Soft clay", 1).requirement("Silver bar", 1).requirement("Mithril bar", 1).requirement("Sapphire", 1)
+            .requirement("Cosmic rune", 1).requirement("Water rune", 1).requirement("Rope", 1)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList(Enemy.GADDERANKS),
+                Arrays.asList(Enemy.VAMPYRE_JUVINATE_IAOTM_A, Enemy.VAMPYRE_JUVINATE_IAOTM_B)),
+                Collections.singletonList(new Restriction("Wolfbane", 1))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.VAMPYRE_JUVINATE_IAOTM_C,
+                Enemy.VAMPYRE_JUVINATE_IAOTM_C)), Collections.singletonList(new Restriction("Wolfbane", 1)))).reward("Quest points", 2)
+            .lamp(Collections.singletonList("Attack"), 2000, 12).lamp(Collections.singletonList("Strength"), 2000, 12)
+            .lamp(Collections.singletonList("Crafting"), 2000, 12).lamp(Collections.singletonList("Defense"), 2000, 12).build());
+        achievements.add(new AchievementBuilder("Darkness of Hallowvale", 2.5, false).requirement("In Aid of the Myreque", 1)
+            .requirement("Construction", 5).requirement("Mining", 20).requirement("Thieving", 22).requirement("Agility", 26)
+            .requirement("Crafting", 32).requirement("Magic", 33).requirement("Strength", 40).requirement("Bronze nails", 8)
+            .requirement("Plank", 2).reward("Quest points", 2).reward("Agility", 7000).reward("Thieving", 6000).reward("Construction", 2000)
+            .lamp(Player.ALL_SKILLS, 2000, 30).lamp(Player.ALL_SKILLS, 2000, 30).lamp(Player.ALL_SKILLS, 2000, 30).build());
+        achievements.add(new AchievementBuilder("Legacy of Seergaze", 2, false).requirement("Darkness of Hallowvale", 1)
+            .requirement("Construction", 20).requirement("Agility", 29).requirement("Slayer", 31).requirement("Mining", 35)
+            .requirement("Firemaking", 40).requirement("Crafting", 47).requirement("Magic", 49).requirement("Teak pyre logs", 1)
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList(Enemy.FISTANDANTILUS, Enemy.ZAROMARK_SLIVER))))
+            .encounter(new Encounter(Enemy.VYREWATCH, Collections.singletonList(new Restriction("Ivandis flail", 1))))
+            .reward("Quest points", 2).reward("Magic", 3000).reward("Agility", 2000).reward("Crafting", 4000).reward("Mining", 2000)
+            .reward("Construction", 1000).reward("Slayer", 2000).reward("Blood talisman", 1).lamp(Player.ALL_SKILLS, 2500, 35)
+            .lamp(Player.ALL_SKILLS, 2500, 35).lamp(Player.ALL_SKILLS, 2500, 35).build());
         achievements.add(new AchievementBuilder("As You Might Expect", 0, true).requirement("Pure essence", 1)
             .requirement("Runecrafting", 77).requirement("Blood talisman", 0).requirement("Legacy of Seergaze", 1).reward("Blood rune", 1)
             .reward("Runecrafting", 10).build());
@@ -2685,6 +2730,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Memories of a Mahjarrat", 0, true).requirement("Mahjarrat Memories", 1).build());
         achievements.add(new AchievementBuilder("Measure of Old", 0, true).requirement("Elder chronicle", 4).build());
         achievements.add(new AchievementBuilder("Roake Kal", 0, true).requirement("Sunken temple murals", 4).build());
+        achievements.add(new AchievementBuilder("Lovingly Crafted", 0, true).requirement("Horror journals", 5).build());
         achievements.add(new AchievementBuilder("Master Quest Cape", 0, true).requirement("Abyssal Reach", 1)
             .requirement("Advanced Sweeping", 1).requirement("Aereck's Old Bones", 1).requirement("Ali The Trader", 1)
             .requirement("All Rise", 1).requirement("Angs off my Ring", 1).requirement("Annihilator", 1).requirement("Any Odd Chicken", 1)
@@ -2751,7 +2797,7 @@ public class AchievementDatabase {
             .requirement("Unholy Crafting", 1).requirement("Uzer Master", 1).requirement("What's Mine Is Also Doric's", 1)
             .requirement("White Knight Rises", 1).requirement("Witch's Potion", 1).requirement("Work for Idol Hands", 1)
             .requirement("You're Not My Real Mah", 1).requirement("You Be Dead", 1).requirement("You Mistag This Brooch", 1)
-            .requirement("Zarosian Memories", 1).build());
+            .requirement("Zarosian Memories", 1).requirement("Lovingly Crafted", 1).build());
         achievements.add(new AchievementBuilder("Master of All", 0, true).requirement("Skilling pets", 27).build());
         achievements.add(new AchievementBuilder("Master of Assault", 0, true).requirement("Barbarian Assault attacker rank", 5)
             .requirement("Barbarian Assault collector rank", 5).requirement("Barbarian Assault defender rank", 5)

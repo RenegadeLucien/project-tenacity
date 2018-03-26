@@ -72,6 +72,11 @@ public class ActionDatabase {
         database.add(new Action("Solo dungeoneering", new ArrayList(), new HashMap(), Map.of("Dungeoneering", dungXP),
             true, true, false));
 
+        //Farming
+        database.add(new Action("Foraging rumberries", Arrays.asList(new Requirement("Farming", 86),
+            new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Rumberry", 300, "Rumberry seed", 6),
+            true, true, false));
+
         //Fishing
         int shrimpFished = resourcesGained(10, 5.0, player, 50.0, "Fishing");
         database.add(new Action("Fishing raw shrimps", new ArrayList<>(), new HashMap<>(), Map.of("Raw shrimps", shrimpFished, "Fishing", 10 * shrimpFished),
