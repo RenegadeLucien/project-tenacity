@@ -13,8 +13,8 @@ public class ActionDatabase {
 
     private ActionDatabase(Player player) {
         //Placeholder for skills that have not yet been implemented
-        database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Woodcutting", 1, "Fletching", 1,
-            "Construction", 1, "Firemaking", 1, "Invention", 1, "Hunter", 1, "Farming", 1), true, true, false));
+        database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Woodcutting", 1, "Construction", 1,
+            "Invention", 1, "Hunter", 1, "Farming", 1), true, true, false));
 
         //XP-less gathering
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
@@ -77,6 +77,10 @@ public class ActionDatabase {
             new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Rumberry", 300, "Rumberry seed", 6),
             true, true, false));
 
+        //Firemaking
+        database.add(new Action("Burning normal logs on bonfire", new ArrayList(), Map.of("Logs", 950), Map.of("Firemaking", 49500), true,
+            true, false));
+
         //Fishing
         int shrimpFished = resourcesGained(10, 5.0, player, 50.0, "Fishing");
         database.add(new Action("Fishing raw shrimps", new ArrayList<>(), new HashMap<>(), Map.of("Raw shrimps", shrimpFished, "Fishing", 10 * shrimpFished),
@@ -85,6 +89,10 @@ public class ActionDatabase {
         int crayfishFished = resourcesGained(1, 5.0, player, 50.0, "Fishing");
         database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), Map.of("Raw crayfish", crayfishFished, "Fishing", 10 * crayfishFished),
             true, true, true));
+
+        //
+        database.add(new Action("Fletching arrow shafts with normal logs", new ArrayList(), Map.of("Logs", 1800), Map.of("Arrow shaft", 27000,
+            "Fletching", 9000), true, true, false));
 
         //Herblore
         database.add(new Action("Cleaning grimy guams", new ArrayList(), Map.of("Grimy guam", 5090), Map.of("Clean guam", 5090,

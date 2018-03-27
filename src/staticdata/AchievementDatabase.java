@@ -541,8 +541,10 @@ public class AchievementDatabase {
             .requirement("Arctic pine log", 1).requirement("Mangled bones", 1).reward("Crafting", 31).reward("Firemaking", 125).build());
         achievements.add(new AchievementBuilder("How To Maim Your Dragon", 0, true).requirement("Barbarian Firemaking", 1)
             .encounter(new Encounter(Enemy.MITHRIL_DRAGON)).build());
+        achievements.add(new AchievementBuilder("Barbarian Fishing", 0.05, true).requirement("Barbarian Firemaking", 1)
+            .requirement("Fishing", 55).requirement("Strength", 35).requirement("Agility", 15).build());
         achievements.add(new AchievementBuilder("Fish Fingers", 0, true).requirement("Strength", 35).requirement("Fishing", 55)
-            .requirement("Barbarian Fishing Training", 1).reward("Fishing", 80).reward("Raw tuna", 1).build());
+            .requirement("Barbarian Fishing", 1).reward("Fishing", 80).reward("Raw tuna", 1).build());
         achievements.add(new AchievementBuilder("Easy As Pie", 0, true).requirement("Lunar Diplomacy", 1).requirement("Magic", 65)
             .requirement("Astral rune", 1).requirement("Fire rune", 5).requirement("Water rune", 1).requirement("Uncooked berry pie", 1)
             .requirement("Cooking", 10).reward("Redberry pie", 1).reward("Cooking", 78).reward("Magic", 60).build());
@@ -2204,7 +2206,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Eastern Explorer", 0, true).requirement("The Shield region", 1).build());
         achievements.add(new AchievementBuilder("Eat to Live", 0, true).requirement("Sardine", 1).build());
         achievements.add(new AchievementBuilder("Edgeville", 0, true).build());
-        achievements.add(new AchievementBuilder("Eeeeagle!", 0, true).requirement("Eagle transport routes", 5).build());
+        achievements.add(new AchievementBuilder("Eeeeagle!", 0, true).requirement("Agility", 35).requirement("Strength", 45)
+            .requirement("Eagles' Peak (quest)", 1).requirement("Back to my Roots", 1).build());
         achievements.add(new AchievementBuilder("Elemental Kill Chaos I", 0, true).requirement("Chaos Elemental", 5).build());
         achievements.add(new AchievementBuilder("Elemental Kill Chaos II", 0, true).requirement("Chaos Elemental", 10).build());
         achievements.add(new AchievementBuilder("Elemental Kill Chaos III", 0, true).requirement("Chaos Elemental", 25).build());
