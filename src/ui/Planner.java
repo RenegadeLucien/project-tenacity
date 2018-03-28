@@ -197,11 +197,16 @@ public class Planner extends Application {
 
         root.add(tabPane, 1, 0);
         System.out.println(p.getPlayerTasks().values().stream().filter(a -> a > 100000).collect(Collectors.toList()).size());
+        double sumOfAll = 0;
+        for (double d : p.getPlayerTasks().values()) {
+            sumOfAll+=d;
+        }
+        System.out.println(sumOfAll);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.2.0pa (by Iron Lucien)");
+        primaryStage.setTitle("Project Tenacity v0.2.6pa (by Iron Lucien)");
         Text nameText = new Text("Enter profile name:");
         TextField nameEntry = new TextField();
         final ToggleGroup irongroup = new ToggleGroup();

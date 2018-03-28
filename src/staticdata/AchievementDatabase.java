@@ -109,7 +109,7 @@ public class AchievementDatabase {
             .reward("Mahogany log", 1).build());
         achievements.add(new AchievementBuilder("A Pizza the Loot", 0.05, true).requirement("Raw anchovies", 1).requirement("Coins", 4)
             .requirement("Cooking", 55).reward("Cooking", 213).build());
-        achievements.add(new AchievementBuilder("A Prayer Opportunity", 0.1, true).requirement("Constructiion", 75)
+        achievements.add(new AchievementBuilder("A Prayer Opportunity", 0.1, true).requirement("Construction", 75)
             .requirement("Smithing", 50).requirement("Complexity unlocked", 5).build());
         achievements.add(new AchievementBuilder("A Road Less Travelled", 0, true).build());
         achievements.add(new AchievementBuilder("Biohazard", 0.75, false).requirement("Plague City", 1).requirement("Coins", 10)
@@ -538,7 +538,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Runes on the Moon", 0, true).requirement("Lunar Diplomacy", 1).requirement("Mining", 60)
             .reward("Pure essence", 1).reward("Mining", 5).build());
         achievements.add(new AchievementBuilder("Pyre At Will", 0, true).requirement("Crafting", 52).requirement("Firemaking", 52)
-            .requirement("Arctic pine log", 1).requirement("Mangled bones", 1).reward("Crafting", 31).reward("Firemaking", 125).build());
+            .requirement("Arctic pine logs", 1).requirement("Mangled bones", 1).reward("Crafting", 31).reward("Firemaking", 125).build());
         achievements.add(new AchievementBuilder("How To Maim Your Dragon", 0, true).requirement("Barbarian Firemaking", 1)
             .encounter(new Encounter(Enemy.MITHRIL_DRAGON)).build());
         achievements.add(new AchievementBuilder("Barbarian Fishing", 0.05, true).requirement("Barbarian Firemaking", 1)
@@ -1288,7 +1288,7 @@ public class AchievementDatabase {
             .requirement("Cooking gauntlets", 0).reward("Shark", 5).reward("Cooking", 1050).build());
         achievements.add(new AchievementBuilder("Seers' Village Set Tasks - Hard", 0, true).requirement("At Home on the Range", 1)
             .requirement("See Yew at Five", 1).requirement("The Short of It", 1).requirement("Prayer of Attorney", 1)
-            .requirement("Beware of the Dog", 1).requirement("TWisted Fire Starter", 1).requirement("Alch-aholic", 1)
+            .requirement("Beware of the Dog", 1).requirement("Twisted Fire Starter", 1).requirement("Alch-aholic", 1)
             .requirement("Gonna Need a Bigger Boat", 1).requirement("Gonna Need a Bigger Range", 1).requirement("Water Palaver", 1)
             .requirement("Island Hopper", 1).lamp(Player.ALL_SKILLS, 10000, 50).build());
         achievements.add(new AchievementBuilder("What, No Cuddly Toy?", 0, true).requirement("Ranged", 40).requirement("Archery ticket", 12)
@@ -1341,8 +1341,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Thoroughly A-Ghast", 0, true).requirement("Ghast pouch", 1).requirement("Summoning", 87)
             .reward("Summoning", 1).build());
         achievements.add(new AchievementBuilder("Set It On Fiyr", 0, true).requirement("Fiyr remains", 1).requirement("Firemaking", 80)
-            .requirement("Magic pyre log", 1).requirement("Shades of Mort'ton", 1).reward("Firemaking", 404).build());
-        achievements.add(new AchievementBuilder("On Wings of Bling", 0, true).requirement("The Branches of Darkemeyer", 1).build());
+            .requirement("Magic pyre logs", 1).requirement("Shades of Mort'ton", 1).reward("Firemaking", 404).build());
+        achievements.add(new AchievementBuilder("On Wings of Bling", 0, true).requirement("The Branches of Darkmeyer", 1).build());
         achievements.add(new AchievementBuilder("Not Such a Rotten Idea", 0, true).requirement("Games necklace", 1)
             .requirement("Temple Trekking follower level", 500).build());
         achievements.add(new AchievementBuilder("Fremennik Export", 0, true).requirement("Barbarian Fishing", 1).requirement("Fishing", 96)
@@ -1758,7 +1758,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Water on the Brain", 0, true).requirement("Enchanted water tiara charges", 1).build());
         achievements.add(new AchievementBuilder("Wake-Up Call", 0, true).requirement("Thieving", 61).reward("Strength", 100).build());
         achievements.add(new AchievementBuilder("Ug Thankee Kindly", 0, true).requirement("Onion", 1).requirement("Tomato", 1)
-            .requirement("Empty bowl", 1).requirement("Raw Ugthanki meat", 1).requirement("Pot of flour", 1)
+            .requirement("Bowl", 1).requirement("Raw Ugthanki meat", 1).requirement("Pot of flour", 1)
             .requirement("Bucket of water", 1).requirement("Spirits of the Elid", 1).requirement("Cooking", 58).reward("Ugthanki kebab", 1)
             .reward("Cooking", 40).build());
         achievements.add(new AchievementBuilder("Skinful", 0, true).requirement("Dream Mentor", 1).requirement("Magic", 68)
