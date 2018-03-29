@@ -1,6 +1,7 @@
-package dynamicdata;
+package data.dataobjects;
 
-import staticdata.Item;
+import logic.Player;
+import logic.Requirement;
 
 import java.util.Map;
 import java.util.List;

@@ -1,9 +1,8 @@
 package ui;
 
-import dynamicdata.Player;
-import dynamicdata.Requirement;
+import logic.Player;
 import javafx.scene.input.MouseButton;
-import staticdata.Achievement;
+import data.dataobjects.Achievement;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;

@@ -1,6 +1,8 @@
-package dynamicdata;
+package data.databases;
 
-import staticdata.Enemy;
+import logic.*;
+import data.dataobjects.Enemy;
+import data.dataobjects.Action;
 
 import java.util.*;
 
@@ -138,6 +140,7 @@ public class ActionDatabase {
 
         //Thieving
         int menPocketsPicked = pocketsPicked(1, player);
+        System.out.println(menPocketsPicked);
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * menPocketsPicked,
             "Thieving", 8 * menPocketsPicked), true, true, true));
 

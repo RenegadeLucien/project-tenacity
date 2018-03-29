@@ -1,6 +1,6 @@
-package staticdata;
+package data.dataobjects;
 
-import dynamicdata.Requirement;
+import logic.Requirement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
