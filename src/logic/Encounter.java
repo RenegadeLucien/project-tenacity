@@ -5,29 +5,36 @@ import data.dataobjects.Ability;
 import data.dataobjects.Enemy;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Encounter implements java.io.Serializable {
 
     List<List<Enemy>> enemyGroups;
     List<Restriction> restrictions;
 
-    public Encounter(List<List<Enemy>> enemyGroups, List<Restriction> restrictions) {
-        this.enemyGroups = enemyGroups;
+    public Encounter(List<List<String>> enemyGroups, List<Restriction> restrictions) {
+        this.enemyGroups = new ArrayList<>();
+        for (List<String> enemyGroup : enemyGroups) {
+            this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
+        }
         this.restrictions = restrictions;
     }
 
-    public Encounter(List<List<Enemy>> enemyGroups) {
-        this.enemyGroups = enemyGroups;
+    public Encounter(List<List<String>> enemyGroups) {
+        this.enemyGroups = new ArrayList<>();
+        for (List<String> enemyGroup : enemyGroups) {
+            this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
+        }
         this.restrictions = new ArrayList<>();
     }
 
-    public Encounter(Enemy enemy, List<Restriction> restrictions) {
-        this.enemyGroups = Collections.singletonList(Collections.singletonList(enemy));
+    public Encounter(String enemy, List<Restriction> restrictions) {
+        this.enemyGroups = Collections.singletonList(Collections.singletonList(Enemy.getEnemyByName(enemy)));
         this.restrictions = restrictions;
     }
 
-    public Encounter(Enemy enemy) {
-        this.enemyGroups = Collections.singletonList(Collections.singletonList(enemy));
+    public Encounter(String enemy) {
+        this.enemyGroups = Collections.singletonList(Collections.singletonList(Enemy.getEnemyByName(enemy)));
         this.restrictions = new ArrayList<>();
     }
 

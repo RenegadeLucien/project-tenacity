@@ -34,6 +34,8 @@ public class ItemDatabase {
         items.add(new Item("Mithril grapple", 1));
         items.add(new Item("Muddy key", 1));
         items.add(new Item("Jogre bones", 1));
+        items.add(new Item("Headless arrow", 1));
+        items.add(new Item("Jug of water", 1));
         items.add(new Item("Bucket", 2));
         items.add(new Item("Bucket of sand", 2));
         items.add(new Item("Wizard hat (blue)", 2));
@@ -44,6 +46,8 @@ public class ItemDatabase {
         items.add(new Item("Soft clay", 2));
         items.add(new Item("Searing ashes", 2));
         items.add(new Item("Cider", 2));
+        items.add(new Item("Willow branch", 2));
+        items.add(new Item("Raw ugthanki meat", 2));
         items.add(new Item("Eye of newt", 3));
         items.add(new Item("Molten glass", 3));
         items.add(new Item("Pie dish", 3));
@@ -71,6 +75,7 @@ public class ItemDatabase {
         items.add(new Item("Pale energy", 6));
         items.add(new Item("Uncooked berry pie", 6));
         items.add(new Item("Bucket of water", 6));
+        items.add(new Item("Acorn", 6));
         items.add(new Item("Bronze arrow", 7));
         items.add(new Item("Bronze nails", 7));
         items.add(new Item("Red spiders' eggs", 7));
@@ -117,6 +122,7 @@ public class ItemDatabase {
         items.add(new Item("Clean harralander", 20));
         items.add(new Item("Poison chalice", 20));
         items.add(new Item("Chocolate bar", 20));
+        items.add(new Item("Uncut opal", 20));
         items.add(new Item("Leather body", 21));
         items.add(new Item("Leather cowl", 24));
         items.add(new Item("Bronze helm", 24));
@@ -130,6 +136,7 @@ public class ItemDatabase {
         items.add(new Item("Grimy guam", 30));
         items.add(new Item("Swamp paste", 31));
         items.add(new Item("Arctic pine logs", 35));
+        items.add(new Item("Cooking apple", 36));
         items.add(new Item("Box trap", 38));
         items.add(new Item("Raw rat meat", 39));
         items.add(new Item("Plant cure", 40));
@@ -145,7 +152,9 @@ public class ItemDatabase {
         items.add(new Item("Raw beef", 59));
         items.add(new Item("Raw chicken", 60));
         items.add(new Item("Bronze chainbody", 60));
+        items.add(new Item("Thin snail", 60));
         items.add(new Item("Fellstalk seed", 64));
+        items.add(new Item("Bloodweed seed", 64));
         items.add(new Item("Leather shield", 68));
         items.add(new Item("Silver ore", 75));
         items.add(new Item("Shieldbow", 80));
@@ -190,7 +199,10 @@ public class ItemDatabase {
         items.add(new Item("Magic staff", 200));
         items.add(new Item("Agility potion (4)", 200));
         items.add(new Item("Black salamander", 200));
+        items.add(new Item("Grenwall spikes", 200));
+        items.add(new Item("Gout tuber", 200));
         items.add(new Item("Iron chainbody", 210));
+        items.add(new Item("Super ranging potion (2)", 216));
         items.add(new Item("Steel mace", 225));
         items.add(new Item("Cosmic rune", 232));
         items.add(new Item("Hard leather shield", 238));
@@ -226,6 +238,7 @@ public class ItemDatabase {
         items.add(new Item("Ruby", 1000));
         items.add(new Item("Uncut dragonstone", 1000));
         items.add(new Item("Bagged plant 1", 1000));
+        items.add(new Item("Games necklace (8)", 1050));
         items.add(new Item("Diamond", 2000));
         items.add(new Item("Ibis pouch", 3149));
         items.add(new Item("Pyrelord pouch", 3199));

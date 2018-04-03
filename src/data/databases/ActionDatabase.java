@@ -140,57 +140,56 @@ public class ActionDatabase {
 
         //Thieving
         int menPocketsPicked = pocketsPicked(1, player);
-        System.out.println(menPocketsPicked);
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * menPocketsPicked,
             "Thieving", 8 * menPocketsPicked), true, true, true));
 
         //Combat for drops
-        int cowKillsMelee = combatKills(Enemy.COW, player, 0, "Melee", 1, false);
-        int cowKillsRanged = combatKills(Enemy.COW, player, 0, "Ranged", 1, false);
-        int cowKillsMagic = combatKills(Enemy.COW, player, 0, "Magic", 1, false);
-        int cowKillsMeleeGoldCharms = combatKills(Enemy.COW, player, 0, "Melee", 0.008, true);
-        int cowKillsRangedGoldCharms = combatKills(Enemy.COW, player, 0, "Ranged", 0.008, true);
-        int cowKillsMagicGoldCharms = combatKills(Enemy.COW, player, 0, "Magic", 0.008, true);
+        int cowKillsMelee = combatKills("Cow", player, 0, "Melee", 1, false);
+        int cowKillsRanged = combatKills("Cow", player, 0, "Ranged", 1, false);
+        int cowKillsMagic = combatKills("Cow", player, 0, "Magic", 1, false);
+        int cowKillsMeleeGoldCharms = combatKills("Cow", player, 0, "Melee", 0.008, true);
+        int cowKillsRangedGoldCharms = combatKills("Cow", player, 0, "Ranged", 0.008, true);
+        int cowKillsMagicGoldCharms = combatKills("Cow", player, 0, "Magic", 0.008, true);
         database.add(new Action("Killing cows for raw beef with melee", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw beef", cowKillsMelee, "mCombat", (int) Enemy.COW.getCbxp() * cowKillsMelee, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsMelee),
-            true, true, true));
+            Map.of("Raw beef", cowKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMelee, "Constitution", 
+                (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMelee), true, true, true));
         database.add(new Action("Killing cows for bones with melee", new ArrayList<>(), new HashMap<>(),
-            Map.of("Bones", cowKillsMelee, "mCombat", (int) Enemy.COW.getCbxp() * cowKillsMelee, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsMelee),
-            true, true, true));
+            Map.of("Bones", cowKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMelee, "Constitution", 
+                (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMelee), true, true, true));
         database.add(new Action("Killing cows for gold charms with melee", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (cowKillsMeleeGoldCharms * 0.008),
-            "mCombat", (int) Enemy.COW.getCbxp() * cowKillsMeleeGoldCharms, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsMeleeGoldCharms),
+            "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMeleeGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMeleeGoldCharms),
             true, true, true));
         database.add(new Action("Killing cows for raw beef with ranged", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw beef", cowKillsRanged, "rCombat", (int) Enemy.COW.getCbxp() * cowKillsRanged, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsRanged),
+            Map.of("Raw beef", cowKillsRanged, "rCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsRanged, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsRanged),
             true, true, true));
         database.add(new Action("Killing cows for bones with ranged", new ArrayList<>(), new HashMap<>(),
-            Map.of("Bones", cowKillsRanged, "rCombat", (int) Enemy.COW.getCbxp() * cowKillsRanged, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsRanged),
+            Map.of("Bones", cowKillsRanged, "rCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsRanged, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsRanged),
             true, true, true));
         database.add(new Action("Killing cows for gold charms with ranged", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (cowKillsRangedGoldCharms * 0.008),
-            "rCombat", (int) Enemy.COW.getCbxp() * cowKillsRangedGoldCharms, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsRangedGoldCharms),
+            "rCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsRangedGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsRangedGoldCharms),
             true, true, true));
         database.add(new Action("Killing cows for raw beef with magic", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw beef", cowKillsMagic, "aCombat", (int) Enemy.COW.getCbxp() * cowKillsMagic, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsMagic),
+            Map.of("Raw beef", cowKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagic, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagic),
             true, true, true));
         database.add(new Action("Killing cows for bones with magic", new ArrayList<>(), new HashMap<>(),
-            Map.of("Bones", cowKillsMagic, "aCombat", (int) Enemy.COW.getCbxp() * cowKillsMagic, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsMagic),
+            Map.of("Bones", cowKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagic, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagic),
             true, true, true));
         database.add(new Action("Killing cows for gold charms with magic", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (cowKillsMagicGoldCharms * 0.008),
-            "aCombat", (int) Enemy.COW.getCbxp() * cowKillsMagicGoldCharms, "Constitution", (int) Enemy.COW.getHpxp() * cowKillsMagicGoldCharms),
+            "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagicGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagicGoldCharms),
             true, true, true));
 
-        int chickenKillsMelee = combatKills(Enemy.CHICKEN, player, 0, "Melee", 1, false);
-        int chickenKillsRanged = combatKills(Enemy.CHICKEN, player, 0, "Ranged", 1, false);
-        int chickenKillsMagic = combatKills(Enemy.CHICKEN, player, 0, "Magic", 1, false);
+        int chickenKillsMelee = combatKills("Chicken", player, 0, "Melee", 1, false);
+        int chickenKillsRanged = combatKills("Chicken", player, 0, "Ranged", 1, false);
+        int chickenKillsMagic = combatKills("Chicken", player, 0, "Magic", 1, false);
         database.add(new Action("Killing chickens for raw chicken with melee", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw chicken", chickenKillsMelee, "mCombat", (int) Enemy.CHICKEN.getCbxp() * chickenKillsMelee, "Constitution",
-                (int) Enemy.CHICKEN.getHpxp() * chickenKillsMelee), true, true, true));
+            Map.of("Raw chicken", chickenKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMelee, "Constitution",
+                (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMelee), true, true, true));
         database.add(new Action("Killing chickens for raw chicken with ranged", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw chicken", chickenKillsRanged, "rCombat", (int) Enemy.CHICKEN.getCbxp() * chickenKillsRanged, "Constitution",
-                (int) Enemy.CHICKEN.getHpxp() * chickenKillsRanged), true, true, true));
+            Map.of("Raw chicken", chickenKillsRanged, "rCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsRanged, "Constitution",
+                (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsRanged), true, true, true));
         database.add(new Action("Killing chickens for raw chicken with magic", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw chicken", chickenKillsMagic, "aCombat", (int) Enemy.CHICKEN.getCbxp() * chickenKillsMagic, "Constitution",
-                (int) Enemy.CHICKEN.getHpxp() * chickenKillsMagic), true, true, true));
+            Map.of("Raw chicken", chickenKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMagic, "Constitution",
+                (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMagic), true, true, true));
 
         //Other repeatables
         database.add(new Action("Completing Shifting Tombs", Arrays.asList(new Requirement("Agility", 50),
@@ -203,8 +202,8 @@ public class ActionDatabase {
         return database;
     }
 
-    public int combatKills(Enemy enemy, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
-        CombatResults combatResults = new Encounter(Collections.singletonList(Collections.singletonList(enemy)), new ArrayList<>()).calculateCombat(player, invenSpaces, combatStyle);
+    public int combatKills(String enemyName, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
+        CombatResults combatResults = new Encounter(enemyName, new ArrayList<>()).calculateCombat(player, invenSpaces, combatStyle);
         int time = TICKS_PER_HOUR;
         double currentHp = player.getLevel("Constitution") * 100;
         int kills = 0;
