@@ -27,8 +27,11 @@ public class Lamp implements java.io.Serializable {
         for (String choice : choices) {
             if (player.getLevel(choice) >= minLevel && player.getLevel(choice) < 99) {
                 int xpReward = xp;
-                if (xp < 0) {
+                if (xp < 0 && xp > -10) {
                     xpReward = PRISMATIC_LAMP_EXP_VALUES[player.getLevel(choice)] * -1 * xp;
+                }
+                else if (xp <= -10) {
+                    xpReward = player.getLevel(choice)*-1*xp;
                 }
                 Reward choiceReward = new Reward(choice, xpReward);
                 double gain = choiceReward.getGainFromReward(player);

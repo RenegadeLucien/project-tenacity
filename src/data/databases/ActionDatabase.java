@@ -24,6 +24,8 @@ public class ActionDatabase {
         database.add(new Action("Collecting planks", new ArrayList(), new HashMap(), Map.of("Plank", 240), true, true, false));
         database.add(new Action("Buying cleansing crystals", Collections.singletonList(new Requirement("Plague's End", 1)),
             Map.of("Coins", 39600000), Map.of("Cleansing crystal", 360), true, true, false));
+        database.add(new Action("Voyaging for taijitu", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
+            Map.of("Supplies", 300), Map.of("Taijitu", 17), true, true, false));
 
         //Agility
         database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 7580),
@@ -75,9 +77,12 @@ public class ActionDatabase {
             true, true, false));
 
         //Farming
-        database.add(new Action("Foraging rumberries", Arrays.asList(new Requirement("Farming", 86),
+        database.add(new Action("Foraging rumberries (keep)", Arrays.asList(new Requirement("Farming", 86),
             new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Rumberry", 300, "Rumberry seed", 6),
             true, true, false));
+
+        database.add(new Action("Foraging rumberries (sell)", Arrays.asList(new Requirement("Farming", 86),
+            new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Chimes", 618), true, true, false));
 
         //Firemaking
         database.add(new Action("Burning normal logs on bonfire", new ArrayList(), Map.of("Logs", 950), Map.of("Firemaking", 49500), true,
@@ -92,13 +97,17 @@ public class ActionDatabase {
         database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), Map.of("Raw crayfish", crayfishFished, "Fishing", 10 * crayfishFished),
             true, true, true));
 
-        //
+        //Fletching
         database.add(new Action("Fletching arrow shafts with normal logs", new ArrayList(), Map.of("Logs", 1800), Map.of("Arrow shaft", 27000,
             "Fletching", 9000), true, true, false));
 
         //Herblore
         database.add(new Action("Cleaning grimy guams", new ArrayList(), Map.of("Grimy guam", 5090), Map.of("Clean guam", 5090,
             "Herblore", 12725), true, true, false));
+
+        //Hunter
+        database.add(new Action("Catching charm sprites", Collections.singletonList(new Requirement("Hunter", 72)), new HashMap(),
+            Map.of("Hunter", 60000, "Crimson charm", 40, "Blue charm", 28, "Green charm", 17, "Gold charm", 6), true, true, false));
 
         //Mining
         database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250),
