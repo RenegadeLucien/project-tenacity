@@ -24,15 +24,19 @@ public class ActionDatabase {
         database.add(new Action("Collecting planks", new ArrayList(), new HashMap(), Map.of("Plank", 240), true, true, false));
         database.add(new Action("Buying cleansing crystals", Collections.singletonList(new Requirement("Plague's End", 1)),
             Map.of("Coins", 39600000), Map.of("Cleansing crystal", 360), true, true, false));
-        database.add(new Action("Voyaging for taijitu", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
-            Map.of("Supplies", 300), Map.of("Taijitu", 17), true, true, false));
+        database.add(new Action("Voyaging for items", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
+            Map.of("Supplies", 300), Map.of("Taijitu", 17, "Sea shell", 9), true, true, false));
+        database.add(new Action("Winning Castle Wars games", new ArrayList(), new HashMap(), Map.of("Gold Castle Wars ticket", 6), true,
+            true, false));
 
         //Agility
         database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 7580),
-            true, true, true));
-
+            true, true, false));
         database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 8650),
-            true, true, true));
+            true, true, false));
+        database.add(new Action("Advanced Gnome Stronghold Agility Course", Collections.singletonList(new Requirement("Agility", 85)),
+            new HashMap(), Map.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94), true, true, false));
+
 
         //Construction
         /*database.add(new Action("Building crude wooden chairs with bronze nails", Collections.singletonList(new Requirement("Parlour", 1)),
@@ -73,8 +77,8 @@ public class ActionDatabase {
 
         //Dungeoneering (major approximation)
         int dungXP = (int) Math.floor(4000 * Math.pow((player.getLevel("Dungeoneering") + 9.0) / 10.0, 2));
-        database.add(new Action("Solo dungeoneering", new ArrayList(), new HashMap(), Map.of("Dungeoneering", dungXP),
-            true, true, false));
+        database.add(new Action("Solo dungeoneering", new ArrayList(), new HashMap(), Map.of("Dungeoneering", dungXP, "Dungeoneering token",
+            dungXP/10), true, true, false));
 
         //Farming
         database.add(new Action("Foraging rumberries (keep)", Arrays.asList(new Requirement("Farming", 86),
@@ -107,7 +111,8 @@ public class ActionDatabase {
 
         //Hunter
         database.add(new Action("Catching charm sprites", Collections.singletonList(new Requirement("Hunter", 72)), new HashMap(),
-            Map.of("Hunter", 60000, "Crimson charm", 40, "Blue charm", 28, "Green charm", 17, "Gold charm", 6), true, true, false));
+            Map.of("Hunter", 60000, "Crimson charm", 40, "Blue charm", 28, "Green charm", 17, "Gold charm", 6, "Charm sprites", 435), true,
+            true, false));
 
         //Mining
         database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250),
@@ -152,13 +157,21 @@ public class ActionDatabase {
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * menPocketsPicked,
             "Thieving", 8 * menPocketsPicked), true, true, true));
 
+        //Multi-skill
+        database.add(new Action("Cremating vyre corpses", Arrays.asList(new Requirement("Legacy of Seergaze", 1),
+            new Requirement("Firemaking", 40)), Map.of("Vyre corpse", 500, "Teak pyre logs", 500), Map.of("Firemaking", 60000,
+            "Prayer", 39350, "Vyre corpses burned", 500, "Columbarium key", 500), true, true, false));
+        database.add(new Action("Cremating loar shades", Arrays.asList(new Requirement("Shades of Mort'ton", 1),
+            new Requirement("Firemaking", 40)), Map.of("Loar remains", 500, "Pyre logs", 500), Map.of("Firemaking", 25000,
+            "Prayer", 12500, "Coins", 100000, "Shade key", 250), true, true, false));
+
         //Combat for drops
-        int cowKillsMelee = combatKills("Cow", player, 0, "Melee", 1, false);
-        int cowKillsRanged = combatKills("Cow", player, 0, "Ranged", 1, false);
-        int cowKillsMagic = combatKills("Cow", player, 0, "Magic", 1, false);
-        int cowKillsMeleeGoldCharms = combatKills("Cow", player, 0, "Melee", 0.008, true);
-        int cowKillsRangedGoldCharms = combatKills("Cow", player, 0, "Ranged", 0.008, true);
-        int cowKillsMagicGoldCharms = combatKills("Cow", player, 0, "Magic", 0.008, true);
+        int cowKillsMelee = combatKills("Cow",  new ArrayList<>(), player, 0, "Melee", 1, false);
+        int cowKillsRanged = combatKills("Cow",  new ArrayList<>(), player, 0, "Ranged", 1, false);
+        int cowKillsMagic = combatKills("Cow",  new ArrayList<>(), player, 0, "Magic", 1, false);
+        int cowKillsMeleeGoldCharms = combatKills("Cow", new ArrayList<>(), player, 0, "Melee", 0.008, true);
+        int cowKillsRangedGoldCharms = combatKills("Cow", new ArrayList<>(), player, 0, "Ranged", 0.008, true);
+        int cowKillsMagicGoldCharms = combatKills("Cow", new ArrayList<>(), player, 0, "Magic", 0.008, true);
         database.add(new Action("Killing cows for raw beef with melee", new ArrayList<>(), new HashMap<>(),
             Map.of("Raw beef", cowKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMelee, "Constitution", 
                 (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMelee), true, true, true));
@@ -187,9 +200,9 @@ public class ActionDatabase {
             "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagicGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagicGoldCharms),
             true, true, true));
 
-        int chickenKillsMelee = combatKills("Chicken", player, 0, "Melee", 1, false);
-        int chickenKillsRanged = combatKills("Chicken", player, 0, "Ranged", 1, false);
-        int chickenKillsMagic = combatKills("Chicken", player, 0, "Magic", 1, false);
+        int chickenKillsMelee = combatKills("Chicken", new ArrayList<>(), player, 0, "Melee", 1, false);
+        int chickenKillsRanged = combatKills("Chicken",  new ArrayList<>(), player, 0, "Ranged", 1, false);
+        int chickenKillsMagic = combatKills("Chicken", new ArrayList<>(), player, 0, "Magic", 1, false);
         database.add(new Action("Killing chickens for raw chicken with melee", new ArrayList<>(), new HashMap<>(),
             Map.of("Raw chicken", chickenKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMelee, "Constitution",
                 (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMelee), true, true, true));
@@ -199,6 +212,11 @@ public class ActionDatabase {
         database.add(new Action("Killing chickens for raw chicken with magic", new ArrayList<>(), new HashMap<>(),
             Map.of("Raw chicken", chickenKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMagic, "Constitution",
                 (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMagic), true, true, true));
+
+        int vyreKills = combatKills("Vyrewatch", Collections.singletonList(new Restriction("Vampyric weapon", 1)), player, 0, "Melee", 1, false);
+        database.add(new Action("Killing vyres for corpses", Collections.singletonList(new Requirement("Legacy of Seergaze", 1)), new HashMap(),
+            Map.of("Vyre corpse", vyreKills, "mCombat", (int)Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills, "Constitution",
+                (int) Enemy.getEnemyByName("Vyrewatch").getHpxp() * vyreKills), true, true, true));
 
         //Other repeatables
         database.add(new Action("Completing Shifting Tombs", Arrays.asList(new Requirement("Agility", 50),
@@ -211,8 +229,8 @@ public class ActionDatabase {
         return database;
     }
 
-    public int combatKills(String enemyName, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
-        CombatResults combatResults = new Encounter(enemyName, new ArrayList<>()).calculateCombat(player, invenSpaces, combatStyle);
+    public int combatKills(String enemyName, List<Restriction> restrictions, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
+        CombatResults combatResults = new Encounter(enemyName, restrictions).calculateCombat(player, invenSpaces, combatStyle);
         int time = TICKS_PER_HOUR;
         double currentHp = player.getLevel("Constitution") * 100;
         int kills = 0;
