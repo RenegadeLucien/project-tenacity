@@ -24,6 +24,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Bandit", 100, 0, 0, 72, 0, 0, 5, 0, 0, 4, 150, 0, 0, 0, 5, "Crush", 90, 55, 45, 65));
         enemies.add(new Enemy("Shadow", 100, 3.7, 1.2, 272, 0, 0, 68, 0, 0, 4, 1409, 0, 0, 1409, 68, "Air", 90, 55, 45, 65));
         enemies.add(new Enemy("Shadow (Plague's End)", 100, 220.3, 72.6, 1008, 0, 0, 70, 0, 0, 4, 1694, 0, 0, 1486, 70, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("The Map", 100, 24.9, 8.2, 8, 0, 0, 2, 0, 0, 4, 120, 0, 0, 120, 2, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Brokeface", 120, 12.7, 4.1, 12, 0, 0, 2, 1, 1, 6, 12, 0, 0, 0, 5, "Crush", 90, 55, 45, 65));
         enemies.add(new Enemy("Choleric imp", 200, 0, 0, 16, 0, 0, 4, 0, 0, 4, 140, 0, 0, 140, 4, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Bandit king", 200, 0, 0, 72, 0, 0, 5, 0, 0, 4, 150, 0, 0, 0, 5, "Crush", 90, 55, 45, 65));
@@ -43,6 +44,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Heru", 500, 0, 0, 91, 0, 0, 5, 0, 0, 5, 150, 0, 0, 150, 5, "Crush", 90, 55, 45, 65));
         enemies.add(new Enemy("Bat", 500, 32.1, 10.5, 0, 0, 40, 0, 0, 10, 4, 0, 0, 202, 202, 10, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("Tower Archer (north)", 500, 32.1, 10.5, 0, 40, 0, 0, 10, 0, 4, 0, 202, 0, 202, 10, "Stab", 90, 65, 55, 45));
+        enemies.add(new Enemy("Kebbit", 500, 32.1, 10.5, 40, 0, 0, 10, 0, 0, 4, 202, 0, 0, 202, 10, "Ait", 90, 55, 45, 65));
         enemies.add(new Enemy("Monk of Zamorak", 850, 39.6, 13, 0, 0, 68, 0, 0, 17, 4, 0, 0, 280, 280, 17, "Arrows", 90, 55, 45, 65));
         enemies.add(new Enemy("Moss giant (Glarial's Tomb)", 1000, 62.8, 20.7, 132, 0, 176, 33, 0, 44, 4, 502, 0, 710, 710, 44, "Arrows", 90, 45, 65, 55));
         enemies.add(new Enemy("Human werewolf", 1000, 44.4, 14.6, 100, 0, 0, 20, 0, 0, 5, 316, 0, 0, 316, 20, "Fire", 90, 55, 45, 65));
@@ -52,9 +54,11 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Mourner (Ardougne)", 1200, 51.9, 17.1, 96, 0, 0, 24, 0, 0, 4, 368, 0, 0, 268, 24, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Cerberus", 1200, 51.9, 17.1, 96, 0, 0, 24, 0, 0, 4, 368, 0, 0, 368, 24, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Experiment", 1250, 54, 17.8, 100, 0, 0, 25, 0, 0, 4, 381, 0, 0, 381, 25, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Guard (DttD)", 1300, 56.1, 18.5, 104, 0, 0, 26, 0, 0, 4, 395, 0, 0, 395, 26, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("King Roald", 1400, 0, 0, 112, 0, 0, 28, 0, 0, 4, 424, 0, 0, 424, 28, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Tower Archer (south)", 1500, 66.9, 22, 0, 120, 0, 0, 30, 0, 4, 0, 454, 0, 454, 30, "Stab", 90, 65, 55, 45));
         enemies.add(new Enemy("Revenant imp", 1500, 64.2, 21.1, 225, 225, 225, 10, 10, 10, 5, 202, 202, 202, 202, 10, "Nothing", 0, 40, 40, 40));
+        enemies.add(new Enemy("Sigmund (DttD)", 1500, 66.9, 22, 90, 120, 0, 22, 30, 0, 4, 225, 454, 0, 454, 30, "Slash", 90, 65, 55, 45));
         enemies.add(new Enemy("Gnome troop", 1600, 72.6, 23.9, 0, 128, 0, 0, 32, 0, 4, 0, 486, 0, 486, 32, "Slash", 90, 65, 55, 45));
         enemies.add(new Enemy("Air elemental", 1600, 72.6, 23.9, 0, 192, 0, 0, 32, 0, 4, 0, 486, 0, 486, 32, "Slash", 90, 65, 55, 45));
         enemies.add(new Enemy("Water elemental", 1600, 72.6, 23.9, 0, 192, 0, 0, 32, 0, 4, 0, 486, 0, 486, 32, "Slash", 90, 65, 55, 45));
@@ -71,6 +75,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Tower Archer (west)", 2000, 103.8, 34.2, 0, 160, 0, 0, 40, 0, 4, 0, 628, 0, 628, 40, "Stab", 90, 65, 55, 45));
         enemies.add(new Enemy("Apmeken", 2000, 103.8, 34.2, 288, 0, 384, 30, 0, 40, 4, 454, 0, 628, 628, 40, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("Possessed Priest", 2000, 103.8, 34.2, 120, 160, 160, 30, 40, 40, 4, 454, 628, 628, 628, 40, "Slash", 90, 65, 55, 45));
+        enemies.add(new Enemy("The Draugen", 2000, 103.8, 34.2, 240, 0, 0, 40, 0, 0, 6, 628, 0, 0, 628, 40, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Unicow", 2050, 108.9, 35.9, 0, 0, 164, 0, 0, 41, 4, 0, 0, 648, 648, 41, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("Tyras guard", 2100, 114.6, 27.8, 168, 0, 0, 42, 0, 0, 4, 668, 0, 0, 668, 42, "Earth", 90, 55, 45, 65));
         enemies.add(new Enemy("Vampyre Juvinate (In Aid of the Myreque A)", 2100, 0, 0, 0, 168, 0, 0, 42, 0, 4, 0, 668, 0, 668, 42, "Stab", 90, 65, 55, 45));
@@ -99,12 +104,15 @@ public class EnemyDatabase {
         enemies.add(new Enemy("'Rum'-pumped crab", 3000, 269.4, 88.9, 240, 0, 0, 60, 0, 0, 4, 1132, 0, 0, 1132, 60, "Stab", 90, 65, 55, 45));
         enemies.add(new Enemy("Tz-Kih", 3000, 141.6, 46.7, 244, 0, 0, 61, 0, 0, 4, 1164, 0, 0, 1164, 61, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Elf warrior", 3000, 269.4, 88.9, 240, 0, 0, 60, 0, 0, 4, 1132, 0, 0, 1132, 60, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Ice troll", 3200, 327.9, 108.2, 256, 0, 0, 64, 0, 0, 4, 1264, 0, 0, 1264, 64, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Troll general", 3250, 344.4, 113.6, 260, 0, 0, 65, 0, 0, 4, 1299, 0, 0, 1299, 65, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Hardened TzHaar", 3500, 440.7, 145.4, 280, 280, 280, 70, 70, 70, 4, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Ice giant", 3700, 136.3, 44.9, 185, 0, 0, 37, 0, 0, 5, 571, 0, 0, 571, 37, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Lava monster", 3700, 536.7, 177.1, 222, 0, 296, 55, 0, 74, 4, 555, 0, 1650, 1650, 74, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("TokHaar-Ket Champion", 3750, 564.3, 186.2, 300, 300, 300, 75, 75, 75, 4, 1694, 1694, 1694, 1650, 75, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Witch's experiment 2", 4000, 99, 32.6, 244, 0, 0, 17, 0, 0, 4, 280, 0, 0, 280, 17, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("TokHaar-Hur", 4000, 441, 145.5, 384, 0, 0, 80, 0, 0, 4, 1486, 0, 0, 1486, 80, "Water", 90, 55, 45, 65));
+        enemies.add(new Enemy("Dramen tree spirit", 4000, 132, 43.5, 384, 0, 0, 45, 0, 0, 4, 732, 0, 0, 732, 45, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Revenant icefiend", 4050, 117, 38.6, 607, 607, 607, 27, 27, 27, 5, 409, 409, 409, 409, 27, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Jogre", 4100, 163.3, 53.8, 246, 0, 0, 41, 0, 0, 6, 648, 0, 0, 648, 41, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Revenant pyrefiend", 4350, 129, 42.5, 652, 652, 652, 29, 29, 29, 5, 439, 439, 439, 439, 29, "Nothing", 0, 40, 40, 40));
@@ -120,6 +128,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Revenant vampyre", 5100, 159.6, 52.6, 765, 765, 765, 34, 34, 34, 5, 519, 519, 519, 519, 34, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Kalphite guardian", 5200, 274.5, 90.5, 208, 0, 0, 52, 0, 0, 4, 901, 0, 0, 91, 52, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Warped tortoise", 5200, 274.5, 90.5, 0, 0, 208, 0, 0, 52, 4, 0, 0, 901, 901, 52, "Bolts", 90, 45, 65, 55));
+        enemies.add(new Enemy("Dad", 5500, 317.2, 104.6, 440, 0, 0, 55, 0, 0, 8, 983, 0, 0, 983, 55, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Revenant werewolf", 5700, 190.8, 62.9, 855, 855, 855, 38, 38, 38, 5, 590, 590, 590, 590, 38, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Yt-MejKot (TEK)", 5775, 622.8, 205, 369, 0, 0, 77, 0, 0, 4, 1783, 0, 0, 1566, 77, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Witch's experiment 3", 6000, 146.2, 48.2, 388, 0, 0, 27, 0, 0, 4, 409, 0, 0, 409, 27, "Water", 90, 55, 45, 65));
@@ -158,8 +167,10 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Desert strykewyrm", 10000, 805, 265.6, 0, 296, 0, 0, 74, 0, 4, 0, 1650, 0, 1526, 74, "Stab", 90, 65, 55, 45));
         enemies.add(new Enemy("Iorwerth scout", 10000, 615, 202.9, 816, 0, 0, 85, 0, 0, 4, 2178, 0, 0, 1694, 90, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Cadarn magus", 10000, 615, 202.9, 0, 0, 1083, 0, 0, 85, 6, 0, 0, 2178, 1694, 90, "Arrows", 90, 45, 65, 55));
+        enemies.add(new Enemy("Harold", 10000, 661, 218.1, 420, 0, 0, 70, 0, 0, 4, 1486, 0, 0, 1486, 70, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Revenant dragon", 10350, 1787.4, 589.8, 1552, 1552, 1552, 90, 90, 90, 5, 2458, 2458, 2458, 2458, 90, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Gadderanks", 10500, 343.8, 113.4, 403, 0, 0, 42, 0, 0, 4, 668, 0, 0, 668, 42, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Koschei the Deathless", 10950, 0, 0, 560, 560, 560, 0, 0, 0, 4, 1486, 1486, 1486, 1486, 0, "Nothing", 0, 20, 10, 40));
         enemies.add(new Enemy("Ahrim the Blighted", 12000, 881.4, 290.8, 0, 0, 1260, 0, 0, 70, 6, 0, 0, 1566, 1299, 70, "Arrows", 90, 45, 65, 55));
         enemies.add(new Enemy("Akrisae the Doomed", 12000, 881.4, 290.8, 0, 0, 2167, 0, 0, 70, 6, 0, 0, 1486, 1486, 70, "Nothing", 0, 45, 65, 55));
         enemies.add(new Enemy("Dharok the Wretched", 12000, 881.4, 290.8, 1260, 0, 0, 70, 0, 0, 6, 1566, 0, 0, 1299, 70, "Fire", 90, 55, 45, 65));
@@ -198,10 +209,14 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Dark Lord", 19250, 1868.4, 616.5, 1108, 0, 1108, 77, 1, 77, 4, 1783, 0, 1783, 1783, 77, "Fire", 90, 45, 65, 55));
         enemies.add(new Enemy("Ice nihil", 20000, 2170.8, 716.3, 0, 0, 768, 0, 0, 80, 4, 0, 0, 1924, 1924, 80, "Ranged", 90, 45, 65, 55));
         enemies.add(new Enemy("Smoke nihil", 20000, 2170.8, 716.3, 0, 0, 768, 0, 0, 80, 4, 0, 0, 1924, 1924, 80, "Ranged", 90, 45, 65, 55));
+        enemies.add(new Enemy("Fareed", 20000, 942.9, 311.1, 864, 0, 864, 60, 0, 60, 4, 1132, 0, 1132, 1132, 60, "Water", 40, 20, 10, 40));
+        enemies.add(new Enemy("Damis", 20000, 1040.5, 343.3, 892, 0, 0, 62, 0, 0, 3, 1197, 0, 0, 1197, 62, "Earth", 40, 20, 10, 40));
+        enemies.add(new Enemy("Kamil", 21000, 1093, 360.6, 907, 0, 907, 63, 0, 63, 4, 1230, 0, 1230, 1230, 63, "Fire", 40, 20, 10, 40));
         enemies.add(new Enemy("Echo of Jas", 23750, 4585.5, 1513.2, 0, 0, 475, 0, 0, 95, 5, 0, 0, 2765, 2765, 95, "Nothing", 0, 45, 65, 55));
         enemies.add(new Enemy("Blood nihil", 25000, 2532.6, 835.7, 768, 0, 0, 80, 0, 0, 4, 1924, 0, 0, 1924, 80, "Magic", 90, 55, 45, 65));
         enemies.add(new Enemy("Ice strykewyrm", 25000, 1067, 352.1, 729, 0, 729, 76, 0, 76, 4, 1566, 0, 1566, 1566, 76, "Fire", 90, 40, 30, 10));
         enemies.add(new Enemy("Dagannoth sentinel", 25000, 661, 218.1, 1036, 1036, 892, 72, 72, 62, 4, 1566, 1566, 1197, 1486, 70, "Slash", 90, 65, 55, 45));
+        enemies.add(new Enemy("Dessous", 25000, 1212.3, 400, 864, 864, 864, 60, 60, 60, 4, 1132, 1132, 1132, 1132, 60, "Air", 40, 20, 10, 40));
         enemies.add(new Enemy("Legio", 30000, 3591, 1185, 0, 0, 1102, 0, 0, 90, 10, 0, 0, 2458, 2178, 85, "Ranged", 70, 7, 70, 15));
         enemies.add(new Enemy("Lava strykewyrm", 30000, 1200, 396, 1788, 1152, 1152, 85, 85, 85, 4, 2178, 2178, 2178, 1924, 80, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Dagannoth Prime", 35000, 2194.5, 724.1, 0, 0, 1788, 0, 0, 68, 4, 0, 0, 1924, 1409, 68, "Arrows", 75, 0, 60, 0));

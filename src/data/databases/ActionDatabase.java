@@ -34,6 +34,8 @@ public class ActionDatabase {
             true, true, false));
         database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 8650),
             true, true, false));
+        database.add(new Action("Agility Pyramid", Collections.singletonList(new Requirement("Agility", 30)), Map.of("Waterskin (4)", 10),
+            Map.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22), true, true, false));
         database.add(new Action("Advanced Gnome Stronghold Agility Course", Collections.singletonList(new Requirement("Agility", 85)),
             new HashMap(), Map.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94), true, true, false));
 
@@ -217,6 +219,17 @@ public class ActionDatabase {
         database.add(new Action("Killing vyres for corpses", Collections.singletonList(new Requirement("Legacy of Seergaze", 1)), new HashMap(),
             Map.of("Vyre corpse", vyreKills, "mCombat", (int)Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills, "Constitution",
                 (int) Enemy.getEnemyByName("Vyrewatch").getHpxp() * vyreKills), true, true, true));
+
+        //Bossing
+        int kbdKills = combatKills("King Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1)), player, 28, "Melee", 0, false);
+        database.add(new Action("Killing the King Black Dragon", new ArrayList(), new HashMap(), Map.of("King Black Dragon", kbdKills,
+            "mCombat", (int)Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills, "Constitution",
+            (int)Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills), true, true, true));
+
+        int qbdKills = combatKills("Queen Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1)), player, 28, "Melee", 0, false);
+        database.add(new Action("Killing the Queen Black Dragon", new ArrayList(), new HashMap(), Map.of("Queen Black Dragon", qbdKills,
+            "mCombat", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills, "Constitution",
+            (int)Enemy.getEnemyByName("Queen Black Dragon").getHpxp() * qbdKills), true, true, true));
 
         //Other repeatables
         database.add(new Action("Completing Shifting Tombs", Arrays.asList(new Requirement("Agility", 50),
