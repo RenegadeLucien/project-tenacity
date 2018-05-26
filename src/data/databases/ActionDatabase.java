@@ -16,16 +16,21 @@ public class ActionDatabase {
     private ActionDatabase(Player player) {
         //Placeholder for skills that have not yet been implemented
         database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Woodcutting", 1, "Construction", 1,
-            "Invention", 1, "Hunter", 1, "Farming", 1), true, true, false));
+            "Invention", 1, "Farming", 1), true, true, false));
+
+        //Placeholder for dailies/spawns/shops/etc (move when applicable feature is fully implemented)
+        database.add(new Action("Rosie's daily supplies", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
+            new HashMap(), Map.of("Supplies", 60), true, true, false));
+        database.add(new Action("Collecting planks", new ArrayList(), new HashMap(), Map.of("Plank", 240), true, true, false));
+        database.add(new Action("Buying cleansing crystals", Collections.singletonList(new Requirement("Plague's End", 1)),
+            Map.of("Coins", 39600000), Map.of("Cleansing crystal", 360), true, true, false));
 
         //XP-less gathering
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
             true, true, false));
-        database.add(new Action("Collecting planks", new ArrayList(), new HashMap(), Map.of("Plank", 240), true, true, false));
-        database.add(new Action("Buying cleansing crystals", Collections.singletonList(new Requirement("Plague's End", 1)),
-            Map.of("Coins", 39600000), Map.of("Cleansing crystal", 360), true, true, false));
         database.add(new Action("Voyaging for items", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
-            Map.of("Supplies", 300), Map.of("Taijitu", 17, "Sea shell", 9), true, true, false));
+            Map.of("Supplies", 300), Map.of("Taijitu", 26, "Sea shell", 9, "Driftwood", 9, "Sea salt", 9, "Bamboo", 9, "Shell chippings", 9,
+            "Spirit dragon charm", 9), true, true, false));
         database.add(new Action("Winning Castle Wars games", new ArrayList(), new HashMap(), Map.of("Gold Castle Wars ticket", 6), true,
             true, false));
 
@@ -36,8 +41,13 @@ public class ActionDatabase {
             true, true, false));
         database.add(new Action("Agility Pyramid", Collections.singletonList(new Requirement("Agility", 30)), Map.of("Waterskin (4)", 10),
             Map.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22), true, true, false));
+        database.add(new Action("Hefin Agility Course (77-81 Agility)", Arrays.asList(new Requirement("Plague's End", 1),
+            new Requirement("Agility", 77)), new HashMap(), Map.of("Agility", 56320, "Hefin Agility Course laps", 80), true, true, false));
         database.add(new Action("Advanced Gnome Stronghold Agility Course", Collections.singletonList(new Requirement("Agility", 85)),
             new HashMap(), Map.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94), true, true, false));
+        database.add(new Action("Advanced Barbarian Outpost Agility Course", Arrays.asList(new Requirement("Bar Crawl", 1),
+            new Requirement("Agility", 90)), new HashMap(), Map.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96), true, true,
+            false));
 
 
         //Construction
@@ -112,6 +122,8 @@ public class ActionDatabase {
             "Herblore", 12725), true, true, false));
 
         //Hunter
+        database.add(new Action("Feeding ogleroots to rabbits", new ArrayList(), Map.of("Coins", 3000), Map.of("Hunter", 10000),
+            true, true, false));
         database.add(new Action("Catching charm sprites", Collections.singletonList(new Requirement("Hunter", 72)), new HashMap(),
             Map.of("Hunter", 60000, "Crimson charm", 40, "Blue charm", 28, "Green charm", 17, "Gold charm", 6, "Charm sprites", 435), true,
             true, false));
