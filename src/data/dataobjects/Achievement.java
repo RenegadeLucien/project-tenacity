@@ -23,7 +23,6 @@ public class Achievement implements java.io.Serializable {
     private List<Encounter> encounters; //list of combat encounters
     private List<Reward> rewards; //list of static rewards
     private List<Lamp> lamps; //list of lamps
-    private boolean display; //if task is a "true" achievement, and should be displayed on the task list
 
     Achievement(AchievementBuilder builder) {
         this.name = builder.name;
@@ -32,7 +31,6 @@ public class Achievement implements java.io.Serializable {
         this.encounters = builder.encounters;
         this.rewards = builder.rewards;
         this.lamps = builder.lamps;
-        this.display = builder.display;
     }
 
     public static class AchievementBuilder {
@@ -43,12 +41,10 @@ public class Achievement implements java.io.Serializable {
         private List<Encounter> encounters;
         private List<Reward> rewards;
         private List<Lamp> lamps;
-        private boolean display;
 
-        public AchievementBuilder(String name, double time, boolean display) {
+        public AchievementBuilder(String name, double time) {
             this.name = name;
             this.time = time;
-            this.display = display;
             this.reqs = new ArrayList<>();
             this.encounters = new ArrayList<>();
             this.rewards = new ArrayList<>();
@@ -183,10 +179,6 @@ public class Achievement implements java.io.Serializable {
 
     public List<Lamp> getLamps() {
         return lamps;
-    }
-
-    public boolean isDisplay() {
-        return display;
     }
 
     public static Achievement getAchievementByName(String name) {

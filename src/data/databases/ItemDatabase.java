@@ -354,6 +354,7 @@ public class ItemDatabase {
         items.add(new Item("Bagged plant 1", 1000));
         items.add(new Item("Elder seed", 1000));
         items.add(new Item("Games necklace (8)", 1050));
+        items.add(new Item("Sapphire necklace", 1050));
         items.add(new Item("Tyras helm", 1265));
         items.add(new Item("Ring of duelling (8)", 1275));
         items.add(new Item("Mahogany plank", 1500));
@@ -374,6 +375,9 @@ public class ItemDatabase {
         items.add(new Item("Initiate sallet", 6000));
         items.add(new Item("Battlestaff", 7000));
         items.add(new Item("Initiate cuisse", 8000));
+        items.add(new Item("Proselyte sallet", 8000));
+        items.add(new Item("Proselyte cuisse", 10000));
+        items.add(new Item("Proselyte hauberk", 12000));
         items.add(new Item("Combat bracelet", 21040));
         items.add(new Item("Combat bracelet (4)", 21040));
     }

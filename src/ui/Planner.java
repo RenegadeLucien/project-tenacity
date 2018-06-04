@@ -1,5 +1,6 @@
 package ui;
 
+import logic.GoalResults;
 import logic.Player;
 import javafx.scene.input.MouseButton;
 import data.dataobjects.Achievement;
@@ -16,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -34,22 +36,21 @@ public class Planner extends Application {
         taskView.setPrefWidth(400);
         taskView.setPrefHeight(550);
         taskView.setEditable(true);
-        TableColumn<Entry<Achievement, Double>, String> taskCol = new TableColumn<>("Achievement");
-        taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, Double>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<Achievement, GoalResults>, String> taskCol = new TableColumn<>("Achievement");
+        taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, Double>, String> a) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String> a) {
                 return new SimpleStringProperty(a.getValue().getKey().getName());
             }
         });
-        TableColumn<Entry<Achievement, Double>, String> timeCol = new TableColumn<>("Effective Time Cost");
-        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, Double>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<Achievement, GoalResults>, String> timeCol = new TableColumn<>("Effective Time Cost");
+        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, Double>, String> a) {
-                return new SimpleStringProperty(a.getValue().getValue().toString());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String> a) {
+                return new SimpleStringProperty(String.valueOf(a.getValue().getValue().getTotalTime()));
             }
         });
-        ObservableList<Entry<Achievement, Double>> tasksWithTimes = FXCollections.observableArrayList(p.getPlayerTasks().entrySet()
-            .stream().filter(k -> k.getKey().isDisplay()).collect(Collectors.toList()));
+        ObservableList<Entry<Achievement, Double>> tasksWithTimes = FXCollections.observableArrayList(new ArrayList(p.getPlayerTasks().entrySet()));
         taskView.setItems(tasksWithTimes);
         taskView.getColumns().addAll(taskCol, timeCol);
         taskView.setRowFactory(tv -> {
@@ -195,17 +196,11 @@ public class Planner extends Application {
         qualityView.getColumns().addAll(qualityCol, qualityCountCol);
 
         root.add(tabPane, 1, 0);
-        System.out.println(p.getPlayerTasks().values().stream().filter(a -> a > 100000).collect(Collectors.toList()).size());
-        double sumOfAll = 0;
-        for (double d : p.getPlayerTasks().values()) {
-            sumOfAll+=d;
-        }
-        System.out.println(sumOfAll);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.2.6pa (by Iron Lucien)");
+        primaryStage.setTitle("Project Tenacity v0.2.13pa (by Iron Lucien)");
         Text nameText = new Text("Enter profile name:");
         TextField nameEntry = new TextField();
         final ToggleGroup irongroup = new ToggleGroup();

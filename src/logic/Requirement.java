@@ -76,21 +76,7 @@ public class Requirement implements java.io.Serializable {
                 goalResults = player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier);
             }
         } else if (Achievement.getAchievementByName(qualifier) != null) {
-            Achievement achievement = Achievement.getAchievementByName(qualifier);
-            double achievementTime = 0;
-            Map<String, Double> achievementActions = new HashMap<>();
-            List<GoalResults> subGoals = new ArrayList<>();
-            for (Requirement requirement : achievement.getReqs()) {
-                subGoals.add(requirement.timeAndActionsToMeetRequirement(player));
-            }
-            for (GoalResults subGoal : subGoals) {
-                addItemsToMap(achievementActions, subGoal.getActionsWithTimes());
-            }
-            achievementActions.put(qualifier, achievement.getTime());
-            for (double actionTime : achievementActions.values()) {
-                achievementTime += actionTime;
-            }
-            goalResults = new GoalResults(achievementTime, achievementActions);
+            return player.getPlayerTasks().get(Achievement.getAchievementByName(qualifier));
         } else {
             goalResults = player.efficientGoalCompletion(qualifier, quantifier);
         }
