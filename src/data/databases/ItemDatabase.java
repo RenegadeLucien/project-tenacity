@@ -66,6 +66,7 @@ public class ItemDatabase {
         items.add(new Item("Bowl (unfired)", 2));
         items.add(new Item("Wizard's mind bomb", 2));
         items.add(new Item("Banana", 2));
+        items.add(new Item("Dragon bitter", 2));
         items.add(new Item("Eye of newt", 3));
         items.add(new Item("Molten glass", 3));
         items.add(new Item("Pie dish", 3));
@@ -115,6 +116,7 @@ public class ItemDatabase {
         items.add(new Item("Bronze arrow", 7));
         items.add(new Item("Bronze nails", 7));
         items.add(new Item("Red spiders' eggs", 7));
+        items.add(new Item("Limpwurt root", 7));
         items.add(new Item("Bronze bar", 8));
         items.add(new Item("Cheese", 8));
         items.add(new Item("Potato seed", 8));
@@ -323,6 +325,7 @@ public class ItemDatabase {
         items.add(new Item("Mithril seeds", 300));
         items.add(new Item("Mithril bar", 300));
         items.add(new Item("Raw shark", 300));
+        items.add(new Item("Saradomin arrows", 300));
         items.add(new Item("Magic logs", 320));
         items.add(new Item("Steel sword", 325));
         items.add(new Item("Raw swordfish", 340));

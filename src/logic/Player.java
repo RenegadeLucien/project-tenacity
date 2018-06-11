@@ -28,7 +28,8 @@ public class Player implements java.io.Serializable {
 
     private String name;
     private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
-    private Map<Achievement, GoalResults> playerTasks = new LinkedHashMap<>();
+    private Map<Achievement, Double> playerTasks = new LinkedHashMap<>();
+    private Map<Achievement, GoalResults> taskDetails = new HashMap<>();
     private Map<String, Double> xp = new HashMap<>();
     private Map<String, Integer> qualities = new HashMap<>();
     private Map<String, Integer> bank = new HashMap<>();
@@ -46,7 +47,8 @@ public class Player implements java.io.Serializable {
             this.status = 2;
         xp = setInitialXP();
         for (Achievement t : AchievementDatabase.getAchievementDatabase().getAchievements()) {
-            playerTasks.put(t, new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0)));
+            taskDetails.put(t, new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0)));
+            playerTasks.put(t, 1000000000.0);
         }
         weapons.add(Weapon.BRONZE_SWORD); //not technically obtained on startup but you can get these in 30 seconds and it is required to make the combat calcs work
         weapons.add(Weapon.CHARGEBOW);
@@ -55,8 +57,12 @@ public class Player implements java.io.Serializable {
         calcAllAchievements();
     }
 
-    public Map<Achievement, GoalResults> getPlayerTasks() {
+    public Map<Achievement, Double> getPlayerTasks() {
         return playerTasks;
+    }
+
+    public Map<Achievement, GoalResults> getTaskDetails() {
+        return taskDetails;
     }
 
     public Map<String, Double> getXp() {
@@ -272,10 +278,11 @@ public class Player implements java.io.Serializable {
     public void calcAllAchievements() {
         long time = System.nanoTime();
         calcFood();
-        for (Entry<Achievement, GoalResults> taskWithActionsAndTime : playerTasks.entrySet()) {
-            Achievement t = taskWithActionsAndTime.getKey();
+        for (Entry<Achievement, Double> taskWithTime : playerTasks.entrySet()) {
+            Achievement t = taskWithTime.getKey();
             GoalResults actionsAndTime = t.getTimeForRequirements(this);
-            playerTasks.put(t, new GoalResults(t.getTime() + actionsAndTime.getTotalTime() - t.getGainFromRewards(this), actionsAndTime.getActionsWithTimes()));
+            playerTasks.put(t, t.getTime() + actionsAndTime.getTotalTime() - t.getGainFromRewards(this));
+            taskDetails.put(t, actionsAndTime);
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
     }
@@ -333,6 +340,7 @@ public class Player implements java.io.Serializable {
         }
 
         playerTasks.remove(task);
+        taskDetails.remove(task);
         calcAllAchievements();
     }
 
@@ -462,14 +470,6 @@ public class Player implements java.io.Serializable {
         double minimum = Double.POSITIVE_INFINITY;
         String minAction = qualifier;
         Map<String, Double> efficiency = new HashMap<>();
-        for (Achievement achievement : playerTasks.keySet()) {
-            for (Reward reward : achievement.getRewards()) {
-                if (reward.getQualifier().equals(qualifier) && reward.getQuantifier() >= quantifier) {
-                    minimum = Math.min(minimum, playerTasks.get(achievement).getTotalTime());
-                    minAction = achievement.getName();
-                }
-            }
-        }
         for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
             if (action.getOutputs().containsKey(qualifier)) {
                 double effectiveTimeThisAction = 0.0;

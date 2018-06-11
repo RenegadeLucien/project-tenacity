@@ -3,9 +3,7 @@ package logic;
 import data.dataobjects.Achievement;
 import data.dataobjects.Item;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Requirement implements java.io.Serializable {
@@ -76,7 +74,15 @@ public class Requirement implements java.io.Serializable {
                 goalResults = player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier);
             }
         } else if (Achievement.getAchievementByName(qualifier) != null) {
-            return player.getPlayerTasks().get(Achievement.getAchievementByName(qualifier));
+            return player.getTaskDetails().get(Achievement.getAchievementByName(qualifier));
+        } else if (qualifier.equals("Flags unfurled")) {
+            goalResults = new Requirement("Master Quester", 1).timeAndActionsToMeetRequirement(player);
+            for (String skill : Player.ALL_SKILLS) {
+                GoalResults skillResults = player.efficientGoalCompletion(skill, player.getXpToLevel(skill, 99));
+                if (skillResults.getTotalTime() < goalResults.getTotalTime()) {
+                    goalResults = skillResults;
+                }
+            }
         } else {
             goalResults = player.efficientGoalCompletion(qualifier, quantifier);
         }

@@ -36,18 +36,18 @@ public class Planner extends Application {
         taskView.setPrefWidth(400);
         taskView.setPrefHeight(550);
         taskView.setEditable(true);
-        TableColumn<Entry<Achievement, GoalResults>, String> taskCol = new TableColumn<>("Achievement");
-        taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<Achievement, Double>, String> taskCol = new TableColumn<>("Achievement");
+        taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, Double>, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String> a) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, Double>, String> a) {
                 return new SimpleStringProperty(a.getValue().getKey().getName());
             }
         });
-        TableColumn<Entry<Achievement, GoalResults>, String> timeCol = new TableColumn<>("Effective Time Cost");
-        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<Achievement, Double>, String> timeCol = new TableColumn<>("Effective Time Cost");
+        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<Achievement, Double>, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, GoalResults>, String> a) {
-                return new SimpleStringProperty(String.valueOf(a.getValue().getValue().getTotalTime()));
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<Achievement, Double>, String> a) {
+                return new SimpleStringProperty(String.valueOf(a.getValue().getValue()));
             }
         });
         ObservableList<Entry<Achievement, Double>> tasksWithTimes = FXCollections.observableArrayList(new ArrayList(p.getPlayerTasks().entrySet()));
@@ -64,10 +64,15 @@ public class Planner extends Application {
             return row;
         });
         Button completeTask = new Button();
-        completeTask.setText("Complete Achievement");
+        completeTask.setText("Complete Achievement/Recalc");
         completeTask.setOnAction(event -> {
             if (taskView.getSelectionModel().getSelectedItem() != null) {
                 p.completeTask(((Entry<Achievement, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey());
+                displayTasks(p);
+                displayPlayer(p);
+            }
+            else {
+                p.calcAllAchievements();
                 displayTasks(p);
                 displayPlayer(p);
             }

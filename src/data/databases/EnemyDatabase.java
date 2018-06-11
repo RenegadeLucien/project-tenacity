@@ -110,6 +110,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Death wing", 2750, 211.5, 69.7, 220, 0, 220, 55, 0, 55, 4, 983, 0, 983, 983, 55, "Arrows", 90, 45, 65, 55));
         enemies.add(new Enemy("Fistandantilus", 2750, 211.5, 69.7, 0, 0, 220, 0, 0, 55, 4, 0, 0, 983, 983, 55, "Arrows", 90, 45, 65, 55));
         enemies.add(new Enemy("Zaromark Sliver", 2750, 211.5, 69.7, 220, 220, 0, 55, 55, 0, 4, 983, 983, 0, 983, 55, "Nothing", 0, 55, 45, 45));
+        enemies.add(new Enemy("Fire Warrior of Lesarkus", 2750, 211.5, 69.7, 0, 0, 220, 0, 0, 55, 6, 0, 0, 983, 983, 55, "Arrows", 90, 55, 45, 65));
         enemies.add(new Enemy("Dagannoth", 2800, 221.7, 73.1, 224, 0, 0, 56, 0, 0, 4, 1011, 0, 0, 1011, 56, "Earth", 90, 55, 45, 65));
         enemies.add(new Enemy("Demon (Underground Pass)", 2800, 221.7, 73.1, 224, 0, 0, 56, 0, 0, 4, 1011, 0, 0, 1011, 56, "Air", 90, 55, 45, 65));
         enemies.add(new Enemy("Mourner", 2850, 233.1, 76.9, 228, 0, 0, 57, 0, 0, 4, 1040, 0, 0, 1040, 57, "Fire", 90, 55, 45, 65));
@@ -121,8 +122,10 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Tz-Kih", 3000, 141.6, 46.7, 244, 0, 0, 61, 0, 0, 4, 1164, 0, 0, 1164, 61, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Elf warrior", 3000, 269.4, 88.9, 240, 0, 0, 60, 0, 0, 4, 1132, 0, 0, 1132, 60, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Ice troll", 3200, 327.9, 108.2, 256, 0, 0, 64, 0, 0, 4, 1264, 0, 0, 1264, 64, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Kolodion (Ogre)", 3200, 183, 60.3, 156, 0, 208, 39, 0, 52, 4, 609, 0, 901, 901, 52, "Nothing", 0, 45, 65, 55));
         enemies.add(new Enemy("Troll general", 3250, 344.4, 113.6, 260, 0, 0, 65, 0, 0, 4, 1299, 0, 0, 1299, 65, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Hardened TzHaar", 3500, 440.7, 145.4, 280, 280, 280, 70, 70, 70, 4, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 40, 40, 40));
+        enemies.add(new Enemy("Kolodion (Troll)", 3500, 211.5, 69.7, 165, 0, 220, 41, 0, 55, 4, 412, 0, 983, 983, 55, "Nothing", 0, 45, 65, 55));
         enemies.add(new Enemy("Ice giant", 3700, 136.3, 44.9, 185, 0, 0, 37, 0, 0, 5, 571, 0, 0, 571, 37, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Lava monster", 3700, 536.7, 177.1, 222, 0, 296, 55, 0, 74, 4, 555, 0, 1650, 1650, 74, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("TokHaar-Ket Champion", 3750, 564.3, 186.2, 300, 300, 300, 75, 75, 75, 4, 1694, 1694, 1694, 1650, 75, "Nothing", 0, 40, 40, 40));
@@ -134,6 +137,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Revenant pyrefiend", 4350, 129, 42.5, 652, 652, 652, 29, 29, 29, 5, 439, 439, 439, 439, 29, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Tormented wraith", 4500, 100.1, 33, 0, 0, 120, 0, 0, 40, 4, 0, 0, 628, 628, 40, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("Giant lobster", 4500, 133.8, 44.1, 120, 0, 0, 30, 0, 0, 4, 454, 0, 0, 454, 30, "Air", 90, 55, 45, 65));
+        enemies.add(new Enemy("Kolodion (Dark beast)", 4500, 233.1, 76.9, 171, 0, 228, 42, 0, 57, 4, 427, 0, 1040, 1040, 57, "Nothing", 0, 45, 65, 55));
         enemies.add(new Enemy("Revenant hobgoblin", 4800, 145.2, 47.9, 720, 720, 720, 32, 32, 32, 5, 486, 486, 486, 486, 32, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Zombie (Uncharted Isles)", 4950, 0, 0, 268, 0, 0, 67, 0, 0, 5, 1372, 0, 0, 1372, 67, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Zyclops", 4950, 0, 0, 268, 0, 0, 67, 0, 0, 5, 1372, 0, 0, 1372, 67, "Fire", 90, 55, 45, 65));
@@ -155,6 +159,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("TokHaar-Mej", 6000, 638.8, 210.8, 480, 0, 1008, 70, 1, 85, 4, 850, 0, 1608, 1608, 85, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("Chronozon", 6000, 404.1, 133.3, 480, 480, 480, 60, 60, 60, 4, 1132, 1132, 1132, 1132, 60, "Nothing", 0, 10, 40, 20));
         enemies.add(new Enemy("Me", 6000, 404.1, 133.3, 250, 0, 0, 60, 0, 0, 5, 1132, 0, 0, 1132, 60, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Kolodion (Black demon)", 6000, 404.1, 133.3, 180, 0, 240, 45, 0, 60, 4, 732, 0, 1132, 1132, 60, "Nothing", 0, 45, 65, 55));
         enemies.add(new Enemy("Tz-Kek", 6200, 445.9, 147.1, 248, 0, 0, 62, 0, 0, 4, 1197, 0, 0, 1197, 62, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Revenant cyclops", 6450, 239.4, 79, 967, 967, 967, 43, 43, 43, 5, 689, 689, 689, 689, 43, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Giant worm", 6500, 274.5, 90.5, 0, 0, 600, 0, 0, 65, 5, 0, 0, 1924, 1299, 40, "Bolts", 90, 45, 65, 55));

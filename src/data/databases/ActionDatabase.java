@@ -239,8 +239,8 @@ public class ActionDatabase {
             (int)Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills), true, true, true));
 
         int qbdKills = combatKills("Queen Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1)), player, 28, "Melee", 0, false);
-        database.add(new Action("Killing the Queen Black Dragon", new ArrayList(), new HashMap(), Map.of("Queen Black Dragon", qbdKills,
-            "mCombat", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills, "Constitution",
+        database.add(new Action("Killing the Queen Black Dragon", Collections.singletonList(new Requirement("Summoning", 60)), new HashMap(),
+            Map.of("Queen Black Dragon", qbdKills, "mCombat", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills, "Constitution",
             (int)Enemy.getEnemyByName("Queen Black Dragon").getHpxp() * qbdKills), true, true, true));
 
         //Other repeatables
@@ -256,6 +256,9 @@ public class ActionDatabase {
 
     public int combatKills(String enemyName, List<Restriction> restrictions, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
         CombatResults combatResults = new Encounter(enemyName, restrictions).calculateCombat(player, invenSpaces, combatStyle);
+        if (combatResults.getHpLost() == 1000000000) {
+            return 0;
+        }
         int time = TICKS_PER_HOUR;
         double currentHp = player.getLevel("Constitution") * 100;
         int kills = 0;

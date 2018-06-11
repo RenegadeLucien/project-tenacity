@@ -21,6 +21,8 @@ public class AchievementDatabase {
     private AchievementDatabase() {
         addAchievementsABC();
         addAchievementsDZ();
+        /*achievements.add(new AchievementBuilder("1001 Kharidian Spikes", 0.05).requirement("Cactus seed", 1).reward("Farming", 465)
+            .reward("Cactus spines", 1).build());*/
         AchievementBuilder allAchievements = new AchievementBuilder("All Achievements", 0);
         for (Achievement achievement : achievements) {
             allAchievements.requirement(achievement.getName(), 1);
@@ -36,10 +38,59 @@ public class AchievementDatabase {
             .reward("Dungeoneering tokens", 75).lamp(Arrays.asList("Attack", "Ranged", "Magic"), 3750, 1).build());
         achievements.add(new AchievementBuilder("300", 0).requirement("Three's Company (unabridged)", 1).build());
         achievements.add(new AchievementBuilder("99 With a Flake", 0).requirement("Flags unfurled", 1).build());
-        achievements.add(new AchievementBuilder("A, B, Cithara", 0).requirement("Holy cithara", 1).build());
+        achievements.add(new AchievementBuilder("One Piercing Note", 1).reward("Quest points", 2).reward("Prayer", 250).build());
+        achievements.add(new AchievementBuilder("The Dig Site", 1.5).requirement("Thieving", 25).requirement("Agility", 10)
+            .requirement("Herblore", 10).requirement("Cup of tea", 1).requirement("Vial", 1).requirement("Rope", 2)
+            .requirement("Uncut opal", 1).reward("Quest points", 2).reward("Mining", 15300).reward("Herblore", 2000).reward("Gold bar", 2)
+            .build());
+        achievements.add(new AchievementBuilder("Priest in Peril", 0.75).requirement("Pure essence", 25).requirement("Bucket", 0)
+            .encounter(new Encounter("Cerberus")).encounter(new Encounter("Monk of Zamorak")).reward("Quest points", 1)
+            .lamp(Collections.singletonList("Prayer"), 1406, 10).build());
+        achievements.add(new AchievementBuilder("Temple of Ikov", 0.75).requirement("Thieving", 42).requirement("Ranged", 40)
+            .requirement("Limpwurt root", 20).requirement("Candle", 0).encounter(new Encounter("Fire Warrior of Lesarkus",
+                Collections.singletonList(new Restriction("Ice arrows", 1)))).reward("Quest points", 1).reward("Ranged", 10500)
+            .reward("Fletching", 8000).build());
+        achievements.add(new AchievementBuilder("The Tourist Trap", 1).requirement("Fletching", 10).requirement("Smithing", 20)
+            .requirement("Desert shirt", 1).requirement("Desert robe", 1).requirement("Desert boots", 1).requirement("Waterskin (4)", 3)
+            .requirement("Feather", 30).requirement("Coins", 200).requirement("Bronze bar", 1).reward("Quest points", 2)
+            .lamp(Arrays.asList("Agility", "Fletching", "Smithing", "Thieving"), 4650, 1)
+            .lamp(Arrays.asList("Agility", "Fletching", "Smithing", "Thieving"), 4650, 1).build());
+        achievements.add(new AchievementBuilder("Death Plateau", 0.25).encounter(new Encounter("The Map")).reward("Quest points", 1)
+            .reward("Rabbit sandwich", 4).lamp(Player.ALL_SKILLS, 100, 1).lamp(Player.ALL_SKILLS, 100, 1).lamp(Player.ALL_SKILLS, 100, 1)
+            .build());
+        achievements.add(new AchievementBuilder("Troll Stronghold", 0.5).requirement("Death Plateau", 1).requirement("Agility", 15)
+            .requirement("Thieving", 30).requirement("Coins", 12).encounter(new Encounter("Dad")).encounter(new Encounter("Troll general"))
+            .reward("Quest points", 1).lamp(Player.ALL_SKILLS, 10000, 30).lamp(Player.ALL_SKILLS, 10000, 30).build());
+        achievements.add(new AchievementBuilder("Waterfall Quest", 0.75).requirement("Air rune", 6).requirement("Earth rune", 6)
+            .requirement("Water rune", 6).requirement("Rope", 0).reward("Quest points", 1).reward("Diamond", 2).reward("Gold bar", 2)
+            .reward("Mithril seeds", 40).reward("Attack", 13750).reward("Strength", 13750).build());
+        achievements.add(new AchievementBuilder("Ice gloves", 0.05).requirement("Mining", 50).encounter(new Encounter("Ice Queen"))
+            .build());
+        achievements.add(new AchievementBuilder("Desert Treasure", 2.5).requirement("The Dig Site", 1)
+            .requirement("Priest in Peril", 1).requirement("Temple of Ikov", 1).requirement("The Tourist Trap", 1)
+            .requirement("Troll Stronghold", 1).requirement("Waterfall Quest", 1).requirement("Ice gloves", 1).requirement("Slayer", 10)
+            .requirement("Firemaking", 50).requirement("Magic", 50).requirement("Thieving", 50).requirement("Ashes", 1)
+            .requirement("Blood rune", 1).requirement("Bones", 1).requirement("Charcoal", 1).requirement("Coins", 650)
+            .requirement("Molten glass", 6).requirement("Magic logs", 12).requirement("Steel bar", 6).requirement("Chocolate bar", 1)
+            .requirement("Face mask", 0).requirement("Garlic", 1).requirement("Lockpick", 50).requirement("Silver bar", 1)
+            .requirement("Iron bar", 1).encounter(new Encounter("Dessous")).encounter(new Encounter("Ice troll"))
+            .encounter(new Encounter("Ice troll")).encounter(new Encounter("Ice troll")).encounter(new Encounter("Ice troll"))
+            .encounter(new Encounter("Ice troll")).encounter(new Encounter("Kamil")).encounter(new Encounter("Fareed",
+                Collections.singletonList(new Restriction("Ice gloves", 1))))
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Damis"), Collections.singletonList("Damis"))))
+            .reward("Quest points", 3).reward("Magic", 20000).build());
+        achievements.add(new AchievementBuilder("The Restless Ghost", 0.25).reward("Quest points", 1).reward("Prayer", 1125)
+            .build());
+        achievements.add(new AchievementBuilder("Mage Arena minigame", 0).requirement("Magic", 60)
+            .encounter(new Encounter("Kolodion (Ogre)", Collections.singletonList(new Restriction("Magic", 1))))
+            .encounter(new Encounter("Kolodion (Troll)", Collections.singletonList(new Restriction("Magic", 1))))
+            .encounter(new Encounter("Kolodion (Dark beast)", Collections.singletonList(new Restriction("Magic", 1))))
+            .encounter(new Encounter("Kolodion (Black demon)", Collections.singletonList(new Restriction("Magic", 1)))).build());
+        achievements.add(new AchievementBuilder("A, B, Cithara", 0).requirement("One Piercing Note", 1).requirement("Desert Treasure", 1)
+            .requirement("The Restless Ghost", 1).requirement("Mage Arena minigame", 1).requirement("Saradomin arrows", 0).build());
         achievements.add(new AchievementBuilder("A-Voiding Conflict", 0.05).requirement("Combat", 35).build());
         achievements.add(new AchievementBuilder("A Barrel of Staffs", 0).requirement("Mage Arena minigame", 1)
-            .requirement("Coins", 80000).reward("Guthix staff", 1).build());
+            .requirement("Coins", 80000).build());
         achievements.add(new AchievementBuilder("A Body in the Sewers", 0).requirement("Mithril bar", 5).requirement("Smithing", 68)
             .reward("Mithril platebody", 1).reward("Smithing", 250).build());
         achievements.add(new AchievementBuilder("A Bolt from the Blue", 0).requirement("Rune bar", 1).requirement("Feather", 10)
@@ -56,11 +107,6 @@ public class AchievementDatabase {
             .reward("Chocolate cake", 1).reward("Stew", 1).build());
         achievements.add(new AchievementBuilder("A Cat is for Life...", 0).requirement("Plague City", 1)
             .requirement("Gertrude's Cat", 1).build());
-        achievements.add(new AchievementBuilder("The Restless Ghost", 0.25).reward("Quest points", 1).reward("Prayer", 1125)
-            .build());
-        achievements.add(new AchievementBuilder("Priest in Peril", 0.75).requirement("Pure essence", 25).requirement("Bucket", 0)
-            .encounter(new Encounter("Cerberus")).encounter(new Encounter("Monk of Zamorak")).reward("Quest points", 1)
-            .lamp(Collections.singletonList("Prayer"), 1406, 10).build());
         achievements.add(new AchievementBuilder("Making History", 0.75).requirement("Priest in Peril", 1)
             .requirement("The Restless Ghost", 1).requirement("Spade", 0).requirement("Coins", 2600).requirement("Sapphire amulet", 1)
             .reward("Quest points", 3).reward("Crafting", 1000).reward("Prayer", 1000).reward("Coins", 750).reward("Kudos", 5)
@@ -87,9 +133,6 @@ public class AchievementDatabase {
             .reward("Quest points", 2).reward("Fletching", 262).reward("Cooking", 1470).reward("Ranged", 735).build());
         achievements.add(new AchievementBuilder("Sheep Herder", 0.75).requirement("Coins", 100).reward("Coins", 3100)
             .reward("Quest points", 4).build());
-        achievements.add(new AchievementBuilder("Waterfall Quest", 0.75).requirement("Air rune", 6).requirement("Earth rune", 6)
-            .requirement("Water rune", 6).requirement("Rope", 0).reward("Quest points", 1).reward("Diamond", 2).reward("Gold bar", 2)
-            .reward("Mithril seeds", 40).reward("Attack", 13750).reward("Strength", 13750).build());
         achievements.add(new AchievementBuilder("Roving Elves", 1).requirement("Waterfall Quest", 1).requirement("Regicide", 1)
             .requirement("Rope", 0).encounter(new Encounter("Moss giant (Glarial's Tomb)", Arrays.asList(new Restriction("Prayer", 0),
                 new Restriction("Weapons", 0), new Restriction("Armour", 0), new Restriction("Prayer", 0)))).reward("Quest points", 1)
@@ -319,6 +362,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Mugger v. Roger Murray", 0.25).requirement("King's Ransom", 1)
             .lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning",
                 "Herblore"), 2000, 1).build());
+        achievements.add(new AchievementBuilder("Evil Twin v. Good Twin", 0.25).requirement("Court summons 4", 1).reward("Mystery box", 1)
+            .reward("Uncut sapphire", 5).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer",
+                "Prayer", "Summoning", "Herblore"), 6500, 1).build());
         achievements.add(new AchievementBuilder("All Rise", 0).requirement("Mugger v. Roger Murray", 1)
             .requirement("River troll v. The People", 1).requirement("Drunken Dwarf v. The People", 1)
             .requirement("Evil Twin v. Good Twin", 1).requirement("Rick Turpentine v. The (Rich) People", 1)
@@ -839,12 +885,6 @@ public class AchievementDatabase {
             .requirement("Oxymoron Incarnate", 1).requirement("Why Did the Lobster Blush?", 1).requirement("Hunting the Hunter", 1)
             .requirement("Peer Off the Pier", 1).requirement("A Familiar Feeling", 1).requirement("Endangered Species", 1)
             .lamp(Player.ALL_SKILLS, 5000, 30).build());
-        achievements.add(new AchievementBuilder("Death Plateau", 0.25).encounter(new Encounter("The Map")).reward("Quest points", 1)
-            .reward("Rabbit sandwich", 4).lamp(Player.ALL_SKILLS, 100, 1).lamp(Player.ALL_SKILLS, 100, 1).lamp(Player.ALL_SKILLS, 100, 1)
-            .build());
-        achievements.add(new AchievementBuilder("Troll Stronghold", 0.5).requirement("Death Plateau", 1).requirement("Agility", 15)
-            .requirement("Thieving", 30).requirement("Coins", 12).encounter(new Encounter("Dad")).encounter(new Encounter("Troll general"))
-            .reward("Quest points", 1).lamp(Player.ALL_SKILLS, 10000, 30).lamp(Player.ALL_SKILLS, 10000, 30).build());
         achievements.add(new AchievementBuilder("Eadgar's Ruse", 1.5).requirement("Druidic Ritual", 1)
             .requirement("Troll Stronghold", 1).requirement("Herblore", 31).requirement("Agility", 15).requirement("Vodka", 1)
             .requirement("Pineapple chunks", 1).requirement("Wheat", 10).requirement("Raw chicken", 5).requirement("Logs", 2)
@@ -886,30 +926,6 @@ public class AchievementDatabase {
             .reward("Construction", 200).reward("Harmonic dust", 4).build());
         achievements.add(new AchievementBuilder("Back Cran-door", 0).requirement("Dragon Slayer", 1).build());
         achievements.add(new AchievementBuilder("Balanced Combat Triangle", 0).requirement("Lockbox puzzle", 1).build());
-        achievements.add(new AchievementBuilder("The Tourist Trap", 1).requirement("Fletching", 10).requirement("Smithing", 20)
-            .requirement("Desert shirt", 1).requirement("Desert robe", 1).requirement("Desert boots", 1).requirement("Waterskin (4)", 3)
-            .requirement("Feather", 30).requirement("Coins", 200).requirement("Bronze bar", 1).reward("Quest points", 2)
-            .lamp(Arrays.asList("Agility", "Fletching", "Smithing", "Thieving"), 4650, 1)
-            .lamp(Arrays.asList("Agility", "Fletching", "Smithing", "Thieving"), 4650, 1).build());
-        achievements.add(new AchievementBuilder("The Dig Site", 1.5).requirement("Thieving", 25).requirement("Agility", 10)
-            .requirement("Herblore", 10).requirement("Cup of tea", 1).requirement("Vial", 1).requirement("Rope", 2)
-            .requirement("Uncut opal", 1).requirement("Quest points", 2).requirement("Mining", 15300).requirement("Herblore", 2000)
-            .requirement("Gold bar", 2).build());
-        achievements.add(new AchievementBuilder("Ice gloves", 0.05).requirement("Mining", 50).encounter(new Encounter("Ice Queen"))
-            .build());
-        achievements.add(new AchievementBuilder("Desert Treasure", 2.5).requirement("The Dig Site", 1)
-            .requirement("Priest in Peril", 1).requirement("Temple of Ikov", 1).requirement("The Tourist Trap", 1)
-            .requirement("Troll Stronghold", 1).requirement("Waterfall Quest", 1).requirement("Slayer", 10).requirement("Firemaking", 50)
-            .requirement("Magic", 50).requirement("Thieving", 50).requirement("Ashes", 1).requirement("Blood rune", 1)
-            .requirement("Bones", 1).requirement("Charcoal", 1).requirement("Coins", 650).requirement("Molten glass", 6)
-            .requirement("Magic logs", 12).requirement("Steel bar", 6).requirement("Chocolate bar", 1).requirement("Face mask", 0)
-            .requirement("Garlic", 1).requirement("Lockpick", 50).requirement("Ice gloves", 1).requirement("Silver bar", 1)
-            .requirement("Iron bar", 1).encounter(new Encounter("Dessous")).encounter(new Encounter("Ice troll"))
-            .encounter(new Encounter("Ice troll")).encounter(new Encounter("Ice troll")).encounter(new Encounter("Ice troll"))
-            .encounter(new Encounter("Ice troll")).encounter(new Encounter("Kamil")).encounter(new Encounter("Fareed",
-                Collections.singletonList(new Restriction("Ice gloves", 1))))
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Damis"), Collections.singletonList("Damis"))))
-            .reward("Quest points", 3).reward("Magic", 20000).build());
         achievements.add(new AchievementBuilder("Bandit Camp", 0).requirement("Desert Treasure", 1).build());
         achievements.add(new AchievementBuilder("Bandos's Memories", 0).requirement("Bandos chronicles", 13).build());
         achievements.add(new AchievementBuilder("Bane Tuner", 0).requirement("Tune Bane Ore", 1).build());
@@ -1115,7 +1131,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Catherby", 0).build());
         achievements.add(new AchievementBuilder("Caving Into the Gains", 0)
             .requirement("Myths of the White Lands post-quest rewards", 4).build());
-        achievements.add(new AchievementBuilder("One Piercing Note", 1).reward("Quest points", 2).reward("Prayer", 250).build());
         achievements.add(new AchievementBuilder("Cecilia, I'm Begging You, Please...", 0).requirement("One Piercing Note", 1)
             .build());
         achievements.add(new AchievementBuilder("Cement his Torment", 0).requirement("Black platelegs", 0)
@@ -3241,7 +3256,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Rusty Reward", 0).requirement("Rocking Out", 1).reward("Coins", 20).build());
         achievements.add(new AchievementBuilder("Rogue Down", 0).requirement("Wilderness portal rogue trader freed", 1).build());
         achievements.add(new AchievementBuilder("Respect the Balance", 0).requirement("Respects paid", 6).build());
-        achievements.add(new AchievementBuilder("Reliquary of Cithara", 0).requirement("Holy cithara", 1).reward("Prayer", 50000)
+        achievements.add(new AchievementBuilder("Reliquary of Cithara", 0).requirement("A, B, Cithara", 1).reward("Prayer", 50000)
             .build());
         achievements.add(new AchievementBuilder("Relight my Fire", 0).requirement("Dragon Forge tasks", 4).build());
         achievements.add(new AchievementBuilder("Quiet but Deadly Lore", 0).requirement("Dragonkin journals", 4).build());
