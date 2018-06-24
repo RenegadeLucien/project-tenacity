@@ -89,6 +89,8 @@ public class Achievement implements java.io.Serializable {
 
     public GoalResults getTimeForRequirements(Player player) {
         double totalTimeForAllReqs = 0;
+        Map<String, Double> initialXP = new HashMap<>();
+        initialXP.putAll(player.getXp());
         Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
         for (Requirement r : reqs) {
             if (Achievement.getAchievementByName(r.getQualifier()) == null || !totalActionsWithTimesForAllReqs.containsKey(r.getQualifier())) {
@@ -101,15 +103,21 @@ public class Achievement implements java.io.Serializable {
         for (Entry<String, Double> action : totalActionsWithTimesForAllReqs.entrySet()) {
             totalTimeForAllReqs += action.getValue();
         }
+        //If player does not
+        for (Requirement r : reqs) {
+            if (Player.ALL_SKILLS.contains(r.getQualifier())) {
+                player.getXp().put(r.getQualifier(), player.getXp().get(r.getQualifier()) + player.getXpToLevel(r.getQualifier(), r.getQuantifier()));
+            }
+        }
         for (Encounter e : encounters) {
             CombatResults meleeCombatResults = e.calculateCombat(player, 27, "Melee");
             CombatResults rangedCombatResults = e.calculateCombat(player, 27, "Ranged");
             CombatResults magicCombatResults = e.calculateCombat(player, 27, "Magic");
             if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
-                //System.out.println("Time to update the combat simulator");
                 totalTimeForAllReqs += 2147000.0;
             }
         }
+        player.setXp(initialXP);
         return new GoalResults(totalTimeForAllReqs, totalActionsWithTimesForAllReqs);
     }
 

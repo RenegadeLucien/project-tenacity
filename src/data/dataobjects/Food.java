@@ -2,11 +2,13 @@ package data.dataobjects;
 
 public enum Food {
 
-    SHRIMPS("Shrimps", 200),
+    /*SHRIMPS("Shrimps", 200),
     SARDINE("Sardine", 200),
     COOKED_CHICKEN("Cooked chicken", 200),
     COOKED_MEAT("Cooked meat", 200),
-    CRAYFISH("Crayfish", 200);
+    CRAYFISH("Crayfish", 200);*/
+    TROUT("Trout", 375);
+
 
     private String name;
     private int amountHealed;

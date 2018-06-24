@@ -1,8 +1,7 @@
 package logic;
 
 
-import data.databases.AchievementDatabase;
-import data.databases.ActionDatabase;
+import data.databases.*;
 import data.dataobjects.*;
 
 import java.util.Arrays;
@@ -50,10 +49,6 @@ public class Player implements java.io.Serializable {
             taskDetails.put(t, new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0)));
             playerTasks.put(t, 1000000000.0);
         }
-        weapons.add(Weapon.BRONZE_SWORD); //not technically obtained on startup but you can get these in 30 seconds and it is required to make the combat calcs work
-        weapons.add(Weapon.CHARGEBOW);
-        weapons.add(Weapon.STAFF);
-        calcFood();
         calcAllAchievements();
     }
 
@@ -143,90 +138,7 @@ public class Player implements java.io.Serializable {
             intermediateLevel++;
         }
         sumXP = (int) Math.floor(sumXP / 4);
-        return sumXP - (int) skillXp;
-    }
-
-    public void calcFood() {
-        int maxHealing = this.getLevel("Constitution") * 25;
-        List<Food> allFood = new ArrayList<>(Arrays.asList(Food.values()));
-        allFood.removeAll(food);
-        List<Food> foodToRemove = new ArrayList<>();
-        for (Food f : allFood) {
-            boolean addFood = true;
-            for (Food currentFood : food) {
-                if (Math.min(f.getAmountHealed(), maxHealing) <= Math.min(currentFood.getAmountHealed(), maxHealing)
-                    && Item.getItemByName(f.getName()).coinValue(this) >= Item.getItemByName(currentFood.getName()).coinValue(this)) {
-                    addFood = false;
-                    break;
-                } else if (Math.min(f.getAmountHealed(), maxHealing) >= Math.min(currentFood.getAmountHealed(), maxHealing)
-                    && Item.getItemByName(f.getName()).coinValue(this) <= Item.getItemByName(currentFood.getName()).coinValue(this)) {
-                    foodToRemove.add(currentFood);
-                }
-
-            }
-            if (addFood == true)
-                food.add(f);
-
-        }
-        food.removeAll(foodToRemove);
-    }
-
-    public boolean checkWeapon(Weapon weapon) {
-        if (weapons.contains(weapon))
-            return false;
-        for (Weapon currentWeapon : weapons) {
-            if (weapon.getWeaponClass().equals(currentWeapon.getWeaponClass()) && weapon.getStyle().equals(currentWeapon.getStyle())
-                && weapon.getSlot().equals(currentWeapon.getSlot())) {
-                if (weapon.getDamage() <= currentWeapon.getDamage() && weapon.getAccuracy() <= currentWeapon.getAccuracy())
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    public void addWeapon(Weapon weapon) {
-        List<Weapon> obsoleteWeapons = new ArrayList<>();
-        for (Weapon currentWeapon : weapons) {
-            if (weapon.getWeaponClass().equals(currentWeapon.getWeaponClass()) && weapon.getStyle().equals(currentWeapon.getStyle())
-                && weapon.getSlot().equals(currentWeapon.getSlot())) {
-                if (weapon.getDamage() >= currentWeapon.getDamage() && weapon.getAccuracy() >= currentWeapon.getAccuracy())
-                    obsoleteWeapons.add(currentWeapon);
-            }
-        }
-        weapons.removeAll(obsoleteWeapons);
-        weapons.add(weapon);
-    }
-
-    public boolean checkArmour(Armour armour1) {
-        if (armour.contains(armour1))
-            return false;
-        for (Armour currentArmour : armour) {
-            if (armour1.getType().equals(currentArmour.getType()) && armour1.getSlot().equals(currentArmour.getSlot())) {
-                if (armour1.getArmour() <= currentArmour.getArmour()
-                    && armour1.getLp() <= currentArmour.getLp()
-                    && armour1.getPray() <= currentArmour.getPray()
-                    && armour1.getReduc() <= currentArmour.getReduc()
-                    && armour1.getBonus() <= currentArmour.getBonus())
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    public void addArmour(Armour armour1) {
-        List<Armour> obsoleteArmour = new ArrayList<>();
-        for (Armour currentArmour : armour) {
-            if (armour1.getType().equals(currentArmour.getType()) && armour1.getSlot().equals(currentArmour.getSlot())) {
-                if (armour1.getArmour() >= currentArmour.getArmour()
-                    && armour1.getLp() >= currentArmour.getLp()
-                    && armour1.getPray() >= currentArmour.getPray()
-                    && armour1.getReduc() >= currentArmour.getReduc()
-                    && armour1.getBonus() >= currentArmour.getBonus())
-                    obsoleteArmour.add(currentArmour);
-            }
-        }
-        armour.removeAll(obsoleteArmour);
-        armour.add(armour1);
+        return Math.max(0, sumXP - (int) skillXp);
     }
 
     public List<Loadout> generateLoadouts(String combatStyle) {
@@ -240,12 +152,13 @@ public class Player implements java.io.Serializable {
         List<Armour> legArmour = new ArrayList<>();
         List<Armour> handArmour = new ArrayList<>();
         List<Armour> feetArmour = new ArrayList<>();
-        for (Weapon w : weapons) {
+        List<Ammo> ammoList = new ArrayList<>();
+        for (Weapon w : WeaponDatabase.getWeaponDatabase().getWeapons()) {
             if (w.getWeaponClass().equals(combatStyle)) {
                 weaponList.add(w);
             }
         }
-        for (Armour a : armour) {
+        for (Armour a : ArmourDatabase.getArmourDatabase().getArmours()) {
             if (a.getSlot().equals("Head") && a.getType().equals(combatStyle)) {
                 headArmour.add(a);
             } else if (a.getSlot().equals("Torso") && a.getType().equals(combatStyle)) {
@@ -258,26 +171,44 @@ public class Player implements java.io.Serializable {
                 feetArmour.add(a);
             }
         }
-        headArmour.add(Armour.NONE);
-        torsoArmour.add(Armour.NONE);
-        legArmour.add(Armour.NONE);
-        handArmour.add(Armour.NONE);
-        feetArmour.add(Armour.NONE);
+        for (Ammo am : AmmoDatabase.getAmmoDatabase().getAmmos()) {
+            if (am.getStyle().equals(combatStyle)) {
+                ammoList.add(am);
+            }
+        }
+        if (headArmour.size() == 0) {
+            headArmour.add(Armour.getArmourByName("None"));
+        }
+        if (torsoArmour.size() == 0) {
+            torsoArmour.add(Armour.getArmourByName("None"));
+        }
+        if (legArmour.size() == 0) {
+            legArmour.add(Armour.getArmourByName("None"));
+        }
+        if (handArmour.size() == 0) {
+            handArmour.add(Armour.getArmourByName("None"));
+        }
+        if (feetArmour.size() == 0) {
+            feetArmour.add(Armour.getArmourByName("None"));
+        }
+        if (ammoList.size() == 0) {
+            ammoList.add(Ammo.getAmmoByName("None"));
+        }
         for (Weapon w : weaponList)
-            for (Food f : food)
+            for (Food f : Food.values())
                 for (Armour head : headArmour)
                     for (Armour torso : torsoArmour)
                         for (Armour leg : legArmour)
                             for (Armour hand : handArmour)
                                 for (Armour foot : feetArmour)
-                                    loadouts.add(new Loadout(w, f, head, torso, leg, hand, foot));
-
+                                    for (Ammo ammo : ammoList)
+                                        loadouts.add(new Loadout(w, f, head, torso, leg, hand, foot, ammo));
+        //System.out.println(loadouts.size());
         return loadouts;
     }
 
     public void calcAllAchievements() {
         long time = System.nanoTime();
-        calcFood();
         for (Entry<Achievement, Double> taskWithTime : playerTasks.entrySet()) {
             Achievement t = taskWithTime.getKey();
             GoalResults actionsAndTime = t.getTimeForRequirements(this);
@@ -291,7 +222,7 @@ public class Player implements java.io.Serializable {
         for (Requirement requirement : task.getReqs()) {
             if (Achievement.getAchievementByName(requirement.getQualifier()) != null && playerTasks.containsKey(Achievement.getAchievementByName(requirement.getQualifier()))) {
                 completeTask(Achievement.getAchievementByName(requirement.getQualifier()));
-            } else if (ALL_SKILLS.contains(requirement.getQualifier()) && getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()) > 0) {
+            } else if (ALL_SKILLS.contains(requirement.getQualifier())) {
                 xp.put(requirement.getQualifier(), xp.get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             } else if (Item.getItemByName(requirement.getQualifier()) != null) {
                 if (bank.containsKey(requirement.getQualifier())) {
@@ -315,8 +246,6 @@ public class Player implements java.io.Serializable {
         for (Reward reward : rewards) {
             if (ALL_SKILLS.contains(reward.getQualifier())) {
                 xp.put(reward.getQualifier(), xp.get(reward.getQualifier()) + reward.getQuantifier());
-            } else if (Weapon.getWeaponByName(reward.getQualifier()) != null) {
-                addWeapon(Weapon.getWeaponByName(reward.getQualifier()));
             } else if (Item.getItemByName(reward.getQualifier()) != null) {
                 if (bank.containsKey(reward.getQualifier()))
                     bank.put(reward.getQualifier(), bank.get(reward.getQualifier()) + reward.getQuantifier());

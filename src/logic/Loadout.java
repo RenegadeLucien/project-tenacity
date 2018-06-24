@@ -1,5 +1,6 @@
 package logic;
 
+import data.dataobjects.Ammo;
 import data.dataobjects.Armour;
 import data.dataobjects.Food;
 import data.dataobjects.Weapon;
@@ -13,9 +14,10 @@ public class Loadout {
     private Armour legs;
     private Armour hands;
     private Armour feet;
+    private Ammo ammo;
 
 
-    public Loadout(Weapon mainWep, Food foodUsed, Armour head, Armour torso, Armour legs, Armour hands, Armour feet) {
+    public Loadout(Weapon mainWep, Food foodUsed, Armour head, Armour torso, Armour legs, Armour hands, Armour feet, Ammo ammo) {
         this.mainWep = mainWep;
         this.foodUsed = foodUsed;
         this.head = head;
@@ -23,6 +25,7 @@ public class Loadout {
         this.legs = legs;
         this.hands = hands;
         this.feet = feet;
+        this.ammo = ammo;
     }
 
     public Weapon getMainWep() {
@@ -53,11 +56,19 @@ public class Loadout {
         return feet;
     }
 
+    public Ammo getAmmo() {
+        return ammo;
+    }
+
     public int totalArmour() {
         return head.getArmour() + torso.getArmour() + legs.getArmour() + hands.getArmour() + feet.getArmour();
     }
 
     public double totalReduc() {
         return head.getReduc() + torso.getReduc() + legs.getReduc() + hands.getReduc() + feet.getReduc();
+    }
+
+    public int totalLp() {
+        return head.getLp() + torso.getLp() + legs.getLp() + hands.getLp() + feet.getLp();
     }
 }

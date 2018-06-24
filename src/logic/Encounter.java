@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class Encounter implements java.io.Serializable {
 
-    List<List<Enemy>> enemyGroups;
-    List<Restriction> restrictions;
+    private List<List<Enemy>> enemyGroups;
+    private List<Restriction> restrictions;
 
     public Encounter(List<List<String>> enemyGroups, List<Restriction> restrictions) {
         this.enemyGroups = new ArrayList<>();
@@ -50,15 +50,15 @@ public class Encounter implements java.io.Serializable {
         CombatResults results = null;
         double minHpLost = 1000000001;
         for (Loadout loadout : p.generateLoadouts(combatStyle)) {
-            double myLp = p.getLevel("Constitution") * 100;
+            double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
             int ticks = 0;
             double hpLost = 0;
             for (List<Enemy> enemyGroup : enemyGroups) {
                 for (Enemy enemy : enemyGroup) {
                     //System.out.println("Began fighting: " + enemy.getName());
-                    int affinity = 0;
-                    String accuracySkill = null;
-                    String damageSkill = null;
+                    int affinity;
+                    String accuracySkill;
+                    String damageSkill;
                     if (combatStyle.equals("Melee")) {
                         affinity = enemy.getAffmelee();
                         accuracySkill = "Attack";
@@ -72,7 +72,20 @@ public class Encounter implements java.io.Serializable {
                     }
                     double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
                     double myHitChance = Math.min(1, (affinity * myAccuracy / (enemy.getArmor() + 2.5 * enemy.getDef())) / 100.0);
-                    double myDamage = (2.5 * p.getLevel(damageSkill)) + loadout.getMainWep().getDamage();
+                    double myDamage;
+                    if (loadout.getMainWep().getAtkspd() == 4) {
+                        myDamage = 2.5 * p.getLevel(damageSkill) + loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage());
+                    }
+                    else if (loadout.getMainWep().getAtkspd() == 5) {
+                        myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*192.0/245.0;
+                    }
+                    else if (loadout.getMainWep().getAtkspd() == 6) {
+                        myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*96.0/149.0;
+                    }
+                    else {
+                        System.out.println("What the heck kind of weapon do you have?");
+                        throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
+                    }
                     double enemyMaxAcc = Math.max(enemy.getAccmage(), Math.max(enemy.getAccmelee(), enemy.getAccranged()));
                     double enemyMaxAccSkill = Math.max(enemy.getAttack(), Math.max(enemy.getRanged(), enemy.getMagic()));
                     double enemyHitChance = Math.min(1, (55 * (enemyMaxAcc + (0.0008 * Math.pow(enemyMaxAccSkill, 3) + 4 * enemyMaxAccSkill + 40)) / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100);
@@ -83,14 +96,17 @@ public class Encounter implements java.io.Serializable {
                     int foodCooldown = 0;
                     Map<Ability, Integer> cooldowns = new HashMap<>();
                     for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
+                        if (ability.canUse(adren, loadout.getMainWep(), p))
                         cooldowns.put(ability, 0);
                     }
+                    cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
+                        (loadout.getMainWep().getDamage()+loadout.getAmmo().getDamage())*0.5/myDamage, new ArrayList<>()), 0);
                     while (myLp > 0 && enemyLp > 0) {
                         Ability abilityUsedThisTick = null;
                         double maxDamage = 0;
                         if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < invenSpaces) {
                             if (foodCooldown == 0) {
-                                myLp += loadout.getFoodUsed().getAmountHealed();
+                                myLp += Math.min(loadout.getFoodUsed().getAmountHealed(), p.getLevel("Constitution")*25);
                                 invenUsed++;
                                 adren = Math.max(0, adren - 10);
                                 foodCooldown = 3;
@@ -102,7 +118,7 @@ public class Encounter implements java.io.Serializable {
                             }
                         } else {
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
-                                if (abilityWithCooldown.getValue() == 0 && abilityWithCooldown.getKey().canUse(adren, loadout.getMainWep(), p)) {
+                                if (abilityWithCooldown.getValue() == 0) {
                                     if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage) {
                                         abilityUsedThisTick = abilityWithCooldown.getKey();
                                         maxDamage = abilityWithCooldown.getKey().getExpectedDamage();
@@ -133,8 +149,7 @@ public class Encounter implements java.io.Serializable {
                                     adren = 0;
                                     break;
                                 default:
-                                    System.out.println("Noob!");
-                                    break;
+                                    throw new RuntimeException(String.format("Invalid type of ability: must be Auto, Basic, Threshold, or Ultimate, was %s", abilityUsedThisTick.getType()));
                             }
                             adren = Math.min(100, adren);
                         }

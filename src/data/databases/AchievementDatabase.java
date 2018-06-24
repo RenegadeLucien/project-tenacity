@@ -76,9 +76,8 @@ public class AchievementDatabase {
             .requirement("Iron bar", 1).encounter(new Encounter("Dessous")).encounter(new Encounter("Ice troll"))
             .encounter(new Encounter("Ice troll")).encounter(new Encounter("Ice troll")).encounter(new Encounter("Ice troll"))
             .encounter(new Encounter("Ice troll")).encounter(new Encounter("Kamil")).encounter(new Encounter("Fareed",
-                Collections.singletonList(new Restriction("Ice gloves", 1))))
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Damis"), Collections.singletonList("Damis"))))
-            .reward("Quest points", 3).reward("Magic", 20000).build());
+                Collections.singletonList(new Restriction("Ice gloves", 1)))).encounter(new Encounter("Damis (form 1)"))
+            .encounter(new Encounter("Damis (form 2)")).reward("Quest points", 3).reward("Magic", 20000).build());
         achievements.add(new AchievementBuilder("The Restless Ghost", 0.25).reward("Quest points", 1).reward("Prayer", 1125)
             .build());
         achievements.add(new AchievementBuilder("Mage Arena minigame", 0).requirement("Magic", 60)
@@ -97,8 +96,9 @@ public class AchievementDatabase {
             .requirement("Smithing", 88).requirement("Fletching", 69).reward("Smithing", 75).reward("Fletching", 100).build());
         achievements.add(new AchievementBuilder("A Bridge Not Far", 0).requirement("Agility", 8).requirement("Strength", 19)
             .requirement("Ranged", 37).build());
-        achievements.add(new AchievementBuilder("A Brief History of Telescopes", 0.05).requirement("Player-owned-port telescope", 1)
-            .requirement("Player-owned-house telescope", 1).build());
+        achievements.add(new AchievementBuilder("A Brief History of Telescopes", 0.05).requirement("Port distance", 450000)
+            .requirement("Port jade", 3000).requirement("Port cherrywood", 2000).requirement("Construction", 44).requirement("Oak plank", 2)
+            .requirement("Molten glass", 1).reward("Construction", 121).build());
         achievements.add(new AchievementBuilder("Plague City", 0.5).requirement("Dwellberries", 1).requirement("Rope", 1)
             .requirement("Chocolate dust", 1).requirement("Snape grass", 1).requirement("Bucket of milk", 1).reward("Quest points", 1)
             .reward("Mining", 2425).reward("Gas mask", 1).build());

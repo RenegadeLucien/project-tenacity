@@ -18,7 +18,6 @@ public class AbilityDatabase {
     }
     
     private void addAbilities() {
-        abilities.add(new Ability("Auto-attack", "None", "Any", "Auto", 4, 0.5, new ArrayList<>()));
         abilities.add(new Ability("Slice", "Melee", "Any", "Basic", 5, 0.75, new ArrayList<>()));
         abilities.add(new Ability("Slaughter", "Melee", "Any", "Threshold", 50, 1.75, new ArrayList<>()));
         abilities.add(new Ability("Overpower", "Melee", "Any", "Ultimate", 50, 3, Collections.singletonList(new Requirement("Attack", 2))));
