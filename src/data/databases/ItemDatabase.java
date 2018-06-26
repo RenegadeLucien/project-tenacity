@@ -312,6 +312,7 @@ public class ItemDatabase {
         items.add(new Item("Cosmic rune", 232));
         items.add(new Item("Hard leather shield", 238));
         items.add(new Item("Sapphire", 250));
+        items.add(new Item("Oak plank", 250));
         items.add(new Item("Super defence (3)", 264));
         items.add(new Item("Antifire (3)", 264));
         items.add(new Item("Dashing kebbit fur", 270));

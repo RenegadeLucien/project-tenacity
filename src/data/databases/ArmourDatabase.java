@@ -60,6 +60,11 @@ public class ArmourDatabase {
         //armours.add(new Armour("Achto Teralith Leggings", "Melee", "Legs", 540, 630, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
         //armours.add(new Armour("Achto Teralith Gauntlets", "Melee", "Hands", 122, 0, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
         //armours.add(new Armour("Achto Teralith Boots", "Melee", "Feet", 122, 0, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
+        armours.add(new Armour("Achto Tempest Cowl", "Ranged", "Head", 491, 420, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
+        armours.add(new Armour("Achto Tempest Body", "Ranged", "Torso", 565, 840, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
+        armours.add(new Armour("Achto Tempest Chaps", "Ranged", "Legs", 540, 630, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
+        armours.add(new Armour("Achto Tempest Gloves", "Magic", "Hands", 122, 0, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
+        armours.add(new Armour("Achto Tempest Boots", "Magic", "Feet", 122, 0, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
         armours.add(new Armour("Achto Primeval Mask", "Magic", "Head", 491, 420, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
         armours.add(new Armour("Achto Primeval robe top", "Magic", "Torso", 565, 840, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));
         armours.add(new Armour("Achto Primeval robe legs", "Magic", "Legs", 540, 630, 0, 0.018, 0, Collections.singletonList(new Requirement("Defense", 90))));

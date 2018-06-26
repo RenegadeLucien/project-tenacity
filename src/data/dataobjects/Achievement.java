@@ -103,16 +103,31 @@ public class Achievement implements java.io.Serializable {
         for (Entry<String, Double> action : totalActionsWithTimesForAllReqs.entrySet()) {
             totalTimeForAllReqs += action.getValue();
         }
-        //If player does not
         for (Requirement r : reqs) {
             if (Player.ALL_SKILLS.contains(r.getQualifier())) {
                 player.getXp().put(r.getQualifier(), player.getXp().get(r.getQualifier()) + player.getXpToLevel(r.getQualifier(), r.getQuantifier()));
             }
         }
         for (Encounter e : encounters) {
-            CombatResults meleeCombatResults = e.calculateCombat(player, 27, "Melee");
-            CombatResults rangedCombatResults = e.calculateCombat(player, 27, "Ranged");
-            CombatResults magicCombatResults = e.calculateCombat(player, 27, "Magic");
+            CombatResults meleeCombatResults;
+            CombatResults rangedCombatResults;
+            CombatResults magicCombatResults;
+            do {
+                meleeCombatResults = e.calculateCombat(player, 27, "Melee");
+                rangedCombatResults = e.calculateCombat(player, 27, "Ranged");
+                magicCombatResults = e.calculateCombat(player, 27, "Magic");
+                if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
+                    player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution")+1));
+                    //System.out.println(String.format("Leveling Constitution to %d", player.getLevel("Constitution")));
+                }
+                else {
+                    if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
+                        totalTimeForAllReqs += new Requirement("Constitution", player.getLevel("Constitution")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                    }
+                    break;
+                }
+            }
+            while (player.getLevel("Constitution") < 99);
             if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                 totalTimeForAllReqs += 2147000.0;
             }

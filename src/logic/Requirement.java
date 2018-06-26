@@ -83,6 +83,14 @@ public class Requirement implements java.io.Serializable {
                     goalResults = skillResults;
                 }
             }
+        } else if (qualifier.equals("Ports unlocked")) {
+            goalResults = player.efficientGoalCompletion("Agility", player.getXpToLevel("Agility", 90));
+            for (String skill : Player.PORTS_SKILLS) {
+                GoalResults skillResults = player.efficientGoalCompletion(skill, player.getXpToLevel(skill, 90));
+                if (skillResults.getTotalTime() < goalResults.getTotalTime()) {
+                    goalResults = skillResults;
+                }
+            }
         } else {
             goalResults = player.efficientGoalCompletion(qualifier, quantifier);
         }

@@ -96,9 +96,9 @@ public class AchievementDatabase {
             .requirement("Smithing", 88).requirement("Fletching", 69).reward("Smithing", 75).reward("Fletching", 100).build());
         achievements.add(new AchievementBuilder("A Bridge Not Far", 0).requirement("Agility", 8).requirement("Strength", 19)
             .requirement("Ranged", 37).build());
-        achievements.add(new AchievementBuilder("A Brief History of Telescopes", 0.05).requirement("Port distance", 450000)
-            .requirement("Port jade", 3000).requirement("Port cherrywood", 2000).requirement("Construction", 44).requirement("Oak plank", 2)
-            .requirement("Molten glass", 1).reward("Construction", 121).build());
+        achievements.add(new AchievementBuilder("A Brief History of Telescopes", 0.05).requirement("Port jade", 3000)
+            .requirement("Port cherrywood", 2000).requirement("Construction", 44).requirement("Oak plank", 2).requirement("Molten glass", 1)
+            .reward("Construction", 121).build());
         achievements.add(new AchievementBuilder("Plague City", 0.5).requirement("Dwellberries", 1).requirement("Rope", 1)
             .requirement("Chocolate dust", 1).requirement("Snape grass", 1).requirement("Bucket of milk", 1).reward("Quest points", 1)
             .reward("Mining", 2425).reward("Gas mask", 1).build());

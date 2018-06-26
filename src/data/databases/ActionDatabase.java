@@ -15,8 +15,7 @@ public class ActionDatabase {
 
     private ActionDatabase(Player player) {
         //Placeholder for skills that have not yet been implemented
-        database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Woodcutting", 1, "Construction", 1,
-            "Invention", 1, "Farming", 1), true, true, false));
+        database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Invention", 1, "Farming", 1), true, true, false));
 
         //Placeholder for dailies/spawns/shops/etc (move when applicable feature is fully implemented)
         database.add(new Action("Rosie's daily supplies", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
@@ -24,6 +23,18 @@ public class ActionDatabase {
         database.add(new Action("Collecting planks", new ArrayList(), new HashMap(), Map.of("Plank", 240), true, true, false));
         database.add(new Action("Buying cleansing crystals", Collections.singletonList(new Requirement("Plague's End", 1)),
             Map.of("Coins", 39600000), Map.of("Cleansing crystal", 360), true, true, false));
+
+        //Player-owned-ports
+        database.add(new Action("POP - Arc region voyages", Collections.singletonList(new Requirement("Ports unlocked", 1)), new HashMap(),
+            Map.of("Port distance", 5000, "Port chimes", 1600, "Port bamboo", 1600), true, true, false));
+        database.add(new Action("POP - Skull region voyages", Collections.singletonList(new Requirement("Port distance", 5000)), new HashMap(),
+            Map.of("Port distance", 12000, "Port chimes", 6000, "Port gunpowder", 3000), true, true, false));
+        database.add(new Action("POP - Hook region voyages", Collections.singletonList(new Requirement("Port distance", 40000)), new HashMap(),
+            Map.of("Port distance", 24000, "Port chimes", 10000, "Port slate", 3000), true, true, false));
+        database.add(new Action("POP - Scythe region voyages", Collections.singletonList(new Requirement("Port distance", 140000)), new HashMap(),
+            Map.of("Port distance", 48000, "Port chimes", 13000, "Port cherrywood", 4000), true, true, false));
+        database.add(new Action("POP - Bowl region voyages", Collections.singletonList(new Requirement("Port distance", 450000)), new HashMap(),
+            Map.of("Port distance", 96000, "Port chimes", 20000, "Port jade", 7200), true, true, false));
 
         //XP-less gathering
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
@@ -51,8 +62,8 @@ public class ActionDatabase {
 
 
         //Construction
-        /*database.add(new Action("Building crude wooden chairs with bronze nails", Collections.singletonList(new Requirement("Parlour", 1)),
-            Map.of("Plank", 490, "Bronze nails", 1470), Map.of("Construction", 16170), true, true, false));*/
+        database.add(new Action("Building crude wooden chairs with bronze nails", new ArrayList(), Map.of("Plank", 490, "Bronze nails", 1470),
+            Map.of("Construction", 16170), true, true, false));
 
         //Cooking
         database.add(new Action("Cooking raw beef", new ArrayList<>(),
@@ -170,6 +181,11 @@ public class ActionDatabase {
         int menPocketsPicked = pocketsPicked(1, player);
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * menPocketsPicked,
             "Thieving", 8 * menPocketsPicked), true, true, true));
+
+        //Woodcutting
+        int logsCut = resourcesGained(40, 4.0, player, 75.0, "Woodcutting");
+        database.add(new Action("Cutting regular trees with bronze hatchet", new ArrayList(), new HashMap(), Map.of("Logs", logsCut, "Woodcutting",
+            logsCut*25), true, true, true));
 
         //Multi-skill
         database.add(new Action("Cremating vyre corpses", Arrays.asList(new Requirement("Legacy of Seergaze", 1),

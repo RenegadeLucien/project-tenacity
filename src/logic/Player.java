@@ -21,6 +21,9 @@ public class Player implements java.io.Serializable {
         "Hunter", "Invention", "Magic", "Mining", "Prayer", "Ranged", "Runecrafting",
         "Slayer", "Smithing", "Strength", "Summoning", "Thieving", "Woodcutting"));
 
+    public static final ArrayList<String> PORTS_SKILLS = new ArrayList<>(Arrays.asList("Agility", "Construction", "Cooking",
+        "Divination", "Dungeoneering", "Fishing", "Herblore", "Hunter", "Prayer", "Runecrafting", "Slayer", "Thieving"));
+
     public static final ArrayList<String> COMBAT_STYLES = new ArrayList<>(Arrays.asList("Melee", "Ranged", "Magic"));
 
     private static final long serialVersionUID = 1L;
@@ -216,6 +219,7 @@ public class Player implements java.io.Serializable {
             taskDetails.put(t, actionsAndTime);
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
+        System.out.println("====================================");
     }
 
     public void completeTask(Achievement task) {
@@ -402,21 +406,23 @@ public class Player implements java.io.Serializable {
         for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
             if (action.getOutputs().containsKey(qualifier)) {
                 double effectiveTimeThisAction = 0.0;
+                Map<String,Double> recursiveActions = new HashMap<>();
                 for (Requirement requirement : action.getReqs()) {
-                    if (!requirement.meetsRequirement(this)) {
+                    if (requirement.getQualifier().equals(qualifier) && !requirement.meetsRequirement(this)) {
                         // avoids a stack overflow (trying to train to unlock an action by training to unlock that action by training to unlock that action...)
                         effectiveTimeThisAction += 9999999;
                         break;
                     } else {
                         GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                         effectiveTimeThisAction += reqResults.getTotalTime();
-                        addItemsToMap(efficiency, reqResults.getActionsWithTimes());
+                        addItemsToMap(recursiveActions, reqResults.getActionsWithTimes());
                     }
                 }
                 effectiveTimeThisAction += quantifier / action.effectiveRate(qualifier, this);
                 if (effectiveTimeThisAction < minimum) {
                     minimum = effectiveTimeThisAction;
                     minAction = action.getName();
+                    efficiency = recursiveActions;
                 }
             }
         }

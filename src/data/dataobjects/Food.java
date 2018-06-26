@@ -7,7 +7,7 @@ public enum Food {
     COOKED_CHICKEN("Cooked chicken", 200),
     COOKED_MEAT("Cooked meat", 200),
     CRAYFISH("Crayfish", 200);*/
-    TROUT("Trout", 375);
+    SHARK("Shark", 2000);
 
 
     private String name;
