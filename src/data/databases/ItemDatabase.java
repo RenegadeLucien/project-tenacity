@@ -48,6 +48,7 @@ public class ItemDatabase {
         items.add(new Item("Sandstone (10kg)", 1));
         items.add(new Item("Sandstone (2kg)", 1));
         items.add(new Item("Plant pot", 1));
+        items.add(new Item("Wooden cat", 1));
         items.add(new Item("Needle", 1));
         items.add(new Item("Bucket", 2));
         items.add(new Item("Bucket of sand", 2));
@@ -67,6 +68,7 @@ public class ItemDatabase {
         items.add(new Item("Wizard's mind bomb", 2));
         items.add(new Item("Banana", 2));
         items.add(new Item("Dragon bitter", 2));
+        items.add(new Item("Greenman's ale", 2));
         items.add(new Item("Eye of newt", 3));
         items.add(new Item("Molten glass", 3));
         items.add(new Item("Pie dish", 3));
@@ -136,12 +138,14 @@ public class ItemDatabase {
         items.add(new Item("Cup of tea", 10));
         items.add(new Item("Papyrus", 10));
         items.add(new Item("Onion seed", 10));
+        items.add(new Item("Clean tarromin", 11));
         items.add(new Item("Bucket of milk", 12));
         items.add(new Item("Cooked chicken", 12));
         items.add(new Item("Limpwurt seed", 12));
         items.add(new Item("Arrow shaft", 12));
         items.add(new Item("Onion", 12));
         items.add(new Item("Apple tree seed", 13));
+        items.add(new Item("Hammer", 13));
         items.add(new Item("Tomato", 14));
         items.add(new Item("Chisel", 14));
         items.add(new Item("Staff", 15));
@@ -182,6 +186,7 @@ public class ItemDatabase {
         items.add(new Item("Crayfish cage", 20));
         items.add(new Item("Desert boots", 20));
         items.add(new Item("Compost", 20));
+        items.add(new Item("Harralander potion (unf)", 20));
         items.add(new Item("Leather body", 21));
         items.add(new Item("Leather cowl", 24));
         items.add(new Item("Bronze helm", 24));
@@ -199,7 +204,9 @@ public class ItemDatabase {
         items.add(new Item("Clean guam", 30));
         items.add(new Item("Grimy guam", 30));
         items.add(new Item("Waterskin (4)", 30));
+        items.add(new Item("Fruit Blast", 30));
         items.add(new Item("Swamp paste", 31));
+        items.add(new Item("Raw cod", 34));
         items.add(new Item("Arctic pine logs", 35));
         items.add(new Item("Cooked oomlie wrap", 35));
         items.add(new Item("Cooking apple", 36));
@@ -275,6 +282,9 @@ public class ItemDatabase {
         items.add(new Item("Tiara", 100));
         items.add(new Item("Living minerals", 100));
         items.add(new Item("Giant frog legs", 100));
+        items.add(new Item("Opal", 100));
+        items.add(new Item("Earth tiara", 100));
+        items.add(new Item("Pirate bandana (white)", 100));
         items.add(new Item("Chaos rune", 101));
         items.add(new Item("Papaya tree seed", 115));
         items.add(new Item("Tuna", 120));
@@ -285,6 +295,7 @@ public class ItemDatabase {
         items.add(new Item("Redberry pie", 150));
         items.add(new Item("Silver bar", 150));
         items.add(new Item("Blamish myre shell (round)", 150));
+        items.add(new Item("Jade", 150));
         items.add(new Item("Iron crossbow", 157));
         items.add(new Item("Bronze platebody", 160));
         items.add(new Item("Oak shieldbow", 160));
@@ -305,8 +316,10 @@ public class ItemDatabase {
         items.add(new Item("Gout tuber", 200));
         items.add(new Item("Silver dust", 200));
         items.add(new Item("Face mask", 200));
+        items.add(new Item("Red topaz", 200));
         items.add(new Item("Iron chainbody", 210));
         items.add(new Item("Super ranging potion (2)", 216));
+        items.add(new Item("Astral rune", 220));
         items.add(new Item("Steel mace", 225));
         items.add(new Item("Spice", 230));
         items.add(new Item("Cosmic rune", 232));
@@ -327,17 +340,21 @@ public class ItemDatabase {
         items.add(new Item("Mithril bar", 300));
         items.add(new Item("Raw shark", 300));
         items.add(new Item("Saradomin arrows", 300));
+        items.add(new Item("Pirate shirt (white)", 300));
+        items.add(new Item("Holy symbol", 300));
         items.add(new Item("Magic logs", 320));
         items.add(new Item("Steel sword", 325));
         items.add(new Item("Raw swordfish", 340));
         items.add(new Item("Gold ring", 350));
         items.add(new Item("Gold amulet (unstrung)", 350));
+        items.add(new Item("Pirate leggings (white)", 350));
         items.add(new Item("Super ranging potion (4)", 360));
         items.add(new Item("Antipoison (4)", 360));
         items.add(new Item("Regrowth scroll", 362));
         items.add(new Item("Nature rune", 372));
         items.add(new Item("Law rune", 378));
         items.add(new Item("Swordfish", 400));
+        items.add(new Item("Soul rune", 410));
         items.add(new Item("Bullseye lantern (oil)", 420));
         items.add(new Item("Magic seed", 422));
         items.add(new Item("Raw karambwan", 440));
@@ -363,6 +380,7 @@ public class ItemDatabase {
         items.add(new Item("Ring of duelling (8)", 1275));
         items.add(new Item("Mahogany plank", 1500));
         items.add(new Item("Desert wyrm pouch", 1549));
+        items.add(new Item("Magic shortbow", 1600));
         items.add(new Item("Spirit scorpion pouch", 1849));
         items.add(new Item("Diamond", 2000));
         items.add(new Item("Steel platebody", 2000));
@@ -381,9 +399,15 @@ public class ItemDatabase {
         items.add(new Item("Initiate cuisse", 8000));
         items.add(new Item("Proselyte sallet", 8000));
         items.add(new Item("Proselyte cuisse", 10000));
+        items.add(new Item("Malevolent energy", 10000));
         items.add(new Item("Proselyte hauberk", 12000));
+        items.add(new Item("Rune hatchet", 12800));
+        items.add(new Item("Ahrim's hood", 13000));
         items.add(new Item("Combat bracelet", 21040));
         items.add(new Item("Combat bracelet (4)", 21040));
+        items.add(new Item("Ahrim's robe skirt", 47000));
+        items.add(new Item("Ahrim's robe top", 50000));
+        items.add(new Item("Ahrim's staff", 85000));
     }
 
     public static ItemDatabase getItemDatabase() {

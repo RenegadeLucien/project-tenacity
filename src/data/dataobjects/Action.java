@@ -14,16 +14,14 @@ public class Action {
     private Map<String, Integer> outputs;
     private boolean ironman;
     private boolean hardcore;
-    private boolean dynamic;
 
-    public Action(String name, List reqs, Map inputs, Map outputs, boolean ironman, boolean hardcore, boolean dynamic) {
+    public Action(String name, List reqs, Map inputs, Map outputs, boolean ironman, boolean hardcore) {
         this.name = name;
         this.reqs = reqs;
         this.inputs = inputs;
         this.outputs = outputs;
         this.ironman = ironman;
         this.hardcore = hardcore;
-        this.dynamic = dynamic;
     }
 
     public String getName() {

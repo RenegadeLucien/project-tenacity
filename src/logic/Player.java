@@ -290,6 +290,40 @@ public class Player implements java.io.Serializable {
             }
             //System.out.println("Best effective rate of money is " + money + " GP per hour.");
             return new GoalResults(quantifier / money, Map.of(bestAction, quantifier / money));
+        } else if (qualifier.equals("Quest points")) {
+            double questTotalTime = 0;
+            Map <String, Double> questTotalActions = new HashMap<>();
+            Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
+            for (Achievement achievement : playerTasks.keySet()) {
+                List<Reward> questPointReward = achievement.getRewards().stream().filter(a -> a.getQualifier().equals("Quest points")).collect(Collectors.toList());
+                List<Requirement> questPointRequirements = achievement.getReqs().stream().filter(a -> a.getQualifier().equals("Quest points")).collect(Collectors.toList());
+                if (questPointReward.size() > 0 && questPointRequirements.size() == 0) {
+                    questPointMap.put(achievement, playerTasks.get(achievement)/questPointReward.get(0).getQuantifier());
+                }
+                questPointMap = questPointMap.entrySet().stream().sorted(Map.Entry.comparingByValue(/*Collections.reverseOrder()*/))
+                    .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                    ));
+            }
+            int questpoints = 0;
+            if (qualities.size() > 0) {
+                questpoints = qualities.get("Quest points");
+            }
+            while (questpoints < quantifier && questPointMap.size() > 0) {
+                Achievement quest = questPointMap.keySet().iterator().next();
+                GoalResults oneQuestResults = quest.getTimeForRequirements(this);
+                questTotalTime += oneQuestResults.getTotalTime();
+                addItemsToMap(questTotalActions, oneQuestResults.getActionsWithTimes());
+                questpoints += quest.getRewards().stream().filter(a -> a.getQualifier().equals("Quest points")).collect(Collectors.toList()).get(0).getQuantifier();
+                questPointMap.remove(quest);
+            }
+            if (questpoints < quantifier) {
+                questTotalTime = 1000000000.0;
+            }
+            return new GoalResults(questTotalTime, questTotalActions);
         } else if (qualifier.equals("Combat")) {
             Map<String, Double> originalMap = this.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
             double levelingByMelee = 0;
