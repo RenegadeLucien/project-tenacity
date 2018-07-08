@@ -324,9 +324,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Dragon Slayer", 1.5).requirement("Quest points", 33).requirement("Silk", 1)
             .requirement("Bowl (unfired)", 1).requirement("Wizard's mind bomb", 1).requirement("Crayfish cage", 1)
             .requirement("Coins", 12000).requirement("Plank", 3).requirement("Steel nails", 90).encounter(new Encounter(Arrays.asList(
-                Collections.singletonList("Zombie rat"), Collections.singletonList("Ghost"), Collections.singletonList("Skeleton"),
-                Collections.singletonList("Zombie"), Collections.singletonList("Melzar the Mad"),
-                Collections.singletonList("Lesser demon")))).encounter(new Encounter("Elvarg",
+                Collections.singletonList("Zombie rat"), Collections.singletonList("Ghost (Melzar's Maze)"),
+                Collections.singletonList("Skeleton (Melzar's Maze)"), Collections.singletonList("Zombie"),
+                Collections.singletonList("Melzar the Mad"), Collections.singletonList("Lesser demon")))).encounter(new Encounter("Elvarg",
                 Collections.singletonList(new Restriction("Dragonfire protection", 1)))).reward("Quest points", 2)
             .reward("Anti-dragon shield", 1).lamp(Collections.singletonList("Strength"), 18650, 40)
             .lamp(Collections.singletonList("Defense"), 18650, 40).build());

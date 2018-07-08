@@ -1,5 +1,6 @@
 package data.databases;
 
+import data.dataobjects.SlayerMaster;
 import logic.*;
 import data.dataobjects.Enemy;
 import data.dataobjects.Action;
@@ -15,7 +16,7 @@ public class ActionDatabase {
 
     private ActionDatabase(Player player) {
         //Placeholder for skills that have not yet been implemented
-        database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Slayer", 1, "Invention", 1), true, true));
+        database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Invention", 1), true, true));
 
         //Placeholder for dailies/spawns/shops/etc (move when applicable feature is fully implemented)
         database.add(new Action("Rosie's daily supplies", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
@@ -165,6 +166,10 @@ public class ActionDatabase {
         database.add(new Action("Low-level Runespan (island 1)", new ArrayList(), new HashMap(), Map.of("Runecrafting", 16500),
             true, true));
 
+        //Slayer
+        database.add(new Action("Slayer tasks from Turael", new ArrayList(), new HashMap(), Map.of("Slayer", (int)SlayerMaster.TURAEL.calculateAvgXpPerHour(player)),
+            true, true));
+
         //Smithing
         database.add(new Action("Smithing bronze bars", new ArrayList(), Map.of("Copper ore", 1050, "Tin ore", 1050),
             Map.of("Bronze bar", 1050, "Smithing", 6510), true, true));
@@ -282,7 +287,7 @@ public class ActionDatabase {
         return database;
     }
 
-    public int combatKills(String enemyName, List<Restriction> restrictions, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
+    private int combatKills(String enemyName, List<Restriction> restrictions, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
         CombatResults combatResults = new Encounter(enemyName, restrictions).calculateCombat(player, invenSpaces, combatStyle);
         if (combatResults.getHpLost() == 1000000000) {
             return 0;
@@ -318,7 +323,7 @@ public class ActionDatabase {
         return kills;
     }
 
-    public int resourcesGained(int levelAtMaxRate, double minTicks, Player player, double ticksToBank, String skill) {
+    private int resourcesGained(int levelAtMaxRate, double minTicks, Player player, double ticksToBank, String skill) {
         double time = TICKS_PER_HOUR;
         int playerLevel = player.getLevel(skill);
         double timePerResource = (minTicks + 0.2) * Math.pow(1.04, Math.max(0, levelAtMaxRate - playerLevel));
