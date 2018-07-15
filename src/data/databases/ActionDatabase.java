@@ -93,6 +93,8 @@ public class ActionDatabase {
         //Divination
         database.add(new Action("Pale wisps (no bought energy)", new ArrayList<>(), new HashMap<>(),
             Map.of("Divination", 4000, "Pale energy", 1600), true, true));
+        database.add(new Action("Luminous wisps (no bought energy)", Collections.singletonList(new Requirement("Divination", 90)),
+            new HashMap(), Map.of("Divination", 71000, "Luminous energy", 1600, "Fly dragon", 1, "Fruit fly", 1), true, true));
 
         //Dungeoneering (major approximation, assumes 7.5 minute floors)
         int dungXP = (int) Math.floor(4000 * Math.pow((player.getLevel("Dungeoneering") + 9.0) / 10.0, 2));
@@ -110,15 +112,20 @@ public class ActionDatabase {
         //Firemaking
         database.add(new Action("Burning normal logs on bonfire", new ArrayList(), Map.of("Logs", 950), Map.of("Firemaking", 49500), true,
             true));
+        database.add(new Action("Burning acadia logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 46)), Map.of("Acadia logs", 950),
+            Map.of("Firemaking", 171000, "Menaphite honey bee", 1, "Fruit fly in amber", 1), true, true));
 
-        //Fishing
-        int shrimpFished = resourcesGained(10, 5.0, player, 50.0, "Fishing");
-        database.add(new Action("Fishing raw shrimps", new ArrayList<>(), new HashMap<>(), Map.of("Raw shrimps", shrimpFished, "Fishing", 10 * shrimpFished),
-            true, true));
+        //Fishinng
+        database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), Map.of("Raw crayfish", resourcesGained(1, 5.0, player, 50.0, "Fishing"),
+            "Fishing", 10 * resourcesGained(1, 5.0, player, 50.0, "Fishing")), true, true));
 
-        int crayfishFished = resourcesGained(1, 5.0, player, 50.0, "Fishing");
-        database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), Map.of("Raw crayfish", crayfishFished, "Fishing", 10 * crayfishFished),
-            true, true));
+
+        database.add(new Action("Fishing raw shrimps", new ArrayList<>(), new HashMap<>(), Map.of("Raw shrimps", resourcesGained(20, 5.0, player, 50.0, "Fishing"),
+            "Fishing", 10 * resourcesGained(20, 5.0, player, 50.0, "Fishing")), true, true));
+
+        database.add(new Action("Fishing/dropping desert sole", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 52)),
+            new HashMap(), Map.of("Fishing", 60 * resourcesGained(70, 5.0, player, 0.0, "Fishing"), "Menaphos reputation",
+            3 * resourcesGained(70, 5.0, player, 0.0, "Fishing"), "Clicker kalphite in amber", 1, "Desert locust in amber", 1), true, true));
 
         //Farming
         database.add(new Action("Farming potatoes", new ArrayList(), Map.of("Potato seed", 270), Map.of("Raw potato", 675, "Farming", 6795),
@@ -138,6 +145,9 @@ public class ActionDatabase {
         database.add(new Action("Catching charm sprites", Collections.singletonList(new Requirement("Hunter", 72)), new HashMap(),
             Map.of("Hunter", 60000, "Crimson charm", 40, "Blue charm", 28, "Green charm", 17, "Gold charm", 6, "Charm sprites", 435), true,
             true));
+        database.add(new Action("Catching plover birds", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Hunter", 73)),
+            Map.of("Logs", 200), Map.of("Plover bird", 68+player.getLevel("Hunter"), "Hunter", 510*(68+player.getLevel("Hunter")),
+            "Menaphos reputaton", 30*(68+player.getLevel("Hunter")), "Pygmy giant scarab", 1, "Clicker kalphite", 1), true, true));
 
         //Mining
         database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250),
@@ -145,14 +155,16 @@ public class ActionDatabase {
         database.add(new Action("Mining pure essence", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(),
             Map.of("Mining", 10220, "Pure essence", 2044), true, true));
 
-        int copperMined = resourcesGained(40, 6.0, player, 100.0, "Mining");
-        int coalMined = resourcesGained(70, 6.0, player, 30.0, "Mining");
-        database.add(new Action("Mining copper ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Copper ore", copperMined,
-            "Mining", (int) Math.floor(17.5 * copperMined)), true, true));
-        database.add(new Action("Mining tin ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Tin ore", copperMined,
-            "Mining", (int) Math.floor(17.5 * copperMined)), true, true));
+        database.add(new Action("Mining copper ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Copper ore",
+            resourcesGained(25, 6.0, player, 100.0, "Mining"), "Mining", (int) Math.floor(17.5 * resourcesGained(25, 6.0, player, 100.0, "Mining"))), true, true));
+        database.add(new Action("Mining tin ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Tin ore",
+            resourcesGained(25, 6.0, player, 100.0, "Mining"), "Mining", (int) Math.floor(17.5 * resourcesGained(25, 6.0, player, 100.0, "Mining"))), true, true));
         database.add(new Action("Mining coal with bronze pickaxe", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(),
-            Map.of("Coal", coalMined, "Mining", 50*coalMined), true, true));
+            Map.of("Coal", resourcesGained(70, 6.0, player, 30.0, "Mining"), "Mining", 50*resourcesGained(70, 6.0, player, 30.0, "Mining")), true, true));
+        database.add(new Action("Mining/dropping concentrated sandstone with bronze pickaxe", Arrays.asList(new Requirement("The Jack of Spades", 1),
+            new Requirement("Mining", 50)), new HashMap(), Map.of("Mining", resourcesGained(100, 6.0, player, 0.0, "Mining"),
+            "Menaphos reputation", (int)(2.7*resourcesGained(100, 6.0, player, 0.0, "Mining")), "Menaphite honey bee in amber", 1,
+            "Pygmy giant scarab in amber", 1), true, true));
 
         //Prayer
         database.add(new Action("Offering bones to Chaos Altar", new ArrayList<>(), Map.of("Bones", 1400),
@@ -182,14 +194,22 @@ public class ActionDatabase {
             true, true));
 
         //Thieving
-        int menPocketsPicked = pocketsPicked(1, player);
-        database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * menPocketsPicked,
-            "Thieving", 8 * menPocketsPicked), true, true));
+        database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * pocketsPicked(1, player),
+            "Thieving", 8 * pocketsPicked(1, player)), true, true));
+        database.add(new Action("Menaphos silk stall (drop silk)", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Thieving", 20)),
+            new HashMap(), Map.of("Thieving", 9600, "Menaphos reputation", 2400, "Fly dragon in amber", 1), true, true));
+        database.add(new Action("Pickpocketing Menaphite marketeers", Arrays.asList(new Requirement("The Jack of Spades", 1),
+            new Requirement("Thieving", 46)), new HashMap(), Map.of("Thieving", (int)(29.5 * pocketsPicked(46, player)), "Menaphos reputation",
+            (int)(1.3 * pocketsPicked(46, player)), "Coins", 30*pocketsPicked(46, player), "Kalphite wanderer in amber", 1, "Hornless unicornfly in amber", 1), true, true));
 
         //Woodcutting
-        int logsCut = resourcesGained(40, 4.0, player, 75.0, "Woodcutting");
-        database.add(new Action("Cutting regular trees with bronze hatchet", new ArrayList(), new HashMap(), Map.of("Logs", logsCut, "Woodcutting",
-            logsCut*25), true, true));
+        database.add(new Action("Cutting regular trees with bronze hatchet", new ArrayList(), new HashMap(), Map.of("Logs", resourcesGained(40, 4.0, player, 75.0, "Woodcutting"),
+            "Woodcutting", resourcesGained(40, 4.0, player, 75.0, "Woodcutting")*25), true, true));
+
+        //CHOP RATE CALIBRATION: ~40% at 47, ~67% at 99 (unknown hatchet bonus, rune is assumed)
+        database.add(new Action("Cutting/dropping acadia logs with bronze hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1),
+            new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), Map.of("Woodcutting", 92*logsCut(player, 0, 230),
+            "Menaphos reputation", (int)4.5*logsCut(player, 0, 230), "Desert locust", 1, "Hornless unicornfly", 1, "Kalphite wanderer", 1), true, true));
 
         //Multi-skill
         database.add(new Action("Cremating vyre corpses", Arrays.asList(new Requirement("Legacy of Seergaze", 1),
@@ -323,6 +343,11 @@ public class ActionDatabase {
         return kills;
     }
 
+    private int logsCut(Player player, int hatchetRank, int perfectRateFactor) {
+        return (int)Math.floor(((34 + player.getLevel("Woodcutting") * Math.pow(1.035, hatchetRank)) * 1500) / perfectRateFactor);
+    }
+
+    @Deprecated
     private int resourcesGained(int levelAtMaxRate, double minTicks, Player player, double ticksToBank, String skill) {
         double time = TICKS_PER_HOUR;
         int playerLevel = player.getLevel(skill);
@@ -338,13 +363,14 @@ public class ActionDatabase {
             if (timePerResource < time) {
                 resources += 1;
                 time -= timeForThisResource;
+                inv++;
             } else
                 break;
         }
         return resources;
     }
 
-    public int pocketsPicked(int effectiveLevel, Player player) {
+    private int pocketsPicked(int effectiveLevel, Player player) {
         int playerLevel = player.getLevel("Thieving");
         double successRate = Math.min(1.0, (145.0 + (playerLevel - effectiveLevel)) / 255.0);
         double timePerSuccess = (2 * successRate + 8 * (1 - successRate)) / successRate;

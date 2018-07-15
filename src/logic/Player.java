@@ -449,7 +449,6 @@ public class Player implements java.io.Serializable {
                     } else {
                         GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                         effectiveTimeThisAction += reqResults.getTotalTime();
-                        addItemsToMap(recursiveActions, reqResults.getActionsWithTimes());
                     }
                 }
                 effectiveTimeThisAction += quantifier / action.effectiveRate(qualifier, this);

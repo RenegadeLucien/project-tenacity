@@ -141,6 +141,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Khazard warlord", 1900, 95.4, 31.4, 152, 0, 0, 38, 0, 0, 4, 590, 0, 0, 590, 38, "Air", 90, 55, 45, 65));
         enemies.add(new Enemy("Ice troll runt", 1900, 95.4, 31.4, 152, 0, 0, 38, 0, 0, 4, 590, 0, 0, 590, 38, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Mogre", 1950, 99.3, 32.7, 156, 0, 0, 39, 0, 0, 4, 609, 0, 0, 609, 39, "Air", 90, 55, 45, 65));
+        enemies.add(new Enemy("Bandit champion", 1950, 99.3, 32.7, 156, 0, 0, 39, 0, 0, 4, 609, 0, 0, 609, 39, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Witch's experiment 1", 2000, 89.2, 29.4, 172, 0, 0, 12, 0, 0, 4, 223, 0, 0, 223, 12, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Tower Archer (west)", 2000, 103.8, 34.2, 0, 160, 0, 0, 40, 0, 4, 0, 628, 0, 628, 40, "Stab", 90, 65, 55, 45));
         enemies.add(new Enemy("Apmeken", 2000, 103.8, 34.2, 288, 0, 384, 30, 0, 40, 4, 454, 0, 628, 628, 40, "Bolts", 90, 45, 65, 55));
@@ -221,6 +222,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Witch's experiment 2", 4000, 99, 32.6, 244, 0, 0, 17, 0, 0, 4, 280, 0, 0, 280, 17, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("TokHaar-Hur", 4000, 441, 145.5, 384, 0, 0, 80, 0, 0, 4, 1486, 0, 0, 1486, 80, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Dramen tree spirit", 4000, 132, 43.5, 384, 0, 0, 45, 0, 0, 4, 732, 0, 0, 732, 45, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Tough Guy", 4000, 148.9, 49.1, 200, 0, 0, 39, 0, 0, 3, 609, 0, 0, 628, 39, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Revenant icefiend", 4050, 117, 38.6, 607, 607, 607, 27, 27, 27, 5, 409, 409, 409, 409, 27, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Jogre", 4100, 163.3, 53.8, 246, 0, 0, 41, 0, 0, 6, 648, 0, 0, 648, 41, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Loar Shade", 4200, 114.6, 37.8, 403, 0, 0, 42, 0, 0, 4, 668, 0, 0, 668, 42, "Water", 90, 55, 45, 65));

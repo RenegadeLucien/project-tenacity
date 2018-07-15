@@ -69,6 +69,7 @@ public class ItemDatabase {
         items.add(new Item("Banana", 2));
         items.add(new Item("Dragon bitter", 2));
         items.add(new Item("Greenman's ale", 2));
+        items.add(new Item("Beer", 2));
         items.add(new Item("Eye of newt", 3));
         items.add(new Item("Molten glass", 3));
         items.add(new Item("Pie dish", 3));
@@ -115,6 +116,7 @@ public class ItemDatabase {
         items.add(new Item("Bucket of water", 6));
         items.add(new Item("Acorn", 6));
         items.add(new Item("Bird snare", 6));
+        items.add(new Item("Leather gloves", 6));
         items.add(new Item("Bronze arrow", 7));
         items.add(new Item("Bronze nails", 7));
         items.add(new Item("Red spiders' eggs", 7));
@@ -227,6 +229,7 @@ public class ItemDatabase {
         items.add(new Item("Caviar", 50));
         items.add(new Item("Broad arrowheads", 50));
         items.add(new Item("Meat pizza", 50));
+        items.add(new Item("Casket", 50));
         items.add(new Item("Bronze battleaxe", 52));
         items.add(new Item("Steel nails", 52));
         items.add(new Item("Silk", 55));
@@ -260,6 +263,7 @@ public class ItemDatabase {
         items.add(new Item("Iron helm", 84));
         items.add(new Item("Marigold seed", 84));
         items.add(new Item("Raw chompy", 85));
+        items.add(new Item("Acadia logs", 85));
         items.add(new Item("Morchella mushroom spore", 86));
         items.add(new Item("Bittercap mushroom spore", 86));
         items.add(new Item("Jute seed", 86));

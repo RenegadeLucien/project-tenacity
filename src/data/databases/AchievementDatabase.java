@@ -481,22 +481,75 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Alcrabaholic", 0).requirement("A Clockwork Syringe", 1)
             .encounter(new Encounter("'Rum'-pumped crab", Arrays.asList(new Restriction("Diving apparatus", 1),
                 new Restriction("Fishbowl helmet", 1)))).build());
-        achievements.add(new AchievementBuilder("Ali The Trader", 0).requirement("Rogue Trader parts", 3).build());
+        achievements.add(new AchievementBuilder("The Feud", 0.75).requirement("Thieving", 30).requirement("Coins", 1002)
+            .requirement("Leather gloves", 0).requirement("Beer", 3).encounter(new Encounter("Bandit champion"))
+            .encounter(new Encounter("Tough Guy")).reward("Quest points", 1).reward("Thieving", 15000).reward("Coins", 500)
+            .reward("Adamant scimitar", 1).reward("Beer", 1).build());
+        achievements.add(new AchievementBuilder("Icthlarin's Little Helper", 1.5).requirement("Diamond in the Rough", 1)
+            .requirement("Gertrude's Cat", 1).requirement("The Restless Ghost", 1).requirement("Tinderbox", 1)
+            .requirement("Waterskin (4)", 1).requirement("Coins", 30).requirement("Bucket", 1).encounter(new Encounter("Apmeken"))
+            .encounter(new Encounter("Possessed Priest")).reward("Quest points", 2).reward("Thieving", 4500).reward("Agility", 4000)
+            .reward("Woodcutting", 4000).build());
+        achievements.add(new AchievementBuilder("Rogue Trader", 0.25).requirement("The Feud", 1).requirement("Icthlarin's Little Helper", 1)
+            .requirement("Coins", 100).requirement("Blue dye", 3).build());
+        achievements.add(new AchievementBuilder("Ali The Trader", 0).requirement("Rogue Trader", 1).build());
         achievements.add(new AchievementBuilder("All Aboard", 0).requirement("Ranged", 70)
             .encounter(new Encounter("Kree'arra")).build());
-        achievements.add(new AchievementBuilder("All Abuzz", 0).requirement("Menaphos insects", 16).build());
-        achievements.add(new AchievementBuilder("The Frog Prince v. The People", 0.25).requirement("Court summons 5", 1)
-            .reward("Mystery box", 2).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer",
-                "Prayer", "Summoning", "Herblore"), 9000, 1).build());
-        achievements.add(new AchievementBuilder("Miss Schism v. Draynor Village", 0.75).requirement("Court summons 9", 1)
-            .lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning",
-                "Herblore"), 9000, 1).lamp(Player.ALL_SKILLS, -10, 1).build());
+        achievements.add(new AchievementBuilder("All Abuzz", 0).requirement("Menaphite honey bee in amber", 1)
+            .requirement("Pygmy giant scarab in amber", 1).requirement("Clicker kalphite in amber", 1).requirement("Fruit fly", 1)
+            .requirement("Desert locust in amber", 1).requirement("Kalphite wanderer in amber", 1).requirement("Fly dragon", 1)
+            .requirement("Hornless unicornfly in amber", 1).requirement("Fly dragon in amber", 1).requirement("Fruit fly in amber", 1)
+            .requirement("Menaphite honey bee", 1).requirement("Pygmy giant scarab", 1).requirement("Clicker kalphite", 1)
+            .requirement("Desert locust", 1).requirement("Kalphite wanderer", 1).requirement("Hornless unicornfly", 1).build());
         achievements.add(new AchievementBuilder("Mugger v. Roger Murray", 0.25).requirement("King's Ransom", 1)
             .lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning",
                 "Herblore"), 2000, 1).build());
-        achievements.add(new AchievementBuilder("Evil Twin v. Good Twin", 0.25).requirement("Court summons 4", 1).reward("Mystery box", 1)
-            .reward("Uncut sapphire", 5).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer",
-                "Prayer", "Summoning", "Herblore"), 6500, 1).build());
+        achievements.add(new AchievementBuilder("River troll v. The People", 0.25).requirement("Casket", 17).requirement("King's Ransom", 1)
+            .reward("Mystery box", 1).reward("Shark", 20).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged",
+                "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 3500, 1).build());
+        achievements.add(new AchievementBuilder("Drunken Dwarf v. The People", 0.25).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).reward("Mystery box", 1).reward("Gold ore", 20).reward("Kebab", 1).lamp(Arrays.asList("Attack",
+                "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 5000, 1).build());
+        achievements.add(new AchievementBuilder("Evil Twin v. Good Twin", 0.25).requirement("Casket", 17).requirement("King's Ransom", 1)
+            .reward("Mystery box", 1).reward("Uncut sapphire", 5).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged",
+                "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 6500, 1).build());
+        achievements.add(new AchievementBuilder("Rick Turpentine v. The (Rich) People", 0.25).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).reward("Mystery box", 1).reward("Uncut ruby", 3).lamp(Arrays.asList("Attack", "Defense",
+                "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 8000, 1).build());
+        achievements.add(new AchievementBuilder("The Frog Prince v. The People", 0.25).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).reward("Mystery box", 2).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged",
+                "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 9000, 1).build());
+        achievements.add(new AchievementBuilder("Sawmill Man v. The People", 0.25).requirement("Casket", 17).requirement("King's Ransom", 1)
+            .reward("Mystery box", 1).reward("Teak plank", 30).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged",
+                "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 9000, 1).build());
+        achievements.add(new AchievementBuilder("Party Pete v. His Neighbours", 0.75).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).reward("Mystery box", 1).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged",
+                "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 9000, 1).build());
+        achievements.add(new AchievementBuilder("Ernest v. Professor Oddenstein", 0.25).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).reward("Mystery box", 1).reward("Feather", 100).reward("Red feather", 15)
+            .reward("Yellow feather", 15).reward("Blue feather", 15).reward("Raw bird meat", 20).lamp(Arrays.asList("Attack", "Defense",
+                "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 10000, 1).build());
+        achievements.add(new AchievementBuilder("Miss Schism v. Draynor Village", 0.75).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution",
+                "Slayer", "Prayer", "Summoning", "Herblore"), 9000, 1).lamp(Player.ALL_SKILLS, -10, 1).build());
+        achievements.add(new AchievementBuilder("EVIL DAVE v. The People", 0.25).requirement("Casket", 17).requirement("King's Ransom", 1)
+            .reward("Mystery box", 1).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer",
+                "Prayer", "Summoning", "Herblore"), 9000, 1).build());
+        achievements.add(new AchievementBuilder("H.A.M v. Dorgeshuun", 0.25).requirement("Casket", 17).requirement("King's Ransom", 1)
+            .reward("Mystery box", 1).reward("Uncut ruby", 5).reward("Cave goblin wire", 100).lamp(Arrays.asList("Attack", "Defense",
+                "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 15000, 1).build());
+        achievements.add(new AchievementBuilder("The Sandwich Lady v. The People", 0.25).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).reward("Mystery box", 2).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged",
+                "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 9000, 1).build());
+        achievements.add(new AchievementBuilder("The Mime v. The People", 0.25).requirement("Casket", 17).requirement("King's Ransom", 1)
+            .reward("Mystery box", 2).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged", "Constitution", "Slayer",
+                "Prayer", "Summoning", "Herblore"), 9000, 1).build());
+        achievements.add(new AchievementBuilder("Barbarians v. Wizards", 0.25).requirement("Casket", 17).requirement("King's Ransom", 1)
+            .reward("Mystery box", 1).reward("Dagannoth hide", 10).reward("Law rune", 50).lamp(Arrays.asList("Attack", "Defense",
+                "Strength", "Magic", "Ranged", "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 20000, 1).build());
+        achievements.add(new AchievementBuilder("The Gravedigger v. The People", 0.25).requirement("Casket", 17)
+            .requirement("King's Ransom", 1).reward("Mystery box", 2).lamp(Arrays.asList("Attack", "Defense", "Strength", "Magic", "Ranged",
+                "Constitution", "Slayer", "Prayer", "Summoning", "Herblore"), 9000, 1).build());
         achievements.add(new AchievementBuilder("All Rise", 0).requirement("Mugger v. Roger Murray", 1)
             .requirement("River troll v. The People", 1).requirement("Drunken Dwarf v. The People", 1)
             .requirement("Evil Twin v. Good Twin", 1).requirement("Rick Turpentine v. The (Rich) People", 1)
@@ -1434,11 +1487,6 @@ public class AchievementDatabase {
                     "TokHaar-Xil", "TokHaar-Mej"), Arrays.asList("TokHaar-Mej", "TokHaar-Ket", "TokHaar-Xil", "TokHaar-Mej"),
                 Arrays.asList("TokHaar-Ket Champion", "TokHaar-Xil", "TokHaar-Mej")))).reward("Quest points", 2).reward("Magic", 50000)
             .reward("Agility", 30000).lamp(Arrays.asList("Attack", "Strength", "Defense", "Magic", "Ranged"), 100000, 75).build());
-        achievements.add(new AchievementBuilder("Icthlarin's Little Helper", 1.5).requirement("Diamond in the Rough", 1)
-            .requirement("Gertrude's Cat", 1).requirement("The Restless Ghost", 1).requirement("Tinderbox", 1)
-            .requirement("Waterskin (4)", 1).requirement("Coins", 30).requirement("Bucket", 1).encounter(new Encounter("Apmeken"))
-            .encounter(new Encounter("Possessed Priest")).reward("Quest points", 2).reward("Thieving", 4500).reward("Agility", 4000)
-            .reward("Woodcutting", 4000).build());
         achievements.add(new AchievementBuilder("A Tail of Two Cats", 1.5).requirement("Icthlarin's Little Helper", 1)
             .requirement("Death rune", 5).requirement("Chocolate cake", 1).requirement("Bucket of milk", 1).requirement("Logs", 1)
             .requirement("Potato seed", 4).requirement("Vial of water", 1).requirement("Desert robe", 1).requirement("Desert shirt", 1)
@@ -2426,6 +2474,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Zarosian Memories", 0.25).requirement("Fate of the Gods", 1).build());
         achievements.add(new AchievementBuilder("You Be Dead", 0).requirement("Goblin priests buried", 5).build());
         achievements.add(new AchievementBuilder("Yaktwee's a Charm", 0).requirement("Charm sprites", 1000).build());
+    }
+
+    private void addAchievementsDZ() {
         achievements.add(new AchievementBuilder("What's Mine is Yours", 0.75).requirement("Smithing", 5)
             .encounter(new Encounter("Living rock brawler")).encounter(new Encounter("Living rock brawler"))
             .encounter(new Encounter("Living rock brawler")).encounter(new Encounter("Living rock brawler")).reward("Quest points", 1)
@@ -2482,9 +2533,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Myreque in Memoriam", 0).requirement("In Memory of the Myreque", 1).build());
         achievements.add(new AchievementBuilder("Music Maestro", 0).requirement("Music tracks", 1203).build());
         achievements.add(new AchievementBuilder("Memories of Guthix", 0).requirement("Memorial to Guthix", 1).build());
-    }
-
-    private void addAchievementsDZ() {
         achievements.add(new AchievementBuilder("Master Skiller", 0).requirement("Attack", 99).requirement("Strength", 99)
             .requirement("Ranged", 99).requirement("Magic", 99).requirement("Defense", 99).requirement("Constitution", 99)
             .requirement("Prayer", 99).requirement("Agility", 99).requirement("Herblore", 99).requirement("Thieving", 99)
@@ -2493,7 +2541,7 @@ public class AchievementDatabase {
             .requirement("Fletching", 99).requirement("Slayer", 120).requirement("Farming", 99).requirement("Construction", 99)
             .requirement("Hunter", 99).requirement("Summoning", 99).requirement("Dungeoneering", 120).requirement("Divination", 99)
             .requirement("Invention", 120).build());
-        achievements.add(new AchievementBuilder("Master Quester", 0).requirement("Quest points", 398).build());
+        achievements.add(new AchievementBuilder("Master Quester", 0).requirement("Quest points", 399).build());
         achievements.add(new AchievementBuilder("Make Them Bleed", 0).requirement("Rush of Blood maximum waves", 20)
             .reward("Slayer", 50000).build());
         achievements.add(new AchievementBuilder("Lunar Master", 0).requirement("Produce points", 430000).build());

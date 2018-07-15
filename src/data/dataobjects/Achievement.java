@@ -96,7 +96,12 @@ public class Achievement implements java.io.Serializable {
             if (Achievement.getAchievementByName(r.getQualifier()) == null || !totalActionsWithTimesForAllReqs.containsKey(r.getQualifier())) {
                 GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
                 for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
-                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
+                    if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
+                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
+                    }
+                    else {
+                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
+                    }
                 }
             }
         }
