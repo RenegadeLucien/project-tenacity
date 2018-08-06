@@ -119,7 +119,7 @@ public class Encounter implements java.io.Serializable {
                 myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*96.0/149.0;
             }
             else {
-                System.out.println("What the heck kind of weapon do you have?");
+                //System.out.println("What the heck kind of weapon do you have?");
                 throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
             }
             if (loadout.getMainWep().getSlot().equals("Two-handed")) {
@@ -140,7 +140,7 @@ public class Encounter implements java.io.Serializable {
             for (List<Enemy> enemyGroup : enemyGroups) {
                 for (Enemy enemy : enemyGroup) {
                     int monsterTicks = 0;
-                    System.out.println("Began fighting: " + enemy.getName());
+                    //System.out.println("Began fighting: " + enemy.getName());
                     int affinity;
                     if (combatStyle.equals("Melee")) {
                         affinity = enemy.getAffmelee();
@@ -188,7 +188,7 @@ public class Encounter implements java.io.Serializable {
                                     if (abilityWithCooldown.getValue() < 3)
                                         cooldowns.put(abilityWithCooldown.getKey(), 3);
                                 }
-                                System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
+                                //System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
                             }
                         } else {
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
@@ -205,7 +205,7 @@ public class Encounter implements java.io.Serializable {
                         }
                         if (abilityUsedThisTick != null) {
                             enemyLp -= myHitChance * myDamage * maxDamage;
-                            System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
+                            //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
                             cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
                                 if (abilityWithCooldown.getValue() < 3)
@@ -243,10 +243,10 @@ public class Encounter implements java.io.Serializable {
                             }
                             myLp -= enemyDamage * (1 - loadout.totalReduc());
                             hpLost += enemyDamage * (1 - loadout.totalReduc());
-                            System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
+                            //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
                         }
                         if (prayerPoints > 0) {
-                            prayerPoints = Math.max(0, prayerPoints-loadout.getPrayer().getDrainPerTick());
+                            prayerPoints = Math.max(0, (prayerPoints-loadout.getPrayer().getDrainPerTick())*(1-loadout.totalPrayBonus()/100.0));
                         }
                         ticks++;
                         monsterTicks++;

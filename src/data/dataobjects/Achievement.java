@@ -122,44 +122,13 @@ public class Achievement implements java.io.Serializable {
                 rangedCombatResults = e.calculateCombat(player, 28, "Ranged");
                 magicCombatResults = e.calculateCombat(player, 28, "Magic");
                 if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
-                    double attackTime = new Requirement("Attack", player.getLevel("Attack")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                    double strengthTime = new Requirement("Strength", player.getLevel("Strength")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                    double rangedTime = new Requirement("Ranged", player.getLevel("Ranged")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                    double magicTime = new Requirement("Magic", player.getLevel("Magic")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                    double defenseTime = new Requirement("Defense", player.getLevel("Defense")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                    double hpTime = new Requirement("Constitution", player.getLevel("Constitution")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                    double prayerTime = new Requirement("Prayer", player.getLevel("Prayer")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                    if (player.getLevel("Attack") < 99 && attackTime < strengthTime && attackTime < rangedTime && attackTime < magicTime && attackTime < defenseTime && attackTime < hpTime && attackTime < prayerTime) {
-                        player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
-                        //System.out.println(String.format("Leveling Attack to %d", player.getLevel("Attack")));
-                    }
-                    else if (player.getLevel("Strength") < 99 && strengthTime < rangedTime && strengthTime < magicTime && strengthTime < defenseTime && strengthTime < hpTime && strengthTime < prayerTime) {
-                        player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
-                        //System.out.println(String.format("Leveling Strength to %d", player.getLevel("Strength")));
-                    }
-                    else if (player.getLevel("Ranged") < 99 && rangedTime < magicTime && rangedTime < defenseTime && rangedTime < hpTime && rangedTime < prayerTime) {
-                        player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged")+1));
-                        //System.out.println(String.format("Leveling Ranged to %d", player.getLevel("Ranged")));
-                    }
-                    else if (player.getLevel("Magic") < 99 && magicTime < defenseTime && magicTime < hpTime && magicTime < prayerTime) {
-                        player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic")+1));
-                        //System.out.println(String.format("Leveling Magic to %d", player.getLevel("Magic")));
-                    }
-                    else if (player.getLevel("Defense") < 99 && defenseTime < hpTime && defenseTime < prayerTime) {
-                        player.getXp().put("Defense", player.getXp().get("Defense") + player.getXpToLevel("Defense", player.getLevel("Defense")+1));
-                        //System.out.println(String.format("Leveling Defense to %d", player.getLevel("Defense")));
-                    }
-                    else if (player.getLevel("Constitution") < 99 && hpTime < prayerTime){
-                        player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
-                        //System.out.println(String.format("Leveling Constitution to %d", player.getLevel("Constitution")));
-                    }
-                    else if (player.getLevel("Prayer") < 99){
-                        player.getXp().put("Prayer", player.getXp().get("Prayer") + player.getXpToLevel("Prayer", player.getLevel("Prayer") + 1));
-                        //System.out.println(String.format("Leveling Prayer to %d", player.getLevel("Prayer")));
-                    }
-                    else {
-                        break;
-                    }
+                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
+                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
+                    player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged")+1));
+                    player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic")+1));
+                    player.getXp().put("Defense", player.getXp().get("Defense") + player.getXpToLevel("Defense", player.getLevel("Defense")+1));
+                    player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
+                    player.getXp().put("Prayer", player.getXp().get("Prayer") + player.getXpToLevel("Prayer", player.getLevel("Prayer") + 1));
                 }
                 else {
                     if (player.getXp().get("Defense") > initialXP.get("Defense")) {

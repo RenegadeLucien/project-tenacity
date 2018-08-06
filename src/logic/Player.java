@@ -359,113 +359,91 @@ public class Player implements java.io.Serializable {
             }
             return new GoalResults(questTotalTime, questTotalActions);
         } else if (qualifier.equals("Combat")) {
-            Map<String, Double> originalMap = this.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
-            double levelingByMelee = 0;
-            double levelingByRanged = 0;
-            double levelingByMagic = 0;
-            Map<String, Double> meleeMap = new HashMap();
-            Map<String, Double> rangedMap = new HashMap();
-            Map<String, Double> magicMap = new HashMap();
-            //Using melee
-            while (this.calcCombatLevel() < quantifier) {
-                double attack = 0.325 / this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", this.getLevel("Attack") + 1)).getTotalTime();
-                double strength = 0.325 / this.efficientGoalCompletion("mCombat", this.getXpToLevel("Strength", this.getLevel("Strength") + 1)).getTotalTime();
-                double defense = 0.25 / this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defense", this.getLevel("Defense") + 1)).getTotalTime();
-                double prayer = 0.25 / this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", this.getLevel("Prayer") + 1)).getTotalTime();
-                double summ = 0.25 / this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", this.getLevel("Summoning") + 1)).getTotalTime();
-                GoalResults bestSubReq = null;
-                if (attack > strength && attack > defense && attack > prayer && attack > summ) {
-                    bestSubReq = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", this.getLevel("Attack") + 1));
-                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Attack", this.getLevel("Attack") + 1) / 3);
-                    this.getXp().put("Attack", this.getXp().get("Attack") + this.getXpToLevel("Attack", this.getLevel("Attack") + 1));
-                } else if (strength > defense && strength > prayer && strength > summ) {
-                    bestSubReq = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Strength", this.getLevel("Strength") + 1));
-                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Strength", this.getLevel("Strength") + 1) / 3);
-                    this.getXp().put("Strength", this.getXp().get("Strength") + this.getXpToLevel("Strength", this.getLevel("Strength") + 1));
-                } else if (defense > prayer && defense > summ) {
-                    bestSubReq = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defense", this.getLevel("Defense") + 1));
-                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Defense", this.getLevel("Defense") + 1) / 3);
-                    this.getXp().put("Defense", this.getXp().get("Defense") + this.getXpToLevel("Defense", this.getLevel("Defense") + 1));
-                } else if (prayer > summ) {
-                    bestSubReq = this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", this.getLevel("Prayer") + 1));
-                    this.getXp().put("Prayer", this.getXp().get("Prayer") + this.getXpToLevel("Prayer", ((this.getLevel("Prayer") / 2) + 1) * 2));
-                } else {
-                    bestSubReq = this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", this.getLevel("Summoning") + 1));
-                    this.getXp().put("Summoning", this.getXp().get("Summoning") + this.getXpToLevel("Summoning", ((this.getLevel("Summoning") / 2) + 1) * 2));
-                }
-                levelingByMelee += bestSubReq.getTotalTime();
-                if (meleeMap.keySet().contains(bestSubReq.getActionsWithTimes().keySet().iterator().next()))
-                    meleeMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(bestSubReq.getActionsWithTimes().keySet().iterator().next()) + bestSubReq.getTotalTime());
-                else
-                    meleeMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), bestSubReq.getTotalTime());
+            int targetLevel = (int)Math.floor(quantifier/1.4);
+            GoalResults attack = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", targetLevel));
+            GoalResults strength = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Strength", targetLevel));
+            GoalResults meleeDefense = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defense", targetLevel));
+            GoalResults rangedDefense = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Defense", targetLevel));
+            GoalResults magicDefense = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Defense", targetLevel));
+            GoalResults defense;
+            if (meleeDefense.getTotalTime() < Math.min(rangedDefense.getTotalTime(), magicDefense.getTotalTime())) {
+                defense = meleeDefense;
             }
-            this.setXp(originalMap);
-            originalMap = this.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
-            //Using ranged
-            while (this.calcCombatLevel() < quantifier) {
-                double ranged = 0.65 / this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", this.getLevel("Ranged") + 1)).getTotalTime();
-                double defense = 0.25 / this.efficientGoalCompletion("rCombat", this.getXpToLevel("Defense", this.getLevel("Defense") + 1)).getTotalTime();
-                double prayer = 0.25 / this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", this.getLevel("Prayer") + 1)).getTotalTime();
-                double summ = 0.25 / this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", this.getLevel("Summoning") + 1)).getTotalTime();
-                GoalResults bestSubReq = null;
-                if (ranged > defense && ranged > prayer && ranged > summ) {
-                    bestSubReq = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", this.getLevel("Ranged") + 1));
-                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Ranged", this.getLevel("Ranged") + 1) / 3);
-                    this.getXp().put("Ranged", this.getXp().get("Ranged") + this.getXpToLevel("Ranged", this.getLevel("Ranged") + 1));
-                } else if (defense > prayer && defense > summ) {
-                    bestSubReq = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Defense", this.getLevel("Defense") + 1));
-                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Defense", this.getLevel("Defense") + 1) / 3);
-                    this.getXp().put("Defense", this.getXp().get("Defense") + this.getXpToLevel("Defense", this.getLevel("Defense") + 1));
-                } else if (prayer > summ) {
-                    bestSubReq = this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", this.getLevel("Prayer") + 1));
-                    this.getXp().put("Prayer", this.getXp().get("Prayer") + this.getXpToLevel("Prayer", ((this.getLevel("Prayer") / 2) + 1) * 2));
-                } else {
-                    bestSubReq = this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", this.getLevel("Summoning") + 1));
-                    this.getXp().put("Summoning", this.getXp().get("Summoning") + this.getXpToLevel("Summoning", ((this.getLevel("Summoning") / 2) + 1) * 2));
-                }
-                levelingByRanged += bestSubReq.getTotalTime();
-                if (rangedMap.keySet().contains(bestSubReq.getActionsWithTimes().keySet().iterator().next()))
-                    rangedMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(bestSubReq.getActionsWithTimes().keySet().iterator().next()) + bestSubReq.getTotalTime());
-                else
-                    rangedMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), bestSubReq.getTotalTime());
+            else if (rangedDefense.getTotalTime() < magicDefense.getTotalTime()) {
+                defense = rangedDefense;
             }
-            this.setXp(originalMap);
-            originalMap = this.getXp().entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
-            //Using magic
-            while (this.calcCombatLevel() < quantifier) {
-                double magic = 0.65 / this.efficientGoalCompletion("aCombat", this.getXpToLevel("Magic", this.getLevel("Magic") + 1)).getTotalTime();
-                double defense = 0.25 / this.efficientGoalCompletion("aCombat", this.getXpToLevel("Defense", this.getLevel("Defense") + 1)).getTotalTime();
-                double prayer = 0.25 / this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", this.getLevel("Prayer") + 1)).getTotalTime();
-                double summ = 0.25 / this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", this.getLevel("Summoning") + 1)).getTotalTime();
-                GoalResults bestSubReq = null;
-                if (magic > defense && magic > prayer && magic > summ) {
-                    bestSubReq = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Magic", this.getLevel("Magic") + 1));
-                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Magic", this.getLevel("Magic") + 1) / 3);
-                    this.getXp().put("Magic", this.getXp().get("Magic") + this.getXpToLevel("Magic", this.getLevel("Magic") + 1));
-                } else if (defense > prayer && defense > summ) {
-                    bestSubReq = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Defense", this.getLevel("Defense") + 1));
-                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Defense", this.getLevel("Defense") + 1) / 3);
-                    this.getXp().put("Defense", this.getXp().get("Defense") + this.getXpToLevel("Defense", this.getLevel("Defense") + 1));
-                } else if (prayer > summ) {
-                    bestSubReq = this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", this.getLevel("Prayer") + 1));
-                    this.getXp().put("Prayer", this.getXp().get("Prayer") + this.getXpToLevel("Prayer", ((this.getLevel("Prayer") / 2) + 1) * 2));
-                } else {
-                    bestSubReq = this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", this.getLevel("Summoning") + 1));
-                    this.getXp().put("Summoning", this.getXp().get("Summoning") + this.getXpToLevel("Summoning", ((this.getLevel("Summoning") / 2) + 1) * 2));
-                }
-                levelingByMagic += bestSubReq.getTotalTime();
-                if (magicMap.keySet().contains(bestSubReq.getActionsWithTimes().keySet().iterator().next()))
-                    magicMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), magicMap.get(bestSubReq.getActionsWithTimes().keySet().iterator().next()) + bestSubReq.getTotalTime());
-                else
-                    magicMap.put(bestSubReq.getActionsWithTimes().keySet().iterator().next(), bestSubReq.getTotalTime());
+            else  {
+                defense = magicDefense;
             }
-            this.setXp(originalMap);
-            if (levelingByMelee < levelingByMagic && levelingByMelee < levelingByRanged) {
-                return new GoalResults(levelingByMelee, meleeMap);
-            } else if (levelingByRanged < levelingByMagic) {
-                return new GoalResults(levelingByRanged, rangedMap);
+            GoalResults ranged = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", targetLevel));
+            GoalResults magic = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Magic", targetLevel));
+            GoalResults prayer = this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", targetLevel));
+            GoalResults summ = this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", targetLevel));
+            GoalResults hp = this.efficientGoalCompletion("Constitution", this.getXpToLevel("Constitution", targetLevel));
+            Map<String,Double> meleeMap = new HashMap();
+            Map<String,Double> rangedMap = new HashMap();
+            Map<String,Double> magicMap = new HashMap();
+            meleeMap.put(attack.getActionsWithTimes().keySet().iterator().next(), attack.getTotalTime());
+            if (meleeMap.keySet().contains(strength.getActionsWithTimes().keySet().iterator().next()))
+                meleeMap.put(strength.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(strength.getActionsWithTimes().keySet().iterator().next()) + strength.getTotalTime());
+            else
+                meleeMap.put(strength.getActionsWithTimes().keySet().iterator().next(), strength.getTotalTime());
+            if (meleeMap.keySet().contains(defense.getActionsWithTimes().keySet().iterator().next()))
+                meleeMap.put(defense.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(defense.getActionsWithTimes().keySet().iterator().next()) + defense.getTotalTime());
+            else
+                meleeMap.put(defense.getActionsWithTimes().keySet().iterator().next(), defense.getTotalTime());
+            if (meleeMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
+                meleeMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
+            else
+                meleeMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), prayer.getTotalTime());
+            if (meleeMap.keySet().contains(summ.getActionsWithTimes().keySet().iterator().next()))
+                meleeMap.put(summ.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(summ.getActionsWithTimes().keySet().iterator().next()) + summ.getTotalTime());
+            else
+                meleeMap.put(summ.getActionsWithTimes().keySet().iterator().next(), summ.getTotalTime());
+            if (meleeMap.keySet().contains(hp.getActionsWithTimes().keySet().iterator().next()))
+                meleeMap.put(hp.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(hp.getActionsWithTimes().keySet().iterator().next()) + hp.getTotalTime());
+            else
+                meleeMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
+            rangedMap.put(ranged.getActionsWithTimes().keySet().iterator().next(), ranged.getTotalTime());
+            if (rangedMap.keySet().contains(defense.getActionsWithTimes().keySet().iterator().next()))
+                rangedMap.put(defense.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(defense.getActionsWithTimes().keySet().iterator().next()) + defense.getTotalTime());
+            else
+                rangedMap.put(defense.getActionsWithTimes().keySet().iterator().next(), defense.getTotalTime());
+            if (rangedMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
+                rangedMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
+            else
+                rangedMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), prayer.getTotalTime());
+            if (rangedMap.keySet().contains(summ.getActionsWithTimes().keySet().iterator().next()))
+                rangedMap.put(summ.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(summ.getActionsWithTimes().keySet().iterator().next()) + summ.getTotalTime());
+            else
+                rangedMap.put(summ.getActionsWithTimes().keySet().iterator().next(), summ.getTotalTime());
+            if (rangedMap.keySet().contains(hp.getActionsWithTimes().keySet().iterator().next()))
+                rangedMap.put(hp.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(hp.getActionsWithTimes().keySet().iterator().next()) + hp.getTotalTime());
+            else
+                rangedMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
+            magicMap.put(magic.getActionsWithTimes().keySet().iterator().next(), magic.getTotalTime());
+            if (magicMap.keySet().contains(defense.getActionsWithTimes().keySet().iterator().next()))
+                magicMap.put(defense.getActionsWithTimes().keySet().iterator().next(), magicMap.get(defense.getActionsWithTimes().keySet().iterator().next()) + defense.getTotalTime());
+            else
+                magicMap.put(defense.getActionsWithTimes().keySet().iterator().next(), defense.getTotalTime());
+            if (magicMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
+                magicMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), magicMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
+            else
+                magicMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), prayer.getTotalTime());
+            if (magicMap.keySet().contains(summ.getActionsWithTimes().keySet().iterator().next()))
+                magicMap.put(summ.getActionsWithTimes().keySet().iterator().next(), magicMap.get(summ.getActionsWithTimes().keySet().iterator().next()) + summ.getTotalTime());
+            else
+                magicMap.put(summ.getActionsWithTimes().keySet().iterator().next(), summ.getTotalTime());
+            if (magicMap.keySet().contains(hp.getActionsWithTimes().keySet().iterator().next()))
+                magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), magicMap.get(hp.getActionsWithTimes().keySet().iterator().next()) + hp.getTotalTime());
+            else
+                magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
+            if (attack.getTotalTime() + strength.getTotalTime() < ranged.getTotalTime() && attack.getTotalTime() + strength.getTotalTime() < magic.getTotalTime()) {
+                return new GoalResults(attack.getTotalTime()+strength.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), meleeMap);
+            } else if (ranged.getTotalTime() < magic.getTotalTime()) {
+                return new GoalResults(ranged.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), rangedMap);
             } else {
-                return new GoalResults(levelingByMagic, magicMap);
+                return new GoalResults(magic.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), magicMap);
             }
         }
         double minimum = Double.POSITIVE_INFINITY;

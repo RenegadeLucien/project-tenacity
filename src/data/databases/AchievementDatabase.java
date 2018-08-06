@@ -19,11 +19,8 @@ public class AchievementDatabase {
     private List<Achievement> achievements = new ArrayList<>();
 
     private AchievementDatabase() {
-        //addAchievementsABC();
-        //addAchievementsDZ();
-        achievements.add(new AchievementBuilder("All Together Now", 0).requirement("Beastmaster Durzag", 1)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Yakamaru"), Arrays.asList("Image of Yakamaru",
-                "Image of Yakamaru", "Image of Yakamaru", "Image of Yakamaru")), 10)).build());
+        addAchievementsABC();
+        addAchievementsDZ();
         AchievementBuilder allAchievements = new AchievementBuilder("All Achievements", 0);
         for (Achievement achievement : achievements) {
             allAchievements.requirement(achievement.getName(), 1);
