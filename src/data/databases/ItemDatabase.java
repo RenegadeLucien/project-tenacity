@@ -380,6 +380,7 @@ public class ItemDatabase {
         items.add(new Item("Elder seed", 1000));
         items.add(new Item("Games necklace (8)", 1050));
         items.add(new Item("Sapphire necklace", 1050));
+        items.add(new Item("Sailfish soup", 1200));
         items.add(new Item("Tyras helm", 1265));
         items.add(new Item("Ring of duelling (8)", 1275));
         items.add(new Item("Mahogany plank", 1500));

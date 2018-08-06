@@ -14,7 +14,10 @@ public class ActionDatabase {
     private static final int TICKS_PER_HOUR = 6000;
     private List<Action> database = new ArrayList<>();
 
-    private ActionDatabase(Player player) {
+    private ActionDatabase() {
+    }
+
+    private void addActionsToDatabase(Player player) {
         //Placeholder for skills that have not yet been implemented
         database.add(new Action("Quacking", new ArrayList<>(), new HashMap<>(), Map.of("Invention", 1), true, true));
 
@@ -220,12 +223,12 @@ public class ActionDatabase {
             "Prayer", 12500, "Coins", 100000, "Shade key", 250), true, true));
 
         //Combat for drops
-        int cowKillsMelee = combatKills("Cow",  new ArrayList<>(), player, 0, "Melee", 1, false);
-        int cowKillsRanged = combatKills("Cow",  new ArrayList<>(), player, 0, "Ranged", 1, false);
-        int cowKillsMagic = combatKills("Cow",  new ArrayList<>(), player, 0, "Magic", 1, false);
-        int cowKillsMeleeGoldCharms = combatKills("Cow", new ArrayList<>(), player, 0, "Melee", 0.008, true);
-        int cowKillsRangedGoldCharms = combatKills("Cow", new ArrayList<>(), player, 0, "Ranged", 0.008, true);
-        int cowKillsMagicGoldCharms = combatKills("Cow", new ArrayList<>(), player, 0, "Magic", 0.008, true);
+        int cowKillsMelee = combatKills(new Encounter("Cow"), player, 0, "Melee", 1, false).keySet().iterator().next();
+        int cowKillsRanged = combatKills(new Encounter("Cow"), player, 0, "Ranged", 1, false).keySet().iterator().next();
+        int cowKillsMagic = combatKills(new Encounter("Cow"), player, 0, "Magic", 1, false).keySet().iterator().next();
+        int cowKillsMeleeGoldCharms = combatKills(new Encounter("Cow"), player, 0, "Melee", 0.008, true).keySet().iterator().next();
+        int cowKillsRangedGoldCharms = combatKills(new Encounter("Cow"), player, 0, "Ranged", 0.008, true).keySet().iterator().next();
+        int cowKillsMagicGoldCharms = combatKills(new Encounter("Cow"), player, 0, "Magic", 0.008, true).keySet().iterator().next();
         database.add(new Action("Killing cows for raw beef with melee", new ArrayList<>(), new HashMap<>(),
             Map.of("Raw beef", cowKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMelee, "Constitution", 
                 (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMelee), true, true));
@@ -254,9 +257,9 @@ public class ActionDatabase {
             "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagicGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagicGoldCharms),
             true, true));
 
-        int chickenKillsMelee = combatKills("Chicken", new ArrayList<>(), player, 0, "Melee", 1, false);
-        int chickenKillsRanged = combatKills("Chicken",  new ArrayList<>(), player, 0, "Ranged", 1, false);
-        int chickenKillsMagic = combatKills("Chicken", new ArrayList<>(), player, 0, "Magic", 1, false);
+        int chickenKillsMelee = combatKills(new Encounter("Chicken"), player, 0, "Melee", 1, false).keySet().iterator().next();
+        int chickenKillsRanged = combatKills(new Encounter("Chicken"), player, 0, "Ranged", 1, false).keySet().iterator().next();
+        int chickenKillsMagic = combatKills(new Encounter("Chicken"), player, 0, "Magic", 1, false).keySet().iterator().next();
         database.add(new Action("Killing chickens for raw chicken with melee", new ArrayList<>(), new HashMap<>(),
             Map.of("Raw chicken", chickenKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMelee, "Constitution",
                 (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMelee), true, true));
@@ -267,9 +270,9 @@ public class ActionDatabase {
             Map.of("Raw chicken", chickenKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMagic, "Constitution",
                 (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMagic), true, true));
 
-        int gelatinousAbominationKillsMelee = combatKills("Gelatinous abomination", new ArrayList<>(), player, 0, "Melee", 0.4, true);
-        int gelatinousAbominationKillsRanged = combatKills("Gelatinous abomination",  new ArrayList<>(), player, 0, "Ranged", 0.4, true);
-        int gelatinousAbominationKillsMagic = combatKills("Gelatinous abomination", new ArrayList<>(), player, 0, "Magic", 0.4, true);
+        int gelatinousAbominationKillsMelee = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Melee", 0.4, true).keySet().iterator().next();
+        int gelatinousAbominationKillsRanged = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Ranged", 0.4, true).keySet().iterator().next();
+        int gelatinousAbominationKillsMagic = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Magic", 0.4, true).keySet().iterator().next();
         database.add(new Action("Killing gelatinous abominations for gold charms with melee", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (gelatinousAbominationKillsMelee * 0.4),
             "mCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() * gelatinousAbominationKillsMelee, "Constitution",
             (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() * gelatinousAbominationKillsMelee), true, true));
@@ -280,21 +283,31 @@ public class ActionDatabase {
             "aCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() * gelatinousAbominationKillsMagic, "Constitution",
             (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() * gelatinousAbominationKillsMagic), true, true));
 
-        int vyreKills = combatKills("Vyrewatch", Collections.singletonList(new Restriction("Vampyric weapon", 1)), player, 0, "Melee", 1, false);
+        int vyreKills = combatKills(new Encounter("Vyrewatch", Collections.singletonList(new Restriction("Vampyric weapon", 1))), player, 0, "Melee", 1, false).keySet().iterator().next();
         database.add(new Action("Killing vyres for corpses", Collections.singletonList(new Requirement("Legacy of Seergaze", 1)), new HashMap(),
             Map.of("Vyre corpse", vyreKills, "mCombat", (int)Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills, "Constitution",
                 (int) Enemy.getEnemyByName("Vyrewatch").getHpxp() * vyreKills), true, true));
 
         //Bossing
-        int kbdKills = combatKills("King Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1)), player, 28, "Melee", 0, false);
+        int kbdKills = combatKills(new Encounter("King Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))), player, 28, "Melee", 0, false).keySet().iterator().next();
         database.add(new Action("Killing the King Black Dragon", new ArrayList(), new HashMap(), Map.of("King Black Dragon", kbdKills,
             "mCombat", (int)Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills, "Constitution",
             (int)Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills), true, true));
 
-        int qbdKills = combatKills("Queen Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1)), player, 28, "Melee", 0, false);
+        int qbdKills = combatKills(new Encounter("Queen Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))), player, 28, "Melee", 0, false).keySet().iterator().next();
         database.add(new Action("Killing the Queen Black Dragon", Collections.singletonList(new Requirement("Summoning", 60)), new HashMap(),
             Map.of("Queen Black Dragon", qbdKills, "mCombat", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills, "Constitution",
             (int)Enemy.getEnemyByName("Queen Black Dragon").getHpxp() * qbdKills), true, true));
+
+        Map<Integer, List<Requirement>> durzagKills = combatKills(new Encounter(Arrays.asList(Arrays.asList("Airut", "Airut", "Charger", "Charger"),
+            Arrays.asList("Airut", "Airut", "Charger", "Charger"),
+            Arrays.asList("Airut", "Charger", "Charger", "Charger"),
+            Arrays.asList("Airut", "Airut", "Airut", "Charger", "Charger"),
+            Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Charger", "Charger", "Cormes"),
+            Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut", "Airut"),
+            Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut", "Airut"),
+            Arrays.asList("Tuz", "Krar", "Beastmaster Durzag")), 10), player, 28, "Melee", 0, false);
+        database.add(new Action("Killing Beastmaster Durzag", durzagKills.values().iterator().next(), new HashMap(), Map.of("Beastmaster Durzag", durzagKills.keySet().iterator().next()), true, true));
 
         //Other repeatables
         database.add(new Action("Completing Shifting Tombs", Arrays.asList(new Requirement("Agility", 50),
@@ -307,10 +320,63 @@ public class ActionDatabase {
         return database;
     }
 
-    private int combatKills(String enemyName, List<Restriction> restrictions, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
-        CombatResults combatResults = new Encounter(enemyName, restrictions).calculateCombat(player, invenSpaces, combatStyle);
+    private List<Requirement> getRequirementsForCombat(Encounter combatEncounter, Player player, int invenSpaces, String combatStyle) {
+        Map<String, Double> initialXP = new HashMap<>(player.getXp());
+        CombatResults combatResults;
+        do {
+            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle);
+            if (combatResults.getHpLost() > 1000000) {
+                double attackTime = new Requirement("Attack", player.getLevel("Attack")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
+                double strengthTime = new Requirement("Strength", player.getLevel("Strength")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
+                double hpTime = new Requirement("Constitution", player.getLevel("Constitution")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
+                if (attackTime < strengthTime && attackTime < hpTime) {
+                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
+                    //System.out.println(String.format("Leveling Attack to %d", player.getLevel("Attack")));
+                }
+                else if (strengthTime < hpTime) {
+                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
+                    //System.out.println(String.format("Leveling Strength to %d", player.getLevel("Strength")));
+                }
+                else {
+                    player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
+                    //System.out.println(String.format("Leveling Constitution to %d", player.getLevel("Constitution")));
+                }
+            }
+            else {
+                List<Requirement> requirements = new ArrayList<>();
+                if (combatStyle.equals("Melee")) {
+                    if (player.getXp().get("Attack") > initialXP.get("Attack")) {
+                        requirements.add(new Requirement("Attack", player.getLevel("Attack")));
+                    }
+                    if (player.getXp().get("Strength") > initialXP.get("Strength")) {
+                        requirements.add(new Requirement("Strength", player.getLevel("Strength")));
+                    }
+                }
+                if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
+                    requirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
+                }
+                player.setXp(initialXP);
+                return requirements;
+            }
+        }
+        while (player.getLevel("Constitution") < 99);
+        player.setXp(initialXP);
+        return new ArrayList<>(); //fight is impossble if it reaches this point
+    }
+
+    private Map<Integer, List<Requirement>> combatKills(Encounter combatEncounter, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
+        Map<String, Double> initialXP = new HashMap<>(player.getXp());
+        CombatResults combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle);
+        List<Requirement> combatReqs = new ArrayList<>();
         if (combatResults.getHpLost() == 1000000000) {
-            return 0;
+            combatReqs = getRequirementsForCombat(combatEncounter, player, invenSpaces, combatStyle);
+            for (Requirement requirement : combatReqs) {
+                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+            }
+            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle);
+            if (combatResults.getHpLost() == 1000000000) {
+                return Map.of(0, Collections.singletonList(new Requirement("Impossible", 1)));
+            }
         }
         int time = TICKS_PER_HOUR;
         double currentHp = player.getLevel("Constitution") * 100;
@@ -340,7 +406,8 @@ public class ActionDatabase {
             } else
                 break;
         }
-        return kills;
+        player.setXp(initialXP);
+        return Map.of(kills, combatReqs);
     }
 
     private int logsCut(Player player, int hatchetRank, int perfectRateFactor) {
@@ -379,7 +446,8 @@ public class ActionDatabase {
 
     public static ActionDatabase getActionDatabase(Player player) {
         if (actionDatabase == null) {
-            actionDatabase = new ActionDatabase(player);
+            actionDatabase = new ActionDatabase();
+            actionDatabase.addActionsToDatabase(player);
         }
         return actionDatabase;
     }

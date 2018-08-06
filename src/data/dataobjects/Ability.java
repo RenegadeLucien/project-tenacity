@@ -41,11 +41,7 @@ public class Ability {
         return expectedDamage;
     }
 
-    public List<Requirement> getReqs() {
-        return reqs;
-    }
-
-    public boolean canUse(int adren, Weapon weapon, Player player) {
+    public boolean canUse(Weapon weapon, Player player) {
         if (type.equals("Auto") || weaponType.equals("Any"))
             return true;
         if (weapon.getWeaponClass().equals(weaponType) && (weaponStyle.equals("Any") || weaponStyle.equals(weapon.getSlot()))) {
@@ -53,14 +49,7 @@ public class Ability {
                 if (!requirement.meetsRequirement(player))
                     return false;
             }
-            if (type.equals("Basic"))
-                return true;
-            else if (type.equals("Threshold"))
-                return (adren >= 50);
-            else if (type.equals("Ultimate"))
-                return (adren == 100);
-            else
-                System.out.println("This is very bad");
+            return true;
         }
         return false;
     }

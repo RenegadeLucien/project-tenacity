@@ -155,7 +155,12 @@ public class Player implements java.io.Serializable {
         List<Armour> legArmour = new ArrayList<>();
         List<Armour> handArmour = new ArrayList<>();
         List<Armour> feetArmour = new ArrayList<>();
+        List<Armour> capeArmour = new ArrayList<>();
+        List<Armour> neckArmour = new ArrayList<>();
+        List<Armour> ringArmour = new ArrayList<>();
         List<Ammo> ammoList = new ArrayList<>();
+        List<Familiar> familiarList = new ArrayList<>();
+        List<Prayer> prayerList = new ArrayList<>();
         for (Weapon w : WeaponDatabase.getWeaponDatabase().getWeapons()) {
             if (w.getWeaponClass().equals(combatStyle)) {
                 weaponList.add(w);
@@ -172,12 +177,24 @@ public class Player implements java.io.Serializable {
                 handArmour.add(a);
             } else if (a.getSlot().equals("Feet") && a.getType().equals(combatStyle)) {
                 feetArmour.add(a);
+            } else if (a.getSlot().equals("Cape") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
+                capeArmour.add(a);
+            } else if (a.getSlot().equals("Neck") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
+                neckArmour.add(a);
+            } else if (a.getSlot().equals("Ring") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
+                ringArmour.add(a);
             }
         }
         for (Ammo am : AmmoDatabase.getAmmoDatabase().getAmmos()) {
             if (am.getStyle().equals(combatStyle)) {
                 ammoList.add(am);
             }
+        }
+        for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
+            familiarList.add(f);
+        }
+        for (Prayer p : PrayerDatabase.getPrayerDatabase().getPrayers()) {
+            prayerList.add(p);
         }
         if (headArmour.size() == 0) {
             headArmour.add(Armour.getArmourByName("None"));
@@ -194,6 +211,15 @@ public class Player implements java.io.Serializable {
         if (feetArmour.size() == 0) {
             feetArmour.add(Armour.getArmourByName("None"));
         }
+        if (capeArmour.size() == 0) {
+            capeArmour.add(Armour.getArmourByName("None"));
+        }
+        if (neckArmour.size() == 0) {
+            neckArmour.add(Armour.getArmourByName("None"));
+        }
+        if (ringArmour.size() == 0) {
+            ringArmour.add(Armour.getArmourByName("None"));
+        }
         if (ammoList.size() == 0) {
             ammoList.add(Ammo.getAmmoByName("None"));
         }
@@ -204,8 +230,13 @@ public class Player implements java.io.Serializable {
                         for (Armour leg : legArmour)
                             for (Armour hand : handArmour)
                                 for (Armour foot : feetArmour)
-                                    for (Ammo ammo : ammoList)
-                                        loadouts.add(new Loadout(w, f, head, torso, leg, hand, foot, ammo));
+                                    for (Armour cape : capeArmour)
+                                        for (Armour neck : neckArmour)
+                                            for (Armour ring : ringArmour)
+                                                for (Ammo ammo : ammoList)
+                                                    for (Familiar familiar : familiarList)
+                                                        for (Prayer prayer : prayerList)
+                                                            loadouts.add(new Loadout(w, f, head, torso, leg, hand, foot, cape, neck, ring, ammo, familiar, prayer));
         //System.out.println(loadouts.size());
         return loadouts;
     }
@@ -213,10 +244,13 @@ public class Player implements java.io.Serializable {
     public void calcAllAchievements() {
         long time = System.nanoTime();
         for (Entry<Achievement, Double> taskWithTime : playerTasks.entrySet()) {
+            System.out.print(taskWithTime.getKey().getName() + "\t");
+            long taskTime = System.nanoTime();
             Achievement t = taskWithTime.getKey();
             GoalResults actionsAndTime = t.getTimeForRequirements(this);
             playerTasks.put(t, t.getTime() + actionsAndTime.getTotalTime() - t.getGainFromRewards(this));
             taskDetails.put(t, actionsAndTime);
+            System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");

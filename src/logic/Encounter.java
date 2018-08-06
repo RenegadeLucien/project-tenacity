@@ -11,6 +11,8 @@ public class Encounter implements java.io.Serializable {
 
     private List<List<Enemy>> enemyGroups;
     private List<Restriction> restrictions;
+    private int partySize;
+    private boolean safespot;
 
     public Encounter(List<List<String>> enemyGroups, List<Restriction> restrictions) {
         this.enemyGroups = new ArrayList<>();
@@ -18,6 +20,18 @@ public class Encounter implements java.io.Serializable {
             this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
         }
         this.restrictions = restrictions;
+        this.partySize = 1;
+        this.safespot = false;
+    }
+
+    public Encounter(List<List<String>> enemyGroups, List<Restriction> restrictions, boolean safespot) {
+        this.enemyGroups = new ArrayList<>();
+        for (List<String> enemyGroup : enemyGroups) {
+            this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
+        }
+        this.restrictions = restrictions;
+        this.partySize = 1;
+        this.safespot = safespot;
     }
 
     public Encounter(List<List<String>> enemyGroups) {
@@ -26,16 +40,32 @@ public class Encounter implements java.io.Serializable {
             this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
         }
         this.restrictions = new ArrayList<>();
+        this.partySize = 1;
+        this.safespot = false;
+    }
+
+    public Encounter(List<List<String>> enemyGroups, int partySize) {
+        this.enemyGroups = new ArrayList<>();
+        for (List<String> enemyGroup : enemyGroups) {
+            this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
+        }
+        this.restrictions = new ArrayList<>();
+        this.partySize = partySize;
+        this.safespot = false;
     }
 
     public Encounter(String enemy, List<Restriction> restrictions) {
         this.enemyGroups = Collections.singletonList(Collections.singletonList(Enemy.getEnemyByName(enemy)));
         this.restrictions = restrictions;
+        this.partySize = 1;
+        this.safespot = false;
     }
 
     public Encounter(String enemy) {
         this.enemyGroups = Collections.singletonList(Collections.singletonList(Enemy.getEnemyByName(enemy)));
         this.restrictions = new ArrayList<>();
+        this.partySize = 1;
+        this.safespot = false;
     }
 
     public List<List<Enemy>> getEnemyGroups() {
@@ -51,62 +81,106 @@ public class Encounter implements java.io.Serializable {
         double minHpLost = 1000000001;
         for (Loadout loadout : p.generateLoadouts(combatStyle)) {
             double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
+            double prayerPoints = p.getLevel("Prayer")*10;
             int ticks = 0;
             double hpLost = 0;
+            int invenUsed = 0;
+            int inventorySize = invenSpaces + loadout.getFamiliar().getInvenSpaces();
+            String damageSkill;
+            String accuracySkill;
+            int myMeleeAffinity;
+            int myRangedAffinity;
+            int myMagicAffinity;
+            if (combatStyle.equals("Melee")) {
+                accuracySkill = "Attack";
+                damageSkill = "Strength";
+                myMeleeAffinity = 55;
+                myRangedAffinity = 45;
+                myMagicAffinity = 65;
+            } else if (combatStyle.equals("Ranged")) {
+                accuracySkill = damageSkill = "Ranged";
+                myMeleeAffinity = 65;
+                myRangedAffinity = 55;
+                myMagicAffinity = 45;
+            } else {
+                accuracySkill = damageSkill = "Magic";
+                myMeleeAffinity = 45;
+                myRangedAffinity = 65;
+                myMagicAffinity = 55;
+            }
+            double myDamage;
+            if (loadout.getMainWep().getAtkspd() == 4) {
+                myDamage = 2.5 * p.getLevel(damageSkill) + loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage());
+            }
+            else if (loadout.getMainWep().getAtkspd() == 5) {
+                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*192.0/245.0;
+            }
+            else if (loadout.getMainWep().getAtkspd() == 6) {
+                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*96.0/149.0;
+            }
+            else {
+                System.out.println("What the heck kind of weapon do you have?");
+                throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
+            }
+            if (loadout.getMainWep().getSlot().equals("Two-handed")) {
+                myDamage += loadout.totalBonus()*1.5;
+            }
+            else {
+                myDamage += loadout.totalBonus();
+            }
+            Map<Ability, Integer> cooldowns = new HashMap<>();
+            for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
+                if (ability.canUse(loadout.getMainWep(), p))
+                    cooldowns.put(ability, 0);
+            }
+            cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
+                (loadout.getMainWep().getDamage()+loadout.getAmmo().getDamage())*0.5/myDamage, new ArrayList<>()), 0);
+            int adren = 0;
+            int foodCooldown = 0;
             for (List<Enemy> enemyGroup : enemyGroups) {
                 for (Enemy enemy : enemyGroup) {
-                    //System.out.println("Began fighting: " + enemy.getName());
+                    int monsterTicks = 0;
+                    System.out.println("Began fighting: " + enemy.getName());
                     int affinity;
-                    String accuracySkill;
-                    String damageSkill;
                     if (combatStyle.equals("Melee")) {
                         affinity = enemy.getAffmelee();
-                        accuracySkill = "Attack";
-                        damageSkill = "Strength";
                     } else if (combatStyle.equals("Ranged")) {
                         affinity = enemy.getAffranged();
-                        accuracySkill = damageSkill = "Ranged";
                     } else {
                         affinity = enemy.getAffmage();
-                        accuracySkill = damageSkill = "Magic";
                     }
                     double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
                     double myHitChance = Math.min(1, (affinity * myAccuracy / (enemy.getArmor() + 2.5 * enemy.getDef())) / 100.0);
-                    double myDamage;
-                    if (loadout.getMainWep().getAtkspd() == 4) {
-                        myDamage = 2.5 * p.getLevel(damageSkill) + loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage());
+                    int enemyAttackStyles = 0;
+                    double enemyMeleeDamage = 0;
+                    double enemyRangedDamage = 0;
+                    double enemyMagicDamage = 0;
+                    if (enemy.getAccmelee() > 0) {
+                        enemyAttackStyles++;
+                        enemyMeleeDamage = Math.min(1, (myMeleeAffinity * (enemy.getAccmelee() + (0.0008 * Math.pow(enemy.getAttack(), 3) + 4 * enemy.getAttack()+ 40))
+                            / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100) * enemy.getMaxhitmelee() / 2.0;
                     }
-                    else if (loadout.getMainWep().getAtkspd() == 5) {
-                        myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*192.0/245.0;
+                    if (enemy.getAccranged() > 0) {
+                        enemyAttackStyles++;
+                        enemyRangedDamage = Math.min(1, (myRangedAffinity * (enemy.getAccranged() + (0.0008 * Math.pow(enemy.getRanged(), 3) + 4 * enemy.getRanged()+ 40))
+                            / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100) * enemy.getMaxhitranged() / 2.0;
                     }
-                    else if (loadout.getMainWep().getAtkspd() == 6) {
-                        myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*96.0/149.0;
+                    if (enemy.getAccmage() > 0) {
+                        enemyAttackStyles++;
+                        enemyMagicDamage = Math.min(1, (myMagicAffinity * (enemy.getAccmage() + (0.0008 * Math.pow(enemy.getMagic(), 3) + 4 * enemy.getMagic()+ 40))
+                            / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100) * enemy.getMaxhitmagic() / 2.0;
                     }
-                    else {
-                        System.out.println("What the heck kind of weapon do you have?");
-                        throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
-                    }
-                    double enemyMaxAcc = Math.max(enemy.getAccmage(), Math.max(enemy.getAccmelee(), enemy.getAccranged()));
-                    double enemyMaxAccSkill = Math.max(enemy.getAttack(), Math.max(enemy.getRanged(), enemy.getMagic()));
-                    double enemyHitChance = Math.min(1, (55 * (enemyMaxAcc + (0.0008 * Math.pow(enemyMaxAccSkill, 3) + 4 * enemyMaxAccSkill + 40)) / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100);
-                    double enemyDamage = (Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) + 1) / 2.0;
-                    double enemyLp = enemy.getLp();
-                    int adren = 0;
-                    int invenUsed = 0;
-                    int foodCooldown = 0;
-                    Map<Ability, Integer> cooldowns = new HashMap<>();
-                    for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
-                        if (ability.canUse(adren, loadout.getMainWep(), p))
-                        cooldowns.put(ability, 0);
-                    }
-                    cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
-                        (loadout.getMainWep().getDamage()+loadout.getAmmo().getDamage())*0.5/myDamage, new ArrayList<>()), 0);
+                    double enemyLp = enemy.getLp()/partySize;
                     while (myLp > 0 && enemyLp > 0) {
                         Ability abilityUsedThisTick = null;
                         double maxDamage = 0;
-                        if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < invenSpaces) {
+                        int amountHealed = Math.min(loadout.getFoodUsed().getAmountHealed(), p.getLevel("Constitution")*25);
+                        if (p.getLevel("Constitution") == 99) {
+                            amountHealed = loadout.getFoodUsed().getAmountHealed();
+                        }
+                        if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
                             if (foodCooldown == 0) {
-                                myLp += Math.min(loadout.getFoodUsed().getAmountHealed(), p.getLevel("Constitution")*25);
+                                myLp += amountHealed;
                                 invenUsed++;
                                 adren = Math.max(0, adren - 10);
                                 foodCooldown = 3;
@@ -114,11 +188,14 @@ public class Encounter implements java.io.Serializable {
                                     if (abilityWithCooldown.getValue() < 3)
                                         cooldowns.put(abilityWithCooldown.getKey(), 3);
                                 }
-                                //System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
+                                System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
                             }
                         } else {
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
-                                if (abilityWithCooldown.getValue() == 0) {
+                                if (abilityWithCooldown.getValue() == 0 && (abilityWithCooldown.getKey().getType().equals("Auto")
+                                    || abilityWithCooldown.getKey().getType().equals("Basic")
+                                 || (abilityWithCooldown.getKey().getType().equals("Threshold") && adren >= 50)
+                                 || (abilityWithCooldown.getKey().getType().equals("Ultimate") && adren == 100))) {
                                     if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage) {
                                         abilityUsedThisTick = abilityWithCooldown.getKey();
                                         maxDamage = abilityWithCooldown.getKey().getExpectedDamage();
@@ -128,7 +205,7 @@ public class Encounter implements java.io.Serializable {
                         }
                         if (abilityUsedThisTick != null) {
                             enemyLp -= myHitChance * myDamage * maxDamage;
-                            //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
+                            System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
                             cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
                                 if (abilityWithCooldown.getValue() < 3)
@@ -156,13 +233,30 @@ public class Encounter implements java.io.Serializable {
                         for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
                             cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 1);
                         foodCooldown--;
-                        if (ticks % enemy.getAtkspd() == 0 && ticks != 0) {
-                            myLp -= enemyHitChance * enemyDamage * (1 - loadout.totalReduc());
-                            hpLost += enemyHitChance * enemyDamage * (1 - loadout.totalReduc());
-                            //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
+                        if (monsterTicks % enemy.getAtkspd() == 0 && monsterTicks != 0) {
+                            double enemyDamage;
+                            if (loadout.getPrayer().getName().equals("Protect from Magic") && prayerPoints > 0) {
+                                enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage*0.5) / enemyAttackStyles;
+                            }
+                            else {
+                                enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
+                            }
+                            myLp -= enemyDamage * (1 - loadout.totalReduc());
+                            hpLost += enemyDamage * (1 - loadout.totalReduc());
+                            System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
+                        }
+                        if (prayerPoints > 0) {
+                            prayerPoints = Math.max(0, prayerPoints-loadout.getPrayer().getDrainPerTick());
                         }
                         ticks++;
+                        monsterTicks++;
                     }
+                }
+                //hide in safespot and heal w/regen between enemy groups/waves
+                if (myLp > 0 && safespot) {
+                    myLp +=(p.getLevel("Constitution") * adren) / 5;
+                    adren = 0;
+                    //System.out.println("LP Remaining after Regenerate: " + myLp);
                 }
             }
             if (myLp < 0) {

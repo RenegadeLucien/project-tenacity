@@ -356,7 +356,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Dagannoth Supreme", 35000, 2194.5, 724.1, 0, 1788, 0, 0, 68, 0, 4, 0, 1924, 0, 1409, 68, "Stab", 75, 60, 0, 0));
         enemies.add(new Enemy("General Graardor", 40000, 3204, 1057.3, 3000, 1676, 0, 75, 75, 0, 6, 2178, 1566, 0, 1299, 75, "Nothing", 0, 50, 10, 50));
         enemies.add(new Enemy("Vanstrom Klause", 40000, 2644.2, 872.5, 840, 0, 840, 70, 0, 70, 4, 1486, 0, 1486, 1486, 70, "Nothing", 0, 55, 55, 55));
-        enemies.add(new Enemy("TzTok-Jad", 40000, 2644.2, 872.5, 8000, 8000, 8000, 70, 70, 70, 4, 3031, 3031, 3031, 1486, 70, "Nothing", 0, 40, 40, 40));
+        enemies.add(new Enemy("TzTok-Jad", 40000, 2644.2, 872.5, 8000, 8000, 8000, 70, 70, 70, 8, 3031, 3031, 3031, 1486, 70, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Kalphite Queen (Phase 1)", 40000, 2680, 884.4, 980, 980, 980, 70, 70, 70, 6, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 40, 10, 10));
         enemies.add(new Enemy("Kalphite Queen (Phase 2)", 40000, 2680, 884.4, 980, 980, 980, 70, 70, 70, 6, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 60, 40, 40));
         enemies.add(new Enemy("King Black Dragon", 45000, 2155.2, 711.2, 864, 0, 864, 60, 0, 60, 4, 1924, 0, 1132, 1132, 60, "Nothing", 0, 40, 40, 40));

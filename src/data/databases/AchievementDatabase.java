@@ -19,10 +19,11 @@ public class AchievementDatabase {
     private List<Achievement> achievements = new ArrayList<>();
 
     private AchievementDatabase() {
-        addAchievementsABC();
-        addAchievementsDZ();
-        /*achievements.add(new AchievementBuilder("1001 Kharidian Spikes", 0.05).requirement("Cactus seed", 1).reward("Farming", 465)
-            .reward("Cactus spines", 1).build());*/
+        //addAchievementsABC();
+        //addAchievementsDZ();
+        achievements.add(new AchievementBuilder("All Together Now", 0).requirement("Beastmaster Durzag", 1)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Yakamaru"), Arrays.asList("Image of Yakamaru",
+                "Image of Yakamaru", "Image of Yakamaru", "Image of Yakamaru")), 10)).build());
         AchievementBuilder allAchievements = new AchievementBuilder("All Achievements", 0);
         for (Achievement achievement : achievements) {
             allAchievements.requirement(achievement.getName(), 1);
@@ -562,7 +563,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("All Square", 0).requirement("Pyramid top", 1).reward("Coins", 1000).build());
         achievements.add(new AchievementBuilder("All Together Now", 0).requirement("Beastmaster Durzag", 1)
             .encounter(new Encounter(Arrays.asList(Collections.singletonList("Yakamaru"), Arrays.asList("Image of Yakamaru",
-                "Image of Yakamaru", "Image of Yakamaru", "Image of Yakamaru")))).build());
+                "Image of Yakamaru", "Image of Yakamaru", "Image of Yakamaru")), 10)).build());
         achievements.add(new AchievementBuilder("All Your Bass...", 0).requirement("Fishing", 46).requirement("Cooking", 43)
             .reward("Bass", 1).reward("Fishing", 100).reward("Cooking", 130).build());
         achievements.add(new AchievementBuilder("Almost Made In Ardougne", 0).requirement("Yew logs", 1).requirement("Raw beef", 1)
@@ -3754,7 +3755,7 @@ public class AchievementDatabase {
                 Arrays.asList("Ket-Zek", "Yt-MejKot", "Tok-Xil", "Tok-Xil"),
                 Arrays.asList("Ket-Zek", "Yt-MejKot", "Yt-MejKot"), Arrays.asList("Ket-Zek", "Ket-Zek"),
                 Arrays.asList("TzTok-Jad", "Yt-HurKot", "Yt-HurKot", "Yt-HurKot", "Yt-HurKot")),
-                Collections.singletonList(new Restriction("Inventory spaces", 27)))).build());
+                Arrays.asList(new Restriction("Inventory spaces", 27), new Restriction("Summoning", 0)), true)).build());
         achievements.add(new AchievementBuilder("Seers' Village", 0).build());
         achievements.add(new AchievementBuilder("Seven Colours In Their Hat", 0).requirement("Chromatic partyhat", 1).build());
         achievements.add(new AchievementBuilder("Shadows Below", 0).requirement("Barrows: Rise of the Six", 1).build());
