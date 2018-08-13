@@ -343,7 +343,7 @@ public class Player implements java.io.Serializable {
                     ));
             }
             int questpoints = 0;
-            if (qualities.size() > 0) {
+            if (qualities.containsKey("Quest points")) {
                 questpoints = qualities.get("Quest points");
             }
             while (questpoints < quantifier && questPointMap.size() > 0) {
@@ -450,7 +450,8 @@ public class Player implements java.io.Serializable {
         String minAction = qualifier;
         Map<String, Double> efficiency = new HashMap<>();
         for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
-            if (action.getOutputs().containsKey(qualifier)) {
+            if (action.getOutputs().containsKey(qualifier) && ActionDatabase.getActionDatabase(this).getUsedFlags().get(action)) {
+                ActionDatabase.getActionDatabase(this).getUsedFlags().put(action, false);
                 double effectiveTimeThisAction = 0.0;
                 Map<String,Double> recursiveActions = new HashMap<>();
                 for (Requirement requirement : action.getReqs()) {
@@ -469,6 +470,7 @@ public class Player implements java.io.Serializable {
                     minAction = action.getName();
                     efficiency = recursiveActions;
                 }
+                ActionDatabase.getActionDatabase(this).getUsedFlags().put(action, true);
             }
         }
         if (minimum == Double.POSITIVE_INFINITY) {

@@ -13,6 +13,7 @@ public class ActionDatabase {
 
     private static final int TICKS_PER_HOUR = 6000;
     private List<Action> database = new ArrayList<>();
+    private Map<Action, Boolean> usedFlags = new HashMap<Action, Boolean>();
 
     private ActionDatabase() {
     }
@@ -44,10 +45,12 @@ public class ActionDatabase {
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
             true, true));
         database.add(new Action("Voyaging for items", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
-            Map.of("Supplies", 300), Map.of("Taijitu", 26, "Sea shell", 9, "Driftwood", 9, "Sea salt", 9, "Bamboo", 9, "Shell chippings", 9,
-            "Spirit dragon charm", 9), true, true));
+            Map.of("Supplies", 300), Map.ofEntries(Map.entry("Taijitu", 26), Map.entry("Sea shell", 9), Map.entry("Driftwood", 9), Map.entry("Sea salt", 9),
+            Map.entry("Bamboo", 9), Map.entry("Shell chippings", 9), Map.entry("Spirit dragon charm", 9), Map.entry("Raw tarpon", 9), Map.entry("Bundle of bamboo", 9),
+            Map.entry("Fish oil", 9), Map.entry("Stoneberry seed", 1), Map.entry("Stormberry seed", 1)), true, true));
         database.add(new Action("Winning Castle Wars games", new ArrayList(), new HashMap(), Map.of("Gold Castle Wars ticket", 6), true,
             true));
+        database.add(new Action("Opening prawn balls", new ArrayList(), Map.of("Prawn balls", 3000), Map.of("Golden fish egg", 15), true, true));
 
         //Agility
         database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 11955, "Dojo Mojo points",
@@ -85,6 +88,13 @@ public class ActionDatabase {
             Map.of("Cooked chicken", (int) Math.floor(1250 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
                 "Cooking", (int) Math.floor(37500 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
 
+        database.add(new Action("Making uncooked arc gumbo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 94)),
+            Map.of("Bundle of bamboo", 1250, "Tortle shell bowl", 1250, "Rumberry", 1250, "Fish oil", 1250, "Sea salt", 1250), Map.of("Uncooked arc gumbo", 1250,
+            "Cooking", 12500), true, true));
+
+        database.add(new Action("Cooking arc gumbo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 94)),
+            Map.of("Uncooked arc gumbo", 1250), Map.of("Arc gumbo", 1250, "Cooking", 162500, "Azure Parrot", 21), true, true));
+
         //Crafting
         database.add(new Action("Crafting molten glass", new ArrayList<>(), Map.of("Soda ash", 1050, "Bucket of sand", 1050),
             Map.of("Molten glass", 1050, "Crafting", 21000), true, true));
@@ -93,11 +103,18 @@ public class ActionDatabase {
             Map.of("Crafting", 560*player.getLevel("Crafting"), "Harmonic dust", 7*player.getLevel("Crafting"), "Construction", 10000),
             true, true));
 
+        database.add(new Action("Making tortle shell bowls", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Crafting", 91)),
+            Map.of("Shell chippings", 6800), Map.of("Tortle shell bowl", 1700, "Crafting", 127500), true, true));
+
         //Divination
         database.add(new Action("Pale wisps (no bought energy)", new ArrayList<>(), new HashMap<>(),
             Map.of("Divination", 4000, "Pale energy", 1600), true, true));
         database.add(new Action("Luminous wisps (no bought energy)", Collections.singletonList(new Requirement("Divination", 90)),
             new HashMap(), Map.of("Divination", 71000, "Luminous energy", 1600, "Fly dragon", 1, "Fruit fly", 1), true, true));
+        database.add(new Action("Positive springs", Arrays.asList(new Requirement("Impressing the Locals", 1),
+            new Requirement("Divination", 90)), new HashMap(), Map.of("Divination", 60300, "Positive energy", 600), true, true));
+        database.add(new Action("Ancestral springs", Arrays.asList(new Requirement("Impressing the Locals", 1),
+            new Requirement("Divination", 95)), new HashMap(), Map.of("Divination", 96300, "Ancestral energy", 600, "Cyansoul Kakapo", 1), true, true));
 
         //Dungeoneering (major approximation, assumes 7.5 minute floors)
         int dungXP = (int) Math.floor(4000 * Math.pow((player.getLevel("Dungeoneering") + 9.0) / 10.0, 2));
@@ -105,12 +122,25 @@ public class ActionDatabase {
             dungXP/10, "Dungeoneering floors completed", 8), true, true));
 
         //Farming
+        database.add(new Action("Farming potatoes", new ArrayList(), Map.of("Potato seed", 270), Map.of("Raw potato", 675, "Farming", 6795),
+            true, true));
+
         database.add(new Action("Foraging rumberries (keep)", Arrays.asList(new Requirement("Farming", 86),
-            new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Rumberry", 300, "Rumberry seed", 6),
+            new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Rumberry", 300, "Rumberry seed", 6, "Pumpkin Limpkin", 1),
             true, true));
 
         database.add(new Action("Foraging rumberries (sell)", Arrays.asList(new Requirement("Farming", 86),
             new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Chimes", 618), true, true));
+
+        database.add(new Action("Foraging exuberries (keep)", Arrays.asList(new Requirement("Farming", 86),
+            new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Exuberry", 300, "Exuberry seed", 6),
+            true, true));
+
+        database.add(new Action("Foraging mushrooms on named islands", Arrays.asList(new Requirement("Farming", 90),
+            new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Named mushrooms", 10), true, true));
+
+        database.add(new Action("Foraging mushrooms on Uncharted Isles", Arrays.asList(new Requirement("Farming", 94),
+            new Requirement("Impressing the Locals", 1)), Map.of("Supplies", 60), Map.of("Farming", 50000, "Uncharted mushrooms", 7), true, true));
 
         //Firemaking
         database.add(new Action("Burning normal logs on bonfire", new ArrayList(), Map.of("Logs", 950), Map.of("Firemaking", 49500), true,
@@ -120,19 +150,16 @@ public class ActionDatabase {
 
         //Fishinng
         database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), Map.of("Raw crayfish", resourcesGained(1, 5.0, player, 50.0, "Fishing"),
-            "Fishing", 10 * resourcesGained(1, 5.0, player, 50.0, "Fishing")), true, true));
+            "Fishing", 10 * resourcesGained(1, 5.0, player, 50.0, "Fishing"), "Prawn balls", resourcesGained(1, 5.0, player, 50.0, "Fishing")/175), true, true));
 
 
         database.add(new Action("Fishing raw shrimps", new ArrayList<>(), new HashMap<>(), Map.of("Raw shrimps", resourcesGained(20, 5.0, player, 50.0, "Fishing"),
-            "Fishing", 10 * resourcesGained(20, 5.0, player, 50.0, "Fishing")), true, true));
+            "Fishing", 10 * resourcesGained(20, 5.0, player, 50.0, "Fishing"), "Prawn balls", resourcesGained(20, 5.0, player, 50.0, "Fishing")/175), true, true));
 
         database.add(new Action("Fishing/dropping desert sole", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 52)),
             new HashMap(), Map.of("Fishing", 60 * resourcesGained(70, 5.0, player, 0.0, "Fishing"), "Menaphos reputation",
-            3 * resourcesGained(70, 5.0, player, 0.0, "Fishing"), "Clicker kalphite in amber", 1, "Desert locust in amber", 1), true, true));
-
-        //Farming
-        database.add(new Action("Farming potatoes", new ArrayList(), Map.of("Potato seed", 270), Map.of("Raw potato", 675, "Farming", 6795),
-            true, true));
+            3 * resourcesGained(70, 5.0, player, 0.0, "Fishing"), "Prawn balls", 1450*resourcesGained(70, 5.0, player, 0.0, "Fishing")/35000,
+            "Clicker kalphite in amber", 1, "Desert locust in amber", 1), true, true));
 
         //Fletching
         database.add(new Action("Fletching arrow shafts with normal logs", new ArrayList(), Map.of("Logs", 1800), Map.of("Arrow shaft", 27000,
@@ -151,6 +178,8 @@ public class ActionDatabase {
         database.add(new Action("Catching plover birds", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Hunter", 73)),
             Map.of("Logs", 200), Map.of("Plover bird", 68+player.getLevel("Hunter"), "Hunter", 510*(68+player.getLevel("Hunter")),
             "Menaphos reputaton", 30*(68+player.getLevel("Hunter")), "Pygmy giant scarab", 1, "Clicker kalphite", 1), true, true));
+        database.add(new Action("Hunting tortles", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Hunter", 90)),
+            new HashMap(), Map.of("Hunter", 258000, "Tortoiseshell Plover", 2, "Shell chippings", 400), true, true));
 
         //Mining
         database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250),
@@ -168,6 +197,9 @@ public class ActionDatabase {
             new Requirement("Mining", 50)), new HashMap(), Map.of("Mining", resourcesGained(100, 6.0, player, 0.0, "Mining"),
             "Menaphos reputation", (int)(2.7*resourcesGained(100, 6.0, player, 0.0, "Mining")), "Menaphite honey bee in amber", 1,
             "Pygmy giant scarab in amber", 1), true, true));
+
+        database.add(new Action("Mining salty crablets", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Mining", 91)),
+            new HashMap(), Map.of("Sea salt", 3*player.getLevel("Mining")-60, "Mining", (int)507.5*(3*player.getLevel("Mining") - 60), "Awah Guan", 1), true, true));
 
         //Prayer
         database.add(new Action("Offering bones to Chaos Altar", new ArrayList<>(), Map.of("Bones", 1400),
@@ -213,6 +245,9 @@ public class ActionDatabase {
         database.add(new Action("Cutting/dropping acadia logs with bronze hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1),
             new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), Map.of("Woodcutting", 92*logsCut(player, 0, 230),
             "Menaphos reputation", (int)4.5*logsCut(player, 0, 230), "Desert locust", 1, "Hornless unicornfly", 1, "Kalphite wanderer", 1), true, true));
+
+        database.add(new Action("Cutting bamboo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Woodcutting", 90)),
+            new HashMap(), Map.of("Bamboo", 3*player.getLevel("Woodcutting") + 60, "Woodcutting", (int)202.5*(3*player.getLevel("Woodcutting") + 60), "Great Pecker", 1), true, true));
 
         //Multi-skill
         database.add(new Action("Cremating vyre corpses", Arrays.asList(new Requirement("Legacy of Seergaze", 1),
@@ -288,6 +323,16 @@ public class ActionDatabase {
             Map.of("Vyre corpse", vyreKills, "mCombat", (int)Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills, "Constitution",
                 (int) Enemy.getEnemyByName("Vyrewatch").getHpxp() * vyreKills), true, true));
 
+        int truthfulshadowKills = combatKills(new Encounter("Truthful shadow"), player, 0, "Melee", 1, false).keySet().iterator().next();
+        database.add(new Action("Killing truthful shadows for cores", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
+            Map.of("Truthful shadow core", truthfulshadowKills/5, "mCombat", (int)Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulshadowKills, "Constitution",
+                (int) Enemy.getEnemyByName("Truthful shadow").getHpxp() * truthfulshadowKills), true, true));
+
+        int crystalShapeshifterKills = combatKills(new Encounter("Crystal shapeshifter"), player, 0, "Melee", 1, false).keySet().iterator().next();
+        database.add(new Action("Killing crystal shapeshifters", Collections.singletonList(new Requirement("The Light Within", 1)), new HashMap(),
+            Map.of("Crystal shapeshifter", crystalShapeshifterKills, "mCombat", (int)Enemy.getEnemyByName("Crystal shapeshifter").getCbxp() * crystalShapeshifterKills,
+                "Constitution", (int) Enemy.getEnemyByName("Crystal shapeshifter").getHpxp() * crystalShapeshifterKills), true, true));
+
         //Bossing
         int kbdKills = combatKills(new Encounter("King Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))), player, 28, "Melee", 0, false).keySet().iterator().next();
         database.add(new Action("Killing the King Black Dragon", new ArrayList(), new HashMap(), Map.of("King Black Dragon", kbdKills,
@@ -309,6 +354,9 @@ public class ActionDatabase {
             Arrays.asList("Tuz", "Krar", "Beastmaster Durzag")), 10), player, 28, "Melee", 0, false);
         database.add(new Action("Killing Beastmaster Durzag", durzagKills.values().iterator().next(), new HashMap(), Map.of("Beastmaster Durzag", durzagKills.keySet().iterator().next()), true, true));
 
+        Map<Integer, List<Requirement>> raxKills = combatKills(new Encounter(Arrays.asList(Collections.singletonList("Araxxor"), Collections.singletonList("Araxxi"))), player, 28, "Melee", 0, false);
+        database.add(new Action("Killing Araxxor", raxKills.values().iterator().next(), new HashMap(), Map.of("Araxxi", raxKills.keySet().iterator().next()), true, true));
+
         //Other repeatables
         database.add(new Action("Completing Shifting Tombs", Arrays.asList(new Requirement("Agility", 50),
             new Requirement("Construction", 50), new Requirement("Dungeoneering", 50),
@@ -316,8 +364,18 @@ public class ActionDatabase {
             new HashMap<>(), Map.of("Shifting Tombs", 12), true, true));
     }
 
+    private void addFlagsToDatabase() {
+        for (Action action : database) {
+            usedFlags.put(action, true);
+        }
+    }
+
     public List<Action> getDatabase() {
         return database;
+    }
+
+    public Map<Action, Boolean> getUsedFlags() {
+        return usedFlags;
     }
 
     private List<Requirement> getRequirementsForCombat(Encounter combatEncounter, Player player, int invenSpaces, String combatStyle) {
@@ -326,40 +384,48 @@ public class ActionDatabase {
         do {
             combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle);
             if (combatResults.getHpLost() > 1000000) {
-                double attackTime = new Requirement("Attack", player.getLevel("Attack")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                double strengthTime = new Requirement("Strength", player.getLevel("Strength")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                double hpTime = new Requirement("Constitution", player.getLevel("Constitution")+1).timeAndActionsToMeetRequirement(player).getTotalTime();
-                if (attackTime < strengthTime && attackTime < hpTime) {
-                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
-                    //System.out.println(String.format("Leveling Attack to %d", player.getLevel("Attack")));
+                if (combatStyle.equals("Melee")) {
+                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack") + 1));
+                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength") + 1));
                 }
-                else if (strengthTime < hpTime) {
-                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
-                    //System.out.println(String.format("Leveling Strength to %d", player.getLevel("Strength")));
+                if (combatStyle.equals("Ranged")) {
+                    player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged") + 1));
                 }
-                else {
-                    player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
-                    //System.out.println(String.format("Leveling Constitution to %d", player.getLevel("Constitution")));
+                if (combatStyle.equals("Magic")) {
+                    player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic") + 1));
                 }
+                player.getXp().put("Defense", player.getXp().get("Defense") + player.getXpToLevel("Defense", player.getLevel("Defense")+1));
+                player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
+                player.getXp().put("Prayer", player.getXp().get("Prayer") + player.getXpToLevel("Prayer", player.getLevel("Prayer") + 1));
             }
             else {
                 List<Requirement> requirements = new ArrayList<>();
-                if (combatStyle.equals("Melee")) {
-                    if (player.getXp().get("Attack") > initialXP.get("Attack")) {
-                        requirements.add(new Requirement("Attack", player.getLevel("Attack")));
-                    }
-                    if (player.getXp().get("Strength") > initialXP.get("Strength")) {
-                        requirements.add(new Requirement("Strength", player.getLevel("Strength")));
-                    }
+                if (player.getXp().get("Defense") > initialXP.get("Defense")) {
+                    requirements.add(new Requirement("Defense", player.getLevel("Defense")));
                 }
                 if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
                     requirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
+                }
+                if (player.getXp().get("Prayer") > initialXP.get("Prayer")) {
+                    requirements.add(new Requirement("Prayer", player.getLevel("Prayer")));
+                }
+                if (player.getXp().get("Attack") > initialXP.get("Attack")) {
+                    requirements.add(new Requirement("Attack", player.getLevel("Attack")));
+                }
+                if (player.getXp().get("Strength") > initialXP.get("Strength")) {
+                    requirements.add(new Requirement("Strength", player.getLevel("Strength")));
+                }
+                if (player.getXp().get("Ranged") > initialXP.get("Ranged")) {
+                    requirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
+                }
+                if (player.getXp().get("Magic") > initialXP.get("Magic")) {
+                    requirements.add(new Requirement("Magic", player.getLevel("Magic")));
                 }
                 player.setXp(initialXP);
                 return requirements;
             }
         }
-        while (player.getLevel("Constitution") < 99);
+        while (player.getLevel("Constitution") < 99 || player.getLevel("Defense") < 99 || player.getLevel("Prayer") < 99);
         player.setXp(initialXP);
         return new ArrayList<>(); //fight is impossble if it reaches this point
     }
@@ -448,6 +514,7 @@ public class ActionDatabase {
         if (actionDatabase == null) {
             actionDatabase = new ActionDatabase();
             actionDatabase.addActionsToDatabase(player);
+            actionDatabase.addFlagsToDatabase();
         }
         return actionDatabase;
     }

@@ -50,6 +50,8 @@ public class ItemDatabase {
         items.add(new Item("Plant pot", 1));
         items.add(new Item("Wooden cat", 1));
         items.add(new Item("Needle", 1));
+        items.add(new Item("Hard leather", 1));
+        items.add(new Item("Dragon bones", 1));
         items.add(new Item("Bucket", 2));
         items.add(new Item("Bucket of sand", 2));
         items.add(new Item("Wizard hat (blue)", 2));
@@ -70,6 +72,7 @@ public class ItemDatabase {
         items.add(new Item("Dragon bitter", 2));
         items.add(new Item("Greenman's ale", 2));
         items.add(new Item("Beer", 2));
+        items.add(new Item("Black wizard hat", 2));
         items.add(new Item("Eye of newt", 3));
         items.add(new Item("Molten glass", 3));
         items.add(new Item("Pie dish", 3));
@@ -104,6 +107,7 @@ public class ItemDatabase {
         items.add(new Item("Clean marrentill", 5));
         items.add(new Item("Vodka", 5));
         items.add(new Item("Fishing rod", 5));
+        items.add(new Item("Flax", 5));
         items.add(new Item("Feather", 6));
         items.add(new Item("Raw shrimps", 6));
         items.add(new Item("Blue dye", 6));
@@ -140,6 +144,7 @@ public class ItemDatabase {
         items.add(new Item("Cup of tea", 10));
         items.add(new Item("Papyrus", 10));
         items.add(new Item("Onion seed", 10));
+        items.add(new Item("Cake tin", 10));
         items.add(new Item("Clean tarromin", 11));
         items.add(new Item("Bucket of milk", 12));
         items.add(new Item("Cooked chicken", 12));
@@ -198,6 +203,7 @@ public class ItemDatabase {
         items.add(new Item("Ranarr potion (unf)", 25));
         items.add(new Item("Spider on stick (raw)", 25));
         items.add(new Item("Cabbage seed", 25));
+        items.add(new Item("Knife", 25));
         items.add(new Item("Bronze sword", 26));
         items.add(new Item("Raw mackerel", 26));
         items.add(new Item("Bronze spear", 26));
@@ -207,6 +213,7 @@ public class ItemDatabase {
         items.add(new Item("Grimy guam", 30));
         items.add(new Item("Waterskin (4)", 30));
         items.add(new Item("Fruit Blast", 30));
+        items.add(new Item("Gold seal", 30));
         items.add(new Item("Swamp paste", 31));
         items.add(new Item("Raw cod", 34));
         items.add(new Item("Arctic pine logs", 35));
@@ -239,6 +246,7 @@ public class ItemDatabase {
         items.add(new Item("Raw chicken", 60));
         items.add(new Item("Bronze chainbody", 60));
         items.add(new Item("Thin snail", 60));
+        items.add(new Item("Sacred oil (1)", 60));
         items.add(new Item("Fellstalk seed", 64));
         items.add(new Item("Bloodweed seed", 64));
         items.add(new Item("Leather shield", 68));
@@ -321,6 +329,8 @@ public class ItemDatabase {
         items.add(new Item("Silver dust", 200));
         items.add(new Item("Face mask", 200));
         items.add(new Item("Red topaz", 200));
+        items.add(new Item("Insulated boots", 200));
+        items.add(new Item("Earmuffs", 200));
         items.add(new Item("Iron chainbody", 210));
         items.add(new Item("Super ranging potion (2)", 216));
         items.add(new Item("Astral rune", 220));
@@ -346,6 +356,7 @@ public class ItemDatabase {
         items.add(new Item("Saradomin arrows", 300));
         items.add(new Item("Pirate shirt (white)", 300));
         items.add(new Item("Holy symbol", 300));
+        items.add(new Item("Death rune", 310));
         items.add(new Item("Magic logs", 320));
         items.add(new Item("Steel sword", 325));
         items.add(new Item("Raw swordfish", 340));
@@ -364,12 +375,15 @@ public class ItemDatabase {
         items.add(new Item("Raw karambwan", 440));
         items.add(new Item("Emerald", 500));
         items.add(new Item("Steel longsword", 500));
+        items.add(new Item("Teak plank", 500));
+        items.add(new Item("Mithril hatchet", 520));
         items.add(new Item("Blood rune", 550));
         items.add(new Item("Iron platebody", 560));
         items.add(new Item("Spirit wolf pouch", 599));
         items.add(new Item("Gloves of silence", 600));
         items.add(new Item("Adamant bar", 640));
         items.add(new Item("Magic pyre logs", 640));
+        items.add(new Item("Bolt of cloth", 650));
         items.add(new Item("Ranging potion (4)", 700));
         items.add(new Item("Magic shortbow (u)", 800));
         items.add(new Item("Steel warhammer", 832));
@@ -384,6 +398,7 @@ public class ItemDatabase {
         items.add(new Item("Tyras helm", 1265));
         items.add(new Item("Ring of duelling (8)", 1275));
         items.add(new Item("Mahogany plank", 1500));
+        items.add(new Item("Grand defence potion (6)", 1500));
         items.add(new Item("Desert wyrm pouch", 1549));
         items.add(new Item("Magic shortbow", 1600));
         items.add(new Item("Spirit scorpion pouch", 1849));
@@ -391,9 +406,12 @@ public class ItemDatabase {
         items.add(new Item("Steel platebody", 2000));
         items.add(new Item("Ruby necklace", 2175));
         items.add(new Item("Albino rat pouch", 2299));
+        items.add(new Item("Macaw pouch", 2374));
+        items.add(new Item("Mithril 2h sword", 2600));
         items.add(new Item("Ibis pouch", 3149));
         items.add(new Item("Pyrelord pouch", 3199));
         items.add(new Item("Abyssal titan pouch", 3249));
+        items.add(new Item("Ring of life", 3525));
         items.add(new Item("Hydra pouch", 3624));
         items.add(new Item("Light creature pouch", 3924));
         items.add(new Item("Amulet of accuracy", 5000));
