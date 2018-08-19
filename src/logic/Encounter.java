@@ -128,6 +128,7 @@ public class Encounter implements java.io.Serializable {
             else {
                 myDamage += loadout.totalBonus();
             }
+            double myArmour = (0.0008 * Math.pow(p.getLevel("Defense"), 3) + 4 * p.getLevel("Defense") + 40) + loadout.totalArmour();
             Map<Ability, Integer> cooldowns = new HashMap<>();
             for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
                 if (ability.canUse(loadout.getMainWep(), p))
@@ -150,7 +151,8 @@ public class Encounter implements java.io.Serializable {
                         affinity = enemy.getAffmage();
                     }
                     double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
-                    double myHitChance = Math.min(1, (affinity * myAccuracy / (enemy.getArmor() + 2.5 * enemy.getDef())) / 100.0);
+                    double enemyArmour = (0.0008 * Math.pow(enemy.getDef(), 3) + 4 * enemy.getDef() + 40) + enemy.getArmor();
+                    double myHitChance = Math.min(1, (affinity * myAccuracy) / (enemyArmour * 100.0));
                     int enemyAttackStyles = 0;
                     double enemyMeleeDamage = 0;
                     double enemyRangedDamage = 0;
@@ -158,17 +160,17 @@ public class Encounter implements java.io.Serializable {
                     if (enemy.getAccmelee() > 0) {
                         enemyAttackStyles++;
                         enemyMeleeDamage = Math.min(1, (myMeleeAffinity * (enemy.getAccmelee() + (0.0008 * Math.pow(enemy.getAttack(), 3) + 4 * enemy.getAttack()+ 40))
-                            / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100) * enemy.getMaxhitmelee() / 2.0;
+                            / myArmour) / 100) * enemy.getMaxhitmelee() / 2.0;
                     }
                     if (enemy.getAccranged() > 0) {
                         enemyAttackStyles++;
                         enemyRangedDamage = Math.min(1, (myRangedAffinity * (enemy.getAccranged() + (0.0008 * Math.pow(enemy.getRanged(), 3) + 4 * enemy.getRanged()+ 40))
-                            / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100) * enemy.getMaxhitranged() / 2.0;
+                            / myArmour) / 100) * enemy.getMaxhitranged() / 2.0;
                     }
                     if (enemy.getAccmage() > 0) {
                         enemyAttackStyles++;
                         enemyMagicDamage = Math.min(1, (myMagicAffinity * (enemy.getAccmage() + (0.0008 * Math.pow(enemy.getMagic(), 3) + 4 * enemy.getMagic()+ 40))
-                            / (2.5 * (p.getLevel("Defense")) + loadout.totalArmour())) / 100) * enemy.getMaxhitmagic() / 2.0;
+                            / myArmour) / 100) * enemy.getMaxhitmagic() / 2.0;
                     }
                     double enemyLp = enemy.getLp()/partySize;
                     while (myLp > 0 && enemyLp > 0) {

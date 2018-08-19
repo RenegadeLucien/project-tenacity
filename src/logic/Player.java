@@ -330,8 +330,7 @@ public class Player implements java.io.Serializable {
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
             for (Achievement achievement : playerTasks.keySet()) {
                 List<Reward> questPointReward = achievement.getRewards().stream().filter(a -> a.getQualifier().equals("Quest points")).collect(Collectors.toList());
-                List<Requirement> questPointRequirements = achievement.getReqs().stream().filter(a -> a.getQualifier().equals("Quest points")).collect(Collectors.toList());
-                if (questPointReward.size() > 0 && questPointRequirements.size() == 0) {
+                if (questPointReward.size() > 0) {
                     questPointMap.put(achievement, playerTasks.get(achievement)/questPointReward.get(0).getQuantifier());
                 }
                 questPointMap = questPointMap.entrySet().stream().sorted(Map.Entry.comparingByValue(/*Collections.reverseOrder()*/))
@@ -348,6 +347,16 @@ public class Player implements java.io.Serializable {
             }
             while (questpoints < quantifier && questPointMap.size() > 0) {
                 Achievement quest = questPointMap.keySet().iterator().next();
+                Requirement questPointRequirement = null;
+                for (Requirement r : quest.getReqs()) {
+                    if (r.getQualifier().equals("Quest points")) {
+                        questPointRequirement = r;
+                        break;
+                    }
+                }
+                if (questPointRequirement != null) {
+                    quest.getReqs().remove(questPointRequirement);
+                }
                 GoalResults oneQuestResults = quest.getTimeForRequirements(this);
                 questTotalTime += oneQuestResults.getTotalTime();
                 addItemsToMap(questTotalActions, oneQuestResults.getActionsWithTimes());
