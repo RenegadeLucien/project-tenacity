@@ -333,6 +333,11 @@ public class ActionDatabase {
             Map.of("Crystal shapeshifter", crystalShapeshifterKills, "mCombat", (int)Enemy.getEnemyByName("Crystal shapeshifter").getCbxp() * crystalShapeshifterKills,
                 "Constitution", (int) Enemy.getEnemyByName("Crystal shapeshifter").getHpxp() * crystalShapeshifterKills), true, true));
 
+        int airutKills = combatKills(new Encounter("Airut"), player, 0, "Melee", 1, false).keySet().iterator().next();
+        database.add(new Action("Killing airut", Collections.singletonList(new Requirement("Slayer", 92)), new HashMap(),
+            Map.of("Airut", airutKills, "mCombat", (int)Enemy.getEnemyByName("Airut").getCbxp() * airutKills,
+                "Constitution", (int) Enemy.getEnemyByName("Airut").getHpxp() * airutKills), true, true));
+
         //Bossing
         int kbdKills = combatKills(new Encounter("King Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))), player, 28, "Melee", 0, false).keySet().iterator().next();
         database.add(new Action("Killing the King Black Dragon", new ArrayList(), new HashMap(), Map.of("King Black Dragon", kbdKills,
@@ -352,15 +357,50 @@ public class ActionDatabase {
             Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut", "Airut"),
             Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut", "Airut"),
             Arrays.asList("Tuz", "Krar", "Beastmaster Durzag")), 10), player, 28, "Melee", 0, false);
-        database.add(new Action("Killing Beastmaster Durzag", durzagKills.values().iterator().next(), new HashMap(), Map.of("Beastmaster Durzag", durzagKills.keySet().iterator().next()), true, true));
+        database.add(new Action("Killing Beastmaster Durzag (10 man)", durzagKills.values().iterator().next(), new HashMap(), Map.of("Beastmaster Durzag", durzagKills.keySet().iterator().next()), true, true));
 
         Map<Integer, List<Requirement>> raxKills = combatKills(new Encounter(Arrays.asList(Collections.singletonList("Araxxor"), Collections.singletonList("Araxxi"))), player, 28, "Melee", 0, false);
         database.add(new Action("Killing Araxxor", raxKills.values().iterator().next(), new HashMap(), Map.of("Araxxi", raxKills.keySet().iterator().next()), true, true));
+
+        Map<Integer, List<Requirement>> voragoKills = combatKills(new Encounter(Collections.singletonList(Collections.singletonList("Vorago")), 5), player, 28, "Melee", 0, false);
+        database.add(new Action("Killing Vorago (5 man)", voragoKills.values().iterator().next(), new HashMap(), Map.of("Vorago", voragoKills.keySet().iterator().next()), true, true));
+
+        Map<Integer, List<Requirement>> voragoHMKills = combatKills(new Encounter(Collections.singletonList(Collections.singletonList("Vorago (HM)")), 5), player, 28, "Melee", 0, false);
+        database.add(new Action("Killing hard mode Vorago (5 man)", voragoHMKills.values().iterator().next(), new HashMap(), Map.of("Vorago (HM)", voragoHMKills.keySet().iterator().next()), true, true));
 
         Map<Integer, List<Requirement>> twinFuriesKills = combatKills(new Encounter("Twin Furies"), player, 28, "Melee", 0, false);
         List<Requirement> twinFuriesReqs = twinFuriesKills.values().iterator().next();
         twinFuriesReqs.add(new Requirement("Ranged", 80));
         database.add(new Action("Killing the Twin Furies", twinFuriesReqs, new HashMap(), Map.of("Twin Furies", twinFuriesKills.keySet().iterator().next()), true, true));
+
+        Map<Integer, List<Requirement>> kreeKills = combatKills(new Encounter("Kree'arra"), player, 28, "Ranged", 0, false);
+        List<Requirement> kreeReqs = kreeKills.values().iterator().next();
+        kreeReqs.add(new Requirement("Ranged", 70));
+        database.add(new Action("Killing Kree'arra", kreeReqs, new HashMap(), Map.of("Kree'arra", kreeKills.keySet().iterator().next()), true, true));
+
+        Map<Integer, List<Requirement>> kreeKillsHM = combatKills(new Encounter("Kree'arra (HM)"), player, 28, "Magic", 0, false);
+        List<Requirement> kreeReqsHM = kreeKills.values().iterator().next();
+        kreeReqs.add(new Requirement("Ranged", 70));
+        database.add(new Action("Killing Kree'arra in hard mode", kreeReqsHM, new HashMap(), Map.of("Kree'arra (HM)", kreeKillsHM.keySet().iterator().next()), true, true));
+
+        Map<Integer, List<Requirement>> rotsKills = combatKills(new Encounter(Arrays.asList(Arrays.asList("Karil the Tainted (ROTS)", "Torag the Corrupted (ROTS)",
+            "Dharok the Wretched (ROTS)"), Arrays.asList("Guthan the Infested (ROTS)", "Ahrim the Blighted (ROTS)",
+            "Verac the Defiled (ROTS)")), 4), player, 28, "Ranged", 0, false);
+        database.add(new Action("Killing ROTS (4 man)", rotsKills.values().iterator().next(), new HashMap(), Map.of("Rise of the Six", rotsKills.keySet().iterator().next()), true, true));
+
+        Map<Integer, List<Requirement>> barrowsKills = combatKills(new Encounter(Arrays.asList(Collections.singletonList("Karil the Tainted"), Collections.singletonList("Ahrim the Blighted"),
+            Collections.singletonList("Torag the Corrupted"), Collections.singletonList("Dharok the Wretched"), Collections.singletonList("Verac the Defiled"),
+            Collections.singletonList("Guthan the Infested"), Collections.singletonList("Akrisae the Doomed"))), player, 28, "Magic", 0, false);
+        List<Requirement> barrowsReqs = barrowsKills.values().iterator().next();
+        barrowsReqs.add(new Requirement("Ritual of the Mahjarrat", 1));
+        database.add(new Action("Killing Barrows incl. Akrisae", barrowsReqs, new HashMap(), Map.of("Barrows", barrowsKills.keySet().iterator().next()), true, true));
+
+        Map<Integer, List<Requirement>> linzaKills = combatKills(new Encounter(Arrays.asList(Collections.singletonList("Karil the Tainted"), Collections.singletonList("Ahrim the Blighted"),
+            Collections.singletonList("Torag the Corrupted"), Collections.singletonList("Dharok the Wretched"), Collections.singletonList("Verac the Defiled"),
+            Collections.singletonList("Guthan the Infested"), Collections.singletonList("Linza the Disgraced"))), player, 28, "Magic", 0, false);
+        List<Requirement> linzaReqs = barrowsKills.values().iterator().next();
+        linzaReqs.add(new Requirement("Kindred Spirits", 1));
+        database.add(new Action("Killing Barrows incl. Linza", linzaReqs, new HashMap(), Map.of("Linza", linzaKills.keySet().iterator().next()), true, true));
 
         //Other repeatables
         database.add(new Action("Completing Shifting Tombs", Arrays.asList(new Requirement("Agility", 50),

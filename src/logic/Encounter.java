@@ -190,7 +190,7 @@ public class Encounter implements java.io.Serializable {
                                     if (abilityWithCooldown.getValue() < 3)
                                         cooldowns.put(abilityWithCooldown.getKey(), 3);
                                 }
-                                //System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
+                              //  System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
                             }
                         } else {
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
@@ -207,7 +207,7 @@ public class Encounter implements java.io.Serializable {
                         }
                         if (abilityUsedThisTick != null) {
                             enemyLp -= myHitChance * myDamage * maxDamage;
-                            //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
+                           // System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
                             cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
                                 if (abilityWithCooldown.getValue() < 3)
@@ -235,7 +235,7 @@ public class Encounter implements java.io.Serializable {
                         for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
                             cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 1);
                         foodCooldown--;
-                        if (monsterTicks % enemy.getAtkspd() == 0 && monsterTicks != 0) {
+                        if (monsterTicks % (enemy.getAtkspd()*partySize) == 0 && monsterTicks != 0) {
                             double enemyDamage;
                             if (loadout.getPrayer().getName().equals("Protect from Magic") && prayerPoints > 0) {
                                 enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage*0.5) / enemyAttackStyles;
@@ -245,7 +245,7 @@ public class Encounter implements java.io.Serializable {
                             }
                             myLp -= enemyDamage * (1 - loadout.totalReduc());
                             hpLost += enemyDamage * (1 - loadout.totalReduc());
-                            //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
+                           // System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
                         }
                         if (prayerPoints > 0) {
                             prayerPoints = Math.max(0, (prayerPoints-loadout.getPrayer().getDrainPerTick())*(1-loadout.totalPrayBonus()/100.0));

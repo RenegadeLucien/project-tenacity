@@ -1594,8 +1594,14 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Barrowed Power IV", 0).requirement("Rise of the Six", 50).build());
         achievements.add(new AchievementBuilder("Barrowed Power V", 0).requirement("Rise of the Six", 75).build());
         achievements.add(new AchievementBuilder("Barrowed Power VI", 0).requirement("Rise of the Six", 100).build());
-        achievements.add(new AchievementBuilder("Barrowed Time", 0).requirement("Barrows uniques", 38).build());
-        achievements.add(new AchievementBuilder("Barry", 0).requirement("Araxyte egg", 1).build());
+        achievements.add(new AchievementBuilder("Dragon defender", 4).requirement("Attack", 65).requirement("Strength", 65).build());
+        achievements.add(new AchievementBuilder("Kindred Spirits", 1.5).requirement("Missing, Presumed Death", 1)
+            .requirement("Agility", 60).requirement("Crafting", 60).requirement("Herblore", 60).requirement("Smithing", 60)
+            .reward("Quest points", 1).reward("Herblore", 25000).reward("Crafting", 25000).reward("Smithing", 25000)
+            .reward("Agility", 25000).build());
+        achievements.add(new AchievementBuilder("Barrowed Time", 0).requirement("Dragon defender", 1).requirement("Linza", 281)
+            .requirement("Barrows", 1386).build());
+        achievements.add(new AchievementBuilder("Barry", 0).requirement("Araxxi", 657).build());
         achievements.add(new AchievementBuilder("Battle of the Elements", 0).requirement("Crafting", 66).requirement("Air orb", 1)
             .requirement("Battlestaff", 1).reward("Crafting", 137).build());
         achievements.add(new AchievementBuilder("Beachcomber", 0).reward("Seaweed", 5).build());
@@ -1603,24 +1609,26 @@ public class AchievementDatabase {
             .encounter(new Encounter("Iorwerth scout")).build());
         achievements.add(new AchievementBuilder("Beggars Can't Be Choosers", 0.05).requirement("In Aid of the Myreque", 1)
             .requirement("Great maki", 1).build());
-        achievements.add(new AchievementBuilder("Behemoth Notes", 0).requirement("Behemoth notes", 5).build());
+        achievements.add(new AchievementBuilder("Behemoth Notes", 0.5).requirement("Dungeoneering", 101).build());
         achievements.add(new AchievementBuilder("Belter of a Smelter", 0).requirement("Iron ore", 1).requirement("Coal", 2)
             .requirement("Smithing", 30).reward("Steel bar", 1).reward("Smithing", 17).build());
         achievements.add(new AchievementBuilder("Best Offence", 0).encounter(new Encounter("Kalphite King")).build());
         achievements.add(new AchievementBuilder("Better Not Touch", 0).requirement("Beastmaster Durzag", 1)
             .encounter(new Encounter(Arrays.asList(Collections.singletonList("Yakamaru"),
                 Collections.singletonList("Image of Yakamaru"), Collections.singletonList("Image of Yakamaru"),
-                Collections.singletonList("Image of Yakamaru"), Collections.singletonList("Image of Yakamaru")))).build());
+                Collections.singletonList("Image of Yakamaru"), Collections.singletonList("Image of Yakamaru")), 10)).build());
+        achievements.add(new AchievementBuilder("All Fired Up", 0.5).requirement("Priest in Peril", 1).requirement("Firemaking", 43)
+            .requirement("Logs", 45).reward("Quest points", 1).reward("Coins", 20000).reward("Firemaking", 5500).build());
+        achievements.add(new AchievementBuilder("Ring of fire", 0.1).requirement("All Fired Up", 1).requirement("Firemaking", 62)
+            .requirement("Logs", 120).reward("Firemaking", 12137).build());
         achievements.add(new AchievementBuilder("Better Than Cursing The Darkness", 0).requirement("Bark", 1)
-            .requirement("Ring of fire", 0).reward("Firemaking", 102).build());
+            .requirement("Ring of fire", 1).reward("Firemaking", 102).build());
         achievements.add(new AchievementBuilder("Beware of Pigzilla", 0).build());
         achievements.add(new AchievementBuilder("Beware of the Dog", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
         achievements.add(new AchievementBuilder("Big Chinchompa", 0.25).requirement("Hunter", 78).reward("Competence points", 1111)
             .build());
-        achievements.add(new AchievementBuilder("Bipedal Mask", 0).requirement("Tuska mask headpiece", 1)
-            .requirement("Tuska mask lower tusks", 1).requirement("Tuska mask plate", 1).requirement("Tuska mask top", 1)
-            .requirement("Tuska mask upper tusks", 1).lamp(Arrays.asList("Attack", "Strength", "Defense", "Constitution", "Ranged",
-                "Magic", "Slayer"), 43680, 90).build());
+        achievements.add(new AchievementBuilder("Bipedal Mask", 0).requirement("Airut", 102)
+            .lamp(Arrays.asList("Attack", "Strength", "Defense", "Constitution", "Ranged", "Magic", "Slayer"), 43680, 90).build());
         achievements.add(new AchievementBuilder("Bird is the Word I", 0).requirement("Kree'arra", 5).build());
         achievements.add(new AchievementBuilder("Bird is the Word II", 0).requirement("Kree'arra", 10).build());
         achievements.add(new AchievementBuilder("Bird is the Word III", 0).requirement("Kree'arra", 25).build());
@@ -1633,7 +1641,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Birdstrike IV", 0).requirement("Kree'arra (HM)", 50).build());
         achievements.add(new AchievementBuilder("Birdstrike V", 0).requirement("Kree'arra (HM)", 75).build());
         achievements.add(new AchievementBuilder("Birdstrike VI", 0).requirement("Kree'arra (HM)", 100).build());
-        achievements.add(new AchievementBuilder("Blackout", 0).requirement("Queen Black Dragon uniques", 12).build());
+        achievements.add(new AchievementBuilder("Blackout", 0).requirement("Queen Black Dragon", 1078).build());
         achievements.add(new AchievementBuilder("Blast and Hellfire", 0).requirement("Magic", 59).requirement("Fire rune", 3)
             .requirement("Air rune", 3).build());
         achievements.add(new AchievementBuilder("Bless is More", 0).requirement("Clay ring", 1).reward("Ring of devotion", 1)
@@ -1647,8 +1655,48 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Blooming Marvellous", 0).requirement("Nature Spirit", 1)
             .reward("Mort myre fungus", 1).build());
         achievements.add(new AchievementBuilder("Blowing Your Own Trumpet", 0).requirement("Mourning's End Part I", 1).build());
-        achievements.add(new AchievementBuilder("Bombi", 0).requirement("Ancient artifact", 1).build());
-        achievements.add(new AchievementBuilder("Bone I Fired", 0).requirement("Zanik's crossbow", 1).requirement("Bone bolt", 2)
+        achievements.add(new AchievementBuilder("Bombi", 0).requirement("Vorago (HM)", 6).requirement("Vorago", 69).build());
+        achievements.add(new AchievementBuilder("Rag and Bone Man", 1).requirement("Coins", 40).requirement("Empty pot", 8)
+            .requirement("Logs", 8).requirement("Rope", 1).encounter(new Encounter("Goblin")).encounter(new Encounter("Big frog"))
+            .encounter(new Encounter("Black bear")).encounter(new Encounter("Ram")).encounter(new Encounter("Unicorn"))
+            .encounter(new Encounter("Monkey")).encounter(new Encounter("Giant rat")).encounter(new Encounter("Giant bat"))
+            .reward("Quest points", 2).reward("Cooking", 500).reward("Prayer", 500).build());
+        achievements.add(new AchievementBuilder("Rag and Bone Man wish list", 2.5).requirement("Rag and Bone Man", 1)
+            .requirement("Mogre miniquest", 1).requirement("Zogre Flesh Eaters", 1).requirement("Creature of Fenkenstrain", 1)
+            .requirement("Slayer", 40).requirement("Coins", 196).requirement("Empty pot", 27).requirement("Logs", 27)
+            .requirement("Mirror shield", 0).requirement("Spiny helmet", 0).encounter(new Encounter("Wolf")).encounter(new Encounter("Bat"))
+            .encounter(new Encounter("Rat")).encounter(new Encounter("Baby blue dragon")).encounter(new Encounter("Ogre"))
+            .encounter(new Encounter("Jogre")).encounter(new Encounter("Zogre")).encounter(new Encounter("Mogre"))
+            .encounter(new Encounter("Dagannoth")).encounter(new Encounter("Desert snake")).encounter(new Encounter("Zombie"))
+            .encounter(new Encounter("Werewolf")).encounter(new Encounter("Moss giant")).encounter(new Encounter("Fire giant"))
+            .encounter(new Encounter("Ice giant")).encounter(new Encounter("Terrorbird")).encounter(new Encounter("Ghoul"))
+            .encounter(new Encounter("Troll spectator")).encounter(new Encounter("Seagull")).encounter(new Encounter("Experiment"))
+            .encounter(new Encounter("Rabbit")).encounter(new Encounter("Basilisk", Collections.singletonList(
+                new Restriction("Mirror shield", 1)))).encounter(new Encounter("Lizard")).encounter(new Encounter("Cave goblin"))
+            .encounter(new Encounter("Vulture")).encounter(new Encounter("Jackal")).encounter(new Encounter("Undead cow"))
+            .reward("Prayer", 5000).build());
+        achievements.add(new AchievementBuilder("Fur'n'Seek wish list", 2.5).requirement("Fur'n'Seek", 1)
+            .requirement("The Hunt for Surok", 1).requirement("Recipe for Disaster: Freeing King Awowogei", 1)
+            .requirement("Barbarian Firemaking", 1).requirement("Slayer", 78).requirement("Elemental shield", 0).requirement("Coins", 2775)
+            .requirement("Leaf-bladed sword", 0).requirement("Teasing stick", 0).requirement("Empty pot", 20).requirement("Logs", 21)
+            .encounter(new Encounter("Turoth", Collections.singletonList(new Restriction("Leaf-bladed sword", 1))))
+            .encounter(new Encounter("Crawling hand")).encounter(new Encounter("Ugthanki")).encounter(new Encounter("Tortoise"))
+            .encounter(new Encounter("Wallasalki")).encounter(new Encounter("Bork")).encounter(new Encounter("Monkey Guard"))
+            .encounter(new Encounter("Green dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Blue dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Red dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Black dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Skeletal wyvern", Collections.singletonList(new Restriction("Elemental shield", 1))))
+            .encounter(new Encounter("Bronze dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Iron dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Steel dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Mithril dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter("Big Snake")).encounter(new Encounter("Ice giant")).encounter(new Encounter("Gorak"))
+            .encounter(new Encounter("Aquanite")).encounter(new Encounter(Arrays.asList(Collections.singletonList(
+                "Skeletal horror (Phase 1)"), Collections.singletonList("Skeletal horror (Phase 2)"),Collections.singletonList(
+                "Skeletal horror (Phase 3)"),Collections.singletonList("Skeletal horror (Phase 4)")))).reward("Slayer", 10000)
+            .reward("Prayer", 7000).build());
+        achievements.add(new AchievementBuilder("Bone I Fired", 0).requirement("The Chosen Commander", 1).requirement("Bone bolt", 2)
             .requirement("Rag and Bone Man wish list", 1).requirement("Fur'n'Seek wish list", 1).requirement("Ranged", 48)
             .encounter(new Encounter(Arrays.asList(Collections.singletonList("Skeletal horror (Phase 1)"),
                 Collections.singletonList("Skeletal horror (Phase 2)"), Collections.singletonList("Skeletal horror (Phase 3)"),
@@ -2366,6 +2414,9 @@ public class AchievementDatabase {
             .requirement("Smithing", 35).reward("Cannonball", 4).reward("Smithing", 25).build());
         achievements.add(new AchievementBuilder("Izzy Wizzy Let's Get Lizzy", 0).requirement("Rope", 0)
             .requirement("Small fishing net", 0).requirement("Hunter", 29).reward("Hunter", 152).reward("Swamp lizard", 1).build());
+    }
+
+    private void addAchievementsDZ() {
         achievements.add(new AchievementBuilder("I Wonder How Far It Ghost?", 0).requirement("In Search of the Myreque", 1).build());
         achievements.add(new AchievementBuilder("Gate Spectre-ations", 0).requirement("Ecto-token", 2).build());
         achievements.add(new AchievementBuilder("Fun Guy But Bitter", 0.05).requirement("Farming", 53)
@@ -2422,9 +2473,6 @@ public class AchievementDatabase {
             .reward("Pot of flour", 1).build());
         achievements.add(new AchievementBuilder("Doom!", 0).build());
         achievements.add(new AchievementBuilder("Docking Out", 0).build());
-    }
-
-    private void addAchievementsDZ() {
         achievements.add(new AchievementBuilder("Lumbridge Set Tasks - Beginner", 0).requirement("Master of All I Survey", 1)
             .requirement("Raise the Roof", 1).requirement("Hail to the Duke, Baby", 1).requirement("Doom!", 1).requirement("Sage Advice", 1)
             .requirement("Window Shopping", 1).requirement("Wait, That's Not a Sheep", 1).requirement("The Nexus Has You", 1)
@@ -3751,7 +3799,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Magic 99", 0).requirement("Magic", 99).build());
         achievements.add(new AchievementBuilder("Magister Smagister", 0.35).build());
         achievements.add(new AchievementBuilder("Make A Wish", 0).requirement("Fishing", 68).requirement("Coins", 1).build());
-        achievements.add(new AchievementBuilder("Mallory", 0).requirement("Araxyte egg", 1).build());
+        achievements.add(new AchievementBuilder("Mallory", 0).requirement("Barry", 1).requirement("Araxyte egg", 1).build());
         achievements.add(new AchievementBuilder("Many Shades of a Cure", 0).requirement("Shades of Mort'ton", 1)
             .requirement("Serum 208", 2).reward("Coins", 391).build());
         achievements.add(new AchievementBuilder("Maria, You Gotta See Her", 0).requirement("Broken Home challenge 1", 1)
@@ -4075,7 +4123,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Prifddinas", 0).requirement("Plague's End", 1).build());
         achievements.add(new AchievementBuilder("Prime Hatchling", 0).requirement("Dagannoth egg", 1).build());
         achievements.add(new AchievementBuilder("Prison Break (feat)", 0).requirement("Nex uniques", 21).build());
-        achievements.add(new AchievementBuilder("Queen Black Dragonling", 0).requirement("Queen black dragon scale", 1)
+        achievements.add(new AchievementBuilder("Queen Black Dragonling", 0).requirement("Queen Black Dragon", 1078)
             .requirement("Summoning", 99).build());
         achievements.add(new AchievementBuilder("Ranged - Sparky", 0).requirement("Sparky", 1).build());
         achievements.add(new AchievementBuilder("Ranged 5", 0).requirement("Ranged", 5).build());
