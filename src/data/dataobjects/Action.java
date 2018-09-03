@@ -61,7 +61,7 @@ public class Action {
                     timeTakenForInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
             }
             gainForThisAction /= (1 + timeTakenForInputs);
-        } else if ((player.getStatus() == 1 && ironman == true) || player.getStatus() == 2 && hardcore == true) {
+        } else if ((player.getStatus() == 1 && ironman) || player.getStatus() == 2 && hardcore) {
             gainForThisAction = outputs.get(target);
             double timeToCollectInputs = 0.0;
             for (Map.Entry<String, Integer> input : inputs.entrySet()) {

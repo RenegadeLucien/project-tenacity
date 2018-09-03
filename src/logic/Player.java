@@ -39,6 +39,8 @@ public class Player implements java.io.Serializable {
     private List<Armour> armour = new ArrayList<>();
     private List<Food> food = new ArrayList<>();
 
+    private Map<Integer, GoalResults> combatCalcResults = new HashMap<>();
+
     public Player(String name, String status) {
         this.name = name;
         if (status.equals("Mainscape"))
@@ -243,6 +245,7 @@ public class Player implements java.io.Serializable {
 
     public void calcAllAchievements() {
         long time = System.nanoTime();
+        combatCalcResults.clear();
         for (Entry<Achievement, Double> taskWithTime : playerTasks.entrySet()) {
             System.out.print(taskWithTime.getKey().getName() + "\t");
             long taskTime = System.nanoTime();
@@ -312,6 +315,7 @@ public class Player implements java.io.Serializable {
     }
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
+        Requirement thisGoal = new Requirement(qualifier, quantifier);
         if (qualifier.equals("Coins")) {
             double money = 0;
             String bestAction = "";
@@ -368,6 +372,10 @@ public class Player implements java.io.Serializable {
             }
             return new GoalResults(questTotalTime, questTotalActions);
         } else if (qualifier.equals("Combat")) {
+            //since the combat calculations give the same result every time, utilize a lookup table to speed up program
+            if (combatCalcResults.containsKey(quantifier)) {
+                return combatCalcResults.get(quantifier);
+            }
             int targetLevel = (int)Math.floor(quantifier/1.4);
             GoalResults attack = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", targetLevel));
             GoalResults strength = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Strength", targetLevel));
@@ -448,11 +456,17 @@ public class Player implements java.io.Serializable {
             else
                 magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             if (attack.getTotalTime() + strength.getTotalTime() < ranged.getTotalTime() && attack.getTotalTime() + strength.getTotalTime() < magic.getTotalTime()) {
-                return new GoalResults(attack.getTotalTime()+strength.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), meleeMap);
+                GoalResults result = new GoalResults(attack.getTotalTime()+strength.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), meleeMap);
+                combatCalcResults.put(quantifier, result);
+                return result;
             } else if (ranged.getTotalTime() < magic.getTotalTime()) {
-                return new GoalResults(ranged.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), rangedMap);
+                GoalResults result = new GoalResults(ranged.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), rangedMap);
+                combatCalcResults.put(quantifier, result);
+                return result;
             } else {
-                return new GoalResults(magic.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), magicMap);
+                GoalResults result = new GoalResults(magic.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), magicMap);
+                combatCalcResults.put(quantifier, result);
+                return result;
             }
         }
         double minimum = Double.POSITIVE_INFINITY;
