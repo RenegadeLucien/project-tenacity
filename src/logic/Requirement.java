@@ -54,7 +54,7 @@ public class Requirement implements java.io.Serializable {
             goalResults = player.efficientGoalCompletion("rCombat", player.getXpToLevel(qualifier, quantifier));
         } else if (qualifier.equals("Magic")) {
             goalResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
-        } else if (qualifier.equals("Defense")) {
+        } else if (qualifier.equals("Defence")) {
             GoalResults meleeResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
             GoalResults rangedResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
             GoalResults magicResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));

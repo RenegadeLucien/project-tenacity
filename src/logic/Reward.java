@@ -26,7 +26,7 @@ public class Reward implements java.io.Serializable {
             return player.efficientGoalCompletion("rCombat", quantifier).getTotalTime();
         } else if (qualifier.equals("Magic")) {
             return player.efficientGoalCompletion("aCombat", quantifier).getTotalTime();
-        } else if (qualifier.equals("Defense")) {
+        } else if (qualifier.equals("Defence")) {
             return Math.max(player.efficientGoalCompletion("mCombat", quantifier).getTotalTime(),
                 Math.max(player.efficientGoalCompletion("rCombat", quantifier).getTotalTime(),
                     player.efficientGoalCompletion("aCombat", quantifier).getTotalTime()));

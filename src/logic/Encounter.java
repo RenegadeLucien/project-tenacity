@@ -128,7 +128,7 @@ public class Encounter implements java.io.Serializable {
             else {
                 myDamage += loadout.totalBonus();
             }
-            double myArmour = (0.0008 * Math.pow(p.getLevel("Defense"), 3) + 4 * p.getLevel("Defense") + 40) + loadout.totalArmour();
+            double myArmour = (0.0008 * Math.pow(p.getLevel("Defence"), 3) + 4 * p.getLevel("Defence") + 40) + loadout.totalArmour();
             Map<Ability, Integer> cooldowns = new HashMap<>();
             for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
                 if (ability.canUse(loadout.getMainWep(), p))

@@ -6,18 +6,18 @@ public class Familiar {
     private int lp;
     private int maxhit;
     private int attack;
-    private int defense;
+    private int defence;
     private int ranged;
     private int magic;
     private int invenSpaces;
     private int summonReq;
 
-    public Familiar(String name, int lp, int maxhit, int attack, int defense, int ranged, int magic, int invenSpaces, int summonReq) {
+    public Familiar(String name, int lp, int maxhit, int attack, int defence, int ranged, int magic, int invenSpaces, int summonReq) {
         this.name = name;
         this.lp = lp;
         this.maxhit = maxhit;
         this.attack = attack;
-        this.defense = defense;
+        this.defence = defence;
         this.ranged = ranged;
         this.magic = magic;
         this.invenSpaces = invenSpaces;

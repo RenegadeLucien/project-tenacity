@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 public class Player implements java.io.Serializable {
 
     public static final ArrayList<String> ALL_SKILLS = new ArrayList<>(Arrays.asList("Agility", "Attack",
-        "Constitution", "Construction", "Cooking", "Crafting", "Defense", "Divination",
+        "Constitution", "Construction", "Cooking", "Crafting", "Defence", "Divination",
         "Dungeoneering", "Farming", "Firemaking", "Fishing", "Fletching", "Herblore",
         "Hunter", "Invention", "Magic", "Mining", "Prayer", "Ranged", "Runecrafting",
         "Slayer", "Smithing", "Strength", "Summoning", "Thieving", "Woodcutting"));
@@ -131,7 +131,7 @@ public class Player implements java.io.Serializable {
 
     public double calcCombatLevel() {
         return (13 * Math.max(getLevel("Attack") + getLevel("Strength"), Math.max(getLevel("Ranged") * 2, getLevel("Magic") * 2)) / 10.0 +
-            getLevel("Defense") + getLevel("Constitution") + getLevel("Prayer") / 2 + getLevel("Summoning") / 2) / 4.0;
+            getLevel("Defence") + getLevel("Constitution") + getLevel("Prayer") / 2 + getLevel("Summoning") / 2) / 4.0;
     }
 
     public int getXpToLevel(String skill, int level) {
@@ -379,18 +379,18 @@ public class Player implements java.io.Serializable {
             int targetLevel = (int)Math.floor(quantifier/1.4);
             GoalResults attack = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", targetLevel));
             GoalResults strength = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Strength", targetLevel));
-            GoalResults meleeDefense = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defense", targetLevel));
-            GoalResults rangedDefense = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Defense", targetLevel));
-            GoalResults magicDefense = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Defense", targetLevel));
-            GoalResults defense;
-            if (meleeDefense.getTotalTime() < Math.min(rangedDefense.getTotalTime(), magicDefense.getTotalTime())) {
-                defense = meleeDefense;
+            GoalResults meleeDefence = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defence", targetLevel));
+            GoalResults rangedDefence = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Defence", targetLevel));
+            GoalResults magicDefence = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Defence", targetLevel));
+            GoalResults Defence;
+            if (meleeDefence.getTotalTime() < Math.min(rangedDefence.getTotalTime(), magicDefence.getTotalTime())) {
+                Defence = meleeDefence;
             }
-            else if (rangedDefense.getTotalTime() < magicDefense.getTotalTime()) {
-                defense = rangedDefense;
+            else if (rangedDefence.getTotalTime() < magicDefence.getTotalTime()) {
+                Defence = rangedDefence;
             }
             else  {
-                defense = magicDefense;
+                Defence = magicDefence;
             }
             GoalResults ranged = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", targetLevel));
             GoalResults magic = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Magic", targetLevel));
@@ -405,10 +405,10 @@ public class Player implements java.io.Serializable {
                 meleeMap.put(strength.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(strength.getActionsWithTimes().keySet().iterator().next()) + strength.getTotalTime());
             else
                 meleeMap.put(strength.getActionsWithTimes().keySet().iterator().next(), strength.getTotalTime());
-            if (meleeMap.keySet().contains(defense.getActionsWithTimes().keySet().iterator().next()))
-                meleeMap.put(defense.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(defense.getActionsWithTimes().keySet().iterator().next()) + defense.getTotalTime());
+            if (meleeMap.keySet().contains(Defence.getActionsWithTimes().keySet().iterator().next()))
+                meleeMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(Defence.getActionsWithTimes().keySet().iterator().next()) + Defence.getTotalTime());
             else
-                meleeMap.put(defense.getActionsWithTimes().keySet().iterator().next(), defense.getTotalTime());
+                meleeMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), Defence.getTotalTime());
             if (meleeMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
                 meleeMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
             else
@@ -422,10 +422,10 @@ public class Player implements java.io.Serializable {
             else
                 meleeMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             rangedMap.put(ranged.getActionsWithTimes().keySet().iterator().next(), ranged.getTotalTime());
-            if (rangedMap.keySet().contains(defense.getActionsWithTimes().keySet().iterator().next()))
-                rangedMap.put(defense.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(defense.getActionsWithTimes().keySet().iterator().next()) + defense.getTotalTime());
+            if (rangedMap.keySet().contains(Defence.getActionsWithTimes().keySet().iterator().next()))
+                rangedMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(Defence.getActionsWithTimes().keySet().iterator().next()) + Defence.getTotalTime());
             else
-                rangedMap.put(defense.getActionsWithTimes().keySet().iterator().next(), defense.getTotalTime());
+                rangedMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), Defence.getTotalTime());
             if (rangedMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
                 rangedMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
             else
@@ -439,10 +439,10 @@ public class Player implements java.io.Serializable {
             else
                 rangedMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             magicMap.put(magic.getActionsWithTimes().keySet().iterator().next(), magic.getTotalTime());
-            if (magicMap.keySet().contains(defense.getActionsWithTimes().keySet().iterator().next()))
-                magicMap.put(defense.getActionsWithTimes().keySet().iterator().next(), magicMap.get(defense.getActionsWithTimes().keySet().iterator().next()) + defense.getTotalTime());
+            if (magicMap.keySet().contains(Defence.getActionsWithTimes().keySet().iterator().next()))
+                magicMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), magicMap.get(Defence.getActionsWithTimes().keySet().iterator().next()) + Defence.getTotalTime());
             else
-                magicMap.put(defense.getActionsWithTimes().keySet().iterator().next(), defense.getTotalTime());
+                magicMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), Defence.getTotalTime());
             if (magicMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
                 magicMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), magicMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
             else
@@ -456,15 +456,15 @@ public class Player implements java.io.Serializable {
             else
                 magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             if (attack.getTotalTime() + strength.getTotalTime() < ranged.getTotalTime() && attack.getTotalTime() + strength.getTotalTime() < magic.getTotalTime()) {
-                GoalResults result = new GoalResults(attack.getTotalTime()+strength.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), meleeMap);
+                GoalResults result = new GoalResults(attack.getTotalTime()+strength.getTotalTime()+Defence.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), meleeMap);
                 combatCalcResults.put(quantifier, result);
                 return result;
             } else if (ranged.getTotalTime() < magic.getTotalTime()) {
-                GoalResults result = new GoalResults(ranged.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), rangedMap);
+                GoalResults result = new GoalResults(ranged.getTotalTime()+Defence.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), rangedMap);
                 combatCalcResults.put(quantifier, result);
                 return result;
             } else {
-                GoalResults result = new GoalResults(magic.getTotalTime()+defense.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), magicMap);
+                GoalResults result = new GoalResults(magic.getTotalTime()+Defence.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), magicMap);
                 combatCalcResults.put(quantifier, result);
                 return result;
             }

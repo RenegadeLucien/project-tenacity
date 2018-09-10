@@ -126,13 +126,13 @@ public class Achievement implements java.io.Serializable {
                     player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
                     player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged")+1));
                     player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic")+1));
-                    player.getXp().put("Defense", player.getXp().get("Defense") + player.getXpToLevel("Defense", player.getLevel("Defense")+1));
+                    player.getXp().put("Defence", player.getXp().get("Defence") + player.getXpToLevel("Defence", player.getLevel("Defence")+1));
                     player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
                     player.getXp().put("Prayer", player.getXp().get("Prayer") + player.getXpToLevel("Prayer", player.getLevel("Prayer") + 1));
                 }
                 else {
-                    if (player.getXp().get("Defense") > initialXP.get("Defense")) {
-                        totalTimeForAllReqs += new Requirement("Defense", player.getLevel("Defense")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                    if (player.getXp().get("Defence") > initialXP.get("Defence")) {
+                        totalTimeForAllReqs += new Requirement("Defence", player.getLevel("Defence")).timeAndActionsToMeetRequirement(player).getTotalTime();
                     }
                     if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
                         totalTimeForAllReqs += new Requirement("Constitution", player.getLevel("Constitution")).timeAndActionsToMeetRequirement(player).getTotalTime();
@@ -161,7 +161,7 @@ public class Achievement implements java.io.Serializable {
                     break;
                 }
             }
-            while (player.getLevel("Constitution") < 99 || player.getLevel("Attack") < 99 || player.getLevel("Strength") < 99 || player.getLevel("Defense") < 99 ||
+            while (player.getLevel("Constitution") < 99 || player.getLevel("Attack") < 99 || player.getLevel("Strength") < 99 || player.getLevel("Defence") < 99 ||
                  player.getLevel("Magic") < 99 || player.getLevel("Ranged") < 99 || player.getLevel("Prayer") < 99);
             if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                 totalTimeForAllReqs += 2147000.0;
