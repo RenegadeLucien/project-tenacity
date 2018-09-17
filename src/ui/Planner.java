@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,7 @@ public class Planner extends Application {
             }
         });
         ObservableList<Entry<Achievement, Double>> tasksWithTimes = FXCollections.observableArrayList(new ArrayList(p.getPlayerTasks().entrySet()));
+        tasksWithTimes.sort(Comparator.comparing(Entry::getValue));
         taskView.setItems(tasksWithTimes);
         taskView.getColumns().addAll(taskCol, timeCol);
         taskView.setRowFactory(tv -> {
@@ -205,7 +207,7 @@ public class Planner extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.2.13pa (by Iron Lucien)");
+        primaryStage.setTitle("Project Tenacity v0.2.27pa by Iron Lucien");
         Text nameText = new Text("Enter profile name:");
         TextField nameEntry = new TextField();
         final ToggleGroup irongroup = new ToggleGroup();

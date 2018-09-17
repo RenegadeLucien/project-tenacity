@@ -30,7 +30,9 @@ public class Reward implements java.io.Serializable {
             return Math.max(player.efficientGoalCompletion("mCombat", quantifier).getTotalTime(),
                 Math.max(player.efficientGoalCompletion("rCombat", quantifier).getTotalTime(),
                     player.efficientGoalCompletion("aCombat", quantifier).getTotalTime()));
-        } else if (Player.ALL_SKILLS.contains(qualifier)) {
+        }  else if (qualifier.equals("Invention") && !(player.getLevel("Divination") >= 80 && player.getLevel("Crafting") >= 80 && player.getLevel("Smithing") >= 80)) {
+           return 0;
+        }  else if (Player.ALL_SKILLS.contains(qualifier)) {
             return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();
         } else if (qualifier.equals("Coins")) {
             return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();

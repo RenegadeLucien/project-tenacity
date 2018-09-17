@@ -27,9 +27,15 @@ public class Lamp implements java.io.Serializable {
         for (String choice : choices) {
             if (player.getLevel(choice) >= minLevel && player.getLevel(choice) < 99) {
                 int xpReward = xp;
-                if (xp < 0 && xp > -10) {
+                //-1: small pris, -2: med pris, -4: large pris, -8: huge pris, -3/5/6/7: other rewards that use pris formula
+                if (xp < 0 && xp > -9) {
                     xpReward = PRISMATIC_LAMP_EXP_VALUES[player.getLevel(choice)] * -1 * xp;
                 }
+                //-9: dragonkin lamp
+                else if (xp == -9) {
+                    xpReward = (int)Math.floor((Math.pow(player.getLevel(choice), 3) - 2*Math.pow(player.getLevel(choice), 2) + 100*player.getLevel(choice))/20);
+                }
+                //-10+: flat level multiplier (ex. goulash, peng points)
                 else if (xp <= -10) {
                     xpReward = player.getLevel(choice)*-1*xp;
                 }

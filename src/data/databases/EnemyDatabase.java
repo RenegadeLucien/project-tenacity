@@ -372,6 +372,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Player spoof B", 6500, 516.6, 170.4, 390, 390, 390, 65, 65, 65, 6, 1299, 1299, 1299, 1299, 65, "Stab", 60, 40, 40, 40));
         enemies.add(new Enemy("Player spoof C", 6500, 516.6, 170.4, 390, 390, 390, 65, 65, 65, 6, 1299, 1299, 1299, 1299, 65, "Fire", 60, 40, 40, 40));
         enemies.add(new Enemy("Ice Troll King", 6500, 516.6, 170.4, 520, 520, 520, 65, 65, 65, 4, 1299, 1299, 1299, 1299, 65, "Nothing", 0, 40, 10, 40));
+        enemies.add(new Enemy("Ghost of Bouncer", 6500, 516.6, 170.4, 520, 0, 0, 65, 0, 0, 4, 1299, 0, 0, 1299, 65, "Air", 90, 55, 45, 65));
         enemies.add(new Enemy("Fire giant", 6700, 424.8, 140.1, 0, 335, 0, 0, 60, 0, 5, 0, 1132, 0, 1197, 32, "Slash", 90, 65, 55, 45));
         enemies.add(new Enemy("Grotworm", 6750, 264, 87.1, 432, 0, 432, 45, 0, 45, 7, 732, 0, 732, 732, 45, "Bolts", 90, 45, 65, 55));
         enemies.add(new Enemy("TokHaar-Xil", 7000, 638.7, 210.7, 480, 576, 0, 50, 73, 0, 4, 850, 1608, 0, 1608, 73, "Crush", 90, 65, 55, 45));
@@ -458,6 +459,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Trahaearn automaton", 12500, 500.4, 165.1, 250, 250, 250, 50, 50, 50, 5, 850, 850, 850, 850, 50, "Nothing", 45, 45, 45, 45));
         enemies.add(new Enemy("Prehistoric abyssal", 12500, 363.3, 119.8, 250, 0, 0, 40, 0, 0, 5, 628, 0, 0, 628, 40, "Air", 90, 55, 45, 65));
         enemies.add(new Enemy("Basilisk boss", 12500, 838.2, 276.6, 0, 276, 0, 0, 69, 0, 4, 0, 1447, 0, 1447, 69, "Stab", 90, 65, 55, 45));
+        enemies.add(new Enemy("Knight Waves knight", 12500, 582.7, 192.2, 228, 0, 0, 57, 0, 0, 4, 1040, 0, 0, 1040, 57, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Giant Sea Snake", 13500, 462, 152.4, 506, 675, 0, 33, 45, 0, 5, 337, 732, 0, 732, 45, "Slash", 90, 65, 55, 45));
         enemies.add(new Enemy("Ravenous ghoul", 14500, 508, 167.6, 595, 0, 0, 75, 0, 0, 4, 1694, 0, 0, 1694, 75, "Fire", 90, 55, 65, 45));
         enemies.add(new Enemy("Charger", 15000, 1410.7, 465.5, 1564, 0, 0, 80, 0, 0, 4, 1924, 0, 0, 1486, 70, "Crush", 90, 55, 45, 65));
@@ -550,6 +552,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Lol", 50000, 4475.2, 1476.8, 0, 1094, 0, 0, 76, 0, 4, 0, 1738, 0, 2023, 82, "Nothing", 0, 65, 55, 45));
         enemies.add(new Enemy("Exiled Kalphite Queen", 50000, 5599, 1847.6, 1100, 1100, 1100, 75, 75, 75, 4, 1694, 1694, 1694, 1694, 75, "Nothing", 0, 40, 10, 10));
         enemies.add(new Enemy("TokHaar-Hok", 50000, 4048.2, 1335.9, 2352, 0, 0, 80, 0, 0, 4, 1924, 0, 0, 1566, 75, "Nothing", 0, 50, 50, 50));
+        enemies.add(new Enemy("Foreshadow", 50000, 1481.7, 488.9, 1102, 0, 1102, 60, 0, 60, 4, 1132, 0, 1132, 850, 60, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("K'ril Tsutsaroth", 55000, 5136, 1694.8, 1500, 0, 1500, 75, 0, 75, 5, 1486, 0, 1486, 1299, 75, "Fire", 75, 45, 40, 50));
         enemies.add(new Enemy("Nomad", 56250, 3667.9, 1210.4, 1378, 1378, 1378, 75, 75, 75, 5, 1694, 1694, 1694, 1694, 75, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Commander Zilyana", 60000, 4796.55, 1582.8, 1800, 0, 2200, 75, 0, 75, 2, 2178, 0, 1694, 1299, 75, "Nothing", 0, 40, 40, 40));

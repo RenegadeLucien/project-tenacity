@@ -26,6 +26,14 @@ public class Player implements java.io.Serializable {
 
     public static final ArrayList<String> COMBAT_STYLES = new ArrayList<>(Arrays.asList("Melee", "Ranged", "Magic"));
 
+    private static final int[] XP_TO_LEVELS = {0, 0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
+        3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247, 20224, 22406, 24815, 27473, 30408, 33648,
+        37224, 41171, 45529, 50339, 55649, 61512, 67983, 75127, 83014, 91721, 101333, 111945, 123660, 136954, 150872, 166636, 184040, 203254, 224466,
+        247886, 273742, 302288, 333804, 368599, 407015, 449428, 496254, 547953, 605032, 668051, 737627, 814445, 899257, 992895, 1086278, 1210421,
+        1336443, 1475581, 1629200, 1798808, 1986068, 2192818, 2421087, 2673114, 2951373, 3258594, 3597792, 3972294, 4385776, 4842295, 5346332, 5902831,
+        6517253, 7195629, 7944614, 8771558, 9684577, 10692629, 11805606, 13034431, 14391160, 15889109, 17542976, 19368992, 21385073, 23611006, 26068632,
+        28782069, 31777943, 35085654, 38737661, 42769801, 47221641, 52136869, 57563718, 63555443, 70170840, 77474828, 85539082, 94442737, 104273167};
+
     private static final long serialVersionUID = 1L;
 
     private String name;
@@ -116,17 +124,15 @@ public class Player implements java.io.Serializable {
 
     public int getLevel(String skill) {
         double skillXp = xp.get(skill);
-        int level = 1;
-        int sumXP = 0;
-        while (true) {
-            sumXP += Math.floor(level + 300 * Math.pow(2, level / 7.0));
-            int xpToLevel = (int) Math.floor(sumXP / 4);
-            if (xpToLevel > skillXp) {
-                return level;
-            } else {
-                level++;
+        for (int i = 1; i < XP_TO_LEVELS.length; i++) {
+            if (skillXp <= XP_TO_LEVELS[i]) {
+                return i;
+            }
+            if (i == 99 && !(skill.equals("Dungeoneering") || skill.equals("Slayer") || skill.equals("Invention"))) {
+                return 99;
             }
         }
+        return 120;
     }
 
     public double calcCombatLevel() {
@@ -478,14 +484,8 @@ public class Player implements java.io.Serializable {
                 double effectiveTimeThisAction = 0.0;
                 Map<String,Double> recursiveActions = new HashMap<>();
                 for (Requirement requirement : action.getReqs()) {
-                    if (requirement.getQualifier().equals(qualifier) && !requirement.meetsRequirement(this)) {
-                        // avoids a stack overflow (trying to train to unlock an action by training to unlock that action by training to unlock that action...)
-                        effectiveTimeThisAction += 9999999;
-                        break;
-                    } else {
-                        GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
-                        effectiveTimeThisAction += reqResults.getTotalTime();
-                    }
+                    GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
+                    effectiveTimeThisAction += reqResults.getTotalTime();
                 }
                 effectiveTimeThisAction += quantifier / action.effectiveRate(qualifier, this);
                 if (effectiveTimeThisAction < minimum) {

@@ -81,6 +81,10 @@ public class Encounter implements java.io.Serializable {
         double minHpLost = 1000000001;
         for (Loadout loadout : p.generateLoadouts(combatStyle)) {
             double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
+            int maxLpHealedPerFood = p.getLevel("Constitution") * 25;
+            if (p.getLevel("Constitution") == 99) {
+                maxLpHealedPerFood = 99999;
+            }
             double prayerPoints = p.getLevel("Prayer")*10;
             int ticks = 0;
             double hpLost = 0;
@@ -176,10 +180,7 @@ public class Encounter implements java.io.Serializable {
                     while (myLp > 0 && enemyLp > 0) {
                         Ability abilityUsedThisTick = null;
                         double maxDamage = 0;
-                        int amountHealed = Math.min(loadout.getFoodUsed().getAmountHealed(), p.getLevel("Constitution")*25);
-                        if (p.getLevel("Constitution") == 99) {
-                            amountHealed = loadout.getFoodUsed().getAmountHealed();
-                        }
+                        int amountHealed = Math.min(loadout.getFoodUsed().getAmountHealed(), maxLpHealedPerFood);
                         if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
                             if (foodCooldown == 0) {
                                 myLp += amountHealed;
