@@ -4,14 +4,9 @@ package logic;
 import data.databases.*;
 import data.dataobjects.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import java.util.LinkedHashMap;
 
 public class Player implements java.io.Serializable {
 
@@ -47,7 +42,8 @@ public class Player implements java.io.Serializable {
     private List<Armour> armour = new ArrayList<>();
     private List<Food> food = new ArrayList<>();
 
-    private Map<Integer, GoalResults> combatCalcResults = new HashMap<>();
+    private Map<Requirement, GoalResults> previousEfficiencyResults = new HashMap<>();
+    private List<QualifierAction> lockedActions = new ArrayList();
 
     public Player(String name, String status) {
         this.name = name;
@@ -251,18 +247,21 @@ public class Player implements java.io.Serializable {
 
     public void calcAllAchievements() {
         long time = System.nanoTime();
-        combatCalcResults.clear();
+        previousEfficiencyResults.clear();
         for (Entry<Achievement, Double> taskWithTime : playerTasks.entrySet()) {
             System.out.print(taskWithTime.getKey().getName() + "\t");
             long taskTime = System.nanoTime();
             Achievement t = taskWithTime.getKey();
             GoalResults actionsAndTime = t.getTimeForRequirements(this);
-            playerTasks.put(t, t.getTime() + actionsAndTime.getTotalTime() - t.getGainFromRewards(this));
+            playerTasks.put(t, actionsAndTime.getTotalTime() - t.getGainFromRewards(this));
             taskDetails.put(t, actionsAndTime);
             System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
+        /*for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
+            System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
+        }*/
     }
 
     public void completeTask(Achievement task) {
@@ -271,7 +270,7 @@ public class Player implements java.io.Serializable {
                 completeTask(Achievement.getAchievementByName(requirement.getQualifier()));
             } else if (ALL_SKILLS.contains(requirement.getQualifier())) {
                 xp.put(requirement.getQualifier(), xp.get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
-            } else if (Item.getItemByName(requirement.getQualifier()) != null) {
+            } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
                 if (bank.containsKey(requirement.getQualifier())) {
                     if (bank.get(requirement.getQualifier()) > requirement.getQuantifier()) {
                         bank.put(requirement.getQualifier(), (bank.get(requirement.getQualifier()) - requirement.getQuantifier()));
@@ -293,7 +292,7 @@ public class Player implements java.io.Serializable {
         for (Reward reward : rewards) {
             if (ALL_SKILLS.contains(reward.getQualifier())) {
                 xp.put(reward.getQualifier(), xp.get(reward.getQualifier()) + reward.getQuantifier());
-            } else if (Item.getItemByName(reward.getQualifier()) != null) {
+            } else if (ItemDatabase.getItemDatabase().getItems().get(reward.getQualifier()) != null) {
                 if (bank.containsKey(reward.getQualifier()))
                     bank.put(reward.getQualifier(), bank.get(reward.getQualifier()) + reward.getQuantifier());
                 else
@@ -321,20 +320,11 @@ public class Player implements java.io.Serializable {
     }
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
-        Requirement thisGoal = new Requirement(qualifier, quantifier);
-        if (qualifier.equals("Coins")) {
-            double money = 0;
-            String bestAction = "";
-            for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
-                double moneyForThisAction = action.moneyFromAction(this);
-                if (moneyForThisAction > money) {
-                    money = moneyForThisAction;
-                    bestAction = action.getName();
-                }
-            }
-            //System.out.println("Best effective rate of money is " + money + " GP per hour.");
-            return new GoalResults(quantifier / money, Map.of(bestAction, quantifier / money));
-        } else if (qualifier.equals("Quest points")) {
+        Requirement generatedRequirement = new Requirement(qualifier, quantifier);
+        if (previousEfficiencyResults.get(generatedRequirement) != null) {
+            return previousEfficiencyResults.get(generatedRequirement);
+        }
+        if (qualifier.equals("Quest points")) {
             double questTotalTime = 0;
             Map <String, Double> questTotalActions = new HashMap<>();
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
@@ -376,13 +366,11 @@ public class Player implements java.io.Serializable {
             if (questpoints < quantifier) {
                 questTotalTime = 1000000000.0;
             }
-            return new GoalResults(questTotalTime, questTotalActions);
+            GoalResults result = new GoalResults(questTotalTime, questTotalActions);
+            previousEfficiencyResults.put(generatedRequirement, result);
+            return result;
         } else if (qualifier.equals("Combat")) {
-            //since the combat calculations give the same result every time, utilize a lookup table to speed up program
-            if (combatCalcResults.containsKey(quantifier)) {
-                return combatCalcResults.get(quantifier);
-            }
-            int targetLevel = (int)Math.floor(quantifier/1.4);
+            int targetLevel = (int) Math.floor(quantifier / 1.4);
             GoalResults attack = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", targetLevel));
             GoalResults strength = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Strength", targetLevel));
             GoalResults meleeDefence = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defence", targetLevel));
@@ -391,11 +379,9 @@ public class Player implements java.io.Serializable {
             GoalResults Defence;
             if (meleeDefence.getTotalTime() < Math.min(rangedDefence.getTotalTime(), magicDefence.getTotalTime())) {
                 Defence = meleeDefence;
-            }
-            else if (rangedDefence.getTotalTime() < magicDefence.getTotalTime()) {
+            } else if (rangedDefence.getTotalTime() < magicDefence.getTotalTime()) {
                 Defence = rangedDefence;
-            }
-            else  {
+            } else {
                 Defence = magicDefence;
             }
             GoalResults ranged = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", targetLevel));
@@ -403,9 +389,9 @@ public class Player implements java.io.Serializable {
             GoalResults prayer = this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", targetLevel));
             GoalResults summ = this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", targetLevel));
             GoalResults hp = this.efficientGoalCompletion("Constitution", this.getXpToLevel("Constitution", targetLevel));
-            Map<String,Double> meleeMap = new HashMap();
-            Map<String,Double> rangedMap = new HashMap();
-            Map<String,Double> magicMap = new HashMap();
+            Map<String, Double> meleeMap = new HashMap<>();
+            Map<String, Double> rangedMap = new HashMap<>();
+            Map<String, Double> magicMap = new HashMap<>();
             meleeMap.put(attack.getActionsWithTimes().keySet().iterator().next(), attack.getTotalTime());
             if (meleeMap.keySet().contains(strength.getActionsWithTimes().keySet().iterator().next()))
                 meleeMap.put(strength.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(strength.getActionsWithTimes().keySet().iterator().next()) + strength.getTotalTime());
@@ -462,16 +448,16 @@ public class Player implements java.io.Serializable {
             else
                 magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             if (attack.getTotalTime() + strength.getTotalTime() < ranged.getTotalTime() && attack.getTotalTime() + strength.getTotalTime() < magic.getTotalTime()) {
-                GoalResults result = new GoalResults(attack.getTotalTime()+strength.getTotalTime()+Defence.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), meleeMap);
-                combatCalcResults.put(quantifier, result);
+                GoalResults result = new GoalResults(attack.getTotalTime() + strength.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), meleeMap);
+                previousEfficiencyResults.put(generatedRequirement, result);
                 return result;
             } else if (ranged.getTotalTime() < magic.getTotalTime()) {
-                GoalResults result = new GoalResults(ranged.getTotalTime()+Defence.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), rangedMap);
-                combatCalcResults.put(quantifier, result);
+                GoalResults result = new GoalResults(ranged.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), rangedMap);
+                previousEfficiencyResults.put(generatedRequirement, result);
                 return result;
             } else {
-                GoalResults result = new GoalResults(magic.getTotalTime()+Defence.getTotalTime()+prayer.getTotalTime()+summ.getTotalTime()+hp.getTotalTime(), magicMap);
-                combatCalcResults.put(quantifier, result);
+                GoalResults result = new GoalResults(magic.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), magicMap);
+                previousEfficiencyResults.put(generatedRequirement, result);
                 return result;
             }
         }
@@ -479,21 +465,46 @@ public class Player implements java.io.Serializable {
         String minAction = qualifier;
         Map<String, Double> efficiency = new HashMap<>();
         for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
-            if (action.getOutputs().containsKey(qualifier) && ActionDatabase.getActionDatabase(this).getUsedFlags().get(action)) {
-                ActionDatabase.getActionDatabase(this).getUsedFlags().put(action, false);
+            boolean validAction = false;
+            if (qualifier.equals("Coins")) {
+                double coinGain = 0;
+                for (Map.Entry<String, Integer> output : action.getOutputs().entrySet()) {
+                    Item item = ItemDatabase.getItemDatabase().getItems().get(output.getKey());
+                    if (item != null) {
+                        coinGain += output.getValue()*item.coinValue(this);
+                    }
+                }
+                for (Map.Entry<String, Integer> input : action.getInputs().entrySet()) {
+                    Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
+                    if (item != null) {
+                       coinGain -= input.getValue()*item.coinValue(this);
+                    }
+                }
+                if (coinGain > 0) {
+                    validAction = true;
+                }
+            }
+            else if (action.getOutputs().containsKey(qualifier)) {
+                validAction = true;
+            }
+            if (lockedActions.stream().anyMatch(la -> la.getQualifier().equals(qualifier) && la.getAction().equals(action.getName()))) {
+                validAction = false;
+            }
+            if (validAction) {
+                QualifierAction qualifierAction = new QualifierAction(qualifier, action.getName());
+                lockedActions.add(qualifierAction);
                 double effectiveTimeThisAction = 0.0;
-                Map<String,Double> recursiveActions = new HashMap<>();
                 for (Requirement requirement : action.getReqs()) {
                     GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                     effectiveTimeThisAction += reqResults.getTotalTime();
                 }
-                effectiveTimeThisAction += quantifier / action.effectiveRate(qualifier, this);
+                effectiveTimeThisAction += (quantifier / action.effectiveRate(qualifier, this));
                 if (effectiveTimeThisAction < minimum) {
                     minimum = effectiveTimeThisAction;
                     minAction = action.getName();
-                    efficiency = recursiveActions;
+                    efficiency = new HashMap<>();
                 }
-                ActionDatabase.getActionDatabase(this).getUsedFlags().put(action, true);
+                lockedActions.remove(qualifierAction);
             }
         }
         if (minimum == Double.POSITIVE_INFINITY) {
@@ -503,7 +514,11 @@ public class Player implements java.io.Serializable {
         //System.out.println(minReqs);
         //System.out.println(efficiency);
         //System.out.println(minAction + " will achieve " + quantifier + " " +qualifier + " in " + minimum + " hours.");
-        return new GoalResults(minimum, efficiency);
+        GoalResults result = new GoalResults(minimum, efficiency);
+        if (minimum < 1000000000.0) {
+            previousEfficiencyResults.put(generatedRequirement, result);
+        }
+        return result;
     }
 
     public Map addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
@@ -515,5 +530,24 @@ public class Player implements java.io.Serializable {
             }
         }
         return a;
+    }
+
+    private class QualifierAction {
+
+        private String qualifier;
+        private String action;
+
+        QualifierAction(String qualifier, String action) {
+            this.qualifier = qualifier;
+            this.action = action;
+        }
+
+        String getQualifier() {
+            return qualifier;
+        }
+
+        String getAction() {
+            return action;
+        }
     }
 }

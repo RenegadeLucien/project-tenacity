@@ -89,34 +89,31 @@ public class Achievement implements java.io.Serializable {
 
     public GoalResults getTimeForRequirements(Player player) {
         double totalTimeForAllReqs = 0;
-        Map<String, Double> initialXP = new HashMap<>();
-        initialXP.putAll(player.getXp());
+        final Map<String, Double> initialXP = new HashMap<>(player.getXp());
         Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
+        totalActionsWithTimesForAllReqs.put(this.name, this.time);
         for (Requirement r : reqs) {
-            if (Achievement.getAchievementByName(r.getQualifier()) == null || !totalActionsWithTimesForAllReqs.containsKey(r.getQualifier())) {
-                GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
-                for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
-                    if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
-                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
-                    }
-                    else {
-                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
-                    }
+            GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
+            for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
+                if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
+                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
+                }
+                else {
+                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
                 }
             }
-        }
-        for (Entry<String, Double> action : totalActionsWithTimesForAllReqs.entrySet()) {
-            totalTimeForAllReqs += action.getValue();
         }
         for (Requirement r : reqs) {
             if (Player.ALL_SKILLS.contains(r.getQualifier())) {
                 player.getXp().put(r.getQualifier(), player.getXp().get(r.getQualifier()) + player.getXpToLevel(r.getQualifier(), r.getQuantifier()));
             }
         }
+        List<Requirement> encounterRequirements = new ArrayList<>();
         for (Encounter e : encounters) {
             CombatResults meleeCombatResults;
             CombatResults rangedCombatResults;
             CombatResults magicCombatResults;
+
             do {
                 meleeCombatResults = e.calculateCombat(player, 28, "Melee");
                 rangedCombatResults = e.calculateCombat(player, 28, "Ranged");
@@ -132,30 +129,30 @@ public class Achievement implements java.io.Serializable {
                 }
                 else {
                     if (player.getXp().get("Defence") > initialXP.get("Defence")) {
-                        totalTimeForAllReqs += new Requirement("Defence", player.getLevel("Defence")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                        encounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
                     }
                     if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
-                        totalTimeForAllReqs += new Requirement("Constitution", player.getLevel("Constitution")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                        encounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
                     }
                     if (player.getXp().get("Prayer") > initialXP.get("Prayer")) {
-                        totalTimeForAllReqs += new Requirement("Prayer", player.getLevel("Prayer")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                        encounterRequirements.add(new Requirement("Prayer", player.getLevel("Prayer")));
                     }
                     if (meleeCombatResults.getHpLost() < 1000000) {
                         if (player.getXp().get("Attack") > initialXP.get("Attack")) {
-                            totalTimeForAllReqs += new Requirement("Attack", player.getLevel("Attack")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                            encounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
                         }
                         if (player.getXp().get("Strength") > initialXP.get("Strength")) {
-                            totalTimeForAllReqs += new Requirement("Strength", player.getLevel("Strength")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                            encounterRequirements.add(new Requirement("Strength", player.getLevel("Strength")));
                         }
                     }
                     else if (rangedCombatResults.getHpLost() < 1000000) {
                         if (player.getXp().get("Ranged") > initialXP.get("Ranged")) {
-                            totalTimeForAllReqs += new Requirement("Ranged", player.getLevel("Ranged")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                            encounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
                         }
                     }
                     else if (magicCombatResults.getHpLost() < 1000000) {
                         if (player.getXp().get("Magic") > initialXP.get("Magic")) {
-                            totalTimeForAllReqs += new Requirement("Magic", player.getLevel("Magic")).timeAndActionsToMeetRequirement(player).getTotalTime();
+                            encounterRequirements.add(new Requirement("Magic", player.getLevel("Magic")));
                         }
                     }
                     break;
@@ -168,6 +165,20 @@ public class Achievement implements java.io.Serializable {
             }
         }
         player.setXp(initialXP);
+        for (Requirement r : encounterRequirements) {
+            GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
+            for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
+                if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
+                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
+                }
+                else {
+                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
+                }
+            }
+        }
+        for (Entry<String, Double> action : totalActionsWithTimesForAllReqs.entrySet()) {
+            totalTimeForAllReqs += action.getValue();
+        }
         return new GoalResults(totalTimeForAllReqs, totalActionsWithTimesForAllReqs);
     }
 
@@ -187,33 +198,6 @@ public class Achievement implements java.io.Serializable {
         }
         return totalGainFromAllRewards;
     }
-/*
-    public List<Requirement> getRecursiveRequirements() {
-        List<Requirement> recursiveReqs = reqs;
-        List<String> achievementsParsed = new ArrayList<>();
-        boolean newReqs = true;
-        while (newReqs) {
-            newReqs = false;
-            List<Requirement> newRecReqs = new ArrayList<>();
-            for (Requirement r : recursiveReqs) {
-                if (Achievement.getAchievementByName(r.getQualifier()) != null && !achievementsParsed.contains(r.getQualifier())) {
-                    newReqs = true;
-                    for (Requirement achievementReq : Achievement.getAchievementByName(r.getQualifier()).getReqs()) {
-                        if (!achievementsParsed.contains(achievementReq.getQualifier())) {
-                            newRecReqs.add(achievementReq);
-                        }
-                    }
-                    achievementsParsed.add(r.getQualifier());
-                    newRecReqs.add(r);
-                }
-                else if (!achievementsParsed.contains(r.getQualifier()) || newRecReqs.stream().noneMatch(a -> a.getQualifier().equals(r.getQualifier()))){
-                    newRecReqs.add(r);
-                }
-            }
-            recursiveReqs = newRecReqs;
-        }
-        return recursiveReqs;
-    }*/
 
     public String getName() {
         return name;

@@ -1,5 +1,6 @@
 package logic;
 
+import data.databases.ItemDatabase;
 import data.dataobjects.Achievement;
 import data.dataobjects.Item;
 
@@ -28,7 +29,7 @@ public class Requirement implements java.io.Serializable {
             if (player.getLevel(qualifier) >= quantifier) {
                 return true;
             }
-        } else if (Item.getItemByName(qualifier) != null) {
+        } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
             if (player.getBank().keySet().contains(qualifier)
                 && player.getBank().get(qualifier) >= quantifier) {
                 return true;
@@ -67,14 +68,10 @@ public class Requirement implements java.io.Serializable {
             }
         } else if (Player.ALL_SKILLS.contains(qualifier)) {
             goalResults = player.efficientGoalCompletion(qualifier, player.getXpToLevel(qualifier, quantifier));
-
-        } else if (Item.getItemByName(qualifier) != null && player.getStatus() == 0) {
-            goalResults = player.efficientGoalCompletion(qualifier, quantifier);
-            if (player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier).getTotalTime() < goalResults.getTotalTime()) {
-                goalResults = player.efficientGoalCompletion("Coins", Item.getItemByName(qualifier).coinValue(player) * quantifier);
-            }
+        } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null && player.getStatus() == 0) {
+            goalResults = player.efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier);
         } else if (Achievement.getAchievementByName(qualifier) != null) {
-            return player.getTaskDetails().get(Achievement.getAchievementByName(qualifier));
+            goalResults = player.getTaskDetails().get(Achievement.getAchievementByName(qualifier));
         } else if (qualifier.equals("Flags unfurled")) {
             goalResults = new Requirement("Master Quester", 1).timeAndActionsToMeetRequirement(player);
             for (String skill : Player.ALL_SKILLS) {
@@ -102,7 +99,7 @@ public class Requirement implements java.io.Serializable {
 
     public void addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
         for (String item : b.keySet()) {
-            if (a.containsKey(item) && Item.getItemByName(item) != null) {
+            if (a.containsKey(item) && ItemDatabase.getItemDatabase().getItems().get(item) != null) {
                 a.put(item, a.get(item) + b.get(item));
             } else if (a.containsKey(item)) {
                 a.put(item, Math.max(a.get(item), b.get(item)));
@@ -110,5 +107,25 @@ public class Requirement implements java.io.Serializable {
                 a.put(item, b.get(item));
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Requirement)) {
+            return false;
+        }
+        Requirement r = (Requirement) o;
+        return this.quantifier == r.quantifier && this.qualifier.equals(r.qualifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + qualifier.hashCode();
+        result = 31 * result + quantifier;
+        return result;
     }
 }

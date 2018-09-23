@@ -191,7 +191,7 @@ public class Encounter implements java.io.Serializable {
                                     if (abilityWithCooldown.getValue() < 3)
                                         cooldowns.put(abilityWithCooldown.getKey(), 3);
                                 }
-                              //  System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
+                                //System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
                             }
                         } else {
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
@@ -208,7 +208,7 @@ public class Encounter implements java.io.Serializable {
                         }
                         if (abilityUsedThisTick != null) {
                             enemyLp -= myHitChance * myDamage * maxDamage;
-                           // System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
+                            //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
                             cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
                                 if (abilityWithCooldown.getValue() < 3)
@@ -246,7 +246,7 @@ public class Encounter implements java.io.Serializable {
                             }
                             myLp -= enemyDamage * (1 - loadout.totalReduc());
                             hpLost += enemyDamage * (1 - loadout.totalReduc());
-                           // System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
+                            //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
                         }
                         if (prayerPoints > 0) {
                             prayerPoints = Math.max(0, (prayerPoints-loadout.getPrayer().getDrainPerTick())*(1-loadout.totalPrayBonus()/100.0));
@@ -262,7 +262,7 @@ public class Encounter implements java.io.Serializable {
                     //System.out.println("LP Remaining after Regenerate: " + myLp);
                 }
             }
-            if (myLp < 0) {
+            if (myLp <= 0) {
                 hpLost = 1000000000;
             }
             if (hpLost < minHpLost) {

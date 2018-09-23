@@ -13,7 +13,6 @@ public class ActionDatabase {
 
     private static final int TICKS_PER_HOUR = 6000;
     private List<Action> database = new ArrayList<>();
-    private Map<Action, Boolean> usedFlags = new HashMap<>();
 
     private ActionDatabase() {
     }
@@ -381,6 +380,10 @@ public class ActionDatabase {
         database.add(new Action("Killing zombies", new ArrayList(), new HashMap(), Map.of("Zombie", zombieKills, "aCombat", (int)Enemy.getEnemyByName("Zombie").getCbxp() * zombieKills,
             "Constitution", (int) Enemy.getEnemyByName("Zombie").getHpxp() * zombieKills), true, true));
 
+        int trollChuckerKills = combatKills(new Encounter("Troll chucker"), player, 0, "Melee", 0, false).keySet().iterator().next();
+        database.add(new Action("Killing troll chuckers", new ArrayList(), new HashMap(), Map.of("mCombat", (int)Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills,
+            "Constitution", (int) Enemy.getEnemyByName("Troll chucker").getHpxp() * trollChuckerKills), true, true));
+
         int hobgoblinKills = combatKills(new Encounter("Hobgoblin"), player, 0, "Melee", 0, false).keySet().iterator().next();
         database.add(new Action("Killing hobgoblins", new ArrayList(), new HashMap(), Map.of("Hobgoblin", hobgoblinKills, "mCombat", (int)Enemy.getEnemyByName("Hobgoblin").getCbxp() * hobgoblinKills,
             "Constitution", (int) Enemy.getEnemyByName("Hobgoblin").getHpxp() * hobgoblinKills), true, true));
@@ -576,18 +579,8 @@ public class ActionDatabase {
             new HashMap<>(), Map.of("Shifting Tombs", 12), true, true));
     }
 
-    private void addFlagsToDatabase() {
-        for (Action action : database) {
-            usedFlags.put(action, true);
-        }
-    }
-
     public List<Action> getDatabase() {
         return database;
-    }
-
-    public Map<Action, Boolean> getUsedFlags() {
-        return usedFlags;
     }
 
     private List<Requirement> getRequirementsForCombat(Encounter combatEncounter, Player player, int invenSpaces, String combatStyle) {
@@ -726,7 +719,6 @@ public class ActionDatabase {
         if (actionDatabase == null) {
             actionDatabase = new ActionDatabase();
             actionDatabase.addActionsToDatabase(player);
-            actionDatabase.addFlagsToDatabase();
         }
         return actionDatabase;
     }

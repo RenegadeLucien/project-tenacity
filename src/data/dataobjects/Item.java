@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.net.URL;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Item {
 
@@ -90,23 +91,5 @@ public class Item {
         } else {
             return (int) Math.floor(baseval * .3);
         }
-    }
-
-    public static Item getItemByName(String name) {
-        return itemBinarySearch(ItemDatabase.getItemDatabase().getItems(), 0, ItemDatabase.getItemDatabase().getItems().size()-1, name);
-    }
-
-    private static Item itemBinarySearch(List<Item> items, int left, int right, String name) {
-        if (right >= left) {
-            int mid = left + (right - left)/2;
-            if (items.get(mid).getName().equals(name)) {
-                return items.get(mid);
-            }
-           if (items.get(mid).getName().compareTo(name) > 0) {
-                return itemBinarySearch(items, left, mid-1, name);
-            }
-            return itemBinarySearch(items, mid+1, right, name);
-        }
-        return null;
     }
 }

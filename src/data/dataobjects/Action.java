@@ -1,5 +1,6 @@
 package data.dataobjects;
 
+import data.databases.ItemDatabase;
 import logic.Player;
 import logic.Requirement;
 
@@ -51,16 +52,37 @@ public class Action {
     public double effectiveRate(String target, Player player) {
         double gainForThisAction = 0.0;
         if (player.getStatus() == 0) {
-            gainForThisAction = outputs.get(target);
-            double timeTakenForInputs = 0.0;
-            if (moneyFromAction(player) < 0) {
-                timeTakenForInputs += player.efficientGoalCompletion("Coins", (int) moneyFromAction(player) * -1).getTotalTime();
+            if (target.equals("Coins")) {
+                for (Map.Entry<String, Integer> output : outputs.entrySet()) {
+                    Item item = ItemDatabase.getItemDatabase().getItems().get(output.getKey());
+                    if (item != null) {
+                        gainForThisAction += output.getValue()*item.coinValue(player);
+                    }
+                }
+                double timeTakenForInputs = 0.0;
+                for (Map.Entry<String, Integer> input : inputs.entrySet()) {
+                    Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
+                    if (item == null) {
+                        timeTakenForInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
+                    }
+                    else {
+                        gainForThisAction -= input.getValue()*item.coinValue(player);
+                    }
+                }
+                gainForThisAction /= (1 + timeTakenForInputs);
             }
-            for (Map.Entry<String, Integer> input : inputs.entrySet()) {
-                if (Item.getItemByName(input.getKey()) == null)
-                    timeTakenForInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
+            else {
+                gainForThisAction = outputs.get(target);
+                double timeTakenForInputs = 0.0;
+                for (Map.Entry<String, Integer> input : inputs.entrySet()) {
+                    if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) == null) {
+                        timeTakenForInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
+                    } else {
+                        timeTakenForInputs += player.efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(player) * input.getValue()).getTotalTime();
+                    }
+                }
+                gainForThisAction /= (1 + timeTakenForInputs);
             }
-            gainForThisAction /= (1 + timeTakenForInputs);
         } else if ((player.getStatus() == 1 && ironman) || player.getStatus() == 2 && hardcore) {
             gainForThisAction = outputs.get(target);
             double timeToCollectInputs = 0.0;
@@ -70,19 +92,5 @@ public class Action {
             gainForThisAction /= (1.0 + timeToCollectInputs);
         }
         return gainForThisAction;
-    }
-
-    public double moneyFromAction(Player player) {
-        double moneyForThisAction = 0;
-        for (Map.Entry<String, Integer> input : inputs.entrySet()) {
-            if (Item.getItemByName(input.getKey()) != null)
-                moneyForThisAction -= Item.getItemByName(input.getKey()).coinValue(player) * input.getValue();
-        }
-        for (Map.Entry<String, Integer> output : outputs.entrySet()) {
-            if (Item.getItemByName(output.getKey()) != null)
-                moneyForThisAction += Item.getItemByName(output.getKey()).coinValue(player) * output.getValue();
-        }
-        //System.out.println(action.getName() + " produces " + moneyForThisAction + " GP/HR");
-        return moneyForThisAction;
     }
 }

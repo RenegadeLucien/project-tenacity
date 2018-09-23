@@ -1,6 +1,6 @@
 package logic;
 
-import data.dataobjects.Item;
+import data.databases.ItemDatabase;
 
 public class Reward implements java.io.Serializable {
     private String qualifier;
@@ -36,9 +36,9 @@ public class Reward implements java.io.Serializable {
             return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();
         } else if (qualifier.equals("Coins")) {
             return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();
-        } else if (Item.getItemByName(qualifier) != null) {
+        } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
             if (player.getStatus() == 0) {
-                return player.efficientGoalCompletion("Coins", quantifier * Item.getItemByName(qualifier).coinValue(player)).getTotalTime();
+                return player.efficientGoalCompletion("Coins", quantifier * ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)).getTotalTime();
             } else {
                 return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();
             }
