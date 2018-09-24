@@ -1,8 +1,9 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Lamp implements java.io.Serializable {
+public class Lamp implements Serializable {
     public static final Integer[] PRISMATIC_LAMP_EXP_VALUES = {-1, 62, 69, 77, 85, 93, 104, 123, 127, 194, 153, 170, 188,
         205, 229, 252, 261, 274, 285, 298, 310, 324, 337, 352, 367, 384, 399, 405, 414, 453, 473, 493, 514, 536, 559,
         583, 608, 635, 662, 691, 720, 752, 784, 818, 853, 889, 929, 970, 1012, 1055, 1101, 1148, 1200, 1249, 1304, 1362,

@@ -9,13 +9,14 @@ import logic.Player;
 import logic.Requirement;
 import logic.Reward;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Achievement implements java.io.Serializable {
+public class Achievement implements Serializable {
 
     private String name; //name of the task
     private double time; //est. time taken in hours [not including time to gather items/complete requirements]

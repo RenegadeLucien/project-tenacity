@@ -2,7 +2,9 @@ package data.dataobjects;
 
 import data.databases.EnemyDatabase;
 
-public class Enemy {
+import java.io.Serializable;
+
+public class Enemy implements Serializable {
 
     private String name;
     private int lp;

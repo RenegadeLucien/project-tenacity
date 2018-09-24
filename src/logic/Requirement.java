@@ -4,10 +4,11 @@ import data.databases.ItemDatabase;
 import data.dataobjects.Achievement;
 import data.dataobjects.Item;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Requirement implements java.io.Serializable {
+public class Requirement implements Serializable {
     private String qualifier;
     private int quantifier;
 
@@ -71,7 +72,13 @@ public class Requirement implements java.io.Serializable {
         } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null && player.getStatus() == 0) {
             goalResults = player.efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier);
         } else if (Achievement.getAchievementByName(qualifier) != null) {
-            goalResults = player.getTaskDetails().get(Achievement.getAchievementByName(qualifier));
+            Achievement achievement = Achievement.getAchievementByName(qualifier);
+            if (player.getAchievementResults().get(achievement) != null) {
+                goalResults = player.getAchievementResults().get(achievement);
+            }
+            else {
+                goalResults = new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
+            }
         } else if (qualifier.equals("Flags unfurled")) {
             goalResults = new Requirement("Master Quester", 1).timeAndActionsToMeetRequirement(player);
             for (String skill : Player.ALL_SKILLS) {

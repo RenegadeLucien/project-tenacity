@@ -4,11 +4,12 @@ package logic;
 import data.databases.*;
 import data.dataobjects.*;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-public class Player implements java.io.Serializable {
+public class Player implements Serializable {
 
     public static final ArrayList<String> ALL_SKILLS = new ArrayList<>(Arrays.asList("Agility", "Attack",
         "Constitution", "Construction", "Cooking", "Crafting", "Defence", "Divination",
@@ -33,8 +34,6 @@ public class Player implements java.io.Serializable {
 
     private String name;
     private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
-    private Map<Achievement, Double> playerTasks = new LinkedHashMap<>();
-    private Map<Achievement, GoalResults> taskDetails = new HashMap<>();
     private Map<String, Double> xp = new HashMap<>();
     private Map<String, Integer> qualities = new HashMap<>();
     private Map<String, Integer> bank = new HashMap<>();
@@ -43,7 +42,8 @@ public class Player implements java.io.Serializable {
     private List<Food> food = new ArrayList<>();
 
     private Map<Requirement, GoalResults> previousEfficiencyResults = new HashMap<>();
-    private List<QualifierAction> lockedActions = new ArrayList();
+    private List<QualifierAction> lockedActions = new ArrayList<>();
+    private Map<Achievement, GoalResults> achievementResults = new HashMap<>();
 
     public Player(String name, String status) {
         this.name = name;
@@ -54,19 +54,6 @@ public class Player implements java.io.Serializable {
         else if (status.equals("Hardcore"))
             this.status = 2;
         xp = setInitialXP();
-        for (Achievement t : AchievementDatabase.getAchievementDatabase().getAchievements()) {
-            taskDetails.put(t, new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0)));
-            playerTasks.put(t, 1000000000.0);
-        }
-        calcAllAchievements();
-    }
-
-    public Map<Achievement, Double> getPlayerTasks() {
-        return playerTasks;
-    }
-
-    public Map<Achievement, GoalResults> getTaskDetails() {
-        return taskDetails;
     }
 
     public Map<String, Double> getXp() {
@@ -95,6 +82,14 @@ public class Player implements java.io.Serializable {
 
     public int getStatus() {
         return status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<Achievement, GoalResults> getAchievementResults() {
+        return achievementResults;
     }
 
     public void setWeapons(List<Weapon> newWeapons) {
@@ -245,29 +240,34 @@ public class Player implements java.io.Serializable {
         return loadouts;
     }
 
-    public void calcAllAchievements() {
+    public Map<String, Double> calcAllAchievements() {
         long time = System.nanoTime();
         previousEfficiencyResults.clear();
-        for (Entry<Achievement, Double> taskWithTime : playerTasks.entrySet()) {
-            System.out.print(taskWithTime.getKey().getName() + "\t");
-            long taskTime = System.nanoTime();
-            Achievement t = taskWithTime.getKey();
-            GoalResults actionsAndTime = t.getTimeForRequirements(this);
-            playerTasks.put(t, actionsAndTime.getTotalTime() - t.getGainFromRewards(this));
-            taskDetails.put(t, actionsAndTime);
-            System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+        achievementResults.clear();
+        Map<String, Double> achievementCalcResults = new HashMap<>();
+        for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
+            if (!qualities.containsKey(achievement.getName())) {
+                System.out.print(achievement.getName() + "\t");
+                long taskTime = System.nanoTime();
+                GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
+                achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
+                achievementResults.put(achievement, actionsAndTime);
+                System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+            }
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
+        return achievementCalcResults;
         /*for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
             System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
         }*/
     }
 
-    public void completeTask(Achievement task) {
+    public void completeTask(String taskName) {
+        Achievement task = Achievement.getAchievementByName(taskName);
         for (Requirement requirement : task.getReqs()) {
-            if (Achievement.getAchievementByName(requirement.getQualifier()) != null && playerTasks.containsKey(Achievement.getAchievementByName(requirement.getQualifier()))) {
-                completeTask(Achievement.getAchievementByName(requirement.getQualifier()));
+            if (Achievement.getAchievementByName(requirement.getQualifier()) != null && !qualities.containsKey(requirement.getQualifier())) {
+                completeTask(requirement.getQualifier());
             } else if (ALL_SKILLS.contains(requirement.getQualifier())) {
                 xp.put(requirement.getQualifier(), xp.get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
@@ -313,10 +313,6 @@ public class Player implements java.io.Serializable {
                 }
             }
         }
-
-        playerTasks.remove(task);
-        taskDetails.remove(task);
-        calcAllAchievements();
     }
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
@@ -328,10 +324,10 @@ public class Player implements java.io.Serializable {
             double questTotalTime = 0;
             Map <String, Double> questTotalActions = new HashMap<>();
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
-            for (Achievement achievement : playerTasks.keySet()) {
+            for (Achievement achievement : achievementResults.keySet()) {
                 List<Reward> questPointReward = achievement.getRewards().stream().filter(a -> a.getQualifier().equals("Quest points")).collect(Collectors.toList());
                 if (questPointReward.size() > 0) {
-                    questPointMap.put(achievement, playerTasks.get(achievement)/questPointReward.get(0).getQuantifier());
+                    questPointMap.put(achievement, achievementResults.get(achievement).getTotalTime()/questPointReward.get(0).getQuantifier());
                 }
                 questPointMap = questPointMap.entrySet().stream().sorted(Map.Entry.comparingByValue(/*Collections.reverseOrder()*/))
                     .collect(Collectors.toMap(

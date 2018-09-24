@@ -1,6 +1,8 @@
 package logic;
 
-public class Restriction implements java.io.Serializable {
+import java.io.Serializable;
+
+public class Restriction implements Serializable {
 
     private String restriction;
     private int condition;

@@ -4,10 +4,11 @@ import data.databases.AbilityDatabase;
 import data.dataobjects.Ability;
 import data.dataobjects.Enemy;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Encounter implements java.io.Serializable {
+public class Encounter implements Serializable {
 
     private List<List<Enemy>> enemyGroups;
     private List<Restriction> restrictions;
