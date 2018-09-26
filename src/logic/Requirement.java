@@ -27,20 +27,13 @@ public class Requirement implements Serializable {
 
     public boolean meetsRequirement(Player player) {
         if (Player.ALL_SKILLS.contains(qualifier)) {
-            if (player.getLevel(qualifier) >= quantifier) {
-                return true;
-            }
+            return (player.getLevel(qualifier) >= quantifier);
         } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
-            if (player.getBank().keySet().contains(qualifier)
-                && player.getBank().get(qualifier) >= quantifier) {
-                return true;
-            }
+            return ((player.getBank().keySet().contains(qualifier) && player.getBank().get(qualifier) >= quantifier)
+                || (player.getBank().keySet().contains("Coins") && player.getBank().get("Coins") >= ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player) * quantifier));
         } else {
-            if (player.getQualities().keySet().contains(qualifier) && player.getQualities().get(qualifier) >= quantifier) {
-                return true;
-            }
+            return (player.getQualities().keySet().contains(qualifier) && player.getQualities().get(qualifier) >= quantifier);
         }
-        return false;
     }
 
     public GoalResults timeAndActionsToMeetRequirement(Player player) {

@@ -92,7 +92,9 @@ public class Achievement implements Serializable {
         double totalTimeForAllReqs = 0;
         final Map<String, Double> initialXP = new HashMap<>(player.getXp());
         Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
-        totalActionsWithTimesForAllReqs.put(this.name, this.time);
+        if (this.time > 0) {
+            totalActionsWithTimesForAllReqs.put(this.name, this.time);
+        }
         for (Requirement r : reqs) {
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {

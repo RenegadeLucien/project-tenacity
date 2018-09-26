@@ -104,7 +104,7 @@ public class Player implements Serializable {
         xp = newXp;
     }
 
-    public Map<String, Double> setInitialXP() {
+    private Map<String, Double> setInitialXP() {
         Map<String, Double> initialXP = new HashMap<>();
         for (String skill : Player.ALL_SKILLS) {
             initialXP.put(skill, 0.0);
@@ -247,20 +247,20 @@ public class Player implements Serializable {
         Map<String, Double> achievementCalcResults = new HashMap<>();
         for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
             if (!qualities.containsKey(achievement.getName())) {
-                System.out.print(achievement.getName() + "\t");
+                //System.out.print(achievement.getName() + "\t");
                 long taskTime = System.nanoTime();
                 GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
                 achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
                 achievementResults.put(achievement, actionsAndTime);
-                System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+                //System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
             }
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
-        return achievementCalcResults;
-        /*for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
+        for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
             System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
-        }*/
+        }
+        return achievementCalcResults;
     }
 
     public void completeTask(String taskName) {
@@ -490,23 +490,26 @@ public class Player implements Serializable {
                 QualifierAction qualifierAction = new QualifierAction(qualifier, action.getName());
                 lockedActions.add(qualifierAction);
                 double effectiveTimeThisAction = 0.0;
+                Map<String, Double> efficiencyThisAction = new HashMap<>();
                 for (Requirement requirement : action.getReqs()) {
                     GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                     effectiveTimeThisAction += reqResults.getTotalTime();
+                    addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
                 }
-                effectiveTimeThisAction += (quantifier / action.effectiveRate(qualifier, this));
+                GoalResults actionResults = action.effectiveRate(qualifier, quantifier, this);
+                effectiveTimeThisAction += actionResults.getTotalTime();
+                addItemsToMap(efficiencyThisAction, actionResults.getActionsWithTimes());
                 if (effectiveTimeThisAction < minimum) {
                     minimum = effectiveTimeThisAction;
-                    minAction = action.getName();
-                    efficiency = new HashMap<>();
+                    efficiency = efficiencyThisAction;
                 }
                 lockedActions.remove(qualifierAction);
             }
         }
         if (minimum == Double.POSITIVE_INFINITY) {
             minimum = 1000000000.0;
+            efficiency.put(minAction, minimum);
         }
-        efficiency.put(minAction, minimum);
         //System.out.println(minReqs);
         //System.out.println(efficiency);
         //System.out.println(minAction + " will achieve " + quantifier + " " +qualifier + " in " + minimum + " hours.");

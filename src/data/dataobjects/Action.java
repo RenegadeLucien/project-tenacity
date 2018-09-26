@@ -1,9 +1,11 @@
 package data.dataobjects;
 
 import data.databases.ItemDatabase;
+import logic.GoalResults;
 import logic.Player;
 import logic.Requirement;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
@@ -49,8 +51,9 @@ public class Action {
         return hardcore;
     }
 
-    public double effectiveRate(String target, Player player) {
+    public GoalResults effectiveRate(String target, int quantity, Player player) {
         double gainForThisAction = 0.0;
+        Map<String, Double> timeAndActionsTakenForInputs = new HashMap<>();
         if (player.getStatus() == 0) {
             if (target.equals("Coins")) {
                 for (Map.Entry<String, Integer> output : outputs.entrySet()) {
@@ -59,29 +62,36 @@ public class Action {
                         gainForThisAction += output.getValue()*item.coinValue(player);
                     }
                 }
-                double timeTakenForInputs = 0.0;
                 for (Map.Entry<String, Integer> input : inputs.entrySet()) {
                     Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
                     if (item == null) {
-                        timeTakenForInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
+                        GoalResults inputResults = player.efficientGoalCompletion(input.getKey(), input.getValue());
+                        player.addItemsToMap(timeAndActionsTakenForInputs, inputResults.getActionsWithTimes());
                     }
                     else {
                         gainForThisAction -= input.getValue()*item.coinValue(player);
                     }
                 }
-                gainForThisAction /= (1 + timeTakenForInputs);
+                timeAndActionsTakenForInputs.put(name, 1.0);
+                for (String action : timeAndActionsTakenForInputs.keySet()) {
+                    timeAndActionsTakenForInputs.put(action, timeAndActionsTakenForInputs.get(action)*(quantity/gainForThisAction));
+                }
             }
             else {
                 gainForThisAction = outputs.get(target);
-                double timeTakenForInputs = 0.0;
                 for (Map.Entry<String, Integer> input : inputs.entrySet()) {
+                    GoalResults inputResults;
                     if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) == null) {
-                        timeTakenForInputs += player.efficientGoalCompletion(input.getKey(), input.getValue()).getTotalTime();
+                        inputResults = player.efficientGoalCompletion(input.getKey(), input.getValue());
                     } else {
-                        timeTakenForInputs += player.efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(player) * input.getValue()).getTotalTime();
+                        inputResults = player.efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(player) * input.getValue());
                     }
+                    player.addItemsToMap(timeAndActionsTakenForInputs, inputResults.getActionsWithTimes());
                 }
-                gainForThisAction /= (1 + timeTakenForInputs);
+                timeAndActionsTakenForInputs.put(name, 1.0);
+                for (String action : timeAndActionsTakenForInputs.keySet()) {
+                    timeAndActionsTakenForInputs.put(action, timeAndActionsTakenForInputs.get(action)*(quantity/gainForThisAction));
+                }
             }
         } else if ((player.getStatus() == 1 && ironman) || player.getStatus() == 2 && hardcore) {
             gainForThisAction = outputs.get(target);
@@ -91,6 +101,7 @@ public class Action {
             }
             gainForThisAction /= (1.0 + timeToCollectInputs);
         }
-        return gainForThisAction;
+        return new GoalResults(timeAndActionsTakenForInputs.values().stream().mapToDouble(d->d).sum(), timeAndActionsTakenForInputs);
     }
+
 }

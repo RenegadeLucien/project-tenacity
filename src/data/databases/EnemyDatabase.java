@@ -276,6 +276,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Ranalph Devere", 3375, 132, 43.5, 270, 0, 0, 45, 0, 0, 4, 732, 0, 0, 732, 45, "Air", 90, 55, 45, 65));
         enemies.add(new Enemy("Solus Dellagar", 3400, 178.2, 58.8, 122, 0, 0, 17, 0, 0, 4, 280, 0, 0, 280, 17, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Deadly red spider", 3400, 399, 131.6, 0, 272, 0, 0, 68, 0, 4, 0, 1409, 0, 1409, 68, "Crush", 90, 65, 55, 45));
+        enemies.add(new Enemy("Giant rock crab", 3400, 399, 131.6, 272, 0, 0, 68, 0, 0, 6, 1409, 0, 0, 1409, 68, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Hardened TzHaar", 3500, 440.7, 145.4, 280, 280, 280, 70, 70, 70, 4, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Kolodion (Troll)", 3500, 211.5, 69.7, 165, 0, 220, 41, 0, 55, 4, 412, 0, 983, 983, 55, "Nothing", 0, 45, 65, 55));
         enemies.add(new Enemy("Skeletal hand", 3500, 200, 66, 200, 0, 0, 50, 0, 0, 4, 850, 0, 0, 850, 50, "Fire", 90, 55, 45, 65));

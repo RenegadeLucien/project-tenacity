@@ -48,6 +48,7 @@ public class ActionDatabase {
         database.add(new Action("Winning Castle Wars games", new ArrayList(), new HashMap(), Map.of("Gold Castle Wars ticket", 6), true,
             true));
         database.add(new Action("Opening prawn balls", new ArrayList(), Map.of("Prawn balls", 3000), Map.of("Golden fish egg", 15), true, true));
+        database.add(new Action("Picking bananas", new ArrayList(), Map.of("Basket", 552), Map.of("Bananas (5)", 552, "Banana", 120), true, true));
 
         //Agility (WHEN ADDING TO THIS, UPDATE PET)
         database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 11955), true, true));
@@ -203,12 +204,15 @@ public class ActionDatabase {
             new HashMap(), Map.of("Sea salt", 3*(Math.max(91, player.getLevel("Mining"))-60), "Mining", (int)507.5*(3*(Math.max(91, player.getLevel("Mining")) - 60)), "Awah Guan", 1), true, true));
 
         //Prayer
-        database.add(new Action("Offering bones to Chaos Altar", new ArrayList<>(), Map.of("Bones", 1400),
-            Map.of("Prayer", 22050), true, false));
-        database.add(new Action("Offering bones to Ectofuntus", new ArrayList(), Map.of("Bones", 390), Map.of("Prayer", 7020, "Ecto-token",
-            1890), true, true));
-        database.add(new Action("Burying bones", new ArrayList<>(), Map.of("Bones", 3600), Map.of("Prayer", 16200),
-            true, true));
+        database.add(new Action("Offering impious ashes to Chaos Altar", new ArrayList<>(), Map.of("Impious ashes", 1400), Map.of("Prayer", 19600), true, false));
+        database.add(new Action("Offering bones to Chaos Altar", new ArrayList<>(), Map.of("Bones", 1400), Map.of("Prayer", 22050), true, false));
+        database.add(new Action("Offering accursed ashes to Chaos Altar", new ArrayList<>(), Map.of("Accursed ashes", 1400), Map.of("Prayer", 61250), true, false));
+        database.add(new Action("Offering big bones to Chaos Altar", new ArrayList<>(), Map.of("Big bones", 1400), Map.of("Prayer", 73500), true, false));
+        database.add(new Action("Offering baby dragon bones to Chaos Altar", new ArrayList<>(), Map.of("Baby dragon bones", 1400), Map.of("Prayer", 147000), true, false));
+        database.add(new Action("Offering wyvern bones to Chaos Altar", new ArrayList<>(), Map.of("Wyvern bones", 1400), Map.of("Prayer", 245000), true, false));
+        database.add(new Action("Offering infernal ashes to Chaos Altar", new ArrayList<>(), Map.of("Infernal ashes", 1400), Map.of("Prayer", 306250), true, false));
+        database.add(new Action("Offering bones to Ectofuntus", new ArrayList(), Map.of("Bones", 390), Map.of("Prayer", 7020, "Ecto-token", 1890), true, true));
+        database.add(new Action("Burying bones", new ArrayList<>(), Map.of("Bones", 3600), Map.of("Prayer", 16200), true, true));
 
         //Runecrafting
         database.add(new Action("Low-level Runespan (island 1)", new ArrayList(), new HashMap(), Map.of("Runecrafting", 16500),
@@ -269,53 +273,6 @@ public class ActionDatabase {
             "Prayer", 12500, "Coins", 100000, "Shade key", 250), true, true));
 
         //Combat
-        int cowKillsMelee = combatKills(new Encounter("Cow"), player, 0, "Melee", 1, false).keySet().iterator().next();
-        int cowKillsRanged = combatKills(new Encounter("Cow"), player, 0, "Ranged", 1, false).keySet().iterator().next();
-        int cowKillsMagic = combatKills(new Encounter("Cow"), player, 0, "Magic", 1, false).keySet().iterator().next();
-        int cowKillsMeleeGoldCharms = combatKills(new Encounter("Cow"), player, 0, "Melee", 0.008, true).keySet().iterator().next();
-        int cowKillsRangedGoldCharms = combatKills(new Encounter("Cow"), player, 0, "Ranged", 0.008, true).keySet().iterator().next();
-        int cowKillsMagicGoldCharms = combatKills(new Encounter("Cow"), player, 0, "Magic", 0.008, true).keySet().iterator().next();
-        database.add(new Action("Killing cows for raw beef with melee", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw beef", cowKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMelee, "Constitution", 
-                (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMelee), true, true));
-        database.add(new Action("Killing cows for bones with melee", new ArrayList<>(), new HashMap<>(),
-            Map.of("Bones", cowKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMelee, "Constitution", 
-                (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMelee), true, true));
-        database.add(new Action("Killing cows for gold charms with melee", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (cowKillsMeleeGoldCharms * 0.008),
-            "mCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMeleeGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMeleeGoldCharms),
-            true, true));
-        database.add(new Action("Killing cows for raw beef with ranged", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw beef", cowKillsRanged, "rCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsRanged, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsRanged),
-            true, true));
-        database.add(new Action("Killing cows for bones with ranged", new ArrayList<>(), new HashMap<>(),
-            Map.of("Bones", cowKillsRanged, "rCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsRanged, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsRanged),
-            true, true));
-        database.add(new Action("Killing cows for gold charms with ranged", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (cowKillsRangedGoldCharms * 0.008),
-            "rCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsRangedGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsRangedGoldCharms),
-            true, true));
-        database.add(new Action("Killing cows for raw beef with magic", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw beef", cowKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagic, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagic),
-            true, true));
-        database.add(new Action("Killing cows for bones with magic", new ArrayList<>(), new HashMap<>(),
-            Map.of("Bones", cowKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagic, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagic),
-            true, true));
-        database.add(new Action("Killing cows for gold charms with magic", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (cowKillsMagicGoldCharms * 0.008),
-            "aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKillsMagicGoldCharms, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKillsMagicGoldCharms),
-            true, true));
-
-        int chickenKillsMelee = combatKills(new Encounter("Chicken"), player, 0, "Melee", 1, false).keySet().iterator().next();
-        int chickenKillsRanged = combatKills(new Encounter("Chicken"), player, 0, "Ranged", 1, false).keySet().iterator().next();
-        int chickenKillsMagic = combatKills(new Encounter("Chicken"), player, 0, "Magic", 1, false).keySet().iterator().next();
-        database.add(new Action("Killing chickens for raw chicken with melee", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw chicken", chickenKillsMelee, "mCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMelee, "Constitution",
-                (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMelee), true, true));
-        database.add(new Action("Killing chickens for raw chicken with ranged", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw chicken", chickenKillsRanged, "rCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsRanged, "Constitution",
-                (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsRanged), true, true));
-        database.add(new Action("Killing chickens for raw chicken with magic", new ArrayList<>(), new HashMap<>(),
-            Map.of("Raw chicken", chickenKillsMagic, "aCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKillsMagic, "Constitution",
-                (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKillsMagic), true, true));
-
         int gelatinousAbominationKillsMelee = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Melee", 0.4, true).keySet().iterator().next();
         int gelatinousAbominationKillsRanged = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Ranged", 0.4, true).keySet().iterator().next();
         int gelatinousAbominationKillsMagic = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Magic", 0.4, true).keySet().iterator().next();
@@ -328,6 +285,11 @@ public class ActionDatabase {
         database.add(new Action("Killing gelatinous abominations for gold charms with magic", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (gelatinousAbominationKillsMagic * 0.4),
             "aCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() * gelatinousAbominationKillsMagic, "Constitution",
             (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() * gelatinousAbominationKillsMagic), true, true));
+
+        int giantRockCrabKillsMagic = combatKills(new Encounter("Giant rock crab"), player, 0, "Magic", 0.79, true).keySet().iterator().next();
+        database.add(new Action("Killing giant rock crabs for gold charms with magic", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (giantRockCrabKillsMagic * 2.37),
+            "aCombat", (int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKillsMagic, "Constitution",
+            (int) Enemy.getEnemyByName("Giant rock crab").getHpxp() * giantRockCrabKillsMagic), true, true));
 
         int vyreKills = combatKills(new Encounter("Vyrewatch", Collections.singletonList(new Restriction("Vampyric weapon", 1))), player, 0, "Melee", 1, false).keySet().iterator().next();
         database.add(new Action("Killing vyres for corpses", Collections.singletonList(new Requirement("Legacy of Seergaze", 1)), new HashMap(),
