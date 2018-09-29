@@ -95,6 +95,10 @@ public class Enemy implements Serializable {
         return def;
     }
 
+    public String getWeakness() {
+        return weakness;
+    }
+
     public int getAccmage() {
         return accmage;
     }
@@ -105,6 +109,10 @@ public class Enemy implements Serializable {
 
     public int getAccranged() {
         return accranged;
+    }
+
+    public int getAffweakness() {
+        return affweakness;
     }
 
     public int getAttack() {

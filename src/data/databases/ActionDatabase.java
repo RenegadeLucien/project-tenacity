@@ -273,18 +273,10 @@ public class ActionDatabase {
             "Prayer", 12500, "Coins", 100000, "Shade key", 250), true, true));
 
         //Combat
-        int gelatinousAbominationKillsMelee = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Melee", 0.4, true).keySet().iterator().next();
         int gelatinousAbominationKillsRanged = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Ranged", 0.4, true).keySet().iterator().next();
-        int gelatinousAbominationKillsMagic = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Magic", 0.4, true).keySet().iterator().next();
-        database.add(new Action("Killing gelatinous abominations for gold charms with melee", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (gelatinousAbominationKillsMelee * 0.4),
-            "mCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() * gelatinousAbominationKillsMelee, "Constitution",
-            (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() * gelatinousAbominationKillsMelee), true, true));
         database.add(new Action("Killing gelatinous abominations for gold charms with ranged", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (gelatinousAbominationKillsRanged * 0.4),
             "rCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() * gelatinousAbominationKillsRanged, "Constitution",
             (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() * gelatinousAbominationKillsRanged), true, true));
-        database.add(new Action("Killing gelatinous abominations for gold charms with magic", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (gelatinousAbominationKillsMagic * 0.4),
-            "aCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() * gelatinousAbominationKillsMagic, "Constitution",
-            (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() * gelatinousAbominationKillsMagic), true, true));
 
         int giantRockCrabKillsMagic = combatKills(new Encounter("Giant rock crab"), player, 0, "Magic", 0.79, true).keySet().iterator().next();
         database.add(new Action("Killing giant rock crabs for gold charms with magic", new ArrayList(), new HashMap(), Map.of("Gold charm", (int) (giantRockCrabKillsMagic * 2.37),
@@ -549,7 +541,7 @@ public class ActionDatabase {
         Map<String, Double> initialXP = new HashMap<>(player.getXp());
         CombatResults combatResults;
         do {
-            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle);
+            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, false, 0, false);
             if (combatResults.getHpLost() > 1000000) {
                 if (combatStyle.equals("Melee")) {
                     player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack") + 1));
@@ -599,48 +591,26 @@ public class ActionDatabase {
 
     private Map<Integer, List<Requirement>> combatKills(Encounter combatEncounter, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
         Map<String, Double> initialXP = new HashMap<>(player.getXp());
-        CombatResults combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle);
+        CombatResults combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
         List<Requirement> combatReqs = new ArrayList<>();
         if (combatResults.getHpLost() == 1000000000) {
             combatReqs = getRequirementsForCombat(combatEncounter, player, invenSpaces, combatStyle);
             for (Requirement requirement : combatReqs) {
                 player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             }
-            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle);
+            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
             if (combatResults.getHpLost() == 1000000000) {
                 return Map.of(0, Collections.singletonList(new Requirement("Impossible", 1)));
             }
         }
-        int time = TICKS_PER_HOUR;
-        double currentHp = player.getLevel("Constitution") * 100;
-        int kills = 0;
-        int spaceInInv = 28 - invenSpaces;
-        double nextDrop = 0;
-        while (true) {
-            int ticksThisKill = combatResults.getTicksTaken();
-            nextDrop += dropRateOfItem;
-            if (nextDrop >= 1) {
-                ticksThisKill += 5;
-            }
-            ticksThisKill = Math.max(3, ticksThisKill);
-            if (currentHp < combatResults.getHpLost() || spaceInInv == 0) {
-                ticksThisKill += 50;
-                currentHp = player.getLevel("Constitution") * 100;
-                spaceInInv = 28 - invenSpaces;
-            }
-            if (time > ticksThisKill) {
-                kills++;
-                time -= ticksThisKill;
-                currentHp -= combatResults.getHpLost();
-                if (!stackable && nextDrop >= 1) {
-                    spaceInInv--;
-                    nextDrop--;
-                }
-            } else
-                break;
-        }
         player.setXp(initialXP);
-        return Map.of(kills, combatReqs);
+        if (combatResults.getTicks() >= TICKS_PER_HOUR) {
+            return Map.of(combatResults.getKills(), combatReqs);
+        }
+        else {
+            return Map.of(combatResults.getKills()*TICKS_PER_HOUR/(combatResults.getTicks()+100), combatReqs);
+        }
+
     }
 
     private int logsCut(Player player, int hatchetRank, int perfectRateFactor) {

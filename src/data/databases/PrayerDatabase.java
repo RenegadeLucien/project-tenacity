@@ -16,7 +16,8 @@ public class PrayerDatabase {
     }
 
     private void addPrayers() {
-        prayers.add(new Prayer("Protect from Magic", 37, 1.5));
+        prayers.add(new Prayer("None", 0, 0));
+        //prayers.add(new Prayer("Protect from Magic", 37, 1.5));
     }
 
     public static PrayerDatabase getPrayerDatabase() {

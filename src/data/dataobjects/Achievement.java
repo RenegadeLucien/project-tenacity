@@ -118,9 +118,9 @@ public class Achievement implements Serializable {
             CombatResults magicCombatResults;
 
             do {
-                meleeCombatResults = e.calculateCombat(player, 28, "Melee");
-                rangedCombatResults = e.calculateCombat(player, 28, "Ranged");
-                magicCombatResults = e.calculateCombat(player, 28, "Magic");
+                meleeCombatResults = e.calculateCombat(player, 28, "Melee", false, 0, false);
+                rangedCombatResults = e.calculateCombat(player, 28, "Ranged", false, 0, false);
+                magicCombatResults = e.calculateCombat(player, 28, "Magic", false, 0, false);
                 if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                     player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
                     player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));

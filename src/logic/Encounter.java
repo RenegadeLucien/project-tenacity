@@ -1,6 +1,7 @@
 package logic;
 
 import data.databases.AbilityDatabase;
+import data.databases.ActionDatabase;
 import data.dataobjects.Ability;
 import data.dataobjects.Enemy;
 
@@ -9,6 +10,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Encounter implements Serializable {
+
+    private static final int TICKS_PER_HOUR = 6000;
 
     private List<List<Enemy>> enemyGroups;
     private List<Restriction> restrictions;
@@ -77,7 +80,7 @@ public class Encounter implements Serializable {
         return restrictions;
     }
 
-    public CombatResults calculateCombat(Player p, int invenSpaces, String combatStyle) {
+    public CombatResults calculateCombat(Player p, int invenSpaces, String combatStyle, boolean multiKill, double droprate, boolean stackable) {
         CombatResults results = null;
         double minHpLost = 1000000001;
         for (Loadout loadout : p.generateLoadouts(combatStyle)) {
@@ -87,7 +90,7 @@ public class Encounter implements Serializable {
                 maxLpHealedPerFood = 99999;
             }
             double prayerPoints = p.getLevel("Prayer")*10;
-            int ticks = 0;
+            int ticks = -1;
             double hpLost = 0;
             int invenUsed = 0;
             int inventorySize = invenSpaces + loadout.getFamiliar().getInvenSpaces();
@@ -140,134 +143,169 @@ public class Encounter implements Serializable {
                     cooldowns.put(ability, 0);
             }
             cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
-                (loadout.getMainWep().getDamage()+loadout.getAmmo().getDamage())*0.5/myDamage, new ArrayList<>()), 0);
+                (loadout.getMainWep().getDamage()+Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*0.5/myDamage, new ArrayList<>()), 0);
             int adren = 0;
             int foodCooldown = 0;
-            for (List<Enemy> enemyGroup : enemyGroups) {
-                for (Enemy enemy : enemyGroup) {
-                    int monsterTicks = 0;
-                    //System.out.println("Began fighting: " + enemy.getName());
-                    int affinity;
-                    if (combatStyle.equals("Melee")) {
-                        affinity = enemy.getAffmelee();
-                    } else if (combatStyle.equals("Ranged")) {
-                        affinity = enemy.getAffranged();
-                    } else {
-                        affinity = enemy.getAffmage();
-                    }
-                    double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
-                    double enemyArmour = (0.0008 * Math.pow(enemy.getDef(), 3) + 4 * enemy.getDef() + 40) + enemy.getArmor();
-                    double myHitChance = Math.min(1, (affinity * myAccuracy) / (enemyArmour * 100.0));
-                    int enemyAttackStyles = 0;
-                    double enemyMeleeDamage = 0;
-                    double enemyRangedDamage = 0;
-                    double enemyMagicDamage = 0;
-                    if (enemy.getAccmelee() > 0) {
-                        enemyAttackStyles++;
-                        enemyMeleeDamage = Math.min(1, (myMeleeAffinity * (enemy.getAccmelee() + (0.0008 * Math.pow(enemy.getAttack(), 3) + 4 * enemy.getAttack()+ 40))
-                            / myArmour) / 100) * enemy.getMaxhitmelee() / 2.0;
-                    }
-                    if (enemy.getAccranged() > 0) {
-                        enemyAttackStyles++;
-                        enemyRangedDamage = Math.min(1, (myRangedAffinity * (enemy.getAccranged() + (0.0008 * Math.pow(enemy.getRanged(), 3) + 4 * enemy.getRanged()+ 40))
-                            / myArmour) / 100) * enemy.getMaxhitranged() / 2.0;
-                    }
-                    if (enemy.getAccmage() > 0) {
-                        enemyAttackStyles++;
-                        enemyMagicDamage = Math.min(1, (myMagicAffinity * (enemy.getAccmage() + (0.0008 * Math.pow(enemy.getMagic(), 3) + 4 * enemy.getMagic()+ 40))
-                            / myArmour) / 100) * enemy.getMaxhitmagic() / 2.0;
-                    }
-                    double enemyLp = enemy.getLp()/partySize;
-                    while (myLp > 0 && enemyLp > 0) {
-                        Ability abilityUsedThisTick = null;
-                        double maxDamage = 0;
-                        int amountHealed = Math.min(loadout.getFoodUsed().getAmountHealed(), maxLpHealedPerFood);
-                        if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
-                            if (foodCooldown == 0) {
-                                myLp += amountHealed;
-                                invenUsed++;
-                                adren = Math.max(0, adren - 10);
-                                foodCooldown = 3;
-                                for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
-                                    if (abilityWithCooldown.getValue() < 3)
-                                        cooldowns.put(abilityWithCooldown.getKey(), 3);
-                                }
-                                //System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
-                            }
+            int kills = 0;
+            double nextDrop = 0.0;
+            boolean stackableUsed = false;
+            while (ticks < TICKS_PER_HOUR) {
+                for (List<Enemy> enemyGroup : enemyGroups) {
+                    for (Enemy enemy : enemyGroup) {
+                        int monsterTicks = -1;
+                        //System.out.println("Began fighting: " + enemy.getName());
+                        int affinity;
+                        if (loadout.getMainWep().getStyle().equals(enemy.getWeakness())) {
+                            affinity = enemy.getAffweakness();
+                        } else if (combatStyle.equals("Melee")) {
+                            affinity = enemy.getAffmelee();
+                        } else if (combatStyle.equals("Ranged")) {
+                            affinity = enemy.getAffranged();
                         } else {
-                            for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
-                                if (abilityWithCooldown.getValue() == 0 && (abilityWithCooldown.getKey().getType().equals("Auto")
-                                    || abilityWithCooldown.getKey().getType().equals("Basic")
-                                 || (abilityWithCooldown.getKey().getType().equals("Threshold") && adren >= 50)
-                                 || (abilityWithCooldown.getKey().getType().equals("Ultimate") && adren == 100))) {
-                                    if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage) {
-                                        abilityUsedThisTick = abilityWithCooldown.getKey();
-                                        maxDamage = abilityWithCooldown.getKey().getExpectedDamage();
+                            affinity = enemy.getAffmage();
+                        }
+                        double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
+                        double enemyArmour = (0.0008 * Math.pow(enemy.getDef(), 3) + 4 * enemy.getDef() + 40) + enemy.getArmor();
+                        double myHitChance = Math.min(1, (affinity * myAccuracy) / (enemyArmour * 100.0));
+                        int enemyAttackStyles = 0;
+                        double enemyMeleeDamage = 0;
+                        double enemyRangedDamage = 0;
+                        double enemyMagicDamage = 0;
+                        if (enemy.getAccmelee() > 0) {
+                            enemyAttackStyles++;
+                            enemyMeleeDamage = Math.min(1, (myMeleeAffinity * (enemy.getAccmelee() + (0.0008 * Math.pow(enemy.getAttack(), 3) + 4 * enemy.getAttack() + 40))
+                                / myArmour) / 100) * enemy.getMaxhitmelee() / 2.0;
+                        }
+                        if (enemy.getAccranged() > 0) {
+                            enemyAttackStyles++;
+                            enemyRangedDamage = Math.min(1, (myRangedAffinity * (enemy.getAccranged() + (0.0008 * Math.pow(enemy.getRanged(), 3) + 4 * enemy.getRanged() + 40))
+                                / myArmour) / 100) * enemy.getMaxhitranged() / 2.0;
+                        }
+                        if (enemy.getAccmage() > 0) {
+                            enemyAttackStyles++;
+                            enemyMagicDamage = Math.min(1, (myMagicAffinity * (enemy.getAccmage() + (0.0008 * Math.pow(enemy.getMagic(), 3) + 4 * enemy.getMagic() + 40))
+                                / myArmour) / 100) * enemy.getMaxhitmagic() / 2.0;
+                        }
+                        double enemyLp = enemy.getLp() / partySize;
+                        while (myLp > 0 && enemyLp > 0) {
+                            ticks++;
+                            monsterTicks++;
+                            Ability abilityUsedThisTick = null;
+                            double maxDamage = 0;
+                            int amountHealed = Math.min(loadout.getFoodUsed().getAmountHealed(), maxLpHealedPerFood);
+                            if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
+                                if (foodCooldown == 0) {
+                                    myLp += amountHealed;
+                                    invenUsed++;
+                                    adren = Math.max(0, adren - 10);
+                                    foodCooldown = 3;
+                                    for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
+                                        if (abilityWithCooldown.getValue() < 3)
+                                            cooldowns.put(abilityWithCooldown.getKey(), 3);
+                                    }
+                                    //System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
+                                }
+                            } else {
+                                for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
+                                    if (abilityWithCooldown.getValue() <= 0 && (abilityWithCooldown.getKey().getType().equals("Auto")
+                                        || abilityWithCooldown.getKey().getType().equals("Basic")
+                                        || (abilityWithCooldown.getKey().getType().equals("Threshold") && adren >= 50)
+                                        || (abilityWithCooldown.getKey().getType().equals("Ultimate") && adren == 100))) {
+                                        if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage) {
+                                            abilityUsedThisTick = abilityWithCooldown.getKey();
+                                            maxDamage = abilityWithCooldown.getKey().getExpectedDamage();
+                                        }
                                     }
                                 }
                             }
-                        }
-                        if (abilityUsedThisTick != null) {
-                            enemyLp -= myHitChance * myDamage * maxDamage;
-                            //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
-                            cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
-                            for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
-                                if (abilityWithCooldown.getValue() < 3)
-                                    cooldowns.put(abilityWithCooldown.getKey(), 3);
-                                foodCooldown = 3;
+                            if (abilityUsedThisTick != null) {
+                                enemyLp -= myHitChance * myDamage * maxDamage;
+                                //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
+                                cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
+                                if (!abilityUsedThisTick.getType().equals("Auto")) {
+                                    for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
+                                        if (abilityWithCooldown.getValue() < 3)
+                                            cooldowns.put(abilityWithCooldown.getKey(), 3);
+                                        foodCooldown = 3;
+                                    }
+                                }
+                                switch (abilityUsedThisTick.getType()) {
+                                    case "Auto":
+                                        adren += 2;
+                                        break;
+                                    case "Basic":
+                                        adren += 8;
+                                        break;
+                                    case "Threshold":
+                                        adren -= 15;
+                                        break;
+                                    case "Ultimate":
+                                        adren = 0;
+                                        break;
+                                    default:
+                                        throw new RuntimeException(String.format("Invalid type of ability: must be Auto, Basic, Threshold, or Ultimate, was %s", abilityUsedThisTick.getType()));
+                                }
+                                adren = Math.min(100, adren);
                             }
-                            switch (abilityUsedThisTick.getType()) {
-                                case "Auto":
-                                    adren += 2;
-                                    break;
-                                case "Basic":
-                                    adren += 8;
-                                    break;
-                                case "Threshold":
-                                    adren -= 15;
-                                    break;
-                                case "Ultimate":
-                                    adren = 0;
-                                    break;
-                                default:
-                                    throw new RuntimeException(String.format("Invalid type of ability: must be Auto, Basic, Threshold, or Ultimate, was %s", abilityUsedThisTick.getType()));
+                            for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
+                                cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 1);
+                            foodCooldown--;
+                            if (monsterTicks % (enemy.getAtkspd() * partySize) == 0 && monsterTicks != 0) {
+                                double enemyDamage;
+                                if (loadout.getPrayer().getName().equals("Protect from Magic") && prayerPoints > 0) {
+                                    enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage * 0.5) / enemyAttackStyles;
+                                } else {
+                                    enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
+                                }
+                                myLp -= enemyDamage * (1 - loadout.totalReduc());
+                                hpLost += enemyDamage * (1 - loadout.totalReduc());
+                                //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
                             }
-                            adren = Math.min(100, adren);
-                        }
-                        for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
-                            cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 1);
-                        foodCooldown--;
-                        if (monsterTicks % (enemy.getAtkspd()*partySize) == 0 && monsterTicks != 0) {
-                            double enemyDamage;
-                            if (loadout.getPrayer().getName().equals("Protect from Magic") && prayerPoints > 0) {
-                                enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage*0.5) / enemyAttackStyles;
+                            if (prayerPoints > 0) {
+                                prayerPoints = Math.max(0, (prayerPoints - loadout.getPrayer().getDrainPerTick()) * (1 - loadout.totalPrayBonus() / 100.0));
                             }
-                            else {
-                                enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
-                            }
-                            myLp -= enemyDamage * (1 - loadout.totalReduc());
-                            hpLost += enemyDamage * (1 - loadout.totalReduc());
-                            //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
                         }
-                        if (prayerPoints > 0) {
-                            prayerPoints = Math.max(0, (prayerPoints-loadout.getPrayer().getDrainPerTick())*(1-loadout.totalPrayBonus()/100.0));
-                        }
-                        ticks++;
-                        monsterTicks++;
+                    }
+                    //hide in safespot and heal w/regen between enemy groups/waves
+                    if (myLp > 0 && safespot) {
+                        myLp += (p.getLevel("Constitution") * adren) / 5;
+                        adren = 0;
+                        //System.out.println("LP Remaining after Regenerate: " + myLp);
                     }
                 }
-                //hide in safespot and heal w/regen between enemy groups/waves
-                if (myLp > 0 && safespot) {
-                    myLp +=(p.getLevel("Constitution") * adren) / 5;
-                    adren = 0;
-                    //System.out.println("LP Remaining after Regenerate: " + myLp);
+                if (myLp > 0 && ticks < TICKS_PER_HOUR) {
+                    kills++;
+                    nextDrop += droprate;
+                    if (nextDrop > 1.0) {
+                        //System.out.println(String.format("Tick %d: Spending 5 ticks to pick up a drop", ticks));
+                        nextDrop--;
+                        ticks+=5;
+                        foodCooldown-=5;
+                        for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
+                            cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 5);
+                        if (!stackable || !stackableUsed) {
+                            stackableUsed = true;
+                            invenUsed++;
+                        }
+                    }
+                    int minCooldown = cooldowns.values().stream().mapToInt(a -> a).min().orElseThrow(RuntimeException::new);
+                    if (minCooldown > 0) {
+                        ticks += minCooldown;
+                        foodCooldown-=minCooldown;
+                        for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
+                            cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - minCooldown);
+                    }
+                    //System.out.println("Total kills so far: " + kills);
+                }
+                if (!multiKill || myLp <= 0) {
+                    break;
                 }
             }
-            if (myLp <= 0) {
+            if (myLp <= 0 && kills == 0) {
                 hpLost = 1000000000;
             }
             if (hpLost < minHpLost) {
-                results = new CombatResults(hpLost, ticks, loadout);
+                results = new CombatResults(hpLost, kills, Math.min(ticks, TICKS_PER_HOUR), loadout);
                 minHpLost = hpLost;
             }
         }
