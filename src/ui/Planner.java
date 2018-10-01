@@ -84,8 +84,11 @@ public class Planner extends Application {
     }
 
     private void handleRow(Entry<String, Double> row, Player player) {
-        System.out.println(Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player).getTotalTime());
-        System.out.println(Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player).getActionsWithTimes());
+        GoalResults timeForRequirements = Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player);
+        System.out.println(timeForRequirements.getTotalTime());
+        System.out.println(timeForRequirements.getActionsWithTimes());
+        System.out.println(Achievement.getAchievementByName(row.getKey()).getGainFromRewards(player));
+        displayPlayer(player);
     }
 
     private void displayPlayer(Player p) {
@@ -278,7 +281,7 @@ public class Planner extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.3.0pa by Iron Lucien");
+        primaryStage.setTitle("Project Tenacity v0.3.3pa by Iron Lucien");
         Text nameText = new Text("Load profile data:");
         TextField nameEntry = new TextField();
         Button newProfile = new Button();

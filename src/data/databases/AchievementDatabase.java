@@ -240,7 +240,9 @@ public class AchievementDatabase {
             .encounter(new Encounter("Dramen tree spirit", Collections.singletonList(new Restriction("Gear", 0)))).reward("Quest points", 3)
             .build());
         achievements.add(new AchievementBuilder("Merlin's Crystal", 0.75).requirement("Bread", 1).requirement("Bucket", 1)
-            .requirement("Bat bones", 1).encounter(new Encounter("Sir Mordred")).reward("Quest points", 6).build());
+            .requirement("Bat bones", 1).encounter(new Encounter("Sir Mordred")).reward("Quest points", 6).reward("Excalibur", 1).build());
+        achievements.add(new AchievementBuilder("Merlin's Crystal post-quest lamp", 0).requirement("Merlin's Crystal", 1)
+            .lamp(Player.ALL_SKILLS, 1000, 20).build());
         achievements.add(new AchievementBuilder("Druidic Ritual", 0.25).requirement("Coins", 1).requirement("Vial", 1)
             .reward("Quest points", 4).reward("Herblore", 250).reward("Grimy guam", 15).reward("Eye of newt", 15).build());
         achievements.add(new AchievementBuilder("Shield of Arrav", 0.75).requirement("Coins", 20)
@@ -2378,6 +2380,9 @@ public class AchievementDatabase {
             .requirement("Prayer", 92).build());
         achievements.add(new AchievementBuilder("Red, Red Pies of Summer", 0).requirement("Cooking", 95).requirement("Strawberry", 1)
             .requirement("Watermelon", 1).requirement("Pot of flour", 1).reward("Summer pie", 1).reward("Cooking", 265).build());
+    }
+
+    private void addAchievementsPhase2() {
         achievements.add(new AchievementBuilder("Knight Waves training ground", 0).requirement("King's Ransom", 1)
             .encounter(new Encounter(Arrays.asList(Collections.singletonList("Knight Waves knight"),
                 Collections.singletonList("Knight Waves knight"), Collections.singletonList("Knight Waves knight"),
@@ -2386,9 +2391,6 @@ public class AchievementDatabase {
                 Collections.singletonList("Knight Waves knight")), Arrays.asList(new Restriction("Summoning", 0),
                 new Restriction("Prayer", 0)))).reward("Attack", 20000).reward("Strength", 20000).reward("Defence", 20000)
             .reward("Constitution", 20000).reward("Ranged", 20000).reward("Magic", 20000).build());
-    }
-
-    private void addAchievementsPhase2() {
         achievements.add(new AchievementBuilder("Nomad's Requiem", 0.85).requirement("King's Ransom", 1)
             .requirement("Knight Waves training ground", 1).requirement("Magic", 75).requirement("Prayer", 70).requirement("Mining", 66)
             .requirement("Hunter", 65).requirement("Constitution", 60).encounter(new Encounter("Decaying avatar"))
@@ -3839,7 +3841,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("General Mayhem IV", 0).requirement("General Graardor", 50).build());
         achievements.add(new AchievementBuilder("General Mayhem V", 0).requirement("General Graardor", 75).build());
         achievements.add(new AchievementBuilder("MPD Constitution lamp", 0).requirement("Missing, Presumed Death", 1)
-            .requirement("Constitution", 75).requirement("Constitution", 50000).build());
+            .requirement("Constitution", 75).reward("Constitution", 50000).build());
         achievements.add(new AchievementBuilder("MPD Antique lamp", 0).requirement("Missing, Presumed Death", 1)
             .lamp(Player.ALL_SKILLS, 30000, 75).build());
         achievements.add(new AchievementBuilder("MPD Thieving lamp", 0).requirement("Missing, Presumed Death", 1)
@@ -4726,6 +4728,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Squishing Level III", 0).requirement("Corrupted scarab", 50).build());
         achievements.add(new AchievementBuilder("Squishing Level IV", 0).requirement("Corrupted scarab", 100).build());
         achievements.add(new AchievementBuilder("Squishing Level V", 0).requirement("Corrupted scarab", 200).build());
+    }
+
+    private void addAchievementsPhase3() {
         achievements.add(new AchievementBuilder("Stand Your Ground", 0).requirement("Slayer", 95)
             .requirement("Ascension Keystone Primus", 1).requirement("Ascension Keystone Secundus", 1)
             .requirement("Ascension Keystone Tertius", 1).requirement("Ascension Keystone Quartus", 1)
@@ -4737,9 +4742,6 @@ public class AchievementDatabase {
             .encounter(new Encounter(Collections.singletonList(Collections.singletonList("Legio"))))
             .encounter(new Encounter(Collections.singletonList(Collections.singletonList("Legio")))).build());
         achievements.add(new AchievementBuilder("Stone's Throw Away", 0).requirement("Replica statue", 30).build());
-    }
-
-    private void addAchievementsPhase3() {
         achievements.add(new AchievementBuilder("Strength 5", 0).requirement("Strength", 5).build());
         achievements.add(new AchievementBuilder("Strength 10", 0).requirement("Strength", 10).build());
         achievements.add(new AchievementBuilder("Strength 20", 0).requirement("Strength", 20).build());

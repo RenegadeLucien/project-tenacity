@@ -104,7 +104,8 @@ public enum SlayerMaster {
                     categoryPoints = Math.max(categoryPoints, (slayerPointsPerTask*6000.0)/time);
                 }
             }
-            if (categoryXp > 0) {
+            if (categoryXp > 1) {
+                //System.out.println(assignment.getCategory() + " " + categoryXp);
                 totalXp += categoryXp * assignmentAndWeight.getValue();
                 totalPoints += categoryPoints * assignmentAndWeight.getValue();
                 totalWeights += assignmentAndWeight.getValue();

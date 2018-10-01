@@ -545,6 +545,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Torag's platebody", 280000));
         itemsList.add(new Item("Torag's platelegs", 275000));
         itemsList.add(new Item("Trading sticks", 1));
+        itemsList.add(new Item("Trout", 68));
         itemsList.add(new Item("Tuna", 120));
         itemsList.add(new Item("Tyras helm", 1265));
         itemsList.add(new Item("Uncooked berry pie", 6));

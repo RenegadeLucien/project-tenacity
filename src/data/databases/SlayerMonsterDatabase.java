@@ -99,7 +99,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Scorpion", 8.2, "Scorpions", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Grave scorpion", 7.2, "Scorpions", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("King Scorpion", 15.8, "Scorpions", new ArrayList<>()));
-        slayerMonsters.add(new SlayerMonster("Pit Scorpion", 26.8, "Scorpions", Collections.singletonList(new Requirement("Legends' Guild", 1))));
+        slayerMonsters.add(new SlayerMonster("Pit Scorpion", 26.8, "Scorpions", Collections.singletonList(new Requirement("Legends' Quest", 1))));
         slayerMonsters.add(new SlayerMonster("Poison Scorpion", 21.6, "Scorpions", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Skeleton", 8.8, "Skeletons", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Giant skeleton", 70, "Skeletons", Collections.singletonList(new Requirement("Haunted Mine", 1))));

@@ -18,6 +18,7 @@ public class ArmourDatabase {
 
     private void addArmours() {
         armours.add(new Armour("None", "None", "None", 0, 0, 0, 0, 0, new ArrayList<>()));
+        armours.add(new Armour("Safety gloves", "Melee", "Hands", 7, 0, 0, 0.0008, 0, new ArrayList<>()));
 
         /*armours.add(new Armour("Bronze helm", "Melee", "Head", 26, 0, 0, 0.0006, 0, new ArrayList<>()));
         armours.add(new Armour("Iron helm", "Melee", "Head", 36, 0, 0, 0.0016, 0, Collections.singletonList(new Requirement("Defence", 10))));

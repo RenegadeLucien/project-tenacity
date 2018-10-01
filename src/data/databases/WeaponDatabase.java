@@ -20,8 +20,8 @@ public class WeaponDatabase {
         //weapons.add(new Weapon("Bronze sword", "Melee", "Stab", "Mainhand", 61, 150, 5, 0, new ArrayList<>()));
         //weapons.add(new Weapon("Bronze battleaxe", "Melee", "Slash", "Mainhand", 74, 150, 6, 0, new ArrayList<>()));
         //weapons.add(new Weapon("Iron battleaxe", "Melee", "Slash", "Mainhand", 149, 202, 6, 0, Collections.singletonList(new Requirement("Attack", 10))));
-        //weapons.add(new Weapon("Excalibur", "Melee", "Slash", "Mainhand", 367, 454, 5, 0, Arrays.asList(new Requirement("Attack", 30), new Requirement("Merlin's Crystal", 1))));
         weapons.add(new Weapon("Bronze 2h sword", "Melee", "Slash", "Two-handed", 111, 150, 6, 0, new ArrayList<>()));
+        weapons.add(new Weapon("Excalibur", "Melee", "Slash", "Mainhand", 367, 454, 5, 0, Collections.singletonList(new Requirement("Attack", 30))));
         //weapons.add(new Weapon("Iron 2h sword", "Melee", "Slash", "Two-handed", 223, 202, 6, 0, Collections.singletonList(new Requirement("Attack", 10))));
         //weapons.add(new Weapon("Shieldbow", "Ranged", "Arrows", "Mainhand", 26, 150, 6, 48, new ArrayList<>()));
         //weapons.add(new Weapon("Shortbow", "Ranged", "Arrows", "Two-handed", 43, 150, 5, 48, new ArrayList<>()));

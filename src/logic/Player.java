@@ -22,7 +22,7 @@ public class Player implements Serializable {
 
     public static final ArrayList<String> COMBAT_STYLES = new ArrayList<>(Arrays.asList("Melee", "Ranged", "Magic"));
 
-    private static final int[] XP_TO_LEVELS = {0, 0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
+    private static final int[] XP_TO_LEVELS = {0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
         3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247, 20224, 22406, 24815, 27473, 30408, 33648,
         37224, 41171, 45529, 50339, 55649, 61512, 67983, 75127, 83014, 91721, 101333, 111945, 123660, 136954, 150872, 166636, 184040, 203254, 224466,
         247886, 273742, 302288, 333804, 368599, 407015, 449428, 496254, 547953, 605032, 668051, 737627, 814445, 899257, 992895, 1086278, 1210421,
@@ -54,6 +54,10 @@ public class Player implements Serializable {
         else if (status.equals("Hardcore"))
             this.status = 2;
         xp = setInitialXP();
+        //While these aren't obtained strictly at startup, they can be obtained for free in 30 seconds, and the combat calcs throw a hissy fit if there is no weapon.
+        weapons.add(Weapon.getWeaponByName("Bronze 2h sword"));
+        weapons.add(Weapon.getWeaponByName("Chargebow"));
+        weapons.add(Weapon.getWeaponByName("Staff"));
     }
 
     public Map<String, Double> getXp() {
@@ -116,7 +120,7 @@ public class Player implements Serializable {
     public int getLevel(String skill) {
         double skillXp = xp.get(skill);
         for (int i = 1; i < XP_TO_LEVELS.length; i++) {
-            if (skillXp <= XP_TO_LEVELS[i]) {
+            if (skillXp < XP_TO_LEVELS[i]) {
                 return i;
             }
             if (i == 99 && !(skill.equals("Dungeoneering") || skill.equals("Slayer") || skill.equals("Invention"))) {
@@ -132,15 +136,7 @@ public class Player implements Serializable {
     }
 
     public int getXpToLevel(String skill, int level) {
-        double skillXp = xp.get(skill);
-        int intermediateLevel = 1;
-        int sumXP = 0;
-        while (intermediateLevel < level) {
-            sumXP += Math.floor(intermediateLevel + 300 * Math.pow(2, intermediateLevel / 7.0));
-            intermediateLevel++;
-        }
-        sumXP = (int) Math.floor(sumXP / 4);
-        return Math.max(0, sumXP - (int) skillXp);
+        return Math.max(0, XP_TO_LEVELS[level-1] - xp.get(skill).intValue());
     }
 
     public List<Loadout> generateLoadouts(String combatStyle) {
@@ -160,12 +156,12 @@ public class Player implements Serializable {
         List<Ammo> ammoList = new ArrayList<>();
         List<Familiar> familiarList = new ArrayList<>();
         List<Prayer> prayerList = new ArrayList<>();
-        for (Weapon w : WeaponDatabase.getWeaponDatabase().getWeapons()) {
-            if (w.getWeaponClass().equals(combatStyle)) {
+        for (Weapon w : weapons) {
+            if (w.getWeaponClass().equals(combatStyle) && w.getReqs().stream().allMatch(r -> r.meetsRequirement(this))) {
                 weaponList.add(w);
             }
         }
-        for (Armour a : ArmourDatabase.getArmourDatabase().getArmours()) {
+        for (Armour a : armour) {
             if (a.getSlot().equals("Head") && a.getType().equals(combatStyle)) {
                 headArmour.add(a);
             } else if (a.getSlot().equals("Torso") && a.getType().equals(combatStyle)) {
@@ -286,12 +282,11 @@ public class Player implements Serializable {
             }
         }
         ArrayList<Reward> rewards = new ArrayList<>(task.getRewards());
-        for (Lamp lamp : task.getLamps()) {
-            rewards.add(lamp.getBestReward(this));
-        }
         for (Reward reward : rewards) {
             if (ALL_SKILLS.contains(reward.getQualifier())) {
                 xp.put(reward.getQualifier(), xp.get(reward.getQualifier()) + reward.getQuantifier());
+            } else if (Armour.getArmourByName(reward.getQualifier()) != null) {
+                armour.add(Armour.getArmourByName(reward.getQualifier()));
             } else if (ItemDatabase.getItemDatabase().getItems().get(reward.getQualifier()) != null) {
                 if (bank.containsKey(reward.getQualifier()))
                     bank.put(reward.getQualifier(), bank.get(reward.getQualifier()) + reward.getQuantifier());
@@ -303,7 +298,10 @@ public class Player implements Serializable {
                 else
                     qualities.put(reward.getQualifier(), reward.getQuantifier());
             }
-
+        }
+        for (Lamp lamp : task.getLamps()) {
+            Reward reward = lamp.getBestReward(this);
+            xp.put(reward.getQualifier(), xp.get(reward.getQualifier()) + reward.getQuantifier());
         }
         for (Encounter encounter : task.getEncounters()) {
             for (List<Enemy> enemyGroup : encounter.getEnemyGroups()) {

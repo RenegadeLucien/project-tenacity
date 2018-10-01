@@ -3,11 +3,12 @@ package data.dataobjects;
 import data.databases.ArmourDatabase;
 import logic.Requirement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Armour {
+public class Armour implements Serializable {
 
     private String name;
     private String type;

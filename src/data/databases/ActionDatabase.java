@@ -240,6 +240,8 @@ public class ActionDatabase {
             "Pouch", 1500, "Raw chicken", 1500, "Gold charm", 1500), Map.of("Dreadfowl pouch", 1500, "Summoning", 13950), true, true));
         database.add(new Action("Making spirit spider pouches", Collections.singletonList(new Requirement("Summoning", 10)), Map.of("Spirit shards", 12000,
             "Pouch", 1500, "Spider carcass", 1500, "Gold charm", 1500), Map.of("Spirit spider pouch", 1500, "Summoning", 18900), true, true));
+        database.add(new Action("Making thorny snail pouches", Collections.singletonList(new Requirement("Summoning", 13)), Map.of("Spirit shards", 13500,
+            "Pouch", 1500, "Thin snail", 1500, "Gold charm", 1500), Map.of("Thorny snail pouch", 1500, "Summoning", 18900), true, true));
 
         //Thieving
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * pocketsPicked(1, player),
@@ -288,14 +290,14 @@ public class ActionDatabase {
             Map.of("Vyre corpse", vyreKills, "mCombat", (int)Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills, "Constitution",
                 (int) Enemy.getEnemyByName("Vyrewatch").getHpxp() * vyreKills), true, true));
 
-        int truthfulshadowKills = combatKills(new Encounter("Truthful shadow"), player, 0, "Melee", 0.2, false).keySet().iterator().next();
+        int truthfulshadowKills = combatKills(new Encounter("Truthful shadow"), player, 0, "Magic", 0.2, false).keySet().iterator().next();
         database.add(new Action("Killing truthful shadows for cores", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
-            Map.of("Truthful shadow core", truthfulshadowKills/5, "mCombat", (int)Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulshadowKills, "Constitution",
+            Map.of("Truthful shadow core", truthfulshadowKills/5, "aCombat", (int)Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulshadowKills, "Constitution",
                 (int) Enemy.getEnemyByName("Truthful shadow").getHpxp() * truthfulshadowKills), true, true));
 
-        int blissfulshadowKills = combatKills(new Encounter("Blissful shadow"), player, 0, "Melee", 0.2, false).keySet().iterator().next();
+        int blissfulshadowKills = combatKills(new Encounter("Blissful shadow"), player, 0, "Magic", 0.2, false).keySet().iterator().next();
         database.add(new Action("Killing blissful shadows for cores", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
-            Map.of("Blissful shadow core", blissfulshadowKills/5, "mCombat", (int)Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulshadowKills, "Constitution",
+            Map.of("Blissful shadow core", blissfulshadowKills/5, "aCombat", (int)Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulshadowKills, "Constitution",
                 (int) Enemy.getEnemyByName("Blissful shadow").getHpxp() * blissfulshadowKills), true, true));
 
         int manifestshadowKills = combatKills(new Encounter("Manifest shadow"), player, 0, "Magic", 0.2, false).keySet().iterator().next();
@@ -338,8 +340,8 @@ public class ActionDatabase {
         database.add(new Action("Killing troll chuckers", new ArrayList(), new HashMap(), Map.of("mCombat", (int)Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills,
             "Constitution", (int) Enemy.getEnemyByName("Troll chucker").getHpxp() * trollChuckerKills), true, true));
 
-        int hobgoblinKills = combatKills(new Encounter("Hobgoblin"), player, 0, "Melee", 0, false).keySet().iterator().next();
-        database.add(new Action("Killing hobgoblins", new ArrayList(), new HashMap(), Map.of("Hobgoblin", hobgoblinKills, "mCombat", (int)Enemy.getEnemyByName("Hobgoblin").getCbxp() * hobgoblinKills,
+        int hobgoblinKills = combatKills(new Encounter("Hobgoblin"), player, 0, "Magic", 0, false).keySet().iterator().next();
+        database.add(new Action("Killing hobgoblins", new ArrayList(), new HashMap(), Map.of("Hobgoblin", hobgoblinKills, "aCombat", (int)Enemy.getEnemyByName("Hobgoblin").getCbxp() * hobgoblinKills,
             "Constitution", (int) Enemy.getEnemyByName("Hobgoblin").getHpxp() * hobgoblinKills), true, true));
 
         int hillGiantKills = combatKills(new Encounter("Hill giant"), player, 0, "Magic", 0, false).keySet().iterator().next();

@@ -127,7 +127,7 @@ public class Encounter implements Serializable {
                 myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*96.0/149.0;
             }
             else {
-                //System.out.println("What the heck kind of weapon do you have?");
+                System.out.println("What the heck kind of weapon do you have?");
                 throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
             }
             if (loadout.getMainWep().getSlot().equals("Two-handed")) {
@@ -194,7 +194,7 @@ public class Encounter implements Serializable {
                             double maxDamage = 0;
                             int amountHealed = Math.min(loadout.getFoodUsed().getAmountHealed(), maxLpHealedPerFood);
                             if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
-                                if (foodCooldown == 0) {
+                                if (foodCooldown <= 0) {
                                     myLp += amountHealed;
                                     invenUsed++;
                                     adren = Math.max(0, adren - 10);
@@ -211,7 +211,8 @@ public class Encounter implements Serializable {
                                         || abilityWithCooldown.getKey().getType().equals("Basic")
                                         || (abilityWithCooldown.getKey().getType().equals("Threshold") && adren >= 50)
                                         || (abilityWithCooldown.getKey().getType().equals("Ultimate") && adren == 100))) {
-                                        if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage) {
+                                        if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage
+                                            || (abilityWithCooldown.getKey().getExpectedDamage() == maxDamage && abilityWithCooldown.getKey().getCooldown() > abilityUsedThisTick.getCooldown())) {
                                             abilityUsedThisTick = abilityWithCooldown.getKey();
                                             maxDamage = abilityWithCooldown.getKey().getExpectedDamage();
                                         }

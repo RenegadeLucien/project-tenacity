@@ -29,8 +29,8 @@ public class Reward implements Serializable {
         } else if (qualifier.equals("Magic")) {
             return player.efficientGoalCompletion("aCombat", quantifier).getTotalTime();
         } else if (qualifier.equals("Defence")) {
-            return Math.max(player.efficientGoalCompletion("mCombat", quantifier).getTotalTime(),
-                Math.max(player.efficientGoalCompletion("rCombat", quantifier).getTotalTime(),
+            return Math.min(player.efficientGoalCompletion("mCombat", quantifier).getTotalTime(),
+                Math.min(player.efficientGoalCompletion("rCombat", quantifier).getTotalTime(),
                     player.efficientGoalCompletion("aCombat", quantifier).getTotalTime()));
         }  else if (qualifier.equals("Invention") && !(player.getLevel("Divination") >= 80 && player.getLevel("Crafting") >= 80 && player.getLevel("Smithing") >= 80)) {
            return 0;

@@ -3,11 +3,12 @@ package data.dataobjects;
 import data.databases.WeaponDatabase;
 import logic.Requirement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Weapon {
+public class Weapon implements Serializable {
 
     private String name;
     private String weaponClass;

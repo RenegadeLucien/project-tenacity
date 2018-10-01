@@ -24,7 +24,7 @@ public class Lamp implements Serializable {
     public Reward getBestReward(Player player) {
         double maxGain = 0;
         //Placeholder so null reward doesn't get returned and cause a mess if can't use lamp yet. This should be overwritten
-        Reward maxReward = new Reward("Coins", 1);
+        Reward maxReward = new Reward("Attack", 1);
         for (String choice : choices) {
             if (player.getLevel(choice) >= minLevel && player.getLevel(choice) < 99) {
                 int xpReward = xp;

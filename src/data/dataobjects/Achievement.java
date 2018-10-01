@@ -128,7 +128,6 @@ public class Achievement implements Serializable {
                     player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic")+1));
                     player.getXp().put("Defence", player.getXp().get("Defence") + player.getXpToLevel("Defence", player.getLevel("Defence")+1));
                     player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
-                    player.getXp().put("Prayer", player.getXp().get("Prayer") + player.getXpToLevel("Prayer", player.getLevel("Prayer") + 1));
                 }
                 else {
                     if (player.getXp().get("Defence") > initialXP.get("Defence")) {
@@ -136,9 +135,6 @@ public class Achievement implements Serializable {
                     }
                     if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
                         encounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
-                    }
-                    if (player.getXp().get("Prayer") > initialXP.get("Prayer")) {
-                        encounterRequirements.add(new Requirement("Prayer", player.getLevel("Prayer")));
                     }
                     if (meleeCombatResults.getHpLost() < 1000000) {
                         if (player.getXp().get("Attack") > initialXP.get("Attack")) {
@@ -162,7 +158,7 @@ public class Achievement implements Serializable {
                 }
             }
             while (player.getLevel("Constitution") < 99 || player.getLevel("Attack") < 99 || player.getLevel("Strength") < 99 || player.getLevel("Defence") < 99 ||
-                 player.getLevel("Magic") < 99 || player.getLevel("Ranged") < 99 || player.getLevel("Prayer") < 99);
+                 player.getLevel("Magic") < 99 || player.getLevel("Ranged") < 99);
             if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                 totalTimeForAllReqs += 2147000.0;
             }
@@ -190,14 +186,17 @@ public class Achievement implements Serializable {
         for (Reward r : rewards) {
             totalGainFromAllRewards += r.getGainFromReward(player);
         }
+        final Map<String, Double> initialXP = new HashMap<>(player.getXp());
         for (Lamp lamp : lamps) {
-            totalGainFromAllRewards += lamp.getBestReward(player).getGainFromReward(player);
+            Reward reward = lamp.getBestReward(player);
+            totalGainFromAllRewards += reward.getGainFromReward(player);
+            player.getXp().put(reward.getQualifier(), player.getXp().get(reward.getQualifier()) + reward.getQuantifier());
         }
+        player.setXp(initialXP);
         for (Encounter e : encounters) {
             for (List<Enemy> enemyGroup : e.getEnemyGroups())
                 for (Enemy enemy : enemyGroup)
                     totalGainFromAllRewards += player.efficientGoalCompletion("Constitution", (int) enemy.getHpxp()).getTotalTime();
-            //totalGainFromAllRewards += player.getActionDatabase().bestEffectiveRate("Combat", player);
         }
         return totalGainFromAllRewards;
     }
