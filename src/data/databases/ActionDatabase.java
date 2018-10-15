@@ -38,7 +38,7 @@ public class ActionDatabase {
         database.add(new Action("POP - Bowl region voyages", Collections.singletonList(new Requirement("Port distance", 450000)), new HashMap(),
             Map.of("Port distance", 96000, "Port chimes", 20000, "Port jade", 7200), true, true));
 
-        //XP-less gathering
+        //Gathering (low or no XP)
         database.add(new Action("Picking potatoes", new ArrayList<>(), new HashMap<>(), Map.of("Raw potato", 690),
             true, true));
         database.add(new Action("Voyaging for items", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
@@ -49,6 +49,8 @@ public class ActionDatabase {
             true));
         database.add(new Action("Opening prawn balls", new ArrayList(), Map.of("Prawn balls", 3000), Map.of("Golden fish egg", 15), true, true));
         database.add(new Action("Picking bananas", new ArrayList(), Map.of("Basket", 552), Map.of("Bananas (5)", 552, "Banana", 120), true, true));
+        database.add(new Action("Casting egg spawn", Collections.singletonList(new Requirement("Summoning", 10)), Map.of("Egg spawn scroll", 520, "Spirit spider pouch", 4,
+            "Summoning potion (4)", 18), Map.of("Red spiders' eggs", 936, "Summoning", 240), true, true));
 
         //Agility (WHEN ADDING TO THIS, UPDATE PET)
         database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 11955), true, true));
@@ -69,33 +71,44 @@ public class ActionDatabase {
         database.add(new Action("Building crude wooden chairs with bronze nails", new ArrayList(), Map.of("Plank", 490, "Bronze nails", 1470),
             Map.of("Construction", 16170), true, true));
 
-        //Cooking
+        //Cooking (done to lv5)
         database.add(new Action("Cooking raw beef", new ArrayList<>(),
-            Map.of("Raw beef", 1250), Map.of("Cooked meat", (int) Math.floor(1250 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-            "Cooking", (int) Math.floor(37500 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
+            Map.of("Raw beef", 1300), Map.of("Cooked meat", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+            "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
 
-        database.add(new Action("Cooking shrimps", new ArrayList<>(), Map.of("Raw shrimps", 1250),
-            Map.of("Shrimps", (int) Math.floor(1250 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(37500 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
+        database.add(new Action("Cooking shrimps", new ArrayList<>(), Map.of("Raw shrimps", 1300),
+            Map.of("Shrimps", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
 
-        database.add(new Action("Cooking crayfish", new ArrayList<>(), Map.of("Raw crayfish", 1250),
-            Map.of("Crayfish", (int) Math.floor(1250 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(37500 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
+        database.add(new Action("Cooking crayfish", new ArrayList<>(), Map.of("Raw crayfish", 1300),
+            Map.of("Crayfish", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
 
-        database.add(new Action("Cooking chicken", new ArrayList<>(), Map.of("Raw chicken", 1250),
-            Map.of("Cooked chicken", (int) Math.floor(1250 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(37500 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
+        database.add(new Action("Cooking chicken", new ArrayList<>(), Map.of("Raw chicken", 1300),
+            Map.of("Cooked chicken", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
+
+        database.add(new Action("Cooking sardines", new ArrayList<>(), Map.of("Raw sardine", 1300),
+            Map.of("Sardine", (int) Math.floor(1300 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", (int) Math.floor(52000 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0))), true, true));
+
+        database.add(new Action("Cooking anchovies", new ArrayList<>(), Map.of("Raw anchovies", 1300),
+            Map.of("Anchovies", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0))), true, true));
 
         database.add(new Action("Making uncooked arc gumbo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 94)),
-            Map.of("Bundle of bamboo", 1250, "Tortle shell bowl", 1250, "Rumberry", 1250, "Fish oil", 1250, "Sea salt", 1250), Map.of("Uncooked arc gumbo", 1250,
-            "Cooking", 12500), true, true));
+            Map.of("Bundle of bamboo", 1300, "Tortle shell bowl", 1300, "Rumberry", 1300, "Fish oil", 1300, "Sea salt", 1300), Map.of("Uncooked arc gumbo", 1300,
+            "Cooking", 13000), true, true));
 
         database.add(new Action("Cooking arc gumbo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 94)),
-            Map.of("Uncooked arc gumbo", 1250), Map.of("Arc gumbo", 1250, "Cooking", 162500, "Azure Parrot", 21), true, true));
+            Map.of("Uncooked arc gumbo", 1300), Map.of("Arc gumbo", 1300, "Cooking", 169000, "Azure Parrot", 21), true, true));
 
-        //Crafting
-        database.add(new Action("Crafting molten glass", new ArrayList<>(), Map.of("Soda ash", 1050, "Bucket of sand", 1050),
-            Map.of("Molten glass", 1050, "Crafting", 21000), true, true));
+        //Crafting (done to lv3)
+        database.add(new Action("Crafting molten glass", new ArrayList<>(), Map.of("Soda ash", 1250, "Bucket of sand", 1250), Map.of("Molten glass", 1250, "Crafting", 25000), true, true));
+        database.add(new Action("Spinning flax", new ArrayList(), Map.of("Flax", 1400), Map.of("Bowstring", 1400, "Crafting", 21000), true, true));
+        database.add(new Action("Making cracked mining urns (nr)", new ArrayList(), Map.of("Soft clay", 1120), Map.of("Cracked mining urn (nr)", 560, "Crafting", 16016), true, true));
+        database.add(new Action("Making cracked cooking urns (nr)", Collections.singletonList(new Requirement("Crafting", 2)), Map.of("Soft clay", 1120),
+            Map.of("Cracked cooking urn (nr)", 560, "Crafting", 16800), true, true));
 
         database.add(new Action("Ithell harps (w/o VoS)", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
             Map.of("Crafting", 560*player.getLevel("Crafting"), "Harmonic dust", 7*player.getLevel("Crafting"), "Construction", 10000),
@@ -104,9 +117,15 @@ public class ActionDatabase {
         database.add(new Action("Making tortle shell bowls", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Crafting", 91)),
             Map.of("Shell chippings", 6800), Map.of("Tortle shell bowl", 1700, "Crafting", 127500), true, true));
 
-        //Divination
+        //Divination (1300 harvests, 900 conversions)
         database.add(new Action("Pale wisps (no bought energy)", new ArrayList<>(), new HashMap<>(),
-            Map.of("Divination", 4000, "Pale energy", 1600), true, true));
+            Map.of("Divination", 4000, "Pale energy", 1300), true, true));
+
+        database.add(new Action("Pale wisps (with bought energy)", new ArrayList<>(), Map.of("Pale energy", 3200),
+            Map.of("Divination", 4630), true, true));
+
+        database.add(new Action("Cursed wisps (level 1-9)", new ArrayList(), new HashMap<>(), Map.of("Divination", 6200, "Pale energy", 1950), true, false));
+
         database.add(new Action("Luminous wisps (no bought energy)", Collections.singletonList(new Requirement("Divination", 90)),
             new HashMap(), Map.of("Divination", 71000, "Luminous energy", 1600, "Fly dragon", 1, "Fruit fly", 1), true, true));
         database.add(new Action("Positive springs", Arrays.asList(new Requirement("Impressing the Locals", 1),
@@ -120,8 +139,8 @@ public class ActionDatabase {
             dungXP/10, "Dungeoneering floors completed", 8), true, true));
 
         //Farming
-        database.add(new Action("Farming potatoes", new ArrayList(), Map.of("Potato seed", 270), Map.of("Raw potato", 675, "Farming", 6795),
-            true, true));
+        database.add(new Action("Farming potatoes (w/o payments)", new ArrayList(), Map.of("Potato seed", 162, "Supercompost", 54), Map.of("Raw potato", 464, "Farming", 5758), true, true));
+        database.add(new Action("Farming potatoes (w/ payments)", new ArrayList(), Map.of("Potato seed", 162, "Supercompost", 54, "Compost", 60), Map.of("Raw potato", 540, "Farming", 6696), true, true));
 
         database.add(new Action("Foraging rumberries (keep)", Arrays.asList(new Requirement("Farming", 86),
             new Requirement("Impressing the Locals", 1)), new HashMap(), Map.of("Farming", 30000, "Rumberry", 300, "Rumberry seed", 6, "Pumpkin Limpkin", 1),
@@ -141,18 +160,13 @@ public class ActionDatabase {
             new Requirement("Impressing the Locals", 1)), Map.of("Supplies", 60), Map.of("Farming", 50000, "Uncharted mushrooms", 7), true, true));
 
         //Firemaking
-        database.add(new Action("Burning normal logs on bonfire", new ArrayList(), Map.of("Logs", 950), Map.of("Firemaking", 49500), true,
-            true));
+        database.add(new Action("Burning normal logs on bonfire", new ArrayList(), Map.of("Logs", 950), Map.of("Firemaking", 47500), true, true));
+        database.add(new Action("Burning normal logs in lines", new ArrayList(), Map.of("Logs", 1200), Map.of("Firemaking", 48000), true, true));
         database.add(new Action("Burning acadia logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 46)), Map.of("Acadia logs", 950),
             Map.of("Firemaking", 171000, "Menaphite honey bee", 1, "Fruit fly in amber", 1), true, true));
 
         //Fishinng
-        database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), Map.of("Raw crayfish", resourcesGained(1, 5.0, player, 50.0, "Fishing"),
-            "Fishing", 10 * resourcesGained(1, 5.0, player, 50.0, "Fishing"), "Prawn balls", resourcesGained(1, 5.0, player, 50.0, "Fishing")/175), true, true));
-
-
-        database.add(new Action("Fishing raw shrimps", new ArrayList<>(), new HashMap<>(), Map.of("Raw shrimps", resourcesGained(20, 5.0, player, 50.0, "Fishing"),
-            "Fishing", 10 * resourcesGained(20, 5.0, player, 50.0, "Fishing"), "Prawn balls", resourcesGained(20, 5.0, player, 50.0, "Fishing")/175), true, true));
+        database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), Map.of("Fishing", 10 * fishCaught(player, 1), "Prawn balls", fishCaught(player, 1)/175), true, true));
 
         database.add(new Action("Fishing/dropping desert sole", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 52)),
             new HashMap(), Map.of("Fishing", 60 * resourcesGained(70, 5.0, player, 0.0, "Fishing"), "Menaphos reputation",
@@ -184,15 +198,9 @@ public class ActionDatabase {
             new Requirement("Smithing", 80)), Map.of("Bones", 2800), Map.of("Invention", 280), true, true));
 
         //Mining (WHEN ADDING TO THIS, UPDATE PET)
-        database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250),
-            true, true));
-        database.add(new Action("Mining pure essence", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(),
-            Map.of("Mining", 10220, "Pure essence", 2044), true, true));
+        database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250), true, true));
+        database.add(new Action("Mining pure essence", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(), Map.of("Mining", 10220, "Pure essence", 2044), true, true));
 
-        database.add(new Action("Mining copper ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Copper ore",
-            resourcesGained(25, 6.0, player, 100.0, "Mining"), "Mining", (int) Math.floor(17.5 * resourcesGained(25, 6.0, player, 100.0, "Mining"))), true, true));
-        database.add(new Action("Mining tin ore with bronze pickaxe", new ArrayList(), new HashMap(), Map.of("Tin ore",
-            resourcesGained(25, 6.0, player, 100.0, "Mining"), "Mining", (int) Math.floor(17.5 * resourcesGained(25, 6.0, player, 100.0, "Mining"))), true, true));
         database.add(new Action("Mining coal with bronze pickaxe", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(),
             Map.of("Coal", resourcesGained(70, 6.0, player, 30.0, "Mining"), "Mining", 50*resourcesGained(70, 6.0, player, 30.0, "Mining")), true, true));
         database.add(new Action("Mining/dropping concentrated sandstone with bronze pickaxe", Arrays.asList(new Requirement("The Jack of Spades", 1),
@@ -211,10 +219,16 @@ public class ActionDatabase {
         database.add(new Action("Offering baby dragon bones to Chaos Altar", new ArrayList<>(), Map.of("Baby dragon bones", 1400), Map.of("Prayer", 147000), true, false));
         database.add(new Action("Offering wyvern bones to Chaos Altar", new ArrayList<>(), Map.of("Wyvern bones", 1400), Map.of("Prayer", 245000), true, false));
         database.add(new Action("Offering infernal ashes to Chaos Altar", new ArrayList<>(), Map.of("Infernal ashes", 1400), Map.of("Prayer", 306250), true, false));
-        database.add(new Action("Offering bones to Ectofuntus", new ArrayList(), Map.of("Bones", 390), Map.of("Prayer", 7020, "Ecto-token", 1890), true, true));
-        database.add(new Action("Burying bones", new ArrayList<>(), Map.of("Bones", 3600), Map.of("Prayer", 16200), true, true));
+        database.add(new Action("Offering dragon bones to Chaos Altar", new ArrayList<>(), Map.of("Dragon bones", 1400), Map.of("Prayer", 352800), true, false));
+        database.add(new Action("Offering dagannoth bones to Chaos Altar", new ArrayList(), Map.of("Dagannoth bones", 1400), Map.of("Prayer", 612500), true, false));
+        database.add(new Action("Offering airut bones to Chaos Altar", new ArrayList(), Map.of("Airut bones", 1400), Map.of("Prayer", 649250), true, false));
+        database.add(new Action("Offering ourg bones to Chaos Altar", new ArrayList(), Map.of("Ourg bones", 1400), Map.of("Prayer", 686000), true, false));
+        database.add(new Action("Offering hardened dragon bones to Chaos Altar", new ArrayList(), Map.of("Hardened dragon bones", 1400), Map.of("Prayer", 705600), true, false));
+        database.add(new Action("Offering frost dragon bones to Chaos Altar", new ArrayList(), Map.of("Frost dragon bones", 1400), Map.of("Prayer", 882000), true, false));
+        database.add(new Action("Offering reinforced dragon bones to Chaos Altar", new ArrayList(), Map.of("Reinforced dragon bones", 1400), Map.of("Prayer", 931000), true, false));
+        database.add(new Action("Offering searing ashes to Chaos Altar", new ArrayList(), Map.of("Searing ashes", 1400), Map.of("Prayer", 980000), true, false));
 
-        //Runecrafting
+        //Runecrafting (done to lv9)
         database.add(new Action("Low-level Runespan (island 1)", new ArrayList(), new HashMap(), Map.of("Runecrafting", 16500),
             true, true));
 
@@ -242,10 +256,13 @@ public class ActionDatabase {
             "Pouch", 1500, "Spider carcass", 1500, "Gold charm", 1500), Map.of("Spirit spider pouch", 1500, "Summoning", 18900), true, true));
         database.add(new Action("Making thorny snail pouches", Collections.singletonList(new Requirement("Summoning", 13)), Map.of("Spirit shards", 13500,
             "Pouch", 1500, "Thin snail", 1500, "Gold charm", 1500), Map.of("Thorny snail pouch", 1500, "Summoning", 18900), true, true));
+        database.add(new Action("Making granite crab pouches", Collections.singletonList(new Requirement("Summoning", 16)), Map.of("Spirit shards", 10500,
+            "Pouch", 1500, "Iron ore", 1500, "Gold charm", 1500), Map.of("Granite crab pouch", 1500, "Summoning", 32400), true, true));
 
         //Thieving
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), Map.of("Coins", 3 * pocketsPicked(1, player),
             "Thieving", 8 * pocketsPicked(1, player)), true, true));
+        database.add(new Action("Bakery stalls", Collections.singletonList(new Requirement("Thieving", 5)), new HashMap(), Map.of("Thieving", 10500), true, true));
         database.add(new Action("Menaphos silk stall (drop silk)", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Thieving", 20)),
             new HashMap(), Map.of("Thieving", 9600, "Menaphos reputation", 2400, "Fly dragon in amber", 1), true, true));
         database.add(new Action("Pickpocketing Menaphite marketeers", Arrays.asList(new Requirement("The Jack of Spades", 1),
@@ -255,8 +272,7 @@ public class ActionDatabase {
             Map.of("Thieving", 250000, "Master clue scroll points", 1), true, true));
 
         //Woodcutting
-        database.add(new Action("Cutting regular trees with bronze hatchet", new ArrayList(), new HashMap(), Map.of("Logs", resourcesGained(40, 4.0, player, 75.0, "Woodcutting"),
-            "Woodcutting", resourcesGained(40, 4.0, player, 75.0, "Woodcutting")*25), true, true));
+        database.add(new Action("Cutting regular trees with dwarven army axe", new ArrayList(), new HashMap(), Map.of("Woodcutting", logsCut(player, 2, 110)*28), true, true));
 
         //CHOP RATE CALIBRATION: ~40% at 47, ~67% at 99 (unknown hatchet bonus, rune is assumed)
         database.add(new Action("Cutting/dropping acadia logs with bronze hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1),
@@ -339,6 +355,14 @@ public class ActionDatabase {
         int trollChuckerKills = combatKills(new Encounter("Troll chucker"), player, 0, "Melee", 0, false).keySet().iterator().next();
         database.add(new Action("Killing troll chuckers", new ArrayList(), new HashMap(), Map.of("mCombat", (int)Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills,
             "Constitution", (int) Enemy.getEnemyByName("Troll chucker").getHpxp() * trollChuckerKills), true, true));
+
+        int trollShamanKills = combatKills(new Encounter("Troll shaman"), player, 0, "Ranged", 0, false).keySet().iterator().next();
+        database.add(new Action("Killing troll shamans", new ArrayList(), new HashMap(), Map.of("rCombat", (int)Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills,
+            "Constitution", (int) Enemy.getEnemyByName("Troll shaman").getHpxp() * trollShamanKills), true, true));
+
+        int trollBruteKills = combatKills(new Encounter("Troll brute"), player, 0, "Magic", 0, false).keySet().iterator().next();
+        database.add(new Action("Killing troll brutes", new ArrayList(), new HashMap(), Map.of("aCombat", (int)Enemy.getEnemyByName("Troll brute").getCbxp() * trollBruteKills,
+            "Constitution", (int) Enemy.getEnemyByName("Troll brute").getHpxp() * trollBruteKills), true, true));
 
         int hobgoblinKills = combatKills(new Encounter("Hobgoblin"), player, 0, "Magic", 0, false).keySet().iterator().next();
         database.add(new Action("Killing hobgoblins", new ArrayList(), new HashMap(), Map.of("Hobgoblin", hobgoblinKills, "aCombat", (int)Enemy.getEnemyByName("Hobgoblin").getCbxp() * hobgoblinKills,
@@ -617,6 +641,10 @@ public class ActionDatabase {
 
     private int logsCut(Player player, int hatchetRank, int perfectRateFactor) {
         return (int)Math.floor(((34 + player.getLevel("Woodcutting") * Math.pow(1.035, hatchetRank)) * 1500) / perfectRateFactor);
+    }
+
+    private int fishCaught(Player player, int levelAtMaxRate) {
+        return (int)Math.floor(1200*Math.pow(0.96, 1+Math.max(0, levelAtMaxRate-player.getLevel("Fishing"))));
     }
 
     @Deprecated

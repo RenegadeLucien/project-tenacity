@@ -1,6 +1,5 @@
 package data.dataobjects;
 
-import data.databases.ItemDatabase;
 import logic.Player;
 
 import java.io.File;
@@ -10,9 +9,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.net.URL;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Item {
 
@@ -35,19 +32,20 @@ public class Item {
 
     public int getData() {
         File geData = new File("gedata.txt");
-        String line = null;
+        String line;
         if (geData.exists()) {
             try {
                 FileReader fileReader = new FileReader(geData);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 boolean found = false;
-                while ((line = bufferedReader.readLine()) != null)
-                    if (line.contains(this.getName())) {
+                while ((line = bufferedReader.readLine()) != null) {
+                    if (line.substring(0, line.lastIndexOf(" ")).equals(this.name)) {
                         found = true;
                         break;
                     }
+                }
                 bufferedReader.close();
-                if (found == true) {
+                if (found) {
                     String[] nameAndPrice = line.split(" ");
                     return Integer.parseInt(nameAndPrice[nameAndPrice.length - 1]);
                 }

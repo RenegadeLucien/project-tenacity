@@ -54,8 +54,9 @@ public class Player implements Serializable {
         else if (status.equals("Hardcore"))
             this.status = 2;
         xp = setInitialXP();
-        //While these aren't obtained strictly at startup, they can be obtained for free in 30 seconds, and the combat calcs throw a hissy fit if there is no weapon.
+        //While these aren't obtained strictly at startup, they can be obtained for free in 30 seconds.
         weapons.add(Weapon.getWeaponByName("Bronze 2h sword"));
+        weapons.add(Weapon.getWeaponByName("Dwarven army axe"));
         weapons.add(Weapon.getWeaponByName("Chargebow"));
         weapons.add(Weapon.getWeaponByName("Staff"));
     }
@@ -256,6 +257,7 @@ public class Player implements Serializable {
         for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
             System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
         }
+        System.out.println("The total bank value of this account is " + getTotalBankValue());
         return achievementCalcResults;
     }
 
@@ -265,13 +267,40 @@ public class Player implements Serializable {
             if (Achievement.getAchievementByName(requirement.getQualifier()) != null && !qualities.containsKey(requirement.getQualifier())) {
                 completeTask(requirement.getQualifier());
             } else if (ALL_SKILLS.contains(requirement.getQualifier())) {
+                GoalResults reqResults = previousEfficiencyResults.get(requirement);
                 xp.put(requirement.getQualifier(), xp.get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
-                if (bank.containsKey(requirement.getQualifier())) {
+                if (!requirement.getQualifier().equals("Coins") && bank.containsKey(requirement.getQualifier())) {
                     if (bank.get(requirement.getQualifier()) > requirement.getQuantifier()) {
                         bank.put(requirement.getQualifier(), (bank.get(requirement.getQualifier()) - requirement.getQuantifier()));
-                    } else {
+                    } else if (bank.containsKey("Coins") && bank.get("Coins") >= (requirement.getQuantifier()-bank.get(requirement.getQualifier()))
+                        *ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
+                        bank.put("Coins", bank.get("Coins")-(requirement.getQuantifier()-bank.get(requirement.getQualifier()))
+                            *ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this));
                         bank.remove(requirement.getQualifier());
+                    }
+                } else if (bank.containsKey("Coins")) {
+                    if (bank.get("Coins") >= requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
+                        bank.put("Coins", bank.get("Coins")-requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this));
+                    }
+                    else if (getTotalBankValue() > requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
+                        List<String> entriesToRemove = new ArrayList<>();
+                        for (Entry<String, Integer> bankEntry : bank.entrySet()) {
+                            if (!bankEntry.getKey().equals("Coins")) {
+                                bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this)*bankEntry.getValue());
+                                entriesToRemove.add(bankEntry.getKey());
+                            }
+                            if (bank.get("Coins") >= requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
+                                break;
+                            }
+                        }
+                        for (String removal : entriesToRemove) {
+                            bank.remove(removal);
+                        }
+                        bank.put("Coins", bank.get("Coins")-requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this));
+                    }
+                    else {
+                        bank.clear();
                     }
                 }
             } else if (!requirement.meetsRequirement(this)) {
@@ -279,6 +308,45 @@ public class Player implements Serializable {
                     qualities.put(requirement.getQualifier(), Math.max(qualities.get(requirement.getQualifier()), requirement.getQuantifier()));
                 else
                     qualities.put(requirement.getQualifier(), requirement.getQuantifier());
+            }
+        }
+        for (Encounter e : task.getEncounters()) {
+            final Map<String, Double> initialXP = new HashMap<>(this.getXp());
+            CombatResults meleeCombatResults;
+            CombatResults rangedCombatResults;
+            CombatResults magicCombatResults;
+            do {
+                meleeCombatResults = e.calculateCombat(this, 28, "Melee", false, 0, false);
+                rangedCombatResults = e.calculateCombat(this, 28, "Ranged", false, 0, false);
+                magicCombatResults = e.calculateCombat(this, 28, "Magic", false, 0, false);
+                if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
+                    this.getXp().put("Attack", this.getXp().get("Attack") + this.getXpToLevel("Attack", this.getLevel("Attack")+1));
+                    this.getXp().put("Strength", this.getXp().get("Strength") + this.getXpToLevel("Strength", this.getLevel("Strength")+1));
+                    this.getXp().put("Ranged", this.getXp().get("Ranged") + this.getXpToLevel("Ranged", this.getLevel("Ranged")+1));
+                    this.getXp().put("Magic", this.getXp().get("Magic") + this.getXpToLevel("Magic", this.getLevel("Magic")+1));
+                    this.getXp().put("Defence", this.getXp().get("Defence") + this.getXpToLevel("Defence", this.getLevel("Defence")+1));
+                    this.getXp().put("Constitution", this.getXp().get("Constitution") + this.getXpToLevel("Constitution", this.getLevel("Constitution") + 1));
+                }
+                else {
+                    break;
+                }
+            }
+            while (this.getLevel("Constitution") < 99 || this.getLevel("Attack") < 99 || this.getLevel("Strength") < 99 || this.getLevel("Defence") < 99 ||
+                this.getLevel("Magic") < 99 || this.getLevel("Ranged") < 99);
+            this.setXp(initialXP);
+            for (List<Enemy> enemyGroup : e.getEnemyGroups()) {
+                for (Enemy enemy : enemyGroup) {
+                    this.getXp().put("Constitution", this.getXp().get("Constitution") + enemy.getHpxp());
+                    if (rangedCombatResults.getHpLost() < meleeCombatResults.getHpLost() && rangedCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
+                        this.getXp().put("Ranged", this.getXp().get("Ranged") + enemy.getCbxp());
+                    }
+                    else if (meleeCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
+                        this.getXp().put("Attack", this.getXp().get("Attack") + enemy.getCbxp());
+                    }
+                    else {
+                        this.getXp().put("Magic", this.getXp().get("Magic") + enemy.getCbxp());
+                    }
+                }
             }
         }
         ArrayList<Reward> rewards = new ArrayList<>(task.getRewards());
@@ -302,14 +370,6 @@ public class Player implements Serializable {
         for (Lamp lamp : task.getLamps()) {
             Reward reward = lamp.getBestReward(this);
             xp.put(reward.getQualifier(), xp.get(reward.getQualifier()) + reward.getQuantifier());
-        }
-        for (Encounter encounter : task.getEncounters()) {
-            for (List<Enemy> enemyGroup : encounter.getEnemyGroups()) {
-                for (Enemy enemy : enemyGroup) {
-                    xp.put("Constitution", xp.get("Constitution") + enemy.getHpxp());
-                    //xp.put("Attack", xp.get("Attack") + enemy.getCbxp());
-                }
-            }
         }
     }
 
@@ -527,6 +587,14 @@ public class Player implements Serializable {
             }
         }
         return a;
+    }
+
+    public int getTotalBankValue() {
+        int bankVal = 0;
+        for (Map.Entry<String, Integer> entry : bank.entrySet()) {
+            bankVal += ItemDatabase.getItemDatabase().getItems().get(entry.getKey()).coinValue(this) * entry.getValue();
+        }
+        return bankVal;
     }
 
     private class QualifierAction {

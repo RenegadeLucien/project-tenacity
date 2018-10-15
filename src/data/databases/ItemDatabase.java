@@ -33,10 +33,12 @@ public class ItemDatabase {
         itemsList.add(new Item("Air orb", 300));
         itemsList.add(new Item("Air rune", 17));
         itemsList.add(new Item("Air talisman", 4));
+        itemsList.add(new Item("Airut bones", 1));
         itemsList.add(new Item("Akrisae's war mace", 85000));
         itemsList.add(new Item("Albino rat pouch", 2299));
         itemsList.add(new Item("Ale yeast", 1));
         itemsList.add(new Item("Amulet of accuracy", 5000));
+        itemsList.add(new Item("Amulet of farming (8)", 200));
         itemsList.add(new Item("Antifire (3)", 264));
         itemsList.add(new Item("Antipoison (4)", 360));
         itemsList.add(new Item("Apple tree seed", 13));
@@ -173,6 +175,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Copper ore", 20));
         itemsList.add(new Item("Cosmic rune", 232));
         itemsList.add(new Item("Cowhide", 1));
+        itemsList.add(new Item("Cracked cooking urn (nr)", 40));
+        itemsList.add(new Item("Cracked mining urn (nr)", 30));
         itemsList.add(new Item("Crayfish", 5));
         itemsList.add(new Item("Crayfish cage", 20));
         itemsList.add(new Item("Crystal bow", 180000));
@@ -182,6 +186,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Crystal wand", 130000));
         itemsList.add(new Item("Crystal ward", 90000));
         itemsList.add(new Item("Cup of tea", 10));
+        itemsList.add(new Item("Dagannoth bones", 1));
         itemsList.add(new Item("Dashing kebbit fur", 270));
         itemsList.add(new Item("Davy kebbit hat", 100));
         itemsList.add(new Item("Death rune", 310));
@@ -210,6 +215,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Earth talisman", 4));
         itemsList.add(new Item("Earth tiara", 100));
         itemsList.add(new Item("Egg", 4));
+        itemsList.add(new Item("Egg spawn scroll", 62));
         itemsList.add(new Item("Elder seed", 1000));
         itemsList.add(new Item("Elemental shield", 20));
         itemsList.add(new Item("Elite black full helm", 35200));
@@ -234,6 +240,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Flax", 5));
         itemsList.add(new Item("Flickering energy", 7));
         itemsList.add(new Item("Fremennik round shield", 500));
+        itemsList.add(new Item("Frost dragon bones", 1));
         itemsList.add(new Item("Fruit Blast", 30));
         itemsList.add(new Item("Fruit bat pouch", 3674));
         itemsList.add(new Item("Games necklace (8)", 1050));
@@ -251,6 +258,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Grand defence potion (6)", 1500));
         itemsList.add(new Item("Granite (500g)", 1));
         itemsList.add(new Item("Granite (5kg)", 1));
+        itemsList.add(new Item("Granite crab pouch", 599));
         itemsList.add(new Item("Granite lobster pouch", 4574));
         itemsList.add(new Item("Great maki", 600));
         itemsList.add(new Item("Greenman's ale", 2));
@@ -277,6 +285,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Hard leather gloves", 200));
         itemsList.add(new Item("Hard leather shield", 238));
         itemsList.add(new Item("Hard leather", 1));
+        itemsList.add(new Item("Hardened dragon bones", 1));
         itemsList.add(new Item("Harralander potion (unf)", 20));
         itemsList.add(new Item("Headless arrow", 1));
         itemsList.add(new Item("Herring", 15));
@@ -358,6 +367,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Meerkats pouch", 3000));
         itemsList.add(new Item("Mind rune", 17));
         itemsList.add(new Item("Mind talisman", 4));
+        itemsList.add(new Item("Mind tiara", 100));
         itemsList.add(new Item("Mirror shield", 5000));
         itemsList.add(new Item("Mist rune", 20));
         itemsList.add(new Item("Mithril 2h sword", 2600));
@@ -387,6 +397,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Opal", 100));
         itemsList.add(new Item("Orange", 70));
         itemsList.add(new Item("Orange dye", 6));
+        itemsList.add(new Item("Ourg bones", 1));
         itemsList.add(new Item("Pale energy", 6));
         itemsList.add(new Item("Papaya tree seed", 115));
         itemsList.add(new Item("Papyrus", 10));
@@ -447,8 +458,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Redberries", 3));
         itemsList.add(new Item("Redberry pie", 150));
         itemsList.add(new Item("Regrowth scroll", 362));
+        itemsList.add(new Item("Reinforced dragon bones", 1));
         itemsList.add(new Item("Relicym's balm (4)", 225));
         itemsList.add(new Item("Restore potion (3)", 88));
+        itemsList.add(new Item("Ring of duelling (1)", 1275));
         itemsList.add(new Item("Ring of duelling (8)", 1275));
         itemsList.add(new Item("Ring of life", 3525));
         itemsList.add(new Item("Rock-shell helm", 35200));
@@ -482,6 +495,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Silver dust", 200));
         itemsList.add(new Item("Silver ore", 75));
         itemsList.add(new Item("Silver sickle", 175));
+        itemsList.add(new Item("Skewered kebab", 25));
         itemsList.add(new Item("Slayer's respite", 2));
         itemsList.add(new Item("Slayer's respite (m)", 2));
         itemsList.add(new Item("Slimy eel", 1));
@@ -501,6 +515,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Spirit shards", 25));
         itemsList.add(new Item("Spirit spider pouch", 624));
         itemsList.add(new Item("Spirit wolf pouch", 599));
+        itemsList.add(new Item("Spottier cape", 800));
         itemsList.add(new Item("Squeck juice", 2));
         itemsList.add(new Item("Staff", 15));
         itemsList.add(new Item("Steel bar", 100));
@@ -515,8 +530,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Steel warhammer", 832));
         itemsList.add(new Item("Stew", 100));
         itemsList.add(new Item("Strawberry", 17));
+        itemsList.add(new Item("Strength potion (4)", 950));
         itemsList.add(new Item("Strip of cloth", 10));
         itemsList.add(new Item("Stripy feather", 20));
+        itemsList.add(new Item("Summoning potion (4)", 190));
         itemsList.add(new Item("Super defence (3)", 264));
         itemsList.add(new Item("Super ranging potion (2)", 216));
         itemsList.add(new Item("Super ranging potion (4)", 360));

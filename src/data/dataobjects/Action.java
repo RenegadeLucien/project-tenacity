@@ -15,14 +15,16 @@ public class Action {
     private List<Requirement> reqs;
     private Map<String, Integer> inputs;
     private Map<String, Integer> outputs;
+    private int actionsPerHour;
     private boolean ironman;
     private boolean hardcore;
 
-    public Action(String name, List reqs, Map inputs, Map outputs, boolean ironman, boolean hardcore) {
+    public Action(String name, List reqs, Map inputs, Map outputs, int actionsPerHour, boolean ironman, boolean hardcore) {
         this.name = name;
         this.reqs = reqs;
         this.inputs = inputs;
         this.outputs = outputs;
+        this.actionsPerHour = actionsPerHour;
         this.ironman = ironman;
         this.hardcore = hardcore;
     }
@@ -102,6 +104,10 @@ public class Action {
             gainForThisAction /= (1.0 + timeToCollectInputs);
         }
         return new GoalResults(timeAndActionsTakenForInputs.values().stream().mapToDouble(d->d).sum(), timeAndActionsTakenForInputs);
+    }
+
+    public void performAction(Player player, double time) {
+        int minStep = 6000;
     }
 
 }

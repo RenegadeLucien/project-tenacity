@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map.Entry;
@@ -141,11 +142,12 @@ public class Planner extends Application {
                 return new SimpleStringProperty(a.getValue().getKey());
             }
         });
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
         TableColumn<Entry<String, Double>, String> xpCol = new TableColumn<>("Experience");
         xpCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Double>, String> a) {
-                return new SimpleStringProperty(a.getValue().getValue().toString());
+                return new SimpleStringProperty(decimalFormat.format(a.getValue().getValue()));
             }
         });
         TableColumn<Entry<String, Integer>, String> itemCol = new TableColumn<>("Item");

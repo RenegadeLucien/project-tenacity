@@ -29,8 +29,7 @@ public class Requirement implements Serializable {
         if (Player.ALL_SKILLS.contains(qualifier)) {
             return (player.getLevel(qualifier) >= quantifier);
         } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
-            return ((player.getBank().keySet().contains(qualifier) && player.getBank().get(qualifier) >= quantifier)
-                || (player.getBank().keySet().contains("Coins") && player.getBank().get("Coins") >= ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player) * quantifier));
+            return false;
         } else {
             return (player.getQualities().keySet().contains(qualifier) && player.getQualities().get(qualifier) >= quantifier);
         }

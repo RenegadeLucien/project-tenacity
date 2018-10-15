@@ -1,6 +1,7 @@
 package data.dataobjects;
 
 import data.databases.AchievementDatabase;
+import data.databases.ItemDatabase;
 import logic.CombatResults;
 import logic.Encounter;
 import logic.GoalResults;
@@ -99,7 +100,12 @@ public class Achievement implements Serializable {
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                 if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
-                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
+                    if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) == null) {
+                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
+                    }
+                    else  {
+                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()) + actionWithTime.getValue());
+                    }
                 }
                 else {
                     totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
@@ -116,7 +122,6 @@ public class Achievement implements Serializable {
             CombatResults meleeCombatResults;
             CombatResults rangedCombatResults;
             CombatResults magicCombatResults;
-
             do {
                 meleeCombatResults = e.calculateCombat(player, 28, "Melee", false, 0, false);
                 rangedCombatResults = e.calculateCombat(player, 28, "Ranged", false, 0, false);
@@ -162,6 +167,19 @@ public class Achievement implements Serializable {
             if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                 totalTimeForAllReqs += 2147000.0;
             }
+            else {
+                double minEncounterTime = 9999999;
+                if (meleeCombatResults.getHpLost() <= 1000000) {
+                    minEncounterTime = Math.min(minEncounterTime, meleeCombatResults.getTicks());
+                }
+                if (rangedCombatResults.getHpLost() <= 1000000) {
+                    minEncounterTime = Math.min(minEncounterTime, rangedCombatResults.getTicks());
+                }
+                if (magicCombatResults.getHpLost() <= 1000000) {
+                    minEncounterTime = Math.min(minEncounterTime, magicCombatResults.getTicks());
+                }
+                totalActionsWithTimesForAllReqs.put("Time fighting", minEncounterTime/6000.0);
+            }
         }
         player.setXp(initialXP);
         for (Requirement r : encounterRequirements) {
@@ -187,17 +205,50 @@ public class Achievement implements Serializable {
             totalGainFromAllRewards += r.getGainFromReward(player);
         }
         final Map<String, Double> initialXP = new HashMap<>(player.getXp());
+        for (Encounter e : encounters) {
+            CombatResults meleeCombatResults;
+            CombatResults rangedCombatResults;
+            CombatResults magicCombatResults;
+            do {
+                meleeCombatResults = e.calculateCombat(player, 28, "Melee", false, 0, false);
+                rangedCombatResults = e.calculateCombat(player, 28, "Ranged", false, 0, false);
+                magicCombatResults = e.calculateCombat(player, 28, "Magic", false, 0, false);
+                if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
+                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
+                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
+                    player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged")+1));
+                    player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic")+1));
+                    player.getXp().put("Defence", player.getXp().get("Defence") + player.getXpToLevel("Defence", player.getLevel("Defence")+1));
+                    player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
+                }
+                else {
+                    break;
+                }
+            }
+            while (player.getLevel("Constitution") < 99 || player.getLevel("Attack") < 99 || player.getLevel("Strength") < 99 || player.getLevel("Defence") < 99 ||
+                player.getLevel("Magic") < 99 || player.getLevel("Ranged") < 99);
+            for (List<Enemy> enemyGroup : e.getEnemyGroups()) {
+                for (Enemy enemy : enemyGroup) {
+                    totalGainFromAllRewards += player.efficientGoalCompletion("Constitution", (int) enemy.getHpxp()).getTotalTime();
+                    if (rangedCombatResults.getHpLost() < meleeCombatResults.getHpLost() && rangedCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
+                        totalGainFromAllRewards += player.efficientGoalCompletion("rCombat", (int) enemy.getCbxp()).getTotalTime();
+                    }
+                    else if (meleeCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
+                        totalGainFromAllRewards += player.efficientGoalCompletion("mCombat", (int) enemy.getCbxp()).getTotalTime();
+                    }
+                    else {
+                        totalGainFromAllRewards += player.efficientGoalCompletion("aCombat", (int) enemy.getCbxp()).getTotalTime();
+                    }
+                }
+            }
+        }
+        player.setXp(new HashMap<>(initialXP));
         for (Lamp lamp : lamps) {
             Reward reward = lamp.getBestReward(player);
             totalGainFromAllRewards += reward.getGainFromReward(player);
             player.getXp().put(reward.getQualifier(), player.getXp().get(reward.getQualifier()) + reward.getQuantifier());
         }
         player.setXp(initialXP);
-        for (Encounter e : encounters) {
-            for (List<Enemy> enemyGroup : e.getEnemyGroups())
-                for (Enemy enemy : enemyGroup)
-                    totalGainFromAllRewards += player.efficientGoalCompletion("Constitution", (int) enemy.getHpxp()).getTotalTime();
-        }
         return totalGainFromAllRewards;
     }
 
