@@ -2274,7 +2274,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("I'm Just Bor-rogue-ing it", 0).requirement("Thieving", 32).reward("Coins", 20)
             .reward("Thieving", 12).build());
         achievements.add(new AchievementBuilder("Hardcore Parkour", 0).requirement("Agility", 52).reward("Agility", 571).build());
-        achievements.add(new AchievementBuilder("Filthy Rich", 0).requirement("Muddy key", 1).reward("Coins", 5000).build());
+        achievements.add(new AchievementBuilder("Filthy Rich", 0).requirement("Muddy key", 1).reward("Coins", 15000).build());
         achievements.add(new AchievementBuilder("Doyouthinkhesaurus", 0).requirement("Hunter", 67).requirement("Small fishing net", 0)
             .requirement("Rope", 0).reward("Black salamander", 1).reward("Hunter", 304).build());
         achievements.add(new AchievementBuilder("Don't Axe for Permission", 0).requirement("Thieving", 23).reward("Thieving", 7)
@@ -2418,7 +2418,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Stick the Knife In", 0).build());
         achievements.add(new AchievementBuilder("Sherpa's Delight", 0).requirement("Feather", 1).requirement("Fishing", 20)
             .reward("Raw trout", 1).reward("Fishing", 50).build());
-        achievements.add(new AchievementBuilder("Relocation, Relocation, Relocation", 0).requirement("Coins", 5000).build());
+        achievements.add(new AchievementBuilder("Relocation, Relocation, Relocation", 0).requirement("Coins", 6000).build());
         achievements.add(new AchievementBuilder("Read All About It", 0).requirement("Coins", 50).build());
         achievements.add(new AchievementBuilder("Pot Stop", 0).requirement("Soft clay", 1).requirement("Crafting", 8)
             .reward("Bowl", 1).reward("Crafting", 33).build());

@@ -49,8 +49,8 @@ public class Requirement implements Serializable {
         } else if (qualifier.equals("Magic")) {
             goalResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
         } else if (qualifier.equals("Defence")) {
-            GoalResults meleeResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
-            GoalResults rangedResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
+            GoalResults meleeResults = player.efficientGoalCompletion("mCombat", player.getXpToLevel(qualifier, quantifier));
+            GoalResults rangedResults = player.efficientGoalCompletion("rCombat", player.getXpToLevel(qualifier, quantifier));
             GoalResults magicResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
             if (meleeResults.getTotalTime() < rangedResults.getTotalTime() && meleeResults.getTotalTime() < magicResults.getTotalTime()) {
                 goalResults = meleeResults;

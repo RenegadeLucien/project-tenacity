@@ -37,7 +37,7 @@ public class SlayerMonster {
             return 1000000000;
         }
         int killsPerTrip = combatResults.getKills();
-        if (killsPerTrip > monstersInTask) {
+        if (killsPerTrip >= monstersInTask) {
             return monstersInTask * combatResults.getTicks() / killsPerTrip;
         }
         else {

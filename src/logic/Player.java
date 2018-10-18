@@ -241,15 +241,16 @@ public class Player implements Serializable {
         long time = System.nanoTime();
         previousEfficiencyResults.clear();
         achievementResults.clear();
+        ActionDatabase.reset();
         Map<String, Double> achievementCalcResults = new HashMap<>();
         for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
             if (!qualities.containsKey(achievement.getName())) {
-                //System.out.print(achievement.getName() + "\t");
+                System.out.print(achievement.getName() + "\t");
                 long taskTime = System.nanoTime();
                 GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
                 achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
                 achievementResults.put(achievement, actionsAndTime);
-                //System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+                System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
             }
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
@@ -267,42 +268,41 @@ public class Player implements Serializable {
             if (Achievement.getAchievementByName(requirement.getQualifier()) != null && !qualities.containsKey(requirement.getQualifier())) {
                 completeTask(requirement.getQualifier());
             } else if (ALL_SKILLS.contains(requirement.getQualifier())) {
-                GoalResults reqResults = previousEfficiencyResults.get(requirement);
-                xp.put(requirement.getQualifier(), xp.get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
-            } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
-                if (!requirement.getQualifier().equals("Coins") && bank.containsKey(requirement.getQualifier())) {
-                    if (bank.get(requirement.getQualifier()) > requirement.getQuantifier()) {
-                        bank.put(requirement.getQualifier(), (bank.get(requirement.getQualifier()) - requirement.getQuantifier()));
-                    } else if (bank.containsKey("Coins") && bank.get("Coins") >= (requirement.getQuantifier()-bank.get(requirement.getQualifier()))
-                        *ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
-                        bank.put("Coins", bank.get("Coins")-(requirement.getQuantifier()-bank.get(requirement.getQualifier()))
-                            *ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this));
-                        bank.remove(requirement.getQualifier());
+                if (!requirement.meetsRequirement(this)) {
+                    String trueTarget = requirement.getQualifier();
+                    if (trueTarget.equals("Attack") || trueTarget.equals("Strength")) {
+                        trueTarget = "mCombat";
                     }
-                } else if (bank.containsKey("Coins")) {
-                    if (bank.get("Coins") >= requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
-                        bank.put("Coins", bank.get("Coins")-requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this));
-                    }
-                    else if (getTotalBankValue() > requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
-                        List<String> entriesToRemove = new ArrayList<>();
-                        for (Entry<String, Integer> bankEntry : bank.entrySet()) {
-                            if (!bankEntry.getKey().equals("Coins")) {
-                                bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this)*bankEntry.getValue());
-                                entriesToRemove.add(bankEntry.getKey());
-                            }
-                            if (bank.get("Coins") >= requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
-                                break;
-                            }
+                    if (trueTarget.equals("Defence")) {
+                        GoalResults meleeResults = previousEfficiencyResults.get(new Requirement("mCombat",
+                            XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
+                        GoalResults rangedResults = previousEfficiencyResults.get(new Requirement("rCombat",
+                            XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
+                        GoalResults magicResults = previousEfficiencyResults.get(new Requirement("aCombat",
+                            XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
+                        if (meleeResults.getTotalTime() < rangedResults.getTotalTime() && meleeResults.getTotalTime() < magicResults.getTotalTime()) {
+                            trueTarget = "mCombat";
                         }
-                        for (String removal : entriesToRemove) {
-                            bank.remove(removal);
+                        else if(rangedResults.getTotalTime() < magicResults.getTotalTime()) {
+                            trueTarget = "rCombat";
                         }
-                        bank.put("Coins", bank.get("Coins")-requirement.getQuantifier()*ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this));
+                        else {
+                            trueTarget = "aCombat";
+                        }
                     }
-                    else {
-                        bank.clear();
+                    GoalResults reqResults = previousEfficiencyResults.get(new Requirement(trueTarget,
+                        XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
+                    Action primeAction = null;
+                    for (String action : reqResults.getActionsWithTimes().keySet()) {
+                        if (Action.getActionByName(action, this).getOutputs().keySet().contains(trueTarget)) {
+                            primeAction = Action.getActionByName(action, this);
+                            break;
+                        }
                     }
+                    performAction(primeAction, reqResults.getActionsWithTimes().get(primeAction.getName()), requirement.getQualifier());
                 }
+            } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                updateBank(requirement.getQualifier(), requirement.getQuantifier());
             } else if (!requirement.meetsRequirement(this)) {
                 if (qualities.containsKey(requirement.getQualifier()))
                     qualities.put(requirement.getQualifier(), Math.max(qualities.get(requirement.getQualifier()), requirement.getQuantifier()));
@@ -341,7 +341,12 @@ public class Player implements Serializable {
                         this.getXp().put("Ranged", this.getXp().get("Ranged") + enemy.getCbxp());
                     }
                     else if (meleeCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
-                        this.getXp().put("Attack", this.getXp().get("Attack") + enemy.getCbxp());
+                        if (getLevel("Attack") <= getLevel("Strength")) {
+                            this.getXp().put("Attack", this.getXp().get("Attack") + enemy.getCbxp());
+                        }
+                        else {
+                            this.getXp().put("Strength", this.getXp().get("Strength") + enemy.getCbxp());
+                        }
                     }
                     else {
                         this.getXp().put("Magic", this.getXp().get("Magic") + enemy.getCbxp());
@@ -520,6 +525,7 @@ public class Player implements Serializable {
         Map<String, Double> efficiency = new HashMap<>();
         for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
             boolean validAction = false;
+            Requirement extraReq = null;
             if (qualifier.equals("Coins")) {
                 double coinGain = 0;
                 for (Map.Entry<String, Integer> output : action.getOutputs().entrySet()) {
@@ -528,13 +534,20 @@ public class Player implements Serializable {
                         coinGain += output.getValue()*item.coinValue(this);
                     }
                 }
+                int inputLoss = 0;
                 for (Map.Entry<String, Integer> input : action.getInputs().entrySet()) {
                     Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
                     if (item != null) {
-                       coinGain -= input.getValue()*item.coinValue(this);
+                        inputLoss += input.getValue()*item.coinValue(this);
+
                     }
+                    coinGain -= inputLoss;
                 }
+                //Rather arbitrary cutoff: must have 15 minutes worth of inputs in order for using an action to be valid
                 if (coinGain > 0) {
+                    if (inputLoss > getTotalBankValue()) {
+                        extraReq = new Requirement("Coins", inputLoss - getTotalBankValue());
+                    }
                     validAction = true;
                 }
             }
@@ -549,6 +562,11 @@ public class Player implements Serializable {
                 lockedActions.add(qualifierAction);
                 double effectiveTimeThisAction = 0.0;
                 Map<String, Double> efficiencyThisAction = new HashMap<>();
+                if (extraReq != null) {
+                    GoalResults reqResults = extraReq.timeAndActionsToMeetRequirement(this);
+                    effectiveTimeThisAction += reqResults.getTotalTime();
+                    addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
+                }
                 for (Requirement requirement : action.getReqs()) {
                     GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                     effectiveTimeThisAction += reqResults.getTotalTime();
@@ -589,12 +607,75 @@ public class Player implements Serializable {
         return a;
     }
 
-    public int getTotalBankValue() {
+    private int getTotalBankValue() {
         int bankVal = 0;
         for (Map.Entry<String, Integer> entry : bank.entrySet()) {
             bankVal += ItemDatabase.getItemDatabase().getItems().get(entry.getKey()).coinValue(this) * entry.getValue();
         }
         return bankVal;
+    }
+
+    private void performAction(Action action, double time, String mainTarget) {
+        int steps = (int)Math.ceil(time*action.getActionsPerHour());
+        for (Entry<String, Integer> input : action.getInputs().entrySet()) {
+            updateBank(input.getKey(), input.getValue()*steps/action.getActionsPerHour());
+        }
+        for (Entry<String, Integer> output : action.getOutputs().entrySet()) {
+            if (output.getKey().equals("mCombat")) {
+                xp.put(mainTarget, xp.get(mainTarget) + output.getValue()*steps/action.getActionsPerHour());
+            }
+            else if (ALL_SKILLS.contains(output.getKey())) {
+                xp.put(output.getKey(), xp.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
+            }
+            else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null) {
+                if (bank.containsKey(output.getKey()))
+                    bank.put(output.getKey(), bank.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
+                else
+                    bank.put(output.getKey(), output.getValue()*steps/action.getActionsPerHour());
+            }
+        }
+    }
+
+    private void updateBank(String item, int quantity) {
+        if (!item.equals("Coins") && bank.containsKey(item)) {
+            if (bank.get(item) > quantity) {
+                bank.put(item, (bank.get(item) - quantity));
+            } else if (bank.containsKey("Coins") && bank.get("Coins") >= (quantity-bank.get(item))
+                *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                bank.put("Coins", bank.get("Coins")-(quantity-bank.get(item))
+                    *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+                bank.remove(item);
+            }
+        } else if (bank.containsKey("Coins")) {
+            if (bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+            }
+            else if (getTotalBankValue() > quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                List<String> entriesToRemove = new ArrayList<>();
+                for (Entry<String, Integer> bankEntry : bank.entrySet()) {
+                    if (!bankEntry.getKey().equals("Coins")) {
+                        bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this)*bankEntry.getValue());
+                        entriesToRemove.add(bankEntry.getKey());
+                    }
+                    if (bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                        break;
+                    }
+                }
+                for (String removal : entriesToRemove) {
+                    bank.remove(removal);
+                }
+                bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+            }
+            else {
+                GoalResults actionsForMoney = new Requirement("Coins", quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this) - getTotalBankValue()).timeAndActionsToMeetRequirement(this);
+                for (Entry<String, Double> actionWithTime : actionsForMoney.getActionsWithTimes().entrySet()) {
+                    if (!actionWithTime.getKey().equals("")) {
+                        performAction(Action.getActionByName(actionWithTime.getKey(), this), actionWithTime.getValue(), "Coins");
+                    }
+                }
+                updateBank(item, quantity);
+            }
+        }
     }
 
     private class QualifierAction {

@@ -1,5 +1,6 @@
 package data.dataobjects;
 
+import data.databases.ActionDatabase;
 import data.databases.ItemDatabase;
 import logic.GoalResults;
 import logic.Player;
@@ -43,6 +44,10 @@ public class Action {
 
     public Map<String, Integer> getOutputs() {
         return outputs;
+    }
+
+    public int getActionsPerHour() {
+        return actionsPerHour;
     }
 
     public boolean getIronman() {
@@ -106,8 +111,12 @@ public class Action {
         return new GoalResults(timeAndActionsTakenForInputs.values().stream().mapToDouble(d->d).sum(), timeAndActionsTakenForInputs);
     }
 
-    public void performAction(Player player, double time) {
-        int minStep = 6000;
+    public static Action getActionByName(String name, Player player) {
+        for (Action a : ActionDatabase.getActionDatabase(player).getDatabase()) {
+            if (name.equals(a.getName()))
+                return a;
+        }
+        return null;
     }
 
 }

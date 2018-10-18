@@ -83,6 +83,7 @@ public class Encounter implements Serializable {
     public CombatResults calculateCombat(Player p, int invenSpaces, String combatStyle, boolean multiKill, double droprate, boolean stackable) {
         CombatResults results = null;
         double minHpLost = 1000000001;
+        int maxKills = 0;
         for (Loadout loadout : p.generateLoadouts(combatStyle)) {
             double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
             int maxLpHealedPerFood = p.getLevel("Constitution") * 25;
@@ -305,9 +306,10 @@ public class Encounter implements Serializable {
             if (myLp <= 0 && kills == 0) {
                 hpLost = 1000000000;
             }
-            if (hpLost < minHpLost) {
+            if (kills > maxKills || (kills == maxKills && hpLost < minHpLost)) {
                 results = new CombatResults(hpLost, kills, Math.min(ticks, TICKS_PER_HOUR), loadout);
                 minHpLost = hpLost;
+                maxKills = kills;
             }
         }
         return results;
