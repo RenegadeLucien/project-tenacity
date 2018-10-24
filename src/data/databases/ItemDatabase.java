@@ -363,6 +363,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Mature cider", 2));
         itemsList.add(new Item("Mature pigswill", 50));
         itemsList.add(new Item("Mature wmb", 2));
+        itemsList.add(new Item("Meat pie", 160));
         itemsList.add(new Item("Meat pizza", 50));
         itemsList.add(new Item("Meerkats pouch", 3000));
         itemsList.add(new Item("Mind rune", 17));

@@ -256,7 +256,7 @@ public class Player implements Serializable {
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
         for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-            System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
+            //System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
         }
         System.out.println("The total bank value of this account is " + getTotalBankValue());
         return achievementCalcResults;
@@ -543,10 +543,10 @@ public class Player implements Serializable {
                     }
                     coinGain -= inputLoss;
                 }
-                //Rather arbitrary cutoff: must have 15 minutes worth of inputs in order for using an action to be valid
+                //Rather arbitrary cutoff: must have 15 minutes worth of inputs in order for using an action for making money to be valid
                 if (coinGain > 0) {
-                    if (inputLoss > getTotalBankValue()) {
-                        extraReq = new Requirement("Coins", inputLoss - getTotalBankValue());
+                    if (inputLoss/4 > getTotalBankValue()) {
+                        extraReq = new Requirement("Coins", inputLoss/4 - getTotalBankValue());
                     }
                     validAction = true;
                 }
@@ -627,7 +627,7 @@ public class Player implements Serializable {
             else if (ALL_SKILLS.contains(output.getKey())) {
                 xp.put(output.getKey(), xp.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
             }
-            else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null) {
+            else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null && output.getValue()*steps/action.getActionsPerHour() > 0) {
                 if (bank.containsKey(output.getKey()))
                     bank.put(output.getKey(), bank.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
                 else
