@@ -1,15 +1,13 @@
 package data.dataobjects;
 
-public enum Food {
+import data.databases.FoodDatabase;
 
-    TROUT("Trout", 375);
-    //SAILFISH_SOUP("Sailfish soup", 2600);
-
+public class Food {
 
     private String name;
     private int amountHealed;
 
-    Food(String name, int amountHealed) {
+    public Food(String name, int amountHealed) {
         this.name = name;
         this.amountHealed = amountHealed;
     }
@@ -20,5 +18,13 @@ public enum Food {
 
     public int getAmountHealed() {
         return amountHealed;
+    }
+
+    public static Food getFoodByName(String name) {
+        for (Food f : FoodDatabase.getFoodDatabase().getFoods()) {
+            if (name.equals(f.getName()))
+                return f;
+        }
+        return null;
     }
 }

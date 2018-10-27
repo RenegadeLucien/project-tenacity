@@ -59,6 +59,8 @@ public class Player implements Serializable {
         weapons.add(Weapon.getWeaponByName("Dwarven army axe"));
         weapons.add(Weapon.getWeaponByName("Chargebow"));
         weapons.add(Weapon.getWeaponByName("Staff"));
+        //You don't start with any food, but you start with the ability to buy it, which is what the food list actually represents.
+        food.add(Food.getFoodByName("Trout"));
     }
 
     public Map<String, Double> getXp() {
@@ -107,6 +109,10 @@ public class Player implements Serializable {
 
     public void setXp(Map<String, Double> newXp) {
         xp = newXp;
+    }
+
+    public void setFood(List<Food> food) {
+        this.food = food;
     }
 
     private Map<String, Double> setInitialXP() {
@@ -220,7 +226,7 @@ public class Player implements Serializable {
             ammoList.add(Ammo.getAmmoByName("None"));
         }
         for (Weapon w : weaponList)
-            for (Food f : Food.values())
+            for (Food f : food)
                 for (Armour head : headArmour)
                     for (Armour torso : torsoArmour)
                         for (Armour leg : legArmour)
@@ -235,6 +241,116 @@ public class Player implements Serializable {
                                                             loadouts.add(new Loadout(w, f, head, torso, leg, hand, foot, cape, neck, ring, ammo, familiar, prayer));
         //System.out.println(loadouts.size());
         return loadouts;
+    }
+
+    public Map<String, Double> nextGear(String combatStyle) {
+        if (!COMBAT_STYLES.contains(combatStyle)) {
+            throw new IllegalArgumentException(String.format("Combat style provided was %s. Must be Melee, Ranged, or Magic.", combatStyle));
+        }
+        double minTimeToGear = 1000000000.0;
+        String minGear = null;
+        for (Weapon weapon : WeaponDatabase.getWeaponDatabase().getWeapons().stream().filter(w -> w.getWeaponClass().equals(combatStyle)).collect(Collectors.toList())) {
+            if (!checkIfHaveBetterWeapon(weapon)) {
+                double weaponTime = 0;
+                if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
+                    weaponTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(weapon.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                for (Requirement weaponReq : weapon.getReqs()) {
+                    weaponTime += weaponReq.timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                if (minTimeToGear > weaponTime) {
+                    minTimeToGear = weaponTime;
+                    minGear = weapon.getName();
+                }
+            }
+        }
+        for (Armour armour : ArmourDatabase.getArmourDatabase().getArmours().stream().filter(a -> a.getType().equals(combatStyle)).collect(Collectors.toList())) {
+            if (!checkIfHaveBetterArmour(armour)) {
+                double armourTime = 0;
+                if (ItemDatabase.getItemDatabase().getItems().get(armour.getName()) != null) {
+                    armourTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(armour.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                for (Requirement armourReq : armour.getReqs()) {
+                    armourTime += armourReq.timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                if (minTimeToGear > armourTime) {
+                    minTimeToGear = armourTime;
+                    minGear = armour.getName();
+                }
+            }
+        }
+        for (Food newFood : FoodDatabase.getFoodDatabase().getFoods()) {
+            if (!checkIfHaveBetterFood(newFood)) {
+                double foodTime = 0;
+                if (ItemDatabase.getItemDatabase().getItems().get(newFood.getName()) != null) {
+                    foodTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(newFood.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime()*28;
+                }
+                if (newFood.getAmountHealed() > getLevel("Constitution")*25) {
+                    foodTime += new Requirement("Constitution", Math.min(99, newFood.getAmountHealed()/25)).timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                if (minTimeToGear > foodTime) {
+                    minTimeToGear = foodTime;
+                    minGear = newFood.getName();
+                }
+            }
+        }
+        if (minGear != null) {
+            return Map.of(minGear, minTimeToGear);
+        }
+        return null;
+    }
+
+    public void addWeapon(Weapon newWeapon) {
+        weapons.add(newWeapon);
+        List<Weapon> weaponsToRemove = new ArrayList<>();
+        for (Weapon weapon : weapons) {
+            if (checkIfHaveBetterWeapon(weapon)) {
+                weaponsToRemove.add(weapon);
+            }
+        }
+        weapons.removeAll(weaponsToRemove);
+    }
+
+    public void addArmour(Armour newArmour) {
+        armour.add(newArmour);
+        List<Armour> armoursToRemove = new ArrayList<>();
+        for (Armour armour : armour) {
+            if (checkIfHaveBetterArmour(armour)) {
+                armoursToRemove.add(armour);
+            }
+        }
+        armour.removeAll(armoursToRemove);
+    }
+
+    private boolean checkIfHaveBetterWeapon(Weapon weapon) {
+        for (Weapon ownedWeapon : weapons) {
+            if (weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getStyle().equals(ownedWeapon.getStyle()) &&
+                weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getDamage() <= ownedWeapon.getDamage()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkIfHaveBetterArmour(Armour newArmour) {
+        for (Armour ownedArmour : armour) {
+            if (newArmour.getType().equals(ownedArmour.getType()) && newArmour.getSlot().equals(ownedArmour.getSlot()) &&
+                newArmour.getArmour() <= ownedArmour.getArmour() && newArmour.getLp() <= ownedArmour.getLp() &&
+                newArmour.getReduc() <= ownedArmour.getReduc() && newArmour.getBonus() <= ownedArmour.getBonus()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkIfHaveBetterFood(Food newFood) {
+        for (Food ownedFood : food) {
+            if (ownedFood.getAmountHealed() >= newFood.getAmountHealed() && ItemDatabase.getItemDatabase().getItems().get(ownedFood.getName()).coinValue(this) <=
+                ItemDatabase.getItemDatabase().getItems().get(newFood.getName()).coinValue(this)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Map<String, Double> calcAllAchievements() {
@@ -384,7 +500,6 @@ public class Player implements Serializable {
             return previousEfficiencyResults.get(generatedRequirement);
         }
         if (qualifier.equals("Quest points")) {
-            double questTotalTime = 0;
             Map <String, Double> questTotalActions = new HashMap<>();
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
             for (Achievement achievement : achievementResults.keySet()) {
@@ -406,25 +521,22 @@ public class Player implements Serializable {
             }
             while (questpoints < quantifier && questPointMap.size() > 0) {
                 Achievement quest = questPointMap.keySet().iterator().next();
-                Requirement questPointRequirement = null;
-                for (Requirement r : quest.getReqs()) {
-                    if (r.getQualifier().equals("Quest points")) {
-                        questPointRequirement = r;
-                        break;
+                GoalResults oneQuestResults = achievementResults.get(quest);
+                for (Entry<String, Double> actionEntry : oneQuestResults.getActionsWithTimes().entrySet()) {
+                    if (questTotalActions.containsKey(actionEntry.getKey())) {
+                        questTotalActions.put(actionEntry.getKey(), Math.max(questTotalActions.get(actionEntry.getKey()), actionEntry.getValue()));
+                    }
+                    else {
+                        questTotalActions.put(actionEntry.getKey(), actionEntry.getValue());
                     }
                 }
-                if (questPointRequirement != null) {
-                    quest.getReqs().remove(questPointRequirement);
-                }
-                GoalResults oneQuestResults = quest.getTimeForRequirements(this);
-                questTotalTime += oneQuestResults.getTotalTime();
-                addItemsToMap(questTotalActions, oneQuestResults.getActionsWithTimes());
                 questpoints += quest.getRewards().stream().filter(a -> a.getQualifier().equals("Quest points")).collect(Collectors.toList()).get(0).getQuantifier();
                 questPointMap.remove(quest);
             }
             if (questpoints < quantifier) {
-                questTotalTime = 1000000000.0;
+                return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
             }
+            double questTotalTime = questTotalActions.values().stream().mapToDouble(d -> d).sum();
             GoalResults result = new GoalResults(questTotalTime, questTotalActions);
             previousEfficiencyResults.put(generatedRequirement, result);
             return result;

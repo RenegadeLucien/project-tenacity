@@ -1,11 +1,10 @@
 package data.databases;
 
-import data.dataobjects.SlayerMaster;
+import data.dataobjects.*;
 import logic.*;
-import data.dataobjects.Enemy;
-import data.dataobjects.Action;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ActionDatabase {
     
@@ -572,23 +571,18 @@ public class ActionDatabase {
 
     private List<Requirement> getRequirementsForCombat(Encounter combatEncounter, Player player, int invenSpaces, String combatStyle) {
         Map<String, Double> initialXP = new HashMap<>(player.getXp());
+        List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
+        List<Armour> initialArmours = new ArrayList<>(player.getArmour());
+        List<Food> initialFood = new ArrayList<>(player.getFood());
         CombatResults combatResults;
-        do {
+        while(true) {
             combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, false, 0, false);
             if (combatResults.getHpLost() > 1000000) {
-                if (combatStyle.equals("Melee")) {
-                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack") + 1));
-                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength") + 1));
+                Map<String, Double> nextGear = player.nextGear(combatStyle);
+                if (nextGear == null) {
+                    break;
                 }
-                if (combatStyle.equals("Ranged")) {
-                    player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged") + 1));
-                }
-                if (combatStyle.equals("Magic")) {
-                    player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic") + 1));
-                }
-                player.getXp().put("Defence", player.getXp().get("Defence") + player.getXpToLevel("Defence", player.getLevel("Defence")+1));
-                player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
-                player.getXp().put("Prayer", player.getXp().get("Prayer") + player.getXpToLevel("Prayer", player.getLevel("Prayer") + 1));
+                addGearToPlayer(player, nextGear.keySet().iterator().next());
             }
             else {
                 List<Requirement> requirements = new ArrayList<>();
@@ -613,23 +607,57 @@ public class ActionDatabase {
                 if (player.getXp().get("Magic") > initialXP.get("Magic")) {
                     requirements.add(new Requirement("Magic", player.getLevel("Magic")));
                 }
+                for (Weapon weapon : player.getWeapons()) {
+                    if (!initialWeapons.contains(weapon)) {
+                        requirements.add(new Requirement(weapon.getName(), 1));
+                    }
+                }
+                for (Armour armour : player.getArmour()) {
+                    if (!initialArmours.contains(armour)) {
+                        requirements.add(new Requirement(armour.getName(), 1));
+                    }
+                }
+                for (Food food : player.getFood()) {
+                    if (!initialFood.contains(food)) {
+                        requirements.add(new Requirement(food.getName(), 1));
+                    }
+                }
                 player.setXp(initialXP);
+                player.setWeapons(initialWeapons);
+                player.setArmour(initialArmours);
+                player.setFood(initialFood);
                 return requirements;
             }
         }
-        while (player.getLevel("Constitution") < 99 || player.getLevel("Defence") < 99 || player.getLevel("Prayer") < 99);
         player.setXp(initialXP);
+        player.setWeapons(initialWeapons);
+        player.setArmour(initialArmours);
+        player.setFood(initialFood);
         return new ArrayList<>(); //fight is impossble if it reaches this point
     }
 
     private Map<Integer, List<Requirement>> combatKills(Encounter combatEncounter, Player player, int invenSpaces, String combatStyle, double dropRateOfItem, boolean stackable) {
         Map<String, Double> initialXP = new HashMap<>(player.getXp());
+        List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
+        List<Armour> initialArmours = new ArrayList<>(player.getArmour());
+        List<Food> initialFood = new ArrayList<>(player.getFood());
         CombatResults combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
         List<Requirement> combatReqs = new ArrayList<>();
         if (combatResults.getHpLost() == 1000000000) {
             combatReqs = getRequirementsForCombat(combatEncounter, player, invenSpaces, combatStyle);
             for (Requirement requirement : combatReqs) {
-                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+                if (Player.ALL_SKILLS.contains(requirement.getQualifier())) {
+                    player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+                }
+                else if (WeaponDatabase.getWeaponDatabase().getWeapons().stream().map(Weapon::getName).collect(Collectors.toList()).contains(requirement.getQualifier())) {
+                    player.getWeapons().add(Weapon.getWeaponByName(requirement.getQualifier()));
+                }
+                else if (ArmourDatabase.getArmourDatabase().getArmours().stream().map(Armour::getName).collect(Collectors.toList()).contains(requirement.getQualifier())) {
+                    player.getArmour().add(Armour.getArmourByName(requirement.getQualifier()));
+                }
+                else if (FoodDatabase.getFoodDatabase().getFoods().stream().map(Food::getName).collect(Collectors.toList()).contains(requirement.getQualifier())) {
+                    player.getFood().add(Food.getFoodByName(requirement.getQualifier()));
+                }
             }
             combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
             if (combatResults.getHpLost() == 1000000000) {
@@ -637,6 +665,9 @@ public class ActionDatabase {
             }
         }
         player.setXp(initialXP);
+        player.setWeapons(initialWeapons);
+        player.setArmour(initialArmours);
+        player.setFood(initialFood);
         if (combatResults.getTicks() >= TICKS_PER_HOUR) {
             return Map.of(combatResults.getKills(), combatReqs);
         }
@@ -645,6 +676,33 @@ public class ActionDatabase {
         }
 
     }
+    private void addGearToPlayer(Player player, String gear) {
+        Weapon weapon = Weapon.getWeaponByName(gear);
+        Armour armour = Armour.getArmourByName(gear);
+        Food food = Food.getFoodByName(gear);
+        if (weapon != null) {
+            for (Requirement requirement : weapon.getReqs()) {
+                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+            }
+            player.getWeapons().add(weapon);
+        }
+        else if (armour != null) {
+            for (Requirement requirement : armour.getReqs()) {
+                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+            }
+            player.getArmour().add(armour);
+        }
+        else if (food != null) {
+            if (Math.min(99, food.getAmountHealed()/25) > player.getLevel("Constitution")) {
+                player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
+            }
+            player.getFood().add(food);
+        }
+        else {
+            throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));
+        }
+    }
+
 
     private int logsCut(Player player, int hatchetRank, int perfectRateFactor) {
         return (int)Math.floor(((34 + player.getLevel("Woodcutting") * Math.pow(1.035, hatchetRank)) * 1500) / perfectRateFactor);

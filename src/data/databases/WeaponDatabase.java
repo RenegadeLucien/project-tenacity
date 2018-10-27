@@ -32,9 +32,9 @@ public class WeaponDatabase {
         //weapons.add(new Weapon("Tower mindspike", "Magic", "Magic","Two-handed", 0, 160, 6, 134, new ArrayList<>()));
 
         //to resolve most battles, further combat tweaking will be done later
-        //weapons.add(new Weapon("Zaros godsword", "Melee", "Slash", "Two-handed", 2056, 2577, 6, 0, Collections.singletonList(new Requirement("Attack", 92))));
-        //weapons.add(new Weapon("Seren godbow", "Ranged", "Arrows", "Two-handed", 2056, 2577, 6, 0, Collections.singletonList(new Requirement("Ranged", 92))));
-        //weapons.add(new Weapon("Staff of Sliske", "Magic", "Magic", "Two-handed", 0, 2577, 6, 2056, Collections.singletonList(new Requirement("Magic", 92))));
+        weapons.add(new Weapon("Zaros godsword", "Melee", "Slash", "Two-handed", 2056, 2577, 6, 0, Collections.singletonList(new Requirement("Attack", 92))));
+        weapons.add(new Weapon("Seren godbow", "Ranged", "Arrows", "Two-handed", 2056, 2577, 6, 0, Collections.singletonList(new Requirement("Ranged", 92))));
+        weapons.add(new Weapon("Staff of Sliske", "Magic", "Magic", "Two-handed", 0, 2577, 6, 2056, Collections.singletonList(new Requirement("Magic", 92))));
     }
 
     public static WeaponDatabase getWeaponDatabase() {

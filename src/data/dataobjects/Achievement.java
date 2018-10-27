@@ -118,21 +118,36 @@ public class Achievement implements Serializable {
             }
         }
         List<Requirement> encounterRequirements = new ArrayList<>();
+        List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
+        List<Armour> initialArmours = new ArrayList<>(player.getArmour());
+        List<Food> initialFood = new ArrayList<>(player.getFood());
         for (Encounter e : encounters) {
             CombatResults meleeCombatResults;
             CombatResults rangedCombatResults;
             CombatResults magicCombatResults;
-            do {
+            while(true) {
                 meleeCombatResults = e.calculateCombat(player, 28, "Melee", false, 0, false);
                 rangedCombatResults = e.calculateCombat(player, 28, "Ranged", false, 0, false);
                 magicCombatResults = e.calculateCombat(player, 28, "Magic", false, 0, false);
                 if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
-                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
-                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
-                    player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged")+1));
-                    player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic")+1));
-                    player.getXp().put("Defence", player.getXp().get("Defence") + player.getXpToLevel("Defence", player.getLevel("Defence")+1));
-                    player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
+                    Map<String, Double> nextGearMelee = player.nextGear("Melee");
+                    Map<String, Double> nextGearRanged = player.nextGear("Ranged");
+                    Map<String, Double> nextGearMagic = player.nextGear("Magic");
+                    if (nextGearMelee == null && nextGearRanged == null && nextGearMagic == null) {
+                        break;
+                    }
+                    double timeToMelee = nextGearMelee == null ? Double.POSITIVE_INFINITY : nextGearMelee.values().iterator().next();
+                    double timeToMagic = nextGearMagic == null ? Double.POSITIVE_INFINITY : nextGearMagic.values().iterator().next();
+                    double timeToRanged = nextGearRanged == null ? Double.POSITIVE_INFINITY : nextGearRanged.values().iterator().next();
+                    if (timeToMelee != Double.POSITIVE_INFINITY && timeToMelee <= Math.min(timeToMagic, timeToRanged)) {
+                        addGearToPlayer(player, nextGearMelee.keySet().iterator().next());
+                    }
+                    else if (timeToMagic != Double.POSITIVE_INFINITY && timeToMagic <= timeToRanged) {
+                        addGearToPlayer(player, nextGearMagic.keySet().iterator().next());
+                    }
+                    else if (timeToRanged != Double.POSITIVE_INFINITY){
+                        addGearToPlayer(player, nextGearRanged.keySet().iterator().next());
+                    }
                 }
                 else {
                     if (player.getXp().get("Defence") > initialXP.get("Defence")) {
@@ -162,8 +177,6 @@ public class Achievement implements Serializable {
                     break;
                 }
             }
-            while (player.getLevel("Constitution") < 99 || player.getLevel("Attack") < 99 || player.getLevel("Strength") < 99 || player.getLevel("Defence") < 99 ||
-                 player.getLevel("Magic") < 99 || player.getLevel("Ranged") < 99);
             if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                 totalTimeForAllReqs += 2147000.0;
             }
@@ -182,6 +195,9 @@ public class Achievement implements Serializable {
             }
         }
         player.setXp(initialXP);
+        player.setWeapons(initialWeapons);
+        player.setArmour(initialArmours);
+        player.setFood(initialFood);
         for (Requirement r : encounterRequirements) {
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
@@ -250,6 +266,33 @@ public class Achievement implements Serializable {
         }
         player.setXp(initialXP);
         return totalGainFromAllRewards;
+    }
+
+    private void addGearToPlayer(Player player, String gear) {
+        Weapon weapon = Weapon.getWeaponByName(gear);
+        Armour armour = Armour.getArmourByName(gear);
+        Food food = Food.getFoodByName(gear);
+        if (weapon != null) {
+            for (Requirement requirement : weapon.getReqs()) {
+                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+            }
+            player.getWeapons().add(weapon);
+        }
+        else if (armour != null) {
+            for (Requirement requirement : armour.getReqs()) {
+                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+            }
+            player.getArmour().add(armour);
+        }
+        else if (food != null) {
+            if (Math.min(99, food.getAmountHealed()/25) > player.getLevel("Constitution")) {
+                player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
+            }
+            player.getFood().add(food);
+        }
+        else {
+            throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));
+        }
     }
 
     public String getName() {

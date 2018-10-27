@@ -2989,7 +2989,8 @@ public class AchievementDatabase {
             .reward("Hunter", 48).reward("Bird snare", 1).build());
         achievements.add(new AchievementBuilder("Fire at Will", 0).requirement("Runecrafting", 14).requirement("Pure essence", 1)
             .reward("Fire rune", 1).build());
-        achievements.add(new AchievementBuilder("Extra Cheese", 0).requirement("Pizzazz Points", 2).build());
+        achievements.add(new AchievementBuilder("Extra Cheese", 0).requirement("Magic", 7).requirement("Cosmic rune", 3)
+            .requirement("Water rune", 3).reward("Magic", 52).reward("Cosmic rune", 1).build());
         achievements.add(new AchievementBuilder("Don't You Dare Close Your Eyes", 0).requirement("Coins", 1000).build());
         achievements.add(new AchievementBuilder("Desert Set Tasks - Easy", 0).requirement("Assassin's Feed", 1)
             .requirement("Touring Gear", 1).requirement("Memento Mori", 1).requirement("Fool's Gold", 1)
