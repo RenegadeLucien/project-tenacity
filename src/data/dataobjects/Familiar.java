@@ -1,5 +1,7 @@
 package data.dataobjects;
 
+import data.databases.FamiliarDatabase;
+
 public class Familiar {
 
     private String name;
@@ -26,5 +28,17 @@ public class Familiar {
 
     public int getInvenSpaces() {
         return invenSpaces;
+    }
+
+    public int getSummonReq() { return summonReq; }
+
+    public String getName() { return name; }
+
+    public static Familiar getFamiliarByName(String name) {
+        for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
+            if (name.equals(f.getName()))
+                return f;
+        }
+        return null;
     }
 }

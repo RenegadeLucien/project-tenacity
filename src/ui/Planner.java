@@ -258,12 +258,14 @@ public class Planner extends Application {
         mainscape.setToggleGroup(irongroup);
         mainscape.setUserData("Mainscape");
         mainscape.setSelected(true);
-        RadioButton ironman = new RadioButton("Ironman");
+        RadioButton ironman = new RadioButton("Ironman (unsupported)");
         ironman.setToggleGroup(irongroup);
         ironman.setUserData("Ironman");
-        RadioButton hardcore = new RadioButton("Hardcore");
+        ironman.setDisable(true);
+        RadioButton hardcore = new RadioButton("Hardcore (unsupported)");
         hardcore.setToggleGroup(irongroup);
         hardcore.setUserData("Hardcore");
+        hardcore.setDisable(true);
         Button createProfile = new Button();
         createProfile.setText("Create Profile");
         createProfile.setOnAction(event -> {
@@ -283,7 +285,7 @@ public class Planner extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.3.3pa by Iron Lucien");
+        primaryStage.setTitle("Project Tenacity v0.3.8pa by Iron Lucien");
         Text nameText = new Text("Load profile data:");
         TextField nameEntry = new TextField();
         Button newProfile = new Button();

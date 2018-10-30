@@ -39,9 +39,9 @@ public class Player implements Serializable {
     private Map<String, Integer> bank = new HashMap<>();
     private List<Weapon> weapons = new ArrayList<>();
     private List<Armour> armour = new ArrayList<>();
-    private List<Food> food = new ArrayList<>();
 
     private Map<Requirement, GoalResults> previousEfficiencyResults = new HashMap<>();
+    private List<Requirement> currentTargets = new ArrayList<>();
     private List<QualifierAction> lockedActions = new ArrayList<>();
     private Map<Achievement, GoalResults> achievementResults = new HashMap<>();
 
@@ -59,8 +59,6 @@ public class Player implements Serializable {
         weapons.add(Weapon.getWeaponByName("Dwarven army axe"));
         weapons.add(Weapon.getWeaponByName("Chargebow"));
         weapons.add(Weapon.getWeaponByName("Staff"));
-        //You don't start with any food, but you start with the ability to buy it, which is what the food list actually represents.
-        food.add(Food.getFoodByName("Trout"));
     }
 
     public Map<String, Double> getXp() {
@@ -81,10 +79,6 @@ public class Player implements Serializable {
 
     public List<Armour> getArmour() {
         return armour;
-    }
-
-    public List<Food> getFood() {
-        return food;
     }
 
     public int getStatus() {
@@ -109,10 +103,6 @@ public class Player implements Serializable {
 
     public void setXp(Map<String, Double> newXp) {
         xp = newXp;
-    }
-
-    public void setFood(List<Food> food) {
-        this.food = food;
     }
 
     private Map<String, Double> setInitialXP() {
@@ -193,7 +183,9 @@ public class Player implements Serializable {
             }
         }
         for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
-            familiarList.add(f);
+            if (getLevel("Summoning") >= f.getSummonReq()) {
+                familiarList.add(f);
+            }
         }
         for (Prayer p : PrayerDatabase.getPrayerDatabase().getPrayers()) {
             prayerList.add(p);
@@ -226,7 +218,7 @@ public class Player implements Serializable {
             ammoList.add(Ammo.getAmmoByName("None"));
         }
         for (Weapon w : weaponList)
-            for (Food f : food)
+            for (Food f : FoodDatabase.getFoodDatabase().getFoods())
                 for (Armour head : headArmour)
                     for (Armour torso : torsoArmour)
                         for (Armour leg : legArmour)
@@ -280,17 +272,20 @@ public class Player implements Serializable {
             }
         }
         for (Food newFood : FoodDatabase.getFoodDatabase().getFoods()) {
-            if (!checkIfHaveBetterFood(newFood)) {
-                double foodTime = 0;
-                if (ItemDatabase.getItemDatabase().getItems().get(newFood.getName()) != null) {
-                    foodTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(newFood.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime()*28;
-                }
-                if (newFood.getAmountHealed() > getLevel("Constitution")*25) {
-                    foodTime += new Requirement("Constitution", Math.min(99, newFood.getAmountHealed()/25)).timeAndActionsToMeetRequirement(this).getTotalTime();
-                }
+            if (getLevel("Constitution") < 99 && newFood.getAmountHealed() > getLevel("Constitution")*25) {
+                double foodTime = new Requirement("Constitution", Math.min(99, newFood.getAmountHealed()/25)).timeAndActionsToMeetRequirement(this).getTotalTime();
                 if (minTimeToGear > foodTime) {
                     minTimeToGear = foodTime;
                     minGear = newFood.getName();
+                }
+            }
+        }
+        for (Familiar familiar : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
+            if (familiar.getSummonReq() > getLevel("Summoning")) {
+                double familiarTime = new Requirement("Summoning", familiar.getSummonReq()).timeAndActionsToMeetRequirement(this).getTotalTime();
+                if (minTimeToGear > familiarTime) {
+                    minTimeToGear = familiarTime;
+                    minGear = familiar.getName();
                 }
             }
         }
@@ -325,7 +320,7 @@ public class Player implements Serializable {
     private boolean checkIfHaveBetterWeapon(Weapon weapon) {
         for (Weapon ownedWeapon : weapons) {
             if (weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getStyle().equals(ownedWeapon.getStyle()) &&
-                weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getDamage() <= ownedWeapon.getDamage()) {
+                weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getDamage() <= ownedWeapon.getDamage() && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
                 return true;
             }
         }
@@ -337,16 +332,6 @@ public class Player implements Serializable {
             if (newArmour.getType().equals(ownedArmour.getType()) && newArmour.getSlot().equals(ownedArmour.getSlot()) &&
                 newArmour.getArmour() <= ownedArmour.getArmour() && newArmour.getLp() <= ownedArmour.getLp() &&
                 newArmour.getReduc() <= ownedArmour.getReduc() && newArmour.getBonus() <= ownedArmour.getBonus()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean checkIfHaveBetterFood(Food newFood) {
-        for (Food ownedFood : food) {
-            if (ownedFood.getAmountHealed() >= newFood.getAmountHealed() && ItemDatabase.getItemDatabase().getItems().get(ownedFood.getName()).coinValue(this) <=
-                ItemDatabase.getItemDatabase().getItems().get(newFood.getName()).coinValue(this)) {
                 return true;
             }
         }
@@ -371,9 +356,9 @@ public class Player implements Serializable {
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
-        for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-            //System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
-        }
+        /*for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
+            System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
+        }*/
         System.out.println("The total bank value of this account is " + getTotalBankValue());
         return achievementCalcResults;
     }
@@ -495,10 +480,21 @@ public class Player implements Serializable {
     }
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
+        if (qualifier.equals("Summoning") || qualifier.equals("Cleansing crystal") || qualifier.equals("Blissful shadow core") ||
+            qualifier.equals("Slayer point") || qualifier.equals("Quest points") || qualifier.equals("Harmonic dust") ||
+            qualifier.equals("Combat") || qualifier.equals("Manifest shadow core") || (qualifier.equals("Coins") && quantifier >= 14929600)||
+            qualifier.equals("Queen Black Dragon") || qualifier.equals("Master clue scroll points") || qualifier.equals("Truthful shadow core") ||
+            qualifier.equals("Hefin Agility Course laps")) {
+            //System.out.println("Hmmm...");
+        }
         Requirement generatedRequirement = new Requirement(qualifier, quantifier);
         if (previousEfficiencyResults.get(generatedRequirement) != null) {
             return previousEfficiencyResults.get(generatedRequirement);
         }
+        if (currentTargets.contains(generatedRequirement)) {
+            return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
+        }
+        currentTargets.add(generatedRequirement);
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
@@ -539,6 +535,7 @@ public class Player implements Serializable {
             double questTotalTime = questTotalActions.values().stream().mapToDouble(d -> d).sum();
             GoalResults result = new GoalResults(questTotalTime, questTotalActions);
             previousEfficiencyResults.put(generatedRequirement, result);
+            currentTargets.remove(generatedRequirement);
             return result;
         } else if (qualifier.equals("Combat")) {
             int targetLevel = (int) Math.floor(quantifier / 1.4);
@@ -621,14 +618,17 @@ public class Player implements Serializable {
             if (attack.getTotalTime() + strength.getTotalTime() < ranged.getTotalTime() && attack.getTotalTime() + strength.getTotalTime() < magic.getTotalTime()) {
                 GoalResults result = new GoalResults(attack.getTotalTime() + strength.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), meleeMap);
                 previousEfficiencyResults.put(generatedRequirement, result);
+                currentTargets.remove(generatedRequirement);
                 return result;
             } else if (ranged.getTotalTime() < magic.getTotalTime()) {
                 GoalResults result = new GoalResults(ranged.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), rangedMap);
                 previousEfficiencyResults.put(generatedRequirement, result);
+                currentTargets.remove(generatedRequirement);
                 return result;
             } else {
                 GoalResults result = new GoalResults(magic.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), magicMap);
                 previousEfficiencyResults.put(generatedRequirement, result);
+                currentTargets.remove(generatedRequirement);
                 return result;
             }
         }
@@ -705,6 +705,7 @@ public class Player implements Serializable {
         if (minimum < 1000000000.0) {
             previousEfficiencyResults.put(generatedRequirement, result);
         }
+        currentTargets.remove(generatedRequirement);
         return result;
     }
 

@@ -199,6 +199,11 @@ public class ActionDatabase {
         database.add(new Action("Disassembling bones", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), Map.of("Bones", 2800), Map.of("Invention", 280), 2800, true, true));
 
+        //Magic (the combat encounters expected to be used for magic training)
+        int trollBruteKills = combatKills(new Encounter("Troll brute"), player, 0, "Magic", 0, false).keySet().iterator().next();
+        database.add(new Action("Killing troll brutes", new ArrayList(), new HashMap(), Map.of("aCombat", (int)Enemy.getEnemyByName("Troll brute").getCbxp() * trollBruteKills,
+            "Constitution", (int) Enemy.getEnemyByName("Troll brute").getHpxp() * trollBruteKills), trollBruteKills, true, true));
+
         //Mining (WHEN ADDING TO THIS, UPDATE PET)
         database.add(new Action("Mining and dropping essence", new ArrayList<>(), new HashMap<>(), Map.of("Mining", 26250), 5250, true, true));
         database.add(new Action("Mining pure essence", Collections.singletonList(new Requirement("Mining", 30)), new HashMap(), Map.of("Mining", 10220, "Pure essence", 2044), 2044, true, true));
@@ -361,10 +366,6 @@ public class ActionDatabase {
         database.add(new Action("Killing troll shamans", new ArrayList(), new HashMap(), Map.of("rCombat", (int)Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills,
             "Constitution", (int) Enemy.getEnemyByName("Troll shaman").getHpxp() * trollShamanKills), trollShamanKills, true, true));
 
-        int trollBruteKills = combatKills(new Encounter("Troll brute"), player, 0, "Magic", 0, false).keySet().iterator().next();
-        database.add(new Action("Killing troll brutes", new ArrayList(), new HashMap(), Map.of("aCombat", (int)Enemy.getEnemyByName("Troll brute").getCbxp() * trollBruteKills,
-            "Constitution", (int) Enemy.getEnemyByName("Troll brute").getHpxp() * trollBruteKills), trollBruteKills, true, true));
-
         int hobgoblinKills = combatKills(new Encounter("Hobgoblin"), player, 0, "Magic", 0, false).keySet().iterator().next();
         database.add(new Action("Killing hobgoblins", new ArrayList(), new HashMap(), Map.of("Hobgoblin", hobgoblinKills, "aCombat", (int)Enemy.getEnemyByName("Hobgoblin").getCbxp() * hobgoblinKills,
             "Constitution", (int) Enemy.getEnemyByName("Hobgoblin").getHpxp() * hobgoblinKills), hobgoblinKills, true, true));
@@ -441,8 +442,8 @@ public class ActionDatabase {
         database.add(new Action("Killing the Kalphite King (duo)", kkKills.values().iterator().next(), new HashMap(), Map.of("Kalphite King", kkKills.keySet().iterator().next(),
             "Boss kills", kkKills.keySet().iterator().next()), kkKills.keySet().iterator().next(), true, true));
 
-        Map<Integer, List<Requirement>> voragoKills = combatKills(new Encounter(Collections.singletonList(Collections.singletonList("Vorago")), 5), player, 28, "Melee", 0, false);
-        database.add(new Action("Killing Vorago (5 man)", voragoKills.values().iterator().next(), new HashMap(), Map.of("Vorago", voragoKills.keySet().iterator().next(),
+        Map<Integer, List<Requirement>> voragoKills = combatKills(new Encounter(Collections.singletonList(Collections.singletonList("Vorago")), 7), player, 28, "Melee", 0, false);
+        database.add(new Action("Killing Vorago (7 man)", voragoKills.values().iterator().next(), new HashMap(), Map.of("Vorago", voragoKills.keySet().iterator().next(),
             "Boss kills", voragoKills.keySet().iterator().next()), voragoKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> nexAODKills = combatKills(new Encounter(Collections.singletonList(Collections.singletonList("Nex: Angel of Death")), 7), player, 28, "Melee", 0, false);
@@ -573,7 +574,6 @@ public class ActionDatabase {
         Map<String, Double> initialXP = new HashMap<>(player.getXp());
         List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
         List<Armour> initialArmours = new ArrayList<>(player.getArmour());
-        List<Food> initialFood = new ArrayList<>(player.getFood());
         CombatResults combatResults;
         while(true) {
             combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, false, 0, false);
@@ -617,22 +617,15 @@ public class ActionDatabase {
                         requirements.add(new Requirement(armour.getName(), 1));
                     }
                 }
-                for (Food food : player.getFood()) {
-                    if (!initialFood.contains(food)) {
-                        requirements.add(new Requirement(food.getName(), 1));
-                    }
-                }
                 player.setXp(initialXP);
                 player.setWeapons(initialWeapons);
                 player.setArmour(initialArmours);
-                player.setFood(initialFood);
                 return requirements;
             }
         }
         player.setXp(initialXP);
         player.setWeapons(initialWeapons);
         player.setArmour(initialArmours);
-        player.setFood(initialFood);
         return new ArrayList<>(); //fight is impossble if it reaches this point
     }
 
@@ -640,7 +633,6 @@ public class ActionDatabase {
         Map<String, Double> initialXP = new HashMap<>(player.getXp());
         List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
         List<Armour> initialArmours = new ArrayList<>(player.getArmour());
-        List<Food> initialFood = new ArrayList<>(player.getFood());
         CombatResults combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
         List<Requirement> combatReqs = new ArrayList<>();
         if (combatResults.getHpLost() == 1000000000) {
@@ -655,19 +647,18 @@ public class ActionDatabase {
                 else if (ArmourDatabase.getArmourDatabase().getArmours().stream().map(Armour::getName).collect(Collectors.toList()).contains(requirement.getQualifier())) {
                     player.getArmour().add(Armour.getArmourByName(requirement.getQualifier()));
                 }
-                else if (FoodDatabase.getFoodDatabase().getFoods().stream().map(Food::getName).collect(Collectors.toList()).contains(requirement.getQualifier())) {
-                    player.getFood().add(Food.getFoodByName(requirement.getQualifier()));
-                }
             }
             combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
             if (combatResults.getHpLost() == 1000000000) {
+                player.setXp(initialXP);
+                player.setWeapons(initialWeapons);
+                player.setArmour(initialArmours);
                 return Map.of(0, Collections.singletonList(new Requirement("Impossible", 1)));
             }
         }
         player.setXp(initialXP);
         player.setWeapons(initialWeapons);
         player.setArmour(initialArmours);
-        player.setFood(initialFood);
         if (combatResults.getTicks() >= TICKS_PER_HOUR) {
             return Map.of(combatResults.getKills(), combatReqs);
         }
@@ -680,6 +671,7 @@ public class ActionDatabase {
         Weapon weapon = Weapon.getWeaponByName(gear);
         Armour armour = Armour.getArmourByName(gear);
         Food food = Food.getFoodByName(gear);
+        Familiar familiar = Familiar.getFamiliarByName(gear);
         if (weapon != null) {
             for (Requirement requirement : weapon.getReqs()) {
                 player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
@@ -693,10 +685,10 @@ public class ActionDatabase {
             player.getArmour().add(armour);
         }
         else if (food != null) {
-            if (Math.min(99, food.getAmountHealed()/25) > player.getLevel("Constitution")) {
-                player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
-            }
-            player.getFood().add(food);
+            player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
+        }
+        else if (familiar != null) {
+            player.getXp().put("Summoning", player.getXp().get("Summoning") + player.getXpToLevel("Summoning", familiar.getSummonReq()));
         }
         else {
             throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));

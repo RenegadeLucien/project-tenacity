@@ -57,7 +57,7 @@ public class Item {
             FileWriter fileWriter = new FileWriter(geData, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             String alteredName = name.replace(' ', '_');
-            URL url = new URL("http://runescape.wikia.com/wiki/Module:Exchange/" + alteredName + "?action=raw");
+            URL url = new URL("https://runescape.wiki/w/Module:Exchange/" + alteredName + "?action=raw");
             Scanner scan = new Scanner(url.openStream());
             String itemData = new String();
             while (scan.hasNext()) {

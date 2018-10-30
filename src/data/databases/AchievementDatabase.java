@@ -3771,7 +3771,8 @@ public class AchievementDatabase {
             .requirement("This Helwyr in VI", 1).requirement("Gregorgeous VI", 1).requirement("Living on a Prayer Switch VI", 1)
             .requirement("Something Barrowed VI", 1).requirement("Bug Zapper VI", 1).requirement("Brass Nex VI", 1)
             .requirement("Master of Beatings VI", 1).build());
-        achievements.add(new AchievementBuilder("Finish Him!", 0).encounter(new Encounter("Vorago")).build());
+        achievements.add(new AchievementBuilder("Finish Him!", 0).encounter(new Encounter(Collections.singletonList(
+            Collections.singletonList("Vorago")), 7)).build());
         achievements.add(new AchievementBuilder("Firemaking - Bernie", 0).requirement("Bernie", 1).build());
         achievements.add(new AchievementBuilder("Firemaking 5", 0).requirement("Firemaking", 5).build());
         achievements.add(new AchievementBuilder("Firemaking 10", 0).requirement("Firemaking", 10).build());

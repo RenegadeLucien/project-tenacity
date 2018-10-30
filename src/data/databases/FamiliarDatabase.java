@@ -17,7 +17,7 @@ public class FamiliarDatabase {
 
     private void addFamiliars() {
         familiars.add(new Familiar("None", 0, 0, 0, 0, 0, 0, 0, 0));
-        //familiars.add(new Familiar("Pack mammoth", 46500, 1296, 90, 90, 80, 90, 32, 99));
+        familiars.add(new Familiar("Pack mammoth", 46500, 1296, 90, 90, 80, 90, 32, 99));
     }
 
     public static FamiliarDatabase getFamiliarDatabase() {

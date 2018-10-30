@@ -1,7 +1,9 @@
 package data.dataobjects;
 
 import data.databases.AmmoDatabase;
+import logic.Requirement;
 
+import java.util.List;
 import java.util.Map;
 
 public class Ammo {
@@ -11,6 +13,7 @@ public class Ammo {
     private String type;
     private int damage;
     private Map<String, Integer> itemsToUse;
+    private List<Requirement> requirements;
 
     public int getDamage() {
         return damage;
@@ -28,12 +31,13 @@ public class Ammo {
         return type;
     }
 
-    public Ammo(String name, String style, String type, int damage, Map<String,Integer> itemsToUse) {
+    public Ammo(String name, String style, String type, int damage, Map<String,Integer> itemsToUse, List<Requirement> requirements) {
         this.name = name;
         this.style = style;
         this.type = type;
         this.damage = damage;
         this.itemsToUse = itemsToUse;
+        this.requirements = requirements;
     }
 
     public static Ammo getAmmoByName(String name) {

@@ -120,7 +120,6 @@ public class Achievement implements Serializable {
         List<Requirement> encounterRequirements = new ArrayList<>();
         List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
         List<Armour> initialArmours = new ArrayList<>(player.getArmour());
-        List<Food> initialFood = new ArrayList<>(player.getFood());
         for (Encounter e : encounters) {
             CombatResults meleeCombatResults;
             CombatResults rangedCombatResults;
@@ -197,7 +196,6 @@ public class Achievement implements Serializable {
         player.setXp(initialXP);
         player.setWeapons(initialWeapons);
         player.setArmour(initialArmours);
-        player.setFood(initialFood);
         for (Requirement r : encounterRequirements) {
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
@@ -272,6 +270,7 @@ public class Achievement implements Serializable {
         Weapon weapon = Weapon.getWeaponByName(gear);
         Armour armour = Armour.getArmourByName(gear);
         Food food = Food.getFoodByName(gear);
+        Familiar familiar = Familiar.getFamiliarByName(gear);
         if (weapon != null) {
             for (Requirement requirement : weapon.getReqs()) {
                 player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
@@ -285,10 +284,10 @@ public class Achievement implements Serializable {
             player.getArmour().add(armour);
         }
         else if (food != null) {
-            if (Math.min(99, food.getAmountHealed()/25) > player.getLevel("Constitution")) {
-                player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
-            }
-            player.getFood().add(food);
+            player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
+        }
+        else if (familiar != null) {
+            player.getXp().put("Summoning", player.getXp().get("Summoning") + player.getXpToLevel("Summoning", familiar.getSummonReq()));
         }
         else {
             throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));
