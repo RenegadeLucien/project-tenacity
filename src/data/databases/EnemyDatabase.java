@@ -508,6 +508,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Yelps's bodyguard", 20000, 2170.8, 716.3, 480, 0, 0, 80, 0, 0, 6, 1924, 0, 0, 1924, 80, "Nothing", 0, 55, 45, 65));
         enemies.add(new Enemy("Balance Elemental", 20000, 2209.5, 729.1, 1209, 1209, 1209, 84, 84, 84, 4, 2125, 2125, 2125, 2125, 84, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Tormented demon", 20000, 2321.2, 765.9, 1150, 1150, 1150, 85, 85, 85, 7, 2178, 2178, 2178, 1694, 75, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Menaphite palace guard (melee)", 20000, 1692.9, 558.6, 1378, 0, 0, 75, 0, 0, 5, 1694, 0, 0, 1694, 75, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Camel warrior", 20125, 2186, 721.3, 931, 931, 931, 95, 95, 95, 4, 2765, 2765, 2765, 2458, 90, "Crush", 90, 65, 55, 45));
         enemies.add(new Enemy("Kamil", 21000, 1093, 360.6, 907, 0, 907, 63, 0, 63, 4, 1230, 0, 1230, 1230, 63, "Fire", 40, 20, 10, 40));
         enemies.add(new Enemy("Enhanced ice titan", 21000, 1542.4, 508.9, 504, 0, 0, 70, 0, 0, 6, 1486, 0, 0, 1486, 70, "Nothing", 0, 40, 40, 40));
@@ -521,6 +522,8 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Sea Troll Queen", 25000, 861, 284.1, 1008, 0, 1008, 65, 0, 65, 4, 1299, 0, 1299, 1299, 65, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Zamorakian leader", 25000, 1676.4, 553.2, 0, 0, 672, 0, 0, 70, 4, 0, 0, 1486, 1486, 70, "Arrows", 90, 45, 65, 55));
         enemies.add(new Enemy("Zamorakian bodyguard", 25000, 1676.4, 553.2, 0, 672, 0, 0, 70, 0, 4, 0, 1486, 0, 1486, 70, "Stab", 90, 65, 55, 45));
+        enemies.add(new Enemy("Venator", 25000, 3574.8, 1179.6, 864, 0, 0, 90, 0, 0, 3, 2458, 0, 0, 2458, 90, "Nothing", 0, 40, 40, 40));
+        enemies.add(new Enemy("Menaphite palace guard (magic)", 25000, 1975, 651.7, 0, 0, 1378, 0, 0, 75, 5, 0, 0, 1694, 1694, 75, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Legio", 30000, 3591, 1185, 0, 0, 1102, 0, 0, 90, 10, 0, 0, 2458, 2178, 85, "Ranged", 70, 7, 70, 15));
         enemies.add(new Enemy("Lava strykewyrm", 30000, 1200, 396, 1788, 1152, 1152, 85, 85, 85, 4, 2178, 2178, 2178, 1924, 80, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Barrelchest Mk II", 30000, 538.8, 177.8, 1080, 1080, 0, 70, 70, 0, 4, 1132, 1132, 0, 1132, 70, "Nothing", 0, 20, 10, 40));
@@ -538,6 +541,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Kalphite Queen (Phase 2)", 40000, 2680, 884.4, 980, 980, 980, 70, 70, 70, 6, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 60, 40, 40));
         enemies.add(new Enemy("Kree'arra (TWW)", 40000, 0, 0, 700, 700, 700, 70, 70, 70, 3, 1486, 1486, 1486, 1486, 70, "Nothing", 0, 50, 40, 30));
         enemies.add(new Enemy("Zemouregal", 40000, 0, 0, 0, 0, 840, 0, 0, 70, 4, 0, 0, 1486, 1486, 70, "Nothing", 0, 20, 40, 30));
+        enemies.add(new Enemy("Ambassador Jabari", 40000, 4341.6, 1432.4, 0, 0, 1152, 0, 0, 80, 4, 0, 0, 1924, 1924, 80, "Slash", 90, 45, 65, 55));
         enemies.add(new Enemy("King Black Dragon", 45000, 2155.2, 711.2, 864, 0, 864, 60, 0, 60, 4, 1924, 0, 1132, 1132, 60, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("General Graardor (TWW)", 45000, 2864.5, 945.2, 840, 840, 0, 70, 70, 0, 6, 1486, 1486, 0, 1486, 70, "Nothing", 0, 40, 30, 50));
         enemies.add(new Enemy("K'ril Tsutsaroth (TWW)", 45000, 2864.5, 945.2, 840, 0, 840, 70, 0, 70, 5, 1486, 0, 1486, 1486, 70, "Nothing", 0, 30, 20, 40));
@@ -557,6 +561,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Exiled Kalphite Queen", 50000, 5599, 1847.6, 1100, 1100, 1100, 75, 75, 75, 4, 1694, 1694, 1694, 1694, 75, "Nothing", 0, 40, 10, 10));
         enemies.add(new Enemy("TokHaar-Hok", 50000, 4048.2, 1335.9, 2352, 0, 0, 80, 0, 0, 4, 1924, 0, 0, 1566, 75, "Nothing", 0, 50, 50, 50));
         enemies.add(new Enemy("Foreshadow", 50000, 1481.7, 488.9, 1102, 0, 1102, 60, 0, 60, 4, 1132, 0, 1132, 850, 60, "Nothing", 0, 40, 40, 40));
+        enemies.add(new Enemy("Lowernial Drakan", 50000, 10267.9, 3388.4, 1425, 0, 0, 7, 0, 0, 4, 3031, 0, 0, 3031, 10, "Nothing", 0, 55, 45, 65));
         enemies.add(new Enemy("K'ril Tsutsaroth", 55000, 5136, 1694.8, 1500, 0, 1500, 75, 0, 75, 5, 1486, 0, 1486, 1299, 75, "Fire", 75, 45, 40, 50));
         enemies.add(new Enemy("Nomad", 56250, 3667.9, 1210.4, 1378, 1378, 1378, 75, 75, 75, 5, 1694, 1694, 1694, 1694, 75, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Commander Zilyana", 60000, 4796.55, 1582.8, 1800, 0, 2200, 75, 0, 75, 2, 2178, 0, 1694, 1299, 75, "Nothing", 0, 40, 40, 40));
@@ -589,6 +594,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Commander Zilyana (hard)", 100050, 4796.55, 1582.8, 1900, 0, 1990, 75, 0, 75, 3, 1694, 0, 1694, 1694, 75, "Nothing", 0, 45, 40, 50));
         enemies.add(new Enemy("Image of Yakamaru", 150000, 28936.9, 9549.1, 0, 0, 1788, 0, 0, 99, 4, 0, 0, 2458, 2765, 99, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Linza the Disgraced", 150000, 846, 279.1, 1200, 0, 0, 75, 0, 0, 6, 1694, 0, 0, 1694, 75, "Fire", 90, 55, 45, 65));
+        enemies.add(new Enemy("Pharaoh", 150000, 17083.5, 5637.5, 0, 0, 1617, 0, 0, 88, 5, 0, 0, 2343, 2178, 85, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Twin Furies", 200000, 8000, 2640, 816, 816, 0, 85, 85, 0, 3, 2178, 2178, 0, 1486, 70, "Nothing", 0, 40, 40, 40));
         enemies.add(new Enemy("Vindicta", 200000, 8000, 2640, 3000, 4500, 0, 80, 80, 0, 5, 1924, 1924, 0, 1694, 75, "Nothing", 0, 50, 50, 50));
         enemies.add(new Enemy("Gregorovic", 200000, 8000, 2640, 1152, 1152, 1152, 85, 85, 85, 4, 2178, 2178, 2178, 1694, 75, "Nothing", 0, 55, 55, 55));

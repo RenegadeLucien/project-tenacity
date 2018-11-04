@@ -346,19 +346,19 @@ public class Player implements Serializable {
         Map<String, Double> achievementCalcResults = new HashMap<>();
         for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
             if (!qualities.containsKey(achievement.getName())) {
-                System.out.print(achievement.getName() + "\t");
+                //System.out.print(achievement.getName() + "\t");
                 long taskTime = System.nanoTime();
                 GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
                 achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
                 achievementResults.put(achievement, actionsAndTime);
-                System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+                //System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
             }
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
-        /*for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-            System.out.println(entry.getKey().getQuantifier() + " " + entry.getKey().getQualifier() + " in " + entry.getValue().getTotalTime() + " hours");
-        }*/
+        for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
+            System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours");
+        }
         System.out.println("The total bank value of this account is " + getTotalBankValue());
         return achievementCalcResults;
     }
@@ -480,18 +480,11 @@ public class Player implements Serializable {
     }
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
-        if (qualifier.equals("Summoning") || qualifier.equals("Cleansing crystal") || qualifier.equals("Blissful shadow core") ||
-            qualifier.equals("Slayer point") || qualifier.equals("Quest points") || qualifier.equals("Harmonic dust") ||
-            qualifier.equals("Combat") || qualifier.equals("Manifest shadow core") || (qualifier.equals("Coins") && quantifier >= 14929600)||
-            qualifier.equals("Queen Black Dragon") || qualifier.equals("Master clue scroll points") || qualifier.equals("Truthful shadow core") ||
-            qualifier.equals("Hefin Agility Course laps")) {
-            //System.out.println("Hmmm...");
-        }
         Requirement generatedRequirement = new Requirement(qualifier, quantifier);
         if (previousEfficiencyResults.get(generatedRequirement) != null) {
             return previousEfficiencyResults.get(generatedRequirement);
         }
-        if (currentTargets.contains(generatedRequirement)) {
+        if (currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
             return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
         }
         currentTargets.add(generatedRequirement);

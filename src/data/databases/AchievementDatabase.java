@@ -36,12 +36,11 @@ public class AchievementDatabase {
             .requirement("Attack", 30).requirement("Ranged", 30).requirement("Magic", 30).reward("Dungeoneering", 750)
             .reward("Dungeoneering tokens", 75).lamp(Arrays.asList("Attack", "Ranged", "Magic"), 3750, 1).build());
         achievements.add(new AchievementBuilder("300", 0).requirement("Three's Company", 1).build());
-        achievements.add(new AchievementBuilder("99 With a Flake", 0).requirement("Flags unfurled", 1).build());
-        achievements.add(new AchievementBuilder("One Piercing Note", 1).reward("Quest points", 2).reward("Prayer", 250).build());
         achievements.add(new AchievementBuilder("The Dig Site", 1.5).requirement("Thieving", 25).requirement("Agility", 10)
             .requirement("Herblore", 10).requirement("Cup of tea", 1).requirement("Vial", 1).requirement("Rope", 2)
             .requirement("Uncut opal", 1).reward("Quest points", 2).reward("Mining", 15300).reward("Herblore", 2000).reward("Gold bar", 2)
             .build());
+        achievements.add(new AchievementBuilder("One Piercing Note", 1).reward("Quest points", 2).reward("Prayer", 250).build());
         achievements.add(new AchievementBuilder("Priest in Peril", 0.75).requirement("Pure essence", 25).requirement("Bucket", 0)
             .encounter(new Encounter("Cerberus")).encounter(new Encounter("Monk of Zamorak")).reward("Quest points", 1)
             .lamp(Collections.singletonList("Prayer"), 1406, 10).build());
@@ -95,9 +94,6 @@ public class AchievementDatabase {
             .requirement("Smithing", 88).requirement("Fletching", 69).reward("Smithing", 75).reward("Fletching", 100).build());
         achievements.add(new AchievementBuilder("A Bridge Not Far", 0).requirement("Agility", 8).requirement("Strength", 19)
             .requirement("Ranged", 37).build());
-        achievements.add(new AchievementBuilder("A Brief History of Telescopes", 0.05).requirement("Port jade", 3000)
-            .requirement("Port cherrywood", 2000).requirement("Construction", 44).requirement("Oak plank", 2).requirement("Molten glass", 1)
-            .reward("Construction", 121).build());
         achievements.add(new AchievementBuilder("Plague City", 0.5).requirement("Dwellberries", 1).requirement("Rope", 1)
             .requirement("Chocolate dust", 1).requirement("Snape grass", 1).requirement("Bucket of milk", 1).reward("Quest points", 1)
             .reward("Mining", 2425).build());
@@ -195,6 +191,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("The Jack of Spades", 0.5).requirement("Diamond in the Rough", 1)
             .reward("Agility", 500).reward("Quest points", 1).reward("Construction", 500).reward("Dungeoneering", 500)
             .reward("Thieving", 500).build());
+        achievements.add(new AchievementBuilder("A Brief History of Telescopes", 0.05).requirement("Port jade", 3000)
+            .requirement("Port cherrywood", 2000).requirement("Construction", 44).requirement("Oak plank", 2).requirement("Molten glass", 1)
+            .reward("Construction", 121).build());
         achievements.add(new AchievementBuilder("Game of Tombs I", 0).requirement("Shifting Tombs", 1).build());
         achievements.add(new AchievementBuilder("Game of Tombs II", 0).requirement("Shifting Tombs", 10).build());
         achievements.add(new AchievementBuilder("Game of Tombs III", 0).requirement("Shifting Tombs", 50).build());
@@ -302,136 +301,11 @@ public class AchievementDatabase {
             .requirement("One Small Favour", 1).requirement("Magic", 45).requirement("Defence", 65).requirement("Granite (500g)", 1)
             .requirement("Law rune", 1).requirement("Air rune", 1).requirement("Iron chainbody", 1).requirement("Bronze helm", 1)
             .reward("Quest points", 1).reward("Defence", 33000).reward("Magic", 5000).lamp(Player.ALL_SKILLS, 5000, 50).build());
-        achievements.add(new AchievementBuilder("Wanted!", 1).requirement("Quest points", 33).requirement("Recruitment Drive", 1)
-            .requirement("The Lost Tribe", 1).requirement("Priest in Peril", 1).requirement("Coins", 1).requirement("Molten glass", 1)
-            .requirement("Law rune", 1).requirement("Pure essence", -20).encounter(new Encounter("Black Knight"))
-            .encounter(new Encounter("Black Knight")).encounter(new Encounter("Solus Dellagar")).reward("Quest points", 1)
-            .reward("Slayer", 5000).build());
-        achievements.add(new AchievementBuilder("The Slug Menace", 1).requirement("Sea Slug", 1).requirement("Wanted!", 1)
-            .requirement("Runecrafting", 30).requirement("Crafting", 30).requirement("Slayer", 30).requirement("Thieving", 30)
-            .requirement("Swamp paste", 0).requirement("Pure essence", 5).requirement("Earth talisman", 0).requirement("Fire talisman", 0)
-            .requirement("Water talisman", 0).requirement("Air talisman", 0).requirement("Mind talisman", 0)
-            .encounter(new Encounter("Slug Prince")).reward("Quest points", 1).reward("Thieving", 3500).reward("Crafting", 3500)
-            .reward("Runecrafting", 3500).build());
-        achievements.add(new AchievementBuilder("A Knight in the Darkness", 0).requirement("Proselyte sallet", 0)
-            .requirement("Proselyte hauberk", 0).requirement("Proselyte cuisse", 0).requirement("The Slug Menace", 1)
-            .requirement("Defence", 30).requirement("Prayer", 20).build());
-        achievements.add(new AchievementBuilder("A Lick of Paint", 0).requirement("Gertrude's Cat", 1)
-            .requirement("Garden of Tranquility", 1).requirement("Coins", 100).build());
-        achievements.add(new AchievementBuilder("A Meal Fit for a Duke", 0).requirement("Cook's Assistant", 1)
-            .requirement("Cooking", 40).requirement("Raw lobster", 1).reward("Lobster", 1).reward("Cooking", 120).build());
-        achievements.add(new AchievementBuilder("A Natural Thief", 0).requirement("Thieving", 28).build());
-        achievements.add(new AchievementBuilder("Dragon Slayer", 1.5).requirement("Quest points", 33).requirement("Silk", 1)
-            .requirement("Bowl (unfired)", 1).requirement("Wizard's mind bomb", 1).requirement("Crayfish cage", 1)
-            .requirement("Coins", 12000).requirement("Plank", 3).requirement("Steel nails", 90).encounter(new Encounter(Arrays.asList(
-                Collections.singletonList("Zombie rat"), Collections.singletonList("Ghost (Melzar's Maze)"),
-                Collections.singletonList("Skeleton (Melzar's Maze)"), Collections.singletonList("Zombie"),
-                Collections.singletonList("Melzar the Mad"), Collections.singletonList("Lesser demon (Melzar's Maze)"))))
-            .encounter(new Encounter("Elvarg", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
-            .reward("Quest points", 2).reward("Anti-dragon shield", 1).lamp(Collections.singletonList("Strength"), 18650, 40)
-            .lamp(Collections.singletonList("Defence"), 18650, 40).build());
-        achievements.add(new AchievementBuilder("Heroes' Quest", 0.75).requirement("Quest points", 56).requirement("Shield of Arrav", 1)
-            .requirement("Lost City", 1).requirement("Dragon Slayer", 1).requirement("Merlin's Crystal", 1).requirement("Druidic Ritual", 1)
-            .requirement("Cooking", 53).requirement("Fishing", 53).requirement("Herblore", 25).requirement("Mining", 50)
-            .requirement("Ice gloves", 1).requirement("Harralander potion (unf)", 1).requirement("Fishing rod", 1)
-            .requirement("Fishing bait", 1).requirement("Lockpick", 1).requirement("Coins", 1000)
-            .encounter(new Encounter("Entranan firebird")).reward("Quest points", 1).reward("Attack", 3075).reward("Defence", 3075)
-            .reward("Strength", 3075).reward("Constitution", 3075).reward("Ranged", 2075).reward("Fishing", 2725).reward("Cooking", 2825)
-            .reward("Woodcutting", 1575).reward("Firemaking", 1575).reward("Smithing", 2257).reward("Mining", 2575).reward("Herblore", 1325)
-            .build());
-        achievements.add(new AchievementBuilder("Throne of Miscellania", 0.75).requirement("Heroes' Quest", 1)
-            .requirement("The Fremennik Trials", 1).requirement("Iron bar", 1).requirement("Logs", 1).requirement("Gold ring", 1)
-            .requirement("Coins", 15).requirement("Shortbow", 1).reward("Quest points", 1).build());
-        achievements.add(new AchievementBuilder("Royal Trouble", 1).requirement("Throne of Miscellania", 1)
-            .requirement("Agility", 40).requirement("Slayer", 40).requirement("Coal", 5).encounter(new Encounter("Giant Sea Snake"))
-            .reward("Quest points", 1).reward("Coins", 20000).reward("Agility", 5000).reward("Slayer", 5000).reward("Constitution", 5000)
-            .build());
-        achievements.add(new AchievementBuilder("Legends' Quest", 2).requirement("Quest points", 107).requirement("Family Crest", 1)
-            .requirement("Heroes' Quest", 1).requirement("Shilo Village", 1).requirement("Underground Pass", 1)
-            .requirement("Waterfall Quest", 1).requirement("Agility", 50).requirement("Crafting", 50).requirement("Herblore", 45)
-            .requirement("Magic", 56).requirement("Mining", 52).requirement("Prayer", 42).requirement("Smithing", 50)
-            .requirement("Strength", 50).requirement("Thieving", 50).requirement("Woodcutting", 50).requirement("Rope", 1)
-            .requirement("Vial of water", 1).requirement("Papyrus", 3).requirement("Charcoal", 1).requirement("Unpowered orb", 1)
-            .requirement("Gold bar", 2).requirement("Opal", 1).requirement("Jade", 1).requirement("Red topaz", 1)
-            .requirement("Sapphire", 1).requirement("Emerald", 1).requirement("Ruby", 1).requirement("Diamond", 1)
-            .requirement("Cosmic rune", 6).requirement("Water rune", 60).requirement("Lockpick", 5).requirement("Rune hatchet", 0)
-            .requirement("Soul rune", 1).requirement("Mind rune", 1).requirement("Earth rune", 1).requirement("Law rune", 1)
-            .encounter(new Encounter("Ranalph Devere")).encounter(new Encounter("San Tojalon")).encounter(new Encounter("Irvig Senay"))
-            .encounter(new Encounter("Nezikchened")).encounter(new Encounter("Nezikchened")).encounter(new Encounter("Nezikchened"))
-            .reward("Quest points", 4).lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Prayer", "Magic",
-                "Woodcutting", "Crafting", "Smithing", "Herblore", "Agility", "Thieving"), 7650, 1).lamp(Arrays.asList("Attack", "Defence",
-                "Strength", "Constitution", "Prayer", "Magic", "Woodcutting", "Crafting", "Smithing", "Herblore", "Agility", "Thieving"),
-                7650, 1).lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Prayer", "Magic", "Woodcutting", "Crafting",
-                "Smithing", "Herblore", "Agility", "Thieving"), 7650, 1).lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution",
-                "Prayer", "Magic", "Woodcutting", "Crafting", "Smithing", "Herblore", "Agility", "Thieving"), 7650, 1).build());
-        achievements.add(new AchievementBuilder("A Palm For Each Finger", 0).requirement("Legends' Quest", 1)
-            .requirement("Woodcutting", 15).reward("Palm leaf", 1).build());
-        achievements.add(new AchievementBuilder("A Periodic Table", 0).requirement("Royal Trouble", 1).requirement("Coins", 37500)
-            .reward("Mahogany log", 1).build());
-        achievements.add(new AchievementBuilder("A Pizza the Loot", 0.05).requirement("Raw anchovies", 1).requirement("Coins", 4)
-            .requirement("Cooking", 55).reward("Cooking", 213).build());
-        achievements.add(new AchievementBuilder("A Prayer Opportunity", 0.1).requirement("Construction", 75)
-            .requirement("Smithing", 50).requirement("Dungeoneering floors completed", 4).build());
-        achievements.add(new AchievementBuilder("A Road Less Travelled", 0).build());
-        achievements.add(new AchievementBuilder("A Screwball Scramble", 0).requirement("Regicide", 1).requirement("Agility", 85)
-            .build());
-        achievements.add(new AchievementBuilder("A Seer-ing Light", 0).build());
-        achievements.add(new AchievementBuilder("A String and a Flare", 0).requirement("Lunar Diplomacy", 1).requirement("Magic", 80)
-            .requirement("Astral rune", 2).requirement("Earth rune", 10).requirement("Water rune", 5)
-            .requirement("Gold amulet (unstrung)", 1).reward("Gold amulet", 1).reward("Magic", 83).reward("Crafting", 4).build());
-        achievements.add(new AchievementBuilder("A Taste of the Exotic", 0.05).requirement("Papaya tree seed", 1)
-            .requirement("Farming", 57).reward("Farming", 6173).reward("Papaya", 1).build());
-        achievements.add(new AchievementBuilder("A Ton of Earth", 0).requirement("Pure essence", 28).requirement("Earth tiara", 0)
-            .requirement("Runecrafting", 75).reward("Earth rune", 100).reward("Runecrafting", 182).build());
-        achievements.add(new AchievementBuilder("A Visit to Charlie", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
-        achievements.add(new AchievementBuilder("A Wizard Did It", 0).build());
-        achievements.add(new AchievementBuilder("A World In Microcosm", 0).build());
-        achievements.add(new AchievementBuilder("Abyssal Reach", 0.25).requirement("Rune Mysteries", 1).reward("Runecrafting", 1000)
-            .build());
-        achievements.add(new AchievementBuilder("Abyssal Valet", 0).requirement("Abyssal titan pouch", 1).requirement("Summoning", 93)
-            .requirement("Pure essence", 2).reward("Summoning", 2).build());
-        achievements.add(new AchievementBuilder("Ace of Dungeons", 0.1).requirement("Plague's End", 1).requirement("Dungeoneering", 95)
-            .build());
         achievements.add(new AchievementBuilder("Shades of Mort'ton", 0.75).requirement("Crafting", 20).requirement("Firemaking", 5)
             .requirement("Herblore", 15).requirement("Vial of water", 2).requirement("Ashes", 2).requirement("Clean tarromin", 2)
             .requirement("Logs", 1).requirement("Coins", 1000).encounter(new Encounter("Loar Shade")).encounter(new Encounter("Loar Shade"))
             .encounter(new Encounter("Loar Shade")).encounter(new Encounter("Loar Shade")).encounter(new Encounter("Loar Shade"))
             .reward("Quest points", 3).reward("Herblore", 2000).reward("Crafting", 2000).build());
-        achievements.add(new AchievementBuilder("Ad-Myre The Goods", 0).requirement("Shades of Mort'ton", 1).build());
-        achievements.add(new AchievementBuilder("Broomstick enchantment 1", 0).requirement("Swept Away", 1)
-            .requirement("Diamond in the Rough", 1).build());
-        achievements.add(new AchievementBuilder("Broomstick enchantment 2", 0).requirement("Broomstick enchantment 1", 1)
-            .requirement("Magic", 33).reward("Magic", 1997).build());
-        achievements.add(new AchievementBuilder("Broomstick enchantment 3", 0).requirement("Broomstick enchantment 2", 1)
-            .requirement("Magic", 53).reward("Magic", 7139).build());
-        achievements.add(new AchievementBuilder("Broomstick enchantment 4", 0).requirement("Broomstick enchantment 3", 1)
-            .requirement("Lunar Diplomacy", 1).requirement("Magic", 73).reward("Magic", 10338).build());
-        achievements.add(new AchievementBuilder("Broomstick enchantment 5", 0).requirement("Broomstick enchantment 4", 1)
-            .requirement("Magic", 93).requirement("Underground Pass", 1).reward("Magic", 14979).build());
-        achievements.add(new AchievementBuilder("Advanced Sweeping", 0).requirement("Broomstick enchantment 5", 1).build());
-        achievements.add(new AchievementBuilder("Adventurer's Log", 0).reward("Logs", 1).reward("Woodcutting", 25).build());
-        achievements.add(new AchievementBuilder("Aereck's Old Bones", 0).requirement("The Restless Ghost", 1).build());
-        achievements.add(new AchievementBuilder("Bar Crawl", 0.5).requirement("Coins", 208).build());
-        achievements.add(new AchievementBuilder("Agile from Head to Toe", 0).requirement("Advanced Barbarian Outpost laps", 250)
-            .requirement("Advanced Gnome Stronghold laps", 250).build());
-        achievements.add(new AchievementBuilder("Agility - Dojo Mojo", 0).requirement("Agility", 88).build());
-        achievements.add(new AchievementBuilder("Agility 5", 0).requirement("Agility", 5).build());
-        achievements.add(new AchievementBuilder("Agility 10", 0).requirement("Agility", 10).build());
-        achievements.add(new AchievementBuilder("Agility 20", 0).requirement("Agility", 20).build());
-        achievements.add(new AchievementBuilder("Agility 30", 0).requirement("Agility", 30).build());
-        achievements.add(new AchievementBuilder("Agility 40", 0).requirement("Agility", 40).build());
-        achievements.add(new AchievementBuilder("Agility 50", 0).requirement("Agility", 50).build());
-        achievements.add(new AchievementBuilder("Agility 60", 0).requirement("Agility", 60).build());
-        achievements.add(new AchievementBuilder("Agility 70", 0).requirement("Agility", 70).build());
-        achievements.add(new AchievementBuilder("Agility 80", 0).requirement("Agility", 80).build());
-        achievements.add(new AchievementBuilder("Agility 90", 0).requirement("Agility", 90).build());
-        achievements.add(new AchievementBuilder("Agility 92 (Halfway There)", 0).requirement("Agility", 92).build());
-        achievements.add(new AchievementBuilder("Agility 99", 0).requirement("Agility", 99).build());
-        achievements.add(new AchievementBuilder("Ahrim Bobblehead", 0).requirement("Malevolent energy", 250).requirement("Ahrim's hood", 1)
-            .requirement("Ahrim's robe top", 1).requirement("Ahrim's robe skirt", 1).requirement("Ahrim's staff", 1).build());
-        achievements.add(new AchievementBuilder("Al Kharid", 0).build());
-        achievements.add(new AchievementBuilder("Alch-aholic", 0).requirement("Magic", 55).requirement("Fire rune", 5)
-            .requirement("Nature rune", 1).requirement("Magic shortbow", 1).reward("Coins", 960).reward("Magic", 65).build());
         achievements.add(new AchievementBuilder("Recipe for Disaster: Another Cook's Quest", 0.25).requirement("Cook's Assistant", 1)
             .requirement("Cooking", 10).requirement("Eye of newt", 1).requirement("Greenman's ale", 1).requirement("Coins", 1)
             .requirement("Ashes", 1).requirement("Fruit Blast", 1).reward("Quest points", 1).build());
@@ -478,9 +352,6 @@ public class AchievementDatabase {
             .encounter(new Encounter("Grimtern")).encounter(new Encounter("Grimtern")).encounter(new Encounter("Barrelchest Mk II"))
             .reward("Quest points", 1).reward("Defence", 19000).reward("Smithing", 18000).reward("Thieving", 18000)
             .reward("Summoning", 15000).reward("Construction", 11250).reward("Slayer", 11000).reward("Dungeoneering", 5000).build());
-        achievements.add(new AchievementBuilder("Alcrabaholic", 0).requirement("A Clockwork Syringe", 1)
-            .encounter(new Encounter("'Rum'-pumped crab", Arrays.asList(new Restriction("Diving apparatus", 1),
-                new Restriction("Fishbowl helmet", 1)))).build());
         achievements.add(new AchievementBuilder("The Feud", 0.75).requirement("Thieving", 30).requirement("Coins", 1002)
             .requirement("Leather gloves", 0).requirement("Beer", 3).encounter(new Encounter("Bandit champion"))
             .encounter(new Encounter("Tough Guy")).reward("Quest points", 1).reward("Thieving", 15000).reward("Coins", 500)
@@ -490,6 +361,873 @@ public class AchievementDatabase {
             .requirement("Waterskin (4)", 1).requirement("Coins", 30).requirement("Bucket", 1).encounter(new Encounter("Apmeken"))
             .encounter(new Encounter("Possessed Priest")).reward("Quest points", 2).reward("Thieving", 4500).reward("Agility", 4000)
             .reward("Woodcutting", 4000).build());
+        achievements.add(new AchievementBuilder("What's Mine is Yours", 0.75).requirement("Smithing", 5)
+            .encounter(new Encounter("Living rock brawler")).encounter(new Encounter("Living rock brawler"))
+            .encounter(new Encounter("Living rock brawler")).encounter(new Encounter("Living rock brawler")).reward("Quest points", 1)
+            .reward("Mining", 1000).reward("Smithing", 400).reward("Coins", 180).build());
+        achievements.add(new AchievementBuilder("Demon Slayer", 0.25).encounter(new Encounter(Collections.singletonList(Arrays.asList(
+            "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)",
+            "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)",
+            "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)")))).encounter(new Encounter("Delrith",
+            Collections.singletonList(new Restriction("Silverlight", 1)))).reward("Quest points", 3).lamp(Arrays.asList("Attack",
+            "Strength", "Defence", "Constitution", "Magic", "Ranged"), 100, 1).lamp(Arrays.asList("Attack", "Strength", "Defence",
+            "Constitution", "Magic", "Ranged"), 100, 1).lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic",
+            "Ranged"), 100, 1).build());
+        achievements.add(new AchievementBuilder("The Knight's Sword", 0.25).requirement("Mining", 10).requirement("Iron bar", 2)
+            .requirement("Redberry pie", 1).reward("Quest points", 1).lamp(Collections.singletonList("Smithing"), 12725, 28).build());
+        achievements.add(new AchievementBuilder("Abyssal Reach", 0.25).requirement("Rune Mysteries", 1).reward("Runecrafting", 1000)
+            .build());
+        achievements.add(new AchievementBuilder("What Lies Below", 0.5).requirement("Rune Mysteries", 1)
+            .requirement("Abyssal Reach", 1).requirement("Runecrafting", 35).requirement("Bowl", 1).requirement("Chaos rune", 15)
+            .encounter(new Encounter("Outlaw")).encounter(new Encounter("Outlaw")).encounter(new Encounter("Outlaw"))
+            .encounter(new Encounter("Outlaw")).encounter(new Encounter("Outlaw")).encounter(new Encounter("King Roald"))
+            .reward("Quest points", 1).reward("Defence", 2000).reward("Runecrafting", 8000).build());
+        achievements.add(new AchievementBuilder("Defender of Varrock", 1).requirement("Demon Slayer", 1).requirement("Family Crest", 1)
+            .requirement("Garden of Tranquility", 1).requirement("The Knight's Sword", 1).requirement("Shield of Arrav", 1)
+            .requirement("Temple of Ikov", 1).requirement("What Lies Below", 1).requirement("Agility", 51).requirement("Hunter", 51)
+            .requirement("Smithing", 54).requirement("Mining", 59).requirement("Spade", 0).encounter(new Encounter(Arrays.asList(
+                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
+                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
+                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie")))).reward("Quest points", 2)
+            .reward("Hunter", 15000).reward("Smithing", 10000).reward("Mining", 10000).reward("Defence", 10000).reward("Agility", 2000)
+            .lamp(Player.ALL_SKILLS, 1000, 1).build());
+        achievements.add(new AchievementBuilder("The Golem", 0.75).requirement("Crafting", 20).requirement("Thieving", 25)
+            .requirement("Vial", 1).requirement("Soft clay", 4).requirement("Papyrus", 1).reward("Quest points", 1).reward("Thieving", 1000)
+            .reward("Crafting", 1000).build());
+        achievements.add(new AchievementBuilder("Missing My Mummy", 1).requirement("The Golem", 1)
+            .requirement("Icthlarin's Little Helper", 1).requirement("Garden of Tranquility", 1).requirement("Construction", 35)
+            .requirement("Cooking", 35).requirement("Crafting", 45).requirement("Magic", 50).requirement("Prayer", 45)
+            .requirement("Thieving", 25).requirement("Willow logs", 1).requirement("Fire rune", 20).requirement("Jug of wine", 1)
+            .requirement("Spice", 1).requirement("Wheat", 1).requirement("Empty pot", 1)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Skeleton looter"),
+                Collections.singletonList("Skeleton looter"), Collections.singletonList("Skeleton looter"),
+                Collections.singletonList("Skeleton looter")))).encounter(new Encounter("Golem Guard"))
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Tumeken's shadow 1"),
+                Collections.singletonList("Tumeken's shadow 2"), Collections.singletonList("Tumeken's shadow 3"),
+                Collections.singletonList("Tumeken's shadow 4"), Collections.singletonList("Tumeken's shadow 5"))))
+            .reward("Quest points", 1).reward("Coins", 5000).reward("Constitution", 7000).reward("Cooking", 2100)
+            .reward("Construction", 2100).reward("Magic", 5000).reward("Prayer", 6500).reward("Crafting", 3350).reward("Thieving", 3000)
+            .build());
+        achievements.add(new AchievementBuilder("The Tale of the Muspah", 0.75).requirement("Firemaking", 6).requirement("Mining", 8)
+            .requirement("Magic", 10).requirement("Woodcutting", 10).requirement("Cosmic rune", 8).requirement("Water rune", 8)
+            .reward("Quest points", 1).reward("Magic", 1000).reward("Mining", 800).reward("Woodcutting", 800).reward("Firemaking", 500)
+            .build());
+        achievements.add(new AchievementBuilder("Troll Romance", 0.75).requirement("Troll Stronghold", 1).requirement("Agility", 28)
+            .requirement("Iron bar", 1).requirement("Maple logs", 1).requirement("Rope", 1).requirement("Cake tin", 0)
+            .requirement("Swamp tar", 1).encounter(new Encounter("Arrg")).reward("Quest points", 2).reward("Agility", 8000)
+            .reward("Strength", 4000).reward("Uncut diamond", 1).reward("Uncut ruby", 2).reward("Uncut emerald", 4).build());
+        achievements.add(new AchievementBuilder("The Curse of Arrav", 1).requirement("Defender of Varrock", 1)
+            .requirement("Missing My Mummy", 1).requirement("Shades of Mort'ton", 1).requirement("The Tale of the Muspah", 1)
+            .requirement("Troll Romance", 1).requirement("Slayer", 37).requirement("Summoning", 41).requirement("Agility", 61)
+            .requirement("Ranged", 64).requirement("Strength", 64).requirement("Mining", 64).requirement("Thieving", 66)
+            .requirement("Dwellberries", 3).requirement("Sacred oil (1)", 1).requirement("Ring of life", 1)
+            .requirement("Mithril grapple", 0).requirement("Insulated boots", 0).requirement("Macaw pouch", 1)
+            .encounter(new Encounter("Arrav")).reward("Quest points", 1).reward("Mining", 30000).reward("Thieving", 14000)
+            .reward("Ranged", 9000).reward("Agility", 9000).reward("Strength", 9000).reward("Summoning", 4000).reward("Slayer", 2500)
+            .build());
+        achievements.add(new AchievementBuilder("Hazeel Cult", 0.25).reward("Quest points", 1).reward("Thieving", 1500)
+            .reward("Coins", 2005).build());
+        achievements.add(new AchievementBuilder("Missing, Presumed Death", 1).encounter(new Encounter(Collections.singletonList(
+            Arrays.asList("Wight", "Wight", "Wight", "Wight")))).encounter(new Encounter(Arrays.asList(
+            Collections.singletonList("Wight footsoldier"), Arrays.asList("Wight ranger", "Wight ranger"),
+            Arrays.asList("Wight footsoldier", "Wight footsoldier", "Wight footsoldier", "Wight footsoldier")))).reward("Quest points", 2)
+            .reward("Prayer", 500).reward("Agility", 1000).lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic",
+                "Ranged"), 1500, 1).build());
+        achievements.add(new AchievementBuilder("Fate of the Gods", 2).requirement("Missing, Presumed Death", 1).requirement("Agility", 73)
+            .requirement("Summoning", 67).requirement("Divination", 75).requirement("Slayer", 76).requirement("Magic", 79)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Smoke nihil"), Collections.singletonList("Shadow nihil"),
+                Collections.singletonList("Blood nihil"), Collections.singletonList("Ice nihil")))).reward("Quest points", 2)
+            .reward("Magic", 125000).reward("Divination", 100000).reward("Slayer", 100000).reward("Agility", 75000)
+            .reward("Summoning", 50000).build());
+        achievements.add(new AchievementBuilder("Meeting History", 0.75).requirement("Making History", 1)
+            .requirement("Druidic Ritual", 1).reward("Quest points", 1).lamp(Player.ALL_SKILLS, 1000, 25).lamp(Player.ALL_SKILLS, 1000, 25)
+            .lamp(Player.ALL_SKILLS, 500, 25).build());
+        achievements.add(new AchievementBuilder("The World Wakes", 2).encounter(new Encounter(Collections.singletonList(Arrays.asList(
+            "Automaton Tracer (TWW)", "Automaton Guardian (TWW)", "Automaton Generator (TWW)"))))
+            .encounter(new Encounter("Kree'arra (TWW)")).encounter(new Encounter("General Graardor (TWW)"))
+            .encounter(new Encounter("Zemouregal")).encounter(new Encounter("K'ril Tsutsaroth (TWW)")).encounter(new Encounter("Enakhra"))
+            .reward("Quest points", 3).lamp(Collections.singletonList("Prayer"), 250000, 80)
+            .lamp(Collections.singletonList("Slayer"), 110000, 80).lamp(Player.ALL_SKILLS, 100000, 75).lamp(Player.ALL_SKILLS, 100000, 75)
+            .lamp(Player.ALL_SKILLS, 100000, 75).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Summoning",
+                "Constitution"), 50000, 65).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Summoning",
+                "Constitution"), 50000, 65).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Summoning",
+                "Constitution"), 50000, 65).build());
+        achievements.add(new AchievementBuilder("Ernest the Chicken", 0.25).reward("Quest points", 4).reward("Coins", 3000)
+            .reward("Egg", 10).reward("Feather", 300).build());
+        achievements.add(new AchievementBuilder("Animal Magnetism", 0.75).requirement("Ernest the Chicken", 1)
+            .requirement("Priest in Peril", 1).requirement("The Restless Ghost", 1).requirement("Slayer", 18).requirement("Crafting", 19)
+            .requirement("Ranged", 30).requirement("Woodcutting", 35).requirement("Mithril hatchet", 1).requirement("Iron bar", 5)
+            .requirement("Holy symbol", 1).requirement("Hard leather", 1).reward("Quest points", 1)
+            .reward("Crafting", 1050).reward("Fletching", 1000).reward("Slayer", 1000).reward("Woodcutting", 2500).build());
+        achievements.add(new AchievementBuilder("Contact!", 0.75).requirement("Icthlarin's Little Helper", 1)
+            .encounter(new Encounter("Giant scarab (Contact!)")).reward("Quest points", 1).reward("Thieving", 7000)
+            .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Summoning"), 7000, 30)
+            .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Summoning"), 7000, 30).build());
+        achievements.add(new AchievementBuilder("Dealing with Scabaras", 1.5).requirement("Contact!", 1).requirement("The Feud", 1)
+            .requirement("Zogre Flesh Eaters", 1).requirement("Firemaking", 21).requirement("Agility", 50).requirement("Thieving", 60)
+            .requirement("Strength", 60).requirement("Bucket", 0).requirement("Gold seal", 10).requirement("Bronze bar", 18)
+            .encounter(new Encounter("Giant scarab")).encounter(new Encounter("Mummy")).encounter(new Encounter("Mummy"))
+            .encounter(new Encounter("Mummy")).encounter(new Encounter("Mummy")).reward("Quest points", 1).reward("Agility", 8214)
+            .reward("Thieving", 7000).reward("Strength", 7000).reward("Prayer", 7000).build());
+        achievements.add(new AchievementBuilder("Shadow of the Storm", 0.75).requirement("Demon Slayer", 1).requirement("The Golem", 1)
+            .requirement("Crafting", 30).requirement("Silver bar", 1).requirement("Vial", 0).requirement("Desert shirt", 1)
+            .requirement("Desert robe", 1).requirement("Black wizard hat", 0).encounter(new Encounter("Agrith Naar"))
+            .reward("Quest points", 1).reward("Sapphire", 2).reward("Emerald", 2).reward("Ruby", 2).lamp(Arrays.asList("Attack", "Strength",
+                "Defence", "Constitution", "Ranged", "Magic"), 10000, 1).build());
+        achievements.add(new AchievementBuilder("The Grand Tree", 1.5).encounter(new Encounter("Black demon (The Grand Tree)"))
+            .reward("Quest points", 5).reward("Agility", 7900).reward("Attack", 18400).reward("Magic", 2150).build());
+        achievements.add(new AchievementBuilder("Tree Gnome Village", 0.75).requirement("Logs", 6)
+            .encounter(new Encounter("Khazard warlord")).reward("Quest points", 2).reward("Attack", 11450).build());
+        achievements.add(new AchievementBuilder("Monkey Madness", 2.5).requirement("The Grand Tree", 1)
+            .requirement("Tree Gnome Village", 1).requirement("Gold bar", 1).requirement("Ball of wool", 1).requirement("Banana", 5)
+            .encounter(new Encounter("Monkey")).encounter(new Encounter("Jungle demon")).reward("Quest points", 3).reward("Coins", 10000)
+            .reward("Diamond", 3).build());
+        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing King Awowogei", 1).requirement("Monkey Madness", 1)
+            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Cooking", 70).requirement("Agility", 48)
+            .requirement("Coins", 10).encounter(new Encounter("Big Snake")).reward("Quest points", 1).reward("Cooking", 10000)
+            .reward("Agility", 10000).build());
+        achievements.add(new AchievementBuilder("Smoking Kills", 0.25).requirement("Icthlarin's Little Helper", 1).requirement("Slayer", 35)
+            .requirement("Crafting", 25).requirement("Earmuffs", 1).requirement("Face mask", 1).encounter(new Encounter(Arrays.asList(
+                Arrays.asList("Skeleton", "Skeleton", "Zombie", "Zombie"), Collections.singletonList("Mummy warrior"),
+                Arrays.asList("Skeleton", "Skeleton", "Zombie", "Zombie"), Collections.singletonList("Mummy warrior"))))
+            .encounter(new Encounter("Mighty banshee", Collections.singletonList(new Restriction("Masked earmuffs", 1))))
+            .encounter(new Encounter("Banshee mistress", Collections.singletonList(new Restriction("Masked earmuffs", 1))))
+            .reward("Quest points", 1).reward("Slayer", 5000).build());
+        achievements.add(new AchievementBuilder("Do No Evil", 2.5).requirement("Animal Magnetism", 1).requirement("Desert Treasure", 1)
+            .requirement("Dealing with Scabaras", 1).requirement("Missing My Mummy", 1).requirement("Shadow of the Storm", 1)
+            .requirement("Recipe for Disaster: Freeing King Awowogei", 1).requirement("Smoking Kills", 1).requirement("Ranged", 50)
+            .requirement("Construction", 64).requirement("Crafting", 68).requirement("Magic", 70).requirement("Thieving", 70)
+            .requirement("Banana", 10).requirement("Teak plank", 6).requirement("Bolt of cloth", 10).requirement("Rope", 3)
+            .requirement("Knife", 3).requirement("Desert shirt", 1).requirement("Desert robe", 1).requirement("Desert boots", 1)
+            .requirement("Death rune", 40).requirement("Coins", 1000).encounter(new Encounter("Small scarab"))
+            .encounter(new Encounter("Leeuni", Collections.singletonList(new Restriction("Masked earmuffs", 1))))
+            .encounter(new Encounter("Ayuni")).encounter(new Encounter(Arrays.asList(Collections.singletonList("Lesser demon"),
+                Arrays.asList("Lesser demon", "Lesser demon"),  Arrays.asList("Lesser demon", "Lesser demon", "Lesser demon"),
+                Arrays.asList("Lesser demon", "Lesser demon", "Lesser demon", "Lesser demon"), Collections.singletonList("Eruni"))))
+            .reward("Quest points", 1).reward("Magic", 50000).reward("Thieving", 50000).reward("Crafting", 40000)
+            .reward("Construction", 30000).build());
+        achievements.add(new AchievementBuilder("Fairy Tale III - Battle at Ork's Rift", 1.5).requirement("Fairy Tale II - Cure a Queen", 1)
+            .requirement("Magic", 59).requirement("Farming", 54).requirement("Thieving", 51).requirement("Summoning", 37)
+            .requirement("Crafting", 36).encounter(new Encounter(Collections.singletonList(Arrays.asList("Ork warrior", "Ork warrior",
+                "Ork warrior", "Ork warrior", "Ork warrior", "Ork warrior", "Ork warrior", "Ork warrior", "General Gromblod",
+                "General Shredflesh", "General Bre'egth", "Fairy Godfather")))).reward("Quest points", 2).reward("Farming", 11000)
+            .reward("Thieving", 11000).reward("Magic", 11000).reward("Summoning", 1000).reward("Crafting", 1000).build());
+        achievements.add(new AchievementBuilder("Impressing the Locals", 0.25).requirement("Coins", 1000).reward("Quest points", 1)
+            .build());
+        achievements.add(new AchievementBuilder("Tower of Life", 1).requirement("Construction", 10).requirement("Coins", 2)
+            .reward("Quest points", 2).reward("Construction", 1000).reward("Crafting", 500).reward("Thieving", 500).build());
+        achievements.add(new AchievementBuilder("Monk's Friend", 0.25).requirement("Jug of water", 1).requirement("Logs", 1)
+            .reward("Quest points", 1).reward("Law rune", 8).reward("Woodcutting", 2000).build());
+        achievements.add(new AchievementBuilder("Watchtower", 1.5).requirement("Herblore", 14).requirement("Magic", 14)
+            .requirement("Thieving", 15).requirement("Agility", 25).requirement("Mining", 40).requirement("Coins", 20)
+            .requirement("Dragon bones", 1).requirement("Bat bones", 1).requirement("Vial of water", 1).requirement("Rope", 1)
+            .requirement("Clean guam", 1).requirement("Gold bar", 1).encounter(new Encounter("Gorad")).reward("Quest points", 4)
+            .reward("Magic", 15250).reward("Coins", 5000).build());
+        achievements.add(new AchievementBuilder("The Hand in the Sand", 0.75).requirement("Thieving", 17).requirement("Crafting", 49)
+            .requirement("Coins", 2).requirement("Bucket", 1).requirement("Lantern lens", 1).requirement("Earth rune", 5)
+            .requirement("Vial", 1).requirement("Redberries", 1).requirement("White berries", 1).reward("Quest points", 1)
+            .reward("Thieving", 1000).reward("Crafting", 9000).build());
+        achievements.add(new AchievementBuilder("Tribal Totem", 0.25).requirement("Thieving", 21).reward("Quest points", 1)
+            .reward("Thieving", 1775).reward("Swordfish", 5).build());
+        achievements.add(new AchievementBuilder("Back to my Roots", 0.75).requirement("Fairy Tale I - Growing Pains", 1)
+            .requirement("The Hand in the Sand", 1).requirement("One Small Favour", 1).requirement("Tribal Totem", 1)
+            .requirement("Agility", 55).requirement("Farming", 53).requirement("Slayer", 59).requirement("Woodcutting", 72)
+            .requirement("Plant pot", 1).requirement("Soft clay", 1).requirement("Empty pot", 1).encounter(new Encounter("Wild jade vine",
+                Collections.singletonList(new Restriction("Hatchet", 1)))).reward("Quest points", 1).reward("Farming", 24000)
+            .reward("Woodcutting", 40000).reward("Slayer", 23000).reward("Agility", 15000).build());
+        achievements.add(new AchievementBuilder("In Pyre Need", 0.5).requirement("Firemaking", 55).requirement("Crafting", 52)
+            .requirement("Fletching", 53).reward("Quest points", 1).reward("Firemaking", 14400).reward("Fletching", 12500)
+            .reward("Crafting", 11556).reward("Phoenix quill", 5).build());
+        achievements.add(new AchievementBuilder("The Fremennik Isles", 1.5).requirement("The Fremennik Trials", 1)
+            .requirement("Construction", 20).requirement("Crafting", 46).requirement("Agility", 40).requirement("Woodcutting", 56)
+            .requirement("Tin ore", 8).requirement("Rope", 8).encounter(new Encounter("Ice troll runt"))
+            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
+            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
+            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
+            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
+            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice Troll King")).reward("Quest points", 1)
+            .reward("Construction", 5000).reward("Crafting", 5000).reward("Woodcutting", 10000).reward("Coins", 14000)
+            .reward("Helm of neitiznot", 1).lamp(Arrays.asList("Strength", "Defence", "Attack", "Constitution"), 10000, 1)
+            .lamp(Arrays.asList("Strength", "Defence", "Attack", "Constitution"), 10000, 1).build());
+        achievements.add(new AchievementBuilder("In Search of the Myreque", 0.25).requirement("Nature Spirit", 1)
+            .requirement("Agility", 25).requirement("Steel longsword", 1).requirement("Steel sword", 2).requirement("Steel mace", 1)
+            .requirement("Steel warhammer", 1).requirement("Steel dagger", 1).requirement("Steel nails", 75).requirement("Plank", 6)
+            .requirement("Mort myre stem", 3).encounter(new Encounter("Skeleton Hellhound")).reward("Quest points", 2)
+            .reward("Uncut ruby", 2).reward("Big bones", 4).lamp(Collections.singletonList("Attack"), 600, 4)
+            .lamp(Collections.singletonList("Defence"), 600, 4).lamp(Collections.singletonList("Strength"), 600, 4)
+            .lamp(Collections.singletonList("Constitution"), 600, 4).lamp(Collections.singletonList("Crafting"), 600, 4).build());
+        achievements.add(new AchievementBuilder("In Aid of the Myreque", 1.5).requirement("In Search of the Myreque", 1)
+            .requirement("Crafting", 25).requirement("Magic", 7).requirement("Mining", 15).requirement("Sardine", 1)
+            .requirement("Bucket", 0).requirement("Plank", 11).requirement("Bronze nails", 44).requirement("Bronze hatchet", 10)
+            .requirement("Raw mackerel", 10).requirement("Tinderbox", 3).requirement("Steel bar", 2).requirement("Coal", 1)
+            .requirement("Soft clay", 1).requirement("Silver bar", 1).requirement("Mithril bar", 1).requirement("Sapphire", 1)
+            .requirement("Cosmic rune", 1).requirement("Water rune", 1).requirement("Rope", 1)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Gadderanks"),
+                Arrays.asList("Vampyre Juvinate (In Aid of the Myreque A)", "Vampyre Juvinate (In Aid of the Myreque B)")),
+                Collections.singletonList(new Restriction("Wolfbane", 1))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Vampyre Juvinate (In Aid of the Myreque C)",
+                "Vampyre Juvinate (In Aid of the Myreque C)")), Collections.singletonList(new Restriction("Wolfbane", 1))))
+            .reward("Quest points", 2).lamp(Collections.singletonList("Attack"), 2000, 12)
+            .lamp(Collections.singletonList("Strength"), 2000, 12).lamp(Collections.singletonList("Crafting"), 2000, 12)
+            .lamp(Collections.singletonList("Defence"), 2000, 12).build());
+        achievements.add(new AchievementBuilder("Darkness of Hallowvale", 2.5).requirement("In Aid of the Myreque", 1)
+            .requirement("Construction", 5).requirement("Mining", 20).requirement("Thieving", 22).requirement("Agility", 26)
+            .requirement("Crafting", 32).requirement("Magic", 33).requirement("Strength", 40).requirement("Bronze nails", 8)
+            .requirement("Plank", 2).reward("Quest points", 2).reward("Agility", 7000).reward("Thieving", 6000).reward("Construction", 2000)
+            .lamp(Player.ALL_SKILLS, 2000, 30).lamp(Player.ALL_SKILLS, 2000, 30).lamp(Player.ALL_SKILLS, 2000, 30).build());
+        achievements.add(new AchievementBuilder("Legacy of Seergaze", 2).requirement("Darkness of Hallowvale", 1)
+            .requirement("Construction", 20).requirement("Agility", 29).requirement("Slayer", 31).requirement("Mining", 35)
+            .requirement("Firemaking", 40).requirement("Crafting", 47).requirement("Magic", 49).requirement("Teak pyre logs", 1)
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Fistandantilus", "Zaromark Sliver"))))
+            .encounter(new Encounter("Vyrewatch", Collections.singletonList(new Restriction("Ivandis flail", 1))))
+            .reward("Quest points", 2).reward("Magic", 3000).reward("Agility", 2000).reward("Crafting", 4000).reward("Mining", 2000)
+            .reward("Construction", 1000).reward("Slayer", 2000).reward("Blood talisman", 1).lamp(Player.ALL_SKILLS, 2500, 35)
+            .lamp(Player.ALL_SKILLS, 2500, 35).lamp(Player.ALL_SKILLS, 2500, 35).build());
+        achievements.add(new AchievementBuilder("Eadgar's Ruse", 1.5).requirement("Druidic Ritual", 1)
+            .requirement("Troll Stronghold", 1).requirement("Herblore", 31).requirement("Agility", 15).requirement("Vodka", 1)
+            .requirement("Pineapple chunks", 1).requirement("Wheat", 10).requirement("Raw chicken", 5).requirement("Logs", 2)
+            .requirement("Ranarr potion (unf)", 1).reward("Quest points", 1).reward("Herblore", 11000).build());
+        achievements.add(new AchievementBuilder("Dream Mentor", 0.55).requirement("Lunar Diplomacy", 1)
+            .requirement("Eadgar's Ruse", 1).requirement("Astral rune", 1)
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("The Inadequacy", "The Everlasting",
+                "The Untouchable", "The Illusive")))).reward("Quest points", 2).reward("Magic", 10000).reward("Constitution", 15000)
+            .lamp(Arrays.asList("Strength", "Ranged", "Magic", "Constitution", "Defence"), 15000, 1).build());
+        achievements.add(new AchievementBuilder("Mountain Daughter", 1).requirement("Agility", 20).requirement("Rope", 0)
+            .requirement("Leather gloves", 0).encounter(new Encounter("The Kendal")).reward("Quest points", 2).reward("Prayer", 2000)
+            .reward("Attack", 1000).build());
+        achievements.add(new AchievementBuilder("Bar Crawl", 0.5).requirement("Coins", 208).build());
+        achievements.add(new AchievementBuilder("Horror from the Deep", 0.75).requirement("Bar Crawl", 1).requirement("Agility", 35)
+            .requirement("Steel nails", 60).requirement("Molten glass", 1).requirement("Swamp tar", 1).requirement("Tinderbox", 0)
+            .requirement("Fire rune", 1).requirement("Earth rune", 1).requirement("Air rune", 1).requirement("Water rune", 1)
+            .requirement("Bronze sword", 1).requirement("Bronze arrow", 1)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth mother"))))
+            .reward("Quest points", 2).reward("Magic", 4662).reward("Ranged", 4662).reward("Strength", 4662).build());
+        achievements.add(new AchievementBuilder("Rune Memories", 1.5).reward("Quest points", 1).reward("Magic", 300)
+            .reward("Runecrafting", 300).build());
+        achievements.add(new AchievementBuilder("The Giant Dwarf", 1).requirement("Crafting", 12).requirement("Firemaking", 16)
+            .requirement("Magic", 33).requirement("Thieving", 14).requirement("Coins", 10000).requirement("Logs", 1).requirement("Coal", 1)
+            .requirement("Iron bar", 1).requirement("Law rune", 1).requirement("Air rune", 1).requirement("Sapphire", 3)
+            .requirement("Redberry pie", 1).reward("Quest points", 2).reward("Crafting", 2500).reward("Mining", 2500)
+            .reward("Smithing", 2500).reward("Firemaking", 1500).reward("Magic", 1500).reward("Thieving", 1500).build());
+        achievements.add(new AchievementBuilder("Fishing Contest", 0.25).requirement("Fishing", 10).requirement("Coins", 5)
+            .reward("Quest points", 1).reward("Fishing", 2437).build());
+        achievements.add(new AchievementBuilder("Forgettable Tale...", 1.5).requirement("The Giant Dwarf", 1)
+            .requirement("Fishing Contest", 1).requirement("Cooking", 22).requirement("Farming", 17).requirement("Coins", 400)
+            .requirement("Barley malt", 2).requirement("Bucket of water", 2).requirement("Beer", 4).requirement("Kebab", 1)
+            .reward("Quest points", 2).reward("Cooking", 5000).reward("Farming", 5000).reward("Dwarven stout (m)", 2).build());
+        achievements.add(new AchievementBuilder("Dwarf Cannon", 0.75).reward("Quest points", 1).reward("Crafting", 750).build());
+        achievements.add(new AchievementBuilder("Between a Rock...", 0.75).requirement("Dwarf Cannon", 1).requirement("Fishing Contest", 1)
+            .requirement("Defence", 30).requirement("Mining", 40).requirement("Smithing", 50).requirement("Gold bar", 4)
+            .requirement("Coins", 50).encounter(new Encounter("Scorpion")).encounter(new Encounter("Arzinian Avatar",
+                Arrays.asList(new Restriction("Gold helmet", 1), new Restriction("Ticks", 800)))).reward("Quest points", 2)
+            .reward("Defence", 5000).reward("Mining", 5000).reward("Smithing", 5000).reward("Rune pickaxe", 1).build());
+        achievements.add(new AchievementBuilder("Forgiveness of a Chaos Dwarf", 1).requirement("Forgettable Tale...", 1)
+            .requirement("Between a Rock...", 1).requirement("Hunter", 61).requirement("Firemaking", 61).requirement("Strength", 69)
+            .encounter(new Encounter("Chaos dwarf hand cannoneer")).reward("Quest points", 2).reward("Firemaking", 30000)
+            .reward("Hunter", 30000).reward("Strength", 30000).build());
+        achievements.add(new AchievementBuilder("My Arm's Big Adventure", 1).requirement("Eadgar's Ruse", 1).requirement("The Feud", 1)
+            .requirement("Jungle Potion", 1).requirement("Woodcutting", 10).requirement("Farming", 29).requirement("Coins", 10)
+            .requirement("Supercompost", 7).encounter(new Encounter(Arrays.asList(Collections.singletonList("Baby Roc"),
+                Collections.singletonList("Giant Roc")))).reward("Quest points", 1).reward("Herblore", 10000).reward("Farming", 5495)
+            .build());
+        achievements.add(new AchievementBuilder("King of the Dwarves", 1).requirement("Forgiveness of a Chaos Dwarf", 1)
+            .requirement("My Arm's Big Adventure", 1).requirement("Mining", 68).requirement("Smithing", 70).requirement("Strength", 77)
+            .requirement("Soft clay", 6).requirement("Mithril bar", 6).encounter(new Encounter("Colonel Grimsson (KOD)"))
+            .reward("Quest points", 2).reward("Mining", 45000).reward("Smithing", 50000).reward("Strength", 55000).build());
+        achievements.add(new AchievementBuilder("Birthright of the Dwarves", 2.5).requirement("King of the Dwarves", 1)
+            .requirement("Mining", 80).requirement("Smithing", 82).requirement("Strength", 85).encounter(new Encounter("Chaos dwarf"))
+            .encounter(new Encounter("Chaos dwarf")).encounter(new Encounter("Chaos dwarf")).encounter(new Encounter("Red Axe director"))
+            .encounter(new Encounter("Red Axe director")).encounter(new Encounter("Red Axe director"))
+            .encounter(new Encounter("Red Axe director")).encounter(new Encounter("Red Axe director"))
+            .encounter(new Encounter("Red Axe director")).encounter(new Encounter("Red Axe director"))
+            .encounter(new Encounter("Ikadia the Exile")).encounter(new Encounter("Colonel Grimsson"))
+            .encounter(new Encounter("Chaos Grimsson")).encounter(new Encounter("Chaos Hreidmar")).reward("Quest points", 2)
+            .reward("Mining", 100000).reward("Smithing", 100000).reward("Strength", 200000).reward("Mithril bar", 30)
+            .reward("Adamant bar", 30).reward("Rune bar", 30).build());
+        achievements.add(new AchievementBuilder("Death to the Dorgeshuun", 0.75).requirement("The Lost Tribe", 1)
+            .requirement("Thieving", 23).requirement("Agility", 23).requirement("H.a.m. hood", 1).requirement("H.a.m. shirt", 1)
+            .requirement("H.a.m. robe", 1).requirement("H.a.m. gloves", 1).requirement("H.a.m. boots", 1).requirement("H.a.m. cloak", 1)
+            .requirement("H.a.m. logo", 1).requirement("H.a.m. hood", 0).requirement("H.a.m. shirt", 0).requirement("H.a.m. robe", 0)
+            .requirement("H.a.m. gloves", 0).requirement("H.a.m. boots", 0).requirement("H.a.m. cloak", 0).requirement("H.a.m. logo", 0)
+            .requirement("Bullseye lantern (oil)", 0)
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Sigmund (DttD)", "Guard (DttD)", "Guard (DttD)",
+                "Guard (DttD)")), Collections.singletonList(new Restriction("Melee or Magic", 1)))).reward("Quest points", 1)
+            .reward("Thieving", 2000).reward("Ranged", 2000).build());
+        achievements.add(new AchievementBuilder("Another Slice of H.A.M", 0.75).requirement("Death to the Dorgeshuun", 1)
+            .requirement("The Dig Site", 1).requirement("The Giant Dwarf", 1).requirement("Attack", 15).requirement("Prayer", 25)
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("H.A.M Mage", "H.A.M Archer")),
+                Collections.singletonList(new Restriction("Ranged or Magic", 1)))).encounter(new Encounter("Sigmund (ASoH)"))
+            .reward("Quest points", 1).reward("Mining", 3000).reward("Prayer", 3000).build());
+        achievements.add(new AchievementBuilder("Land of the Goblins", 1.5).requirement("Another Slice of H.A.M", 1)
+            .requirement("Fishing Contest", 1).requirement("Prayer", 30).requirement("Agility", 36).requirement("Fishing", 36)
+            .requirement("Thieving", 36).requirement("Herblore", 37).requirement("Toadflax potion (unf)", 1).requirement("Goblin mail", 0)
+            .requirement("Yellow dye", 1).requirement("Blue dye", 1).requirement("Orange dye", 1).requirement("Purple dye", 1)
+            .requirement("Coins", 5).requirement("Slimy eel", 1).encounter(new Encounter(Arrays.asList(
+                Collections.singletonList("Snothead"), Collections.singletonList("Snailfeet"), Collections.singletonList("Mosschin"),
+                Collections.singletonList("Redeyes"), Collections.singletonList("Strongbones")))).reward("Quest points", 1)
+            .reward("Agility", 3000).reward("Herblore", 3000).reward("Thieving", 3000).reward("Fishing", 3000).reward("Strength", 3000)
+            .reward("Prayer", 2000).build());
+        achievements.add(new AchievementBuilder("The Chosen Commander", 2).requirement("Land of the Goblins", 1).requirement("Agility", 46)
+            .requirement("Strength", 46).requirement("Thieving", 46).encounter(new Encounter("H.A.M agent Walton"))
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Sigmund (TCC)"), Collections.singletonList("Zanik"),
+                Collections.singletonList("Zanik"), Collections.singletonList("Zanik"), Collections.singletonList("Zanik"),
+                Collections.singletonList("Zanik")))).encounter(new Encounter(Arrays.asList(Collections.singletonList("Bandos avatar"),
+                Collections.singletonList("Ogre statue"), Collections.singletonList("Ork statue"),
+                Collections.singletonList("Goblin statue"), Collections.singletonList("Bandos avatar")))).reward("Quest points", 3)
+            .reward("Agility", 20000).reward("Strength", 20000).reward("Thieving", 20000).build());
+        achievements.add(new AchievementBuilder("The Hunt for Surok", 0.5).requirement("What Lies Below", 1).requirement("Mining", 42)
+            .requirement("Chaos talisman", 0).encounter(new Encounter("Bork")).reward("Slayer", 5000).reward("Crimson charm", 7)
+            .reward("Green charm", 2).reward("Blue charm", 5).reward("Big bones", 1).reward("Coins", 2000).reward("Emerald", 3)
+            .reward("Ruby", 2).build());
+        achievements.add(new AchievementBuilder("The Mighty Fall", 2).requirement("Missing, Presumed Death", 1)
+            .requirement("The Chosen Commander", 1).requirement("My Arm's Big Adventure", 1).requirement("The Hunt for Surok", 1)
+            .requirement("Slayer", 69).requirement("Defence", 72).requirement("Constitution", 78).requirement("Attack", 79)
+            .requirement("Strength", 79).encounter(new Encounter("Human infiltrator")).encounter(new Encounter("Human infiltrator"))
+            .encounter(new Encounter("Human infiltrator")).encounter(new Encounter("Human infiltrator"))
+            .encounter(new Encounter("Human infiltrator")).encounter(new Encounter("Human infiltrator"))
+            .encounter(new Encounter(Arrays.asList(Arrays.asList("Yelps's bodyguard", "Yelps's bodyguard"),
+                Arrays.asList("Yelps's bodyguard", "Yelps's bodyguard"), Arrays.asList("Yelps's bodyguard", "Yelps")),
+                Collections.singletonList(new Restriction("Summoning", 0))))
+            .encounter(new Encounter("Lol", Arrays.asList(new Restriction("Summoning", 0), new Restriction("Armour", 0))))
+            .encounter(new Encounter("General Graardor (TMF)", Arrays.asList(new Restriction("Kyzaj", 1), new Restriction("Summoning", 0),
+                new Restriction("Prayer", 0)))).reward("Quest points", 2).reward("Attack", 80000).reward("Strength", 80000)
+            .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged", "Summoning", "Prayer", "Slayer"), 50000,
+                69).lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged", "Summoning", "Prayer", "Slayer"),
+                75000, 79).build());
+        achievements.add(new AchievementBuilder("Enakhra's Lament", 0.75).requirement("Crafting", 50).requirement("Firemaking", 45)
+            .requirement("Magic", 13).requirement("Granite (5kg)", 2).requirement("Sandstone (10kg)", 5).requirement("Sandstone (2kg)", 1)
+            .requirement("Meat pizza", 1).requirement("Air rune", 2).requirement("Fire rune", 1).requirement("Candle", 1)
+            .requirement("Logs", 1).requirement("Oak logs", 1).requirement("Willow logs", 1).requirement("Maple logs", 1)
+            .requirement("Soft clay", 1).requirement("Coal", 1).reward("Quest points", 2).reward("Crafting", 7000).reward("Mining", 7000)
+            .reward("Firemaking", 7000).reward("Magic", 7000).build());
+        achievements.add(new AchievementBuilder("Fight Arena", 0.75).requirement("Coins", 5).encounter(new Encounter("Khazard ogre"))
+            .encounter(new Encounter("Khazard scorpion")).encounter(new Encounter("Bouncer")).reward("Quest points", 2)
+            .reward("Coins", 1000).reward("Attack", 12175).reward("Thieving", 2175).build());
+        achievements.add(new AchievementBuilder("A Tail of Two Cats", 1.5).requirement("Icthlarin's Little Helper", 1)
+            .requirement("Death rune", 5).requirement("Chocolate cake", 1).requirement("Bucket of milk", 1).requirement("Logs", 1)
+            .requirement("Potato seed", 4).requirement("Vial of water", 1).requirement("Desert robe", 1).requirement("Desert shirt", 1)
+            .reward("Quest points", 2).lamp(Player.ALL_SKILLS, 2500, 30).lamp(Player.ALL_SKILLS, 2500, 30).build());
+        achievements.add(new AchievementBuilder("The Eyes of Glouphrie", 0.75).requirement("The Grand Tree", 1)
+            .requirement("Construction", 5).requirement("Magic", 46).requirement("Mud rune", 1).requirement("Maple logs", 1)
+            .requirement("Oak logs", 1).reward("Quest points", 2).reward("Herblore", 1).reward("Magic", 12000).reward("Woodcutting", 2500)
+            .reward("Runecrafting", 6000).reward("Construction", 250).build());
+        achievements.add(new AchievementBuilder("The Path of Glouphrie", 1.5).requirement("Waterfall Quest", 1)
+            .requirement("The Eyes of Glouphrie", 1).requirement("Tree Gnome Village", 1).requirement("Strength", 60)
+            .requirement("Thieving", 56).requirement("Slayer", 56).requirement("Ranged", 47).requirement("Agility", 45)
+            .requirement("Mithril grapple", 0).encounter(new Encounter(Collections.singletonList(Arrays.asList("Warped terrorbird",
+                "Warped terrorbird", "Warped terrorbird")))).reward("Quest points", 1).reward("Strength", 30000).reward("Slayer", 20000)
+            .reward("Thieving", 5000).reward("Magic", 5000).build());
+        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing Evil Dave", 1).requirement("Gertrude's Cat", 1)
+            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Shadow of the Storm", 1).requirement("Cooking", 25)
+            .requirement("Stew", 9).reward("Quest points", 1).reward("Cooking", 7000).build());
+        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing the Goblin generals", 0.25).requirement("Goblin Diplomacy", 1)
+            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Charcoal", 1).requirement("Spice", 1)
+            .requirement("Fishing bait", 1).requirement("Bowl of water", 1).requirement("Bread", 1).requirement("Orange", 1)
+            .requirement("Blue dye", 1).reward("Quest points", 1).reward("Cooking", 1000).reward("Farming", 1000).reward("Crafting", 1000)
+            .build());
+        achievements.add(new AchievementBuilder("Witch's House", 0.25).encounter(new Encounter(Arrays.asList(
+            Collections.singletonList("Witch's experiment 1"), Collections.singletonList("Witch's experiment 2"),
+            Collections.singletonList("Witch's experiment 3"), Collections.singletonList("Witch's experiment 4"))))
+            .reward("Quest points", 4).reward("Constitution", 6325).build());
+        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing the Lumbridge Sage", 0.25).requirement("Biohazard", 1)
+            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Big Chompy Bird Hunting", 1)
+            .requirement("Demon Slayer", 1).requirement("Murder Mystery", 1).requirement("Nature Spirit", 1).requirement("Witch's House", 1)
+            .requirement("Cooking", 40).requirement("Bucket of milk", 1).requirement("Egg", 1).requirement("Pot of flour", 1)
+            .requirement("Cake tin", 0).reward("Quest points", 1).reward("Cooking", 2500).reward("Magic", 2500).build());
+        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing the Mountain dwarf", 0.25).requirement("Fishing Contest", 1)
+            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Coins", 304).requirement("Pot of flour", 1)
+            .requirement("Egg", 1).requirement("Bucket of milk", 1).requirement("Bowl of water", 1).requirement("Leather gloves", 0)
+            .requirement("Asgarnian ale", 5).reward("Quest points", 1).reward("Cooking", 1000).reward("Slayer", 1000).build());
+        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing Skrach Uglogwee", 0.75)
+            .requirement("Big Chompy Bird Hunting", 1).requirement("Recipe for Disaster: Another Cook's Quest", 1)
+            .requirement("Cooking", 41).requirement("Firemaking", 20).requirement("Bronze hatchet", 0).requirement("Raw chompy", 1)
+            .requirement("Ball of wool", 1).requirement("Iron spit", 1).requirement("Logs", 1).requirement("Ogre arrow", 1)
+            .reward("Quest points", 1).reward("Woodcutting", 1500).reward("Cooking", 1500).reward("Crafting", 1500).reward("Ranged", 1500)
+            .build());
+        achievements.add(new AchievementBuilder("Spirit of Summer", 1.5).requirement("The Restless Ghost", 1)
+            .requirement("Summoning", 19).requirement("Farming", 26).requirement("Prayer", 35).requirement("Construction", 40)
+            .requirement("Spirit wolf pouch", 1).requirement("Desert wyrm pouch", 1).requirement("Spirit scorpion pouch", 1)
+            .reward("Quest points", 1).reward("Construction", 7500).reward("Prayer", 5000).reward("Farming", 2000).reward("Summoning", 1000)
+            .build());
+        achievements.add(new AchievementBuilder("Summer's End", 1).requirement("Spirit of Summer", 1).requirement("Summoning", 23)
+            .requirement("Hunter", 35).requirement("Woodcutting", 37).requirement("Mining", 45).requirement("Firemaking", 47)
+            .requirement("Prayer", 55).requirement("Albino rat pouch", 1).reward("Quest points", 1).reward("Summoning", 1500)
+            .reward("Hunter", 5000).reward("Mining", 5000).reward("Woodcutting", 5000).reward("Prayer", 10000).reward("Firemaking", 15000)
+            .build());
+        achievements.add(new AchievementBuilder("Wolf Whistle", 0.5).reward("Quest points", 1).reward("Summoning", 276)
+            .reward("Gold charm", 275).build());
+        achievements.add(new AchievementBuilder("Dimension of Disaster: Coin of the Realm", 0.25).requirement("Coins", 1)
+            .reward("Quest points", 1).build());
+        achievements.add(new AchievementBuilder("Dimension of Disaster: Shield of Arrav", 0.25).requirement("Shield of Arrav", 1)
+            .requirement("Dimension of Disaster: Coin of the Realm", 1).reward("Quest points", 1).reward("Thieving", 100).build());
+        achievements.add(new AchievementBuilder("Dimension of Disaster: Demon Slayer", 0.75).requirement("Shadow of the Storm", 1)
+            .requirement("Dimension of Disaster: Coin of the Realm", 1).reward("Quest points", 3).reward("Crafting", 5000)
+            .reward("Magic", 5000).build());
+        achievements.add(new AchievementBuilder("Dimension of Disaster: Defender of Varrock", 0.75).requirement("Defender of Varrock", 1)
+            .requirement("Dimension of Disaster: Coin of the Realm", 1).reward("Quest points", 2).reward("Thieving", 10000)
+            .reward("Magic", 10000).reward("Defence", 10000).reward("Construction", 2000).lamp(Arrays.asList("Attack", "Strength",
+                "Defence", "Magic", "Ranged"), 15000, 1).build());
+        achievements.add(new AchievementBuilder("Dimension of Disaster: Curse of Arrav", 0.75).requirement("The Curse of Arrav", 1)
+            .requirement("Dimension of Disaster: Coin of the Realm", 1).requirement("Dimension of Disaster: Shield of Arrav", 1)
+            .requirement("Dimension of Disaster: Demon Slayer", 1).requirement("Dimension of Disaster: Defender of Varrock", 1)
+            .requirement("Agility", 61).requirement("Strength", 64).requirement("Ranged", 64).reward("Quest points", 1)
+            .reward("Thieving", 14000).reward("Ranged", 9000).reward("Agility", 9000).reward("Crafting", 9000).reward("Farming", 4000)
+            .reward("Magic", 2500).lamp(Arrays.asList("Attack", "Strength", "Defence", "Magic", "Ranged"), 30000, 1).build());
+        achievements.add(new AchievementBuilder("Kindred Spirits", 1.5).requirement("Missing, Presumed Death", 1)
+            .requirement("Agility", 60).requirement("Crafting", 60).requirement("Herblore", 60).requirement("Smithing", 60)
+            .reward("Quest points", 1).reward("Herblore", 25000).reward("Crafting", 25000).reward("Smithing", 25000)
+            .reward("Agility", 25000).build());
+        achievements.add(new AchievementBuilder("All Fired Up", 0.5).requirement("Priest in Peril", 1).requirement("Firemaking", 43)
+            .requirement("Logs", 45).reward("Quest points", 1).reward("Coins", 20000).reward("Firemaking", 5500).build());
+        achievements.add(new AchievementBuilder("Rag and Bone Man", 1).requirement("Coins", 40).requirement("Empty pot", 8)
+            .requirement("Logs", 8).requirement("Rope", 1).encounter(new Encounter("Goblin")).encounter(new Encounter("Big frog"))
+            .encounter(new Encounter("Black bear")).encounter(new Encounter("Ram")).encounter(new Encounter("Unicorn"))
+            .encounter(new Encounter("Monkey")).encounter(new Encounter("Giant rat")).encounter(new Encounter("Giant bat"))
+            .reward("Quest points", 2).reward("Cooking", 500).reward("Prayer", 500).build());
+        achievements.add(new AchievementBuilder("Fur 'n' Seek", 0.75).requirement("Rag and Bone Man", 1).requirement("Slayer", 25)
+            .requirement("Bag of salt", 9).requirement("Logs", 8).encounter(new Encounter("Rock crab"))
+            .encounter(new Encounter("Fenris wolf")).encounter(new Encounter("Fox")).encounter(new Encounter("Hobgoblin"))
+            .encounter(new Encounter("Cockatrice", Collections.singletonList(new Restriction("Mirror shield", 1))))
+            .encounter(new Encounter("Cave crawler")).encounter(new Encounter("Grizzly bear")).encounter(new Encounter("Black unicorn"))
+            .encounter(new Encounter("Unicorn")).reward("Quest points", 2).reward("Constitution", 2500).reward("Slayer", 2500)
+            .reward("Prayer", 1500).reward("Crafting", 500).reward("Firemaking", 500).build());
+        achievements.add(new AchievementBuilder("Buyers and Cellars", 0.5).requirement("Thieving", 5).reward("Quest points", 1)
+            .reward("Thieving", 525).build());
+        achievements.add(new AchievementBuilder("Myths of the White Lands", 0.75).reward("Quest points", 2).reward("Coins", 5000)
+            .lamp(Player.ALL_SKILLS, 500, 1).build());
+        achievements.add(new AchievementBuilder("Broken Home", 1).reward("Quest points", 1).lamp(Player.ALL_SKILLS, -1, 1).build());
+        achievements.add(new AchievementBuilder("The Firemaker's Curse", 2.5).requirement("Firemaking", 74).requirement("Constitution", 76)
+            .requirement("Agility", 64).reward("Quest points", 2).reward("Firemaking", 80000).reward("Agility", 30000)
+            .reward("Constitution", 76000).build());
+        achievements.add(new AchievementBuilder("The Blood Pact", 0.25).encounter(new Encounter("Kayle"))
+            .encounter(new Encounter("Caitlin")).encounter(new Encounter("Reese")).reward("Quest points", 1).reward("Attack", 100)
+            .reward("Strength", 100).reward("Defence", 100).reward("Ranged", 100).reward("Magic", 100).build());
+        achievements.add(new AchievementBuilder("Deadliest Catch", 0.5).requirement("Druidic Ritual", 1)
+            .requirement("Tower of Life", 1).requirement("Hunter", 67).requirement("Fishing", 70).requirement("Thieving", 70)
+            .reward("Quest points", 1).reward("Fishing", 70000).reward("Hunter", 26000).reward("Thieving", 8000).build());
+        achievements.add(new AchievementBuilder("The Prisoner of Glouphrie", 0.75).requirement("The Path of Glouphrie", 1)
+            .requirement("Roving Elves", 1).requirement("Agility", 64).requirement("Construction", 62).requirement("Thieving", 64)
+            .requirement("Runecrafting", 61).reward("Quest points", 1).reward("Thieving", 60000).reward("Agility", 60000)
+            .reward("Construction", 50000).reward("Runecrafting", 45000).build());
+        achievements.add(new AchievementBuilder("The Elder Kiln", 1.5).requirement("Magic", 75).requirement("Agility", 60)
+            .requirement("Mining", 41).requirement("Rune pickaxe", 0)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Player spoof A"),
+                Collections.singletonList("Hardened TzHaar"), Collections.singletonList("Hardened TzHaar"),
+                Collections.singletonList("Hardened TzHaar"), Collections.singletonList("Player spoof C"),
+                Collections.singletonList("Player spoof B"), Collections.singletonList("Hardened TzHaar"))))
+            .encounter(new Encounter("TzHaar-Ket-Yit'tal")).encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster",
+                "Lava monster", "Lava monster", "TokTz-Ket-Dill"))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster", "Lava monster", "Ket-Zek (TEK)",
+                "Ket-Zek (TEK)")))).encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster", "Lava monster",
+                "Lava monster", "Lava monster", "TokTz-Ket-Dill")))).encounter(new Encounter("TokTz-Ket-Dill"))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster", "Lava monster", "Lava monster",
+                "Yt-MejKot (TEK)")))).encounter(new Encounter(Arrays.asList(Arrays.asList("TokHaar-Hur", "TokHaar-Hur", "TokHaar-Xil"),
+                Arrays.asList("TokHaar-Ket", "TokHaar-Xil", "TokHaar-Mej"), Arrays.asList("TokHaar-Xil", "TokHaar-Xil", "TokHaar-Mej"),
+                Arrays.asList("TokHaar-Hur", "TokHaar-Hur", "TokHaar-Xil", "TokHaar-Mej"), Arrays.asList("TokHaar-Hur", "TokHaar-Ket",
+                    "TokHaar-Xil", "TokHaar-Mej"), Arrays.asList("TokHaar-Mej", "TokHaar-Ket", "TokHaar-Xil", "TokHaar-Mej"),
+                Arrays.asList("TokHaar-Ket Champion", "TokHaar-Xil", "TokHaar-Mej")))).reward("Quest points", 2).reward("Magic", 50000)
+            .reward("Agility", 30000).lamp(Arrays.asList("Attack", "Strength", "Defence", "Magic", "Ranged"), 100000, 75).build());
+        achievements.add(new AchievementBuilder("One of a Kind", 2).requirement("A Tail of Two Cats", 1)
+            .requirement("The World Wakes", 1).requirement("King's Ransom", 1).requirement("Missing, Presumed Death", 1)
+            .requirement("Divination", 40).requirement("Dungeoneering", 67).requirement("Summoning", 74).requirement("Magic", 81)
+            .requirement("Emerald", 1).requirement("Coins", 875).encounter(new Encounter("Iron dragon",
+                Collections.singletonList(new Restriction("Dragonfire protection", 1)))).encounter(new Encounter("Iron dragon",
+                Collections.singletonList(new Restriction("Dragonfire protection", 1)))).encounter(new Encounter("Iron dragon",
+                Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Dragon-hunter warrior", "Dragon-hunter mage",
+                "Dragon-hunter archer")))).encounter(new Encounter("Echo of Jas")).reward("Quest points", 1).reward("Magic", 90000)
+            .reward("Summoning", 80000).reward("Dungeoneering", 45000).reward("Divination", 5000).build());
+        achievements.add(new AchievementBuilder("Ratcatchers", 1.5).requirement("Icthlarin's Little Helper", 1)
+            .requirement("Cheese", 4).requirement("Unicorn horn dust", 1).requirement("Clean marrentill", 1)
+            .requirement("Bucket of milk", 10).requirement("Empty pot", 1).requirement("Coins", 600).reward("Quest points", 2)
+            .reward("Farming", 4).reward("Thieving", 4500).build());
+        achievements.add(new AchievementBuilder("Knight Waves training ground", 0).requirement("King's Ransom", 1)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Knight Waves knight"),
+                Collections.singletonList("Knight Waves knight"), Collections.singletonList("Knight Waves knight"),
+                Collections.singletonList("Knight Waves knight"), Collections.singletonList("Knight Waves knight"),
+                Collections.singletonList("Knight Waves knight"), Collections.singletonList("Knight Waves knight"),
+                Collections.singletonList("Knight Waves knight")), Arrays.asList(new Restriction("Summoning", 0),
+                new Restriction("Prayer", 0)))).reward("Attack", 20000).reward("Strength", 20000).reward("Defence", 20000)
+            .reward("Constitution", 20000).reward("Ranged", 20000).reward("Magic", 20000).build());
+        achievements.add(new AchievementBuilder("Nomad's Requiem", 0.85).requirement("King's Ransom", 1)
+            .requirement("Knight Waves training ground", 1).requirement("Magic", 75).requirement("Prayer", 70).requirement("Mining", 66)
+            .requirement("Hunter", 65).requirement("Constitution", 60).encounter(new Encounter("Decaying avatar"))
+            .encounter(new Encounter("Nomad")).reward("Quest points", 3).reward("Zeal", 70).build());
+        achievements.add(new AchievementBuilder("Scorpion Catcher", 0.25).requirement("Bar Crawl", 1).requirement("Prayer", 31)
+            .encounter(new Encounter("Jailer")).reward("Quest points", 1).reward("Strength", 6625).build());
+        achievements.add(new AchievementBuilder("Ghosts Ahoy", 0.25).requirement("Priest in Peril", 1)
+            .requirement("The Restless Ghost", 1).requirement("Agility", 25).requirement("Cooking", 20).requirement("Coins", 1000)
+            .requirement("Thread", 1).requirement("Silk", 1).requirement("Spade", 0).requirement("Oak shieldbow", 1)
+            .requirement("Bucket of milk", 1).requirement("Red dye", 1).requirement("Blue dye", 1).requirement("Yellow dye", 1)
+            .requirement("Bowl of water", 1).encounter(new Encounter("Giant lobster")).reward("Cooking", 52).reward("Quest points", 2)
+            .reward("Prayer", 2400).build());
+        achievements.add(new AchievementBuilder("Haunted Mine", 1.5).requirement("Priest in Peril", 1)
+            .requirement("Nature Spirit", 1).requirement("Agility", 15).requirement("Crafting", 35).encounter(new Encounter("Treus Dayth"))
+            .reward("Quest points", 2).lamp(Collections.singletonList("Strength"), 22000, 35).build());
+        achievements.add(new AchievementBuilder("Spirits of the Elid", 0.75).requirement("Magic", 33).requirement("Ranged", 37)
+            .requirement("Mining", 37).requirement("Thieving", 37).requirement("Law rune", 1).requirement("Air rune", 1)
+            .requirement("Rope", 1).encounter(new Encounter("White golem")).encounter(new Encounter("Black golem"))
+            .encounter(new Encounter("Grey golem")).reward("Quest points", 2).reward("Prayer", 8000).reward("Thieving", 1000)
+            .reward("Magic", 1000).build());
+        achievements.add(new AchievementBuilder("Crocodile Tears", 0.5).requirement("Dealing with Scabaras", 1)
+            .requirement("The Jack of Spades", 1).requirement("Missing My Mummy", 1).requirement("Spirits of the Elid", 1)
+            .requirement("Menaphos reputation", 19800).requirement("Hunter", 73).requirement("Fishing", 72).requirement("Woodcutting", 47)
+            .requirement("Agility", 30).requirement("Rope", 1).requirement("Fishing bait", 1).requirement("Coins", 21000)
+            .encounter(new Encounter("Ukunduka")).reward("Fishing", 35092).reward("Menaphos reputation", 5754).reward("Woodcutting", 15094)
+            .reward("Agility", 19856).reward("Hunter", 39080).reward("Quest points", 1).build());
+        achievements.add(new AchievementBuilder("Tai Bwo Wannai Trio", 1.5).requirement("Jungle Potion", 1).requirement("Fishing", 5)
+            .requirement("Agility", 15).requirement("Cooking", 30).requirement("Agility potion (4)", 1).requirement("Iron spear", 1)
+            .requirement("Raw karambwan", 2).requirement("Coins", 30).requirement("Jogre bones", 1).encounter(new Encounter("Monkey"))
+            .reward("Quest points", 2).reward("Coins", 2000).reward("Fishing", 1500).build());
+        achievements.add(new AchievementBuilder("Elemental Workshop I", 0.25).requirement("Mining", 20).requirement("Smithing", 20)
+            .requirement("Crafting", 20).requirement("Thread", 1).requirement("Coal", 1).encounter(new Encounter("Earth elemental"))
+            .reward("Quest points", 1).reward("Smithing", 5000).reward("Crafting", 5000).reward("Elemental shield", 1).build());
+        achievements.add(new AchievementBuilder("As A First Resort", 1.5).requirement("Zogre Flesh Eaters", 1)
+            .requirement("Hunter", 48).requirement("Firemaking", 51).requirement("Woodcutting", 58).requirement("Eucalyptus logs", 26)
+            .requirement("Achey tree logs", 8).requirement("Bronze spear", 4).requirement("Raw chompy", 2).requirement("Stripy feather", 8)
+            .requirement("Tatty larupia fur", 8).requirement("Wolf bones", 4).requirement("Logs", 1).requirement("Box trap", 0)
+            .requirement("Bird snare", 0).reward("Quest points", 1).reward("Firemaking", 15000).reward("Hunter", 15000)
+            .reward("Woodcutting", 15000).build());
+        achievements.add(new AchievementBuilder("Eagles' Peak (quest)", 0.75).requirement("Hunter", 27).requirement("Swamp tar", 1)
+            .requirement("Coins", 50).requirement("Yellow dye", 1).encounter(new Encounter("Kebbit")).reward("Quest points", 2)
+            .reward("Hunter", 2500).build());
+        achievements.add(new AchievementBuilder("Beneath Cursed Tides", 0.75).requirement("Attack", 30).requirement("Strength", 30)
+            .requirement("Magic", 30).requirement("Mining", 30).requirement("Smithing", 30).requirement("Woodcutting", 30)
+            .requirement("Firemaking", 30).requirement("Crafting", 30).reward("Quest points", 1).reward("Cooking", 5000)
+            .reward("Fishing", 5000).lamp(Arrays.asList("Attack", "Constitution", "Strength", "Defence", "Ranged", "Prayer", "Magic",
+                "Herblore", "Slayer", "Summoning"), 10000, 10).build());
+        achievements.add(new AchievementBuilder("The Brink of Extinction", 1).requirement("The Elder Kiln", 1).requirement("Defence", 80)
+            .requirement("Smithing", 80).requirement("Mining", 72).requirement("Rune pickaxe", 0)
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("TokHaar-Hur", "TokHaar-Xil", "TokHaar-Ket Champion"))))
+            .encounter(new Encounter("TokHaar-Hok")).reward("Quest points", 3).reward("Mining", 100000).lamp(Arrays.asList("Attack",
+                "Strength", "Defence", "Ranged", "Magic"), 275000, 80).build());
+        achievements.add(new AchievementBuilder("Observatory Quest", 0.75).requirement("Plank", 3).requirement("Bronze bar", 1)
+            .requirement("Molten glass", 1).reward("Quest points", 2).reward("Crafting", 2250).build());
+        achievements.add(new AchievementBuilder("Song from the Depths", 0.5).reward("Quest points", 1).reward("Constitution", 700)
+            .build());
+        achievements.add(new AchievementBuilder("Gunnar's Ground", 0.5).requirement("Crafting", 5).reward("Quest points", 5)
+            .reward("Crafting", 425).lamp(Player.ALL_SKILLS, 200, 5).build());
+        achievements.add(new AchievementBuilder("Let Them Eat Pie", 0.5).reward("Quest points", 1).reward("Cooking", 100)
+            .reward("Thieving", 150).reward("Meat pie", 5).build());
+        achievements.add(new AchievementBuilder("You Are It", 0.25).requirement("Rope", 1).reward("Quest points", 1).build());
+        achievements.add(new AchievementBuilder("Vampyre Slayer", 0.25).requirement("Coins", 2).encounter(new Encounter("Count Draynor"))
+            .reward("Quest points", 3).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Constitution"), 4825, 1)
+            .build());
+        achievements.add(new AchievementBuilder("Clock Tower", 0.25).reward("Quest points", 1).reward("Coins", 500).build());
+        achievements.add(new AchievementBuilder("Dishonour among Thieves", 1.5).requirement("Hazeel Cult", 1)
+            .requirement("Missing, Presumed Death", 1).requirement("Agility", 30).requirement("Thieving", 30)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Armoured zombie"),
+                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
+                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
+                Collections.singletonList("Armoured zombie")))).encounter(new Encounter("Foreshadow")).reward("Quest points", 2)
+            .reward("Thieving", 1500).reward("Agility", 1500).reward("Dungeoneering", 500).lamp(Arrays.asList("Attack", "Strength",
+                "Defence", "Magic", "Ranged", "Constitution"), 1500, 1).build());
+        achievements.add(new AchievementBuilder("Our Man in the North", 0.5).requirement("Do No Evil", 1).requirement("Crocodile Tears", 1)
+            .requirement("Menaphos reputation", 99000).encounter(new Encounter("Ambassador Jabari")).reward("Quest point", 1)
+            .reward("Menaphos reputation", 5500).build());
+        achievements.add(new AchievementBuilder("'Phite Club", 0.25).requirement("Our Man in the North", 1)
+            .requirement("Menaphos reputation", 254100).encounter(new Encounter(Collections.singletonList(
+                Arrays.asList("Menaphite palace guard (melee)", "Menaphite palace guard (melee)", "Menaphite palace guard (magic)",
+                    "Menaphite palace guard (magic)")))).encounter(new Encounter("Pharaoh")).reward("Quest points", 1)
+            .reward("Menaphos reputation", 7500).build());
+        achievements.add(new AchievementBuilder("Enlightened Journey", 0.75).requirement("Quest points", 21)
+            .requirement("Firemaking", 20).requirement("Farming", 30).requirement("Crafting", 36).requirement("Logs", 10)
+            .requirement("Papyrus", 3).requirement("Ball of wool", 1).requirement("Candle", 1).requirement("Yellow dye", 1)
+            .requirement("Red dye", 1).requirement("Empty sack", 9).requirement("Silk", 10).requirement("Bowl", 1)
+            .requirement("Willow branch", 12).reward("Quest points", 1).reward("Crafting", 2000).reward("Farming", 3000)
+            .reward("Woodcutting", 1500).reward("Firemaking", 4000).build());
+        achievements.add(new AchievementBuilder("Wanted!", 1).requirement("Quest points", 33).requirement("Recruitment Drive", 1)
+            .requirement("The Lost Tribe", 1).requirement("Priest in Peril", 1).requirement("Coins", 1).requirement("Molten glass", 1)
+            .requirement("Law rune", 1).requirement("Pure essence", -20).encounter(new Encounter("Black Knight"))
+            .encounter(new Encounter("Black Knight")).encounter(new Encounter("Solus Dellagar")).reward("Quest points", 1)
+            .reward("Slayer", 5000).build());
+        achievements.add(new AchievementBuilder("Devious Minds", 0.75).requirement("Troll Stronghold", 1).requirement("Wanted!", 1)
+            .requirement("What's Mine is Yours", 1).requirement("Abyssal Reach", 1).requirement("Runecrafting", 50)
+            .requirement("Fletching", 50).requirement("Smithing", 65).requirement("Mithril 2h sword", 1).requirement("Bowstring", 1)
+            .requirement("Coins", 25000).reward("Quest points", 1).reward("Fletching", 5000).reward("Runecrafting", 5000)
+            .reward("Smithing", 6500).build());
+        achievements.add(new AchievementBuilder("Natural history quiz", 0.5).reward("Hunter", 1000).reward("Slayer", 1000).build());
+        achievements.add(new AchievementBuilder("Cleaning finds", 0.5).requirement("The Dig Site", 1).build());
+        achievements.add(new AchievementBuilder("The Curse of Zaros", 1).requirement("Desert Treasure", 1)
+            .requirement("The Restless Ghost", 1).requirement("Prayer", 31).requirement("Agility", 15)
+            .lamp(Player.ALL_SKILLS, 10000, 50).build());
+        achievements.add(new AchievementBuilder("The Temple at Senntisten", 1).requirement("Desert Treasure", 1)
+            .requirement("Devious Minds", 1).requirement("The Curse of Arrav", 1).requirement("Natural history quiz", 1)
+            .requirement("Cleaning finds", 1).requirement("The Curse of Zaros", 1).requirement("Rune Mysteries", 1)
+            .requirement("Hazeel Cult", 1).requirement("Prayer", 50).requirement("Air rune", 1).requirement("Law rune", 1)
+            .encounter(new Encounter("Dharok the Wretched")).encounter(new Encounter("Karil the Tainted"))
+            .encounter(new Encounter("Verac the Defiled")).encounter(new Encounter("Ahrim the Blighted"))
+            .encounter(new Encounter("Torag the Corrupted")).encounter(new Encounter("Guthan the Infested"))
+            .encounter(new Encounter("Ice demon")).reward("Quest points", 2).reward("Prayer", 10000).lamp(Player.ALL_SKILLS, 23000, 50)
+            .lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Magic", "Ranged", "Summoning"), 20000, 50)
+            .lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Magic", "Ranged", "Summoning"), 20000, 50).build());
+        achievements.add(new AchievementBuilder("The Light Within", 1.5).requirement("Fate of the Gods", 1)
+            .requirement("Meeting History", 1).requirement("Plague's End", 1).requirement("The Temple at Senntisten", 1)
+            .requirement("The World Wakes", 1).requirement("Agility", 80).requirement("Crafting", 80).requirement("Divination", 80)
+            .requirement("Herblore", 80).requirement("Prayer", 80).requirement("Slayer", 80).requirement("Woodcutting", 80)
+            .requirement("Grand defence potion (6)", 1).requirement("Truthful shadow core", 10).requirement("Rope", 0).reward("Quest points", 2)
+            .reward("Agility", 90000).reward("Crafting", 90000).reward("Herblore", 90000).reward("Prayer", 90000).reward("SLayer", 90000)
+            .reward("Woodcutting", 90000).reward("Divination", 93250).build());
+        achievements.add(new AchievementBuilder("The Slug Menace", 1).requirement("Sea Slug", 1).requirement("Wanted!", 1)
+            .requirement("Runecrafting", 30).requirement("Crafting", 30).requirement("Slayer", 30).requirement("Thieving", 30)
+            .requirement("Swamp paste", 0).requirement("Pure essence", 5).requirement("Earth talisman", 0).requirement("Fire talisman", 0)
+            .requirement("Water talisman", 0).requirement("Air talisman", 0).requirement("Mind talisman", 0)
+            .encounter(new Encounter("Slug Prince")).reward("Quest points", 1).reward("Thieving", 3500).reward("Crafting", 3500)
+            .reward("Runecrafting", 3500).build());
+        achievements.add(new AchievementBuilder("Kennith's Concerns", 1).requirement("The Slug Menace", 1).requirement("Mining", 46)
+            .reward("Quest points", 1).reward("Mining", 12000).reward("Agility", 5000).build());
+        achievements.add(new AchievementBuilder("Salt in the Wound", 1.5).requirement("Kennith's Concerns", 1).requirement("Defence", 60)
+            .requirement("Constitution", 50).requirement("Herblore", 47).requirement("Summoning", 45).requirement("Dungeoneering", 35)
+            .reward("Quest points", 2).reward("Defence", 45000).reward("Constitution", 17500).reward("Herblore", 15000)
+            .reward("Summoning", 12500).reward("Dungeoneering", 5000).build());
+        achievements.add(new AchievementBuilder("A Knight in the Darkness", 0).requirement("Proselyte sallet", 0)
+            .requirement("Proselyte hauberk", 0).requirement("Proselyte cuisse", 0).requirement("The Slug Menace", 1)
+            .requirement("Defence", 30).requirement("Prayer", 20).build());
+        achievements.add(new AchievementBuilder("A Lick of Paint", 0).requirement("Gertrude's Cat", 1)
+            .requirement("Garden of Tranquility", 1).requirement("Coins", 100).build());
+        achievements.add(new AchievementBuilder("A Meal Fit for a Duke", 0).requirement("Cook's Assistant", 1)
+            .requirement("Cooking", 40).requirement("Raw lobster", 1).reward("Lobster", 1).reward("Cooking", 120).build());
+        achievements.add(new AchievementBuilder("A Natural Thief", 0).requirement("Thieving", 28).build());
+        achievements.add(new AchievementBuilder("Dragon Slayer", 1.5).requirement("Quest points", 33).requirement("Silk", 1)
+            .requirement("Bowl (unfired)", 1).requirement("Wizard's mind bomb", 1).requirement("Crayfish cage", 1)
+            .requirement("Coins", 12000).requirement("Plank", 3).requirement("Steel nails", 90).encounter(new Encounter(Arrays.asList(
+                Collections.singletonList("Zombie rat"), Collections.singletonList("Ghost (Melzar's Maze)"),
+                Collections.singletonList("Skeleton (Melzar's Maze)"), Collections.singletonList("Zombie"),
+                Collections.singletonList("Melzar the Mad"), Collections.singletonList("Lesser demon (Melzar's Maze)"))))
+            .encounter(new Encounter("Elvarg", Collections.singletonList(new Restriction("Dragonfire protection", 1))))
+            .reward("Quest points", 2).reward("Anti-dragon shield", 1).lamp(Collections.singletonList("Strength"), 18650, 40)
+            .lamp(Collections.singletonList("Defence"), 18650, 40).build());
+        achievements.add(new AchievementBuilder("Gower Quest", 1).requirement("Quest points", 34).encounter(new Encounter(Arrays.asList(
+            Collections.singletonList("Black Knight Titan"), Collections.singletonList("Black Knight Titan"),
+            Collections.singletonList("Black Knight Titan"), Collections.singletonList("Black Knight Titan"),
+            Collections.singletonList("Black Knight Titan"), Collections.singletonList("Black Knight Titan")))).reward("Quest points", 1)
+            .reward("Coins", 15).build());
+        achievements.add(new AchievementBuilder("Tears of Guthix", 0.25).requirement("Quest points", 44).requirement("Firemaking", 49)
+            .requirement("Mining", 20).requirement("Crafting", 20).requirement("Bullseye lantern (oil)", 1).requirement("Sapphire", 1)
+            .reward("Quest points", 1).reward("Crafting", 1000).build());
+        achievements.add(new AchievementBuilder("Carnillean Rising", 1).requirement("The Blood Pact", 1).requirement("Hazeel Cult", 1)
+            .requirement("Quest points", 50).requirement("Thieving", 33).requirement("Construction", 31).reward("Quest points", 1)
+            .reward("Thieving", 2500).reward("Construction", 2500).reward("Coins", 5000).reward("Purple sweets", 5).reward("Oak plank", 100)
+            .reward("Teak plank", 30).reward("Mahogany plank", 10).reward("Gold bar", 1).lamp(Player.ALL_SKILLS, 1500, 30)
+            .lamp(Player.ALL_SKILLS, 1500, 30).build());
+        achievements.add(new AchievementBuilder("Heart of Stone", 1.5).requirement("Carnillean Rising", 1).requirement("Rune Memories", 1)
+            .requirement("Runecrafting", 25).requirement("Magic", 35).encounter(new Encounter("Prehistoric abyssal"))
+            .reward("Quest points", 1).reward("Runecrafting", 1500).reward("Magic", 1500).lamp(Arrays.asList("Attack", "Strength",
+                "Defence", "Ranged", "Magic", "Constitution", "Prayer", "Summoning"), 500, 1).build());
+        achievements.add(new AchievementBuilder("Heroes' Quest", 0.75).requirement("Quest points", 56).requirement("Shield of Arrav", 1)
+            .requirement("Lost City", 1).requirement("Dragon Slayer", 1).requirement("Merlin's Crystal", 1).requirement("Druidic Ritual", 1)
+            .requirement("Cooking", 53).requirement("Fishing", 53).requirement("Herblore", 25).requirement("Mining", 50)
+            .requirement("Ice gloves", 1).requirement("Harralander potion (unf)", 1).requirement("Fishing rod", 1)
+            .requirement("Fishing bait", 1).requirement("Lockpick", 1).requirement("Coins", 1000)
+            .encounter(new Encounter("Entranan firebird")).reward("Quest points", 1).reward("Attack", 3075).reward("Defence", 3075)
+            .reward("Strength", 3075).reward("Constitution", 3075).reward("Ranged", 2075).reward("Fishing", 2725).reward("Cooking", 2825)
+            .reward("Woodcutting", 1575).reward("Firemaking", 1575).reward("Smithing", 2257).reward("Mining", 2575).reward("Herblore", 1325)
+            .build());
+        achievements.add(new AchievementBuilder("Throne of Miscellania", 0.75).requirement("Heroes' Quest", 1)
+            .requirement("The Fremennik Trials", 1).requirement("Iron bar", 1).requirement("Logs", 1).requirement("Gold ring", 1)
+            .requirement("Coins", 15).requirement("Shortbow", 1).reward("Quest points", 1).build());
+        achievements.add(new AchievementBuilder("Royal Trouble", 1).requirement("Throne of Miscellania", 1)
+            .requirement("Agility", 40).requirement("Slayer", 40).requirement("Coal", 5).encounter(new Encounter("Giant Sea Snake"))
+            .reward("Quest points", 1).reward("Coins", 20000).reward("Agility", 5000).reward("Slayer", 5000).reward("Constitution", 5000)
+            .build());
+        achievements.add(new AchievementBuilder("Nomad's Elegy", 1.5).requirement("Dishonour among Thieves", 1)
+            .requirement("Heart of Stone", 1).requirement("The Mighty Fall", 1).requirement("Throne of Miscellania", 1)
+            .requirement("Nomad's Requiem", 1).requirement("The Void Stares Back", 1).requirement("Mining", 75)
+            .requirement("Construction", 75).requirement("Woodcutting", 75).encounter(new Encounter("Shame"))
+            .encounter(new Encounter("Shame")).encounter(new Encounter(Arrays.asList(Collections.singletonList("Ork Headhunter"),
+                Collections.singletonList("Ogre Skulltaker"), Collections.singletonList("Bandosian golem"))))
+            .encounter(new Encounter("Nomad (Elegy)")).encounter(new Encounter("Nomad (Elegy)")).encounter(new Encounter("Nomad (Elegy)"))
+            .encounter(new Encounter("Nomad (Elegy)")).reward("Quest points", 1).reward("Construction", 75000).reward("Mining", 50000)
+            .reward("Woodcutting", 50000).lamp(Arrays.asList("Constitution", "Attack", "Strength", "Defence", "Magic", "Ranged"), 50000, 1)
+            .build());
+        achievements.add(new AchievementBuilder("Glorious Memories", 0.75).requirement("Royal Trouble", 1)
+            .requirement("The Fremennik Isles", 1).requirement("Mountain Daughter", 1).requirement("Lunar Diplomacy", 1)
+            .requirement("Magic", 57).requirement("Agility", 50).requirement("Herblore", 43).requirement("Hunter", 41)
+            .requirement("Clean irit", 1).requirement("Vial", 1).requirement("Earth rune", 10).requirement("Cosmic rune", 1)
+            .encounter(new Encounter("Nial Swiftfling")).reward("Quest points", 1).reward("Magic", 10000).reward("Herblore", 5000)
+            .lamp(Arrays.asList("Attack", "Strength", "Constitution", "Defence", "Ranged"), 5000, 1).lamp(Arrays.asList("Attack",
+                "Strength", "Constitution", "Defence", "Ranged"), 5000, 1).lamp(Arrays.asList("Attack", "Strength", "Constitution",
+                "Defence", "Ranged"), 5000, 1).lamp(Player.ALL_SKILLS, 2500, 35).build());
+        achievements.add(new AchievementBuilder("The Graceful Barbarian", 0).requirement("Bar Crawl", 1).requirement("Agility", 35)
+            .reward("Agility", 174).build());
+        achievements.add(new AchievementBuilder("Runes on the Moon", 0).requirement("Lunar Diplomacy", 1).requirement("Mining", 60)
+            .reward("Pure essence", 1).reward("Mining", 5).build());
+        achievements.add(new AchievementBuilder("Barbarian Firemaking", 0).requirement("Firemaking", 35).build());
+        achievements.add(new AchievementBuilder("Pyre At Will", 0).requirement("Crafting", 52).requirement("Firemaking", 52)
+            .requirement("Arctic pine logs", 1).requirement("Barbarian Firemaking", 1).reward("Crafting", 31).reward("Firemaking", 125)
+            .build());
+        achievements.add(new AchievementBuilder("How To Maim Your Dragon", 0).requirement("Barbarian Firemaking", 1)
+            .encounter(new Encounter("Mithril dragon")).build());
+        achievements.add(new AchievementBuilder("Barbarian Fishing", 0.05).requirement("Barbarian Firemaking", 1)
+            .requirement("Fishing", 55).requirement("Strength", 35).requirement("Agility", 15).build());
+        achievements.add(new AchievementBuilder("Fish Fingers", 0).requirement("Strength", 35).requirement("Fishing", 55)
+            .requirement("Barbarian Fishing", 1).reward("Fishing", 80).reward("Raw tuna", 1).build());
+        achievements.add(new AchievementBuilder("Easy As Pie", 0).requirement("Lunar Diplomacy", 1).requirement("Magic", 65)
+            .requirement("Astral rune", 1).requirement("Fire rune", 5).requirement("Water rune", 1).requirement("Uncooked berry pie", 1)
+            .requirement("Cooking", 10).reward("Redberry pie", 1).reward("Cooking", 78).reward("Magic", 60).build());
+        achievements.add(new AchievementBuilder("Dress to Impress", 0).requirement("Rock-shell helm", 0)
+            .requirement("Rock-shell plate", 0).requirement("Rock-shell legs", 0).requirement("Defence", 1)
+            .requirement("The Fremennik Trials", 1).build());
+        achievements.add(new AchievementBuilder("Defeating Deadly Dagannoths", 0).requirement("The Fremennik Trials", 1)
+            .encounter(new Encounter("Dagannoth")).encounter(new Encounter("Dagannoth")).encounter(new Encounter("Dagannoth"))
+            .build());
+        achievements.add(new AchievementBuilder("A Periodic Table", 0).requirement("Royal Trouble", 1).requirement("Coins", 37500)
+            .reward("Mahogany log", 1).build());
+        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Hard", 0).requirement("Pyre At Will", 1)
+            .requirement("Defeating Deadly Dagannoths", 1).requirement("Dress to Impress", 1).requirement("The Graceful Barbarian", 1)
+            .requirement("Runes on the Moon", 1).requirement("Fish Fingers", 1).requirement("Easy As Pie", 1)
+            .requirement("How To Maim Your Dragon", 1).requirement("A Periodic Table", 1).lamp(Player.ALL_SKILLS, 15000, 50).build());
+        achievements.add(new AchievementBuilder("You Really Don't Need Any More Shoes", 0).requirement("The Fremennik Trials", 1)
+            .build());
+        achievements.add(new AchievementBuilder("You Know You Want It!", 0).requirement("Raw bass", 1)
+            .requirement("The Fremennik Trials", 1).requirement("Garden of Tranquility", 1).reward("Enchanted lyre", 1).build());
+        achievements.add(new AchievementBuilder("Yak Attack", 0).requirement("Yak-hide armour (top)", 0)
+            .requirement("Yak-hide armour (legs)", 0).requirement("The Fremennik Isles", 1).encounter(new Encounter("Ice troll male",
+                Arrays.asList(new Restriction("Yak-hide armour (top)", 1), new Restriction("Yak-hide armour (legs)", 1)))).build());
+        achievements.add(new AchievementBuilder("Who's a Good Boy?", 0).requirement("The Fremennik Trials", 1).build());
+        achievements.add(new AchievementBuilder("Only Takes a Little Vial", 0).requirement("Molten glass", 3)
+            .requirement("Crafting", 33).reward("Vial", 3).reward("Crafting", 105).build());
+        achievements.add(new AchievementBuilder("Grand Theft Fish", 0).requirement("The Fremennik Trials", 1)
+            .requirement("Thieving", 42).reward("Thieving", 42).build());
+        achievements.add(new AchievementBuilder("Fremmental", 0).requirement("The Fremennik Trials", 1).requirement("Cooking", 48)
+            .requirement("Bucket of milk", 1).build());
+        achievements.add(new AchievementBuilder("Fremennik History 101", 0).requirement("The Fremennik Trials", 1).build());
+        achievements.add(new AchievementBuilder("Fairy Mountaineering", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
+        achievements.add(new AchievementBuilder("Cool Story, Bro", 0).requirement("The Fremennik Trials", 1).build());
+        achievements.add(new AchievementBuilder("Big Game Hunter", 0).requirement("Hunter", 55).requirement("Teasing stick", 0)
+            .reward("Hunter", 300).build());
+        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Medium", 0).requirement("Yak Attack", 1)
+            .requirement("Fremennik History 101", 1).requirement("Cool Story, Bro", 1).requirement("Who's a Good Boy?", 1)
+            .requirement("Only Takes a Little Vial", 1).requirement("You Know You Want It!", 1).requirement("Fremmental", 1)
+            .requirement("Fairy Mountaineering", 1).requirement("You Really Don't Need Any More Shoes", 1).requirement("Big Game Hunter", 1)
+            .requirement("Grand Theft Fish", 1).lamp(Player.ALL_SKILLS, 10000, 40).build());
+        achievements.add(new AchievementBuilder("Why Won't You Die?", 0).encounter(new Encounter("Rock crab"))
+            .encounter(new Encounter("Rock crab")).encounter(new Encounter("Rock crab")).encounter(new Encounter("Rock crab"))
+            .encounter(new Encounter("Rock crab")).build());
+        achievements.add(new AchievementBuilder("Why Did the Lobster Blush?", 0).reward("Seaweed", 3).build());
+        achievements.add(new AchievementBuilder("Peer Off the Pier", 0).reward("Raw shrimps", 1).reward("Fishing", 10).build());
+        achievements.add(new AchievementBuilder("Oxymoron Incarnate", 0).build());
+        achievements.add(new AchievementBuilder("King Conifer", 0).build());
+        achievements.add(new AchievementBuilder("Hunting the Hunter", 0).build());
+        achievements.add(new AchievementBuilder("Endangered Species", 0).encounter(new Encounter("Black unicorn")).build());
+        achievements.add(new AchievementBuilder("Assaulted Goodies", 0).build());
+        achievements.add(new AchievementBuilder("Bring the Antipoisons", 0).requirement("Slayer", 10)
+            .encounter(new Encounter("Cave crawler")).build());
+        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Easy", 0).requirement("King Conifer", 1)
+            .requirement("Bring the Antipoisons", 1).requirement("Why Won't You Die?", 1).requirement("Assaulted Goodies", 1)
+            .requirement("Oxymoron Incarnate", 1).requirement("Why Did the Lobster Blush?", 1).requirement("Hunting the Hunter", 1)
+            .requirement("Peer Off the Pier", 1).requirement("A Familiar Feeling", 1).requirement("Endangered Species", 1)
+            .lamp(Player.ALL_SKILLS, 5000, 30).build());
+        achievements.add(new AchievementBuilder("Blood Runs Deep", 1.5).requirement("Dream Mentor", 1)
+            .requirement("Glorious Memories", 1).requirement("Horror from the Deep", 1).requirement("Fremennik Set Tasks - Easy", 1)
+            .requirement("Fremennik Set Tasks - Medium", 1).requirement("Fremennik Set Tasks - Hard", 1).requirement("Attack", 75)
+            .requirement("Strength", 75).requirement("Slayer", 65)
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
+                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"))))
+            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Dagannoth sentinel", "Dagannoth sentinel"))))
+            .encounter(new Encounter("Dagannoth Mother (BRD)")).reward("Quest points", 2).build());
+        achievements.add(new AchievementBuilder("Swan Song", 1).requirement("Quest points", 101).requirement("Garden of Tranquility", 1)
+            .requirement("One Small Favour", 1).requirement("Magic", 66).requirement("Cooking", 62).requirement("Fishing", 62)
+            .requirement("Smithing", 45).requirement("Firemaking", 42).requirement("Crafting", 40).requirement("Mist rune", 10)
+            .requirement("Lava rune", 10).requirement("Blood rune", 5).requirement("Empty pot", 1).requirement("Pot lid", 1)
+            .requirement("Bones", 7).requirement("Iron bar", 5).requirement("Logs", 1).encounter(new Encounter(Arrays.asList(
+                Arrays.asList("Sea troll", "Sea troll", "Sea troll"), Arrays.asList("Sea troll", "Sea troll", "Sea troll"),
+                Collections.singletonList("Sea troll")))).encounter(new Encounter("Sea Troll Queen")).reward("Quest points", 2)
+            .reward("Magic", 15000).reward("Prayer", 10000).reward("Fishing", 10000).reward("Coins", 25000).build());
+        achievements.add(new AchievementBuilder("Legends' Quest", 2).requirement("Quest points", 107).requirement("Family Crest", 1)
+            .requirement("Heroes' Quest", 1).requirement("Shilo Village", 1).requirement("Underground Pass", 1)
+            .requirement("Waterfall Quest", 1).requirement("Agility", 50).requirement("Crafting", 50).requirement("Herblore", 45)
+            .requirement("Magic", 56).requirement("Mining", 52).requirement("Prayer", 42).requirement("Smithing", 50)
+            .requirement("Strength", 50).requirement("Thieving", 50).requirement("Woodcutting", 50).requirement("Rope", 1)
+            .requirement("Vial of water", 1).requirement("Papyrus", 3).requirement("Charcoal", 1).requirement("Unpowered orb", 1)
+            .requirement("Gold bar", 2).requirement("Opal", 1).requirement("Jade", 1).requirement("Red topaz", 1)
+            .requirement("Sapphire", 1).requirement("Emerald", 1).requirement("Ruby", 1).requirement("Diamond", 1)
+            .requirement("Cosmic rune", 6).requirement("Water rune", 60).requirement("Lockpick", 5).requirement("Rune hatchet", 0)
+            .requirement("Soul rune", 1).requirement("Mind rune", 1).requirement("Earth rune", 1).requirement("Law rune", 1)
+            .encounter(new Encounter("Ranalph Devere")).encounter(new Encounter("San Tojalon")).encounter(new Encounter("Irvig Senay"))
+            .encounter(new Encounter("Nezikchened")).encounter(new Encounter("Nezikchened")).encounter(new Encounter("Nezikchened"))
+            .reward("Quest points", 4).lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Prayer", "Magic",
+                "Woodcutting", "Crafting", "Smithing", "Herblore", "Agility", "Thieving"), 7650, 1).lamp(Arrays.asList("Attack", "Defence",
+                "Strength", "Constitution", "Prayer", "Magic", "Woodcutting", "Crafting", "Smithing", "Herblore", "Agility", "Thieving"),
+                7650, 1).lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Prayer", "Magic", "Woodcutting", "Crafting",
+                "Smithing", "Herblore", "Agility", "Thieving"), 7650, 1).lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution",
+                "Prayer", "Magic", "Woodcutting", "Crafting", "Smithing", "Herblore", "Agility", "Thieving"), 7650, 1).build());
+        achievements.add(new AchievementBuilder("A Palm For Each Finger", 0).requirement("Legends' Quest", 1)
+            .requirement("Woodcutting", 15).reward("Palm leaf", 1).build());
+        achievements.add(new AchievementBuilder("A Pizza the Loot", 0.05).requirement("Raw anchovies", 1).requirement("Coins", 4)
+            .requirement("Cooking", 55).reward("Cooking", 213).build());
+        achievements.add(new AchievementBuilder("A Prayer Opportunity", 0.1).requirement("Construction", 75)
+            .requirement("Smithing", 50).requirement("Dungeoneering floors completed", 4).build());
+        achievements.add(new AchievementBuilder("A Road Less Travelled", 0).build());
+        achievements.add(new AchievementBuilder("A Screwball Scramble", 0).requirement("Regicide", 1).requirement("Agility", 85)
+            .build());
+        achievements.add(new AchievementBuilder("A Seer-ing Light", 0).build());
+        achievements.add(new AchievementBuilder("A String and a Flare", 0).requirement("Lunar Diplomacy", 1).requirement("Magic", 80)
+            .requirement("Astral rune", 2).requirement("Earth rune", 10).requirement("Water rune", 5)
+            .requirement("Gold amulet (unstrung)", 1).reward("Gold amulet", 1).reward("Magic", 83).reward("Crafting", 4).build());
+        achievements.add(new AchievementBuilder("A Taste of the Exotic", 0.05).requirement("Papaya tree seed", 1)
+            .requirement("Farming", 57).reward("Farming", 6173).reward("Papaya", 1).build());
+        achievements.add(new AchievementBuilder("A Ton of Earth", 0).requirement("Pure essence", 28).requirement("Earth tiara", 0)
+            .requirement("Runecrafting", 75).reward("Earth rune", 100).reward("Runecrafting", 182).build());
+        achievements.add(new AchievementBuilder("A Visit to Charlie", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
+        achievements.add(new AchievementBuilder("A Wizard Did It", 0).build());
+        achievements.add(new AchievementBuilder("A World In Microcosm", 0).build());
+        achievements.add(new AchievementBuilder("Abyssal Valet", 0).requirement("Abyssal titan pouch", 1).requirement("Summoning", 93)
+            .requirement("Pure essence", 2).reward("Summoning", 2).build());
+        achievements.add(new AchievementBuilder("Ace of Dungeons", 0.1).requirement("Plague's End", 1).requirement("Dungeoneering", 95)
+            .build());
+        achievements.add(new AchievementBuilder("Ad-Myre The Goods", 0).requirement("Shades of Mort'ton", 1).build());
+        achievements.add(new AchievementBuilder("Broomstick enchantment 1", 0).requirement("Swept Away", 1)
+            .requirement("Diamond in the Rough", 1).build());
+        achievements.add(new AchievementBuilder("Broomstick enchantment 2", 0).requirement("Broomstick enchantment 1", 1)
+            .requirement("Magic", 33).reward("Magic", 1997).build());
+        achievements.add(new AchievementBuilder("Broomstick enchantment 3", 0).requirement("Broomstick enchantment 2", 1)
+            .requirement("Magic", 53).reward("Magic", 7139).build());
+        achievements.add(new AchievementBuilder("Broomstick enchantment 4", 0).requirement("Broomstick enchantment 3", 1)
+            .requirement("Lunar Diplomacy", 1).requirement("Magic", 73).reward("Magic", 10338).build());
+        achievements.add(new AchievementBuilder("Broomstick enchantment 5", 0).requirement("Broomstick enchantment 4", 1)
+            .requirement("Magic", 93).requirement("Underground Pass", 1).reward("Magic", 14979).build());
+        achievements.add(new AchievementBuilder("Advanced Sweeping", 0).requirement("Broomstick enchantment 5", 1).build());
+        achievements.add(new AchievementBuilder("Adventurer's Log", 0).reward("Logs", 1).reward("Woodcutting", 25).build());
+        achievements.add(new AchievementBuilder("Aereck's Old Bones", 0).requirement("The Restless Ghost", 1).build());
+        achievements.add(new AchievementBuilder("Agile from Head to Toe", 0).requirement("Advanced Barbarian Outpost laps", 250)
+            .requirement("Advanced Gnome Stronghold laps", 250).build());
+        achievements.add(new AchievementBuilder("Agility - Dojo Mojo", 0).requirement("Agility", 88).build());
+        achievements.add(new AchievementBuilder("Agility 5", 0).requirement("Agility", 5).build());
+        achievements.add(new AchievementBuilder("Agility 10", 0).requirement("Agility", 10).build());
+        achievements.add(new AchievementBuilder("Agility 20", 0).requirement("Agility", 20).build());
+        achievements.add(new AchievementBuilder("Agility 30", 0).requirement("Agility", 30).build());
+        achievements.add(new AchievementBuilder("Agility 40", 0).requirement("Agility", 40).build());
+        achievements.add(new AchievementBuilder("Agility 50", 0).requirement("Agility", 50).build());
+        achievements.add(new AchievementBuilder("Agility 60", 0).requirement("Agility", 60).build());
+        achievements.add(new AchievementBuilder("Agility 70", 0).requirement("Agility", 70).build());
+        achievements.add(new AchievementBuilder("Agility 80", 0).requirement("Agility", 80).build());
+        achievements.add(new AchievementBuilder("Agility 90", 0).requirement("Agility", 90).build());
+        achievements.add(new AchievementBuilder("Agility 92 (Halfway There)", 0).requirement("Agility", 92).build());
+        achievements.add(new AchievementBuilder("Agility 99", 0).requirement("Agility", 99).build());
+        achievements.add(new AchievementBuilder("Ahrim Bobblehead", 0).requirement("Malevolent energy", 250).requirement("Ahrim's hood", 1)
+            .requirement("Ahrim's robe top", 1).requirement("Ahrim's robe skirt", 1).requirement("Ahrim's staff", 1).build());
+        achievements.add(new AchievementBuilder("Al Kharid", 0).build());
+        achievements.add(new AchievementBuilder("Alch-aholic", 0).requirement("Magic", 55).requirement("Fire rune", 5)
+            .requirement("Nature rune", 1).requirement("Magic shortbow", 1).reward("Coins", 960).reward("Magic", 65).build());
+        achievements.add(new AchievementBuilder("Alcrabaholic", 0).requirement("A Clockwork Syringe", 1)
+            .encounter(new Encounter("'Rum'-pumped crab", Arrays.asList(new Restriction("Diving apparatus", 1),
+                new Restriction("Fishbowl helmet", 1)))).build());
         achievements.add(new AchievementBuilder("Large rune casket", 0.05).requirement("The Feud", 1).build());
         achievements.add(new AchievementBuilder("Rogue Trader", 0.25).requirement("The Feud", 1).requirement("Icthlarin's Little Helper", 1)
             .requirement("Large rune casket", 1).requirement("Coins", 100).requirement("Blue dye", 3).build());
@@ -580,90 +1318,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Along Came A Spider V", 0).requirement("Araxxi", 75).build());
         achievements.add(new AchievementBuilder("Along Came A Spider VI", 0).requirement("Araxxi", 100).build());
         achievements.add(new AchievementBuilder("Altar Explorer", 0.3).requirement("Runecrafting", 50).build());
-        achievements.add(new AchievementBuilder("What's Mine is Yours", 0.75).requirement("Smithing", 5)
-            .encounter(new Encounter("Living rock brawler")).encounter(new Encounter("Living rock brawler"))
-            .encounter(new Encounter("Living rock brawler")).encounter(new Encounter("Living rock brawler")).reward("Quest points", 1)
-            .reward("Mining", 1000).reward("Smithing", 400).reward("Coins", 180).build());
-        achievements.add(new AchievementBuilder("Devious Minds", 0.75).requirement("Troll Stronghold", 1).requirement("Wanted!", 1)
-            .requirement("What's Mine is Yours", 1).requirement("Abyssal Reach", 1).requirement("Runecrafting", 50)
-            .requirement("Fletching", 50).requirement("Smithing", 65).requirement("Mithril 2h sword", 1).requirement("Bowstring", 1)
-            .requirement("Coins", 25000).reward("Quest points", 1).reward("Fletching", 5000).reward("Runecrafting", 5000)
-            .reward("Smithing", 6500).build());
-        achievements.add(new AchievementBuilder("Demon Slayer", 0.25).encounter(new Encounter(Collections.singletonList(Arrays.asList(
-            "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)",
-            "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)",
-            "Skeleton (Demon Slayer)", "Skeleton (Demon Slayer)")))).encounter(new Encounter("Delrith",
-            Collections.singletonList(new Restriction("Silverlight", 1)))).reward("Quest points", 3).lamp(Arrays.asList("Attack",
-            "Strength", "Defence", "Constitution", "Magic", "Ranged"), 100, 1).lamp(Arrays.asList("Attack", "Strength", "Defence",
-            "Constitution", "Magic", "Ranged"), 100, 1).lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic",
-            "Ranged"), 100, 1).build());
-        achievements.add(new AchievementBuilder("The Knight's Sword", 0.25).requirement("Mining", 10).requirement("Iron bar", 2)
-            .requirement("Redberry pie", 1).reward("Quest points", 1).lamp(Collections.singletonList("Smithing"), 12725, 28).build());
-        achievements.add(new AchievementBuilder("What Lies Below", 0.5).requirement("Rune Mysteries", 1)
-            .requirement("Abyssal Reach", 1).requirement("Runecrafting", 35).requirement("Bowl", 1).requirement("Chaos rune", 15)
-            .encounter(new Encounter("Outlaw")).encounter(new Encounter("Outlaw")).encounter(new Encounter("Outlaw"))
-            .encounter(new Encounter("Outlaw")).encounter(new Encounter("Outlaw")).encounter(new Encounter("King Roald"))
-            .reward("Quest points", 1).reward("Defence", 2000).reward("Runecrafting", 8000).build());
-        achievements.add(new AchievementBuilder("Defender of Varrock", 1).requirement("Demon Slayer", 1).requirement("Family Crest", 1)
-            .requirement("Garden of Tranquility", 1).requirement("The Knight's Sword", 1).requirement("Shield of Arrav", 1)
-            .requirement("Temple of Ikov", 1).requirement("What Lies Below", 1).requirement("Agility", 51).requirement("Hunter", 51)
-            .requirement("Smithing", 54).requirement("Mining", 59).requirement("Spade", 0).encounter(new Encounter(Arrays.asList(
-                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
-                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
-                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie")))).reward("Quest points", 2)
-            .reward("Hunter", 15000).reward("Smithing", 10000).reward("Mining", 10000).reward("Defence", 10000).reward("Agility", 2000)
-            .lamp(Player.ALL_SKILLS, 1000, 1).build());
-        achievements.add(new AchievementBuilder("The Golem", 0.75).requirement("Crafting", 20).requirement("Thieving", 25)
-            .requirement("Vial", 1).requirement("Soft clay", 4).requirement("Papyrus", 1).reward("Quest points", 1).reward("Thieving", 1000)
-            .reward("Crafting", 1000).build());
-        achievements.add(new AchievementBuilder("Missing My Mummy", 1).requirement("The Golem", 1)
-            .requirement("Icthlarin's Little Helper", 1).requirement("Garden of Tranquility", 1).requirement("Construction", 35)
-            .requirement("Cooking", 35).requirement("Crafting", 45).requirement("Magic", 50).requirement("Prayer", 45)
-            .requirement("Thieving", 25).requirement("Willow logs", 1).requirement("Fire rune", 20).requirement("Jug of wine", 1)
-            .requirement("Spice", 1).requirement("Wheat", 1).requirement("Empty pot", 1)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Skeleton looter"),
-                Collections.singletonList("Skeleton looter"), Collections.singletonList("Skeleton looter"),
-                Collections.singletonList("Skeleton looter")))).encounter(new Encounter("Golem Guard"))
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Tumeken's shadow 1"),
-                Collections.singletonList("Tumeken's shadow 2"), Collections.singletonList("Tumeken's shadow 3"),
-                Collections.singletonList("Tumeken's shadow 4"), Collections.singletonList("Tumeken's shadow 5"))))
-            .reward("Quest points", 1).reward("Coins", 5000).reward("Constitution", 7000).reward("Cooking", 2100)
-            .reward("Construction", 2100).reward("Magic", 5000).reward("Prayer", 6500).reward("Crafting", 3350).reward("Thieving", 3000)
-            .build());
-        achievements.add(new AchievementBuilder("The Tale of the Muspah", 0.75).requirement("Firemaking", 6).requirement("Mining", 8)
-            .requirement("Magic", 10).requirement("Woodcutting", 10).requirement("Cosmic rune", 8).requirement("Water rune", 8)
-            .reward("Quest points", 1).reward("Magic", 1000).reward("Mining", 800).reward("Woodcutting", 800).reward("Firemaking", 500)
-            .build());
-        achievements.add(new AchievementBuilder("Troll Romance", 0.75).requirement("Troll Stronghold", 1).requirement("Agility", 28)
-            .requirement("Iron bar", 1).requirement("Maple logs", 1).requirement("Rope", 1).requirement("Cake tin", 0)
-            .requirement("Swamp tar", 1).encounter(new Encounter("Arrg")).reward("Quest points", 2).reward("Agility", 8000)
-            .reward("Strength", 4000).reward("Uncut diamond", 1).reward("Uncut ruby", 2).reward("Uncut emerald", 4).build());
-        achievements.add(new AchievementBuilder("The Curse of Arrav", 1).requirement("Defender of Varrock", 1)
-            .requirement("Missing My Mummy", 1).requirement("Shades of Mort'ton", 1).requirement("The Tale of the Muspah", 1)
-            .requirement("Troll Romance", 1).requirement("Slayer", 37).requirement("Summoning", 41).requirement("Agility", 61)
-            .requirement("Ranged", 64).requirement("Strength", 64).requirement("Mining", 64).requirement("Thieving", 66)
-            .requirement("Dwellberries", 3).requirement("Sacred oil (1)", 1).requirement("Ring of life", 1)
-            .requirement("Mithril grapple", 0).requirement("Insulated boots", 0).requirement("Macaw pouch", 1)
-            .encounter(new Encounter("Arrav")).reward("Quest points", 1).reward("Mining", 30000).reward("Thieving", 14000)
-            .reward("Ranged", 9000).reward("Agility", 9000).reward("Strength", 9000).reward("Summoning", 4000).reward("Slayer", 2500)
-            .build());
-        achievements.add(new AchievementBuilder("Natural history quiz", 0.5).reward("Hunter", 1000).reward("Slayer", 1000).build());
-        achievements.add(new AchievementBuilder("Cleaning finds", 0.5).requirement("The Dig Site", 1).build());
-        achievements.add(new AchievementBuilder("The Curse of Zaros", 1).requirement("Desert Treasure", 1)
-            .requirement("The Restless Ghost", 1).requirement("Prayer", 31).requirement("Agility", 15)
-            .lamp(Player.ALL_SKILLS, 10000, 50).build());
-        achievements.add(new AchievementBuilder("Hazeel Cult", 0.25).reward("Quest points", 1).reward("Thieving", 1500)
-            .reward("Coins", 2005).build());
-        achievements.add(new AchievementBuilder("The Temple at Senntisten", 1).requirement("Desert Treasure", 1)
-            .requirement("Devious Minds", 1).requirement("The Curse of Arrav", 1).requirement("Natural history quiz", 1)
-            .requirement("Cleaning finds", 1).requirement("The Curse of Zaros", 1).requirement("Rune Mysteries", 1)
-            .requirement("Hazeel Cult", 1).requirement("Prayer", 50).requirement("Air rune", 1).requirement("Law rune", 1)
-            .encounter(new Encounter("Dharok the Wretched")).encounter(new Encounter("Karil the Tainted"))
-            .encounter(new Encounter("Verac the Defiled")).encounter(new Encounter("Ahrim the Blighted"))
-            .encounter(new Encounter("Torag the Corrupted")).encounter(new Encounter("Guthan the Infested"))
-            .encounter(new Encounter("Ice demon")).reward("Quest points", 2).reward("Prayer", 10000).lamp(Player.ALL_SKILLS, 23000, 50)
-            .lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Magic", "Ranged", "Summoning"), 20000, 50)
-            .lamp(Arrays.asList("Attack", "Defence", "Strength", "Constitution", "Magic", "Ranged", "Summoning"), 20000, 50).build());
         achievements.add(new AchievementBuilder("Altar-ed State", 0).requirement("The Temple at Senntisten", 1)
             .requirement("Prayer", 95).build());
         achievements.add(new AchievementBuilder("Always Be Prepared", 0).requirement("Dragon Slayer", 1).build());
@@ -675,38 +1329,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("And I Want It Now", 0.1).requirement("Dungeoneering floors completed", 5).build());
         achievements.add(new AchievementBuilder("And It Was THIS Big!", 0).requirement("Fishing", 25).reward("Raw pike", 1)
             .reward("Fishing", 60).build());
-        achievements.add(new AchievementBuilder("Missing, Presumed Death", 1).encounter(new Encounter(Collections.singletonList(
-            Arrays.asList("Wight", "Wight", "Wight", "Wight")))).encounter(new Encounter(Arrays.asList(
-            Collections.singletonList("Wight footsoldier"), Arrays.asList("Wight ranger", "Wight ranger"),
-            Arrays.asList("Wight footsoldier", "Wight footsoldier", "Wight footsoldier", "Wight footsoldier")))).reward("Quest points", 2)
-            .reward("Prayer", 500).reward("Agility", 1000).lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic",
-                "Ranged"), 1500, 1).build());
-        achievements.add(new AchievementBuilder("Fate of the Gods", 2).requirement("Missing, Presumed Death", 1).requirement("Agility", 73)
-            .requirement("Summoning", 67).requirement("Divination", 75).requirement("Slayer", 76).requirement("Magic", 79)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Smoke nihil"), Collections.singletonList("Shadow nihil"),
-                Collections.singletonList("Blood nihil"), Collections.singletonList("Ice nihil")))).reward("Quest points", 2)
-            .reward("Magic", 125000).reward("Divination", 100000).reward("Slayer", 100000).reward("Agility", 75000)
-            .reward("Summoning", 50000).build());
-        achievements.add(new AchievementBuilder("Meeting History", 0.75).requirement("Making History", 1)
-            .requirement("Druidic Ritual", 1).reward("Quest points", 1).lamp(Player.ALL_SKILLS, 1000, 25).lamp(Player.ALL_SKILLS, 1000, 25)
-            .lamp(Player.ALL_SKILLS, 500, 25).build());
-        achievements.add(new AchievementBuilder("The World Wakes", 2).encounter(new Encounter(Collections.singletonList(Arrays.asList(
-            "Automaton Tracer (TWW)", "Automaton Guardian (TWW)", "Automaton Generator (TWW)"))))
-            .encounter(new Encounter("Kree'arra (TWW)")).encounter(new Encounter("General Graardor (TWW)"))
-            .encounter(new Encounter("Zemouregal")).encounter(new Encounter("K'ril Tsutsaroth (TWW)")).encounter(new Encounter("Enakhra"))
-            .reward("Quest points", 3).lamp(Collections.singletonList("Prayer"), 250000, 80)
-            .lamp(Collections.singletonList("Slayer"), 110000, 80).lamp(Player.ALL_SKILLS, 100000, 75).lamp(Player.ALL_SKILLS, 100000, 75)
-            .lamp(Player.ALL_SKILLS, 100000, 75).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Summoning",
-                "Constitution"), 50000, 65).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Summoning",
-                "Constitution"), 50000, 65).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Summoning",
-                "Constitution"), 50000, 65).build());
-        achievements.add(new AchievementBuilder("The Light Within", 1.5).requirement("Fate of the Gods", 1)
-            .requirement("Meeting History", 1).requirement("Plague's End", 1).requirement("The Temple at Senntisten", 1)
-            .requirement("The World Wakes", 1).requirement("Agility", 80).requirement("Crafting", 80).requirement("Divination", 80)
-            .requirement("Herblore", 80).requirement("Prayer", 80).requirement("Slayer", 80).requirement("Woodcutting", 80)
-            .requirement("Grand defence potion (6)", 1).requirement("Truthful shadow core", 10).requirement("Rope", 0).reward("Quest points", 2)
-            .reward("Agility", 90000).reward("Crafting", 90000).reward("Herblore", 90000).reward("Prayer", 90000).reward("SLayer", 90000)
-            .reward("Woodcutting", 90000).reward("Divination", 93250).build());
         achievements.add(new AchievementBuilder("Angs off my Ring", 0).requirement("The Light Within", 1)
             .requirement("Crystal shapeshifter", 222).build());
         achievements.add(new AchievementBuilder("Animal Cruelty", 0).encounter(new Encounter(Arrays.asList(Arrays.asList("Airut",
@@ -716,60 +1338,6 @@ public class AchievementDatabase {
                 "Charger", "Cormes"), Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut",
                 "Airut"), Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut", "Airut"),
             Arrays.asList("Tuz", "Krar", "Beastmaster Durzag")), 10)).build());
-        achievements.add(new AchievementBuilder("Ernest the Chicken", 0.25).reward("Quest points", 4).reward("Coins", 3000)
-            .reward("Egg", 10).reward("Feather", 300).build());
-        achievements.add(new AchievementBuilder("Animal Magnetism", 0.75).requirement("Ernest the Chicken", 1)
-            .requirement("Priest in Peril", 1).requirement("The Restless Ghost", 1).requirement("Slayer", 18).requirement("Crafting", 19)
-            .requirement("Ranged", 30).requirement("Woodcutting", 35).requirement("Mithril hatchet", 1).requirement("Iron bar", 5)
-            .requirement("Holy symbol", 1).requirement("Hard leather", 1).reward("Quest points", 1)
-            .reward("Crafting", 1050).reward("Fletching", 1000).reward("Slayer", 1000).reward("Woodcutting", 2500).build());
-        achievements.add(new AchievementBuilder("Contact!", 0.75).requirement("Icthlarin's Little Helper", 1)
-            .encounter(new Encounter("Giant scarab (Contact!)")).reward("Quest points", 1).reward("Thieving", 7000)
-            .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Summoning"), 7000, 30)
-            .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Summoning"), 7000, 30).build());
-        achievements.add(new AchievementBuilder("Dealing with Scabaras", 1.5).requirement("Contact!", 1).requirement("The Feud", 1)
-            .requirement("Zogre Flesh Eaters", 1).requirement("Firemaking", 21).requirement("Agility", 50).requirement("Thieving", 60)
-            .requirement("Strength", 60).requirement("Bucket", 0).requirement("Gold seal", 10).requirement("Bronze bar", 18)
-            .encounter(new Encounter("Giant scarab")).encounter(new Encounter("Mummy")).encounter(new Encounter("Mummy"))
-            .encounter(new Encounter("Mummy")).encounter(new Encounter("Mummy")).reward("Quest points", 1).reward("Agility", 8214)
-            .reward("Thieving", 7000).reward("Strength", 7000).reward("Prayer", 7000).build());
-        achievements.add(new AchievementBuilder("Shadow of the Storm", 0.75).requirement("Demon Slayer", 1).requirement("The Golem", 1)
-            .requirement("Crafting", 30).requirement("Silver bar", 1).requirement("Vial", 0).requirement("Desert shirt", 1)
-            .requirement("Desert robe", 1).requirement("Black wizard hat", 0).encounter(new Encounter("Agrith Naar"))
-            .reward("Quest points", 1).reward("Sapphire", 2).reward("Emerald", 2).reward("Ruby", 2).lamp(Arrays.asList("Attack", "Strength",
-                "Defence", "Constitution", "Ranged", "Magic"), 10000, 1).build());
-        achievements.add(new AchievementBuilder("The Grand Tree", 1.5).encounter(new Encounter("Black demon (The Grand Tree)"))
-            .reward("Quest points", 5).reward("Agility", 7900).reward("Attack", 18400).reward("Magic", 2150).build());
-        achievements.add(new AchievementBuilder("Tree Gnome Village", 0.75).requirement("Logs", 6)
-            .encounter(new Encounter("Khazard warlord")).reward("Quest points", 2).reward("Attack", 11450).build());
-        achievements.add(new AchievementBuilder("Monkey Madness", 2.5).requirement("The Grand Tree", 1)
-            .requirement("Tree Gnome Village", 1).requirement("Gold bar", 1).requirement("Ball of wool", 1).requirement("Banana", 5)
-            .encounter(new Encounter("Monkey")).encounter(new Encounter("Jungle demon")).reward("Quest points", 3).reward("Coins", 10000)
-            .reward("Diamond", 3).build());
-        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing King Awowogei", 1).requirement("Monkey Madness", 1)
-            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Cooking", 70).requirement("Agility", 48)
-            .requirement("Coins", 10).encounter(new Encounter("Big Snake")).reward("Quest points", 1).reward("Cooking", 10000)
-            .reward("Agility", 10000).build());
-        achievements.add(new AchievementBuilder("Smoking Kills", 0.25).requirement("Icthlarin's Little Helper", 1).requirement("Slayer", 35)
-            .requirement("Crafting", 25).requirement("Earmuffs", 1).requirement("Face mask", 1).encounter(new Encounter(Arrays.asList(
-                Arrays.asList("Skeleton", "Skeleton", "Zombie", "Zombie"), Collections.singletonList("Mummy warrior"),
-                Arrays.asList("Skeleton", "Skeleton", "Zombie", "Zombie"), Collections.singletonList("Mummy warrior"))))
-            .encounter(new Encounter("Mighty banshee", Collections.singletonList(new Restriction("Masked earmuffs", 1))))
-            .encounter(new Encounter("Banshee mistress", Collections.singletonList(new Restriction("Masked earmuffs", 1))))
-            .reward("Quest points", 1).reward("Slayer", 5000).build());
-        achievements.add(new AchievementBuilder("Do No Evil", 2.5).requirement("Animal Magnetism", 1).requirement("Desert Treasure", 1)
-            .requirement("Dealing with Scabaras", 1).requirement("Missing My Mummy", 1).requirement("Shadow of the Storm", 1)
-            .requirement("Recipe for Disaster: Freeing King Awowogei", 1).requirement("Smoking Kills", 1).requirement("Ranged", 50)
-            .requirement("Construction", 64).requirement("Crafting", 68).requirement("Magic", 70).requirement("Thieving", 70)
-            .requirement("Banana", 10).requirement("Teak plank", 6).requirement("Bolt of cloth", 10).requirement("Rope", 3)
-            .requirement("Knife", 3).requirement("Desert shirt", 1).requirement("Desert robe", 1).requirement("Desert boots", 1)
-            .requirement("Death rune", 40).requirement("Coins", 1000).encounter(new Encounter("Small scarab"))
-            .encounter(new Encounter("Leeuni", Collections.singletonList(new Restriction("Masked earmuffs", 1))))
-            .encounter(new Encounter("Ayuni")).encounter(new Encounter(Arrays.asList(Collections.singletonList("Lesser demon"),
-                Arrays.asList("Lesser demon", "Lesser demon"),  Arrays.asList("Lesser demon", "Lesser demon", "Lesser demon"),
-                Arrays.asList("Lesser demon", "Lesser demon", "Lesser demon", "Lesser demon"), Collections.singletonList("Eruni"))))
-            .reward("Quest points", 1).reward("Magic", 50000).reward("Thieving", 50000).reward("Crafting", 40000)
-            .reward("Construction", 30000).build());
         achievements.add(new AchievementBuilder("Ankle Support", 0).requirement("Do No Evil", 1).requirement("Agility", 80)
             .requirement("Mining", 80).build());
         achievements.add(new AchievementBuilder("Annihilator", 0).requirement("Fate of the Gods", 1)
@@ -780,19 +1348,11 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Any fin is Possible", 0).requirement("Cooking", 90)
             .requirement("Dungeoneering floors completed", 1).reward("Cooking", 1153).build());
         achievements.add(new AchievementBuilder("Any Odd Chicken", 0).requirement("Ernest the Chicken", 1).build());
-        achievements.add(new AchievementBuilder("Fairy Tale III - Battle at Ork's Rift", 1.5).requirement("Fairy Tale II - Cure a Queen", 1)
-            .requirement("Magic", 59).requirement("Farming", 54).requirement("Thieving", 51).requirement("Summoning", 37)
-            .requirement("Crafting", 36).encounter(new Encounter(Collections.singletonList(Arrays.asList("Ork warrior", "Ork warrior",
-                "Ork warrior", "Ork warrior", "Ork warrior", "Ork warrior", "Ork warrior", "Ork warrior", "General Gromblod",
-                "General Shredflesh", "General Bre'egth", "Fairy Godfather")))).reward("Quest points", 2).reward("Farming", 11000)
-            .reward("Thieving", 11000).reward("Magic", 11000).reward("Summoning", 1000).reward("Crafting", 1000).build());
         achievements.add(new AchievementBuilder("Ape A'hollow", 0.05).requirement("Fairy Tale III - Battle at Ork's Rift", 1)
             .requirement("Monkey Madness", 1).requirement("Agility", 48).build());
         achievements.add(new AchievementBuilder("Arachnophagia", 0).requirement("Spider on stick (raw)", 1).requirement("Cooking", 16)
             .reward("Cooking", 80).reward("Spider on stick", 1).build());
         achievements.add(new AchievementBuilder("Arandar-bout Way", 0).requirement("Mourning's End Part I", 1).build());
-        achievements.add(new AchievementBuilder("Impressing the Locals", 0.25).requirement("Coins", 1000).reward("Quest points", 1)
-            .build());
         achievements.add(new AchievementBuilder("Arc - All Your Energies", 0).requirement("Chimes", 5000).requirement("Taijitu", 5)
             .requirement("Impressing the Locals", 1).build());
         achievements.add(new AchievementBuilder("Arc - Ancient Eastern Tortle Portals", 0.05).requirement("Divination", 90)
@@ -960,8 +1520,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Ardougne", 0).build());
         achievements.add(new AchievementBuilder("Ardougne Express", 0).requirement("Plague City", 1).requirement("Magic", 51)
             .requirement("Law rune", 2).requirement("Water rune", 2).reward("Magic", 61).build());
-        achievements.add(new AchievementBuilder("Tower of Life", 1).requirement("Construction", 10).requirement("Coins", 2)
-            .reward("Quest points", 2).reward("Construction", 1000).reward("Crafting", 500).reward("Thieving", 500).build());
         achievements.add(new AchievementBuilder("Creator and Destroyer", 0).requirement("Tower of Life", 1).requirement("Cowhide", 1)
             .requirement("Unicorn horn", 1).encounter(new Encounter("Unicow")).build());
         achievements.add(new AchievementBuilder("Yoink!", 0).requirement("Thieving", 5).build());
@@ -973,8 +1531,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Red Revolution", 0).requirement("Plague City", 1).build());
         achievements.add(new AchievementBuilder("Preaching to the Infected", 0).requirement("Plague City", 1).build());
         achievements.add(new AchievementBuilder("Playing the Waiting Game", 0).build());
-        achievements.add(new AchievementBuilder("Monk's Friend", 0.25).requirement("Jug of water", 1).requirement("Logs", 1)
-            .reward("Quest points", 1).reward("Law rune", 8).reward("Woodcutting", 2000).build());
         achievements.add(new AchievementBuilder("Party Pooper", 0).requirement("Monk's Friend", 1).build());
         achievements.add(new AchievementBuilder("P-P-P-Pick Up Some Prizes", 0.1).lamp(Player.ALL_SKILLS, -25, 1).build());
         achievements.add(new AchievementBuilder("No Time to Lose", 0).requirement("Ring of duelling (8)", 1)
@@ -1007,25 +1563,8 @@ public class AchievementDatabase {
             .requirement("Almost Made In Ardougne", 1).lamp(Player.ALL_SKILLS, 50000, 85).lamp(Player.ALL_SKILLS, 50000, 85)
             .lamp(Player.ALL_SKILLS, 50000, 85).lamp(Player.ALL_SKILLS, 50000, 85).build());
         achievements.add(new AchievementBuilder("You're the Dirty Rascal", 0.35).build());
-        achievements.add(new AchievementBuilder("Watchtower", 1.5).requirement("Herblore", 14).requirement("Magic", 14)
-            .requirement("Thieving", 15).requirement("Agility", 25).requirement("Mining", 40).requirement("Coins", 20)
-            .requirement("Dragon bones", 1).requirement("Bat bones", 1).requirement("Vial of water", 1).requirement("Rope", 1)
-            .requirement("Clean guam", 1).requirement("Gold bar", 1).encounter(new Encounter("Gorad")).reward("Quest points", 4)
-            .reward("Magic", 15250).reward("Coins", 5000).build());
         achievements.add(new AchievementBuilder("Who Wants to Watch the Watchtower?", 0).requirement("Watchtower", 1)
             .requirement("Magic", 58).requirement("Law rune", 2).requirement("Earth rune", 2).reward("Magic", 68).build());
-        achievements.add(new AchievementBuilder("The Hand in the Sand", 0.75).requirement("Thieving", 17).requirement("Crafting", 49)
-            .requirement("Coins", 2).requirement("Bucket", 1).requirement("Lantern lens", 1).requirement("Earth rune", 5)
-            .requirement("Vial", 1).requirement("Redberries", 1).requirement("White berries", 1).reward("Quest points", 1)
-            .reward("Thieving", 1000).reward("Crafting", 9000).build());
-        achievements.add(new AchievementBuilder("Tribal Totem", 0.25).requirement("Thieving", 21).reward("Quest points", 1)
-            .reward("Thieving", 1775).reward("Swordfish", 5).build());
-        achievements.add(new AchievementBuilder("Back to my Roots", 0.75).requirement("Fairy Tale I - Growing Pains", 1)
-            .requirement("The Hand in the Sand", 1).requirement("One Small Favour", 1).requirement("Tribal Totem", 1)
-            .requirement("Agility", 55).requirement("Farming", 53).requirement("Slayer", 59).requirement("Woodcutting", 72)
-            .requirement("Plant pot", 1).requirement("Soft clay", 1).requirement("Empty pot", 1).encounter(new Encounter("Wild jade vine",
-                Collections.singletonList(new Restriction("Hatchet", 1)))).reward("Quest points", 1).reward("Farming", 24000)
-            .reward("Woodcutting", 40000).reward("Slayer", 23000).reward("Agility", 15000).build());
         achievements.add(new AchievementBuilder("Vine-detta", 0.05).requirement("Back to my Roots", 1)
             .encounter(new Encounter("Wild jade vine")).build());
         achievements.add(new AchievementBuilder("Shadow Boxing", 0).requirement("Legends' Quest", 1)
@@ -1058,8 +1597,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("What, a Melon?", 0.05).requirement("Watermelon seed", 3).requirement("Farming", 47)
             .reward("Watermelon", 3).reward("Farming", 212).build());
         achievements.add(new AchievementBuilder("Water Logged", 0).requirement("Agility", 33).build());
-        achievements.add(new AchievementBuilder("Kennith's Concerns", 1).requirement("The Slug Menace", 1).requirement("Mining", 46)
-            .reward("Quest points", 1).reward("Mining", 12000).reward("Agility", 5000).build());
         achievements.add(new AchievementBuilder("Volatile Valuables", 0.05).requirement("Kennith's Concerns", 1)
             .reward("Coins", 10).reward("Mining", 17).build());
         achievements.add(new AchievementBuilder("The Coal Train", 0).requirement("Mining", 30).reward("Mining", 50)
@@ -1074,12 +1611,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Fearless Fishing", 0).requirement("Sea Slug", 1).build());
         achievements.add(new AchievementBuilder("By the Bucketload", 0).requirement("The Hand in the Sand", 1)
             .reward("Bucket of sand", 84).build());
-        achievements.add(new AchievementBuilder("Enlightened Journey", 0.75).requirement("Quest points", 21)
-            .requirement("Firemaking", 20).requirement("Farming", 30).requirement("Crafting", 36).requirement("Logs", 10)
-            .requirement("Papyrus", 3).requirement("Ball of wool", 1).requirement("Candle", 1).requirement("Yellow dye", 1)
-            .requirement("Red dye", 1).requirement("Empty sack", 9).requirement("Silk", 10).requirement("Bowl", 1)
-            .requirement("Willow branch", 12).reward("Quest points", 1).reward("Crafting", 2000).reward("Farming", 3000)
-            .reward("Woodcutting", 1500).reward("Firemaking", 4000).build());
         achievements.add(new AchievementBuilder("Castle Wars balloon route", 0.05).requirement("Enlightened Journey", 1)
             .requirement("Firemaking", 50).requirement("Yew logs", 10).reward("Firemaking", 2000).build());
         achievements.add(new AchievementBuilder("Arriving in Style", 0).requirement("Castle Wars balloon route", 1)
@@ -1097,9 +1628,6 @@ public class AchievementDatabase {
             .requirement("Firemaking", 60).reward("Firemaking", 202).build());
         achievements.add(new AchievementBuilder("Are You Needing Access?", 0).requirement("Do No Evil", 1)
             .requirement("Agility", 80).reward("Agility", 20000).build());
-        achievements.add(new AchievementBuilder("In Pyre Need", 0.5).requirement("Firemaking", 55).requirement("Crafting", 52)
-            .requirement("Fletching", 53).reward("Quest points", 1).reward("Firemaking", 14400).reward("Fletching", 12500)
-            .reward("Crafting", 11556).reward("Phoenix quill", 5).build());
         achievements.add(new AchievementBuilder("Arise from the Ash", 0.05).requirement("In Pyre Need", 1)
             .encounter(new Encounter("Phoenix")).reward("Firemaking", 7500).reward("Fletching", 3000).reward("Crafting", 1000)
             .reward("Slayer", 5000).reward("Phoenix quill", 5).build());
@@ -1117,54 +1645,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("As Good As Renew", 0.1).requirement("Farming", 91).requirement("Herblore", 94)
             .requirement("Fellstalk seed", 1).requirement("Morchella mushroom spore", 1).reward("Farming", 1400).reward("Herblore", 190)
             .reward("Prayer renewal (3)", 1).build());
-        achievements.add(new AchievementBuilder("The Fremennik Isles", 1.5).requirement("The Fremennik Trials", 1)
-            .requirement("Construction", 20).requirement("Crafting", 46).requirement("Agility", 40).requirement("Woodcutting", 56)
-            .requirement("Tin ore", 8).requirement("Rope", 8).encounter(new Encounter("Ice troll runt"))
-            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
-            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
-            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
-            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice troll runt"))
-            .encounter(new Encounter("Ice troll runt")).encounter(new Encounter("Ice Troll King")).reward("Quest points", 1)
-            .reward("Construction", 5000).reward("Crafting", 5000).reward("Woodcutting", 10000).reward("Coins", 14000)
-            .reward("Helm of neitiznot", 1).lamp(Arrays.asList("Strength", "Defence", "Attack", "Constitution"), 10000, 1)
-            .lamp(Arrays.asList("Strength", "Defence", "Attack", "Constitution"), 10000, 1).build());
         achievements.add(new AchievementBuilder("As Taxed as a Yak", 0).requirement("The Fremennik Isles", 1)
             .requirement("Coins", 5000).build());
         achievements.add(new AchievementBuilder("As Clear as a Crystal Seed", 0).requirement("Within the Light", 1).build());
-        achievements.add(new AchievementBuilder("In Search of the Myreque", 0.25).requirement("Nature Spirit", 1)
-            .requirement("Agility", 25).requirement("Steel longsword", 1).requirement("Steel sword", 2).requirement("Steel mace", 1)
-            .requirement("Steel warhammer", 1).requirement("Steel dagger", 1).requirement("Steel nails", 75).requirement("Plank", 6)
-            .requirement("Mort myre stem", 3).encounter(new Encounter("Skeleton Hellhound")).reward("Quest points", 2)
-            .reward("Uncut ruby", 2).reward("Big bones", 4).lamp(Collections.singletonList("Attack"), 600, 4)
-            .lamp(Collections.singletonList("Defence"), 600, 4).lamp(Collections.singletonList("Strength"), 600, 4)
-            .lamp(Collections.singletonList("Constitution"), 600, 4).lamp(Collections.singletonList("Crafting"), 600, 4).build());
-        achievements.add(new AchievementBuilder("In Aid of the Myreque", 1.5).requirement("In Search of the Myreque", 1)
-            .requirement("Crafting", 25).requirement("Magic", 7).requirement("Mining", 15).requirement("Sardine", 1)
-            .requirement("Bucket", 0).requirement("Plank", 11).requirement("Bronze nails", 44).requirement("Bronze hatchet", 10)
-            .requirement("Raw mackerel", 10).requirement("Tinderbox", 3).requirement("Steel bar", 2).requirement("Coal", 1)
-            .requirement("Soft clay", 1).requirement("Silver bar", 1).requirement("Mithril bar", 1).requirement("Sapphire", 1)
-            .requirement("Cosmic rune", 1).requirement("Water rune", 1).requirement("Rope", 1)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Gadderanks"),
-                Arrays.asList("Vampyre Juvinate (In Aid of the Myreque A)", "Vampyre Juvinate (In Aid of the Myreque B)")),
-                Collections.singletonList(new Restriction("Wolfbane", 1))))
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Vampyre Juvinate (In Aid of the Myreque C)",
-                "Vampyre Juvinate (In Aid of the Myreque C)")), Collections.singletonList(new Restriction("Wolfbane", 1))))
-            .reward("Quest points", 2).lamp(Collections.singletonList("Attack"), 2000, 12)
-            .lamp(Collections.singletonList("Strength"), 2000, 12).lamp(Collections.singletonList("Crafting"), 2000, 12)
-            .lamp(Collections.singletonList("Defence"), 2000, 12).build());
-        achievements.add(new AchievementBuilder("Darkness of Hallowvale", 2.5).requirement("In Aid of the Myreque", 1)
-            .requirement("Construction", 5).requirement("Mining", 20).requirement("Thieving", 22).requirement("Agility", 26)
-            .requirement("Crafting", 32).requirement("Magic", 33).requirement("Strength", 40).requirement("Bronze nails", 8)
-            .requirement("Plank", 2).reward("Quest points", 2).reward("Agility", 7000).reward("Thieving", 6000).reward("Construction", 2000)
-            .lamp(Player.ALL_SKILLS, 2000, 30).lamp(Player.ALL_SKILLS, 2000, 30).lamp(Player.ALL_SKILLS, 2000, 30).build());
-        achievements.add(new AchievementBuilder("Legacy of Seergaze", 2).requirement("Darkness of Hallowvale", 1)
-            .requirement("Construction", 20).requirement("Agility", 29).requirement("Slayer", 31).requirement("Mining", 35)
-            .requirement("Firemaking", 40).requirement("Crafting", 47).requirement("Magic", 49).requirement("Teak pyre logs", 1)
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Fistandantilus", "Zaromark Sliver"))))
-            .encounter(new Encounter("Vyrewatch", Collections.singletonList(new Restriction("Ivandis flail", 1))))
-            .reward("Quest points", 2).reward("Magic", 3000).reward("Agility", 2000).reward("Crafting", 4000).reward("Mining", 2000)
-            .reward("Construction", 1000).reward("Slayer", 2000).reward("Blood talisman", 1).lamp(Player.ALL_SKILLS, 2500, 35)
-            .lamp(Player.ALL_SKILLS, 2500, 35).lamp(Player.ALL_SKILLS, 2500, 35).build());
         achievements.add(new AchievementBuilder("As You Might Expect", 0).requirement("Pure essence", 1)
             .requirement("Runecrafting", 77).requirement("Blood talisman", 0).requirement("Legacy of Seergaze", 1).reward("Blood rune", 1)
             .reward("Runecrafting", 10).build());
@@ -1197,169 +1680,10 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Ava", 0).requirement("Twin Furies", 862).build());
         achievements.add(new AchievementBuilder("Avast Ardougne!", 0).requirement("Coins", 30).build());
         achievements.add(new AchievementBuilder("Away with the Kalphites", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
-        achievements.add(new AchievementBuilder("The Graceful Barbarian", 0).requirement("Bar Crawl", 1).requirement("Agility", 35)
-            .reward("Agility", 174).build());
-        achievements.add(new AchievementBuilder("Runes on the Moon", 0).requirement("Lunar Diplomacy", 1).requirement("Mining", 60)
-            .reward("Pure essence", 1).reward("Mining", 5).build());
-        achievements.add(new AchievementBuilder("Barbarian Firemaking", 0).requirement("Firemaking", 35).build());
-        achievements.add(new AchievementBuilder("Pyre At Will", 0).requirement("Crafting", 52).requirement("Firemaking", 52)
-            .requirement("Arctic pine logs", 1).requirement("Barbarian Firemaking", 1).reward("Crafting", 31).reward("Firemaking", 125)
-            .build());
-        achievements.add(new AchievementBuilder("How To Maim Your Dragon", 0).requirement("Barbarian Firemaking", 1)
-            .encounter(new Encounter("Mithril dragon")).build());
-        achievements.add(new AchievementBuilder("Barbarian Fishing", 0.05).requirement("Barbarian Firemaking", 1)
-            .requirement("Fishing", 55).requirement("Strength", 35).requirement("Agility", 15).build());
-        achievements.add(new AchievementBuilder("Fish Fingers", 0).requirement("Strength", 35).requirement("Fishing", 55)
-            .requirement("Barbarian Fishing", 1).reward("Fishing", 80).reward("Raw tuna", 1).build());
-        achievements.add(new AchievementBuilder("Easy As Pie", 0).requirement("Lunar Diplomacy", 1).requirement("Magic", 65)
-            .requirement("Astral rune", 1).requirement("Fire rune", 5).requirement("Water rune", 1).requirement("Uncooked berry pie", 1)
-            .requirement("Cooking", 10).reward("Redberry pie", 1).reward("Cooking", 78).reward("Magic", 60).build());
-        achievements.add(new AchievementBuilder("Dress to Impress", 0).requirement("Rock-shell helm", 0)
-            .requirement("Rock-shell plate", 0).requirement("Rock-shell legs", 0).requirement("Defence", 1)
-            .requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Defeating Deadly Dagannoths", 0).requirement("The Fremennik Trials", 1)
-            .encounter(new Encounter("Dagannoth")).encounter(new Encounter("Dagannoth")).encounter(new Encounter("Dagannoth"))
-            .build());
-        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Hard", 0).requirement("Pyre At Will", 1)
-            .requirement("Defeating Deadly Dagannoths", 1).requirement("Dress to Impress", 1).requirement("The Graceful Barbarian", 1)
-            .requirement("Runes on the Moon", 1).requirement("Fish Fingers", 1).requirement("Easy As Pie", 1)
-            .requirement("How To Maim Your Dragon", 1).requirement("A Periodic Table", 1).lamp(Player.ALL_SKILLS, 15000, 50).build());
-        achievements.add(new AchievementBuilder("You Really Don't Need Any More Shoes", 0).requirement("The Fremennik Trials", 1)
-            .build());
-        achievements.add(new AchievementBuilder("You Know You Want It!", 0).requirement("Raw bass", 1)
-            .requirement("The Fremennik Trials", 1).requirement("Garden of Tranquility", 1).reward("Enchanted lyre", 1).build());
-        achievements.add(new AchievementBuilder("Yak Attack", 0).requirement("Yak-hide armour (top)", 0)
-            .requirement("Yak-hide armour (legs)", 0).requirement("The Fremennik Isles", 1).encounter(new Encounter("Ice troll male",
-                Arrays.asList(new Restriction("Yak-hide armour (top)", 1), new Restriction("Yak-hide armour (legs)", 1)))).build());
-        achievements.add(new AchievementBuilder("Who's a Good Boy?", 0).requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Only Takes a Little Vial", 0).requirement("Molten glass", 3)
-            .requirement("Crafting", 33).reward("Vial", 3).reward("Crafting", 105).build());
-        achievements.add(new AchievementBuilder("Grand Theft Fish", 0).requirement("The Fremennik Trials", 1)
-            .requirement("Thieving", 42).reward("Thieving", 42).build());
-        achievements.add(new AchievementBuilder("Fremmental", 0).requirement("The Fremennik Trials", 1).requirement("Cooking", 48)
-            .requirement("Bucket of milk", 1).build());
-        achievements.add(new AchievementBuilder("Fremennik History 101", 0).requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Fairy Mountaineering", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
-        achievements.add(new AchievementBuilder("Cool Story, Bro", 0).requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Big Game Hunter", 0).requirement("Hunter", 55).requirement("Teasing stick", 0)
-            .reward("Hunter", 300).build());
-        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Medium", 0).requirement("Yak Attack", 1)
-            .requirement("Fremennik History 101", 1).requirement("Cool Story, Bro", 1).requirement("Who's a Good Boy?", 1)
-            .requirement("Only Takes a Little Vial", 1).requirement("You Know You Want It!", 1).requirement("Fremmental", 1)
-            .requirement("Fairy Mountaineering", 1).requirement("You Really Don't Need Any More Shoes", 1).requirement("Big Game Hunter", 1)
-            .requirement("Grand Theft Fish", 1).lamp(Player.ALL_SKILLS, 10000, 40).build());
-        achievements.add(new AchievementBuilder("Why Won't You Die?", 0).encounter(new Encounter("Rock crab"))
-            .encounter(new Encounter("Rock crab")).encounter(new Encounter("Rock crab")).encounter(new Encounter("Rock crab"))
-            .encounter(new Encounter("Rock crab")).build());
-        achievements.add(new AchievementBuilder("Why Did the Lobster Blush?", 0).reward("Seaweed", 3).build());
-        achievements.add(new AchievementBuilder("Peer Off the Pier", 0).reward("Raw shrimps", 1).reward("Fishing", 10).build());
-        achievements.add(new AchievementBuilder("Oxymoron Incarnate", 0).build());
-        achievements.add(new AchievementBuilder("King Conifer", 0).build());
-        achievements.add(new AchievementBuilder("Hunting the Hunter", 0).build());
-        achievements.add(new AchievementBuilder("Endangered Species", 0).encounter(new Encounter("Black unicorn")).build());
-        achievements.add(new AchievementBuilder("Assaulted Goodies", 0).build());
-        achievements.add(new AchievementBuilder("Bring the Antipoisons", 0).requirement("Slayer", 10)
-            .encounter(new Encounter("Cave crawler")).build());
-        achievements.add(new AchievementBuilder("Fremennik Set Tasks - Easy", 0).requirement("King Conifer", 1)
-            .requirement("Bring the Antipoisons", 1).requirement("Why Won't You Die?", 1).requirement("Assaulted Goodies", 1)
-            .requirement("Oxymoron Incarnate", 1).requirement("Why Did the Lobster Blush?", 1).requirement("Hunting the Hunter", 1)
-            .requirement("Peer Off the Pier", 1).requirement("A Familiar Feeling", 1).requirement("Endangered Species", 1)
-            .lamp(Player.ALL_SKILLS, 5000, 30).build());
-        achievements.add(new AchievementBuilder("Eadgar's Ruse", 1.5).requirement("Druidic Ritual", 1)
-            .requirement("Troll Stronghold", 1).requirement("Herblore", 31).requirement("Agility", 15).requirement("Vodka", 1)
-            .requirement("Pineapple chunks", 1).requirement("Wheat", 10).requirement("Raw chicken", 5).requirement("Logs", 2)
-            .requirement("Ranarr potion (unf)", 1).reward("Quest points", 1).reward("Herblore", 11000).build());
-        achievements.add(new AchievementBuilder("Dream Mentor", 0.55).requirement("Lunar Diplomacy", 1)
-            .requirement("Eadgar's Ruse", 1).requirement("Astral rune", 1)
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("The Inadequacy", "The Everlasting",
-                "The Untouchable", "The Illusive")))).reward("Quest points", 2).reward("Magic", 10000).reward("Constitution", 15000)
-            .lamp(Arrays.asList("Strength", "Ranged", "Magic", "Constitution", "Defence"), 15000, 1).build());
-        achievements.add(new AchievementBuilder("Mountain Daughter", 1).requirement("Agility", 20).requirement("Rope", 0)
-            .requirement("Leather gloves", 0).encounter(new Encounter("The Kendal")).reward("Quest points", 2).reward("Prayer", 2000)
-            .reward("Attack", 1000).build());
-        achievements.add(new AchievementBuilder("Glorious Memories", 0.75).requirement("Royal Trouble", 1)
-            .requirement("The Fremennik Isles", 1).requirement("Mountain Daughter", 1).requirement("Lunar Diplomacy", 1)
-            .requirement("Magic", 57).requirement("Agility", 50).requirement("Herblore", 43).requirement("Hunter", 41)
-            .requirement("Clean irit", 1).requirement("Vial", 1).requirement("Earth rune", 10).requirement("Cosmic rune", 1)
-            .encounter(new Encounter("Nial Swiftfling")).reward("Quest points", 1).reward("Magic", 10000).reward("Herblore", 5000)
-            .lamp(Arrays.asList("Attack", "Strength", "Constitution", "Defence", "Ranged"), 5000, 1).lamp(Arrays.asList("Attack",
-                "Strength", "Constitution", "Defence", "Ranged"), 5000, 1).lamp(Arrays.asList("Attack", "Strength", "Constitution",
-                "Defence", "Ranged"), 5000, 1).lamp(Player.ALL_SKILLS, 2500, 35).build());
-        achievements.add(new AchievementBuilder("Horror from the Deep", 0.75).requirement("Bar Crawl", 1).requirement("Agility", 35)
-            .requirement("Steel nails", 60).requirement("Molten glass", 1).requirement("Swamp tar", 1).requirement("Tinderbox", 0)
-            .requirement("Fire rune", 1).requirement("Earth rune", 1).requirement("Air rune", 1).requirement("Water rune", 1)
-            .requirement("Bronze sword", 1).requirement("Bronze arrow", 1)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth mother"))))
-            .reward("Quest points", 2).reward("Magic", 4662).reward("Ranged", 4662).reward("Strength", 4662).build());
-        achievements.add(new AchievementBuilder("Blood Runs Deep", 1.5).requirement("Dream Mentor", 1)
-            .requirement("Glorious Memories", 1).requirement("Horror from the Deep", 1).requirement("Fremennik Set Tasks - Easy", 1)
-            .requirement("Fremennik Set Tasks - Medium", 1).requirement("Fremennik Set Tasks - Hard", 1).requirement("Attack", 75)
-            .requirement("Strength", 75).requirement("Slayer", 65)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"),
-                Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"), Collections.singletonList("Dagannoth"))))
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Dagannoth sentinel", "Dagannoth sentinel"))))
-            .encounter(new Encounter("Dagannoth Mother (BRD)")).reward("Quest points", 2).build());
         achievements.add(new AchievementBuilder("Axe'll Grease", 0).requirement("Blood Runs Deep", 1)
             .encounter(new Encounter("Dagannoth", Collections.singletonList(new Restriction("Balmung", 1)))).build());
-        achievements.add(new AchievementBuilder("Rune Memories", 1.5).reward("Quest points", 1).reward("Magic", 300)
-            .reward("Runecrafting", 300).build());
         achievements.add(new AchievementBuilder("Azacorax's Rewards", 0).requirement("Rune Memories", 1).requirement("Magic", 50)
             .requirement("Prayer", 50).lamp(Arrays.asList("Magic", "Prayer"), 10000, 50).build());
-        achievements.add(new AchievementBuilder("The Giant Dwarf", 1).requirement("Crafting", 12).requirement("Firemaking", 16)
-            .requirement("Magic", 33).requirement("Thieving", 14).requirement("Coins", 10000).requirement("Logs", 1).requirement("Coal", 1)
-            .requirement("Iron bar", 1).requirement("Law rune", 1).requirement("Air rune", 1).requirement("Sapphire", 3)
-            .requirement("Redberry pie", 1).reward("Quest points", 2).reward("Crafting", 2500).reward("Mining", 2500)
-            .reward("Smithing", 2500).reward("Firemaking", 1500).reward("Magic", 1500).reward("Thieving", 1500).build());
-        achievements.add(new AchievementBuilder("Fishing Contest", 0.25).requirement("Fishing", 10).requirement("Coins", 5)
-            .reward("Quest points", 1).reward("Fishing", 2437).build());
-        achievements.add(new AchievementBuilder("Forgettable Tale...", 1.5).requirement("The Giant Dwarf", 1)
-            .requirement("Fishing Contest", 1).requirement("Cooking", 22).requirement("Farming", 17).requirement("Coins", 400)
-            .requirement("Barley malt", 2).requirement("Bucket of water", 2).requirement("Beer", 4).requirement("Kebab", 1)
-            .reward("Quest points", 2).reward("Cooking", 5000).reward("Farming", 5000).reward("Dwarven stout (m)", 2).build());
-        achievements.add(new AchievementBuilder("Dwarf Cannon", 0.75).reward("Quest points", 1).reward("Crafting", 750).build());
-        achievements.add(new AchievementBuilder("Between a Rock...", 0.75).requirement("Dwarf Cannon", 1).requirement("Fishing Contest", 1)
-            .requirement("Defence", 30).requirement("Mining", 40).requirement("Smithing", 50).requirement("Gold bar", 4)
-            .requirement("Coins", 50).encounter(new Encounter("Scorpion")).encounter(new Encounter("Arzinian Avatar",
-                Arrays.asList(new Restriction("Gold helmet", 1), new Restriction("Ticks", 800)))).reward("Quest points", 2)
-            .reward("Defence", 5000).reward("Mining", 5000).reward("Smithing", 5000).reward("Rune pickaxe", 1).build());
-        achievements.add(new AchievementBuilder("Forgiveness of a Chaos Dwarf", 1).requirement("Forgettable Tale...", 1)
-            .requirement("Between a Rock...", 1).requirement("Hunter", 61).requirement("Firemaking", 61).requirement("Strength", 69)
-            .encounter(new Encounter("Chaos dwarf hand cannoneer")).reward("Quest points", 2).reward("Firemaking", 30000)
-            .reward("Hunter", 30000).reward("Strength", 30000).build());
-        achievements.add(new AchievementBuilder("My Arm's Big Adventure", 1).requirement("Eadgar's Ruse", 1).requirement("The Feud", 1)
-            .requirement("Jungle Potion", 1).requirement("Woodcutting", 10).requirement("Farming", 29).requirement("Coins", 10)
-            .requirement("Supercompost", 7).encounter(new Encounter(Arrays.asList(Collections.singletonList("Baby Roc"),
-                Collections.singletonList("Giant Roc")))).reward("Quest points", 1).reward("Herblore", 10000).reward("Farming", 5495)
-            .build());
-        achievements.add(new AchievementBuilder("King of the Dwarves", 1).requirement("Forgiveness of a Chaos Dwarf", 1)
-            .requirement("My Arm's Big Adventure", 1).requirement("Mining", 68).requirement("Smithing", 70).requirement("Strength", 77)
-            .requirement("Soft clay", 6).requirement("Mithril bar", 6).encounter(new Encounter("Colonel Grimsson (KOD)"))
-            .reward("Quest points", 2).reward("Mining", 45000).reward("Smithing", 50000).reward("Strength", 55000).build());
-        achievements.add(new AchievementBuilder("Birthright of the Dwarves", 2.5).requirement("King of the Dwarves", 1)
-            .requirement("Mining", 80).requirement("Smithing", 82).requirement("Strength", 85).encounter(new Encounter("Chaos dwarf"))
-            .encounter(new Encounter("Chaos dwarf")).encounter(new Encounter("Chaos dwarf")).encounter(new Encounter("Red Axe director"))
-            .encounter(new Encounter("Red Axe director")).encounter(new Encounter("Red Axe director"))
-            .encounter(new Encounter("Red Axe director")).encounter(new Encounter("Red Axe director"))
-            .encounter(new Encounter("Red Axe director")).encounter(new Encounter("Red Axe director"))
-            .encounter(new Encounter("Ikadia the Exile")).encounter(new Encounter("Colonel Grimsson"))
-            .encounter(new Encounter("Chaos Grimsson")).encounter(new Encounter("Chaos Hreidmar")).reward("Quest points", 2)
-            .reward("Mining", 100000).reward("Smithing", 100000).reward("Strength", 200000).reward("Mithril bar", 30)
-            .reward("Adamant bar", 30).reward("Rune bar", 30).build());
         achievements.add(new AchievementBuilder("Azdaran fragment 1", 0).requirement("Birthright of the Dwarves", 1)
             .requirement("Mining", 81).reward("Mining", 20000).build());
         achievements.add(new AchievementBuilder("Azdaran fragment 2", 0).requirement("Azdaran fragment 1", 1).requirement("Mining", 83)
@@ -1386,114 +1710,71 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Back Cran-door", 0).requirement("Dragon Slayer", 1).build());
         achievements.add(new AchievementBuilder("Balanced Combat Triangle", 0).requirement("Master clue scroll points", 5).build());
         achievements.add(new AchievementBuilder("Bandit Camp", 0).requirement("Desert Treasure", 1).build());
-        achievements.add(new AchievementBuilder("Death to the Dorgeshuun", 0.75).requirement("The Lost Tribe", 1)
-            .requirement("Thieving", 23).requirement("Agility", 23).requirement("H.a.m. hood", 1).requirement("H.a.m. shirt", 1)
-            .requirement("H.a.m. robe", 1).requirement("H.a.m. gloves", 1).requirement("H.a.m. boots", 1).requirement("H.a.m. cloak", 1)
-            .requirement("H.a.m. logo", 1).requirement("H.a.m. hood", 0).requirement("H.a.m. shirt", 0).requirement("H.a.m. robe", 0)
-            .requirement("H.a.m. gloves", 0).requirement("H.a.m. boots", 0).requirement("H.a.m. cloak", 0).requirement("H.a.m. logo", 0)
-            .requirement("Bullseye lantern (oil)", 0)
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Sigmund (DttD)", "Guard (DttD)", "Guard (DttD)",
-                "Guard (DttD)")), Collections.singletonList(new Restriction("Melee or Magic", 1)))).reward("Quest points", 1)
-            .reward("Thieving", 2000).reward("Ranged", 2000).build());
-        achievements.add(new AchievementBuilder("Another Slice of H.A.M", 0.75).requirement("Death to the Dorgeshuun", 1)
-            .requirement("The Dig Site", 1).requirement("The Giant Dwarf", 1).requirement("Attack", 15).requirement("Prayer", 25)
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("H.A.M Mage", "H.A.M Archer")),
-                Collections.singletonList(new Restriction("Ranged or Magic", 1)))).encounter(new Encounter("Sigmund (ASoH)"))
-            .reward("Quest points", 1).reward("Mining", 3000).reward("Prayer", 3000).build());
-        achievements.add(new AchievementBuilder("Land of the Goblins", 1.5).requirement("Another Slice of H.A.M", 1)
-            .requirement("Fishing Contest", 1).requirement("Prayer", 30).requirement("Agility", 36).requirement("Fishing", 36)
-            .requirement("Thieving", 36).requirement("Herblore", 37).requirement("Toadflax potion (unf)", 1).requirement("Goblin mail", 0)
-            .requirement("Yellow dye", 1).requirement("Blue dye", 1).requirement("Orange dye", 1).requirement("Purple dye", 1)
-            .requirement("Coins", 5).requirement("Slimy eel", 1).encounter(new Encounter(Arrays.asList(
-                Collections.singletonList("Snothead"), Collections.singletonList("Snailfeet"), Collections.singletonList("Mosschin"),
-                Collections.singletonList("Redeyes"), Collections.singletonList("Strongbones")))).reward("Quest points", 1)
-            .reward("Agility", 3000).reward("Herblore", 3000).reward("Thieving", 3000).reward("Fishing", 3000).reward("Strength", 3000)
-            .reward("Prayer", 2000).build());
-        achievements.add(new AchievementBuilder("The Chosen Commander", 2).requirement("Land of the Goblins", 1).requirement("Agility", 46)
-            .requirement("Strength", 46).requirement("Thieving", 46).encounter(new Encounter("H.A.M agent Walton"))
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Sigmund (TCC)"), Collections.singletonList("Zanik"),
-                Collections.singletonList("Zanik"), Collections.singletonList("Zanik"), Collections.singletonList("Zanik"),
-                Collections.singletonList("Zanik")))).encounter(new Encounter(Arrays.asList(Collections.singletonList("Bandos avatar"),
-                Collections.singletonList("Ogre statue"), Collections.singletonList("Ork statue"),
-                Collections.singletonList("Goblin statue"), Collections.singletonList("Bandos avatar")))).reward("Quest points", 3)
-            .reward("Agility", 20000).reward("Strength", 20000).reward("Thieving", 20000).build());
-        achievements.add(new AchievementBuilder("The Hunt for Surok", 0.5).requirement("What Lies Below", 1).requirement("Mining", 42)
-            .requirement("Chaos talisman", 0).encounter(new Encounter("Bork")).reward("Slayer", 5000).reward("Crimson charm", 7)
-            .reward("Green charm", 2).reward("Blue charm", 5).reward("Big bones", 1).reward("Coins", 2000).reward("Emerald", 3)
-            .reward("Ruby", 2).build());
-        achievements.add(new AchievementBuilder("The Mighty Fall", 2).requirement("Missing, Presumed Death", 1)
-            .requirement("The Chosen Commander", 1).requirement("My Arm's Big Adventure", 1).requirement("The Hunt for Surok", 1)
-            .requirement("Slayer", 69).requirement("Defence", 72).requirement("Constitution", 78).requirement("Attack", 79)
-            .requirement("Strength", 79).encounter(new Encounter("Human infiltrator")).encounter(new Encounter("Human infiltrator"))
-            .encounter(new Encounter("Human infiltrator")).encounter(new Encounter("Human infiltrator"))
-            .encounter(new Encounter("Human infiltrator")).encounter(new Encounter("Human infiltrator"))
-            .encounter(new Encounter(Arrays.asList(Arrays.asList("Yelps's bodyguard", "Yelps's bodyguard"),
-                Arrays.asList("Yelps's bodyguard", "Yelps's bodyguard"), Arrays.asList("Yelps's bodyguard", "Yelps")),
-                Collections.singletonList(new Restriction("Summoning", 0))))
-            .encounter(new Encounter("Lol", Arrays.asList(new Restriction("Summoning", 0), new Restriction("Armour", 0))))
-            .encounter(new Encounter("General Graardor (TMF)", Arrays.asList(new Restriction("Kyzaj", 1), new Restriction("Summoning", 0),
-                new Restriction("Prayer", 0)))).reward("Quest points", 2).reward("Attack", 80000).reward("Strength", 80000)
-            .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged", "Summoning", "Prayer", "Slayer"), 50000,
-                69).lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged", "Summoning", "Prayer", "Slayer"),
-                75000, 79).build());
         achievements.add(new AchievementBuilder("Bandos's Memories", 0.05).requirement("The Mighty Fall", 1).reward("Divination", 130)
             .build());
-        achievements.add(new AchievementBuilder("Enakhra's Lament", 0.75).requirement("Crafting", 50).requirement("Firemaking", 45)
-            .requirement("Magic", 13).requirement("Granite (5kg)", 2).requirement("Sandstone (10kg)", 5).requirement("Sandstone (2kg)", 1)
-            .requirement("Meat pizza", 1).requirement("Air rune", 2).requirement("Fire rune", 1).requirement("Candle", 1)
-            .requirement("Logs", 1).requirement("Oak logs", 1).requirement("Willow logs", 1).requirement("Maple logs", 1)
-            .requirement("Soft clay", 1).requirement("Coal", 1).reward("Quest points", 2).reward("Crafting", 7000).reward("Mining", 7000)
-            .reward("Firemaking", 7000).reward("Magic", 7000).build());
-        achievements.add(new AchievementBuilder("Fight Arena", 0.75).requirement("Coins", 5).encounter(new Encounter("Khazard ogre"))
-            .encounter(new Encounter("Khazard scorpion")).encounter(new Encounter("Bouncer")).reward("Quest points", 2)
-            .reward("Coins", 1000).reward("Attack", 12175).reward("Thieving", 2175).build());
-        achievements.add(new AchievementBuilder("A Tail of Two Cats", 1.5).requirement("Icthlarin's Little Helper", 1)
-            .requirement("Death rune", 5).requirement("Chocolate cake", 1).requirement("Bucket of milk", 1).requirement("Logs", 1)
-            .requirement("Potato seed", 4).requirement("Vial of water", 1).requirement("Desert robe", 1).requirement("Desert shirt", 1)
-            .reward("Quest points", 2).lamp(Player.ALL_SKILLS, 2500, 30).lamp(Player.ALL_SKILLS, 2500, 30).build());
-        achievements.add(new AchievementBuilder("The Eyes of Glouphrie", 0.75).requirement("The Grand Tree", 1)
-            .requirement("Construction", 5).requirement("Magic", 46).requirement("Mud rune", 1).requirement("Maple logs", 1)
-            .requirement("Oak logs", 1).reward("Quest points", 2).reward("Herblore", 1).reward("Magic", 12000).reward("Woodcutting", 2500)
-            .reward("Runecrafting", 6000).reward("Construction", 250).build());
-        achievements.add(new AchievementBuilder("The Path of Glouphrie", 1.5).requirement("Waterfall Quest", 1)
-            .requirement("The Eyes of Glouphrie", 1).requirement("Tree Gnome Village", 1).requirement("Strength", 60)
-            .requirement("Thieving", 56).requirement("Slayer", 56).requirement("Ranged", 47).requirement("Agility", 45)
-            .requirement("Mithril grapple", 0).encounter(new Encounter(Collections.singletonList(Arrays.asList("Warped terrorbird",
-                "Warped terrorbird", "Warped terrorbird")))).reward("Quest points", 1).reward("Strength", 30000).reward("Slayer", 20000)
-            .reward("Thieving", 5000).reward("Magic", 5000).build());
-        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing Evil Dave", 1).requirement("Gertrude's Cat", 1)
-            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Shadow of the Storm", 1).requirement("Cooking", 25)
-            .requirement("Stew", 9).reward("Quest points", 1).reward("Cooking", 7000).build());
-        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing the Goblin generals", 0.25).requirement("Goblin Diplomacy", 1)
-            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Charcoal", 1).requirement("Spice", 1)
-            .requirement("Fishing bait", 1).requirement("Bowl of water", 1).requirement("Bread", 1).requirement("Orange", 1)
-            .requirement("Blue dye", 1).reward("Quest points", 1).reward("Cooking", 1000).reward("Farming", 1000).reward("Crafting", 1000)
-            .build());
-        achievements.add(new AchievementBuilder("Witch's House", 0.25).encounter(new Encounter(Arrays.asList(
-            Collections.singletonList("Witch's experiment 1"), Collections.singletonList("Witch's experiment 2"),
-            Collections.singletonList("Witch's experiment 3"), Collections.singletonList("Witch's experiment 4"))))
-            .reward("Quest points", 4).reward("Constitution", 6325).build());
-        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing the Lumbridge Sage", 0.25).requirement("Biohazard", 1)
-            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Big Chompy Bird Hunting", 1)
-            .requirement("Demon Slayer", 1).requirement("Murder Mystery", 1).requirement("Nature Spirit", 1).requirement("Witch's House", 1)
-            .requirement("Cooking", 40).requirement("Bucket of milk", 1).requirement("Egg", 1).requirement("Pot of flour", 1)
-            .requirement("Cake tin", 0).reward("Quest points", 1).reward("Cooking", 2500).reward("Magic", 2500).build());
-        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing the Mountain dwarf", 0.25).requirement("Fishing Contest", 1)
-            .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Coins", 304).requirement("Pot of flour", 1)
-            .requirement("Egg", 1).requirement("Bucket of milk", 1).requirement("Bowl of water", 1).requirement("Leather gloves", 0)
-            .requirement("Asgarnian ale", 5).reward("Quest points", 1).reward("Cooking", 1000).reward("Slayer", 1000).build());
         achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing Sir Amik Varze", 0.5).requirement("Lost City", 1)
             .requirement("Recipe for Disaster: Another Cook's Quest", 1).requirement("Legends' Quest", 1).requirement("Bucket of milk", 1)
             .requirement("Pot of cream", 1).requirement("Sweetcorn", 1).requirement("Empty pot", 1).requirement("Raw chicken", 1)
             .encounter(new Encounter("Evil Chicken")).encounter(new Encounter("Black dragon", Collections.singletonList(
                 new Restriction("Dragonfire protection", 1)))).reward("Quest points", 1).reward("Cooking", 4000)
             .reward("Constitution", 4000).build());
-        achievements.add(new AchievementBuilder("Recipe for Disaster: Freeing Skrach Uglogwee", 0.75)
-            .requirement("Big Chompy Bird Hunting", 1).requirement("Recipe for Disaster: Another Cook's Quest", 1)
-            .requirement("Cooking", 41).requirement("Firemaking", 20).requirement("Bronze hatchet", 0).requirement("Raw chompy", 1)
-            .requirement("Ball of wool", 1).requirement("Iron spit", 1).requirement("Logs", 1).requirement("Ogre arrow", 1)
-            .reward("Quest points", 1).reward("Woodcutting", 1500).reward("Cooking", 1500).reward("Crafting", 1500).reward("Ranged", 1500)
-            .build());
+        achievements.add(new AchievementBuilder("Love Story", 1).requirement("Swan Song", 1)
+            .requirement("Recipe for Disaster: Freeing Sir Amik Varze", 1).requirement("Magic", 77).requirement("Construction", 68)
+            .requirement("Smithing", 68).requirement("Crafting", 67).requirement("Steel bar", 1).requirement("Mithril bar", 1)
+            .requirement("Oak plank", 2).encounter(new Encounter(Arrays.asList(Collections.singletonList("Pit dog"),
+                Collections.singletonList("Pit ogre"), Collections.singletonList("Pit rock protector"),
+                Collections.singletonList("Pit scabarite"), Collections.singletonList("Pit black demon"),
+                Collections.singletonList("Pit iron dragon")), Arrays.asList(new Restriction("Summoning", 0),
+                new Restriction("Dragonfire protection", 1)))).encounter(new Encounter("Zenevivia",
+                Collections.singletonList(new Restriction("Summoning", 0)))).reward("Quest points", 2).reward("Construction", 60000)
+            .reward("Magic", 50000).reward("Smithing", 40000).reward("Crafting", 40000).reward("Coins", 30000).build());
+        achievements.add(new AchievementBuilder("The Branches of Darkmeyer", 1.5).requirement("Legacy of Seergaze", 1)
+            .requirement("Legends' Quest", 1).requirement("Woodcutting", 76).requirement("Fletching", 70).requirement("Magic", 70)
+            .requirement("Slayer", 67).requirement("Crafting", 64).requirement("Farming", 63).requirement("Agility", 63)
+            .encounter(new Encounter("Harold")).encounter(new Encounter("Vanstrom Klause",
+                Collections.singletonList(new Restriction("Blisterwood weapon", 1)))).reward("Quest points", 2).reward("Agility", 20000)
+            .reward("Woodcutting", 50000).reward("Farming", 20000).reward("Fletching", 40000).reward("Crafting", 20000)
+            .reward("Slayer", 25000).reward("Magic", 35000).lamp(Player.ALL_SKILLS, 50000, 60).lamp(Player.ALL_SKILLS, 50000, 60)
+            .lamp(Player.ALL_SKILLS, 50000, 60).build());
+        achievements.add(new AchievementBuilder("The Lord of Vampyrium", 2).requirement("The Branches of Darkmeyer", 1)
+            .requirement("Attack", 75).requirement("Defense", 75).requirement("Strength", 75).requirement("Constitution", 75)
+            .requirement("Construction", 79).requirement("Slayer", 78).requirement("Hunter", 76).encounter(new Encounter("Venator",
+                Collections.singletonList(new Restriction("Vampyric weapon", 1)))).encounter(new Encounter("Venator",
+                Collections.singletonList(new Restriction("Vampyric weapon", 1)))).encounter(new Encounter("Venator",
+                Collections.singletonList(new Restriction("Vampyric weapon", 1)))).encounter(new Encounter("Venator",
+                Collections.singletonList(new Restriction("Vampyric weapon", 1)))).encounter(new Encounter(Collections.singletonList(
+                Arrays.asList("Venator", "Venator", "Venator")), Collections.singletonList(new Restriction("Vampyric weapon", 1))))
+            .encounter(new Encounter("Lowernial Drakan", Collections.singletonList(new Restriction("Vampyric weapon", 1))))
+            .encounter(new Encounter("Lowernial Drakan", Collections.singletonList(new Restriction("Vampyric weapon", 1))))
+            .encounter(new Encounter("Lowernial Drakan", Collections.singletonList(new Restriction("Vampyric weapon", 1))))
+            .reward("Quest points", 2).reward("Construction", 75000).reward("Slayer", 50000).reward("Hunter", 50000)
+            .reward("Sunspear (melee)", 1).reward("Sunspear (ranged)", 1).reward("Sunspear (magic)", 1).lamp(Player.ALL_SKILLS, 75000, 75)
+            .lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75).build());
+        achievements.add(new AchievementBuilder("River of Blood", 2).requirement("The Lord of Vampyrium", 1)
+            .requirement("Defender of Varrock", 1).requirement("All Fired Up", 1).requirement("Herblore", 80).requirement("Attack", 78)
+            .requirement("Constitution", 80).requirement("Ranged", 78).requirement("Magic", 78).requirement("Firemaking", 76)
+            .requirement("Fletching", 75).requirement("Mining", 72).requirement("Guthix balance (4)", 1).requirement("Super restore (3)", 1)
+            .requirement("Steel helm", 3).requirement("Steel platebody", 3).requirement("Steel platelegs", 3)
+            .requirement("Silver sickle", 4).encounter(new Encounter(Collections.singletonList(Arrays.asList("Vyrewatch", "Vyrewatch",
+                "Vyrewatch")), Collections.singletonList(new Restriction("Vampyric weapon", 1))))
+            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Monk of Zamorak"),
+                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
+                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
+                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
+                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
+                Collections.singletonList("Monk of Zamorak"), Arrays.asList("Zamorakian leader", "Zamorakian bodyguard"))))
+            .encounter(new Encounter(Arrays.asList(Arrays.asList("Feral vampyre (RoB)", "Feral vampyre (RoB)",
+                "Feral vampyre (RoB)"), Collections.singletonList("Wyrd")),
+                Collections.singletonList(new Restriction("Vampyric weapon", 1)))).encounter(new Encounter(Collections.singletonList(
+                Arrays.asList("Vampyre juvinate (RoB)", "Vampyre juvinate (RoB)", "Vampyre juvinate (RoB)")),
+                Collections.singletonList(new Restriction("Sunspear", 1)))).encounter(new Encounter(Collections.singletonList(Arrays.asList(
+                "Skeleton Hellhound", "Skeleton Hellhound", "Skeleton Hellhound", "Skeleton Hellhound", "Skeleton Hellhound",
+                "Skeleton Hellhound", "Skeleton Hellhound")))).encounter(new Encounter(Arrays.asList(Collections.singletonList("Wyrd"),
+                Collections.singletonList("Wyrd"), Collections.singletonList("Wyrd"), Collections.singletonList("Wyrd"),
+                Collections.singletonList("Wyrd")), Collections.singletonList(new Restriction("Vampyric weapon", 1))))
+            .reward("Quest points", 3).reward("Woodcutting", 800).reward("Herblore", 75000).reward("Firemaking", 50000)
+            .reward("Fletching", 50000).reward("Mining", 50000).lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75)
+            .lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75).build());
         achievements.add(new AchievementBuilder("Recipe for Disaster: Defeating the Culinaromancer", 0.25)
             .requirement("Recipe for Disaster: Freeing Evil Dave", 1).requirement("Recipe for Disaster: Freeing the Goblin generals", 1)
             .requirement("Recipe for Disaster: Freeing King Awowogei", 1).requirement("Recipe for Disaster: Freeing the Lumbridge Sage", 1)
@@ -1507,29 +1788,6 @@ public class AchievementDatabase {
             .encounter(new Encounter("Gelatinnoth Mother", Arrays.asList(new Restriction("Prayer", 0), new Restriction("Summoning", 0))))
             .encounter(new Encounter("Culinaromancer", Arrays.asList(new Restriction("Prayer", 0), new Restriction("Summoning", 0))))
             .reward("Quest points", 1).lamp(Player.ALL_SKILLS, 20000, 50).build());
-        achievements.add(new AchievementBuilder("Spirit of Summer", 1.5).requirement("The Restless Ghost", 1)
-            .requirement("Summoning", 19).requirement("Farming", 26).requirement("Prayer", 35).requirement("Construction", 40)
-            .requirement("Spirit wolf pouch", 1).requirement("Desert wyrm pouch", 1).requirement("Spirit scorpion pouch", 1)
-            .reward("Quest points", 1).reward("Construction", 7500).reward("Prayer", 5000).reward("Farming", 2000).reward("Summoning", 1000)
-            .build());
-        achievements.add(new AchievementBuilder("Summer's End", 1).requirement("Spirit of Summer", 1).requirement("Summoning", 23)
-            .requirement("Hunter", 35).requirement("Woodcutting", 37).requirement("Mining", 45).requirement("Firemaking", 47)
-            .requirement("Prayer", 55).requirement("Albino rat pouch", 1).reward("Quest points", 1).reward("Summoning", 1500)
-            .reward("Hunter", 5000).reward("Mining", 5000).reward("Woodcutting", 5000).reward("Prayer", 10000).reward("Firemaking", 15000)
-            .build());
-        achievements.add(new AchievementBuilder("Swan Song", 1).requirement("Quest points", 101).requirement("Garden of Tranquility", 1)
-            .requirement("One Small Favour", 1).requirement("Magic", 66).requirement("Cooking", 62).requirement("Fishing", 62)
-            .requirement("Smithing", 45).requirement("Firemaking", 42).requirement("Crafting", 40).requirement("Mist rune", 10)
-            .requirement("Lava rune", 10).requirement("Blood rune", 5).requirement("Empty pot", 1).requirement("Pot lid", 1)
-            .requirement("Bones", 7).requirement("Iron bar", 5).requirement("Logs", 1).encounter(new Encounter(Arrays.asList(
-                Arrays.asList("Sea troll", "Sea troll", "Sea troll"), Arrays.asList("Sea troll", "Sea troll", "Sea troll"),
-                Collections.singletonList("Sea troll")))).encounter(new Encounter("Sea Troll Queen")).reward("Quest points", 2)
-            .reward("Magic", 15000).reward("Prayer", 10000).reward("Fishing", 10000).reward("Coins", 25000).build());
-        achievements.add(new AchievementBuilder("Tears of Guthix", 0.25).requirement("Quest points", 44).requirement("Firemaking", 49)
-            .requirement("Mining", 20).requirement("Crafting", 20).requirement("Bullseye lantern (oil)", 1).requirement("Sapphire", 1)
-            .reward("Quest points", 1).reward("Crafting", 1000).build());
-        achievements.add(new AchievementBuilder("Wolf Whistle", 0.5).reward("Quest points", 1).reward("Summoning", 276)
-            .reward("Gold charm", 275).build());
         achievements.add(new AchievementBuilder("While Guthix Sleeps", 4).requirement("Defender of Varrock", 1)
             .requirement("Dream Mentor", 1).requirement("The Hand in the Sand", 1).requirement("King's Ransom", 1)
             .requirement("Legends' Quest", 1).requirement("Mourning's End Part II", 1).requirement("The Path of Glouphrie", 1)
@@ -1559,23 +1817,6 @@ public class AchievementDatabase {
             .reward("Crafting", 40000).reward("Mining", 40000).lamp(Player.ALL_SKILLS, 80000, 72).lamp(Player.ALL_SKILLS, 80000, 72)
             .lamp(Player.ALL_SKILLS, 80000, 72).build());
         achievements.add(new AchievementBuilder("Bane Tuner", 0).requirement("Ritual of the Mahjarrat", 1).build());
-        achievements.add(new AchievementBuilder("Dimension of Disaster: Coin of the Realm", 0.25).requirement("Coins", 1)
-            .reward("Quest points", 1).build());
-        achievements.add(new AchievementBuilder("Dimension of Disaster: Shield of Arrav", 0.25).requirement("Shield of Arrav", 1)
-            .requirement("Dimension of Disaster: Coin of the Realm", 1).reward("Quest points", 1).reward("Thieving", 100).build());
-        achievements.add(new AchievementBuilder("Dimension of Disaster: Demon Slayer", 0.75).requirement("Shadow of the Storm", 1)
-            .requirement("Dimension of Disaster: Coin of the Realm", 1).reward("Quest points", 3).reward("Crafting", 5000)
-            .reward("Magic", 5000).build());
-        achievements.add(new AchievementBuilder("Dimension of Disaster: Defender of Varrock", 0.75).requirement("Defender of Varrock", 1)
-            .requirement("Dimension of Disaster: Coin of the Realm", 1).reward("Quest points", 2).reward("Thieving", 10000)
-            .reward("Magic", 10000).reward("Defence", 10000).reward("Construction", 2000).lamp(Arrays.asList("Attack", "Strength",
-                "Defence", "Magic", "Ranged"), 15000, 1).build());
-        achievements.add(new AchievementBuilder("Dimension of Disaster: Curse of Arrav", 0.75).requirement("The Curse of Arrav", 1)
-            .requirement("Dimension of Disaster: Coin of the Realm", 1).requirement("Dimension of Disaster: Shield of Arrav", 1)
-            .requirement("Dimension of Disaster: Demon Slayer", 1).requirement("Dimension of Disaster: Defender of Varrock", 1)
-            .requirement("Agility", 61).requirement("Strength", 64).requirement("Ranged", 64).reward("Quest points", 1)
-            .reward("Thieving", 14000).reward("Ranged", 9000).reward("Agility", 9000).reward("Crafting", 9000).reward("Farming", 4000)
-            .reward("Magic", 2500).lamp(Arrays.asList("Attack", "Strength", "Defence", "Magic", "Ranged"), 30000, 1).build());
         achievements.add(new AchievementBuilder("Bank-Z", 0).requirement("Dimension of Disaster: Curse of Arrav", 1).build());
         achievements.add(new AchievementBuilder("Enchanted key miniquest", 0.25).requirement("Meeting History", 1).reward("Iron ore", 60)
             .reward("Mithril ore", 30).reward("Pure essence", 323).reward("Air rune", 15).reward("Mind rune", 20).reward("Earth rune", 5)
@@ -1602,10 +1843,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Barrowed Power V", 0).requirement("Rise of the Six", 75).build());
         achievements.add(new AchievementBuilder("Barrowed Power VI", 0).requirement("Rise of the Six", 100).build());
         achievements.add(new AchievementBuilder("Dragon defender", 4).requirement("Attack", 65).requirement("Strength", 65).build());
-        achievements.add(new AchievementBuilder("Kindred Spirits", 1.5).requirement("Missing, Presumed Death", 1)
-            .requirement("Agility", 60).requirement("Crafting", 60).requirement("Herblore", 60).requirement("Smithing", 60)
-            .reward("Quest points", 1).reward("Herblore", 25000).reward("Crafting", 25000).reward("Smithing", 25000)
-            .reward("Agility", 25000).build());
         achievements.add(new AchievementBuilder("Barrowed Time", 0).requirement("Dragon defender", 1).requirement("Linza", 281)
             .requirement("Barrows", 1386).build());
         achievements.add(new AchievementBuilder("Barry", 0).requirement("Araxxi", 657).build());
@@ -1624,8 +1861,6 @@ public class AchievementDatabase {
             .encounter(new Encounter(Arrays.asList(Collections.singletonList("Yakamaru"),
                 Collections.singletonList("Image of Yakamaru"), Collections.singletonList("Image of Yakamaru"),
                 Collections.singletonList("Image of Yakamaru"), Collections.singletonList("Image of Yakamaru")), 10)).build());
-        achievements.add(new AchievementBuilder("All Fired Up", 0.5).requirement("Priest in Peril", 1).requirement("Firemaking", 43)
-            .requirement("Logs", 45).reward("Quest points", 1).reward("Coins", 20000).reward("Firemaking", 5500).build());
         achievements.add(new AchievementBuilder("Ring of fire", 0.1).requirement("All Fired Up", 1).requirement("Firemaking", 62)
             .requirement("Logs", 120).reward("Firemaking", 12137).build());
         achievements.add(new AchievementBuilder("Better Than Cursing The Darkness", 0).requirement("Bark", 1)
@@ -1662,11 +1897,6 @@ public class AchievementDatabase {
             .reward("Mort myre fungus", 1).build());
         achievements.add(new AchievementBuilder("Blowing Your Own Trumpet", 0).requirement("Mourning's End Part I", 1).build());
         achievements.add(new AchievementBuilder("Bombi", 0).requirement("Vorago (HM)", 6).requirement("Vorago", 69).build());
-        achievements.add(new AchievementBuilder("Rag and Bone Man", 1).requirement("Coins", 40).requirement("Empty pot", 8)
-            .requirement("Logs", 8).requirement("Rope", 1).encounter(new Encounter("Goblin")).encounter(new Encounter("Big frog"))
-            .encounter(new Encounter("Black bear")).encounter(new Encounter("Ram")).encounter(new Encounter("Unicorn"))
-            .encounter(new Encounter("Monkey")).encounter(new Encounter("Giant rat")).encounter(new Encounter("Giant bat"))
-            .reward("Quest points", 2).reward("Cooking", 500).reward("Prayer", 500).build());
         achievements.add(new AchievementBuilder("Mogre miniquest", 0.25).requirement("Cooking", 20).requirement("Bucket of water", 1)
             .requirement("Bowl of water", 1).requirement("Bucket of milk", 1).requirement("Snape grass", 1).requirement("Chocolate dust", 1)
             .reward("Cooking", 53).build());
@@ -1684,13 +1914,6 @@ public class AchievementDatabase {
                 new Restriction("Mirror shield", 1)))).encounter(new Encounter("Lizard")).encounter(new Encounter("Cave goblin"))
             .encounter(new Encounter("Vulture")).encounter(new Encounter("Jackal")).encounter(new Encounter("Undead cow"))
             .reward("Prayer", 5000).build());
-        achievements.add(new AchievementBuilder("Fur 'n' Seek", 0.75).requirement("Rag and Bone Man", 1).requirement("Slayer", 25)
-            .requirement("Bag of salt", 9).requirement("Logs", 8).encounter(new Encounter("Rock crab"))
-            .encounter(new Encounter("Fenris wolf")).encounter(new Encounter("Fox")).encounter(new Encounter("Hobgoblin"))
-            .encounter(new Encounter("Cockatrice", Collections.singletonList(new Restriction("Mirror shield", 1))))
-            .encounter(new Encounter("Cave crawler")).encounter(new Encounter("Grizzly bear")).encounter(new Encounter("Black unicorn"))
-            .encounter(new Encounter("Unicorn")).reward("Quest points", 2).reward("Constitution", 2500).reward("Slayer", 2500)
-            .reward("Prayer", 1500).reward("Crafting", 500).reward("Firemaking", 500).build());
         achievements.add(new AchievementBuilder("Fur 'n' Seek wish list", 2.5).requirement("Fur 'n' Seek", 1)
             .requirement("The Hunt for Surok", 1).requirement("Recipe for Disaster: Freeing King Awowogei", 1)
             .requirement("Barbarian Firemaking", 1).requirement("Slayer", 78).requirement("Elemental shield", 0).requirement("Coins", 2775)
@@ -1752,11 +1975,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Bring It All Back", 0).requirement("Ranged", 80).requirement("Attack", 85)
             .encounter(new Encounter("Twin Furies", Arrays.asList(new Restriction("Blade of Avaryss", 1),
                 new Restriction("Blade of Nymora", 1)))).build());
-        achievements.add(new AchievementBuilder("Gower Quest", 1).requirement("Quest points", 34).encounter(new Encounter(Arrays.asList(
-            Collections.singletonList("Black Knight Titan"), Collections.singletonList("Black Knight Titan"),
-            Collections.singletonList("Black Knight Titan"), Collections.singletonList("Black Knight Titan"),
-            Collections.singletonList("Black Knight Titan"), Collections.singletonList("Black Knight Titan")))).reward("Quest points", 1)
-            .reward("Coins", 15).build());
         achievements.add(new AchievementBuilder("Ian lamp", 0).requirement("Attack", 10).requirement("Strength", 10)
                 .requirement("Defence", 10).requirement("Ranged", 10).requirement("Magic", 10).requirement("Prayer", 10)
                 .requirement("Constitution", 10).requirement("Mining", 10).requirement("Crafting", 10).requirement("Smithing", 10)
@@ -1843,8 +2061,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Business Is Booning!", 0).requirement("Divination", 10)
             .requirement("Pale energy", 100).reward("Divination", 3).build());
         achievements.add(new AchievementBuilder("But It Won't Warp You Anywhere", 0).requirement("Agility", 51).build());
-        achievements.add(new AchievementBuilder("Buyers and Cellars", 0.5).requirement("Thieving", 5).reward("Quest points", 1)
-            .reward("Thieving", 525).build());
         achievements.add(new AchievementBuilder("Buy and Sell Some XP", 0).requirement("Thieving", 62)
             .requirement("Buyers and Cellars", 1).reward("Thieving", 2000).build());
         achievements.add(new AchievementBuilder("Buying Up Ancient Artefacts", 0).requirement("Desert Treasure", 1)
@@ -1872,8 +2088,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Castles in the Sky", 0).build());
         achievements.add(new AchievementBuilder("Cat's Bane", 0.2).requirement("Dimension of Disaster: Coin of the Realm", 1).build());
         achievements.add(new AchievementBuilder("Catherby", 0).build());
-        achievements.add(new AchievementBuilder("Myths of the White Lands", 0.75).reward("Quest points", 2).reward("Coins", 5000)
-            .lamp(Player.ALL_SKILLS, 500, 1).build());
         achievements.add(new AchievementBuilder("Myths of the White Lands cave painting 1", 0).requirement("Myths of the White Lands", 1)
             .requirement("Crafting", 30).reward("Crafting", 2000).build());
         achievements.add(new AchievementBuilder("Myths of the White Lands cave painting 2", 0).requirement("Myths of the White Lands", 1)
@@ -1892,7 +2106,6 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Chain Store", 0).requirement("Coins", 1440).requirement("Defence", 25)
             .reward("Black chainbody", 1).build());
-        achievements.add(new AchievementBuilder("Broken Home", 1).reward("Quest points", 1).lamp(Player.ALL_SKILLS, -1, 1).build());
         achievements.add(new AchievementBuilder("Broken Home lamp 1", 0).requirement("Broken Home", 1).requirement("Agility", 10)
             .requirement("Attack", 10).requirement("Strength", 10).requirement("Defence", 10).requirement("Ranged", 10)
             .requirement("Prayer", 10).requirement("Constitution", 10).requirement("Crafting", 10).requirement("Mining", 10)
@@ -2048,16 +2261,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Chilling with Arrav", 0).requirement("Ritual of the Mahjarrat", 1)
             .reward("Prayer", 3000).build());
         achievements.add(new AchievementBuilder("Chinchompa Powered!", 0).requirement("Cheese", 1).build());
-        achievements.add(new AchievementBuilder("Love Story", 1).requirement("Swan Song", 1)
-            .requirement("Recipe for Disaster: Freeing Sir Amik Varze", 1).requirement("Magic", 77).requirement("Construction", 68)
-            .requirement("Smithing", 68).requirement("Crafting", 67).requirement("Steel bar", 1).requirement("Mithril bar", 1)
-            .requirement("Oak plank", 2).encounter(new Encounter(Arrays.asList(Collections.singletonList("Pit dog"),
-                Collections.singletonList("Pit ogre"), Collections.singletonList("Pit rock protector"),
-                Collections.singletonList("Pit scabarite"), Collections.singletonList("Pit black demon"),
-                Collections.singletonList("Pit iron dragon")), Arrays.asList(new Restriction("Summoning", 0),
-                new Restriction("Dragonfire protection", 1)))).encounter(new Encounter("Zenevivia",
-                Collections.singletonList(new Restriction("Summoning", 0)))).reward("Quest points", 2).reward("Construction", 60000)
-            .reward("Magic", 50000).reward("Smithing", 40000).reward("Crafting", 40000).reward("Coins", 30000).build());
         achievements.add(new AchievementBuilder("Chippy Transport", 0).requirement("Love Story", 1).build());
         achievements.add(new AchievementBuilder("Chiselin' Conchiolin", 0).requirement("Blamish myre shell (round)", 1)
             .requirement("Crafting", 15).reward("Snelm", 1).reward("Crafting", 32).build());
@@ -2069,23 +2272,8 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Chompy Massacre", 0).requirement("Chompy kills", 4000).reward("Ranged", 30000)
             .build());
-        achievements.add(new AchievementBuilder("The Firemaker's Curse", 2.5).requirement("Firemaking", 74).requirement("Constitution", 76)
-            .requirement("Agility", 64).reward("Quest points", 2).reward("Firemaking", 80000).reward("Agility", 30000)
-            .reward("Constitution", 76000).build());
         achievements.add(new AchievementBuilder("Circus of Fire", 0.05).requirement("The Firemaker's Curse", 1).build());
         achievements.add(new AchievementBuilder("Citadelementary", 0).build());
-        achievements.add(new AchievementBuilder("The Blood Pact", 0.25).encounter(new Encounter("Kayle"))
-            .encounter(new Encounter("Caitlin")).encounter(new Encounter("Reese")).reward("Quest points", 1).reward("Attack", 100)
-            .reward("Strength", 100).reward("Defence", 100).reward("Ranged", 100).reward("Magic", 100).build());
-        achievements.add(new AchievementBuilder("Carnillean Rising", 1).requirement("The Blood Pact", 1).requirement("Hazeel Cult", 1)
-            .requirement("Quest points", 50).requirement("Thieving", 33).requirement("Construction", 31).reward("Quest points", 1)
-            .reward("Thieving", 2500).reward("Construction", 2500).reward("Coins", 5000).reward("Purple sweets", 5).reward("Oak plank", 100)
-            .reward("Teak plank", 30).reward("Mahogany plank", 10).reward("Gold bar", 1).lamp(Player.ALL_SKILLS, 1500, 30)
-            .lamp(Player.ALL_SKILLS, 1500, 30).build());
-        achievements.add(new AchievementBuilder("Heart of Stone", 1.5).requirement("Carnillean Rising", 1).requirement("Rune Memories", 1)
-            .requirement("Runecrafting", 25).requirement("Magic", 35).encounter(new Encounter("Prehistoric abyssal"))
-            .reward("Quest points", 1).reward("Runecrafting", 1500).reward("Magic", 1500).lamp(Arrays.asList("Attack", "Strength",
-                "Defence", "Ranged", "Magic", "Constitution", "Prayer", "Summoning"), 500, 1).build());
         achievements.add(new AchievementBuilder("Claiming Azzanadra's Heart", 0).requirement("Heart of Stone", 1)
             .requirement("The Temple at Senntisten", 1).lamp(Player.ALL_SKILLS, -2, 1).build());
         achievements.add(new AchievementBuilder("Class Crown", 0).requirement("Imperial reputation", 300000).build());
@@ -2157,9 +2345,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Stranger and Stranger", 0).requirement("Underground Pass", 1)
             .requirement("Summoning", 64).requirement("Crimson charm", 1).requirement("Bagged plant 1", 1).requirement("Pouch", 1)
             .requirement("Spirit shards", 128).reward("Stranger plant pouch", 1).reward("Summoning", 281).build());
-        achievements.add(new AchievementBuilder("Deadliest Catch", 0.5).requirement("Druidic Ritual", 1)
-            .requirement("Tower of Life", 1).requirement("Hunter", 67).requirement("Fishing", 70).requirement("Thieving", 70)
-            .reward("Quest points", 1).reward("Fishing", 70000).reward("Hunter", 26000).reward("Thieving", 8000).build());
         achievements.add(new AchievementBuilder("Sharks are Good for the Elf", 0).requirement("Deadliest Catch", 1)
             .requirement("Regicide", 1).requirement("Fishing", 76).reward("Fishing", 110).reward("Raw shark", 1).build());
         achievements.add(new AchievementBuilder("Pretty and Witty and Dead", 0).requirement("Death tiara", 0)
@@ -2173,10 +2358,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Harrowed Lands", 0).requirement("Tirannwn Set Tasks - Easy", 1)
             .requirement("Clean harralander", 1).requirement("Herblore", 44).reward("Herblore", 72).reward("Harralander tar", 15)
             .build());
-        achievements.add(new AchievementBuilder("The Prisoner of Glouphrie", 0.75).requirement("The Path of Glouphrie", 1)
-            .requirement("Roving Elves", 1).requirement("Agility", 64).requirement("Construction", 62).requirement("Thieving", 64)
-            .requirement("Runecrafting", 61).reward("Quest points", 1).reward("Thieving", 60000).reward("Agility", 60000)
-            .reward("Construction", 50000).reward("Runecrafting", 45000).build());
         achievements.add(new AchievementBuilder("Gnome Roaming", 0.05).requirement("The Prisoner of Glouphrie", 1).build());
         achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Medium", 0).requirement("Harrowed Lands", 1)
             .requirement("Bowing Out and About", 1).requirement("An Act of War", 1).requirement("Sharks are Good for the Elf", 1)
@@ -2186,6 +2367,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Xena-Phile", 0).requirement("Smithing", 90).requirement("Plague's End", 1)
             .requirement("Harmonic dust", 1000).requirement("The Eyes of Glouphrie", 1).reward("Smithing", 1500)
             .reward("Attuned crystal dagger", 1).build());
+    }
+
+    private void addAchievementsPhase2() {
         achievements.add(new AchievementBuilder("Weave Come A Long Way", 0).requirement("Plague's End", 1)
             .requirement("Ball of wool", 9).requirement("Agility", 90).requirement("Attack", 90).requirement("Strength", 90)
             .requirement("Defence", 90).requirement("Ranged", 90).requirement("Prayer", 90).requirement("Constitution", 90)
@@ -2205,46 +2389,11 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Respect Your Elders", 0.05).requirement("Elder seed", 1)
             .requirement("Woodcutting", 90).requirement("Fletching", 90).reward("Woodcutting", 325).reward("Fletching", 101)
             .reward("Elder shortbow (u)", 1).reward("Farming", 23463).build());
-        achievements.add(new AchievementBuilder("The Elder Kiln", 1.5).requirement("Magic", 75).requirement("Agility", 60)
-            .requirement("Mining", 41).requirement("Rune pickaxe", 0)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Player spoof A"),
-                Collections.singletonList("Hardened TzHaar"), Collections.singletonList("Hardened TzHaar"),
-                Collections.singletonList("Hardened TzHaar"), Collections.singletonList("Player spoof C"),
-                Collections.singletonList("Player spoof B"), Collections.singletonList("Hardened TzHaar"))))
-            .encounter(new Encounter("TzHaar-Ket-Yit'tal")).encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster",
-                "Lava monster", "Lava monster", "TokTz-Ket-Dill"))))
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster", "Lava monster", "Ket-Zek (TEK)",
-                "Ket-Zek (TEK)")))).encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster", "Lava monster",
-                "Lava monster", "Lava monster", "TokTz-Ket-Dill")))).encounter(new Encounter("TokTz-Ket-Dill"))
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Lava monster", "Lava monster", "Lava monster",
-                "Yt-MejKot (TEK)")))).encounter(new Encounter(Arrays.asList(Arrays.asList("TokHaar-Hur", "TokHaar-Hur", "TokHaar-Xil"),
-                Arrays.asList("TokHaar-Ket", "TokHaar-Xil", "TokHaar-Mej"), Arrays.asList("TokHaar-Xil", "TokHaar-Xil", "TokHaar-Mej"),
-                Arrays.asList("TokHaar-Hur", "TokHaar-Hur", "TokHaar-Xil", "TokHaar-Mej"), Arrays.asList("TokHaar-Hur", "TokHaar-Ket",
-                    "TokHaar-Xil", "TokHaar-Mej"), Arrays.asList("TokHaar-Mej", "TokHaar-Ket", "TokHaar-Xil", "TokHaar-Mej"),
-                Arrays.asList("TokHaar-Ket Champion", "TokHaar-Xil", "TokHaar-Mej")))).reward("Quest points", 2).reward("Magic", 50000)
-            .reward("Agility", 30000).lamp(Arrays.asList("Attack", "Strength", "Defence", "Magic", "Ranged"), 100000, 75).build());
-        achievements.add(new AchievementBuilder("One of a Kind", 2).requirement("A Tail of Two Cats", 1)
-            .requirement("The World Wakes", 1).requirement("King's Ransom", 1).requirement("Missing, Presumed Death", 1)
-            .requirement("Divination", 40).requirement("Dungeoneering", 67).requirement("Summoning", 74).requirement("Magic", 81)
-            .requirement("Emerald", 1).requirement("Coins", 875).encounter(new Encounter("Iron dragon",
-                Collections.singletonList(new Restriction("Dragonfire protection", 1)))).encounter(new Encounter("Iron dragon",
-                Collections.singletonList(new Restriction("Dragonfire protection", 1)))).encounter(new Encounter("Iron dragon",
-                Collections.singletonList(new Restriction("Dragonfire protection", 1))))
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("Dragon-hunter warrior", "Dragon-hunter mage",
-                "Dragon-hunter archer")))).encounter(new Encounter("Echo of Jas")).reward("Quest points", 1).reward("Magic", 90000)
-            .reward("Summoning", 80000).reward("Dungeoneering", 45000).reward("Divination", 5000).build());
-        achievements.add(new AchievementBuilder("The Branches of Darkmeyer", 1.5).requirement("Legacy of Seergaze", 1)
-            .requirement("Legends' Quest", 1).requirement("Woodcutting", 76).requirement("Fletching", 70).requirement("Magic", 70)
-            .requirement("Slayer", 67).requirement("Crafting", 64).requirement("Farming", 63).requirement("Agility", 63)
-            .encounter(new Encounter("Harold")).encounter(new Encounter("Vanstrom Klause",
-                Collections.singletonList(new Restriction("Blisterwood weapon", 1)))).reward("Quest points", 2).reward("Agility", 20000)
-            .reward("Woodcutting", 50000).reward("Farming", 20000).reward("Fletching", 40000).reward("Crafting", 20000)
-            .reward("Slayer", 25000).reward("Magic", 35000).lamp(Player.ALL_SKILLS, 50000, 60).lamp(Player.ALL_SKILLS, 50000, 60)
-            .lamp(Player.ALL_SKILLS, 50000, 60).build());
         achievements.add(new AchievementBuilder("Properly Metal", 0.15).requirement("Slayer", 95).requirement("Plague's End", 1)
             .requirement("Blood Runs Deep", 1).requirement("The Branches of Darkmeyer", 1).requirement("The Elder Kiln", 1)
             .requirement("Ritual of the Mahjarrat", 1).requirement("The Chosen Commander", 1).requirement("The Firemaker's Curse", 1)
             .requirement("The Void Stares Back", 1).requirement("One of a Kind", 1).build());
+        achievements.add(new AchievementBuilder("99 With a Flake", 0).requirement("Flags unfurled", 1).build());
         achievements.add(new AchievementBuilder("Tirannwn Set Tasks - Elite", 0).requirement("99 With a Flake", 1)
             .requirement("Robot of Sherwood", 1).requirement("The Crested Guest is Best", 1).requirement("Ace of Dungeons", 1)
             .requirement("Weave Come A Long Way", 1).requirement("Properly Metal", 1).requirement("Respect Your Elders", 1)
@@ -2318,10 +2467,6 @@ public class AchievementDatabase {
             .requirement("Lava Palava", 1).requirement("Rev-enge!", 1).requirement("Harming Moths", 1).requirement("Come At Me, Bro!", 1)
             .requirement("Smooth Bakriminel", 1).lamp(Player.ALL_SKILLS, 95000, 85).lamp(Player.ALL_SKILLS, 95000, 85).build());
         achievements.add(new AchievementBuilder("You Wouldn't Like Me When I'm Angry", 0).requirement("A Soul's Bane", 1).build());
-        achievements.add(new AchievementBuilder("Ratcatchers", 1.5).requirement("Icthlarin's Little Helper", 1)
-            .requirement("Cheese", 4).requirement("Unicorn horn dust", 1).requirement("Clean marrentill", 1)
-            .requirement("Bucket of milk", 10).requirement("Empty pot", 1).requirement("Coins", 600).reward("Quest points", 2)
-            .reward("Farming", 4).reward("Thieving", 4500).build());
         achievements.add(new AchievementBuilder("With a Ten-foot Pole", 0.05).requirement("Ratcatchers", 1).build());
         achievements.add(new AchievementBuilder("What Lies Below?", 0).requirement("What Lies Below", 1).requirement("Mining", 42)
             .requirement("Runecrafting", 35).requirement("Chaos talisman", 0).build());
@@ -2382,21 +2527,6 @@ public class AchievementDatabase {
             .requirement("Prayer", 92).build());
         achievements.add(new AchievementBuilder("Red, Red Pies of Summer", 0).requirement("Cooking", 95).requirement("Strawberry", 1)
             .requirement("Watermelon", 1).requirement("Pot of flour", 1).reward("Summer pie", 1).reward("Cooking", 265).build());
-    }
-
-    private void addAchievementsPhase2() {
-        achievements.add(new AchievementBuilder("Knight Waves training ground", 0).requirement("King's Ransom", 1)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Knight Waves knight"),
-                Collections.singletonList("Knight Waves knight"), Collections.singletonList("Knight Waves knight"),
-                Collections.singletonList("Knight Waves knight"), Collections.singletonList("Knight Waves knight"),
-                Collections.singletonList("Knight Waves knight"), Collections.singletonList("Knight Waves knight"),
-                Collections.singletonList("Knight Waves knight")), Arrays.asList(new Restriction("Summoning", 0),
-                new Restriction("Prayer", 0)))).reward("Attack", 20000).reward("Strength", 20000).reward("Defence", 20000)
-            .reward("Constitution", 20000).reward("Ranged", 20000).reward("Magic", 20000).build());
-        achievements.add(new AchievementBuilder("Nomad's Requiem", 0.85).requirement("King's Ransom", 1)
-            .requirement("Knight Waves training ground", 1).requirement("Magic", 75).requirement("Prayer", 70).requirement("Mining", 66)
-            .requirement("Hunter", 65).requirement("Constitution", 60).encounter(new Encounter("Decaying avatar"))
-            .encounter(new Encounter("Nomad")).reward("Quest points", 3).reward("Zeal", 70).build());
         achievements.add(new AchievementBuilder("Nomadness", 0).requirement("Nomad's Requiem", 1).build());
         achievements.add(new AchievementBuilder("Mind Your Back", 0).requirement("What Lies Below", 1).requirement("Magic", 80)
             .build());
@@ -2539,8 +2669,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("King Coal", 0.1).requirement("Coal", -224).build());
         achievements.add(new AchievementBuilder("It's Only a Model", 0).requirement("Law rune", 1).requirement("Air rune", 5)
             .requirement("Magic", 45).reward("Magic", 55).build());
-        achievements.add(new AchievementBuilder("Scorpion Catcher", 0.25).requirement("Bar Crawl", 1).requirement("Prayer", 31)
-            .encounter(new Encounter("Jailer")).reward("Quest points", 1).reward("Strength", 6625).build());
         achievements.add(new AchievementBuilder("It's a Slightly Magical Stick", 0).requirement("Scorpion Catcher", 1).build());
         achievements.add(new AchievementBuilder("I Can Seer My House From Here", 0).requirement("One Small Favour", 1).build());
         achievements.add(new AchievementBuilder("Fleeing the Scene", 0).requirement("Agility", 48).build());
@@ -2616,12 +2744,6 @@ public class AchievementDatabase {
             .requirement("Trekkin' Ain't Easy", 1).requirement("Better Than Cursing The Darkness", 1).lamp(Player.ALL_SKILLS, 20000, 65)
             .build());
         achievements.add(new AchievementBuilder("Who You Gonna Ring?", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
-        achievements.add(new AchievementBuilder("Ghosts Ahoy", 0.25).requirement("Priest in Peril", 1)
-            .requirement("The Restless Ghost", 1).requirement("Agility", 25).requirement("Cooking", 20).requirement("Coins", 1000)
-            .requirement("Thread", 1).requirement("Silk", 1).requirement("Spade", 0).requirement("Oak shieldbow", 1)
-            .requirement("Bucket of milk", 1).requirement("Red dye", 1).requirement("Blue dye", 1).requirement("Yellow dye", 1)
-            .requirement("Bowl of water", 1).encounter(new Encounter("Giant lobster")).reward("Cooking", 52).reward("Quest points", 2)
-            .reward("Prayer", 2400).build());
         achievements.add(new AchievementBuilder("Travelling on the Slime Trail", 0).requirement("Ghosts Ahoy", 1).build());
         achievements.add(new AchievementBuilder("The Yeast They Can Do", 0).requirement("Empty pot", 1)
             .requirement("The Restless Ghost", 1).reward("Ale yeast", 1).build());
@@ -2630,9 +2752,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("The Beer Inn-spectre", 0).requirement("Cooking", 14).requirement("Cooking apple", 16)
             .requirement("Ale yeast", 1).requirement("Bucket", 0).build());
         achievements.add(new AchievementBuilder("Ready? Trek!", 0.05).requirement("In Aid of the Myreque", 1).build());
-        achievements.add(new AchievementBuilder("Haunted Mine", 1.5).requirement("Priest in Peril", 1)
-            .requirement("Nature Spirit", 1).requirement("Agility", 15).requirement("Crafting", 35).encounter(new Encounter("Treus Dayth"))
-            .reward("Quest points", 2).lamp(Collections.singletonList("Strength"), 22000, 35).build());
         achievements.add(new AchievementBuilder("Polterheist", 0).requirement("Mining", 55).requirement("Haunted Mine", 1)
             .reward("Mithril ore", 1).reward("Mining", 80).build());
         achievements.add(new AchievementBuilder("Plenty Mort Where That Came From", 0).requirement("Shade key", 1).build());
@@ -2660,19 +2779,6 @@ public class AchievementDatabase {
             .requirement("Brain Bending", 1).requirement("I Wonder How Far It Ghost?", 1).requirement("Obvious Forgery", 1)
             .requirement("The Higher, The Better", 1).requirement("Fun Guy But Bitter", 1).requirement("Polterheist", 1)
             .requirement("Ad-Myre The Goods", 1).lamp(Player.ALL_SKILLS, 10000, 46).build());
-        achievements.add(new AchievementBuilder("'Phite Club", 0).requirement("'Phite Club (quest)", 1).build());
-        achievements.add(new AchievementBuilder("Our Man in the North", 0).requirement("Our Man in the North (quest)", 1).build());
-        achievements.add(new AchievementBuilder("Spirits of the Elid", 0.75).requirement("Magic", 33).requirement("Ranged", 37)
-            .requirement("Mining", 37).requirement("Thieving", 37).requirement("Law rune", 1).requirement("Air rune", 1)
-            .requirement("Rope", 1).encounter(new Encounter("White golem")).encounter(new Encounter("Black golem"))
-            .encounter(new Encounter("Grey golem")).reward("Quest points", 2).reward("Prayer", 8000).reward("Thieving", 1000)
-            .reward("Magic", 1000).build());
-        achievements.add(new AchievementBuilder("Crocodile Tears", 0.5).requirement("Dealing with Scabaras", 1)
-            .requirement("The Jack of Spades", 1).requirement("Missing My Mummy", 1).requirement("Spirits of the Elid", 1)
-            .requirement("Menaphos reputation", 19800).requirement("Hunter", 73).requirement("Fishing", 72).requirement("Woodcutting", 47)
-            .requirement("Agility", 30).requirement("Rope", 1).requirement("Fishing bait", 1).requirement("Coins", 21000)
-            .encounter(new Encounter("Ukunduka")).reward("Fishing", 35092).reward("Menaphos reputation", 5754).reward("Woodcutting", 15094)
-            .reward("Agility", 19856).reward("Hunter", 39080).reward("Quest points", 1).build());
         achievements.add(new AchievementBuilder("Menaphos Pyramid Scheme", 0).requirement("The Jack of Spades", 1)
             .requirement("Our Man in the North", 1).requirement("Crocodile Tears", 1).requirement("'Phite Club", 1)
             .requirement("Boys to Menaphites", 1).build());
@@ -2825,10 +2931,6 @@ public class AchievementDatabase {
                 Arrays.asList("Yt-MejKot", "Yt-MejKot"), Collections.singletonList("Ket-Zek")))).build());
         achievements.add(new AchievementBuilder("I'd Be Kharazi to Eat This", 0).requirement("Cooked oomlie wrap", 1).build());
         achievements.add(new AchievementBuilder("Flawless Victory", 0).build());
-        achievements.add(new AchievementBuilder("Tai Bwo Wannai Trio", 1.5).requirement("Jungle Potion", 1).requirement("Fishing", 5)
-            .requirement("Agility", 15).requirement("Cooking", 30).requirement("Agility potion (4)", 1).requirement("Iron spear", 1)
-            .requirement("Raw karambwan", 2).requirement("Coins", 30).requirement("Jogre bones", 1).encounter(new Encounter("Monkey"))
-            .reward("Quest points", 2).reward("Coins", 2000).reward("Fishing", 1500).build());
         achievements.add(new AchievementBuilder("Drop It Like It's Hot", 0).requirement("Raw karambwan", 1).requirement("Cooking", 30)
             .requirement("Tai Bwo Wannai Trio", 1).reward("Cooking", 190).reward("Cooked karambwan", 1).build());
         achievements.add(new AchievementBuilder("Deadwing", 0).requirement("Legends' Quest", 1)
@@ -2933,9 +3035,6 @@ public class AchievementDatabase {
             .requirement("I've Changed My Mind!", 1).requirement("A String and a Flare", 1).requirement("Altar-ed State", 1)
             .lamp(Player.ALL_SKILLS, 30000, 90).lamp(Player.ALL_SKILLS, 30000, 90).lamp(Player.ALL_SKILLS, 50000, 84)
             .lamp(Player.ALL_SKILLS, 50000, 72).build());
-        achievements.add(new AchievementBuilder("Elemental Workshop I", 0.25).requirement("Mining", 20).requirement("Smithing", 20)
-            .requirement("Crafting", 20).requirement("Thread", 1).requirement("Coal", 1).encounter(new Encounter("Earth elemental"))
-            .reward("Quest points", 1).reward("Smithing", 5000).reward("Crafting", 5000).reward("Elemental shield", 1).build());
         achievements.add(new AchievementBuilder("Why Oh Wyvern", 0).requirement("Elemental Workshop I", 1).requirement("Slayer", 72)
             .encounter(new Encounter("Skeletal wyvern", Collections.singletonList(new Restriction("Elemental shield", 1)))).build());
         achievements.add(new AchievementBuilder("The Stonemasons", 0).requirement("Mining", 60).build());
@@ -3016,12 +3115,6 @@ public class AchievementDatabase {
             .encounter(new Encounter("Desert strykewyrm", Arrays.asList(new Restriction("Fully charged full slayer helmet", 1),
                 new Restriction("Ancient staff", 1)))).build());
         achievements.add(new AchievementBuilder("Room Service", 0).requirement("Thieving", 91).reward("Strength", 275).build());
-        achievements.add(new AchievementBuilder("As A First Resort", 1.5).requirement("Zogre Flesh Eaters", 1)
-            .requirement("Hunter", 48).requirement("Firemaking", 51).requirement("Woodcutting", 58).requirement("Eucalyptus logs", 26)
-            .requirement("Achey tree logs", 8).requirement("Bronze spear", 4).requirement("Raw chompy", 2).requirement("Stripy feather", 8)
-            .requirement("Tatty larupia fur", 8).requirement("Wolf bones", 4).requirement("Logs", 1).requirement("Box trap", 0)
-            .requirement("Bird snare", 0).reward("Quest points", 1).reward("Firemaking", 15000).reward("Hunter", 15000)
-            .reward("Woodcutting", 15000).build());
         achievements.add(new AchievementBuilder("I'm Super", 0).requirement("Mining", 81).requirement("Antifire (3)", 2)
             .requirement("Herblore", 85).requirement("Crafting", 89).requirement("As A First Resort", 1).reward("Thieving", 52)
             .reward("Mining", 70).reward("Crafting", 100).reward("Herblore", 420).reward("Super antifire flask", 1).build());
@@ -3072,9 +3165,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Goat Harralander?", 0.05).requirement("Herblore", 36).requirement("Crafting", 33)
             .requirement("Spirits of the Elid", 1).requirement("Molten glass", 1).requirement("Clean harralander", 1)
             .reward("Combat potion (3)", 1).reward("Herblore", 84).reward("Crafting", 35).build());
-        achievements.add(new AchievementBuilder("Eagles' Peak (quest)", 0.75).requirement("Hunter", 27).requirement("Swamp tar", 1)
-            .requirement("Coins", 50).requirement("Yellow dye", 1).encounter(new Encounter("Kebbit")).reward("Quest points", 2)
-            .reward("Hunter", 2500).build());
         achievements.add(new AchievementBuilder("Faster than a Speeding Bullet", 0).requirement("Eagles' Peak (quest)", 1)
             .requirement("Rope", 1).build());
         achievements.add(new AchievementBuilder("Desert Set Tasks - Medium", 0).requirement("So Su Me", 1)
@@ -3118,10 +3208,6 @@ public class AchievementDatabase {
             .reward("Magic", 39).build());
         achievements.add(new AchievementBuilder("Thanks for the Memories", 0).requirement("Dungeoneering floors completed", 5)
             .requirement("Divination", 70).reward("Divination", 8).build());
-        achievements.add(new AchievementBuilder("Salt in the Wound", 1.5).requirement("Kennith's Concerns", 1).requirement("Defence", 60)
-            .requirement("Constitution", 50).requirement("Herblore", 47).requirement("Summoning", 45).requirement("Dungeoneering", 35)
-            .reward("Quest points", 2).reward("Defence", 45000).reward("Constitution", 17500).reward("Herblore", 15000)
-            .reward("Summoning", 12500).reward("Dungeoneering", 5000).build());
         achievements.add(new AchievementBuilder("Stacked", 0).requirement("Salt in the Wound", 1).build());
         achievements.add(new AchievementBuilder("Occult Classic", 0.1).requirement("Dungeoneering", 71).build());
         achievements.add(new AchievementBuilder("Lawful Crafting", 0).requirement("Runecrafting", 54)
@@ -3258,54 +3344,10 @@ public class AchievementDatabase {
             .requirement("Fletching", 99).requirement("Slayer", 120).requirement("Farming", 99).requirement("Construction", 99)
             .requirement("Hunter", 99).requirement("Summoning", 99).requirement("Dungeoneering", 120).requirement("Divination", 99)
             .requirement("Invention", 120).build());
-        achievements.add(new AchievementBuilder("Beneath Cursed Tides", 0.75).requirement("Attack", 30).requirement("Strength", 30)
-            .requirement("Magic", 30).requirement("Mining", 30).requirement("Smithing", 30).requirement("Woodcutting", 30)
-            .requirement("Firemaking", 30).requirement("Crafting", 30).reward("Quest points", 1).reward("Cooking", 5000)
-            .reward("Fishing", 5000).lamp(Arrays.asList("Attack", "Constitution", "Strength", "Defence", "Ranged", "Prayer", "Magic",
-                "Herblore", "Slayer", "Summoning"), 10000, 10).build());
-        achievements.add(new AchievementBuilder("River of Blood", 2).requirement("The Lord of Vampyrium", 1)
-            .requirement("Defender of Varrock", 1).requirement("All Fired Up", 1).requirement("Herblore", 80).requirement("Attack", 78)
-            .requirement("Constitution", 80).requirement("Ranged", 78).requirement("Magic", 78).requirement("Firemaking", 76)
-            .requirement("Fletching", 75).requirement("Mining", 72).requirement("Guthix balance (4)", 1).requirement("Super restore (3)", 1)
-            .requirement("Steel helm", 3).requirement("Steel platebody", 3).requirement("Steel platelegs", 3)
-            .requirement("Silver sickle", 4).encounter(new Encounter(Collections.singletonList(Arrays.asList("Vyrewatch", "Vyrewatch",
-                "Vyrewatch")), Collections.singletonList(new Restriction("Vampyric weapon", 1))))
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Monk of Zamorak"),
-                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
-                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
-                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
-                Collections.singletonList("Monk of Zamorak"), Collections.singletonList("Monk of Zamorak"),
-                Collections.singletonList("Monk of Zamorak"), Arrays.asList("Zamorakian leader", "Zamorakian bodyguard"))))
-            .encounter(new Encounter(Arrays.asList(Arrays.asList("Feral vampyre (RoB)", "Feral vampyre (RoB)",
-                "Feral vampyre (RoB)"), Collections.singletonList("Wyrd")),
-                Collections.singletonList(new Restriction("Vampyric weapon", 1)))).encounter(new Encounter(Collections.singletonList(
-                Arrays.asList("Vampyre juvinate (RoB)", "Vampyre juvinate (RoB)", "Vampyre juvinate (RoB)")),
-                Collections.singletonList(new Restriction("Sunspear", 1)))).encounter(new Encounter(Collections.singletonList(Arrays.asList(
-                "Skeleton Hellhound", "Skeleton Hellhound", "Skeleton Hellhound", "Skeleton Hellhound", "Skeleton Hellhound",
-                "Skeleton Hellhound", "Skeleton Hellhound")))).encounter(new Encounter(Arrays.asList(Collections.singletonList("Wyrd"),
-                Collections.singletonList("Wyrd"), Collections.singletonList("Wyrd"), Collections.singletonList("Wyrd"),
-                Collections.singletonList("Wyrd")), Collections.singletonList(new Restriction("Vampyric weapon", 1))))
-            .reward("Quest points", 3).reward("Woodcutting", 800).reward("Herblore", 75000).reward("Firemaking", 50000)
-            .reward("Fletching", 50000).reward("Mining", 50000).lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75)
-            .lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75).build());
-        achievements.add(new AchievementBuilder("The Brink of Extinction", 1).requirement("The Elder Kiln", 1).requirement("Defence", 80)
-            .requirement("Smithing", 80).requirement("Mining", 72).requirement("Rune pickaxe", 0)
-            .encounter(new Encounter(Collections.singletonList(Arrays.asList("TokHaar-Hur", "TokHaar-Xil", "TokHaar-Ket Champion"))))
-            .encounter(new Encounter("TokHaar-Hok")).reward("Quest points", 3).reward("Mining", 100000).lamp(Arrays.asList("Attack",
-                "Strength", "Defence", "Ranged", "Magic"), 275000, 80).build());
-        achievements.add(new AchievementBuilder("Observatory Quest", 0.75).requirement("Plank", 3).requirement("Bronze bar", 1)
-            .requirement("Molten glass", 1).reward("Quest points", 2).reward("Crafting", 2250).build());
-        achievements.add(new AchievementBuilder("Song from the Depths", 0.5).reward("Quest points", 1).reward("Constitution", 700)
-            .build());
-        achievements.add(new AchievementBuilder("Gunnar's Ground", 0.5).requirement("Crafting", 5).reward("Quest points", 5)
-            .reward("Crafting", 425).lamp(Player.ALL_SKILLS, 200, 5).build());
-        achievements.add(new AchievementBuilder("Let Them Eat Pie", 0.5).reward("Quest points", 1).reward("Cooking", 100)
-            .reward("Thieving", 150).reward("Meat pie", 5).build());
-        achievements.add(new AchievementBuilder("You Are It", 0.25).requirement("Rope", 1).reward("Quest points", 1).build());
-        achievements.add(new AchievementBuilder("Vampyre Slayer", 0.25).requirement("Coins", 2).encounter(new Encounter("Count Draynor"))
-            .reward("Quest points", 3).lamp(Arrays.asList("Attack", "Strength", "Defence", "Ranged", "Magic", "Constitution"), 4825, 1)
-            .build());
-        achievements.add(new AchievementBuilder("Clock Tower", 0.25).reward("Quest points", 1).reward("Coins", 500).build());
+        achievements.add(new AchievementBuilder("Children of Mah", 1).requirement("Dishonour among Thieves", 1)
+            .requirement("The Light Within", 1).requirement("Koschei's Troubles", 1).reward("Quest points", 2).reward("Agility", 100000)
+            .reward("Divination", 100000).lamp(Player.ALL_SKILLS, 100000, 75).lamp(Player.ALL_SKILLS, 100000, 75)
+            .lamp(Player.ALL_SKILLS, 100000, 75).build());
         achievements.add(new AchievementBuilder("Master Quester", 0).requirement("Beneath Cursed Tides", 1)
             .requirement("Sliske's Endgame", 1).requirement("Broken Home", 1).requirement("River of Blood", 1).requirement("'Phite Club", 1)
             .requirement("As A First Resort", 1).requirement("Back to my Roots", 1).requirement("Back to the Freezer", 1)
@@ -3561,18 +3603,6 @@ public class AchievementDatabase {
             .requirement("Rainbow loot beam", 1).requirement("Grave loot beam", 1).requirement("Bonfire booster", 1)
             .requirement("Instance cost", 1).requirement("Additional tasks", 1).requirement("Reaper scroll", 1)
             .requirement("Death's support", 1).build());
-        achievements.add(new AchievementBuilder("Dishonour among Thieves", 1.5).requirement("Hazeel Cult", 1)
-            .requirement("Missing, Presumed Death", 1).requirement("Agility", 30).requirement("Thieving", 30)
-            .encounter(new Encounter(Arrays.asList(Collections.singletonList("Armoured zombie"),
-                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
-                Collections.singletonList("Armoured zombie"), Collections.singletonList("Armoured zombie"),
-                Collections.singletonList("Armoured zombie")))).encounter(new Encounter("Foreshadow")).reward("Quest points", 2)
-            .reward("Thieving", 1500).reward("Agility", 1500).reward("Dungeoneering", 500).lamp(Arrays.asList("Attack", "Strength",
-                "Defence", "Magic", "Ranged", "Constitution"), 1500, 1).build());
-        achievements.add(new AchievementBuilder("Children of Mah", 1).requirement("Dishonour among Thieves", 1)
-            .requirement("The Light Within", 1).requirement("Koschei's Troubles", 1).reward("Quest points", 2).reward("Agility", 100000)
-            .reward("Divination", 100000).lamp(Player.ALL_SKILLS, 100000, 75).lamp(Player.ALL_SKILLS, 100000, 75)
-            .lamp(Player.ALL_SKILLS, 100000, 75).build());
         achievements.add(new AchievementBuilder("Death to the Mahjarrat", 0.1).requirement("Children of Mah", 1).build());
         achievements.add(new AchievementBuilder("Deep and Bloody Experience", 0).requirement("Blood Runs Deep", 1)
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Prayer"), 150000, 75)
@@ -4326,16 +4356,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("One Final Ride", 0).requirement("King Black Dragon", 693).build());
         achievements.add(new AchievementBuilder("On a Mission From... The Gods", 0).requirement("God Emissaries tasks", 15).build());
         achievements.add(new AchievementBuilder("Ocellus Virius Notus", 0).requirement("Order journal page", 22).build());
-        achievements.add(new AchievementBuilder("Nomad's Elegy", 1.5).requirement("Dishonour among Thieves", 1)
-            .requirement("Heart of Stone", 1).requirement("The Mighty Fall", 1).requirement("Throne of Miscellania", 1)
-            .requirement("Nomad's Requiem", 1).requirement("The Void Stares Back", 1).requirement("Mining", 75)
-            .requirement("Construction", 75).requirement("Woodcutting", 75).encounter(new Encounter("Shame"))
-            .encounter(new Encounter("Shame")).encounter(new Encounter(Arrays.asList(Collections.singletonList("Ork Headhunter"),
-                Collections.singletonList("Ogre Skulltaker"), Collections.singletonList("Bandosian golem"))))
-            .encounter(new Encounter("Nomad (Elegy)")).encounter(new Encounter("Nomad (Elegy)")).encounter(new Encounter("Nomad (Elegy)"))
-            .encounter(new Encounter("Nomad (Elegy)")).reward("Quest points", 1).reward("Construction", 75000).reward("Mining", 50000)
-            .reward("Woodcutting", 50000).lamp(Arrays.asList("Constitution", "Attack", "Strength", "Defence", "Magic", "Ranged"), 50000, 1)
-            .build());
         achievements.add(new AchievementBuilder("Tales of Nomad", 0.25).requirement("Nomad's Elegy", 1).lamp(Player.ALL_SKILLS, 1500, 1)
             .lamp(Player.ALL_SKILLS, 1500, 1).lamp(Player.ALL_SKILLS, 1500, 1).build());
         achievements.add(new AchievementBuilder("Nomad's Genesis", 0).requirement("Tales of Nomad", 1).build());
@@ -4710,6 +4730,9 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Slay Bells Ring III", 0).requirement("Corrupted creature kills", 2500).build());
         achievements.add(new AchievementBuilder("Slay Bells Ring IV", 0).requirement("Corrupted creature kills", 5000).build());
         achievements.add(new AchievementBuilder("Slay Bells Ring V", 0).requirement("Corrupted creature kills", 10000).build());
+    }
+
+    private void addAchievementsPhase3() {
         achievements.add(new AchievementBuilder("Slayer 5", 0).requirement("Slayer", 5).build());
         achievements.add(new AchievementBuilder("Slayer 10", 0).requirement("Slayer", 10).build());
         achievements.add(new AchievementBuilder("Slayer 20", 0).requirement("Slayer", 20).build());
@@ -4736,9 +4759,6 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Smithing 90", 0).requirement("Smithing", 90).build());
         achievements.add(new AchievementBuilder("Smithing 92", 0).requirement("Smithing", 92).build());
         achievements.add(new AchievementBuilder("Smithing 99", 0).requirement("Smithing", 99).build());
-    }
-
-    private void addAchievementsPhase3() {
         achievements.add(new AchievementBuilder("So You Think You Can Guard?", 0).requirement("Max Telos enrage", 2000).build());
         achievements.add(new AchievementBuilder("Something Barrowed I", 0).requirement("Barrows", 5).build());
         achievements.add(new AchievementBuilder("Something Barrowed II", 0).requirement("Barrows", 10).build());
