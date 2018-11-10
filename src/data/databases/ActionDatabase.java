@@ -625,6 +625,9 @@ public class ActionDatabase {
             new Requirement("Construction", 50), new Requirement("Dungeoneering", 50),
             new Requirement("Thieving", 50), new Requirement("The Jack of Spades", 1)),
             new HashMap<>(), Map.of("Shifting Tombs", 12), 12, true, true));
+
+        database.add(new Action("Completing city quests", Collections.singletonList(new Requirement("The Jack of Spades", 1)), new HashMap(),
+            Map.of("City quest", 4, "Menaphos reputation", 9400), 4, true, true));
     }
 
     public List<Action> getDatabase() {
@@ -637,7 +640,7 @@ public class ActionDatabase {
         List<Armour> initialArmours = new ArrayList<>(player.getArmour());
         CombatResults combatResults;
         while(true) {
-            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, false, 0, false);
+            combatResults = combatEncounter.calculateCombat(player, new CombatParameters(invenSpaces, combatStyle, false, 0, false));
             if (combatResults.getHpLost() > 1000000) {
                 Map<String, Double> nextGear = player.nextGear(combatStyle);
                 if (nextGear == null) {
@@ -694,7 +697,7 @@ public class ActionDatabase {
         Map<String, Double> initialXP = new HashMap<>(player.getXp());
         List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
         List<Armour> initialArmours = new ArrayList<>(player.getArmour());
-        CombatResults combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
+        CombatResults combatResults = combatEncounter.calculateCombat(player, new CombatParameters(invenSpaces, combatStyle, true, dropRateOfItem, stackable));
         List<Requirement> combatReqs = new ArrayList<>();
         if (combatResults.getHpLost() == 1000000000) {
             combatReqs = getRequirementsForCombat(combatEncounter, player, invenSpaces, combatStyle);
@@ -709,7 +712,7 @@ public class ActionDatabase {
                     player.getArmour().add(Armour.getArmourByName(requirement.getQualifier()));
                 }
             }
-            combatResults = combatEncounter.calculateCombat(player, invenSpaces, combatStyle, true, dropRateOfItem, stackable);
+            combatResults = combatEncounter.calculateCombat(player, new CombatParameters(invenSpaces, combatStyle, true, dropRateOfItem, stackable));
             if (combatResults.getHpLost() == 1000000000) {
                 player.setXp(initialXP);
                 player.setWeapons(initialWeapons);
@@ -737,13 +740,13 @@ public class ActionDatabase {
             for (Requirement requirement : weapon.getReqs()) {
                 player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             }
-            player.getWeapons().add(weapon);
+            player.addWeapon(weapon);
         }
         else if (armour != null) {
             for (Requirement requirement : armour.getReqs()) {
                 player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             }
-            player.getArmour().add(armour);
+            player.addArmour(armour);
         }
         else if (food != null) {
             player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));

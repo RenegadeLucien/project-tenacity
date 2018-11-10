@@ -19,4 +19,24 @@ public class Restriction implements Serializable {
     public int getCondition() {
         return condition;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Restriction)) {
+            return false;
+        }
+        Restriction rest = (Restriction) obj;
+        return restriction.equals(rest.getRestriction()) && condition == rest.getCondition();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31*result + restriction.hashCode();
+        result = 31*result + condition;
+        return result;
+    }
 }

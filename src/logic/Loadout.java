@@ -5,7 +5,6 @@ import data.dataobjects.*;
 public class Loadout {
 
     private Weapon mainWep;
-    private Food foodUsed;
     private Armour head;
     private Armour torso;
     private Armour legs;
@@ -14,14 +13,12 @@ public class Loadout {
     private Armour cape;
     private Armour neck;
     private Armour ring;
-    private Ammo ammo;
     private Familiar familiar;
     private Prayer prayer;
 
 
-    public Loadout(Weapon mainWep, Food foodUsed, Armour head, Armour torso, Armour legs, Armour hands, Armour feet, Armour cape, Armour neck, Armour ring, Ammo ammo, Familiar familiar, Prayer prayer) {
+    public Loadout(Weapon mainWep, Armour head, Armour torso, Armour legs, Armour hands, Armour feet, Armour cape, Armour neck, Armour ring, Familiar familiar, Prayer prayer) {
         this.mainWep = mainWep;
-        this.foodUsed = foodUsed;
         this.head = head;
         this.torso = torso;
         this.legs = legs;
@@ -30,7 +27,6 @@ public class Loadout {
         this.cape = cape;
         this.neck = neck;
         this.ring = ring;
-        this.ammo = ammo;
         this.familiar = familiar;
         this.prayer = prayer;
     }
@@ -39,20 +35,44 @@ public class Loadout {
         return mainWep;
     }
 
-    public Food getFoodUsed() {
-        return foodUsed;
-    }
-
-    public Ammo getAmmo() {
-        return ammo;
-    }
-
     public Familiar getFamiliar() {
         return familiar;
     }
 
     public Prayer getPrayer() {
         return prayer;
+    }
+
+    public Armour getCape() {
+        return cape;
+    }
+
+    public Armour getFeet() {
+        return feet;
+    }
+
+    public Armour getHands() {
+        return hands;
+    }
+
+    public Armour getHead() {
+        return head;
+    }
+
+    public Armour getLegs() {
+        return legs;
+    }
+
+    public Armour getNeck() {
+        return neck;
+    }
+
+    public Armour getRing() {
+        return ring;
+    }
+
+    public Armour getTorso() {
+        return torso;
     }
 
     public int totalArmour() {
@@ -73,5 +93,36 @@ public class Loadout {
 
     public int totalPrayBonus() {
         return head.getPray() + torso.getPray() + legs.getPray() + hands.getPray() + feet.getPray() + cape.getPray() + neck.getPray() + ring.getPray();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Loadout)) {
+            return false;
+        }
+        Loadout loadout = (Loadout) obj;
+        return mainWep.equals(loadout.getMainWep()) && head.equals(loadout.getHead()) && torso.equals(loadout.getTorso()) && legs.equals(loadout.getLegs())
+            && hands.equals(loadout.getHands()) && feet.equals(loadout.getFeet()) && cape.equals(loadout.getCape()) && neck.equals(loadout.getNeck())
+            && ring.equals(loadout.getRing()) && familiar.equals(loadout.getFamiliar()) && prayer.equals(loadout.getPrayer());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31*result + mainWep.hashCode();
+        result = 31*result + head.hashCode();
+        result = 31*result + torso.hashCode();
+        result = 31*result + legs.hashCode();
+        result = 31*result + hands.hashCode();
+        result = 31*result + feet.hashCode();
+        result = 31*result + cape.hashCode();
+        result = 31*result + neck.hashCode();
+        result = 31*result + ring.hashCode();
+        result = 31*result + familiar.hashCode();
+        result = 31*result + prayer.hashCode();
+        return result;
     }
 }

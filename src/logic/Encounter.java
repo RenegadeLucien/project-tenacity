@@ -80,11 +80,29 @@ public class Encounter implements Serializable {
         return restrictions;
     }
 
-    public CombatResults calculateCombat(Player p, int invenSpaces, String combatStyle, boolean multiKill, double droprate, boolean stackable) {
+    public int getPartySize() {
+        return partySize;
+    }
+
+    public boolean isSafespot() {
+        return safespot;
+    }
+
+    public CombatResults calculateCombat(Player p, CombatParameters parameters) {
         CombatResults results = null;
         double minHpLost = 1000000001;
         int maxKills = 0;
-        for (Loadout loadout : p.generateLoadouts(combatStyle)) {
+        for (Loadout loadout : p.generateLoadouts(parameters.getCombatStyle())) {
+            CombatResults previousResults = StoredCombatCalcs.getCalculatedCombats().get(new CombatScenario(this, loadout, new HashMap<>(p.getXp()), parameters));
+            if (previousResults != null) {
+                if (previousResults.getKills() > maxKills || (previousResults.getKills() == maxKills && previousResults.getHpLost() < minHpLost)) {
+                    results = previousResults;
+                    minHpLost = previousResults.getHpLost();
+                    maxKills = previousResults.getKills();
+                }
+                continue;
+            }
+            p.setTotalEncounters(p.getTotalEncounters() + 1);
             double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
             int maxLpHealedPerFood = p.getLevel("Constitution") * 25;
             if (p.getLevel("Constitution") == 99) {
@@ -94,19 +112,19 @@ public class Encounter implements Serializable {
             int ticks = -1;
             double hpLost = 0;
             int invenUsed = 0;
-            int inventorySize = invenSpaces + loadout.getFamiliar().getInvenSpaces();
+            int inventorySize = parameters.getInvenSpaces() + loadout.getFamiliar().getInvenSpaces();
             String damageSkill;
             String accuracySkill;
             int myMeleeAffinity;
             int myRangedAffinity;
             int myMagicAffinity;
-            if (combatStyle.equals("Melee")) {
+            if (parameters.getCombatStyle().equals("Melee")) {
                 accuracySkill = "Attack";
                 damageSkill = "Strength";
                 myMeleeAffinity = 55;
                 myRangedAffinity = 45;
                 myMagicAffinity = 65;
-            } else if (combatStyle.equals("Ranged")) {
+            } else if (parameters.getCombatStyle().equals("Ranged")) {
                 accuracySkill = damageSkill = "Ranged";
                 myMeleeAffinity = 65;
                 myRangedAffinity = 55;
@@ -119,13 +137,13 @@ public class Encounter implements Serializable {
             }
             double myDamage;
             if (loadout.getMainWep().getAtkspd() == 4) {
-                myDamage = 2.5 * p.getLevel(damageSkill) + loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage());
+                myDamage = 2.5 * p.getLevel(damageSkill) + loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo();
             }
             else if (loadout.getMainWep().getAtkspd() == 5) {
-                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*192.0/245.0;
+                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*192.0/245.0;
             }
             else if (loadout.getMainWep().getAtkspd() == 6) {
-                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*96.0/149.0;
+                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*96.0/149.0;
             }
             else {
                 System.out.println("What the heck kind of weapon do you have?");
@@ -144,7 +162,7 @@ public class Encounter implements Serializable {
                     cooldowns.put(ability, 0);
             }
             cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
-                (loadout.getMainWep().getDamage()+Math.min(loadout.getMainWep().getMaxAmmo(), loadout.getAmmo().getDamage()))*0.5/myDamage, new ArrayList<>()), 0);
+                (loadout.getMainWep().getDamage()+ loadout.getMainWep().getMaxAmmo())*0.5/myDamage, new ArrayList<>()), 0);
             int adren = 0;
             int foodCooldown = 0;
             int kills = 0;
@@ -158,9 +176,9 @@ public class Encounter implements Serializable {
                         int affinity;
                         if (loadout.getMainWep().getStyle().equals(enemy.getWeakness())) {
                             affinity = enemy.getAffweakness();
-                        } else if (combatStyle.equals("Melee")) {
+                        } else if (parameters.getCombatStyle().equals("Melee")) {
                             affinity = enemy.getAffmelee();
-                        } else if (combatStyle.equals("Ranged")) {
+                        } else if (parameters.getCombatStyle().equals("Ranged")) {
                             affinity = enemy.getAffranged();
                         } else {
                             affinity = enemy.getAffmage();
@@ -193,10 +211,9 @@ public class Encounter implements Serializable {
                             monsterTicks++;
                             Ability abilityUsedThisTick = null;
                             double maxDamage = 0;
-                            int amountHealed = Math.min(loadout.getFoodUsed().getAmountHealed(), maxLpHealedPerFood);
                             if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
                                 if (foodCooldown <= 0) {
-                                    myLp += amountHealed;
+                                    myLp += maxLpHealedPerFood;
                                     invenUsed++;
                                     adren = Math.max(0, adren - 10);
                                     foodCooldown = 3;
@@ -277,7 +294,7 @@ public class Encounter implements Serializable {
                 }
                 if (myLp > 0 && ticks < TICKS_PER_HOUR) {
                     kills++;
-                    nextDrop += droprate;
+                    nextDrop += parameters.getDroprate();
                     if (nextDrop > 1.0) {
                         //System.out.println(String.format("Tick %d: Spending 5 ticks to pick up a drop", ticks));
                         nextDrop--;
@@ -285,7 +302,7 @@ public class Encounter implements Serializable {
                         foodCooldown-=5;
                         for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
                             cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 5);
-                        if (!stackable || !stackableUsed) {
+                        if (!parameters.isStackable() || !stackableUsed) {
                             stackableUsed = true;
                             invenUsed++;
                         }
@@ -299,19 +316,43 @@ public class Encounter implements Serializable {
                     }
                     //System.out.println("Total kills so far: " + kills);
                 }
-                if (!multiKill || myLp <= 0) {
+                if (!parameters.isMultikill() || myLp <= 0) {
                     break;
                 }
             }
             if (myLp <= 0 && kills == 0) {
                 hpLost = 1000000000;
             }
+            CombatResults loadoutResults = new CombatResults(hpLost, kills, Math.min(ticks, TICKS_PER_HOUR), loadout);
+            StoredCombatCalcs.getCalculatedCombats().put(new CombatScenario(this, loadout, new HashMap<>(p.getXp()), parameters), loadoutResults);
             if (kills > maxKills || (kills == maxKills && hpLost < minHpLost)) {
-                results = new CombatResults(hpLost, kills, Math.min(ticks, TICKS_PER_HOUR), loadout);
+                results = loadoutResults;
                 minHpLost = hpLost;
                 maxKills = kills;
             }
         }
         return results;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Encounter)) {
+            return false;
+        }
+        Encounter encounter = (Encounter) obj;
+        return enemyGroups.equals(encounter.getEnemyGroups()) && restrictions.equals(encounter.getRestrictions()) && partySize == encounter.getPartySize() && safespot == encounter.isSafespot();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31*result + enemyGroups.hashCode();
+        result = 31*result + restrictions.hashCode();
+        result = 31*result + partySize;
+        result = 31*result + (safespot ? 1 : 0);
+        return result;
     }
 }

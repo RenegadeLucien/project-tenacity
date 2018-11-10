@@ -2,13 +2,7 @@ package data.dataobjects;
 
 import data.databases.AchievementDatabase;
 import data.databases.ItemDatabase;
-import logic.CombatResults;
-import logic.Encounter;
-import logic.GoalResults;
-import logic.Lamp;
-import logic.Player;
-import logic.Requirement;
-import logic.Reward;
+import logic.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -125,9 +119,9 @@ public class Achievement implements Serializable {
             CombatResults rangedCombatResults;
             CombatResults magicCombatResults;
             while(true) {
-                meleeCombatResults = e.calculateCombat(player, 28, "Melee", false, 0, false);
-                rangedCombatResults = e.calculateCombat(player, 28, "Ranged", false, 0, false);
-                magicCombatResults = e.calculateCombat(player, 28, "Magic", false, 0, false);
+                meleeCombatResults = e.calculateCombat(player, new CombatParameters(28, "Melee", false, 0, false));
+                rangedCombatResults = e.calculateCombat(player, new CombatParameters(28, "Ranged", false, 0, false));
+                magicCombatResults = e.calculateCombat(player, new CombatParameters(28, "Magic", false, 0, false));
                 if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                     Map<String, Double> nextGearMelee = player.nextGear("Melee");
                     Map<String, Double> nextGearRanged = player.nextGear("Ranged");
@@ -224,9 +218,9 @@ public class Achievement implements Serializable {
             CombatResults rangedCombatResults;
             CombatResults magicCombatResults;
             do {
-                meleeCombatResults = e.calculateCombat(player, 28, "Melee", false, 0, false);
-                rangedCombatResults = e.calculateCombat(player, 28, "Ranged", false, 0, false);
-                magicCombatResults = e.calculateCombat(player, 28, "Magic", false, 0, false);
+                meleeCombatResults = e.calculateCombat(player, new CombatParameters(28, "Melee", false, 0, false));
+                rangedCombatResults = e.calculateCombat(player, new CombatParameters(28, "Ranged", false, 0, false));
+                magicCombatResults = e.calculateCombat(player, new CombatParameters(28, "Magic", false, 0, false));
                 if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                     player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
                     player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
@@ -275,13 +269,13 @@ public class Achievement implements Serializable {
             for (Requirement requirement : weapon.getReqs()) {
                 player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             }
-            player.getWeapons().add(weapon);
+            player.addWeapon(weapon);
         }
         else if (armour != null) {
             for (Requirement requirement : armour.getReqs()) {
                 player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
             }
-            player.getArmour().add(armour);
+            player.addArmour(armour);
         }
         else if (food != null) {
             player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));

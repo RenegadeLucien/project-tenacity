@@ -32,7 +32,7 @@ public class SlayerMonster {
     }
 
     public int timeToTask(Player player, String combatStyle, int monstersInTask) {
-        CombatResults combatResults = new Encounter(monster, new ArrayList<>()).calculateCombat(player, 0, combatStyle, true, 0, false);
+        CombatResults combatResults = new Encounter(monster, new ArrayList<>()).calculateCombat(player, new CombatParameters(0, combatStyle, true, 0, false));
         if (combatResults.getHpLost() == 1000000000) {
             return 1000000000;
         }

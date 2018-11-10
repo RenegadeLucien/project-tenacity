@@ -20,7 +20,7 @@ public class Player implements Serializable {
     public static final ArrayList<String> PORTS_SKILLS = new ArrayList<>(Arrays.asList("Agility", "Construction", "Cooking",
         "Divination", "Dungeoneering", "Fishing", "Herblore", "Hunter", "Prayer", "Runecrafting", "Slayer", "Thieving"));
 
-    public static final ArrayList<String> COMBAT_STYLES = new ArrayList<>(Arrays.asList("Melee", "Ranged", "Magic"));
+    private static final ArrayList<String> COMBAT_STYLES = new ArrayList<>(Arrays.asList("Melee", "Ranged", "Magic"));
 
     private static final int[] XP_TO_LEVELS = {0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
         3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247, 20224, 22406, 24815, 27473, 30408, 33648,
@@ -40,10 +40,13 @@ public class Player implements Serializable {
     private List<Weapon> weapons = new ArrayList<>();
     private List<Armour> armour = new ArrayList<>();
 
-    private Map<Requirement, GoalResults> previousEfficiencyResults = new HashMap<>();
     private List<Requirement> currentTargets = new ArrayList<>();
     private List<QualifierAction> lockedActions = new ArrayList<>();
+
+    private Map<Requirement, GoalResults> previousEfficiencyResults = new HashMap<>();
     private Map<Achievement, GoalResults> achievementResults = new HashMap<>();
+
+    private int totalEncounters = 0;
 
     public Player(String name, String status) {
         this.name = name;
@@ -105,6 +108,14 @@ public class Player implements Serializable {
         xp = newXp;
     }
 
+    public int getTotalEncounters() {
+        return totalEncounters;
+    }
+
+    public void setTotalEncounters(int totalEncounters) {
+        this.totalEncounters = totalEncounters;
+    }
+
     private Map<String, Double> setInitialXP() {
         Map<String, Double> initialXP = new HashMap<>();
         for (String skill : Player.ALL_SKILLS) {
@@ -150,7 +161,6 @@ public class Player implements Serializable {
         List<Armour> capeArmour = new ArrayList<>();
         List<Armour> neckArmour = new ArrayList<>();
         List<Armour> ringArmour = new ArrayList<>();
-        List<Ammo> ammoList = new ArrayList<>();
         List<Familiar> familiarList = new ArrayList<>();
         List<Prayer> prayerList = new ArrayList<>();
         for (Weapon w : weapons) {
@@ -175,11 +185,6 @@ public class Player implements Serializable {
                 neckArmour.add(a);
             } else if (a.getSlot().equals("Ring") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
                 ringArmour.add(a);
-            }
-        }
-        for (Ammo am : AmmoDatabase.getAmmoDatabase().getAmmos()) {
-            if (am.getStyle().equals(combatStyle)) {
-                ammoList.add(am);
             }
         }
         for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
@@ -214,24 +219,29 @@ public class Player implements Serializable {
         if (ringArmour.size() == 0) {
             ringArmour.add(Armour.getArmourByName("None"));
         }
-        if (ammoList.size() == 0) {
-            ammoList.add(Ammo.getAmmoByName("None"));
+        for (Weapon w : weaponList) {
+            for (Armour head : headArmour) {
+                for (Armour torso : torsoArmour) {
+                    for (Armour leg : legArmour) {
+                        for (Armour hand : handArmour) {
+                            for (Armour foot : feetArmour) {
+                                for (Armour cape : capeArmour) {
+                                    for (Armour neck : neckArmour) {
+                                        for (Armour ring : ringArmour) {
+                                            for (Familiar familiar : familiarList) {
+                                                for (Prayer prayer : prayerList) {
+                                                    loadouts.add(new Loadout(w, head, torso, leg, hand, foot, cape, neck, ring, familiar, prayer));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        for (Weapon w : weaponList)
-            for (Food f : FoodDatabase.getFoodDatabase().getFoods())
-                for (Armour head : headArmour)
-                    for (Armour torso : torsoArmour)
-                        for (Armour leg : legArmour)
-                            for (Armour hand : handArmour)
-                                for (Armour foot : feetArmour)
-                                    for (Armour cape : capeArmour)
-                                        for (Armour neck : neckArmour)
-                                            for (Armour ring : ringArmour)
-                                                for (Ammo ammo : ammoList)
-                                                    for (Familiar familiar : familiarList)
-                                                        for (Prayer prayer : prayerList)
-                                                            loadouts.add(new Loadout(w, f, head, torso, leg, hand, foot, cape, neck, ring, ammo, familiar, prayer));
-        //System.out.println(loadouts.size());
         return loadouts;
     }
 
@@ -242,7 +252,7 @@ public class Player implements Serializable {
         double minTimeToGear = 1000000000.0;
         String minGear = null;
         for (Weapon weapon : WeaponDatabase.getWeaponDatabase().getWeapons().stream().filter(w -> w.getWeaponClass().equals(combatStyle)).collect(Collectors.toList())) {
-            if (!checkIfHaveBetterWeapon(weapon)) {
+            if (!weapons.contains(weapon) && !checkIfHaveBetterWeapon(weapon)) {
                 double weaponTime = 0;
                 if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
                     weaponTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(weapon.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
@@ -256,18 +266,18 @@ public class Player implements Serializable {
                 }
             }
         }
-        for (Armour armour : ArmourDatabase.getArmourDatabase().getArmours().stream().filter(a -> a.getType().equals(combatStyle)).collect(Collectors.toList())) {
-            if (!checkIfHaveBetterArmour(armour)) {
+        for (Armour armourPiece : ArmourDatabase.getArmourDatabase().getArmours().stream().filter(a -> a.getType().equals(combatStyle)).collect(Collectors.toList())) {
+            if (!armour.contains(armourPiece) && !checkIfHaveBetterArmour(armourPiece)) {
                 double armourTime = 0;
-                if (ItemDatabase.getItemDatabase().getItems().get(armour.getName()) != null) {
-                    armourTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(armour.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
+                if (ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()) != null) {
+                    armourTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
                 }
-                for (Requirement armourReq : armour.getReqs()) {
+                for (Requirement armourReq : armourPiece.getReqs()) {
                     armourTime += armourReq.timeAndActionsToMeetRequirement(this).getTotalTime();
                 }
                 if (minTimeToGear > armourTime) {
                     minTimeToGear = armourTime;
-                    minGear = armour.getName();
+                    minGear = armourPiece.getName();
                 }
             }
         }
@@ -319,7 +329,7 @@ public class Player implements Serializable {
 
     private boolean checkIfHaveBetterWeapon(Weapon weapon) {
         for (Weapon ownedWeapon : weapons) {
-            if (weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getStyle().equals(ownedWeapon.getStyle()) &&
+            if (!weapon.equals(ownedWeapon) && weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getStyle().equals(ownedWeapon.getStyle()) &&
                 weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getDamage() <= ownedWeapon.getDamage() && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
                 return true;
             }
@@ -329,7 +339,7 @@ public class Player implements Serializable {
 
     private boolean checkIfHaveBetterArmour(Armour newArmour) {
         for (Armour ownedArmour : armour) {
-            if (newArmour.getType().equals(ownedArmour.getType()) && newArmour.getSlot().equals(ownedArmour.getSlot()) &&
+            if (!ownedArmour.equals(newArmour) && newArmour.getType().equals(ownedArmour.getType()) && newArmour.getSlot().equals(ownedArmour.getSlot()) &&
                 newArmour.getArmour() <= ownedArmour.getArmour() && newArmour.getLp() <= ownedArmour.getLp() &&
                 newArmour.getReduc() <= ownedArmour.getReduc() && newArmour.getBonus() <= ownedArmour.getBonus()) {
                 return true;
@@ -342,6 +352,8 @@ public class Player implements Serializable {
         long time = System.nanoTime();
         previousEfficiencyResults.clear();
         achievementResults.clear();
+        totalEncounters = 0;
+        StoredCombatCalcs.getCalculatedCombats().clear();
         ActionDatabase.reset();
         Map<String, Double> achievementCalcResults = new HashMap<>();
         for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
@@ -360,6 +372,7 @@ public class Player implements Serializable {
             System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours");
         }
         System.out.println("The total bank value of this account is " + getTotalBankValue());
+        System.out.println(String.format("%d total combat encounters were calculated", totalEncounters));
         return achievementCalcResults;
     }
 
@@ -417,9 +430,9 @@ public class Player implements Serializable {
             CombatResults rangedCombatResults;
             CombatResults magicCombatResults;
             do {
-                meleeCombatResults = e.calculateCombat(this, 28, "Melee", false, 0, false);
-                rangedCombatResults = e.calculateCombat(this, 28, "Ranged", false, 0, false);
-                magicCombatResults = e.calculateCombat(this, 28, "Magic", false, 0, false);
+                meleeCombatResults = e.calculateCombat(this, new CombatParameters(28, "Melee", false, 0, false));
+                rangedCombatResults = e.calculateCombat(this, new CombatParameters(28, "Ranged", false, 0, false));
+                magicCombatResults = e.calculateCombat(this, new CombatParameters(28, "Magic", false, 0, false));
                 if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
                     this.getXp().put("Attack", this.getXp().get("Attack") + this.getXpToLevel("Attack", this.getLevel("Attack")+1));
                     this.getXp().put("Strength", this.getXp().get("Strength") + this.getXpToLevel("Strength", this.getLevel("Strength")+1));
@@ -484,9 +497,12 @@ public class Player implements Serializable {
         if (previousEfficiencyResults.get(generatedRequirement) != null) {
             return previousEfficiencyResults.get(generatedRequirement);
         }
-        if (currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
+        if (!qualifier.equals("Coins") && currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
             return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
         }
+        /*if (qualifier.equals("Summoning") && quantifier == 276) {
+            System.out.println("Debug");
+        }*/
         currentTargets.add(generatedRequirement);
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();
@@ -651,9 +667,14 @@ public class Player implements Serializable {
                 //Rather arbitrary cutoff: must have 15 minutes worth of inputs in order for using an action for making money to be valid
                 if (coinGain > 0) {
                     if (inputLoss/4 > getTotalBankValue()) {
-                        extraReq = new Requirement("Coins", inputLoss/4 - getTotalBankValue());
+                        if (inputLoss/4 - getTotalBankValue() < quantifier) {
+                            extraReq = new Requirement("Coins", inputLoss / 4 - getTotalBankValue());
+                            validAction = true;
+                        }
                     }
-                    validAction = true;
+                    else {
+                        validAction = true;
+                    }
                 }
             }
             else if (action.getOutputs().containsKey(qualifier)) {
@@ -691,9 +712,6 @@ public class Player implements Serializable {
             minimum = 1000000000.0;
             efficiency.put(minAction, minimum);
         }
-        //System.out.println(minReqs);
-        //System.out.println(efficiency);
-        //System.out.println(minAction + " will achieve " + quantifier + " " +qualifier + " in " + minimum + " hours.");
         GoalResults result = new GoalResults(minimum, efficiency);
         if (minimum < 1000000000.0) {
             previousEfficiencyResults.put(generatedRequirement, result);
