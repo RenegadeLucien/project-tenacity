@@ -89,24 +89,14 @@ public class Encounter implements Serializable {
     }
 
     public CombatResults calculateCombat(Player p, CombatParameters parameters) {
-        CombatResults results = null;
+        CombatResults results = new CombatResults(1000000000, 0, 6100, null);;
         double minHpLost = 1000000001;
         int maxKills = 0;
         for (Loadout loadout : p.generateLoadouts(parameters.getCombatStyle())) {
-            CombatResults previousResults = StoredCombatCalcs.getCalculatedCombats().get(new CombatScenario(this, loadout, new HashMap<>(p.getXp()), parameters));
-            if (previousResults != null) {
-                if (previousResults.getKills() > maxKills || (previousResults.getKills() == maxKills && previousResults.getHpLost() < minHpLost)) {
-                    results = previousResults;
-                    minHpLost = previousResults.getHpLost();
-                    maxKills = previousResults.getKills();
-                }
-                continue;
-            }
-            p.setTotalEncounters(p.getTotalEncounters() + 1);
             double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
             int maxLpHealedPerFood = p.getLevel("Constitution") * 25;
             if (p.getLevel("Constitution") == 99) {
-                maxLpHealedPerFood = 99999;
+                maxLpHealedPerFood = 2600;
             }
             double prayerPoints = p.getLevel("Prayer")*10;
             int ticks = -1;
@@ -156,6 +146,23 @@ public class Encounter implements Serializable {
                 myDamage += loadout.totalBonus();
             }
             double myArmour = (0.0008 * Math.pow(p.getLevel("Defence"), 3) + 4 * p.getLevel("Defence") + 40) + loadout.totalArmour();
+            double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
+            List<CombatStats> previousStatsList = StoredCombatCalcs.getCalculatedCombats().get(new CombatScenario(this, parameters));
+            if (previousStatsList != null) {
+                boolean doomedToFail = false;
+                for (CombatStats previousStats : previousStatsList) {
+                    if (myLp <= previousStats.getLp() && myAccuracy <= previousStats.getAccuracy() && myArmour <= previousStats.getArmour() && myDamage <= previousStats.getDamage()
+                        && loadout.totalReduc() <= previousStats.getReduc()) {
+                        doomedToFail = true;
+                        break;
+                    }
+                }
+                if (doomedToFail) {
+                    continue;
+                }
+            }
+            //System.out.println("Accuracy score is " + myAccuracy + ", Armour score is " + myArmour + ", Damage score is " + myDamage + ", Reduc is " + loadout.totalReduc() + ", LP is " + myLp);
+            p.setTotalEncounters(p.getTotalEncounters() + 1);
             Map<Ability, Integer> cooldowns = new HashMap<>();
             for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
                 if (ability.canUse(loadout.getMainWep(), p))
@@ -183,7 +190,6 @@ public class Encounter implements Serializable {
                         } else {
                             affinity = enemy.getAffmage();
                         }
-                        double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
                         double enemyArmour = (0.0008 * Math.pow(enemy.getDef(), 3) + 4 * enemy.getDef() + 40) + enemy.getArmor();
                         double myHitChance = Math.min(1, (affinity * myAccuracy) / (enemyArmour * 100.0));
                         int enemyAttackStyles = 0;
@@ -322,11 +328,22 @@ public class Encounter implements Serializable {
             }
             if (myLp <= 0 && kills == 0) {
                 hpLost = 1000000000;
+                List<CombatStats> currentFailedStats = StoredCombatCalcs.getCalculatedCombats().get(new CombatScenario(this, parameters));
+                List<CombatStats> failedStats;
+                if (currentFailedStats == null) {
+                    failedStats = new ArrayList<>();
+                }
+                else {
+                    failedStats = new ArrayList<>(currentFailedStats);
+                }
+                failedStats.add(0, new CombatStats(myAccuracy, myArmour, myDamage, p.getLevel("Constitution") * 100 + loadout.totalLp(), loadout.totalReduc()));
+                //if (currentFailedStats == null || (myAccuracy >= currentFailedStats.getAccuracy() && myArmour >= currentFailedStats.getArmour()
+                //    && myDamage >= currentFailedStats.getDamage() && p.getLevel("Constitution") * 100 + loadout.totalLp() >= currentFailedStats.getLp())) {
+                StoredCombatCalcs.getCalculatedCombats().put(new CombatScenario(this, parameters), failedStats);
+               // }
             }
-            CombatResults loadoutResults = new CombatResults(hpLost, kills, Math.min(ticks, TICKS_PER_HOUR), loadout);
-            StoredCombatCalcs.getCalculatedCombats().put(new CombatScenario(this, loadout, new HashMap<>(p.getXp()), parameters), loadoutResults);
             if (kills > maxKills || (kills == maxKills && hpLost < minHpLost)) {
-                results = loadoutResults;
+                results = new CombatResults(hpLost, kills, Math.min(ticks, TICKS_PER_HOUR), loadout);
                 minHpLost = hpLost;
                 maxKills = kills;
             }

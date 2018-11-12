@@ -242,7 +242,64 @@ public class Player implements Serializable {
                 }
             }
         }
-        return loadouts;
+        Map<Loadout, CombatStats> loadoutsToStats = new HashMap<>();
+        for (Loadout loadout : loadouts) {
+            double myLp = getLevel("Constitution") * 100 + loadout.totalLp();
+            String damageSkill;
+            String accuracySkill;
+            if (combatStyle.equals("Melee")) {
+                accuracySkill = "Attack";
+                damageSkill = "Strength";
+            } else if (combatStyle.equals("Ranged")) {
+                accuracySkill = damageSkill = "Ranged";
+            } else {
+                accuracySkill = damageSkill = "Magic";
+            }
+            double myDamage;
+            if (loadout.getMainWep().getAtkspd() == 4) {
+                myDamage = 2.5 * getLevel(damageSkill) + loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo();
+            }
+            else if (loadout.getMainWep().getAtkspd() == 5) {
+                myDamage = 2.5 * getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*192.0/245.0;
+            }
+            else if (loadout.getMainWep().getAtkspd() == 6) {
+                myDamage = 2.5 * getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*96.0/149.0;
+            }
+            else {
+                System.out.println("What the heck kind of weapon do you have?");
+                throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
+            }
+            if (loadout.getMainWep().getSlot().equals("Two-handed")) {
+                myDamage += loadout.totalBonus()*1.5;
+            }
+            else {
+                myDamage += loadout.totalBonus();
+            }
+            double myArmour = (0.0008 * Math.pow(getLevel("Defence"), 3) + 4 * getLevel("Defence") + 40) + loadout.totalArmour();
+            double myAccuracy = (0.0008 * Math.pow(getLevel(accuracySkill), 3) + 4 * getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
+            boolean insertLoadout = true;
+            List<Loadout> obsoletedLoadouts = new ArrayList<>();
+            for (Entry<Loadout, CombatStats> loadoutToStats : loadoutsToStats.entrySet()) {
+                CombatStats previousStats = loadoutToStats.getValue();
+                if (myLp <= previousStats.getLp() && myAccuracy <= previousStats.getAccuracy() && myArmour <= previousStats.getArmour() && myDamage <= previousStats.getDamage()
+                    && loadout.totalReduc() <= previousStats.getReduc()) {
+                    insertLoadout = false;
+                }
+                else if (myLp >= previousStats.getLp() && myAccuracy >= previousStats.getAccuracy() && myArmour >= previousStats.getArmour() && myDamage >= previousStats.getDamage()
+                    && loadout.totalReduc() >= previousStats.getReduc()) {
+                    obsoletedLoadouts.add(loadoutToStats.getKey());
+                }
+            }
+            for (Loadout obsoleteLoadout : obsoletedLoadouts) {
+                loadoutsToStats.remove(obsoleteLoadout);
+            }
+            if (insertLoadout) {
+                loadoutsToStats.put(loadout, new CombatStats(myAccuracy, myArmour, myDamage, myLp, loadout.totalReduc()));
+            }
+
+        }
+        //System.out.println("==============================================");
+        return new ArrayList<>(loadoutsToStats.keySet());
     }
 
     public Map<String, Double> nextGear(String combatStyle) {
@@ -330,7 +387,8 @@ public class Player implements Serializable {
     private boolean checkIfHaveBetterWeapon(Weapon weapon) {
         for (Weapon ownedWeapon : weapons) {
             if (!weapon.equals(ownedWeapon) && weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getStyle().equals(ownedWeapon.getStyle()) &&
-                weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getDamage() <= ownedWeapon.getDamage() && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
+                weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getAtkspd() == ownedWeapon.getAtkspd() &&
+                (weapon.getDamage() + weapon.getMaxAmmo()) <= (ownedWeapon.getDamage() + ownedWeapon.getMaxAmmo()) && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
                 return true;
             }
         }
@@ -358,18 +416,18 @@ public class Player implements Serializable {
         Map<String, Double> achievementCalcResults = new HashMap<>();
         for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
             if (!qualities.containsKey(achievement.getName())) {
-                //System.out.print(achievement.getName() + "\t");
+                System.out.print(achievement.getName() + "\t");
                 long taskTime = System.nanoTime();
                 GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
                 achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
                 achievementResults.put(achievement, actionsAndTime);
-                //System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+                System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
             }
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
         for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-            System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours");
+           // System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours");
         }
         System.out.println("The total bank value of this account is " + getTotalBankValue());
         System.out.println(String.format("%d total combat encounters were calculated", totalEncounters));

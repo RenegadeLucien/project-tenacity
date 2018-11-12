@@ -18,9 +18,10 @@ public class Weapon implements Serializable {
     private int accuracy;
     private int atkspd;
     private int maxAmmo;
+    private int prayer;
     private List<Requirement> reqs;
 
-    public Weapon(String name, String weaponClass, String style, String slot, int damage, int accuracy, int atkspd, int maxAmmo, List<Requirement> reqs) {
+    public Weapon(String name, String weaponClass, String style, String slot, int damage, int accuracy, int atkspd, int maxAmmo, int prayer, List<Requirement> reqs) {
         this.name = name;
         this.weaponClass = weaponClass;
         this.style = style;
@@ -29,6 +30,7 @@ public class Weapon implements Serializable {
         this.accuracy = accuracy;
         this.atkspd = atkspd;
         this.maxAmmo = maxAmmo;
+        this.prayer = prayer;
         this.reqs = reqs;
     }
 
