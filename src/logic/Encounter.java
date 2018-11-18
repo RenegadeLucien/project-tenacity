@@ -2,8 +2,9 @@ package logic;
 
 import data.databases.AbilityDatabase;
 import data.databases.ActionDatabase;
-import data.dataobjects.Ability;
-import data.dataobjects.Enemy;
+import data.databases.FamiliarDatabase;
+import data.databases.PrayerDatabase;
+import data.dataobjects.*;
 
 import java.io.Serializable;
 import java.util.*;
@@ -14,38 +15,25 @@ public class Encounter implements Serializable {
     private static final int TICKS_PER_HOUR = 6000;
 
     private List<List<Enemy>> enemyGroups;
-    private List<Restriction> restrictions;
     private int partySize;
     private boolean safespot;
-
-    public Encounter(List<List<String>> enemyGroups, List<Restriction> restrictions) {
-        this.enemyGroups = new ArrayList<>();
-        for (List<String> enemyGroup : enemyGroups) {
-            this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
-        }
-        this.restrictions = restrictions;
-        this.partySize = 1;
-        this.safespot = false;
-    }
-
-    public Encounter(List<List<String>> enemyGroups, List<Restriction> restrictions, boolean safespot) {
-        this.enemyGroups = new ArrayList<>();
-        for (List<String> enemyGroup : enemyGroups) {
-            this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
-        }
-        this.restrictions = restrictions;
-        this.partySize = 1;
-        this.safespot = safespot;
-    }
 
     public Encounter(List<List<String>> enemyGroups) {
         this.enemyGroups = new ArrayList<>();
         for (List<String> enemyGroup : enemyGroups) {
             this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
         }
-        this.restrictions = new ArrayList<>();
         this.partySize = 1;
         this.safespot = false;
+    }
+
+    public Encounter(List<List<String>> enemyGroups, boolean safespot) {
+        this.enemyGroups = new ArrayList<>();
+        for (List<String> enemyGroup : enemyGroups) {
+            this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
+        }
+        this.partySize = 1;
+        this.safespot = safespot;
     }
 
     public Encounter(List<List<String>> enemyGroups, int partySize) {
@@ -53,31 +41,24 @@ public class Encounter implements Serializable {
         for (List<String> enemyGroup : enemyGroups) {
             this.enemyGroups.add(enemyGroup.stream().map(a -> Enemy.getEnemyByName(a)).collect(Collectors.toList()));
         }
-        this.restrictions = new ArrayList<>();
         this.partySize = partySize;
         this.safespot = false;
     }
 
-    public Encounter(String enemy, List<Restriction> restrictions) {
+    public Encounter(String enemy, int partySize) {
         this.enemyGroups = Collections.singletonList(Collections.singletonList(Enemy.getEnemyByName(enemy)));
-        this.restrictions = restrictions;
-        this.partySize = 1;
+        this.partySize = partySize;
         this.safespot = false;
     }
 
     public Encounter(String enemy) {
         this.enemyGroups = Collections.singletonList(Collections.singletonList(Enemy.getEnemyByName(enemy)));
-        this.restrictions = new ArrayList<>();
         this.partySize = 1;
         this.safespot = false;
     }
 
     public List<List<Enemy>> getEnemyGroups() {
         return enemyGroups;
-    }
-
-    public List<Restriction> getRestrictions() {
-        return restrictions;
     }
 
     public int getPartySize() {
@@ -89,10 +70,14 @@ public class Encounter implements Serializable {
     }
 
     public CombatResults calculateCombat(Player p, CombatParameters parameters) {
+        CombatScenario scenario = new CombatScenario(this, parameters);
+        if (StoredCombatCalcs.getSuccessfulCombats().get(scenario) != null) {
+            return StoredCombatCalcs.getSuccessfulCombats().get(scenario);
+        }
         CombatResults results = new CombatResults(1000000000, 0, 6100, null);;
         double minHpLost = 1000000001;
         int maxKills = 0;
-        for (Loadout loadout : p.generateLoadouts(parameters.getCombatStyle())) {
+        for (Loadout loadout : generateLoadouts(p, parameters.getCombatStyle())) {
             double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
             int maxLpHealedPerFood = p.getLevel("Constitution") * 25;
             if (p.getLevel("Constitution") == 99) {
@@ -103,56 +88,29 @@ public class Encounter implements Serializable {
             double hpLost = 0;
             int invenUsed = 0;
             int inventorySize = parameters.getInvenSpaces() + loadout.getFamiliar().getInvenSpaces();
-            String damageSkill;
-            String accuracySkill;
             int myMeleeAffinity;
             int myRangedAffinity;
             int myMagicAffinity;
             if (parameters.getCombatStyle().equals("Melee")) {
-                accuracySkill = "Attack";
-                damageSkill = "Strength";
                 myMeleeAffinity = 55;
                 myRangedAffinity = 45;
                 myMagicAffinity = 65;
             } else if (parameters.getCombatStyle().equals("Ranged")) {
-                accuracySkill = damageSkill = "Ranged";
                 myMeleeAffinity = 65;
                 myRangedAffinity = 55;
                 myMagicAffinity = 45;
             } else {
-                accuracySkill = damageSkill = "Magic";
                 myMeleeAffinity = 45;
                 myRangedAffinity = 65;
                 myMagicAffinity = 55;
             }
-            double myDamage;
-            if (loadout.getMainWep().getAtkspd() == 4) {
-                myDamage = 2.5 * p.getLevel(damageSkill) + loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo();
-            }
-            else if (loadout.getMainWep().getAtkspd() == 5) {
-                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*192.0/245.0;
-            }
-            else if (loadout.getMainWep().getAtkspd() == 6) {
-                myDamage = 2.5 * p.getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*96.0/149.0;
-            }
-            else {
-                System.out.println("What the heck kind of weapon do you have?");
-                throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
-            }
-            if (loadout.getMainWep().getSlot().equals("Two-handed")) {
-                myDamage += loadout.totalBonus()*1.5;
-            }
-            else {
-                myDamage += loadout.totalBonus();
-            }
-            double myArmour = (0.0008 * Math.pow(p.getLevel("Defence"), 3) + 4 * p.getLevel("Defence") + 40) + loadout.totalArmour();
-            double myAccuracy = (0.0008 * Math.pow(p.getLevel(accuracySkill), 3) + 4 * p.getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
+            CombatStats combatStats = loadout.getCombatStats(p, parameters.getCombatStyle());
             List<CombatStats> previousStatsList = StoredCombatCalcs.getCalculatedCombats().get(new CombatScenario(this, parameters));
             if (previousStatsList != null) {
                 boolean doomedToFail = false;
                 for (CombatStats previousStats : previousStatsList) {
-                    if (myLp <= previousStats.getLp() && myAccuracy <= previousStats.getAccuracy() && myArmour <= previousStats.getArmour() && myDamage <= previousStats.getDamage()
-                        && loadout.totalReduc() <= previousStats.getReduc()) {
+                    if (combatStats.getLp() <= previousStats.getLp() && combatStats.getAccuracy() <= previousStats.getAccuracy() && combatStats.getArmour() <= previousStats.getArmour() &&
+                        combatStats.getArmour() <= previousStats.getDamage() && combatStats.getReduc() <= previousStats.getReduc()) {
                         doomedToFail = true;
                         break;
                     }
@@ -161,7 +119,7 @@ public class Encounter implements Serializable {
                     continue;
                 }
             }
-            //System.out.println("Accuracy score is " + myAccuracy + ", Armour score is " + myArmour + ", Damage score is " + myDamage + ", Reduc is " + loadout.totalReduc() + ", LP is " + myLp);
+            //System.out.println(String.format("%f\t%f\t%f\t%f\t%f", combatStats.getAccuracy(), combatStats.getArmour(), combatStats.getDamage(), combatStats.getLp(), combatStats.getReduc()));
             p.setTotalEncounters(p.getTotalEncounters() + 1);
             Map<Ability, Integer> cooldowns = new HashMap<>();
             for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
@@ -169,7 +127,7 @@ public class Encounter implements Serializable {
                     cooldowns.put(ability, 0);
             }
             cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
-                (loadout.getMainWep().getDamage()+ loadout.getMainWep().getMaxAmmo())*0.5/myDamage, new ArrayList<>()), 0);
+                (loadout.getMainWep().getDamage()+ loadout.getMainWep().getMaxAmmo())*0.5/combatStats.getDamage(), new ArrayList<>()), 0);
             int adren = 0;
             int foodCooldown = 0;
             int kills = 0;
@@ -191,7 +149,7 @@ public class Encounter implements Serializable {
                             affinity = enemy.getAffmage();
                         }
                         double enemyArmour = (0.0008 * Math.pow(enemy.getDef(), 3) + 4 * enemy.getDef() + 40) + enemy.getArmor();
-                        double myHitChance = Math.min(1, (affinity * myAccuracy) / (enemyArmour * 100.0));
+                        double myHitChance = Math.min(1, (affinity * combatStats.getAccuracy()) / (enemyArmour * 100.0));
                         int enemyAttackStyles = 0;
                         double enemyMeleeDamage = 0;
                         double enemyRangedDamage = 0;
@@ -199,17 +157,17 @@ public class Encounter implements Serializable {
                         if (enemy.getAccmelee() > 0) {
                             enemyAttackStyles++;
                             enemyMeleeDamage = Math.min(1, (myMeleeAffinity * (enemy.getAccmelee() + (0.0008 * Math.pow(enemy.getAttack(), 3) + 4 * enemy.getAttack() + 40))
-                                / myArmour) / 100) * enemy.getMaxhitmelee() / 2.0;
+                                / combatStats.getArmour()) / 100) * enemy.getMaxhitmelee() / 2.0;
                         }
                         if (enemy.getAccranged() > 0) {
                             enemyAttackStyles++;
                             enemyRangedDamage = Math.min(1, (myRangedAffinity * (enemy.getAccranged() + (0.0008 * Math.pow(enemy.getRanged(), 3) + 4 * enemy.getRanged() + 40))
-                                / myArmour) / 100) * enemy.getMaxhitranged() / 2.0;
+                                / combatStats.getArmour()) / 100) * enemy.getMaxhitranged() / 2.0;
                         }
                         if (enemy.getAccmage() > 0) {
                             enemyAttackStyles++;
                             enemyMagicDamage = Math.min(1, (myMagicAffinity * (enemy.getAccmage() + (0.0008 * Math.pow(enemy.getMagic(), 3) + 4 * enemy.getMagic() + 40))
-                                / myArmour) / 100) * enemy.getMaxhitmagic() / 2.0;
+                                / combatStats.getArmour()) / 100) * enemy.getMaxhitmagic() / 2.0;
                         }
                         double enemyLp = enemy.getLp() / partySize;
                         while (myLp > 0 && enemyLp > 0) {
@@ -244,7 +202,7 @@ public class Encounter implements Serializable {
                                 }
                             }
                             if (abilityUsedThisTick != null) {
-                                enemyLp -= myHitChance * myDamage * maxDamage;
+                                enemyLp -= myHitChance * combatStats.getDamage() * maxDamage;
                                 //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
                                 cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
                                 if (!abilityUsedThisTick.getType().equals("Auto")) {
@@ -283,7 +241,7 @@ public class Encounter implements Serializable {
                                     enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
                                 }
                                 myLp -= enemyDamage * (1 - loadout.totalReduc());
-                                hpLost += enemyDamage * (1 - loadout.totalReduc());
+                                hpLost += enemyDamage * (1 - (loadout.totalReduc() + p.getLevel("Defence")/1000.0));
                                 //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
                             }
                             if (prayerPoints > 0) {
@@ -327,7 +285,6 @@ public class Encounter implements Serializable {
                 }
             }
             if (myLp <= 0 && kills == 0) {
-                hpLost = 1000000000;
                 List<CombatStats> currentFailedStats = StoredCombatCalcs.getCalculatedCombats().get(new CombatScenario(this, parameters));
                 List<CombatStats> failedStats;
                 if (currentFailedStats == null) {
@@ -336,11 +293,10 @@ public class Encounter implements Serializable {
                 else {
                     failedStats = new ArrayList<>(currentFailedStats);
                 }
-                failedStats.add(0, new CombatStats(myAccuracy, myArmour, myDamage, p.getLevel("Constitution") * 100 + loadout.totalLp(), loadout.totalReduc()));
-                //if (currentFailedStats == null || (myAccuracy >= currentFailedStats.getAccuracy() && myArmour >= currentFailedStats.getArmour()
-                //    && myDamage >= currentFailedStats.getDamage() && p.getLevel("Constitution") * 100 + loadout.totalLp() >= currentFailedStats.getLp())) {
+                failedStats.add(0, combatStats);
                 StoredCombatCalcs.getCalculatedCombats().put(new CombatScenario(this, parameters), failedStats);
-               // }
+                //if one loadout fails, just give up and upgrade your gear. better safe than sorry, also checking every loadout would make the runtime too long to be usable
+                break;
             }
             if (kills > maxKills || (kills == maxKills && hpLost < minHpLost)) {
                 results = new CombatResults(hpLost, kills, Math.min(ticks, TICKS_PER_HOUR), loadout);
@@ -348,7 +304,129 @@ public class Encounter implements Serializable {
                 maxKills = kills;
             }
         }
+        if (results.getHpLost() < 1000000) {
+            StoredCombatCalcs.getSuccessfulCombats().put(new CombatScenario(this, parameters), results);
+        }
         return results;
+    }
+
+    private List<Loadout> generateLoadouts(Player player, String combatStyle) {
+        List<Loadout> loadouts = new ArrayList<>();
+        List<Weapon> weaponList = new ArrayList<>();
+        List<Armour> headArmour = new ArrayList<>();
+        List<Armour> torsoArmour = new ArrayList<>();
+        List<Armour> legArmour = new ArrayList<>();
+        List<Armour> handArmour = new ArrayList<>();
+        List<Armour> feetArmour = new ArrayList<>();
+        List<Armour> capeArmour = new ArrayList<>();
+        List<Armour> neckArmour = new ArrayList<>();
+        List<Armour> ringArmour = new ArrayList<>();
+        List<Familiar> familiarList = new ArrayList<>();
+        List<Prayer> prayerList = new ArrayList<>();
+        for (Weapon w : player.getWeapons()) {
+            if (w.getWeaponClass().equals(combatStyle) && w.getReqs().stream().allMatch(r -> r.meetsRequirement(player))) {
+                weaponList.add(w);
+            }
+        }
+        for (Armour a : player.getArmour()) {
+            if (a.getSlot().equals("Head") && a.getType().equals(combatStyle)) {
+                headArmour.add(a);
+            } else if (a.getSlot().equals("Torso") && a.getType().equals(combatStyle)) {
+                torsoArmour.add(a);
+            } else if (a.getSlot().equals("Legs") && a.getType().equals(combatStyle)) {
+                legArmour.add(a);
+            } else if (a.getSlot().equals("Hands") && a.getType().equals(combatStyle)) {
+                handArmour.add(a);
+            } else if (a.getSlot().equals("Feet") && a.getType().equals(combatStyle)) {
+                feetArmour.add(a);
+            } else if (a.getSlot().equals("Cape") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
+                capeArmour.add(a);
+            } else if (a.getSlot().equals("Neck") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
+                neckArmour.add(a);
+            } else if (a.getSlot().equals("Ring") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
+                ringArmour.add(a);
+            }
+        }
+        for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
+            if (player.getLevel("Summoning") >= f.getSummonReq()) {
+                familiarList.add(f);
+            }
+        }
+        for (Prayer p : PrayerDatabase.getPrayerDatabase().getPrayers()) {
+            prayerList.add(p);
+        }
+        if (headArmour.size() == 0) {
+            headArmour.add(Armour.getArmourByName("None"));
+        }
+        if (torsoArmour.size() == 0) {
+            torsoArmour.add(Armour.getArmourByName("None"));
+        }
+        if (legArmour.size() == 0) {
+            legArmour.add(Armour.getArmourByName("None"));
+        }
+        if (handArmour.size() == 0) {
+            handArmour.add(Armour.getArmourByName("None"));
+        }
+        if (feetArmour.size() == 0) {
+            feetArmour.add(Armour.getArmourByName("None"));
+        }
+        if (capeArmour.size() == 0) {
+            capeArmour.add(Armour.getArmourByName("None"));
+        }
+        if (neckArmour.size() == 0) {
+            neckArmour.add(Armour.getArmourByName("None"));
+        }
+        if (ringArmour.size() == 0) {
+            ringArmour.add(Armour.getArmourByName("None"));
+        }
+        for (Weapon w : weaponList) {
+            for (Armour head : headArmour) {
+                for (Armour torso : torsoArmour) {
+                    for (Armour leg : legArmour) {
+                        for (Armour hand : handArmour) {
+                            for (Armour foot : feetArmour) {
+                                for (Armour cape : capeArmour) {
+                                    for (Armour neck : neckArmour) {
+                                        for (Armour ring : ringArmour) {
+                                            for (Familiar familiar : familiarList) {
+                                                for (Prayer prayer : prayerList) {
+                                                    loadouts.add(new Loadout(w, head, torso, leg, hand, foot, cape, neck, ring, familiar, prayer));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Map<Loadout, CombatStats> loadoutsToStats = new HashMap<>();
+        for (Loadout loadout : loadouts) {
+            CombatStats combatStats = loadout.getCombatStats(player, combatStyle);
+            boolean insertLoadout = true;
+            List<Loadout> obsoletedLoadouts = new ArrayList<>();
+            for (Map.Entry<Loadout, CombatStats> loadoutToStats : loadoutsToStats.entrySet()) {
+                CombatStats previousStats = loadoutToStats.getValue();
+                if (combatStats.getLp() <= previousStats.getLp() && combatStats.getAccuracy() <= previousStats.getAccuracy() && combatStats.getArmour() <= previousStats.getArmour() &&
+                    combatStats.getDamage() <= previousStats.getDamage() && combatStats.getReduc()  <= previousStats.getReduc()) {
+                    insertLoadout = false;
+                }
+                else if (combatStats.getLp() >= previousStats.getLp() && combatStats.getAccuracy() >= previousStats.getAccuracy() && combatStats.getArmour() >= previousStats.getArmour() &&
+                    combatStats.getDamage() >= previousStats.getDamage() && combatStats.getReduc() >= previousStats.getReduc()) {
+                    obsoletedLoadouts.add(loadoutToStats.getKey());
+                }
+            }
+            for (Loadout obsoleteLoadout : obsoletedLoadouts) {
+                loadoutsToStats.remove(obsoleteLoadout);
+            }
+            if (insertLoadout) {
+                loadoutsToStats.put(loadout, combatStats);
+            }
+        }
+        //System.out.println("==============================================");
+        return new ArrayList<>(loadoutsToStats.keySet());
     }
 
     @Override
@@ -360,14 +438,13 @@ public class Encounter implements Serializable {
             return false;
         }
         Encounter encounter = (Encounter) obj;
-        return enemyGroups.equals(encounter.getEnemyGroups()) && restrictions.equals(encounter.getRestrictions()) && partySize == encounter.getPartySize() && safespot == encounter.isSafespot();
+        return enemyGroups.equals(encounter.getEnemyGroups()) && partySize == encounter.getPartySize() && safespot == encounter.isSafespot();
     }
 
     @Override
     public int hashCode() {
         int result = 17;
         result = 31*result + enemyGroups.hashCode();
-        result = 31*result + restrictions.hashCode();
         result = 31*result + partySize;
         result = 31*result + (safespot ? 1 : 0);
         return result;

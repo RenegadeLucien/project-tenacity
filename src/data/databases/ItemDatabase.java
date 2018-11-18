@@ -19,23 +19,27 @@ public class ItemDatabase {
 
     private void addItems() {
         List<Item> itemsList = new ArrayList<>();
+        itemsList.add(new Item("Abomination cape", 150000));
         itemsList.add(new Item("Abyssal titan pouch", 3249));
         itemsList.add(new Item("Abyssal wand", 150000));
         itemsList.add(new Item("Acadia logs", 85));
         itemsList.add(new Item("Accursed ashes", 2));
         itemsList.add(new Item("Achey tree logs", 4));
         itemsList.add(new Item("Acorn", 6));
+        itemsList.add(new Item("Adamant 2h sword", 6400));
         itemsList.add(new Item("Adamant bar", 640));
         itemsList.add(new Item("Adamant boots", 1920));
         itemsList.add(new Item("Adamant gauntlets", 5000));
         itemsList.add(new Item("Adamant full helm", 3520));
         itemsList.add(new Item("Adamant platebody", 16640));
         itemsList.add(new Item("Adamant platelegs", 6400));
+        itemsList.add(new Item("Adamant spear", 2080));
         itemsList.add(new Item("Agility potion (4)", 200));
         itemsList.add(new Item("Ahrim's hood", 13000));
         itemsList.add(new Item("Ahrim's robe skirt", 47000));
         itemsList.add(new Item("Ahrim's robe top", 50000));
         itemsList.add(new Item("Ahrim's staff", 85000));
+        itemsList.add(new Item("Air battlestaff", 15500));
         itemsList.add(new Item("Air orb", 300));
         itemsList.add(new Item("Air rune", 17));
         itemsList.add(new Item("Air talisman", 4));
@@ -44,19 +48,31 @@ public class ItemDatabase {
         itemsList.add(new Item("Albino rat pouch", 2299));
         itemsList.add(new Item("Ale yeast", 1));
         itemsList.add(new Item("Amulet of accuracy", 5000));
+        itemsList.add(new Item("Amulet of defence", 1275));
         itemsList.add(new Item("Amulet of farming (8)", 200));
+        itemsList.add(new Item("Amulet of fury (t)", 202000));
+        itemsList.add(new Item("Amulet of glory", 17625));
+        itemsList.add(new Item("Amulet of ranging", 45000));
+        itemsList.add(new Item("Amulet of souls", 300000));
+        itemsList.add(new Item("Amulet of the forsaken", 80000));
+        itemsList.add(new Item("Ancient cloak", 2000));
         itemsList.add(new Item("Anima Core helm of Seren", 400000));
+        itemsList.add(new Item("Annihilation", 1200000));
         itemsList.add(new Item("Antifire (3)", 264));
         itemsList.add(new Item("Antipoison (4)", 360));
         itemsList.add(new Item("Apple tree seed", 13));
         itemsList.add(new Item("Archer helm", 78000));
+        itemsList.add(new Item("Archers' ring", 10000));
         itemsList.add(new Item("Archery ticket", 25));
         itemsList.add(new Item("Arctic pine logs", 35));
+        itemsList.add(new Item("Armadyl battlestaff", 200000));
+        itemsList.add(new Item("Armadyl boots", 19000));
         itemsList.add(new Item("Armadyl chainskirt", 50000));
         itemsList.add(new Item("Armadyl chestplate", 60000));
         itemsList.add(new Item("Armadyl gloves", 19000));
         itemsList.add(new Item("Armadyl helmet", 20000));
         itemsList.add(new Item("Arrow shaft", 12));
+        itemsList.add(new Item("Arrowstorm drape", 250));
         itemsList.add(new Item("Ascension grips", 50000));
         itemsList.add(new Item("Ascension Keystone Primus", 100));
         itemsList.add(new Item("Ascension Keystone Quartus", 100));
@@ -81,6 +97,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Bandos boots", 25000));
         itemsList.add(new Item("Bandos chestplate", 265000));
         itemsList.add(new Item("Bandos gloves", 19000));
+        itemsList.add(new Item("Bandos godsword", 1250000));
         itemsList.add(new Item("Bandos helmet", 60000));
         itemsList.add(new Item("Bandos tassets", 272500));
         itemsList.add(new Item("Bark", 1));
@@ -94,6 +111,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Battle robe bottom 0", 40000));
         itemsList.add(new Item("Battle robe top 0", 50000));
         itemsList.add(new Item("Battlestaff", 7000));
+        itemsList.add(new Item("Batwing boots", 200));
         itemsList.add(new Item("Batwing gloves", 200));
         itemsList.add(new Item("Batwing hood", 300));
         itemsList.add(new Item("Batwing legs", 700));
@@ -104,6 +122,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Beer (tankard)", 26));
         itemsList.add(new Item("Beginner wand", 1200));
         itemsList.add(new Item("Berserker helm", 78000));
+        itemsList.add(new Item("Berserker necklace", 202000));
+        itemsList.add(new Item("Berserker ring", 10000));
         itemsList.add(new Item("Big bones", 1));
         itemsList.add(new Item("Bird snare", 6));
         itemsList.add(new Item("Bittercap mushroom", 38));
@@ -118,11 +138,14 @@ public class ItemDatabase {
         itemsList.add(new Item("Black dragonhide vambraces", 4320));
         itemsList.add(new Item("Black full helm", 1372));
         itemsList.add(new Item("Black gauntlets", 2000));
+        itemsList.add(new Item("Black halberd", 2496));
         itemsList.add(new Item("Black platebody", 3840));
         itemsList.add(new Item("Black platelegs", 1920));
         itemsList.add(new Item("Black salamander", 200));
+        itemsList.add(new Item("Black spear", 650));
         itemsList.add(new Item("Black spiky vambraces", 4320));
         itemsList.add(new Item("Black wizard hat", 2));
+        itemsList.add(new Item("Bladestorm drape", 250));
         itemsList.add(new Item("Blamish myre shell (round)", 150));
         itemsList.add(new Item("Blood nihil pouch", 5699));
         itemsList.add(new Item("Blood rune", 550));
@@ -138,7 +161,9 @@ public class ItemDatabase {
         itemsList.add(new Item("Blurberry Special", 30));
         itemsList.add(new Item("Bolt of cloth", 650));
         itemsList.add(new Item("Bone bolts", 4));
+        itemsList.add(new Item("Bone spear", 600));
         itemsList.add(new Item("Bones", 1));
+        itemsList.add(new Item("Boots of subjugation", 19000));
         itemsList.add(new Item("Bowl", 4));
         itemsList.add(new Item("Bowl (unfired)", 2));
         itemsList.add(new Item("Bowl of hot water", 10));
@@ -175,6 +200,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Cabbage seed", 25));
         itemsList.add(new Item("Cactus seed", 99));
         itemsList.add(new Item("Cake tin", 10));
+        itemsList.add(new Item("Camel staff", 1000000));
         itemsList.add(new Item("Candle", 3));
         itemsList.add(new Item("Cape (black)", 20));
         itemsList.add(new Item("Carapace boots", 200));
@@ -231,6 +257,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Crayfish cage", 20));
         itemsList.add(new Item("Crystal bow", 180000));
         itemsList.add(new Item("Crystal dagger", 130000));
+        itemsList.add(new Item("Crystal halberd", 180000));
         itemsList.add(new Item("Crystal orb", 130000));
         itemsList.add(new Item("Crystal staff", 180000));
         itemsList.add(new Item("Crystal wand", 130000));
@@ -259,6 +286,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Dharok's platebody", 280000));
         itemsList.add(new Item("Dharok's platelegs", 275000));
         itemsList.add(new Item("Diamond", 2000));
+        itemsList.add(new Item("Dragon 2h sword", 220000));
         itemsList.add(new Item("Dragon bitter", 2));
         itemsList.add(new Item("Dragon bitter (m)", 2));
         itemsList.add(new Item("Dragon bones", 1));
@@ -268,6 +296,9 @@ public class ItemDatabase {
         itemsList.add(new Item("Dragon helm", 100000));
         itemsList.add(new Item("Dragon platebody", 1760000));
         itemsList.add(new Item("Dragon platelegs", 270000));
+        itemsList.add(new Item("Dragon Rider cape", 60000));
+        itemsList.add(new Item("Dragon Rider lance", 180000));
+        itemsList.add(new Item("Dragon spear", 62400));
         itemsList.add(new Item("Dragonfire shield", 2000000));
         itemsList.add(new Item("Dreadfowl pouch", 624));
         itemsList.add(new Item("Druidic mage bottom 0", 5000));
@@ -303,6 +334,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Enchanted top", 120000));
         itemsList.add(new Item("Eucalyptus logs", 126));
         itemsList.add(new Item("Evil turnip pouch", 3024));
+        itemsList.add(new Item("Explosive barrel", 500000));
         itemsList.add(new Item("Eye of newt", 3));
         itemsList.add(new Item("Face mask", 200));
         itemsList.add(new Item("Farseer helm", 78000));
@@ -315,6 +347,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Fishing bait", 3));
         itemsList.add(new Item("Fishing rod", 5));
         itemsList.add(new Item("Fiyr remains", 1));
+        itemsList.add(new Item("Flarefrost boots", 120000));
         itemsList.add(new Item("Flax", 5));
         itemsList.add(new Item("Flickering energy", 7));
         itemsList.add(new Item("Fremennik round shield", 500));
@@ -327,7 +360,9 @@ public class ItemDatabase {
         itemsList.add(new Item("Fungal leggings", 2500));
         itemsList.add(new Item("Fungal poncho", 3000));
         itemsList.add(new Item("Fungal visor", 2000));
+        itemsList.add(new Item("Gadderhammer", 3000));
         itemsList.add(new Item("Games necklace (8)", 1050));
+        itemsList.add(new Item("Ganodermic boots", 2000));
         itemsList.add(new Item("Ganodermic gloves", 7000));
         itemsList.add(new Item("Ganodermic leggings", 400000));
         itemsList.add(new Item("Ganodermic poncho", 900000));
@@ -335,6 +370,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Garb of subjugation", 51000));
         itemsList.add(new Item("Garlic", 3));
         itemsList.add(new Item("Giant frog legs", 100));
+        itemsList.add(new Item("Glaiven boots", 20000));
         itemsList.add(new Item("Gloves of passage", 80000));
         itemsList.add(new Item("Gloves of silence", 600));
         itemsList.add(new Item("Gloves of subjugation", 80000));
@@ -355,6 +391,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Granite helm", 46000));
         itemsList.add(new Item("Granite legs", 66000));
         itemsList.add(new Item("Granite lobster pouch", 4574));
+        itemsList.add(new Item("Granite maul", 50000));
         itemsList.add(new Item("Great maki", 600));
         itemsList.add(new Item("Green dragonhide body", 7800));
         itemsList.add(new Item("Green dragonhide boots", 2500));
@@ -384,6 +421,7 @@ public class ItemDatabase {
         itemsList.add(new Item("H.a.m. logo", 75));
         itemsList.add(new Item("H.a.m. robe", 75));
         itemsList.add(new Item("H.a.m. shirt", 75));
+        itemsList.add(new Item("Hailfire boots", 120000));
         itemsList.add(new Item("Hammer", 13));
         itemsList.add(new Item("Hard leather body", 170));
         itemsList.add(new Item("Hard leather boots", 200));
@@ -394,6 +432,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Hard leather", 1));
         itemsList.add(new Item("Hardened dragon bones", 1));
         itemsList.add(new Item("Harralander potion (unf)", 20));
+        itemsList.add(new Item("Hazelmere's signet ring", 500000));
         itemsList.add(new Item("Headless arrow", 1));
         itemsList.add(new Item("Helm of neitiznot", 50000));
         itemsList.add(new Item("Herring", 15));
@@ -410,6 +449,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Imphide robe top", 500));
         itemsList.add(new Item("Impious ashes", 2));
         itemsList.add(new Item("Infernal ashes", 2));
+        itemsList.add(new Item("Infinity boots", 12000));
         itemsList.add(new Item("Infinity bottoms", 90000));
         itemsList.add(new Item("Infinity gloves", 12000));
         itemsList.add(new Item("Infinity hat", 17000));
@@ -425,6 +465,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Iron chainbody", 210));
         itemsList.add(new Item("Iron crossbow", 157));
         itemsList.add(new Item("Iron gauntlets", 300));
+        itemsList.add(new Item("Iron halberd", 364));
         itemsList.add(new Item("Iron helm", 84));
         itemsList.add(new Item("Iron ore", 17));
         itemsList.add(new Item("Iron platebody", 560));
@@ -458,6 +499,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Leather gloves", 6));
         itemsList.add(new Item("Leather shield", 68));
         itemsList.add(new Item("Leather vambraces", 18));
+        itemsList.add(new Item("Leviathan ring", 20000));
         itemsList.add(new Item("Light creature pouch", 3924));
         itemsList.add(new Item("Limestone", 10));
         itemsList.add(new Item("Limpwurt root", 7));
@@ -469,6 +511,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Loar remains", 1));
         itemsList.add(new Item("Lockpick", 20));
         itemsList.add(new Item("Logs", 4));
+        itemsList.add(new Item("Luck of the dwarves", 202000));
         itemsList.add(new Item("Macaw pouch", 2374));
         itemsList.add(new Item("Magic logs", 320));
         itemsList.add(new Item("Magic pyre logs", 640));
@@ -485,6 +528,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Maple logs", 80));
         itemsList.add(new Item("Marble block", 325000));
         itemsList.add(new Item("Marigold seed", 84));
+        itemsList.add(new Item("Masuta's warspear", 175000));
         itemsList.add(new Item("Mature cider", 2));
         itemsList.add(new Item("Mature pigswill", 50));
         itemsList.add(new Item("Mature wmb", 2));
@@ -507,6 +551,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Mithril platebody", 5200));
         itemsList.add(new Item("Mithril platelegs", 2600));
         itemsList.add(new Item("Mithril seeds", 300));
+        itemsList.add(new Item("Mithril spear", 845));
+        itemsList.add(new Item("Mizuyari", 3750000));
         itemsList.add(new Item("Molten glass", 3));
         itemsList.add(new Item("Moonlight mead", 5));
         itemsList.add(new Item("Moonlight mead (m)", 5));
@@ -519,6 +565,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Moss titan pouch", 5474));
         itemsList.add(new Item("Mud rune", 20));
         itemsList.add(new Item("Muddy key", 1));
+        itemsList.add(new Item("Mystic air staff", 42500));
+        itemsList.add(new Item("Mystic boots (blue)", 5000));
         itemsList.add(new Item("Mystic gloves (blue)", 5000));
         itemsList.add(new Item("Mystic hat (blue)", 10000));
         itemsList.add(new Item("Mystic robe bottom (blue)", 10000));
@@ -528,9 +576,13 @@ public class ItemDatabase {
         itemsList.add(new Item("Nature talisman", 4));
         itemsList.add(new Item("Needle", 1));
         itemsList.add(new Item("Nightmare gauntlets", 80000));
+        itemsList.add(new Item("Noxious scythe", 1250000));
+        itemsList.add(new Item("Noxious staff", 1250000));
         itemsList.add(new Item("Oak logs", 20));
         itemsList.add(new Item("Oak plank", 250));
         itemsList.add(new Item("Oak shieldbow", 160));
+        itemsList.add(new Item("Obliteration", 1200000));
+        itemsList.add(new Item("Obsidian cape", 60000));
         itemsList.add(new Item("Ogre arrow", 25));
         itemsList.add(new Item("Onion seed", 10));
         itemsList.add(new Item("Onion", 12));
@@ -542,6 +594,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Papaya tree seed", 115));
         itemsList.add(new Item("Papyrus", 10));
         itemsList.add(new Item("Pernix body", 500000));
+        itemsList.add(new Item("Pernix boots", 25000));
         itemsList.add(new Item("Pernix chaps", 400000));
         itemsList.add(new Item("Pernix cowl", 400000));
         itemsList.add(new Item("Pernix gloves", 30000));
@@ -571,6 +624,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Purple dye", 6));
         itemsList.add(new Item("Pyre logs", 8));
         itemsList.add(new Item("Pyrelord pouch", 3199));
+        itemsList.add(new Item("Ragefire boots", 20000));
         itemsList.add(new Item("Ranarr potion (unf)", 25));
         itemsList.add(new Item("Ranger boots", 200));
         itemsList.add(new Item("Ranger's aid", 25));
@@ -610,13 +664,18 @@ public class ItemDatabase {
         itemsList.add(new Item("Red topaz", 200));
         itemsList.add(new Item("Redberries", 3));
         itemsList.add(new Item("Redberry pie", 150));
+        itemsList.add(new Item("Reefwalker's cape", 40000));
         itemsList.add(new Item("Regrowth scroll", 362));
         itemsList.add(new Item("Reinforced dragon bones", 1));
         itemsList.add(new Item("Relicym's balm (4)", 225));
         itemsList.add(new Item("Restore potion (3)", 88));
+        itemsList.add(new Item("Ring of death", 255000));
         itemsList.add(new Item("Ring of duelling (1)", 1275));
         itemsList.add(new Item("Ring of duelling (8)", 1275));
+        itemsList.add(new Item("Ring of fortune", 202000));
         itemsList.add(new Item("Ring of life", 3525));
+        itemsList.add(new Item("Ring of luck", 1500));
+        itemsList.add(new Item("Ring of wealth", 17625));
         itemsList.add(new Item("Robin Hood hat", 450));
         itemsList.add(new Item("Robin Hood tights", 40000));
         itemsList.add(new Item("Robin Hood tunic", 50000));
@@ -627,17 +686,18 @@ public class ItemDatabase {
         itemsList.add(new Item("Rock-shell plate", 65000));
         itemsList.add(new Item("Rope", 18));
         itemsList.add(new Item("Royal dragonhide body", 19200));
+        itemsList.add(new Item("Royal dragonhide boots", 6200));
         itemsList.add(new Item("Royal dragonhide chaps", 9300));
         itemsList.add(new Item("Royal dragonhide coif", 9100));
         itemsList.add(new Item("Royal dragonhide vambraces", 6200));
         itemsList.add(new Item("Royal spiky vambraces", 6200));
         itemsList.add(new Item("Ruby", 1000));
         itemsList.add(new Item("Ruby necklace", 2175));
+        itemsList.add(new Item("Rune 2h sword", 64000));
         itemsList.add(new Item("Rune bar", 5000));
         itemsList.add(new Item("Rune boots", 12500));
         itemsList.add(new Item("Rune full helm", 35200));
         itemsList.add(new Item("Rune gauntlets", 7500));
-        itemsList.add(new Item("Rune halberd", 128000));
         itemsList.add(new Item("Rune hatchet", 12800));
         itemsList.add(new Item("Rune pickaxe", 32000));
         itemsList.add(new Item("Rune platebody", 65000));
@@ -651,6 +711,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Sapphire amulet", 900));
         itemsList.add(new Item("Sapphire necklace", 1050));
         itemsList.add(new Item("Saradomin arrows", 300));
+        itemsList.add(new Item("Saradomin sword", 130000));
+        itemsList.add(new Item("Saradomin's hiss", 40000));
+        itemsList.add(new Item("Saradomin's murmur", 40000));
+        itemsList.add(new Item("Saradomin's whisper", 40000));
         itemsList.add(new Item("Sardine", 10));
         itemsList.add(new Item("Searing ashes", 2));
         itemsList.add(new Item("Seasinger's hood", 4000000));
@@ -667,6 +731,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Second-Age range top", 500000));
         itemsList.add(new Item("Second-Age robe bottom", 500000));
         itemsList.add(new Item("Second-Age robe top", 500000));
+        itemsList.add(new Item("Second-Age staff", 500000));
+        itemsList.add(new Item("Seers' ring", 10000));
         itemsList.add(new Item("Seismic wand", 833334));
         itemsList.add(new Item("Seren godbow", 1250000));
         itemsList.add(new Item("Shadow nihil pouch", 5699));
@@ -681,8 +747,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Sirenic chaps", 500000));
         itemsList.add(new Item("Sirenic hauberk", 600000));
         itemsList.add(new Item("Sirenic mask", 500000));
+        itemsList.add(new Item("Skeletal boots", 650));
         itemsList.add(new Item("Skeletal gloves", 650));
         itemsList.add(new Item("Skewered kebab", 25));
+        itemsList.add(new Item("Slayer's staff", 21000));
         itemsList.add(new Item("Slayer's respite", 2));
         itemsList.add(new Item("Slayer's respite (m)", 2));
         itemsList.add(new Item("Slimy eel", 1));
@@ -694,9 +762,11 @@ public class ItemDatabase {
         itemsList.add(new Item("Soft clay", 2));
         itemsList.add(new Item("Soul rune", 410));
         itemsList.add(new Item("Spade", 3));
+        itemsList.add(new Item("Spellstorm drape", 250));
         itemsList.add(new Item("Spice", 230));
         itemsList.add(new Item("Spider on stick (raw)", 25));
         itemsList.add(new Item("Spider carcass", 15));
+        itemsList.add(new Item("Spider silk boots", 500));
         itemsList.add(new Item("Spider silk gloves", 300));
         itemsList.add(new Item("Spider silk hood", 1000));
         itemsList.add(new Item("Spider silk robe bottom", 1500));
@@ -712,6 +782,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Spirit spider pouch", 624));
         itemsList.add(new Item("Spirit wolf pouch", 599));
         itemsList.add(new Item("Splitbark body", 45000));
+        itemsList.add(new Item("Splitbark boots", 5000));
         itemsList.add(new Item("Splitbark gauntlets", 5000));
         itemsList.add(new Item("Splitbark helm", 10000));
         itemsList.add(new Item("Splitbark legs", 40000));
@@ -719,6 +790,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Spottier cape", 800));
         itemsList.add(new Item("Squeck juice", 2));
         itemsList.add(new Item("Staff", 15));
+        itemsList.add(new Item("Staff of light", 95000));
         itemsList.add(new Item("Static gloves", 20000));
         itemsList.add(new Item("Statius's full helm", 250000));
         itemsList.add(new Item("Statius's platebody", 500000));
@@ -729,12 +801,14 @@ public class ItemDatabase {
         itemsList.add(new Item("Steel dagger", 125));
         itemsList.add(new Item("Steel full helm", 550));
         itemsList.add(new Item("Steel gauntlets", 1000));
+        itemsList.add(new Item("Steel halberd", 1300));
         itemsList.add(new Item("Steel helm", 300));
         itemsList.add(new Item("Steel longsword", 500));
         itemsList.add(new Item("Steel mace", 225));
         itemsList.add(new Item("Steel nails", 52));
         itemsList.add(new Item("Steel platebody", 2000));
         itemsList.add(new Item("Steel platelegs", 1000));
+        itemsList.add(new Item("Steel spear", 325));
         itemsList.add(new Item("Steel sword", 325));
         itemsList.add(new Item("Steel warhammer", 832));
         itemsList.add(new Item("Stew", 100));
@@ -770,6 +844,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Tetsu helm", 4000000));
         itemsList.add(new Item("Tetsu platelegs", 4000000));
         itemsList.add(new Item("Thin snail", 60));
+        itemsList.add(new Item("Third-age druidic cloak", 40000));
         itemsList.add(new Item("Third-age full helmet", 90000));
         itemsList.add(new Item("Third-age mage hat", 10000));
         itemsList.add(new Item("Third-age platebody", 200000));
@@ -783,6 +858,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Tinderbox", 1));
         itemsList.add(new Item("Toad crunchies", 2));
         itemsList.add(new Item("Toadflax potion (unf)", 48));
+        itemsList.add(new Item("Toktz-mej-tal", 35000));
         itemsList.add(new Item("Tomato", 14));
         itemsList.add(new Item("Torag's hammer", 160000));
         itemsList.add(new Item("Torag's helm", 103000));
@@ -799,6 +875,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Tuna", 120));
         itemsList.add(new Item("Turoth boots", 12500));
         itemsList.add(new Item("Tyras helm", 1265));
+        itemsList.add(new Item("Tzhaar-ket-om", 50000));
         itemsList.add(new Item("Uncooked berry pie", 6));
         itemsList.add(new Item("Uncut dragonstone", 1000));
         itemsList.add(new Item("Uncut opal", 20));
@@ -811,8 +888,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Verac's flail", 160000));
         itemsList.add(new Item("Verac's helm", 103000));
         itemsList.add(new Item("Verac's plateskirt", 275000));
+        itemsList.add(new Item("Vesta's spear", 300000));
         itemsList.add(new Item("Vial", 5));
         itemsList.add(new Item("Vial of water", 10));
+        itemsList.add(new Item("Virtus boots", 25000));
         itemsList.add(new Item("Virtus gloves", 30000));
         itemsList.add(new Item("Virtus mask", 400000));
         itemsList.add(new Item("Virtus robe legs", 400000));
@@ -824,6 +903,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Wand of treachery", 75000));
         itemsList.add(new Item("War tortoise pouch", 449));
         itemsList.add(new Item("Warrior helm", 78000));
+        itemsList.add(new Item("Warrior ring", 10000));
         itemsList.add(new Item("Water rune", 17));
         itemsList.add(new Item("Water talisman", 4));
         itemsList.add(new Item("Watering can", 8));
@@ -833,6 +913,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Waterskin (4)", 30));
         itemsList.add(new Item("Wheat", 2));
         itemsList.add(new Item("White berries", 10));
+        itemsList.add(new Item("White magic staff", 200));
         itemsList.add(new Item("Wild pie", 182));
         itemsList.add(new Item("Willow branch", 2));
         itemsList.add(new Item("Willow logs", 40));
@@ -855,9 +936,11 @@ public class ItemDatabase {
         itemsList.add(new Item("Yew logs", 160));
         itemsList.add(new Item("Yew seed", 143));
         itemsList.add(new Item("Zamorak robe (top)", 40));
+        itemsList.add(new Item("Zamorakian spear", 100000));
         itemsList.add(new Item("Zuriel's hood", 250000));
         itemsList.add(new Item("Zuriel's robe bottom", 500000));
         itemsList.add(new Item("Zuriel's robe top", 500000));
+        itemsList.add(new Item("Zuriel's staff", 500000));
 
         for (Item item : itemsList) {
             items.put(item.getName(), item);

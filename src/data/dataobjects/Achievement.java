@@ -143,13 +143,18 @@ public class Achievement implements Serializable {
                     }
                 }
                 else {
+                    Loadout loadout = null;
                     if (player.getXp().get("Defence") > initialXP.get("Defence")) {
                         encounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
                     }
                     if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
                         encounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
                     }
+                    if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
+                        encounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
+                    }
                     if (meleeCombatResults.getHpLost() < 1000000) {
+                        loadout = meleeCombatResults.getLoadoutUsed();
                         if (player.getXp().get("Attack") > initialXP.get("Attack")) {
                             encounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
                         }
@@ -158,14 +163,43 @@ public class Achievement implements Serializable {
                         }
                     }
                     else if (rangedCombatResults.getHpLost() < 1000000) {
+                        loadout = rangedCombatResults.getLoadoutUsed();
                         if (player.getXp().get("Ranged") > initialXP.get("Ranged")) {
                             encounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
                         }
                     }
                     else if (magicCombatResults.getHpLost() < 1000000) {
+                        loadout = magicCombatResults.getLoadoutUsed();
                         if (player.getXp().get("Magic") > initialXP.get("Magic")) {
                             encounterRequirements.add(new Requirement("Magic", player.getLevel("Magic")));
                         }
+                    }
+                    if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getHead().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getTorso()) && !loadout.getTorso().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getTorso().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getLegs()) && !loadout.getLegs().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getLegs().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getHands()) && !loadout.getHands().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getHands().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getFeet()) && !loadout.getFeet().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getFeet().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getRing()) && !loadout.getRing().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getRing().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getNeck()) && !loadout.getNeck().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getNeck().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getCape()) && !loadout.getCape().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getCape().getName(), 1));
+                    }
+                    if (!initialWeapons.contains(loadout.getMainWep())) {
+                        encounterRequirements.add(new Requirement(loadout.getMainWep().getName(), 1));
                     }
                     break;
                 }

@@ -95,6 +95,42 @@ public class Loadout {
         return head.getPray() + torso.getPray() + legs.getPray() + hands.getPray() + feet.getPray() + cape.getPray() + neck.getPray() + ring.getPray();
     }
 
+    public CombatStats getCombatStats(Player player, String combatStyle) {
+        String damageSkill;
+        String accuracySkill;
+        if (combatStyle.equals("Melee")) {
+            accuracySkill = "Attack";
+            damageSkill = "Strength";
+        } else if (combatStyle.equals("Ranged")) {
+            accuracySkill = damageSkill = "Ranged";
+        } else {
+            accuracySkill = damageSkill = "Magic";
+        }
+        double myDamage;
+        if (getMainWep().getAtkspd() == 4) {
+            myDamage = 2.5 * player.getLevel(damageSkill) + getMainWep().getDamage() + getMainWep().getMaxAmmo();
+        }
+        else if (getMainWep().getAtkspd() == 5) {
+            myDamage = 2.5 * player.getLevel(damageSkill) + (getMainWep().getDamage() + getMainWep().getMaxAmmo())*192.0/245.0;
+        }
+        else if (getMainWep().getAtkspd() == 6) {
+            myDamage = 2.5 * player.getLevel(damageSkill) + (getMainWep().getDamage() + getMainWep().getMaxAmmo())*96.0/149.0;
+        }
+        else {
+            System.out.println("What the heck kind of weapon do you have?");
+            throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
+        }
+        if (getMainWep().getSlot().equals("Two-handed")) {
+            myDamage += totalBonus()*1.5;
+        }
+        else {
+            myDamage += totalBonus();
+        }
+        double myArmour = (0.0008 * Math.pow(player.getLevel("Defence"), 3) + 4 * player.getLevel("Defence") + 40) + totalArmour();
+        double myAccuracy = (0.0008 * Math.pow(player.getLevel(accuracySkill), 3) + 4 * player.getLevel(accuracySkill) + 40) + getMainWep().getAccuracy();
+        return new CombatStats(myAccuracy, myArmour, myDamage, player.getLevel("Constitution") * 100 + totalLp(), totalReduc() + player.getLevel("Defence")/1000.0);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

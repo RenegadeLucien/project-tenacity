@@ -325,7 +325,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Steadfast boots", "Melee", "Feet", 108, 0, 0, 0.017, 0, Collections.singletonList(new Requirement("Defence", 85))));
         armours.add(new Armour("Emberkeen boots", "Melee", "Feet", 108, 0, 2, 0, 14, Collections.singletonList(new Requirement("Defence", 90))));
 
-        //Ranged feet
+        //Ranged feet (done)
         armours.add(new Armour("Leather boots", "Ranged", "Feet", 5, 0, 0, 0.0002, 0, new ArrayList<>()));
         armours.add(new Armour("Hard leather boots", "Ranged", "Feet", 7, 0, 0, 0.001, 0, Collections.singletonList(new Requirement("Defence", 10))));
         armours.add(new Armour("Studded leather boots", "Ranged", "Feet", 15, 0, 0, 0.004, 0, Collections.singletonList(new Requirement("Defence", 20))));
@@ -339,8 +339,27 @@ public class ArmourDatabase {
         armours.add(new Armour("Red dragonhide boots", "Ranged", "Feet", 49, 0, 0, 0.011, 0, Collections.singletonList(new Requirement("Defence", 55))));
         armours.add(new Armour("Black dragonhide boots", "Ranged", "Feet", 56, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
         armours.add(new Armour("Kurask boots", "Ranged", "Feet", 49, 0, 0, 0, 9, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Royal dragonhide boots", "Ranged", "Feet", 64, 0, 0, 0.013, 0, Collections.singletonList(new Requirement("Defence", 65))));
+        armours.add(new Armour("Armadyl boots", "Ranged", "Feet", 64, 0, 1, 0, 11, Collections.singletonList(new Requirement("Defence", 70))));
+        armours.add(new Armour("Pernix boots", "Ranged", "Feet", 84, 0, 2, 0, 12, Arrays.asList(new Requirement("Defence", 80), new Requirement("Constitution", 80))));
+        armours.add(new Armour("Glaiven boots", "Ranged", "Feet", 108, 0, 0, 0.017, 0, Collections.singletonList(new Requirement("Defence", 85))));
+        armours.add(new Armour("Flarefrost boots", "Ranged", "Feet", 108, 0, 2, 0, 14, Collections.singletonList(new Requirement("Defence", 90))));
 
-        //Magic feet
+        //Magic feet (done)
+        armours.add(new Armour("Wizard boots", "Magic", "Feet", 7, 0, 0, 0.001, 0, new ArrayList<>()));
+        armours.add(new Armour("Imphide boots", "Magic", "Feet", 10, 0, 0, 0.002, 0, Collections.singletonList(new Requirement("Defence", 10))));
+        armours.add(new Armour("Spider silk boots", "Magic", "Feet", 15, 0, 0, 0.004, 0, Collections.singletonList(new Requirement("Defence", 20))));
+        armours.add(new Armour("Batwing boots", "Magic", "Feet", 22, 0, 0, 0.006, 0, Collections.singletonList(new Requirement("Defence", 30))));
+        armours.add(new Armour("Splitbark boots", "Magic", "Feet", 31, 0, 0, 0.008, 0, Collections.singletonList(new Requirement("Defence", 40))));
+        armours.add(new Armour("Mystic boots (blue)", "Magic", "Feet", 42, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 50))));
+        armours.add(new Armour("Skeletal boots", "Magic", "Feet", 36, 0, 0, 0, 7, Arrays.asList(new Requirement("Defence", 50), new Requirement("Crafting", 40),
+            new Requirement("Fletching", 25), new Requirement("Woodcutting", 40))));
+        armours.add(new Armour("Infinity boots", "Magic", "Feet", 49, 0, 0, 0.011, 0, Collections.singletonList(new Requirement("Defence", 55))));
+        armours.add(new Armour("Boots of subjugation", "Magic", "Feet", 64, 0, 1, 0, 11, Collections.singletonList(new Requirement("Defence", 70))));
+        armours.add(new Armour("Ganodermic boots", "Magic", "Feet", 84, 0, 0, 0.015, 0, Collections.singletonList(new Requirement("Defence", 75))));
+        armours.add(new Armour("Virtus boots", "Magic", "Feet", 84, 0, 2, 0, 12, Arrays.asList(new Requirement("Defence", 80), new Requirement("Constitution", 80))));
+        armours.add(new Armour("Ragefire boots", "Magic", "Feet", 108, 0, 0, 0.017, 0, Collections.singletonList(new Requirement("Defence", 85))));
+        armours.add(new Armour("Hailfire boots", "Magic", "Feet", 108, 0, 2, 0, 14, Collections.singletonList(new Requirement("Defence", 90))));
 
         //Melee shield
 
@@ -348,12 +367,39 @@ public class ArmourDatabase {
 
         //Magic shield
 
-        //Neck
+        //Neck (done)
+        armours.add(new Armour("Amulet of defence", "All", "Neck", 6, 0, 0, 0, 8, Collections.singletonList(new Requirement("Defence", 20))));
+        armours.add(new Armour("Amulet of glory", "All", "Neck", 0, 0, 2, 0, 26, new ArrayList<>()));
+        armours.add(new Armour("Berserker necklace", "Melee", "Neck", 0, 0, 3, 0, 30, new ArrayList<>()));
+        armours.add(new Armour("Amulet of ranging", "Ranged", "Neck", 0, 0, 0, 0, 32, new ArrayList<>()));
+        armours.add(new Armour("Amulet of fury (t)", "All", "Neck", 0, 0, 4, 0, 34, new ArrayList<>()));
+        armours.add(new Armour("Saradomin's whisper", "Melee", "Neck", 0, 0, 2, 0, 36, Collections.singletonList(new Requirement("Strength", 70))));
+        armours.add(new Armour("Saradomin's murmur", "Ranged", "Neck", 0, 0, 2, 0, 36, Collections.singletonList(new Requirement("Ranged", 70))));
+        armours.add(new Armour("Saradomin's hiss", "Magic", "Neck", 0, 0, 2, 0, 36, Collections.singletonList(new Requirement("Magic", 70))));
+        armours.add(new Armour("Amulet of the forsaken", "All", "Neck", 0, 0, 3, 0, 36, new ArrayList<>()));
+        armours.add(new Armour("Amulet of souls", "All", "Neck", 0, 0, 5, 0, 46, new ArrayList<>()));
 
-        //Ring
+        //Ring (done)
+        armours.add(new Armour("Ring of wealth", "All", "Ring", 0, 0, 0, 0, 10, new ArrayList<>()));
+        armours.add(new Armour("Berserker ring", "All", "Ring", 5, 0, 0, 0, 12, new ArrayList<>()));
+        armours.add(new Armour("Leviathan ring", "All", "Ring", 41, 0, 0, 0, 13, Collections.singletonList(new Requirement("Defence", 85))));
+        armours.add(new Armour("Warrior ring", "Melee", "Ring", 0, 0, 0, 0, 17, new ArrayList<>()));
+        armours.add(new Armour("Archers' ring", "Ranged", "Ring", 0, 0, 0, 0, 17, new ArrayList<>()));
+        armours.add(new Armour("Seers' ring", "Magic", "Ring", 0, 0, 0, 0, 17, new ArrayList<>()));
+        armours.add(new Armour("Luck of the dwarves", "All", "Ring", 0, 0, 0, 0, 17, new ArrayList<>()));
+        armours.add(new Armour("Ring of death", "All", "Ring", 0, 0, 3, 0, 25, new ArrayList<>()));
 
-        //Cape
-
+        //Cape (done)
+        armours.add(new Armour("Bladestorm drape", "Melee", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
+        armours.add(new Armour("Arrowstorm drape", "Ranged", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
+        armours.add(new Armour("Spellstorm drape", "Magic", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
+        armours.add(new Armour("Obsidian cape", "All", "Cape", 16, 0, 0, 0, 17, new ArrayList<>()));
+        armours.add(new Armour("Ancient cloak", "All", "Cape", 18, 0, 3, 0, 0, Arrays.asList(new Requirement("Prayer", 40), new Requirement("Defence", 40))));
+        armours.add(new Armour("Dragon Rider cape", "All", "Cape", 29, 0, 6, 0, 0, Collections.singletonList(new Requirement("Defence", 70))));
+        armours.add(new Armour("Explosive barrel", "All", "Cape", 38, 0, 0, 0, 0, new ArrayList<>()));
+        armours.add(new Armour("Third-age druidic cloak", "All", "Cape", 44, 0, 2, 0, 0, Arrays.asList(new Requirement("Defence", 65), new Requirement("Prayer", 65))));
+        armours.add(new Armour("Abomination cape", "Melee", "Cape", 50, 0, 0, 0, 28, Collections.singletonList(new Requirement("Defence", 75))));
+        armours.add(new Armour("Reefwalker's cape", "All", "Cape", 62, 200, 0, 0, 9, Collections.singletonList(new Requirement("Defence", 85))));
 
         /*
         armours.add(new Armour("Bronze sq shield", "Melee", "Shield", 26, 0, 0, 0.003, 0, new ArrayList<>()));
@@ -362,10 +408,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Shieldbow", "Ranged", "Shield", 30, 0, 0, 0.005, 0, new ArrayList<>()));
         armours.add(new Armour("Hard leather shield", "Ranged", "Shield", 40, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 10))));
         armours.add(new Armour("Wizard shield", "Magic", "Shield", 30, 0, 0, 0.001, 0, new ArrayList<>()));
-        armours.add(new Armour("Wizard boots", "Magic", "Feet", 7, 0, 0, 0.001, 0, new ArrayList<>()));
-        armours.add(new Armour("Imphide boots", "Magic", "Feet", 10, 0, 0, 0.002, 0, Collections.singletonList(new Requirement("Defence", 10))));
-        armours.add(new Armour("Amulet of souls (or)", "All", "Neck", 0, 0, 5, 0, 48, new ArrayList<>()));
-        armours.add(new Armour("Superior leviathan ring", "All", "Ring", 43, 0, 0, 0, 15, Collections.singletonList(new Requirement("Defence", 85))));*/
+        armours.add(new Armour("Amulet of souls (or)", "All", "Neck", 0, 0, 5, 0, 48, new ArrayList<>()));*/
     }
 
     public static ArmourDatabase getArmourDatabase() {

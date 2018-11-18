@@ -29,7 +29,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Cave goblin", 50, 24.9, 8.2, 4, 0, 0, 1, 0, 0, 4, 110, 0, 0, 110, 1, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Troll chucker", 50, 30, 9.9, 0, 10, 0, 0, 1, 0, 4, 0, 110, 0, 110, 1, "Slash", 90, 65, 55, 45));
         enemies.add(new Enemy("Troll shaman", 50, 30, 9.9, 0, 0, 10, 0, 0, 1, 4, 0, 0, 110, 110, 1, "Arrows", 90, 45, 65, 55));
-        enemies.add(new Enemy("Troll brute", 50, 30, 9.9, 10, 0, 0, 1, 0, 0, 4, 110, 0, 0, 110, 1, "Air", 90, 45, 65, 55));
+        enemies.add(new Enemy("Troll brute", 50, 30, 9.9, 10, 0, 0, 1, 0, 0, 4, 110, 0, 0, 110, 1, "Air", 90, 55, 45, 65));
         enemies.add(new Enemy("Living rock brawler", 60, 24.9, 9.2, 1, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, "Crush", 90, 65, 55, 45));
         enemies.add(new Enemy("Jonny the beard", 100, 37.3, 12.3, 4, 0, 0, 1, 0, 0, 4, 110, 0, 0, 110, 1, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Bandit", 100, 0, 0, 72, 0, 0, 5, 0, 0, 4, 150, 0, 0, 0, 5, "Crush", 90, 55, 45, 65));

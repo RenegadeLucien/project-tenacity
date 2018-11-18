@@ -324,7 +324,7 @@ public class ActionDatabase {
             "aCombat", (int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKills, "Constitution",
             (int) Enemy.getEnemyByName("Giant rock crab").getHpxp() * giantRockCrabKills), giantRockCrabKills, true, true));
 
-        Map<Integer, List<Requirement>> vyreKillsAndReqs = combatKills(new Encounter("Vyrewatch", Collections.singletonList(new Restriction("Vampyric weapon", 1))), player, 0, "Melee", 1, false);
+        Map<Integer, List<Requirement>> vyreKillsAndReqs = combatKills(new Encounter("Vyrewatch"), player, 0, "Melee", 1, false);
         int vyreKills = vyreKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> vyreReqs = new ArrayList<>(vyreKillsAndReqs.values().iterator().next());
         vyreReqs.add(new Requirement("Legacy of Seergaze", 1));
@@ -415,7 +415,7 @@ public class ActionDatabase {
         database.add(new Action("Killing hill giants", hillGiantReqs, new HashMap(), Map.of("Giant", hillGiantKills, "aCombat", (int)Enemy.getEnemyByName("Hill giant").getCbxp() * hillGiantKills,
             "Constitution", (int) Enemy.getEnemyByName("Hill giant").getHpxp() * hillGiantKills), hillGiantKills, true, true));
 
-        Map<Integer, List<Requirement>> bansheeKillsAndReqs = combatKills(new Encounter("Banshee", Collections.singletonList(new Restriction("Banshee protection", 1))), player, 0, "Ranged", 0, false);
+        Map<Integer, List<Requirement>> bansheeKillsAndReqs = combatKills(new Encounter("Banshee"), player, 0, "Ranged", 0, false);
         int bansheeKills = bansheeKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> bansheeReqs = new ArrayList<>(bansheeKillsAndReqs.values().iterator().next());
         bansheeReqs.add(new Requirement("Slayer", 15));
@@ -435,7 +435,7 @@ public class ActionDatabase {
             "aCombat", (int)Enemy.getEnemyByName("Earth warrior").getCbxp() * earthWarriorKills, "Constitution", (int) Enemy.getEnemyByName("Earth warrior").getHpxp() * earthWarriorKills),
             earthWarriorKills, true, true));
 
-        Map<Integer, List<Requirement>> aberrantSpectreKillsAndReqs = combatKills(new Encounter("Aberrant spectre", Collections.singletonList(new Restriction("Aberrant spectre protection", 1))), player, 0, "Ranged", 0, false);
+        Map<Integer, List<Requirement>> aberrantSpectreKillsAndReqs = combatKills(new Encounter("Aberrant spectre"), player, 0, "Ranged", 0, false);
         int aberrantSpectreKills = aberrantSpectreKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> aberrantSpectreReqs = new ArrayList<>(aberrantSpectreKillsAndReqs.values().iterator().next());
         aberrantSpectreReqs.add(new Requirement("Slayer", 60));
@@ -463,14 +463,14 @@ public class ActionDatabase {
             "Constitution", (int) Enemy.getEnemyByName("Lesser demon").getHpxp() * lesserDemonKills), lesserDemonKills, true, true));
 
         //Bossing
-        Map<Integer, List<Requirement>> kbdKillsAndReqs = combatKills(new Encounter("King Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))), player, 28, "Melee", 0, false);
+        Map<Integer, List<Requirement>> kbdKillsAndReqs = combatKills(new Encounter("King Black Dragon"), player, 28, "Melee", 0, false);
         int kbdKills = kbdKillsAndReqs.keySet().iterator().next();
         List<Requirement> kbdReqs = kbdKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing the King Black Dragon", kbdReqs, new HashMap(), Map.of("King Black Dragon", kbdKills, "Boss kills", kbdKills,
             "mCombat", (int)Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills, "Constitution",
             (int)Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills), kbdKills, true, true));
 
-        Map<Integer, List<Requirement>> qbdKillsAndReqs = combatKills(new Encounter("Queen Black Dragon", Collections.singletonList(new Restriction("Dragonfire protection", 1))), player, 28, "Melee", 0, false);
+        Map<Integer, List<Requirement>> qbdKillsAndReqs = combatKills(new Encounter("Queen Black Dragon"), player, 28, "Melee", 0, false);
         int qbdKills = qbdKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> qbdReqs = new ArrayList<>(qbdKillsAndReqs.values().iterator().next());
         qbdReqs.add(new Requirement("Summoning", 60));

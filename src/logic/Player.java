@@ -147,161 +147,6 @@ public class Player implements Serializable {
         return Math.max(0, XP_TO_LEVELS[level-1] - xp.get(skill).intValue());
     }
 
-    public List<Loadout> generateLoadouts(String combatStyle) {
-        if (!COMBAT_STYLES.contains(combatStyle)) {
-            throw new RuntimeException("Invalid combat style, must be either Melee, Ranged, or Magic");
-        }
-        List<Loadout> loadouts = new ArrayList<>();
-        List<Weapon> weaponList = new ArrayList<>();
-        List<Armour> headArmour = new ArrayList<>();
-        List<Armour> torsoArmour = new ArrayList<>();
-        List<Armour> legArmour = new ArrayList<>();
-        List<Armour> handArmour = new ArrayList<>();
-        List<Armour> feetArmour = new ArrayList<>();
-        List<Armour> capeArmour = new ArrayList<>();
-        List<Armour> neckArmour = new ArrayList<>();
-        List<Armour> ringArmour = new ArrayList<>();
-        List<Familiar> familiarList = new ArrayList<>();
-        List<Prayer> prayerList = new ArrayList<>();
-        for (Weapon w : weapons) {
-            if (w.getWeaponClass().equals(combatStyle) && w.getReqs().stream().allMatch(r -> r.meetsRequirement(this))) {
-                weaponList.add(w);
-            }
-        }
-        for (Armour a : armour) {
-            if (a.getSlot().equals("Head") && a.getType().equals(combatStyle)) {
-                headArmour.add(a);
-            } else if (a.getSlot().equals("Torso") && a.getType().equals(combatStyle)) {
-                torsoArmour.add(a);
-            } else if (a.getSlot().equals("Legs") && a.getType().equals(combatStyle)) {
-                legArmour.add(a);
-            } else if (a.getSlot().equals("Hands") && a.getType().equals(combatStyle)) {
-                handArmour.add(a);
-            } else if (a.getSlot().equals("Feet") && a.getType().equals(combatStyle)) {
-                feetArmour.add(a);
-            } else if (a.getSlot().equals("Cape") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
-                capeArmour.add(a);
-            } else if (a.getSlot().equals("Neck") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
-                neckArmour.add(a);
-            } else if (a.getSlot().equals("Ring") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
-                ringArmour.add(a);
-            }
-        }
-        for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
-            if (getLevel("Summoning") >= f.getSummonReq()) {
-                familiarList.add(f);
-            }
-        }
-        for (Prayer p : PrayerDatabase.getPrayerDatabase().getPrayers()) {
-            prayerList.add(p);
-        }
-        if (headArmour.size() == 0) {
-            headArmour.add(Armour.getArmourByName("None"));
-        }
-        if (torsoArmour.size() == 0) {
-            torsoArmour.add(Armour.getArmourByName("None"));
-        }
-        if (legArmour.size() == 0) {
-            legArmour.add(Armour.getArmourByName("None"));
-        }
-        if (handArmour.size() == 0) {
-            handArmour.add(Armour.getArmourByName("None"));
-        }
-        if (feetArmour.size() == 0) {
-            feetArmour.add(Armour.getArmourByName("None"));
-        }
-        if (capeArmour.size() == 0) {
-            capeArmour.add(Armour.getArmourByName("None"));
-        }
-        if (neckArmour.size() == 0) {
-            neckArmour.add(Armour.getArmourByName("None"));
-        }
-        if (ringArmour.size() == 0) {
-            ringArmour.add(Armour.getArmourByName("None"));
-        }
-        for (Weapon w : weaponList) {
-            for (Armour head : headArmour) {
-                for (Armour torso : torsoArmour) {
-                    for (Armour leg : legArmour) {
-                        for (Armour hand : handArmour) {
-                            for (Armour foot : feetArmour) {
-                                for (Armour cape : capeArmour) {
-                                    for (Armour neck : neckArmour) {
-                                        for (Armour ring : ringArmour) {
-                                            for (Familiar familiar : familiarList) {
-                                                for (Prayer prayer : prayerList) {
-                                                    loadouts.add(new Loadout(w, head, torso, leg, hand, foot, cape, neck, ring, familiar, prayer));
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        Map<Loadout, CombatStats> loadoutsToStats = new HashMap<>();
-        for (Loadout loadout : loadouts) {
-            double myLp = getLevel("Constitution") * 100 + loadout.totalLp();
-            String damageSkill;
-            String accuracySkill;
-            if (combatStyle.equals("Melee")) {
-                accuracySkill = "Attack";
-                damageSkill = "Strength";
-            } else if (combatStyle.equals("Ranged")) {
-                accuracySkill = damageSkill = "Ranged";
-            } else {
-                accuracySkill = damageSkill = "Magic";
-            }
-            double myDamage;
-            if (loadout.getMainWep().getAtkspd() == 4) {
-                myDamage = 2.5 * getLevel(damageSkill) + loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo();
-            }
-            else if (loadout.getMainWep().getAtkspd() == 5) {
-                myDamage = 2.5 * getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*192.0/245.0;
-            }
-            else if (loadout.getMainWep().getAtkspd() == 6) {
-                myDamage = 2.5 * getLevel(damageSkill) + (loadout.getMainWep().getDamage() + loadout.getMainWep().getMaxAmmo())*96.0/149.0;
-            }
-            else {
-                System.out.println("What the heck kind of weapon do you have?");
-                throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
-            }
-            if (loadout.getMainWep().getSlot().equals("Two-handed")) {
-                myDamage += loadout.totalBonus()*1.5;
-            }
-            else {
-                myDamage += loadout.totalBonus();
-            }
-            double myArmour = (0.0008 * Math.pow(getLevel("Defence"), 3) + 4 * getLevel("Defence") + 40) + loadout.totalArmour();
-            double myAccuracy = (0.0008 * Math.pow(getLevel(accuracySkill), 3) + 4 * getLevel(accuracySkill) + 40) + loadout.getMainWep().getAccuracy();
-            boolean insertLoadout = true;
-            List<Loadout> obsoletedLoadouts = new ArrayList<>();
-            for (Entry<Loadout, CombatStats> loadoutToStats : loadoutsToStats.entrySet()) {
-                CombatStats previousStats = loadoutToStats.getValue();
-                if (myLp <= previousStats.getLp() && myAccuracy <= previousStats.getAccuracy() && myArmour <= previousStats.getArmour() && myDamage <= previousStats.getDamage()
-                    && loadout.totalReduc() <= previousStats.getReduc()) {
-                    insertLoadout = false;
-                }
-                else if (myLp >= previousStats.getLp() && myAccuracy >= previousStats.getAccuracy() && myArmour >= previousStats.getArmour() && myDamage >= previousStats.getDamage()
-                    && loadout.totalReduc() >= previousStats.getReduc()) {
-                    obsoletedLoadouts.add(loadoutToStats.getKey());
-                }
-            }
-            for (Loadout obsoleteLoadout : obsoletedLoadouts) {
-                loadoutsToStats.remove(obsoleteLoadout);
-            }
-            if (insertLoadout) {
-                loadoutsToStats.put(loadout, new CombatStats(myAccuracy, myArmour, myDamage, myLp, loadout.totalReduc()));
-            }
-
-        }
-        //System.out.println("==============================================");
-        return new ArrayList<>(loadoutsToStats.keySet());
-    }
-
     public Map<String, Double> nextGear(String combatStyle) {
         if (!COMBAT_STYLES.contains(combatStyle)) {
             throw new IllegalArgumentException(String.format("Combat style provided was %s. Must be Melee, Ranged, or Magic.", combatStyle));
@@ -323,7 +168,7 @@ public class Player implements Serializable {
                 }
             }
         }
-        for (Armour armourPiece : ArmourDatabase.getArmourDatabase().getArmours().stream().filter(a -> a.getType().equals(combatStyle)).collect(Collectors.toList())) {
+        for (Armour armourPiece : ArmourDatabase.getArmourDatabase().getArmours().stream().filter(a -> a.getType().equals(combatStyle) || a.getType().equals("All")).collect(Collectors.toList())) {
             if (!armour.contains(armourPiece) && !checkIfHaveBetterArmour(armourPiece)) {
                 double armourTime = 0;
                 if (ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()) != null) {
@@ -412,15 +257,19 @@ public class Player implements Serializable {
         achievementResults.clear();
         totalEncounters = 0;
         StoredCombatCalcs.getCalculatedCombats().clear();
+        StoredCombatCalcs.getSuccessfulCombats().clear();
         ActionDatabase.reset();
         Map<String, Double> achievementCalcResults = new HashMap<>();
         for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
             if (!qualities.containsKey(achievement.getName())) {
+                StoredCombatCalcs.getCalculatedCombats().clear();
                 System.out.print(achievement.getName() + "\t");
                 long taskTime = System.nanoTime();
+                int currentEncounters = totalEncounters;
                 GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
                 achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
                 achievementResults.put(achievement, actionsAndTime);
+                System.out.print(totalEncounters - currentEncounters + "\t");
                 System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
             }
         }
