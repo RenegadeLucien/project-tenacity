@@ -231,7 +231,7 @@ public class Player implements Serializable {
 
     private boolean checkIfHaveBetterWeapon(Weapon weapon) {
         for (Weapon ownedWeapon : weapons) {
-            if (!weapon.equals(ownedWeapon) && weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getStyle().equals(ownedWeapon.getStyle()) &&
+            if (!weapon.equals(ownedWeapon) && weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) &&
                 weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getAtkspd() == ownedWeapon.getAtkspd() &&
                 (weapon.getDamage() + weapon.getMaxAmmo()) <= (ownedWeapon.getDamage() + ownedWeapon.getMaxAmmo()) && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
                 return true;
@@ -242,9 +242,8 @@ public class Player implements Serializable {
 
     private boolean checkIfHaveBetterArmour(Armour newArmour) {
         for (Armour ownedArmour : armour) {
-            if (!ownedArmour.equals(newArmour) && newArmour.getType().equals(ownedArmour.getType()) && newArmour.getSlot().equals(ownedArmour.getSlot()) &&
-                newArmour.getArmour() <= ownedArmour.getArmour() && newArmour.getLp() <= ownedArmour.getLp() &&
-                newArmour.getReduc() <= ownedArmour.getReduc() && newArmour.getBonus() <= ownedArmour.getBonus()) {
+            if (!ownedArmour.equals(newArmour) && (newArmour.getType().equals(ownedArmour.getType()) || ownedArmour.getType().equals("All")) && newArmour.getSlot().equals(ownedArmour.getSlot()) &&
+                newArmour.getArmour() <= ownedArmour.getArmour() && newArmour.getReduc() <= ownedArmour.getReduc() && newArmour.getBonus() <= ownedArmour.getBonus()) {
                 return true;
             }
         }

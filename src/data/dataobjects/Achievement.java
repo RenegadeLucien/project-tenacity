@@ -201,6 +201,12 @@ public class Achievement implements Serializable {
                     if (!initialWeapons.contains(loadout.getMainWep())) {
                         encounterRequirements.add(new Requirement(loadout.getMainWep().getName(), 1));
                     }
+                    if (!initialWeapons.contains(loadout.getOffWep()) && !loadout.getOffWep().equals(Weapon.getWeaponByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getOffWep().getName(), 1));
+                    }
+                    if (!initialArmours.contains(loadout.getShield()) && !loadout.getShield().equals(Armour.getArmourByName("None"))) {
+                        encounterRequirements.add(new Requirement(loadout.getShield().getName(), 1));
+                    }
                     break;
                 }
             }

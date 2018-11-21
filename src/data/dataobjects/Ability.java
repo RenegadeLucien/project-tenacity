@@ -41,10 +41,12 @@ public class Ability {
         return expectedDamage;
     }
 
-    public boolean canUse(Weapon weapon, Player player) {
-        if (type.equals("Auto") || weaponType.equals("Any"))
+    public boolean canUse(Weapon mainWep, Weapon offWep, Player player) {
+        if (type.equals("Auto") || weaponType.equals("Any")) {
             return true;
-        if (weapon.getWeaponClass().equals(weaponType) && (weaponStyle.equals("Any") || weaponStyle.equals(weapon.getSlot()))) {
+        }
+        if (mainWep.getWeaponClass().equals(weaponType) && (weaponStyle.equals("Any") || (weaponStyle.equals("Dual") && !offWep.equals(Weapon.getWeaponByName("None"))) ||
+            (weaponStyle.equals("Two-handed") && mainWep.getSlot().equals("Two-handed")))) {
             for (Requirement requirement : reqs) {
                 if (!requirement.meetsRequirement(player))
                     return false;

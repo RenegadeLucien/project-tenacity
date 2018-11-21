@@ -3290,7 +3290,7 @@ public class AchievementDatabase {
             .requirement("One Piercing Note", 1).requirement("Perils of Ice Mountain", 1).requirement("Rune Mechanics", 1)
             .requirement("Scorpion Catcher", 1).requirement("A Shadow over Ashdale", 1).requirement("Song from the Depths", 1)
             .requirement("A Soul's Bane", 1).requirement("Swept Away", 1).requirement("TokTz-Ket-Dill", 1).requirement("Vampyre Slayer", 1)
-            .requirement("Watchtower", 1).requirement("You Are It", 1).build());
+            .requirement("Watchtower", 1).requirement("You Are It", 1).requirement("The Needle Skips", 1).build());
         achievements.add(new AchievementBuilder("Make Them Bleed", 0).requirement("Rush of Blood maximum waves", 20)
             .reward("Slayer", 50000).build());
         achievements.add(new AchievementBuilder("Lunar Master", 0).requirement("Produce points", 430000).build());

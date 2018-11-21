@@ -252,7 +252,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Elite tectonic robe bottom", "Magic", "Legs", 503, 0, 2, 0, 31, Collections.singletonList(new Requirement("Defence", 92))));
 
 
-        //Melee hands
+        //Melee hands (done)
         armours.add(new Armour("Safety gloves", "Melee", "Hands", 7, 0, 0, 0.0008, 0, new ArrayList<>()));
         armours.add(new Armour("Bronze gauntlets", "Melee", "Hands", 7, 0, 0, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Iron gauntlets", "Melee", "Hands", 10, 0, 0, 0.002, 0, Collections.singletonList(new Requirement("Defence", 10))));
@@ -361,11 +361,54 @@ public class ArmourDatabase {
         armours.add(new Armour("Ragefire boots", "Magic", "Feet", 108, 0, 0, 0.017, 0, Collections.singletonList(new Requirement("Defence", 85))));
         armours.add(new Armour("Hailfire boots", "Magic", "Feet", 108, 0, 2, 0, 14, Collections.singletonList(new Requirement("Defence", 90))));
 
-        //Melee shield
+        //Melee shield (done)
+        armours.add(new Armour("Bronze kiteshield", "Melee", "Shield", 30, 0, 0, 0.005, 0, new ArrayList<>()));
+        armours.add(new Armour("Iron kiteshield", "Melee", "Shield", 40, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 10))));
+        armours.add(new Armour("Steel kiteshield", "Melee", "Shield", 63, 0, 0, 0.02, 0, Collections.singletonList(new Requirement("Defence", 20))));
+        armours.add(new Armour("Broodoo shield (blue)", "Melee", "Shield", 76, 0, 0, 0.025, 0, Collections.singletonList(new Requirement("Defence", 25))));
+        armours.add(new Armour("Mithril kiteshield", "Melee", "Shield", 90, 0, 0, 0.03, 0, Collections.singletonList(new Requirement("Defence", 30))));
+        armours.add(new Armour("Adamant kiteshield", "Melee", "Shield", 125, 0, 0, 0.04, 0, Collections.singletonList(new Requirement("Defence", 40))));
+        armours.add(new Armour("Adamant berserker shield 0", "Melee", "Shield", 146, 0, 0, 0, 0, Collections.singletonList(new Requirement("Defence", 45))));
+        armours.add(new Armour("Rune kiteshield", "Melee", "Shield", 170, 0, 0, 0.05, 0, Collections.singletonList(new Requirement("Defence", 50))));
+        armours.add(new Armour("Rune berserker shield 0", "Melee", "Shield", 196, 0, 0, 0, 0, Collections.singletonList(new Requirement("Defence", 55))));
+        armours.add(new Armour("Granite shield", "Melee", "Shield", 196, 0, 0, 0.055, 0, Arrays.asList(new Requirement("Defence", 55), new Requirement("Strength", 55))));
+        armours.add(new Armour("Gud raider shield", "Melee", "Shield", 196, 0, 0, 0.055, 0, Collections.singletonList(new Requirement("Defence", 55))));
+        armours.add(new Armour("Toktz-ket-xil", "Melee", "Shield", 226, 0, 0, 0.06, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Third-age kiteshield", "Melee", "Shield", 259, 0, 0, 0.065, 0, Collections.singletonList(new Requirement("Defence", 65))));
+        armours.add(new Armour("Bandos warshield", "Melee", "Shield", 297, 35, 1, 0.07, 0, Collections.singletonList(new Requirement("Defence", 70))));
+        armours.add(new Armour("Divine spirit shield", "Melee", "Shield", 338, 0, 3, 0.075, 0, Arrays.asList(new Requirement("Defence", 75), new Requirement("Prayer", 75))));
+        armours.add(new Armour("Linza's shield", "Melee", "Shield", 384, 385, 0, 0.08, 0, Collections.singletonList(new Requirement("Defence", 80))));
+        armours.add(new Armour("Malevolent kiteshield", "Melee", "Shield", 491, 735, 0, 0.09, 0, Collections.singletonList(new Requirement("Defence", 90))));
 
-        //Ranged shield
+        //Ranged shield (done)
+        armours.add(new Armour("Leather shield", "Ranged", "Shield", 30, 0, 0, 0.005, 0, new ArrayList<>()));
+        armours.add(new Armour("Hard leather shield", "Ranged", "Shield", 40, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 10))));
+        armours.add(new Armour("Studded leather shield", "Ranged", "Shield", 63, 0, 0, 0.02, 0, Collections.singletonList(new Requirement("Defence", 20))));
+        armours.add(new Armour("Broodoo shield (orange)", "Ranged", "Shield", 76, 0, 0, 0.025, 0, Collections.singletonList(new Requirement("Defence", 25))));
+        armours.add(new Armour("Carapace shield", "Ranged", "Shield", 90, 0, 0, 0.03, 0, Collections.singletonList(new Requirement("Defence", 30))));
+        armours.add(new Armour("Green dragonhide shield", "Ranged", "Shield", 125, 0, 0, 0.04, 0, Collections.singletonList(new Requirement("Defence", 40))));
+        armours.add(new Armour("Blue dragonhide shield", "Ranged", "Shield", 170, 0, 0, 0.05, 0, Collections.singletonList(new Requirement("Defence", 50))));
+        armours.add(new Armour("Red dragonhide shield", "Ranged", "Shield", 196, 0, 0, 0.055, 0, Collections.singletonList(new Requirement("Defence", 55))));
+        armours.add(new Armour("Black dragonhide shield", "Ranged", "Shield", 226, 0, 0, 0.06, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Dragonfire deflector", "Ranged", "Shield", 297, 35, 0, 0.07, 0, Collections.singletonList(new Requirement("Defence", 70))));
+        armours.add(new Armour("Crystal deflector", "Ranged", "Shield", 297, 35, 0, 0.07, 0, Arrays.asList(new Requirement("Defence", 70), new Requirement("Agility", 56),
+            new Requirement("Crafting", 10), new Requirement("Ranged", 25))));
+        armours.add(new Armour("Elysian spirit shield", "Ranged", "Shield", 338, 0, 3, 0.075, 0, Arrays.asList(new Requirement("Defence", 75), new Requirement("Prayer", 75))));
+        armours.add(new Armour("Vengeful kiteshield", "Ranged", "Shield", 491, 735, 0, 0.09, 0, Collections.singletonList(new Requirement("Defence", 90))));
 
-        //Magic shield
+        //Magic shield (done)
+        armours.add(new Armour("Wizard shield", "Magic", "Shield", 30, 0, 0, 0.001, 0, new ArrayList<>()));
+        armours.add(new Armour("Imphide shield", "Magic", "Shield", 40, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 10))));
+        armours.add(new Armour("Broodoo shield (green)", "Magic", "Shield", 76, 0, 0, 0.025, 0, Collections.singletonList(new Requirement("Defence", 25))));
+        armours.add(new Armour("Batwing shield", "Magic", "Shield", 90, 0, 0, 0.03, 0, Collections.singletonList(new Requirement("Defence", 30))));
+        armours.add(new Armour("Splitbark shield", "Magic", "Shield", 125, 0, 0, 0.04, 0, Collections.singletonList(new Requirement("Defence", 40))));
+        armours.add(new Armour("Mystic shield", "Magic", "Shield", 170, 0, 0, 0.05, 0, Collections.singletonList(new Requirement("Defence", 50))));
+        armours.add(new Armour("Dragon ward", "Magic", "Shield", 226, 0, 0, 0.06, 0, Arrays.asList(new Requirement("Defence", 60), new Requirement("Magic", 60))));
+        armours.add(new Armour("Crystal ward", "Magic", "Shield", 297, 35, 0, 0.07, 0, Arrays.asList(new Requirement("Defence", 70), new Requirement("Agility", 56),
+            new Requirement("Crafting", 10), new Requirement("Ranged", 25))));
+        armours.add(new Armour("Ward of subjugation", "Magic", "Shield", 297, 35, 1, 0.07, 0, Collections.singletonList(new Requirement("Defence", 70))));
+        armours.add(new Armour("Spectral spirit shield", "Magic", "Shield", 338, 210, 3, 0.075, 0, Arrays.asList(new Requirement("Defence", 75), new Requirement("Prayer", 75))));
+        armours.add(new Armour("Merciless kiteshield", "Magic", "Shield", 491, 735, 0, 0.09, 0, Collections.singletonList(new Requirement("Defence", 90))));
 
         //Neck (done)
         armours.add(new Armour("Amulet of defence", "All", "Neck", 6, 0, 0, 0, 8, Collections.singletonList(new Requirement("Defence", 20))));
@@ -401,14 +444,6 @@ public class ArmourDatabase {
         armours.add(new Armour("Abomination cape", "Melee", "Cape", 50, 0, 0, 0, 28, Collections.singletonList(new Requirement("Defence", 75))));
         armours.add(new Armour("Reefwalker's cape", "All", "Cape", 62, 200, 0, 0, 9, Collections.singletonList(new Requirement("Defence", 85))));
 
-        /*
-        armours.add(new Armour("Bronze sq shield", "Melee", "Shield", 26, 0, 0, 0.003, 0, new ArrayList<>()));
-        armours.add(new Armour("Iron sq shield", "Melee", "Shield", 36, 0, 0, 0.008, 0, Collections.singletonList(new Requirement("Defence", 10))));
-        armours.add(new Armour("Leather shield", "Ranged", "Shield", 30, 0, 0, 0.005, 0, new ArrayList<>()));
-        armours.add(new Armour("Shieldbow", "Ranged", "Shield", 30, 0, 0, 0.005, 0, new ArrayList<>()));
-        armours.add(new Armour("Hard leather shield", "Ranged", "Shield", 40, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 10))));
-        armours.add(new Armour("Wizard shield", "Magic", "Shield", 30, 0, 0, 0.001, 0, new ArrayList<>()));
-        armours.add(new Armour("Amulet of souls (or)", "All", "Neck", 0, 0, 5, 0, 48, new ArrayList<>()));*/
     }
 
     public static ArmourDatabase getArmourDatabase() {

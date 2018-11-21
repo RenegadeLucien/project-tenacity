@@ -109,7 +109,7 @@ public class Encounter implements Serializable {
             if (previousStatsList != null) {
                 boolean doomedToFail = false;
                 for (CombatStats previousStats : previousStatsList) {
-                    if (combatStats.getLp() <= previousStats.getLp() && combatStats.getAccuracy() <= previousStats.getAccuracy() && combatStats.getArmour() <= previousStats.getArmour() &&
+                    if (combatStats.getAccuracy() <= previousStats.getAccuracy() && combatStats.getArmour() <= previousStats.getArmour() &&
                         combatStats.getArmour() <= previousStats.getDamage() && combatStats.getReduc() <= previousStats.getReduc()) {
                         doomedToFail = true;
                         break;
@@ -123,7 +123,7 @@ public class Encounter implements Serializable {
             p.setTotalEncounters(p.getTotalEncounters() + 1);
             Map<Ability, Integer> cooldowns = new HashMap<>();
             for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
-                if (ability.canUse(loadout.getMainWep(), p))
+                if (ability.canUse(loadout.getMainWep(), loadout.getOffWep(),  p))
                     cooldowns.put(ability, 0);
             }
             cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
@@ -312,7 +312,9 @@ public class Encounter implements Serializable {
 
     private List<Loadout> generateLoadouts(Player player, String combatStyle) {
         List<Loadout> loadouts = new ArrayList<>();
-        List<Weapon> weaponList = new ArrayList<>();
+        List<Weapon> mainWeps = new ArrayList<>();
+        List<Weapon> offWeps = new ArrayList<>();
+        List<Armour> shields = new ArrayList<>();
         List<Armour> headArmour = new ArrayList<>();
         List<Armour> torsoArmour = new ArrayList<>();
         List<Armour> legArmour = new ArrayList<>();
@@ -325,7 +327,12 @@ public class Encounter implements Serializable {
         List<Prayer> prayerList = new ArrayList<>();
         for (Weapon w : player.getWeapons()) {
             if (w.getWeaponClass().equals(combatStyle) && w.getReqs().stream().allMatch(r -> r.meetsRequirement(player))) {
-                weaponList.add(w);
+                if (w.getSlot().equals("Off-hand")) {
+                    offWeps.add(w);
+                }
+                else {
+                    mainWeps.add(w);
+                }
             }
         }
         for (Armour a : player.getArmour()) {
@@ -345,6 +352,8 @@ public class Encounter implements Serializable {
                 neckArmour.add(a);
             } else if (a.getSlot().equals("Ring") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
                 ringArmour.add(a);
+            } else if (a.getSlot().equals("Shield") && a.getType().equals(combatStyle)) {
+                shields.add(a);
             }
         }
         for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
@@ -379,7 +388,10 @@ public class Encounter implements Serializable {
         if (ringArmour.size() == 0) {
             ringArmour.add(Armour.getArmourByName("None"));
         }
-        for (Weapon w : weaponList) {
+        offWeps.add(Weapon.getWeaponByName("None"));
+        shields.add(Armour.getArmourByName("None"));
+        int count = 0;
+        for (Weapon w : mainWeps) {
             for (Armour head : headArmour) {
                 for (Armour torso : torsoArmour) {
                     for (Armour leg : legArmour) {
@@ -390,7 +402,15 @@ public class Encounter implements Serializable {
                                         for (Armour ring : ringArmour) {
                                             for (Familiar familiar : familiarList) {
                                                 for (Prayer prayer : prayerList) {
-                                                    loadouts.add(new Loadout(w, head, torso, leg, hand, foot, cape, neck, ring, familiar, prayer));
+                                                    for (Weapon offWep : offWeps) {
+                                                        for (Armour shield : shields) {
+                                                            count++;
+                                                            Loadout loadout = new Loadout(w, offWep, shield, head, torso, leg, hand, foot, cape, neck, ring, familiar, prayer);
+                                                            if (loadout.checkValid()) {
+                                                                loadouts.add(loadout);
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -409,11 +429,11 @@ public class Encounter implements Serializable {
             List<Loadout> obsoletedLoadouts = new ArrayList<>();
             for (Map.Entry<Loadout, CombatStats> loadoutToStats : loadoutsToStats.entrySet()) {
                 CombatStats previousStats = loadoutToStats.getValue();
-                if (combatStats.getLp() <= previousStats.getLp() && combatStats.getAccuracy() <= previousStats.getAccuracy() && combatStats.getArmour() <= previousStats.getArmour() &&
+                if (combatStats.getAccuracy() <= previousStats.getAccuracy() && combatStats.getArmour() <= previousStats.getArmour() &&
                     combatStats.getDamage() <= previousStats.getDamage() && combatStats.getReduc()  <= previousStats.getReduc()) {
                     insertLoadout = false;
                 }
-                else if (combatStats.getLp() >= previousStats.getLp() && combatStats.getAccuracy() >= previousStats.getAccuracy() && combatStats.getArmour() >= previousStats.getArmour() &&
+                else if (combatStats.getAccuracy() >= previousStats.getAccuracy() && combatStats.getArmour() >= previousStats.getArmour() &&
                     combatStats.getDamage() >= previousStats.getDamage() && combatStats.getReduc() >= previousStats.getReduc()) {
                     obsoletedLoadouts.add(loadoutToStats.getKey());
                 }

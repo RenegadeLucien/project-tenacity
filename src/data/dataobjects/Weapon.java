@@ -19,9 +19,10 @@ public class Weapon implements Serializable {
     private int atkspd;
     private int maxAmmo;
     private int prayer;
+    private int armour;
     private List<Requirement> reqs;
 
-    public Weapon(String name, String weaponClass, String style, String slot, int damage, int accuracy, int atkspd, int maxAmmo, int prayer, List<Requirement> reqs) {
+    public Weapon(String name, String weaponClass, String style, String slot, int damage, int accuracy, int atkspd, int maxAmmo, int prayer, int armour, List<Requirement> reqs) {
         this.name = name;
         this.weaponClass = weaponClass;
         this.style = style;
@@ -31,6 +32,7 @@ public class Weapon implements Serializable {
         this.atkspd = atkspd;
         this.maxAmmo = maxAmmo;
         this.prayer = prayer;
+        this.armour = armour;
         this.reqs = reqs;
     }
 
@@ -64,6 +66,10 @@ public class Weapon implements Serializable {
 
     public int getAtkspd() {
         return atkspd;
+    }
+
+    public int getArmour() {
+        return armour;
     }
 
     public List<Requirement> getReqs() {
