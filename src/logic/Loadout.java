@@ -16,10 +16,9 @@ public class Loadout {
     private Armour neck;
     private Armour ring;
     private Familiar familiar;
-    private Prayer prayer;
 
 
-    public Loadout(Weapon mainWep, Weapon offWep, Armour shield, Armour head, Armour torso, Armour legs, Armour hands, Armour feet, Armour cape, Armour neck, Armour ring, Familiar familiar, Prayer prayer) {
+    public Loadout(Weapon mainWep, Weapon offWep, Armour shield, Armour head, Armour torso, Armour legs, Armour hands, Armour feet, Armour cape, Armour neck, Armour ring, Familiar familiar) {
         this.mainWep = mainWep;
         this.offWep = offWep;
         this.shield = shield;
@@ -32,7 +31,6 @@ public class Loadout {
         this.neck = neck;
         this.ring = ring;
         this.familiar = familiar;
-        this.prayer = prayer;
     }
 
     public Weapon getMainWep() {
@@ -45,10 +43,6 @@ public class Loadout {
 
     public Familiar getFamiliar() {
         return familiar;
-    }
-
-    public Prayer getPrayer() {
-        return prayer;
     }
 
     public Armour getCape() {
@@ -119,28 +113,9 @@ public class Loadout {
         } else {
             accuracySkill = damageSkill = "Magic";
         }
-        double myDamage;
-        if (mainWep.getAtkspd() == 4) {
-            myDamage = 2.5 * player.getLevel(damageSkill) + mainWep.getDamage() + mainWep.getMaxAmmo() + totalBonus();
-        }
-        else if (mainWep.getAtkspd() == 5) {
-            myDamage = 2.5 * player.getLevel(damageSkill) + (mainWep.getDamage() + mainWep.getMaxAmmo())*192.0/245.0 + totalBonus();
-        }
-        else if (mainWep.getAtkspd() == 6) {
-            myDamage = 2.5 * player.getLevel(damageSkill) + (mainWep.getDamage() + mainWep.getMaxAmmo())*96.0/149.0 + totalBonus();
-        }
-        else {
-            System.out.println("What the heck kind of weapon do you have?");
-            throw new RuntimeException("Error: Weapon has invalid attack speed. Must be 4, 5, or 6");
-        }
-        if (offWep.getAtkspd() == 4) {
-            myDamage += 1.25 * player.getLevel(damageSkill) + offWep.getDamage() + offWep.getMaxAmmo() + totalBonus()*.5;
-        }
-        else if (offWep.getAtkspd() == 5) {
-            myDamage += 1.25 * player.getLevel(damageSkill) + (offWep.getDamage() + offWep.getMaxAmmo())*192.0/245.0 + totalBonus()*.5;
-        }
-        else if (offWep.getAtkspd() == 6) {
-            myDamage += 1.25 * player.getLevel(damageSkill) + (offWep.getDamage() + offWep.getMaxAmmo())*96.0/149.0 + totalBonus()*.5;
+        double myDamage = 2.5 * player.getLevel(damageSkill) + mainWep.effectiveDamage() + totalBonus();
+        if (offWep.getAtkspd() > 0) {
+            myDamage += 1.25 * player.getLevel(damageSkill) + offWep.effectiveDamage() + totalBonus()*.5;
         }
         if (mainWep.getSlot().equals("Two-handed")) {
             myDamage += 1.25 * player.getLevel(damageSkill) + totalBonus()*0.5;
@@ -178,7 +153,7 @@ public class Loadout {
         Loadout loadout = (Loadout) obj;
         return mainWep.equals(loadout.getMainWep()) && head.equals(loadout.getHead()) && torso.equals(loadout.getTorso()) && legs.equals(loadout.getLegs())
             && hands.equals(loadout.getHands()) && feet.equals(loadout.getFeet()) && cape.equals(loadout.getCape()) && neck.equals(loadout.getNeck())
-            && ring.equals(loadout.getRing()) && familiar.equals(loadout.getFamiliar()) && prayer.equals(loadout.getPrayer());
+            && ring.equals(loadout.getRing()) && familiar.equals(loadout.getFamiliar());
     }
 
     @Override
@@ -194,7 +169,6 @@ public class Loadout {
         result = 31*result + neck.hashCode();
         result = 31*result + ring.hashCode();
         result = 31*result + familiar.hashCode();
-        result = 31*result + prayer.hashCode();
         return result;
     }
 }

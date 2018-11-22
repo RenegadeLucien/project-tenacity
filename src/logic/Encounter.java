@@ -1,9 +1,7 @@
 package logic;
 
 import data.databases.AbilityDatabase;
-import data.databases.ActionDatabase;
 import data.databases.FamiliarDatabase;
-import data.databases.PrayerDatabase;
 import data.dataobjects.*;
 
 import java.io.Serializable;
@@ -83,7 +81,6 @@ public class Encounter implements Serializable {
             if (p.getLevel("Constitution") == 99) {
                 maxLpHealedPerFood = 2600;
             }
-            double prayerPoints = p.getLevel("Prayer")*10;
             int ticks = -1;
             double hpLost = 0;
             int invenUsed = 0;
@@ -235,17 +232,10 @@ public class Encounter implements Serializable {
                             foodCooldown--;
                             if (monsterTicks % (enemy.getAtkspd() * partySize) == 0 && monsterTicks != 0) {
                                 double enemyDamage;
-                                if (loadout.getPrayer().getName().equals("Protect from Magic") && prayerPoints > 0) {
-                                    enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage * 0.5) / enemyAttackStyles;
-                                } else {
-                                    enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
-                                }
+                                enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
                                 myLp -= enemyDamage * (1 - loadout.totalReduc());
                                 hpLost += enemyDamage * (1 - (loadout.totalReduc() + p.getLevel("Defence")/1000.0));
                                 //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
-                            }
-                            if (prayerPoints > 0) {
-                                prayerPoints = Math.max(0, (prayerPoints - loadout.getPrayer().getDrainPerTick()) * (1 - loadout.totalPrayBonus() / 100.0));
                             }
                         }
                     }
@@ -323,8 +313,7 @@ public class Encounter implements Serializable {
         List<Armour> capeArmour = new ArrayList<>();
         List<Armour> neckArmour = new ArrayList<>();
         List<Armour> ringArmour = new ArrayList<>();
-        List<Familiar> familiarList = new ArrayList<>();
-        List<Prayer> prayerList = new ArrayList<>();
+        Familiar familiar = Familiar.getFamiliarByName("None");
         for (Weapon w : player.getWeapons()) {
             if (w.getWeaponClass().equals(combatStyle) && w.getReqs().stream().allMatch(r -> r.meetsRequirement(player))) {
                 if (w.getSlot().equals("Off-hand")) {
@@ -357,12 +346,9 @@ public class Encounter implements Serializable {
             }
         }
         for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
-            if (player.getLevel("Summoning") >= f.getSummonReq()) {
-                familiarList.add(f);
+            if (player.getLevel("Summoning") >= f.getSummonReq() && f.getInvenSpaces() > familiar.getInvenSpaces()) {
+                familiar = f;
             }
-        }
-        for (Prayer p : PrayerDatabase.getPrayerDatabase().getPrayers()) {
-            prayerList.add(p);
         }
         if (headArmour.size() == 0) {
             headArmour.add(Armour.getArmourByName("None"));
@@ -390,7 +376,6 @@ public class Encounter implements Serializable {
         }
         offWeps.add(Weapon.getWeaponByName("None"));
         shields.add(Armour.getArmourByName("None"));
-        int count = 0;
         for (Weapon w : mainWeps) {
             for (Armour head : headArmour) {
                 for (Armour torso : torsoArmour) {
@@ -400,16 +385,11 @@ public class Encounter implements Serializable {
                                 for (Armour cape : capeArmour) {
                                     for (Armour neck : neckArmour) {
                                         for (Armour ring : ringArmour) {
-                                            for (Familiar familiar : familiarList) {
-                                                for (Prayer prayer : prayerList) {
-                                                    for (Weapon offWep : offWeps) {
-                                                        for (Armour shield : shields) {
-                                                            count++;
-                                                            Loadout loadout = new Loadout(w, offWep, shield, head, torso, leg, hand, foot, cape, neck, ring, familiar, prayer);
-                                                            if (loadout.checkValid()) {
-                                                                loadouts.add(loadout);
-                                                            }
-                                                        }
+                                            for (Weapon offWep : offWeps) {
+                                                for (Armour shield : shields) {
+                                                    Loadout loadout = new Loadout(w, offWep, shield, head, torso, leg, hand, foot, cape, neck, ring, familiar);
+                                                    if (loadout.checkValid()) {
+                                                        loadouts.add(loadout);
                                                     }
                                                 }
                                             }

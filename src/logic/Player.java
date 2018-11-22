@@ -231,9 +231,8 @@ public class Player implements Serializable {
 
     private boolean checkIfHaveBetterWeapon(Weapon weapon) {
         for (Weapon ownedWeapon : weapons) {
-            if (!weapon.equals(ownedWeapon) && weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) &&
-                weapon.getSlot().equals(ownedWeapon.getSlot()) && weapon.getAtkspd() == ownedWeapon.getAtkspd() &&
-                (weapon.getDamage() + weapon.getMaxAmmo()) <= (ownedWeapon.getDamage() + ownedWeapon.getMaxAmmo()) && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
+            if (!weapon.equals(ownedWeapon) && weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getSlot().equals(ownedWeapon.getSlot()) &&
+                weapon.effectiveDamage() <= ownedWeapon.effectiveDamage() && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
                 return true;
             }
         }

@@ -83,4 +83,17 @@ public class Weapon implements Serializable {
         }
         return null;
     }
+
+    public double effectiveDamage() {
+        if (atkspd == 4) {
+            return damage + maxAmmo;
+        }
+        if (atkspd == 5) {
+            return (damage + maxAmmo)*192.0/245.0;
+        }
+        if (atkspd == 6) {
+            return (damage + maxAmmo)*96.0/149.0;
+        }
+        return 0;
+    }
 }
