@@ -405,9 +405,6 @@ public class Player implements Serializable {
         if (!qualifier.equals("Coins") && currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
             return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
         }
-        /*if (qualifier.equals("Summoning") && quantifier == 276) {
-            System.out.println("Debug");
-        }*/
         currentTargets.add(generatedRequirement);
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();

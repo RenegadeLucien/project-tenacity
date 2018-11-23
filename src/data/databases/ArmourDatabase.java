@@ -215,7 +215,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Red dragonhide chaps", "Ranged", "Legs", 216, 0, 0, 0.011, 0, Collections.singletonList(new Requirement("Defence", 55))));
         armours.add(new Armour("Black dragonhide chaps", "Ranged", "Legs", 249, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
         armours.add(new Armour("Demon slayer skirt", "Ranged", "Legs", 216, 0, 0, 0, 18, Arrays.asList(new Requirement("Defence", 60), new Requirement("Ranged", 60))));
-        armours.add(new Armour("Royal dragohide chaps", "Ranged", "Legs", 285, 0, 0, 0.013, 0, Collections.singletonList(new Requirement("Defence", 65))));
+        armours.add(new Armour("Royal dragonhide chaps", "Ranged", "Legs", 285, 0, 0, 0.013, 0, Collections.singletonList(new Requirement("Defence", 65))));
         armours.add(new Armour("Armadyl chainskirt", "Ranged", "Legs", 285, 0, 1, 0, 22, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Karil's skirt", "Ranged", "Legs", 326, 0, 1, 0.014, 0, Arrays.asList(new Requirement("Defence", 70), new Requirement("Ranged", 70))));
         armours.add(new Armour("Morrigan's leather chaps", "Ranged", "Legs", 423, 0, 0, 0, 25, Collections.singletonList(new Requirement("Defence", 78))));

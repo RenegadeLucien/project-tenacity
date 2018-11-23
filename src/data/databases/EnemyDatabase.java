@@ -267,6 +267,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("General Shredflesh", 3050, 283.2, 93.4, 244, 0, 0, 61, 0, 0, 4, 1164, 0, 0, 1164, 61, "Nothing", 0, 20, 10, 40));
         enemies.add(new Enemy("General Bre'egth", 3050, 283.2, 93.4, 0, 244, 0, 0, 61, 0, 4, 0, 1164, 0, 1164, 61, "Nothing", 0, 40, 20, 10));
         enemies.add(new Enemy("Pit iron dragon", 3100, 297.3, 98.1, 0, 0, 372, 0, 0, 62, 6, 0, 0, 1197, 1197, 62, "Bolts", 90, 45, 65, 55));
+        enemies.add(new Enemy("TzHaar-Ket", 3100, 297.3, 98.1, 248, 0, 0, 62, 0, 0, 4, 1197, 0, 0, 1197, 62, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Jungle Wolf", 3150, 312.3, 103, 252, 0, 0, 63, 0, 0, 4, 1230, 0, 0, 1230, 63, "Water", 90, 55, 45, 65));
         enemies.add(new Enemy("Ice troll", 3200, 327.9, 108.2, 256, 0, 0, 64, 0, 0, 4, 1264, 0, 0, 1264, 64, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Kolodion (Ogre)", 3200, 183, 60.3, 156, 0, 208, 39, 0, 52, 4, 609, 0, 901, 901, 52, "Nothing", 0, 45, 65, 55));

@@ -361,7 +361,7 @@ public class AchievementDatabase {
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged"), 100, 1)
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged"), 100, 1).build());
         achievements.add(new AchievementBuilder("The Knight's Sword", 0.25).requirement("Mining", 10).requirement("Iron bar", 2)
-            .requirement("Redberry pie", 1).reward("Quest points", 1).lamp(Collections.singletonList("Smithing"), 12725, 28).build());
+            .requirement("Redberry pie", 1).reward("Quest points", 1).build());
         achievements.add(new AchievementBuilder("Abyssal Reach", 0.25).requirement("Rune Mysteries", 1).reward("Runecrafting", 1000)
             .build());
         achievements.add(new AchievementBuilder("What Lies Below", 0.5).requirement("Rune Mysteries", 1)
@@ -906,6 +906,9 @@ public class AchievementDatabase {
                 Arrays.asList("Menaphite palace guard (melee)", "Menaphite palace guard (melee)", "Menaphite palace guard (magic)",
                     "Menaphite palace guard (magic)")))).encounter(new Encounter("Pharaoh")).reward("Quest points", 1)
             .reward("Menaphos reputation", 7500).build());
+        achievements.add(new AchievementBuilder("Call of the Ancestors", 0.75).reward("Quest points", 1)
+            .lamp(Collections.singletonList("Magic"), 1000, 10).build());
+        achievements.add(new AchievementBuilder("The Needle Skips", 0.25).reward("Quest points", 1).lamp(Player.ALL_SKILLS, -1, 1).build());
         achievements.add(new AchievementBuilder("Enlightened Journey", 0.75).requirement("Quest points", 21)
             .requirement("Firemaking", 20).requirement("Farming", 30).requirement("Crafting", 36).requirement("Logs", 10)
             .requirement("Papyrus", 3).requirement("Ball of wool", 1).requirement("Candle", 1).requirement("Yellow dye", 1)
@@ -4916,44 +4919,148 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Granny Knows Best", 0.1).requirement("Farming", 17).requirement("Construction", 20)
             .reward("POF bean", 480).reward("Farming", 600).reward("Construction", 600).build());
         achievements.add(new AchievementBuilder("Animal Whisperer", 2).requirement("Granny Knows Best", 1).reward("Farming", 500).build());
-        achievements.add(new AchievementBuilder("Unreferenced Achievements", 0).requirement("Bad Egg", 1).requirement("Barooooo!", 1)
-            .requirement("Bean Counter I", 1).requirement("Bean Counter II", 1).requirement("Bean Counter III", 1)
-            .requirement("Bean Counter IV", 1).requirement("Bean There, Done That", 1).requirement("Benedict's World Tour, part 1", 1)
-            .requirement("Benedict's World Tour, part 2", 1).requirement("Besting the Celestial I", 1)
-            .requirement("Besting the Celestial II", 1).requirement("Besting the Celestial III", 1)
-            .requirement("Besting the Celestial IV", 1).requirement("Besting the Celestial V", 1).requirement("Besting the Celestial VI", 1)
-            .requirement("Besting the Celestial Solo Kills I", 1).requirement("Besting the Celestial Solo Kills II", 1)
-            .requirement("Besting the Celestial Solo Kills III", 1).requirement("Besting the Celestial Solo Kills IV", 1)
-            .requirement("Besting the Celestial Solo Kills V", 1).requirement("Besting the Celestial Solo Kills VI", 1)
-            .requirement("Blow Out the Cobwebs", 1).requirement("Chickensworn", 1).requirement("Chinchompasworn", 1)
-            .requirement("Claiming the Knight's Experience", 1).requirement("Cowsworn", 1).requirement("Crabtivating I", 1)
-            .requirement("Crabtivating II", 1).requirement("Crabtivating III", 1).requirement("Crabtivating IV", 1)
-            .requirement("Crabtivating V", 1).requirement("Crabtivating VI", 1).requirement("Crabtivating Solo Kills I", 1)
-            .requirement("Crabtivating Solo Kills II", 1).requirement("Crabtivating Solo Kills III", 1)
-            .requirement("Crabtivating Solo Kills IV", 1).requirement("Crabtivating Solo Kills V", 1)
-            .requirement("Crabtivating Solo Kills VI", 1).requirement("Data Recovery", 1).requirement("Died by the Blade!", 1)
-            .requirement("Dragonkin Swag", 1).requirement("Dragonsworn", 1).requirement("E-I-E-I-O", 1).requirement("Ever So Clever", 1)
-            .requirement("Four Seasons", 1).requirement("Guthix and the Chamber of Secrets", 1).requirement("Honorary Dragonkin", 1)
-            .requirement("I Hardly Manure", 1).requirement("I know, I was there...", 1).requirement("In a Pickle", 1)
-            .requirement("Life, Uh, Found a Way", 1).requirement("Masuta Master I", 1).requirement("Masuta Master II", 1)
-            .requirement("Masuta Master III", 1).requirement("Masuta Master IV", 1).requirement("Masuta Master V", 1)
-            .requirement("Masuta Master VI", 1).requirement("Masuta Master Solo Kills I", 1).requirement("Masuta Master Solo Kills II", 1)
-            .requirement("Masuta Master Solo Kills III", 1).requirement("Masuta Master Solo Kills IV", 1)
-            .requirement("Masuta Master Solo Kills V", 1).requirement("Masuta Master Solo Kills VI", 1).requirement("Meeting your Idols", 1)
-            .requirement("Perk Out!", 1).requirement("Perk Up", 1).requirement("Pilferin' in Asgarnia", 1)
-            .requirement("Pilferin' in Kandarin", 1).requirement("Pilferin' in Kharidian Desert", 1)
-            .requirement("Pilferin' in Misthalin", 1).requirement("Pilferin' the hidden ones", 1).requirement("Rabbit, Rabbit, Rabbit", 1)
-            .requirement("Rabbitsworn", 1).requirement("Raiders of the Lost Arc", 1).requirement("Ram-bow", 1).requirement("Sheepsworn", 1)
-            .requirement("Slay-ryu I", 1).requirement("Slay-ryu II", 1).requirement("Slay-ryu III", 1).requirement("Slay-ryu IV", 1)
-            .requirement("Slay-ryu V", 1).requirement("Slay-ryu VI", 1).requirement("Slay-ryu Solo Kills I", 1)
-            .requirement("Slay-ryu Solo Kills II", 1).requirement("Slay-ryu Solo Kills III", 1).requirement("Slay-ryu Solo Kills IV", 1)
-            .requirement("Slay-ryu Solo Kills V", 1).requirement("Slay-ryu Solo Kills VI", 1).requirement("So-lacking in drops", 1)
-            .requirement("Spidersworn", 1).requirement("Superiority Complex I", 1).requirement("Superiority Complex II", 1)
-            .requirement("Superiority Complex III", 1).requirement("Superiority Complex IV", 1).requirement("Superiority Complex V", 1)
-            .requirement("Superiority Complex VI", 1).requirement("Superiority Complex Solo Kills I", 1)
-            .requirement("Superiority Complex Solo Kills II", 1).requirement("Superiority Complex Solo Kills III", 1)
-            .requirement("Superiority Complex Solo Kills IV", 1).requirement("Superiority Complex Solo Kills V", 1)
-            .requirement("Superiority Complex Solo Kills VI", 1).requirement("The Archivist", 1).requirement("The world is a safe place", 1)
+        achievements.add(new AchievementBuilder("If your colours were like my dreams", 0.3).requirement("Summoning", 89)
+            .requirement("Combat", 35).requirement("Spirit shards", 3292).requirement("Blue charm", 24).requirement("Pouch", 24)
+            .requirement("Raw rat meat", 1).requirement("Potato cactus", 1).requirement("Chinchompa", 1).requirement("Bronze bar", 1)
+            .requirement("Iron bar", 1).requirement("Jug of water", 1).requirement("Steel bar", 1).requirement("Graahk fur", 1)
+            .requirement("Kyatt fur", 1).requirement("Larupia fur", 1).requirement("Fishbowl", 1).requirement("Mithril bar", 1)
+            .requirement("Obsidian charm", 2).requirement("Adamant bar", 1).requirement("Fire talisman", 1).requirement("Water talisman", 2)
+            .requirement("Air talisman", 1).requirement("Rune bar", 1).requirement("Earth talisman", 1)
+            .requirement("Truthful shadow core", 4).reward("Summoning", 11589).reward("Albino rat pouch", 1)
+            .reward("Spirit kalphite pouch", 1).reward("Giant chinchompa pouch", 1).reward("Void shifter pouch", 1)
+            .reward("Void spinner pouch", 1).reward("Void torcher pouch", 1).reward("Bronze minotaur pouch", 1)
+            .reward("Iron minotaur pouch", 1).reward("Spirit jelly pouch", 1).reward("Steel minotaur pouch", 1)
+            .reward("Spirit graahk pouch", 1).reward("Spirit kyatt pouch", 1).reward("Spirit larupia pouch", 1)
+            .reward("Karam. overlord pouch", 1).reward("Mithril minotaur pouch", 1).reward("Obsidian golem pouch", 1)
+            .reward("Adamant minotaur pouch", 1).reward("Fire titan pouch", 1).reward("Ice titan pouch", 1).reward("Moss titan pouch", 1)
+            .reward("Lava titan pouch", 1).reward("Rune minotaur pouch", 1).reward("Light creature pouch", 1)
+            .reward("Geyser titan pouch", 1).build());
+        achievements.add(new AchievementBuilder("Pulling on the Threads", 0.5).requirement("The Needle Skips", 1)
+            .lamp(Player.ALL_SKILLS, -2, 1).lamp(Player.ALL_SKILLS, -4, 1).build());
+        achievements.add(new AchievementBuilder("Bad Egg", 0).requirement("Evil chicken", 1).build());
+        achievements.add(new AchievementBuilder("Barooooo!", 0).requirement("Baby yak", 1).build());
+        achievements.add(new AchievementBuilder("Bean Counter I", 0).requirement("POF bean", 1000).build());
+        achievements.add(new AchievementBuilder("Bean Counter II", 0).requirement("POF bean", 10000).build());
+        achievements.add(new AchievementBuilder("Bean Counter III", 0).requirement("POF bean", 100000).build());
+        achievements.add(new AchievementBuilder("Bean Counter IV", 0).requirement("POF bean", 1000000).build());
+        achievements.add(new AchievementBuilder("Bean There, Done That", 0).requirement("POF upgrades", 13).build());
+        achievements.add(new AchievementBuilder("Benedict's World Tour, part I", 0).requirement("Benedict items", 8).build());
+        achievements.add(new AchievementBuilder("Benedict's World Tour, part 2", 0).requirement("Benedict items", 16).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial I", 0).requirement("Astellarn group kills", 5).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial II", 0).requirement("Astellarn group kills", 10).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial III", 0).requirement("Astellarn group kills", 25).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial IV", 0).requirement("Astellarn group kills", 50).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial V", 0).requirement("Astellarn group kills", 75).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial VI", 0).requirement("Astellarn group kills", 100).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial Solo Kills I", 0).requirement("Astellarn solo kills", 5).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial Solo Kills II", 0).requirement("Astellarn solo kills", 10).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial Solo Kills III", 0).requirement("Astellarn solo kills", 25).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial Solo Kills IV", 0).requirement("Astellarn solo kills", 50).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial Solo Kills V", 0).requirement("Astellarn solo kills", 75).build());
+        achievements.add(new AchievementBuilder("Besting the Celestial Solo Kills VI", 0).requirement("Astellarn solo kills", 100).build());
+        achievements.add(new AchievementBuilder("Blow Out the Cobwebs", 0).requirement("Super invention (1)", 1).build());
+        achievements.add(new AchievementBuilder("Chickensworn", 0).requirement("Ravensworn chicken", 1).build());
+        achievements.add(new AchievementBuilder("Chinchompasworn", 0).requirement("Ravensworn chinchompa", 1).build());
+        achievements.add(new AchievementBuilder("Claiming the Knight's Experience", 0).requirement("The Knight's Sword", 1)
+            .reward("Smithing", 12725).build());
+        achievements.add(new AchievementBuilder("Cowsworn", 0).requirement("Ravensworn cow", 1).build());
+        achievements.add(new AchievementBuilder("Crabtivating I", 0).requirement("The Sanctum Guardian group kills", 5).build());
+        achievements.add(new AchievementBuilder("Crabtivating II", 0).requirement("The Sanctum Guardian group kills", 10).build());
+        achievements.add(new AchievementBuilder("Crabtivating III", 0).requirement("The Sanctum Guardian group kills", 25).build());
+        achievements.add(new AchievementBuilder("Crabtivating IV", 0).requirement("The Sanctum Guardian group kills", 50).build());
+        achievements.add(new AchievementBuilder("Crabtivating V", 0).requirement("The Sanctum Guardian group kills", 75).build());
+        achievements.add(new AchievementBuilder("Crabtivating VI", 0).requirement("The Sanctum Guardian group kills", 100).build());
+        achievements.add(new AchievementBuilder("Crabtivating Solo Kills I", 0).requirement("The Sanctum Guardian solo kills", 5).build());
+        achievements.add(new AchievementBuilder("Crabtivating Solo Kills II", 0).requirement("The Sanctum Guardian solo kills", 10)
+            .build());
+        achievements.add(new AchievementBuilder("Crabtivating Solo Kills III", 0).requirement("The Sanctum Guardian solo kills", 25)
+            .build());
+        achievements.add(new AchievementBuilder("Crabtivating Solo Kills IV", 0).requirement("The Sanctum Guardian solo kills", 50)
+            .build());
+        achievements.add(new AchievementBuilder("Crabtivating Solo Kills V", 0).requirement("The Sanctum Guardian solo kills", 75).build());
+        achievements.add(new AchievementBuilder("Crabtivating Solo Kills VI", 0).requirement("The Sanctum Guardian solo kills", 100)
+            .build());
+        achievements.add(new AchievementBuilder("Data Recovery", 0).requirement("Memory-storage bot", 5).build());
+        achievements.add(new AchievementBuilder("Died by the Blade", 0).requirement("Die by the blade", 1).build());
+        achievements.add(new AchievementBuilder("Dragonkin Swag", 0).requirement("Dragonkin Laboratory uniques", 6).build());
+        achievements.add(new AchievementBuilder("Dragonsworn", 0).requirement("Ravensworn dragon", 1).build());
+        achievements.add(new AchievementBuilder("You Had A Chicken", 0).requirement("Chicken breeds", 5).build());
+        achievements.add(new AchievementBuilder("You Had A Rabbit", 0).requirement("Rabbit breeds", 4).build());
+        achievements.add(new AchievementBuilder("You Had A Chinchompa", 0).requirement("Chinchompa breeds", 8).build());
+        achievements.add(new AchievementBuilder("You Had A Sheep", 0).requirement("Sheep breeds", 7).build());
+        achievements.add(new AchievementBuilder("You Had A Spider", 0).requirement("Spider breeds", 7).build());
+        achievements.add(new AchievementBuilder("You Had A Zygomite", 0).requirement("Zygomite breeds", 5).build());
+        achievements.add(new AchievementBuilder("You Had A Cow", 0).requirement("Cow breeds", 5).build());
+        achievements.add(new AchievementBuilder("You Had A Yak", 0).requirement("Yak breeds", 3).build());
+        achievements.add(new AchievementBuilder("You Had A Dragon", 0).requirement("Dragon breeds", 5).build());
+        achievements.add(new AchievementBuilder("E-I-E-I-O", 0).requirement("You Had A Chicken", 1).requirement("You Had A Rabbit", 1)
+            .requirement("You Had A Chinchompa", 1).requirement("You Had A Sheep", 1).requirement("You Had A Spider", 1)
+            .requirement("You Had A Zygomite", 1).requirement("You Had A Cow", 1).requirement("You Had A Yak", 1)
+            .requirement("You Had A Dragon", 1).build());
+        achievements.add(new AchievementBuilder("Ever So Clever", 0).requirement("Loyal Trever magical zygomite", 1).build());
+        achievements.add(new AchievementBuilder("Four Seasons", 0).requirement("Seasonaliser", 1).build());
+        achievements.add(new AchievementBuilder("Guthix and the Chamber of Secrets", 0).requirement("Data Recovery", 1).build());
+        achievements.add(new AchievementBuilder("Honourary Dragonkin", 0).requirement("Royal dragon", 1).build());
+        achievements.add(new AchievementBuilder("I Hardly Manure", 0).requirement("Cow cleanups", 20).build());
+        achievements.add(new AchievementBuilder("I know, I was there...", 0).requirement("Ritual of the Mahjarrat", 1).build());
+        achievements.add(new AchievementBuilder("In a Pickle", 0).requirement("Pickle mouse kills", 10).build());
+        achievements.add(new AchievementBuilder("Life, Uh, Found a Way", 0).requirement("Chaotic Malcolm lizard chicken", 1).build());
+        achievements.add(new AchievementBuilder("Masuta Master I", 0).requirement("Masuta the Ascended group kills", 5).build());
+        achievements.add(new AchievementBuilder("Masuta Master II", 0).requirement("Masuta the Ascended group kills", 10).build());
+        achievements.add(new AchievementBuilder("Masuta Master III", 0).requirement("Masuta the Ascended group kills", 25).build());
+        achievements.add(new AchievementBuilder("Masuta Master IV", 0).requirement("Masuta the Ascended group kills", 50).build());
+        achievements.add(new AchievementBuilder("Masuta Master V", 0).requirement("Masuta the Ascended group kills", 75).build());
+        achievements.add(new AchievementBuilder("Masuta Master VI", 0).requirement("Masuta the Ascended group kills", 100).build());
+        achievements.add(new AchievementBuilder("Masuta Master Solo Kills I", 0).requirement("Masuta the Ascended solo kills", 5).build());
+        achievements.add(new AchievementBuilder("Masuta Master Solo Kills II", 0).requirement("Masuta the Ascended solo kills", 10)
+            .build());
+        achievements.add(new AchievementBuilder("Masuta Master Solo Kills III", 0).requirement("Masuta the Ascended solo kills", 25)
+            .build());
+        achievements.add(new AchievementBuilder("Masuta Master Solo Kills IV", 0).requirement("Masuta the Ascended solo kills", 50)
+            .build());
+        achievements.add(new AchievementBuilder("Masuta Master Solo Kills V", 0).requirement("Masuta the Ascended solo kills", 75).build());
+        achievements.add(new AchievementBuilder("Masuta Master Solo Kills VI", 0).requirement("Masuta the Ascended solo kills", 100)
+            .build());
+        achievements.add(new AchievementBuilder("Meeting your Idols", 0).requirement("The End of Gara-Dul", 1).build());
+        achievements.add(new AchievementBuilder("Perk Out!", 0).requirement("Tier I animal perks", 9).build());
+        achievements.add(new AchievementBuilder("Perk Up", 0).requirement("Tier II animal perks", 6).build());
+        achievements.add(new AchievementBuilder("Pilferin' in Asgarnia", 0).requirement("Asgarnian safes", 10).build());
+        achievements.add(new AchievementBuilder("Pilferin' in Kandarin", 0).requirement("Kandarin safes", 9).build());
+        achievements.add(new AchievementBuilder("Pilferin' in Kharidian Desert", 0).requirement("Kharidian Desert safes", 10).build());
+        achievements.add(new AchievementBuilder("Pilferin' in Misthalin", 0).requirement("Misthalin safes", 11).build());
+        achievements.add(new AchievementBuilder("Pilferin' the hidden ones", 0).requirement("Hidden safes", 9).build());
+        achievements.add(new AchievementBuilder("Rabbit, Rabbit, Rabbit", 0).requirement("POF rabbit", 12).build());
+        achievements.add(new AchievementBuilder("Rabbitsworn", 0).requirement("Ravensworn rabbit", 1).build());
+        achievements.add(new AchievementBuilder("Raiders of the Lost Arc", 0).requirement("Temple of Aminishi uniques", 6).build());
+        achievements.add(new AchievementBuilder("Ram-bow", 0).requirement("Seasonal ewes", 4).build());
+        achievements.add(new AchievementBuilder("Sheepsworn", 0).requirement("Ravensworn sheep", 1).build());
+        achievements.add(new AchievementBuilder("Slay-ryu I", 0).requirement("Seiryu group kills", 5).build());
+        achievements.add(new AchievementBuilder("Slay-ryu II", 0).requirement("Seiryu group kills", 10).build());
+        achievements.add(new AchievementBuilder("Slay-ryu III", 0).requirement("Seiryu group kills", 25).build());
+        achievements.add(new AchievementBuilder("Slay-ryu IV", 0).requirement("Seiryu group kills", 50).build());
+        achievements.add(new AchievementBuilder("Slay-ryu V", 0).requirement("Seiryu group kills", 75).build());
+        achievements.add(new AchievementBuilder("Slay-ryu VI", 0).requirement("Seiryu group kills", 100).build());
+        achievements.add(new AchievementBuilder("Slay-ryu Solo Kills I", 0).requirement("Seiryu solo kills", 5).build());
+        achievements.add(new AchievementBuilder("Slay-ryu Solo Kills II", 0).requirement("Seiryu solo kills", 10).build());
+        achievements.add(new AchievementBuilder("Slay-ryu Solo Kills III", 0).requirement("Seiryu solo kills", 25).build());
+        achievements.add(new AchievementBuilder("Slay-ryu Solo Kills IV", 0).requirement("Seiryu solo kills", 50).build());
+        achievements.add(new AchievementBuilder("Slay-ryu Solo Kills V", 0).requirement("Seiryu solo kills", 75).build());
+        achievements.add(new AchievementBuilder("Slay-ryu Solo Kills VI", 0).requirement("Seiryu solo kills", 100).build());
+        achievements.add(new AchievementBuilder("So-lacking in drops", 0).requirement("Solak uniques", 7).build());
+        achievements.add(new AchievementBuilder("Spidersworn", 0).requirement("Ravensworn spider", 1).build());
+        achievements.add(new AchievementBuilder("Superiority Complex I", 0).requirement("Verak Lith group kills", 5).build());
+        achievements.add(new AchievementBuilder("Superiority Complex II", 0).requirement("Verak Lith group kills", 10).build());
+        achievements.add(new AchievementBuilder("Superiority Complex III", 0).requirement("Verak Lith group kills", 25).build());
+        achievements.add(new AchievementBuilder("Superiority Complex IV", 0).requirement("Verak Lith group kills", 50).build());
+        achievements.add(new AchievementBuilder("Superiority Complex V", 0).requirement("Verak Lith group kills", 75).build());
+        achievements.add(new AchievementBuilder("Superiority Complex VI", 0).requirement("Verak Lith group kills", 100).build());
+        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex I", 0).requirement("Verak Lith solo kills", 5).build());
+        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex II", 0).requirement("Verak Lith solo kills", 10).build());
+        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex III", 0).requirement("Verak Lith solo kills", 25).build());
+        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex IV", 0).requirement("Verak Lith solo kills", 50).build());
+        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex V", 0).requirement("Verak Lith solo kills", 75).build());
+        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex VI", 0).requirement("Verak Lith solo kills", 100).build());
+        achievements.add(new AchievementBuilder("Unreferenced Achievements", 0).requirement("The Archivist", 1).requirement("The world is a safe place", 1)
             .requirement("Tickety Boom!", 1).requirement("Whack Stone Dragon I", 1).requirement("Whack Stone Dragon II", 1)
             .requirement("Whack Stone Dragon III", 1).requirement("Whack Stone Dragon IV", 1).requirement("Whack Stone Dragon V", 1)
             .requirement("Whack Stone Dragon VI", 1).requirement("Whack Stone Dragon Solo Kills I", 1)
@@ -4961,10 +5068,7 @@ public class AchievementDatabase {
             .requirement("Whack Stone Dragon Solo Kills IV", 1).requirement("Whack Stone Dragon Solo Kills V", 1)
             .requirement("Whack Stone Dragon Solo Kills VI", 1).requirement("Wood Kill Again I", 1).requirement("Wood Kill Again II", 1)
             .requirement("Wood Kill Again III", 1).requirement("Wood Kill Again IV", 1).requirement("Wood Kill Again V", 1)
-            .requirement("Wood Kill Again VI", 1).requirement("Yaksworn", 1).requirement("You Had A Chicken", 1)
-            .requirement("You Had A Chinchompa", 1).requirement("You Had A Cow", 1).requirement("You Had A Dragon", 1)
-            .requirement("You Had A Rabbit", 1).requirement("You Had A Sheep", 1).requirement("You Had A Spider", 1)
-            .requirement("You Had A Yak", 1).requirement("You Had A Zygomite", 1).requirement("Zygomitesworn", 1)
+            .requirement("Wood Kill Again VI", 1).requirement("Yaksworn", 1).requirement("Zygomitesworn", 1)
             .requirement("Gaps, Traps, and Laps", 1).requirement("Perfectly Balanced I", 1).requirement("Perfectly Balanced II", 1)
             .requirement("Perfectly Balanced III", 1).requirement("Perfectly Balanced IV", 1).requirement("Reverent Sculptor", 1)
             .requirement("Wen Mah Aquarium Jas Got a Bik Too Ful", 1).requirement("The Great Gnomish Shake Off", 1)
@@ -4988,7 +5092,7 @@ public class AchievementDatabase {
             .requirement("Y'all Got Any More of that Rune Dust? II", 1).requirement("Y'all Got Any More of that Rune Dust? III", 1)
             .requirement("Y'all Got Any More of that Rune Dust? IV", 1).requirement("Splinters of Power", 1)
             .requirement("Rinsit Transit", 1).requirement("Charmer Chameleon", 1).requirement("Loving Would Be Easy", 1)
-            .requirement("If Your Colours Were Like my Dreams", 1).requirement("And Green", 1).requirement("Gold", 1).requirement("Red", 1)
+            .requirement("And Green", 1).requirement("Gold", 1).requirement("Red", 1)
             .requirement("Regard my Shards", 1).requirement("A Bit Too Familiar", 1).requirement("A Charm Saved is a Charm Earned", 1)
             .requirement("Hacks", 1).requirement("A Hidden Gem I", 1).requirement("A Hidden Gem II", 1).requirement("A Hidden Gem III", 1)
             .requirement("A Hidden Gem IV", 1).requirement("Snippets of Memory", 1).requirement("Catch and Release", 1)

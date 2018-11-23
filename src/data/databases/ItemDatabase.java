@@ -451,6 +451,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Gold seal", 30));
         itemsList.add(new Item("Gout tuber", 200));
         itemsList.add(new Item("Gown of subjugation", 48000));
+        itemsList.add(new Item("Graahk fur", 144));
         itemsList.add(new Item("Grand defence potion (6)", 1500));
         itemsList.add(new Item("Granite (500g)", 1));
         itemsList.add(new Item("Granite (5kg)", 1));
@@ -580,8 +581,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Khopesh of Tumeken", 1000000));
         itemsList.add(new Item("Knife", 25));
         itemsList.add(new Item("Kurask boots", 20000));
+        itemsList.add(new Item("Kyatt fur", 192));
         itemsList.add(new Item("Lantern lens", 70));
         itemsList.add(new Item("Lava rune", 20));
+        itemsList.add(new Item("Larupia fur", 96));
         itemsList.add(new Item("Law rune", 378));
         itemsList.add(new Item("Leaf-bladed sword", 68000));
         itemsList.add(new Item("Leather", 1));
@@ -921,6 +924,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Rune pickaxe", 32000));
         itemsList.add(new Item("Rune platebody", 65000));
         itemsList.add(new Item("Rune platelegs", 64000));
+        itemsList.add(new Item("Rune spear", 20800));
         itemsList.add(new Item("Rune sword", 20800));
         itemsList.add(new Item("Rune warhammer", 41500));
         itemsList.add(new Item("Sacred oil (1)", 60));
@@ -1022,6 +1026,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Squeck juice", 2));
         itemsList.add(new Item("Staff", 15));
         itemsList.add(new Item("Staff of light", 95000));
+        itemsList.add(new Item("Staff of Sliske", 1250000));
         itemsList.add(new Item("Static gloves", 20000));
         itemsList.add(new Item("Statius's full helm", 250000));
         itemsList.add(new Item("Statius's platebody", 500000));
@@ -1063,6 +1068,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Studded leather shield", 850));
         itemsList.add(new Item("Summoning potion (4)", 190));
         itemsList.add(new Item("Super defence (3)", 264));
+        itemsList.add(new Item("Super invention (1)", 225));
         itemsList.add(new Item("Super ranging potion (2)", 216));
         itemsList.add(new Item("Super ranging potion (4)", 360));
         itemsList.add(new Item("Super restore (3)", 240));

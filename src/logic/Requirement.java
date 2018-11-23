@@ -92,7 +92,6 @@ public class Requirement implements Serializable {
         }
         time = goalResults.getTotalTime();
         addItemsToMap(actions, goalResults.getActionsWithTimes());
-        //System.out.println(quantifier + " " +qualifier + " will be achieved in " + time + " hours");
         return new GoalResults(time, actions);
     }
 

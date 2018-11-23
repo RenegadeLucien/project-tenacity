@@ -28,4 +28,15 @@ public class GoalResults implements Serializable {
                 LinkedHashMap::new
             ))*/;
     }
+
+    public Map<String, Double> getSortedActionsWithTimes() {
+        return actionsWithTimes.entrySet().stream().sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (e1, e2) -> e1,
+                LinkedHashMap::new
+            ));
+    }
+
 }

@@ -99,7 +99,7 @@ public class Planner extends Application {
     private void handleRow(Entry<String, Double> row, Player player) {
         GoalResults timeForRequirements = Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player);
         System.out.println(timeForRequirements.getTotalTime());
-        System.out.println(timeForRequirements.getActionsWithTimes());
+        System.out.println(timeForRequirements.getSortedActionsWithTimes());
         System.out.println(Achievement.getAchievementByName(row.getKey()).getGainFromRewards(player));
         displayPlayer(player);
     }
@@ -297,7 +297,7 @@ public class Planner extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.3.9pa by Iron Lucien");
+        primaryStage.setTitle("Project Tenacity v0.4.2a by Iron Lucien");
         Text nameText = new Text("Load profile data:");
         TextField nameEntry = new TextField();
         Button newProfile = new Button();

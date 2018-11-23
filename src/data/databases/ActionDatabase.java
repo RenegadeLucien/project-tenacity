@@ -324,6 +324,13 @@ public class ActionDatabase {
             "aCombat", (int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKills, "Constitution",
             (int) Enemy.getEnemyByName("Giant rock crab").getHpxp() * giantRockCrabKills), giantRockCrabKills, true, true));
 
+        Map<Integer, List<Requirement>> tzhaarKetKillsAndReqs = combatKills(new Encounter("TzHaar-Ket"), player, 0, "Magic", 0.2, true);
+        int tzhaarKetKills = tzhaarKetKillsAndReqs.keySet().iterator().next();
+        List<Requirement> tzhaarKetReqs = tzhaarKetKillsAndReqs.values().iterator().next();
+        database.add(new Action("Killing TzHaar-Kets for obsidian charms with magic", tzhaarKetReqs, new HashMap(), Map.of("Obsidian charm", (int) (tzhaarKetKills * 2.37),
+            "aCombat", (int) Enemy.getEnemyByName("TzHaar-Ket").getCbxp() * tzhaarKetKills, "Constitution",
+            (int) Enemy.getEnemyByName("TzHaar-Ket").getHpxp() * tzhaarKetKills), tzhaarKetKills, true, true));
+
         Map<Integer, List<Requirement>> vyreKillsAndReqs = combatKills(new Encounter("Vyrewatch"), player, 0, "Melee", 1, false);
         int vyreKills = vyreKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> vyreReqs = new ArrayList<>(vyreKillsAndReqs.values().iterator().next());
