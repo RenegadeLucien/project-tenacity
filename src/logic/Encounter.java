@@ -116,7 +116,6 @@ public class Encounter implements Serializable {
                     continue;
                 }
             }
-            //System.out.println(String.format("%f\t%f\t%f\t%f\t%f", combatStats.getAccuracy(), combatStats.getArmour(), combatStats.getDamage(), combatStats.getLp(), combatStats.getReduc()));
             p.setTotalEncounters(p.getTotalEncounters() + 1);
             Map<Ability, Integer> cooldowns = new HashMap<>();
             for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
@@ -425,7 +424,6 @@ public class Encounter implements Serializable {
                 loadoutsToStats.put(loadout, combatStats);
             }
         }
-        //System.out.println("==============================================");
         return new ArrayList<>(loadoutsToStats.keySet());
     }
 

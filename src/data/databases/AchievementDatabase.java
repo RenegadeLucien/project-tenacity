@@ -5164,38 +5164,89 @@ public class AchievementDatabase {
             .requirement("If your colours were like my dreams", 1).requirement("Gold", 1).requirement("Red", 1).requirement("And Green", 1)
             .build());
         achievements.add(new AchievementBuilder("Regard my Shards", 0.3).build());
-        achievements.add(new AchievementBuilder("A Bit TOO Familiar", 0).requirement("Familiarisatio familiars", 12).build());
+        achievements.add(new AchievementBuilder("A Bit TOO Familiar", 5).build());
         achievements.add(new AchievementBuilder("A Charm Saved is a Charm Earned", 0).requirement("Spirit sapphire", 2).build());
         achievements.add(new AchievementBuilder("Hacks", 0).requirement("Evil tree", 1).build());
         achievements.add(new AchievementBuilder("A Hidden Gem I", 0).requirement("Crystal geode", 1).build());
         achievements.add(new AchievementBuilder("A Hidden Gem II", 0).requirement("Crystal geode", 5).build());
         achievements.add(new AchievementBuilder("A Hidden Gem III", 0).requirement("Crystal geode", 10).build());
         achievements.add(new AchievementBuilder("A Hidden Gem IV", 0).requirement("Crystal geode", 25).build());
-        achievements.add(new AchievementBuilder("Unreferenced Achievements", 0).requirement("Snippets of Memory", 1).requirement("Catch and Release", 1)
-            .requirement("Scales of the Sea", 1).requirement("Slivers of Camouflage", 1).requirement("A Thief Beyond Belief", 1)
-            .requirement("The Ominous Sarcophagus Metropolis I", 1).requirement("The Ominous Sarcophagus Metropolis II", 1)
-            .requirement("The Ominous Sarcophagus Metropolis III", 1).requirement("The Ominous Sarcophagus Metropolis IV", 1)
-            .requirement("Am I a Slayer Master Yet?", 1).requirement("Crying over Foraged Milk", 1).requirement("Gumbo Jumbo", 1)
-            .requirement("Uncharted I", 1).requirement("Uncharted II", 1).requirement("Uncharted III", 1).requirement("Uncharted IV", 1)
-            .requirement("Uncharted V", 1).requirement("Uncharted VI", 1).requirement("Race for the soul: 20 minutes", 1)
-            .requirement("Race for the soul: 16 minutes", 1).requirement("Race for the soul: 14 minutes", 1)
-            .requirement("Race for the soul: 12 minutes", 1).requirement("Race for the soul: 10 minutes", 1)
-            .requirement("Race for the soul: 8 minutes", 1).requirement("Race for the soul: 6 minutes", 1)
-            .requirement("I Know You Are But What Am I", 1).requirement("Dragonstone Dragostone Dragonstone", 1)
-            .requirement("Unlocking Expertise", 1).requirement("Don't Choke", 1).requirement("Kill Count Still Counts", 1)
-            .requirement("Weave Come a Long Way 100", 1).requirement("Weave Come a Long Way 200", 1)
-            .requirement("Weave Come a Long Way 300", 1).requirement("A Swift Two Fifty", 1).requirement("Ultimate Birdwatcher", 1)
-            .requirement("I C U K G P", 1).requirement("Cops and Robbers", 1)
-            .requirement("Somthing 'bout that Sq'irk, Sq'irk, Sq'irk, Sq'irk, Sq'irk", 1).requirement("The Distracted", 1)
-            .requirement("Panic at the Disco", 1).requirement("Well, Would You Look At That", 1).requirement("Beating Your Meat", 1)
-            .requirement("Stand and Deliver (misc)", 1).requirement("Calm Down, Dear", 1).requirement("Questioning Your Sanity", 1)
-            .requirement("Handles for Forks", 1).requirement("I Meant To Do That", 1).requirement("Life Saver", 1)
-            .requirement("Get Tooled Up", 1).requirement("Fruitful Labour", 1).requirement("Is This a Bad Time", 1)
-            .requirement("This is Not a Dating Site", 1).requirement("Herald of Light", 1).requirement("The Ravensworn", 1)
-            .requirement("Dailyscape", 1).requirement("Livid", 1).requirement("Gnome More, I'm Full", 1).requirement("A Flood of Spuds", 1)
-            .requirement("You Wanna Pizza Me?", 1).requirement("Who Ate All the Pies?", 1).requirement("Gielinorian Cuisine", 1)
-            .requirement("Fishy Dishes", 1).requirement("Nice to Meat You", 1).requirement("Smartest Harvest", 1)
-            .requirement("Gotta Patch 'Em All", 1).requirement("Herb Your Enthusiasm", 1).build());
+        achievements.add(new AchievementBuilder("Snippets of Memory", 0).requirement("Elder divination outfit", 1).build());
+        achievements.add(new AchievementBuilder("Catch and Release", 0).requirement("Raw shrimps", 1).build());
+        achievements.add(new AchievementBuilder("Scales of the Sea", 0).requirement("Fury shark outfit", 1).build());
+        achievements.add(new AchievementBuilder("Slivers of Camouflage", 0).requirement("Master camouflage outfit", 1).build());
+        achievements.add(new AchievementBuilder("A Thief Beyond Belief", 0).requirement("Thieving stalls", 16).build());
+        achievements.add(new AchievementBuilder("The Ominous Sarcophagus Metropolis I", 0)
+            .requirement("Perfect Shifting Tombs runs with enhancers", 1).build());
+        achievements.add(new AchievementBuilder("The Ominous Sarcophagus Metropolis II", 0)
+            .requirement("Perfect Shifting Tombs runs with enhancers", 5).build());
+        achievements.add(new AchievementBuilder("The Ominous Sarcophagus Metropolis III", 0)
+            .requirement("Perfect Shifting Tombs runs with enhancers", 10).build());
+        achievements.add(new AchievementBuilder("The Ominous Sarcophagus Metropolis IV", 0)
+            .requirement("Perfect Shifting Tombs runs with enhancers", 25).build());
+        achievements.add(new AchievementBuilder("Am I a Slayer Master Yet?", 0).requirement("Full player-owned slayer dungeon", 1).build());
+        achievements.add(new AchievementBuilder("Crying over Foraged Milk", 0).requirement("Planted lactarius mushroom", 1).build());
+        achievements.add(new AchievementBuilder("Gumbo Jumbo", 0).requirement("Shark soup", 1).requirement("Arc gumbo", 1).build());
+        achievements.add(new AchievementBuilder("Uncharted I", 0).requirement("Uncharted Isles visited", 1).build());
+        achievements.add(new AchievementBuilder("Uncharted II", 0).requirement("Uncharted Isles visited", 5).build());
+        achievements.add(new AchievementBuilder("Uncharted III", 0).requirement("Uncharted Isles visited", 10).build());
+        achievements.add(new AchievementBuilder("Uncharted IV", 0).requirement("Uncharted Isles visited", 25).build());
+        achievements.add(new AchievementBuilder("Uncharted V", 0).requirement("Uncharted Isles visited", 50).build());
+        achievements.add(new AchievementBuilder("Uncharted VI", 0).requirement("Uncharted Isles visited", 100).build());
+        achievements.add(new AchievementBuilder("Race for the soul: 20 minutes", 0).requirement("Memory of Nomad time", 4000).build());
+        achievements.add(new AchievementBuilder("Race for the soul: 16 minutes", 0).requirement("Memory of Nomad time", 4400).build());
+        achievements.add(new AchievementBuilder("Race for the soul: 14 minutes", 0).requirement("Memory of Nomad time", 4600).build());
+        achievements.add(new AchievementBuilder("Race for the soul: 12 minutes", 0).requirement("Memory of Nomad time", 4800).build());
+        achievements.add(new AchievementBuilder("Race for the soul: 10 minutes", 0).requirement("Memory of Nomad time", 5000).build());
+        achievements.add(new AchievementBuilder("Race for the soul: 8 minutes", 0).requirement("Memory of Nomad time", 5200).build());
+        achievements.add(new AchievementBuilder("Race for the soul: 6 minutes", 0).requirement("Memory of Nomad time", 5400).build());
+        achievements.add(new AchievementBuilder("I Know You Are But What Am I", 0).requirement("Dragonfire shield", 0).build());
+        achievements.add(new AchievementBuilder("Dragonstone Dragonstone Dragonstone", 0).requirement("Dragonstone overload", 1).build());
+        achievements.add(new AchievementBuilder("Unlocking Expertise", 0).requirement("Unlocked abilities", 29).build());
+        achievements.add(new AchievementBuilder("Don't Choke", 0).requirement("Shrimps", 1).requirement("Saradomin brew (1)", 1)
+            .reward("Vial", 1).build());
+        achievements.add(new AchievementBuilder("Kill Count Still Counts", 0).requirement("Omni soulstone", 1).build());
+        achievements.add(new AchievementBuilder("Weave Come a Long Way 100", 0).requirement("Max Araxxor enrage", 100).build());
+        achievements.add(new AchievementBuilder("Weave Come a Long Way 200", 0).requirement("Max Araxxor enrage", 200).build());
+        achievements.add(new AchievementBuilder("Weave Come a Long Way 300", 0).requirement("Max Araxxor enrage", 300).build());
+        achievements.add(new AchievementBuilder("A Swift Two Fifty", 0).requirement("Max Tears of Guthix tears", 250).build());
+        achievements.add(new AchievementBuilder("Ultimate Birdwatcher", 0).requirement("Penguin points", 50).build());
+        achievements.add(new AchievementBuilder("I C U K G P", 0).requirement("Penguin agents found", 13).build());
+        achievements.add(new AchievementBuilder("Cops and Robbers", 0).requirement("Heist reward points", 500).build());
+        achievements.add(new AchievementBuilder("Something 'bout that Sq'irk, Sq'irk, Sq'irk, Sq'irk, Sq'irk", 0)
+            .requirement("Sq'irk joices", 4).build());
+        achievements.add(new AchievementBuilder("The Distracted", 0).requirement("The Distracted title", 1).build());
+        achievements.add(new AchievementBuilder("Panic at the Disco", 0).build());
+        achievements.add(new AchievementBuilder("Well, Would You Look At That", 0).reward("Needle", 1).build());
+        achievements.add(new AchievementBuilder("Beating Your Meat", 0).requirement("Meat tenderiser on Super Cow", 0).build());
+        achievements.add(new AchievementBuilder("Stand and Deliver (misc)", 0).requirement("Banana pizza", 1).build());
+        achievements.add(new AchievementBuilder("Calm Down, Dear", 0).requirement("Aggression potion (1)", 1).requirement("Cup of tea", 1)
+            .reward("Vial", 1).build());
+        achievements.add(new AchievementBuilder("Questioning Your Sanity", 1).build());
+        achievements.add(new AchievementBuilder("Handles for Forks", 0).build());
+        achievements.add(new AchievementBuilder("I Meant To Do that", 0).requirement("Magic", 30).build());
+        achievements.add(new AchievementBuilder("Life Saver", 0).requirement("Sign of life uses", 50).build());
+        achievements.add(new AchievementBuilder("Get Tooled Up", 0).requirement("Full tool belt", 1).build());
+        achievements.add(new AchievementBuilder("Fruitful Labour", 0).reward("Coins", 30).build());
+        achievements.add(new AchievementBuilder("Is This a Bad Time?", 0).requirement("Man contacted at bad time", 1).build());
+        achievements.add(new AchievementBuilder("This is Not a Dating Site", 0).build());
+        achievements.add(new AchievementBuilder("Herald of Light", 0).requirement("Seren symbol", 1).build());
+        achievements.add(new AchievementBuilder("The Ravensworn", 0).requirement("Ravens spotted", 13).build());
+        achievements.add(new AchievementBuilder("Dailyscape", 0).requirement("Consecutive daily challenges", 10).build());
+        achievements.add(new AchievementBuilder("Livid", 0).requirement("Lunar Master", 1)
+            .requirement("Dimension of Disaster: Coin of the Realm", 1).build());
+        achievements.add(new AchievementBuilder("Gnome More, I'm Full", 0).requirement("Gnome food eaten", 20).build());
+        achievements.add(new AchievementBuilder("A Flood of Spuds", 0).requirement("Baked potatoes eaten", 7).build());
+        achievements.add(new AchievementBuilder("You Wanna Pizza Me?", 0).requirement("Pizzas eaten", 5).build());
+        achievements.add(new AchievementBuilder("Who Ate All the Pies?", 0).requirement("Pies eaten", 11).build());
+        achievements.add(new AchievementBuilder("Fishy Dishes", 0).requirement("Fish eaten", 30).build());
+        achievements.add(new AchievementBuilder("Nice to Meat You", 0).requirement("Meat eaten", 19).build());
+        achievements.add(new AchievementBuilder("Gielinorian Cuisine", 0).requirement("Who Ate All the Pies?", 1)
+            .requirement("You Wanna Pizza Me?", 1).requirement("Fishy Dishes", 1).requirement("Nice to Meat You", 1)
+            .requirement("A Flood of Spuds", 1).requirement("Gnome More, I'm Full", 1).build());
+        achievements.add(new AchievementBuilder("Smartest Harvest", 0).requirement("Fruit tree harvests in 4 minutes", 60).build());
+        achievements.add(new AchievementBuilder("Gotta Patch 'Em All", 0).requirement("Stuff in all patches", 1).build());
+        achievements.add(new AchievementBuilder("Herb Your Enthusiasm", 0).requirement("Herbs harvested", 18).build());
     }
 
     public static AchievementDatabase getAchievementDatabase() {

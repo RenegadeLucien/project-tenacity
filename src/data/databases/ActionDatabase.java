@@ -42,7 +42,7 @@ public class ActionDatabase {
         database.add(new Action("Voyaging for items", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
             Map.of("Supplies", 300), Map.ofEntries(Map.entry("Taijitu", 26), Map.entry("Sea shell", 9), Map.entry("Driftwood", 9), Map.entry("Sea salt", 9),
             Map.entry("Bamboo", 9), Map.entry("Shell chippings", 9), Map.entry("Spirit dragon charm", 9), Map.entry("Raw tarpon", 9), Map.entry("Bundle of bamboo", 9),
-            Map.entry("Fish oil", 9), Map.entry("Stoneberry seed", 1), Map.entry("Stormberry seed", 1)), 60, true, true));
+            Map.entry("Fish oil", 9), Map.entry("Stoneberry seed", 1), Map.entry("Stormberry seed", 1), Map.entry("Uncharted Isles visited", 60)), 60, true, true));
         database.add(new Action("Winning Castle Wars games", new ArrayList(), new HashMap(), Map.of("Gold Castle Wars ticket", 6), 3, true,
             true));
         database.add(new Action("Opening prawn balls", new ArrayList(), Map.of("Prawn balls", 3000), Map.of("Golden fish egg", 15), 3000, true, true));
@@ -315,7 +315,8 @@ public class ActionDatabase {
         database.add(new Action("Killing gelatinous abominations for gold charms with ranged", gelatinousAbominationKills.values().iterator().next(), new HashMap(), Map.of("Gold charm",
             (int) (gelatinousAbominationKills.keySet().iterator().next() * 0.4), "rCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() *
                 gelatinousAbominationKills.keySet().iterator().next(), "Constitution", (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() *
-                gelatinousAbominationKills.keySet().iterator().next()), gelatinousAbominationKills.keySet().iterator().next(), true, true));
+                gelatinousAbominationKills.keySet().iterator().next(), "Spirit sapphire", gelatinousAbominationKills.keySet().iterator().next()/400),
+            gelatinousAbominationKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> giantRockCrabKillsAndReqs = combatKills(new Encounter("Giant rock crab"), player, 0, "Magic", 0.79, true);
         int giantRockCrabKills = giantRockCrabKillsAndReqs.keySet().iterator().next();
@@ -678,15 +679,42 @@ public class ActionDatabase {
                 if (player.getXp().get("Magic") > initialXP.get("Magic")) {
                     requirements.add(new Requirement("Magic", player.getLevel("Magic")));
                 }
-                for (Weapon weapon : player.getWeapons()) {
-                    if (!initialWeapons.contains(weapon)) {
-                        requirements.add(new Requirement(weapon.getName(), 1));
-                    }
+                if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
+                    requirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
                 }
-                for (Armour armour : player.getArmour()) {
-                    if (!initialArmours.contains(armour)) {
-                        requirements.add(new Requirement(armour.getName(), 1));
-                    }
+                Loadout loadout = combatResults.getLoadoutUsed();
+                if (!initialWeapons.contains(loadout.getMainWep())) {
+                    requirements.add(new Requirement(loadout.getMainWep().getName(), 1));
+                }
+                if (!initialWeapons.contains(loadout.getOffWep()) && !loadout.getOffWep().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getOffWep().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getHead().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getTorso()) && !loadout.getTorso().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getTorso().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getLegs()) && !loadout.getLegs().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getLegs().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getHands()) && !loadout.getHands().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getHands().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getFeet()) && !loadout.getFeet().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getFeet().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getRing()) && !loadout.getRing().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getRing().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getCape()) && !loadout.getCape().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getCape().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getNeck()) && !loadout.getNeck().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getNeck().getName(), 1));
+                }
+                if (!initialArmours.contains(loadout.getShield()) && !loadout.getShield().getName().equals("None")) {
+                    requirements.add(new Requirement(loadout.getShield().getName(), 1));
                 }
                 player.setXp(initialXP);
                 player.setWeapons(initialWeapons);

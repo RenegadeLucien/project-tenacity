@@ -48,7 +48,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Statius's full helm", "Melee", "Head", 384, 0, 0, 0, 20, Collections.singletonList(new Requirement("Defence", 78))));
         armours.add(new Armour("Torva full helm", "Melee", "Head", 338, 110, 2, 0, 20, Arrays.asList(new Requirement("Defence", 80), new Requirement("Constitution", 80))));
         armours.add(new Armour("Second-Age full helm", "Melee", "Head", 384, 0, 0, 0.016, 0, Collections.singletonList(new Requirement("Defence", 80))));
-        armours.add(new Armour("Linza's helmet", "Melee", "Head", 384, 0, 0, 0.016, 0, Arrays.asList(new Requirement("Defence", 80), new Requirement("Herblore", 60),
+        armours.add(new Armour("Linza's helm", "Melee", "Head", 384, 0, 0, 0.016, 0, Arrays.asList(new Requirement("Defence", 80), new Requirement("Herblore", 60),
             new Requirement("Agility", 60), new Requirement("Crafting", 60), new Requirement("Smithing", 60))));
         armours.add(new Armour("Tetsu helm", "Melee", "Head", 414, 280, 0, 0.0166, 0, Collections.singletonList(new Requirement("Defence", 85))));
         armours.add(new Armour("Malevolent helm", "Melee", "Head", 435, 0, 2, 0, 23, Collections.singletonList(new Requirement("Defence", 90))));

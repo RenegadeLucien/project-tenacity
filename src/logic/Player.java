@@ -159,6 +159,10 @@ public class Player implements Serializable {
                 if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
                     weaponTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(weapon.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
                 }
+                else {
+                    //Getting time to untradeable gear that aren't already owned is unsupported
+                    weaponTime += 1000000000.0;
+                }
                 for (Requirement weaponReq : weapon.getReqs()) {
                     weaponTime += weaponReq.timeAndActionsToMeetRequirement(this).getTotalTime();
                 }
@@ -173,6 +177,10 @@ public class Player implements Serializable {
                 double armourTime = 0;
                 if (ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()) != null) {
                     armourTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                else {
+                    //Getting time to untradeable gear that aren't already owned is unsupported
+                    armourTime += 1000000000.0;
                 }
                 for (Requirement armourReq : armourPiece.getReqs()) {
                     armourTime += armourReq.timeAndActionsToMeetRequirement(this).getTotalTime();
@@ -402,6 +410,7 @@ public class Player implements Serializable {
         if (previousEfficiencyResults.get(generatedRequirement) != null) {
             return previousEfficiencyResults.get(generatedRequirement);
         }
+        //Basically, this if you're trying to make 15000 coins to get 3000 coins. By definition, you won't need to do this, so this should not be done
         if (!qualifier.equals("Coins") && currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
             return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
         }

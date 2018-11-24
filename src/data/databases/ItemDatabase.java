@@ -49,6 +49,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Adamant spear", 2080));
         itemsList.add(new Item("Adamant sword", 2080));
         itemsList.add(new Item("Adamant warhammer", 5356));
+        itemsList.add(new Item("Aggression potion (1)", 5000));
         itemsList.add(new Item("Agility potion (4)", 200));
         itemsList.add(new Item("Ahrim's book of magic", 75000));
         itemsList.add(new Item("Ahrim's hood", 13000));
@@ -937,6 +938,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Sapphire amulet", 900));
         itemsList.add(new Item("Sapphire necklace", 1050));
         itemsList.add(new Item("Saradomin arrows", 300));
+        itemsList.add(new Item("Saradomin brew (1)", 125));
         itemsList.add(new Item("Saradomin sword", 130000));
         itemsList.add(new Item("Saradomin's hiss", 40000));
         itemsList.add(new Item("Saradomin's murmur", 40000));
