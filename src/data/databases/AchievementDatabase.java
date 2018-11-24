@@ -33,7 +33,7 @@ public class AchievementDatabase {
             .reward("Farming", 465).reward("Cactus spines", 1).build());
         achievements.add(new AchievementBuilder("Three's Company", 0.75).requirement("Dungeoneering", 6)
             .requirement("Attack", 30).requirement("Ranged", 30).requirement("Magic", 30).reward("Dungeoneering", 750)
-            .reward("Dungeoneering tokens", 75).lamp(Arrays.asList("Attack", "Ranged", "Magic"), 3750, 1).build());
+            .reward("Dungeoneering token", 75).lamp(Arrays.asList("Attack", "Ranged", "Magic"), 3750, 1).build());
         achievements.add(new AchievementBuilder("300", 0).requirement("Three's Company", 1).build());
         achievements.add(new AchievementBuilder("The Dig Site", 1.5).requirement("Thieving", 25).requirement("Agility", 10)
             .requirement("Herblore", 10).requirement("Cup of tea", 1).requirement("Vial", 1).requirement("Rope", 2)
@@ -5054,48 +5054,124 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Superiority Complex IV", 0).requirement("Verak Lith group kills", 50).build());
         achievements.add(new AchievementBuilder("Superiority Complex V", 0).requirement("Verak Lith group kills", 75).build());
         achievements.add(new AchievementBuilder("Superiority Complex VI", 0).requirement("Verak Lith group kills", 100).build());
-        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex I", 0).requirement("Verak Lith solo kills", 5).build());
-        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex II", 0).requirement("Verak Lith solo kills", 10).build());
-        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex III", 0).requirement("Verak Lith solo kills", 25).build());
-        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex IV", 0).requirement("Verak Lith solo kills", 50).build());
-        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex V", 0).requirement("Verak Lith solo kills", 75).build());
-        achievements.add(new AchievementBuilder("Superiority Solo Kills Complex VI", 0).requirement("Verak Lith solo kills", 100).build());
-        achievements.add(new AchievementBuilder("Unreferenced Achievements", 0).requirement("The Archivist", 1).requirement("The world is a safe place", 1)
-            .requirement("Tickety Boom!", 1).requirement("Whack Stone Dragon I", 1).requirement("Whack Stone Dragon II", 1)
-            .requirement("Whack Stone Dragon III", 1).requirement("Whack Stone Dragon IV", 1).requirement("Whack Stone Dragon V", 1)
-            .requirement("Whack Stone Dragon VI", 1).requirement("Whack Stone Dragon Solo Kills I", 1)
-            .requirement("Whack Stone Dragon Solo Kills II", 1).requirement("Whack Stone Dragon Solo Kills III", 1)
-            .requirement("Whack Stone Dragon Solo Kills IV", 1).requirement("Whack Stone Dragon Solo Kills V", 1)
-            .requirement("Whack Stone Dragon Solo Kills VI", 1).requirement("Wood Kill Again I", 1).requirement("Wood Kill Again II", 1)
-            .requirement("Wood Kill Again III", 1).requirement("Wood Kill Again IV", 1).requirement("Wood Kill Again V", 1)
-            .requirement("Wood Kill Again VI", 1).requirement("Yaksworn", 1).requirement("Zygomitesworn", 1)
-            .requirement("Gaps, Traps, and Laps", 1).requirement("Perfectly Balanced I", 1).requirement("Perfectly Balanced II", 1)
-            .requirement("Perfectly Balanced III", 1).requirement("Perfectly Balanced IV", 1).requirement("Reverent Sculptor", 1)
-            .requirement("Wen Mah Aquarium Jas Got a Bik Too Ful", 1).requirement("The Great Gnomish Shake Off", 1)
-            .requirement("The School of Jewels", 1).requirement("The Home of Daemons", 1).requirement("Dungeoneer Ring", 1)
-            .requirement("Dungeon Mage", 1).requirement("Dungeon Ranger", 1).requirement("Dungeon Warrior", 1)
-            .requirement("Dungeon Skiller", 1).requirement("Without Blinking an Eye", 1).requirement("The Riches Wythien the Maw I", 1)
-            .requirement("The Riches Wythien the Maw II", 1).requirement("The Riches Wythien the Maw III", 1)
-            .requirement("The Riches Wythien the Maw IV", 1).requirement("Scraps of the Gorajo", 1).requirement("A Firemaker's Log", 1)
-            .requirement("Bakriminiel Minds", 1).requirement("Goebie One with the Wildlife", 1).requirement("Sonic Crystal", 1)
-            .requirement("Jadinko Bingo", 1).requirement("Great Responsibility", 1).requirement("I Said Disassemble, Not Dismember", 1)
-            .requirement("Light 'em up!", 1).requirement("Imcando Attitude", 1).requirement("Shards of the Earth", 1)
-            .requirement("It's Late and I'm Awake", 1).requirement("Portnight", 1).requirement("Tetsu warrior", 1)
-            .requirement("Seasinger", 1).requirement("Death lotus assassin", 1).requirement("VIP - Very important Portmaster", 1)
-            .requirement("Fleeting Admiration", 1).requirement("Admirable", 1).requirement("A little green around the gills", 1)
-            .requirement("A Commodore to adore", 1).requirement("Best Mate ever", 1).requirement("Oh captain, my captain", 1)
-            .requirement("From landlubber to deck scrubber", 1).requirement("Bury All", 1).requirement("Curses!", 1)
-            .requirement("Conquered Everyone's Heart", 1).requirement("Zaros's Per-Faction-ist", 1)
-            .requirement("Seren's Per-Faction-ist", 1).requirement("Zamorak's Per-Faction-ist", 1)
-            .requirement("Sliske's Per-Faction-ist", 1).requirement("My Goebie Homies", 1).requirement("Altar Native", 1)
-            .requirement("All Good", 1).requirement("Energy Aficionado", 1).requirement("Y'all Got Any More of that Rune Dust? I", 1)
-            .requirement("Y'all Got Any More of that Rune Dust? II", 1).requirement("Y'all Got Any More of that Rune Dust? III", 1)
-            .requirement("Y'all Got Any More of that Rune Dust? IV", 1).requirement("Splinters of Power", 1)
-            .requirement("Rinsit Transit", 1).requirement("Charmer Chameleon", 1).requirement("Loving Would Be Easy", 1)
-            .requirement("And Green", 1).requirement("Gold", 1).requirement("Red", 1)
-            .requirement("Regard my Shards", 1).requirement("A Bit Too Familiar", 1).requirement("A Charm Saved is a Charm Earned", 1)
-            .requirement("Hacks", 1).requirement("A Hidden Gem I", 1).requirement("A Hidden Gem II", 1).requirement("A Hidden Gem III", 1)
-            .requirement("A Hidden Gem IV", 1).requirement("Snippets of Memory", 1).requirement("Catch and Release", 1)
+        achievements.add(new AchievementBuilder("Superiority Complex Solo Kills I", 0).requirement("Verak Lith solo kills", 5).build());
+        achievements.add(new AchievementBuilder("Superiority Complex Solo Kills II", 0).requirement("Verak Lith solo kills", 10).build());
+        achievements.add(new AchievementBuilder("Superiority Complex Solo Kills III", 0).requirement("Verak Lith solo kills", 25).build());
+        achievements.add(new AchievementBuilder("Superiority Complex Solo Kills IV", 0).requirement("Verak Lith solo kills", 50).build());
+        achievements.add(new AchievementBuilder("Superiority Complex Solo Kills V", 0).requirement("Verak Lith solo kills", 75).build());
+        achievements.add(new AchievementBuilder("Superiority Complex Solo Kills VI", 0).requirement("Verak Lith solo kills", 100).build());
+        achievements.add(new AchievementBuilder("The Archivist", 0).requirement("Backup memory storage bots", 50).build());
+        achievements.add(new AchievementBuilder("The world is a safe place", 0).requirement("Pilferin' in Asgarnia", 1)
+            .requirement("Pilferin' in Kandarin", 1).requirement("Pilferin' in Kharidian Desert", 1)
+            .requirement("Pilferin' in Misthalin", 1).requirement("Pilferin' the hidden ones", 1).build());
+        achievements.add(new AchievementBuilder("Tickety Boom!", 0).requirement("Chinchompa explosion", 1).build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon I", 0).requirement("Black Stone Dragon group kills", 5).build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon II", 0).requirement("Black Stone Dragon group kills", 10).build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon III", 0).requirement("Black Stone Dragon group kills", 25).build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon IV", 0).requirement("Black Stone Dragon group kills", 50).build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon V", 0).requirement("Black Stone Dragon group kills", 75).build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon VI", 0).requirement("Black Stone Dragon group kills", 100).build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon Solo Kills I", 0).requirement("Black Stone Dragon solo kills", 5)
+            .build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon Solo Kills II", 0).requirement("Black Stone Dragon solo kills", 10)
+            .build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon Solo Kills III", 0).requirement("Black Stone Dragon solo kills", 25)
+            .build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon Solo Kills IV", 0).requirement("Black Stone Dragon solo kills", 50)
+            .build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon Solo Kills V", 0).requirement("Black Stone Dragon solo kills", 75)
+            .build());
+        achievements.add(new AchievementBuilder("Whack Stone Dragon Solo Kills VI", 0).requirement("Black Stone Dragon solo kills", 100)
+            .build());
+        achievements.add(new AchievementBuilder("Wood Kill Again I", 0).requirement("Solak", 5).build());
+        achievements.add(new AchievementBuilder("Wood Kill Again II", 0).requirement("Solak", 10).build());
+        achievements.add(new AchievementBuilder("Wood Kill Again III", 0).requirement("Solak", 25).build());
+        achievements.add(new AchievementBuilder("Wood Kill Again IV", 0).requirement("Solak", 50).build());
+        achievements.add(new AchievementBuilder("Wood Kill Again V", 0).requirement("Solak", 75).build());
+        achievements.add(new AchievementBuilder("Wood Kill Again VI", 0).requirement("Solak", 100).build());
+        achievements.add(new AchievementBuilder("Yaksworn", 0).requirement("Ravensworn yak", 1).build());
+        achievements.add(new AchievementBuilder("Zygomitesworn", 0).requirement("Ravensworn zygomite", 1).build());
+        achievements.add(new AchievementBuilder("Gaps, Traps, and Laps", 0).requirement("Agility courses", 15).build());
+        achievements.add(new AchievementBuilder("Perfectly Balanced I", 0).requirement("Serenity post", 1).build());
+        achievements.add(new AchievementBuilder("Perfectly Balanced II", 0).requirement("Serenity post", 5).build());
+        achievements.add(new AchievementBuilder("Perfectly Balanced III", 0).requirement("Serenity post", 10).build());
+        achievements.add(new AchievementBuilder("Perfectly Balanced IV", 0).requirement("Serenity post", 25).build());
+        achievements.add(new AchievementBuilder("Reverent Sculptor", 0).requirement("God chisels", 5).build());
+        achievements.add(new AchievementBuilder("Wen Mah Aquarium Jas Got a Bik Too Ful", 0).requirement("Aquarium prestige", 2).build());
+        achievements.add(new AchievementBuilder("The Great Gnomish Shake Off", 0).requirement("Gnome cocktails", 7).build());
+        achievements.add(new AchievementBuilder("The School of Jewels", 0).requirement("Gems cut", 10).build());
+        achievements.add(new AchievementBuilder("The Home of Daemons", 0.1).requirement("Dungeoneering", 113).build());
+        achievements.add(new AchievementBuilder("Dungeon Mage", 0).requirement("Dungeoneering token", 969645).build());
+        achievements.add(new AchievementBuilder("Dungeon Ranger", 0).requirement("Dungeoneering token", 969645).build());
+        achievements.add(new AchievementBuilder("Dungeon Warrior", 0).requirement("Dungeoneering token", 969645).build());
+        achievements.add(new AchievementBuilder("Dungeon Skiller", 0).requirement("Dungeoneering token", 969645).build());
+        achievements.add(new AchievementBuilder("Dungeoneer Ring", 0).requirement("Dungeon Mage", 1).requirement("Dungeon Ranger", 1)
+            .requirement("Dungeon Warrior", 1).requirement("Dungeon Skiller", 1).build());
+        achievements.add(new AchievementBuilder("Without Blinking an Eye", 0.1).requirement("Dungeoneering", 95).build());
+        achievements.add(new AchievementBuilder("The Riches Wythien the Maw I", 0).requirement("Motherlode Maw", 1).build());
+        achievements.add(new AchievementBuilder("The Riches Wythien the Maw II", 0).requirement("Motherlode Maw", 5).build());
+        achievements.add(new AchievementBuilder("The Riches Wythien the Maw III", 0).requirement("Motherlode Maw", 10).build());
+        achievements.add(new AchievementBuilder("The Riches Wythien the Maw IV", 0).requirement("Motherlode Maw", 25).build());
+        achievements.add(new AchievementBuilder("Scraps of the Gorajo", 0).requirement("Warped gorajan trailblazer outfit", 1).build());
+        achievements.add(new AchievementBuilder("A Firemaker's Log", 0).requirement("Types of log burned", 18).build());
+        achievements.add(new AchievementBuilder("bakriminiel Minds", 0).requirement("Types of bolt enchated", 11).build());
+        achievements.add(new AchievementBuilder("Goebie One with the Wildlife", 0).requirement("Mazcab animals", 4).build());
+        achievements.add(new AchievementBuilder("Sonic Crystal", 0).requirement("Crystallise on caught grenwall", 1).build());
+        achievements.add(new AchievementBuilder("Jadinko Bingo", 0).requirement("Jadinkos caught", 13).build());
+        achievements.add(new AchievementBuilder("Great Responsibility", 0).requirement("Jumbo generator charges", 490000).build());
+        achievements.add(new AchievementBuilder("I Said Disassemble, Not Dismember", 0).requirement("Invention tutorial", 1).build());
+        achievements.add(new AchievementBuilder("Light 'em up!", 0).requirement("Pyromaniac perk", 1).requirement("Logs", 15)
+            .reward("Firemaking", 600).build());
+        achievements.add(new AchievementBuilder("Imcando Attitude", 0).requirement("Imcando pickaxe", 1).build());
+        achievements.add(new AchievementBuilder("Shards of the Earth", 0).requirement("Magic golem outfit", 1).build());
+        achievements.add(new AchievementBuilder("It's Late and I'm Awake", 0).requirement("Stardust", 200).build());
+        achievements.add(new AchievementBuilder("Portnight", 0.7).requirement("Ports unlocked", 1).build());
+        achievements.add(new AchievementBuilder("Tetsu Warrior", 0).requirement("Superior tetsu pieces", 7).build());
+        achievements.add(new AchievementBuilder("Seasinger", 0).requirement("Superior seasinger pieces", 7).build());
+        achievements.add(new AchievementBuilder("Death Lotus Assassin", 0).requirement("Superior death lotus pieces", 7).build());
+        achievements.add(new AchievementBuilder("A little green around the gills", 0).requirement("Ports unlocked", 1).build());
+        achievements.add(new AchievementBuilder("From landlubber to deck scrubber", 0).requirement("Port score", 400).build());
+        achievements.add(new AchievementBuilder("Best Mate ever", 0).requirement("Port score", 800).build());
+        achievements.add(new AchievementBuilder("Oh captain, my captain", 0).requirement("Port score", 1200).build());
+        achievements.add(new AchievementBuilder("A Commodore to adore", 0).requirement("Port score", 1600).build());
+        achievements.add(new AchievementBuilder("Admirable", 0).requirement("Port score", 2000).build());
+        achievements.add(new AchievementBuilder("Fleeting Admiration", 0).requirement("Port score", 3500).build());
+        achievements.add(new AchievementBuilder("VIP - Very Important Portmaster", 0).requirement("Port score", 4500).build());
+        achievements.add(new AchievementBuilder("Bury All", 0).requirement("Bones buried/ashes scattered", 25).build());
+        achievements.add(new AchievementBuilder("Curses!", 0).requirement("The Temple at Senntisten", 1).build());
+        achievements.add(new AchievementBuilder("Zaros's Per-faction-ist", 0).requirement("Zaros reputation", 5000).build());
+        achievements.add(new AchievementBuilder("Zamorak's Per-faction-ist", 0).requirement("Zamorak reputation", 5000).build());
+        achievements.add(new AchievementBuilder("Seren's Per-faction-ist", 0).requirement("Seren reputation", 5000).build());
+        achievements.add(new AchievementBuilder("Sliske's Per-faction-ist", 0).requirement("Sliske reputation", 5000).build());
+        achievements.add(new AchievementBuilder("Conquered Everyone's Heart", 0).requirement("Zaros's Per-faction-ist", 1)
+            .requirement("Seren's Per-faction-ist", 1).requirement("Zamorak's Per-faction-ist", 1)
+            .requirement("Sliske's Per-faction-ist", 1).build());
+        achievements.add(new AchievementBuilder("My Goebie Homies", 0).requirement("Goebie reputation", 5000).build());
+        achievements.add(new AchievementBuilder("Altar Native", 0).requirement("Rune types crafted", 21).build());
+        achievements.add(new AchievementBuilder("All Good", 0).requirement("Fully upgraded wicked hood", 1).build());
+        achievements.add(new AchievementBuilder("Energy Aficionado", 0).requirement("Runespan nodes siphoned", 17).build());
+        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? I", 0).requirement("Runespheres", 1).build());
+        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? II", 0).requirement("Runespheres", 5).build());
+        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? III", 0).requirement("Runespheres", 10).build());
+        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? IV", 0).requirement("Runespheres", 25).build());
+        achievements.add(new AchievementBuilder("Splinters of Power", 0).requirement("Infinity ethereal outfit", 0).build());
+        achievements.add(new AchievementBuilder("Rinsit Transit", 0).requirement("Runespan points", 1000).build());
+        achievements.add(new AchievementBuilder("Loving would be easy", 0).requirement("Elder charm pouches", 5).build());
+        achievements.add(new AchievementBuilder("Gold", 0).requirement("Gold charm pouches", 14).build());
+        achievements.add(new AchievementBuilder("Red", 0).requirement("Crimson charm pouches", 26).build());
+        achievements.add(new AchievementBuilder("And Green", 0).requirement("Green charm pouches", 23).build());
+        achievements.add(new AchievementBuilder("Charmer Chameleon", 0).requirement("Loving would be easy", 1)
+            .requirement("If your colours were like my dreams", 1).requirement("Gold", 1).requirement("Red", 1).requirement("And Green", 1)
+            .build());
+        achievements.add(new AchievementBuilder("Regard my Shards", 0.3).build());
+        achievements.add(new AchievementBuilder("A Bit TOO Familiar", 0).requirement("Familiarisatio familiars", 12).build());
+        achievements.add(new AchievementBuilder("A Charm Saved is a Charm Earned", 0).requirement("Spirit sapphire", 2).build());
+        achievements.add(new AchievementBuilder("Hacks", 0).requirement("Evil tree", 1).build());
+        achievements.add(new AchievementBuilder("A Hidden Gem I", 0).requirement("Crystal geode", 1).build());
+        achievements.add(new AchievementBuilder("A Hidden Gem II", 0).requirement("Crystal geode", 5).build());
+        achievements.add(new AchievementBuilder("A Hidden Gem III", 0).requirement("Crystal geode", 10).build());
+        achievements.add(new AchievementBuilder("A Hidden Gem IV", 0).requirement("Crystal geode", 25).build());
+        achievements.add(new AchievementBuilder("Unreferenced Achievements", 0).requirement("Snippets of Memory", 1).requirement("Catch and Release", 1)
             .requirement("Scales of the Sea", 1).requirement("Slivers of Camouflage", 1).requirement("A Thief Beyond Belief", 1)
             .requirement("The Ominous Sarcophagus Metropolis I", 1).requirement("The Ominous Sarcophagus Metropolis II", 1)
             .requirement("The Ominous Sarcophagus Metropolis III", 1).requirement("The Ominous Sarcophagus Metropolis IV", 1)
