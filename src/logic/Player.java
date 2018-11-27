@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 public class Player implements Serializable {
 
-    public static final ArrayList<String> ALL_SKILLS = new ArrayList<>(Arrays.asList("Agility", "Attack",
-        "Constitution", "Construction", "Cooking", "Crafting", "Defence", "Divination",
-        "Dungeoneering", "Farming", "Firemaking", "Fishing", "Fletching", "Herblore",
-        "Hunter", "Invention", "Magic", "Mining", "Prayer", "Ranged", "Runecrafting",
-        "Slayer", "Smithing", "Strength", "Summoning", "Thieving", "Woodcutting"));
+    //Ordered by Jagex ID
+    public static final ArrayList<String> ALL_SKILLS = new ArrayList<>(Arrays.asList("Attack", "Defence", "Strength", "Constitution",
+        "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
+        "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction", "Summoning",
+        "Dungeoneering", "Divination", "Invention"));
 
     public static final ArrayList<String> PORTS_SKILLS = new ArrayList<>(Arrays.asList("Agility", "Construction", "Cooking",
         "Divination", "Dungeoneering", "Fishing", "Herblore", "Hunter", "Prayer", "Runecrafting", "Slayer", "Thieving"));

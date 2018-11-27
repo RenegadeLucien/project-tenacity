@@ -1,5 +1,9 @@
 package ui;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import logic.GoalResults;
 import logic.Player;
 import javafx.scene.input.MouseButton;
@@ -30,10 +34,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map.Entry;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Planner extends Application {
@@ -282,6 +288,7 @@ public class Planner extends Application {
         createProfile.setText("Create Profile");
         createProfile.setOnAction(event -> {
             Player p = new Player(nameEntry.getText(), irongroup.getSelectedToggle().getUserData().toString());
+            getPlayerData(p);
             root.getChildren().clear();
             displayTasks(p);
             displayPlayer(p);
@@ -295,9 +302,28 @@ public class Planner extends Application {
         root.add(createProfile, 1, 4);
     }
 
+    private void getPlayerData(Player player) {
+        String alteredName = player.getName().replace(' ', '_');
+        Scanner runeMetricsSkillScanner;
+        try {
+            runeMetricsSkillScanner = new Scanner(new URL("https://apps.runescape.com/runemetrics/profile/profile?user=" + alteredName).openStream());
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException(String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName), e);
+        }
+        JsonObject jsonObject = new JsonParser().parse(runeMetricsSkillScanner.nextLine()).getAsJsonObject();
+        JsonArray skillValues = (jsonObject.get("skillvalues").getAsJsonArray());
+        for (JsonElement skill : skillValues) {
+            JsonObject skillObject = (JsonObject) skill;
+            String skillName = Player.ALL_SKILLS.get(skillObject.get("id").getAsInt());
+            player.getXp().put(skillName, skillObject.get("xp").getAsDouble()/10.0);
+        }
+        runeMetricsSkillScanner.close();
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.4.2a by Iron Lucien");
+        primaryStage.setTitle("Project Tenacity v0.4.5a by Iron Lucien");
         Text nameText = new Text("Load profile data:");
         TextField nameEntry = new TextField();
         Button newProfile = new Button();

@@ -126,7 +126,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Ice troll female", 41.5, "Trolls", Collections.singletonList(new Requirement("The Fremennik Isles", 1))));
         slayerMonsters.add(new SlayerMonster("River troll", 89.4, "Trolls", Collections.singletonList(new Requirement("Fairy Tale II - Cure a Queen", 1))));
         slayerMonsters.add(new SlayerMonster("Feral vampyre", 32.6, "Vampyres", new ArrayList<>()));
-        slayerMonsters.add(new SlayerMonster("Wall beasts", 20.6, "Wall beasts", Collections.singletonList(new Requirement("Slayer", 35))));
+        slayerMonsters.add(new SlayerMonster("Wall beast", 20.6, "Wall beasts", Collections.singletonList(new Requirement("Slayer", 35))));
         slayerMonsters.add(new SlayerMonster("Wolf", 17.2, "Wolves", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Adolescent White wolf", 7, "Wolves", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Big Wolf", 18, "Wolves", new ArrayList<>()));

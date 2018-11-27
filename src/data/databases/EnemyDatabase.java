@@ -30,6 +30,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Troll chucker", 50, 30, 9.9, 0, 10, 0, 0, 1, 0, 4, 0, 110, 0, 110, 1, "Slash", 90, 65, 55, 45));
         enemies.add(new Enemy("Troll shaman", 50, 30, 9.9, 0, 0, 10, 0, 0, 1, 4, 0, 0, 110, 110, 1, "Arrows", 90, 45, 65, 55));
         enemies.add(new Enemy("Troll brute", 50, 30, 9.9, 10, 0, 0, 1, 0, 0, 4, 110, 0, 0, 110, 1, "Air", 90, 55, 45, 65));
+        enemies.add(new Enemy("Pekin", 50, 24.9, 8.2, 4, 0, 0, 1, 0, 0, 4, 110, 0, 0, 110, 1, "Water", 80, 60, 50, 70));
         enemies.add(new Enemy("Living rock brawler", 60, 24.9, 9.2, 1, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, "Crush", 90, 65, 55, 45));
         enemies.add(new Enemy("Jonny the beard", 100, 37.3, 12.3, 4, 0, 0, 1, 0, 0, 4, 110, 0, 0, 110, 1, "Fire", 90, 55, 45, 65));
         enemies.add(new Enemy("Bandit", 100, 0, 0, 72, 0, 0, 5, 0, 0, 4, 150, 0, 0, 0, 5, "Crush", 90, 55, 45, 65));
@@ -590,8 +591,10 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Araxxi", 100000, 13034.1, 4301.2, 1653, 1653, 1653, 99, 99, 99, 4, 2458, 2458, 2458, 1924, 80, "Nothing", 0, 60, 55, 45));
         enemies.add(new Enemy("Kree'arra (HM)", 100000, 7804, 2575.3, 1500, 3000, 700, 75, 75, 75, 3, 1694, 1694, 1694, 1694, 75, "Nothing", 0, 50, 60, 70));
         enemies.add(new Enemy("General Graardor (TMF)", 100000, 8096.4, 2671.8, 1224, 0, 0, 85, 0, 0, 4, 2178, 0, 0, 1566, 72, "Nothing", 0, 55, 45, 65));
+        enemies.add(new Enemy("General Graardor (hard)", 100000, 16350, 5395.5, 3000, 1500, 0, 75, 75, 0, 5, 1694, 1694, 0, 1694, 75, "Nothing", 0, 60, 70, 50));
         enemies.add(new Enemy("Wyrd", 100000, 0, 0, 1224, 0, 0, 88, 0, 0, 4, 2343, 0, 0, 1924, 80, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Nomad (Elegy)", 100000, 0, 0, 2011, 1525, 1525, 95, 83, 83, 5, 2765, 2765, 2765, 1924, 80, "Nothing", 0, 55, 55, 55));
+        enemies.add(new Enemy("K'ril Tsutsaroth (hard)", 100000, 7618, 2513.9, 1500, 0, 1500, 75, 0, 75, 4, 1694, 0, 1694, 1694, 75, "Nothing", 0, 70, 80, 60));
         enemies.add(new Enemy("Commander Zilyana (hard)", 100050, 4796.55, 1582.8, 1900, 0, 1990, 75, 0, 75, 3, 1694, 0, 1694, 1694, 75, "Nothing", 0, 45, 40, 50));
         enemies.add(new Enemy("Image of Yakamaru", 150000, 28936.9, 9549.1, 0, 0, 1788, 0, 0, 99, 4, 0, 0, 2458, 2765, 99, "Nothing", 0, 55, 55, 55));
         enemies.add(new Enemy("Linza the Disgraced", 150000, 846, 279.1, 1200, 0, 0, 75, 0, 0, 6, 1694, 0, 0, 1694, 75, "Fire", 90, 55, 45, 65));
