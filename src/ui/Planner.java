@@ -288,7 +288,18 @@ public class Planner extends Application {
         createProfile.setText("Create Profile");
         createProfile.setOnAction(event -> {
             Player p = new Player(nameEntry.getText(), irongroup.getSelectedToggle().getUserData().toString());
-            getPlayerData(p);
+            try {
+                getPlayerXp(p);
+            } catch (Exception e) {
+                System.out.println(String.format("Failed to get player XP from RuneMetrics. Continuing with fresh account stats. Note that Project Tenacity cannot" +
+                    "get data from private profiles. If you believe the name '%s' was valid, please raise a T99 issue.", p.getName()));
+            }
+            try  {
+                getPlayerQuests(p);
+            } catch (Exception e) {
+                System.out.println(String.format("Failed to get player quests from RuneMetrics. Continuing with no quests completed. Note that Project Tenacity cannot" +
+                    "get data from private profiles. If you believe the name '%s' was valid, please raise a T99 issue.", p.getName()));
+            }
             root.getChildren().clear();
             displayTasks(p);
             displayPlayer(p);
@@ -302,7 +313,7 @@ public class Planner extends Application {
         root.add(createProfile, 1, 4);
     }
 
-    private void getPlayerData(Player player) {
+    private void getPlayerXp(Player player) {
         String alteredName = player.getName().replace(' ', '_');
         Scanner runeMetricsSkillScanner;
         try {
@@ -312,18 +323,48 @@ public class Planner extends Application {
             throw new IllegalArgumentException(String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName), e);
         }
         JsonObject jsonObject = new JsonParser().parse(runeMetricsSkillScanner.nextLine()).getAsJsonObject();
+        runeMetricsSkillScanner.close();
         JsonArray skillValues = (jsonObject.get("skillvalues").getAsJsonArray());
         for (JsonElement skill : skillValues) {
             JsonObject skillObject = (JsonObject) skill;
             String skillName = Player.ALL_SKILLS.get(skillObject.get("id").getAsInt());
             player.getXp().put(skillName, skillObject.get("xp").getAsDouble()/10.0);
         }
-        runeMetricsSkillScanner.close();
+
+    }
+
+    private void getPlayerQuests(Player player) {
+        String alteredName = player.getName().replace(' ', '_');
+        Scanner runeMetricsQuestScanner;
+        try {
+            runeMetricsQuestScanner = new Scanner(new URL("https://apps.runescape.com/runemetrics/quests?user=" + alteredName).openStream());
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException(String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName), e);
+        }
+        JsonObject jsonObject = new JsonParser().parse(runeMetricsQuestScanner.nextLine()).getAsJsonObject();
+        runeMetricsQuestScanner.close();
+        JsonArray questValues = (jsonObject.get("quests").getAsJsonArray());
+        for (JsonElement quest : questValues) {
+            JsonObject questObject = (JsonObject) quest;
+            String questName = questObject.get("title").getAsString();
+            String questStatus = questObject.get("status").getAsString();
+            int questPoints = questObject.get("questPoints").getAsInt();
+            if (questStatus.equals("COMPLETED")) {
+                player.getQualities().put(questName, 1);
+                if (player.getQualities().keySet().contains("Quest points")) {
+                    player.getQualities().put("Quest points", player.getQualities().get("Quest points") + questPoints);
+                }
+                else {
+                    player.getQualities().put("Quest points", questPoints);
+                }
+            }
+        }
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.4.5a by Iron Lucien");
+        primaryStage.setTitle("Project Tenacity v0.5.0a by Iron Lucien");
         Text nameText = new Text("Load profile data:");
         TextField nameEntry = new TextField();
         Button newProfile = new Button();
