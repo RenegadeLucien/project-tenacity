@@ -4,6 +4,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import data.databases.ItemDatabase;
+import data.dataobjects.Armour;
+import data.dataobjects.Weapon;
+import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.TextFieldTableCell;
 import logic.GoalResults;
 import logic.Player;
 import javafx.scene.input.MouseButton;
@@ -13,19 +23,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -44,7 +42,7 @@ import java.util.stream.Collectors;
 
 public class Planner extends Application {
 
-    private GridPane root = new GridPane();
+    private Group root = new Group();
 
     public static void main(String args[]) {
         launch(args);
@@ -52,10 +50,9 @@ public class Planner extends Application {
 
     private void displayTasks(Player p) {
         TableView taskView = new TableView();
-        root.add(taskView, 0, 0);
-        root.setAlignment(Pos.TOP_LEFT);
-        taskView.setPrefWidth(400);
-        taskView.setPrefHeight(550);
+        root.getChildren().add(taskView);
+        taskView.setPrefWidth(500);
+        taskView.setPrefHeight(700);
         taskView.setEditable(true);
         TableColumn<Entry<String, Double>, String> taskCol = new TableColumn<>("Achievement");
         taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
@@ -99,7 +96,8 @@ public class Planner extends Application {
                 displayPlayer(p);
             }
         });
-        root.add(completeTask, 0, 1);
+        completeTask.setLayoutY(740);
+        root.getChildren().add(completeTask);
     }
 
     private void handleRow(Entry<String, Double> row, Player player) {
@@ -113,26 +111,27 @@ public class Planner extends Application {
     private void displayPlayer(Player p) {
         TableView skillView = new TableView();
         skillView.setPrefWidth(300);
-        skillView.setPrefHeight(550);
+        skillView.setPrefHeight(650);
         skillView.setEditable(true);
         TableView bankView = new TableView();
         bankView.setPrefWidth(300);
-        bankView.setPrefHeight(550);
+        bankView.setPrefHeight(650);
         bankView.setEditable(true);
         TableView weaponView = new TableView();
         weaponView.setPrefWidth(300);
-        weaponView.setPrefHeight(550);
+        weaponView.setPrefHeight(650);
         weaponView.setEditable(true);
         TableView armourView = new TableView();
         armourView.setPrefWidth(300);
-        armourView.setPrefHeight(550);
+        armourView.setPrefHeight(650);
         armourView.setEditable(true);
         TableView qualityView = new TableView();
         qualityView.setPrefWidth(300);
-        qualityView.setPrefHeight(550);
+        qualityView.setPrefHeight(650);
         qualityView.setEditable(true);
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        tabPane.setLayoutX(700);
         Tab skillTab = new Tab();
         skillTab.setText("Skills");
         skillTab.setContent(skillView);
@@ -168,6 +167,16 @@ public class Planner extends Application {
                 return new SimpleStringProperty(decimalFormat.format(a.getValue().getValue()));
             }
         });
+        xpCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        xpCol.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Entry<String, Double>, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Entry<String, Double>, String> t) {
+                    ((Entry<String, Double>) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                    ).setValue(Double.parseDouble(t.getNewValue()));
+                }
+            });
         TableColumn<Entry<String, Integer>, String> itemCol = new TableColumn<>("Item");
         itemCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
             @Override
@@ -181,19 +190,80 @@ public class Planner extends Application {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
                 return new SimpleStringProperty(a.getValue().getValue().toString());
             }
+
         });
-        TableColumn<Entry<String, Integer>, String> qualityCountCol = new TableColumn<>("Count");
-        qualityCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
+        itemCountCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        itemCountCol.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Entry<String, Integer>, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Entry<String, Integer>, String> t) {
+                    ((Entry<String, Integer>) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                    ).setValue(Integer.parseInt(t.getNewValue()));
+                }
+            });
+        final TextField addItem = new TextField();
+        addItem.setPromptText("Item");
+        addItem.setMaxWidth(itemCol.getPrefWidth());
+        addItem.setLayoutX(700);
+        addItem.setLayoutY(700);
+        final TextField addCount = new TextField();
+        addCount.setMaxWidth(itemCountCol.getPrefWidth());
+        addCount.setPromptText("Count");
+        addCount.setLayoutX(800);
+        addCount.setLayoutY(700);
+        final Button addToBankButton = new Button("Add");
+        addToBankButton.setLayoutX(900);
+        addToBankButton.setLayoutY(700);
+        final Button removeFromBankButton = new Button("Remove");
+        removeFromBankButton.setLayoutX(950);
+        removeFromBankButton.setLayoutY(700);
+        addToBankButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
-                return new SimpleStringProperty(a.getValue().getValue().toString());
+            public void handle(ActionEvent event) {
+                if (ItemDatabase.getItemDatabase().getItems().get(addItem.getText()) == null) {
+                    Alert alert = new Alert(AlertType.WARNING, String.format("Input item %s is not present in the items database. Please note that the bank is only meant for tradeable items. " +
+                        "If you believe this item is valid, please raise a T90 issue.", addItem.getText()));
+                    alert.showAndWait();
+                }
+                else if (p.getBank().containsKey(addItem.getText())) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "This is already in your bank. Please edit the existing entry rather than create a new one.");
+                    alert.showAndWait();
+                }
+                else {
+                    try {
+                        p.getBank().put(addItem.getText(), Integer.parseInt(addCount.getText()));
+                        addItem.clear();
+                        addCount.clear();
+                        root.getChildren().remove(addItem);
+                        root.getChildren().remove(addCount);
+                        root.getChildren().remove(addToBankButton);
+                        root.getChildren().remove(removeFromBankButton);
+                        root.getChildren().remove(tabPane);
+                        displayPlayer(p);
+                    }
+                    catch (NumberFormatException e) {
+                        Alert alert = new Alert(AlertType.INFORMATION, String.format("%s is not an integer. Only integer quantities of items are allowed.", addCount.getText()));
+                        alert.showAndWait();
+                    }
+                }
             }
         });
-        TableColumn<Entry<String, Integer>, String> qualityCol = new TableColumn<>("Quality");
-        qualityCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
+        removeFromBankButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
-                return new SimpleStringProperty(a.getValue().getKey());
+            public void handle(ActionEvent event) {
+                try {
+                    p.getBank().remove(itemCol.getCellObservableValue(bankView.getSelectionModel().getSelectedIndex()).getValue());
+                } catch (NullPointerException e) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "You must select an item to remove it.");
+                    alert.showAndWait();
+                }
+                root.getChildren().remove(addItem);
+                root.getChildren().remove(addCount);
+                root.getChildren().remove(addToBankButton);
+                root.getChildren().remove(removeFromBankButton);
+                root.getChildren().remove(tabPane);
+                displayPlayer(p);
             }
         });
         TableColumn<String, String> weaponCol = new TableColumn<>("Weapon");
@@ -203,11 +273,236 @@ public class Planner extends Application {
                 return new SimpleStringProperty(a.getValue());
             }
         });
+        final TextField addWeapon = new TextField();
+        addWeapon.setPromptText("Weapon");
+        addWeapon.setMaxWidth(itemCol.getPrefWidth());
+        addWeapon.setLayoutX(700);
+        addWeapon.setLayoutY(700);
+        final Button addToWeaponButton = new Button("Add");
+        addToWeaponButton.setLayoutX(900);
+        addToWeaponButton.setLayoutY(700);
+        final Button removeFromWeaponButton = new Button("Remove");
+        removeFromWeaponButton.setLayoutX(950);
+        removeFromWeaponButton.setLayoutY(700);
+        addToWeaponButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (Weapon.getWeaponByName(addWeapon.getText()) == null) {
+                    Alert alert = new Alert(AlertType.WARNING, String.format("Input weapon %s is not present in the weapons database. " +
+                        "If you believe this weapon is valid, please raise a T90 issue.", addWeapon.getText()));
+                    alert.showAndWait();
+                }
+                else if (p.getWeapons().contains(Weapon.getWeaponByName(addWeapon.getText()))) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "You already have this weapon--you don't need another one!!");
+                    alert.showAndWait();
+                }
+                else {
+                    p.addWeapon(Weapon.getWeaponByName(addWeapon.getText()));
+                    addWeapon.clear();
+                    root.getChildren().remove(addWeapon);
+                    root.getChildren().remove(addToWeaponButton);
+                    root.getChildren().remove(removeFromWeaponButton);
+                    root.getChildren().remove(tabPane);
+                    displayPlayer(p);
+                }
+            }
+        });
+        removeFromWeaponButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    p.getWeapons().remove(Weapon.getWeaponByName(weaponCol.getCellObservableValue(weaponView.getSelectionModel().getSelectedIndex()).getValue()));
+                } catch (NullPointerException e) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "You must select a weapon to remove it.");
+                    alert.showAndWait();
+                }
+                root.getChildren().remove(addWeapon);
+                root.getChildren().remove(addToWeaponButton);
+                root.getChildren().remove(removeFromWeaponButton);
+                root.getChildren().remove(tabPane);
+                displayPlayer(p);
+            }
+        });
         TableColumn<String, String> armourCol = new TableColumn<>("Armour");
         armourCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> a) {
                 return new SimpleStringProperty(a.getValue());
+            }
+        });
+        final TextField addArmour = new TextField();
+        addArmour.setPromptText("Armour");
+        addArmour.setMaxWidth(itemCol.getPrefWidth());
+        addArmour.setLayoutX(700);
+        addArmour.setLayoutY(700);
+        final Button addToArmourButton = new Button("Add");
+        addToArmourButton.setLayoutX(900);
+        addToArmourButton.setLayoutY(700);
+        final Button removeFromArmourButton = new Button("Remove");
+        removeFromArmourButton.setLayoutX(950);
+        removeFromArmourButton.setLayoutY(700);
+        addToArmourButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (Armour.getArmourByName(addArmour.getText()) == null) {
+                    Alert alert = new Alert(AlertType.WARNING, String.format("Input Armour %s is not present in the armours database. " +
+                        "If you believe this armour is valid, please raise a T90 issue.", addArmour.getText()));
+                    alert.showAndWait();
+                }
+                else if (p.getArmour().contains(Armour.getArmourByName(addArmour.getText()))) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "You already have this armour--you don't need another one!!");
+                    alert.showAndWait();
+                }
+                else {
+                    p.addArmour(Armour.getArmourByName(addArmour.getText()));
+                    addArmour.clear();
+                    root.getChildren().remove(addArmour);
+                    root.getChildren().remove(addToArmourButton);
+                    root.getChildren().remove(removeFromArmourButton);
+                    root.getChildren().remove(tabPane);
+                    displayPlayer(p);
+                }
+            }
+        });
+        removeFromArmourButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    p.getArmour().remove(Armour.getArmourByName(armourCol.getCellObservableValue(armourView.getSelectionModel().getSelectedIndex()).getValue()));
+                } catch (NullPointerException e) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "You must select an armour to remove it.");
+                    alert.showAndWait();
+                }
+                root.getChildren().remove(addArmour);
+                root.getChildren().remove(addToArmourButton);
+                root.getChildren().remove(removeFromArmourButton);
+                root.getChildren().remove(tabPane);
+                displayPlayer(p);
+            }
+        });
+        TableColumn<Entry<String, Integer>, String> qualityCol = new TableColumn<>("Quality");
+        qualityCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
+                return new SimpleStringProperty(a.getValue().getKey());
+            }
+        });
+        TableColumn<Entry<String, Integer>, String> qualityCountCol = new TableColumn<>("Count");
+        qualityCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
+                return new SimpleStringProperty(a.getValue().getValue().toString());
+            }
+        });
+        qualityCountCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        qualityCountCol.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Entry<String, Integer>, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Entry<String, Integer>, String> t) {
+                    ((Entry<String, Integer>) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                    ).setValue(Integer.parseInt(t.getNewValue()));
+                }
+            });
+        final TextField addQuality = new TextField();
+        addQuality.setPromptText("Quality");
+        addQuality.setMaxWidth(itemCol.getPrefWidth());
+        addQuality.setLayoutX(700);
+        addQuality.setLayoutY(700);
+        final Button addToQualityButton = new Button("Add");
+        addToQualityButton.setLayoutX(900);
+        addToQualityButton.setLayoutY(700);
+        final Button removeFromQualityButton = new Button("Remove");
+        removeFromQualityButton.setLayoutX(950);
+        removeFromQualityButton.setLayoutY(700);
+        addToQualityButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (p.getBank().containsKey(addItem.getText())) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "You already have this quality. Please edit the existing entry rather than create a new one.");
+                    alert.showAndWait();
+                } else {
+                    try {
+                        p.getQualities().put(addQuality.getText(), Integer.parseInt(addCount.getText()));
+                        addQuality.clear();
+                        addCount.clear();
+                        root.getChildren().remove(addQuality);
+                        root.getChildren().remove(addCount);
+                        root.getChildren().remove(addToQualityButton);
+                        root.getChildren().remove(removeFromQualityButton);
+                        root.getChildren().remove(tabPane);
+                        displayPlayer(p);
+                    } catch (NumberFormatException e) {
+                        Alert alert = new Alert(AlertType.INFORMATION, String.format("%s is not an integer. Only integer quantities of qualities are allowed.", addCount.getText()));
+                        alert.showAndWait();
+                    }
+                }
+            }
+        });
+        removeFromQualityButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    p.getQualities().remove(qualityCol.getCellObservableValue(qualityView.getSelectionModel().getSelectedIndex()).getValue());
+                } catch (NullPointerException e) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "You must select a quality to remove it.");
+                    alert.showAndWait();
+                }
+                root.getChildren().remove(addQuality);
+                root.getChildren().remove(addCount);
+                root.getChildren().remove(addToQualityButton);
+                root.getChildren().remove(removeFromQualityButton);
+                root.getChildren().remove(tabPane);
+                displayPlayer(p);
+            }
+        });
+        tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+                if (oldValue.equals(bankTab)) {
+                    root.getChildren().remove(addItem);
+                    root.getChildren().remove(addCount);
+                    root.getChildren().remove(addToBankButton);
+                    root.getChildren().remove(removeFromBankButton);
+                }
+                if (oldValue.equals(weaponTab)) {
+                    root.getChildren().remove(addWeapon);
+                    root.getChildren().remove(addToWeaponButton);
+                    root.getChildren().remove(removeFromWeaponButton);
+                }
+                if (oldValue.equals(armourTab)) {
+                    root.getChildren().remove(addArmour);
+                    root.getChildren().remove(addToArmourButton);
+                    root.getChildren().remove(removeFromArmourButton);
+                }
+                if (oldValue.equals(qualityTab)) {
+                    root.getChildren().remove(addQuality);
+                    root.getChildren().remove(addCount);
+                    root.getChildren().remove(addToQualityButton);
+                    root.getChildren().remove(removeFromQualityButton);
+                }
+                if (newValue.equals(bankTab)) {
+                    root.getChildren().add(addItem);
+                    root.getChildren().add(addCount);
+                    root.getChildren().add(addToBankButton);
+                    root.getChildren().add(removeFromBankButton);
+                }
+                if (newValue.equals(weaponTab)) {
+                    root.getChildren().add(addWeapon);
+                    root.getChildren().add(addToWeaponButton);
+                    root.getChildren().add(removeFromWeaponButton);
+                }
+                if (newValue.equals(armourTab)) {
+                    root.getChildren().add(addArmour);
+                    root.getChildren().add(addToArmourButton);
+                    root.getChildren().add(removeFromArmourButton);
+                }
+                if (newValue.equals(qualityTab)) {
+                    root.getChildren().add(addQuality);
+                    root.getChildren().add(addCount);
+                    root.getChildren().add(addToQualityButton);
+                    root.getChildren().add(removeFromQualityButton);
+                }
             }
         });
         ObservableList<Entry<String, Double>> skillsAndExperience = FXCollections.observableArrayList(p.getXp().entrySet());
@@ -226,12 +521,14 @@ public class Planner extends Application {
         qualityView.setItems(qualitiesAndCount);
         qualityView.getColumns().addAll(qualityCol, qualityCountCol);
 
-        root.add(tabPane, 1, 0);
+        root.getChildren().add(tabPane);
 
         Button savePlayer = new Button();
         savePlayer.setText("Save Player Data");
         savePlayer.setOnAction(event -> { savePlayer(p); });
-        root.add(savePlayer, 1, 1);
+        savePlayer.setLayoutX(700);
+        savePlayer.setLayoutY(740);
+        root.getChildren().add(savePlayer);
     }
 
     private void savePlayer(Player p) {
@@ -244,7 +541,9 @@ public class Planner extends Application {
             file.close();
         }
         catch (IOException e) {
-            throw new RuntimeException("Could not save player data. Please open a T99 issue.");
+            Alert alert = new Alert(AlertType.ERROR, "Could not save player data. Please open a T99 issue.");
+            alert.showAndWait();
+            throw new RuntimeException(e);
         }
     }
 
@@ -261,29 +560,42 @@ public class Planner extends Application {
             displayPlayer(player);
         }
         catch (IOException e) {
-            throw new RuntimeException("Failed to load player data. Verify that a player data file (" + playerName + ".ptp) exists. If so, please open a T99 issue and include your player data file.");
+            Alert alert = new Alert(AlertType.ERROR, "Failed to load player data. Verify that a player data file (" + playerName + ".ptp) exists. " +
+                "If so, please open a T99 issue and include your player data file.");
+            alert.showAndWait();
+            throw new RuntimeException(e);
         }
         catch (ClassNotFoundException e) {
-            throw new RuntimeException("Failed to load internal player class. Please open a T99 issue and include your player data file.");
+            Alert alert = new Alert(AlertType.ERROR, "Failed to load internal player class. Please open a T99 issue and include your player data file.");
+            alert.showAndWait();
+            throw new RuntimeException(e);
         }
     }
 
     private void profileCreation() {
-        Text nameText = new Text("Enter profile name:");
         TextField nameEntry = new TextField();
+        nameEntry.setLayoutX(450);
+        nameEntry.setLayoutY(290);
+        nameEntry.setPromptText("Profile Name");
         final ToggleGroup irongroup = new ToggleGroup();
         RadioButton mainscape = new RadioButton("Mainscape");
         mainscape.setToggleGroup(irongroup);
         mainscape.setUserData("Mainscape");
         mainscape.setSelected(true);
+        mainscape.setLayoutX(450);
+        mainscape.setLayoutY(320);
         RadioButton ironman = new RadioButton("Ironman (unsupported)");
         ironman.setToggleGroup(irongroup);
         ironman.setUserData("Ironman");
         ironman.setDisable(true);
+        ironman.setLayoutX(450);
+        ironman.setLayoutY(350);
         RadioButton hardcore = new RadioButton("Hardcore (unsupported)");
         hardcore.setToggleGroup(irongroup);
         hardcore.setUserData("Hardcore");
         hardcore.setDisable(true);
+        hardcore.setLayoutX(450);
+        hardcore.setLayoutY(380);
         Button createProfile = new Button();
         createProfile.setText("Create Profile");
         createProfile.setOnAction(event -> {
@@ -291,26 +603,29 @@ public class Planner extends Application {
             try {
                 getPlayerXp(p);
             } catch (Exception e) {
-                System.out.println(String.format("Failed to get player XP from RuneMetrics. Continuing with fresh account stats. Note that Project Tenacity cannot" +
+                Alert alert = new Alert(AlertType.WARNING, String.format("Failed to get player XP from RuneMetrics. Continuing with fresh account stats. Note that Project Tenacity cannot " +
                     "get data from private profiles. If you believe the name '%s' was valid, please raise a T99 issue.", p.getName()));
+                alert.showAndWait();
             }
             try  {
                 getPlayerQuests(p);
             } catch (Exception e) {
-                System.out.println(String.format("Failed to get player quests from RuneMetrics. Continuing with no quests completed. Note that Project Tenacity cannot" +
+                Alert alert = new Alert(AlertType.WARNING, String.format("Failed to get player quests from RuneMetrics. Continuing with no quests completed. Note that Project Tenacity cannot " +
                     "get data from private profiles. If you believe the name '%s' was valid, please raise a T99 issue.", p.getName()));
+                alert.showAndWait();
             }
             root.getChildren().clear();
             displayTasks(p);
             displayPlayer(p);
         });
+        createProfile.setLayoutX(450);
+        createProfile.setLayoutY(410);
         root.getChildren().clear();
-        root.add(nameText, 0, 0);
-        root.add(nameEntry, 1, 0);
-        root.add(mainscape, 0, 1);
-        root.add(ironman, 0, 2);
-        root.add(hardcore, 0, 3);
-        root.add(createProfile, 1, 4);
+        root.getChildren().add(nameEntry);
+        root.getChildren().add(mainscape);
+        root.getChildren().add(ironman);
+        root.getChildren().add(hardcore);
+        root.getChildren().add(createProfile);
     }
 
     private void getPlayerXp(Player player) {
@@ -320,7 +635,9 @@ public class Planner extends Application {
             runeMetricsSkillScanner = new Scanner(new URL("https://apps.runescape.com/runemetrics/profile/profile?user=" + alteredName).openStream());
         }
         catch (Exception e) {
-            throw new IllegalArgumentException(String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName), e);
+            Alert alert = new Alert(AlertType.ERROR, String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName));
+            alert.showAndWait();
+            throw new IllegalArgumentException(e);
         }
         JsonObject jsonObject = new JsonParser().parse(runeMetricsSkillScanner.nextLine()).getAsJsonObject();
         runeMetricsSkillScanner.close();
@@ -340,6 +657,8 @@ public class Planner extends Application {
             runeMetricsQuestScanner = new Scanner(new URL("https://apps.runescape.com/runemetrics/quests?user=" + alteredName).openStream());
         }
         catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR, String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName));
+            alert.showAndWait();
             throw new IllegalArgumentException(String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName), e);
         }
         JsonObject jsonObject = new JsonParser().parse(runeMetricsQuestScanner.nextLine()).getAsJsonObject();
@@ -365,22 +684,24 @@ public class Planner extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Project Tenacity v0.5.0a by Iron Lucien");
-        Text nameText = new Text("Load profile data:");
-        TextField nameEntry = new TextField();
         Button newProfile = new Button();
+        newProfile.setLayoutX(450);
+        newProfile.setLayoutY(320);
         newProfile.setText("New Profile");
         newProfile.setOnAction(event -> { profileCreation(); });
+        TextField nameEntry = new TextField();
+        nameEntry.setLayoutX(450);
+        nameEntry.setLayoutY(360);
+        nameEntry.setPromptText("Profile Name");
         Button loadProfile = new Button();
         loadProfile.setText("Load Profile");
         loadProfile.setOnAction(event -> loadPlayer(nameEntry.getText()));
-        root.setHgap(10);
-        root.setVgap(10);
-        root.setAlignment(Pos.CENTER);
-        root.add(newProfile, 0, 0);
-        root.add(nameText, 0, 3);
-        root.add(nameEntry, 1, 3);
-        root.add(loadProfile, 0, 4);
-        primaryStage.setScene(new Scene(root, 800, 600));
+        loadProfile.setLayoutX(450);
+        loadProfile.setLayoutY(390);
+        root.getChildren().add(newProfile);
+        root.getChildren().add(nameEntry);
+        root.getChildren().add(loadProfile);
+        primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.show();
     }
 }
