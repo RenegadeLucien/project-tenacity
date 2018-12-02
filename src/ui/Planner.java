@@ -14,7 +14,9 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.text.Text;
 import logic.GoalResults;
+import logic.Lamp;
 import logic.Player;
 import javafx.scene.input.MouseButton;
 import data.dataobjects.Achievement;
@@ -26,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import logic.Reward;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,6 +39,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -79,6 +83,9 @@ public class Planner extends Application {
                     Entry<String, Double> clickedRow = row.getItem();
                     handleRow(clickedRow, p);
                 }
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    taskView.getSelectionModel().clearSelection();
+                }
 
             });
             return row;
@@ -102,32 +109,41 @@ public class Planner extends Application {
 
     private void handleRow(Entry<String, Double> row, Player player) {
         GoalResults timeForRequirements = Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player);
-        System.out.println(timeForRequirements.getTotalTime());
-        System.out.println(timeForRequirements.getSortedActionsWithTimes());
-        System.out.println(Achievement.getAchievementByName(row.getKey()).getGainFromRewards(player));
-        displayPlayer(player);
+        List<Reward> lampRewards = new ArrayList<>();
+        for (Lamp lamp : Achievement.getAchievementByName(row.getKey()).getLamps()) {
+            lampRewards.add(lamp.getBestReward(player));
+        }
+        Alert taskInformation = new Alert(AlertType.INFORMATION);
+        taskInformation.setResizable(true);
+        taskInformation.setTitle("Completion Path Infomration");
+        taskInformation.setHeaderText(row.getKey());
+        taskInformation.setContentText(String.format("It will take approximately %f hours to complete this task. To complete this task, you must fulfill the following requirements: %s\n\n" +
+                "This involves performing the following actions for the given amounts of time: %s\n\n" +
+                "Lamps should be used on the following skills: %s",
+            timeForRequirements.getTotalTime(), timeForRequirements.getListofAllRequirements(), timeForRequirements.getSortedActionsWithTimes().toString(), lampRewards.toString()));
+        taskInformation.show();
     }
 
     private void displayPlayer(Player p) {
         TableView skillView = new TableView();
         skillView.setPrefWidth(300);
-        skillView.setPrefHeight(650);
+        skillView.setPrefHeight(630);
         skillView.setEditable(true);
         TableView bankView = new TableView();
         bankView.setPrefWidth(300);
-        bankView.setPrefHeight(650);
+        bankView.setPrefHeight(630);
         bankView.setEditable(true);
         TableView weaponView = new TableView();
         weaponView.setPrefWidth(300);
-        weaponView.setPrefHeight(650);
+        weaponView.setPrefHeight(630);
         weaponView.setEditable(true);
         TableView armourView = new TableView();
         armourView.setPrefWidth(300);
-        armourView.setPrefHeight(650);
+        armourView.setPrefHeight(630);
         armourView.setEditable(true);
         TableView qualityView = new TableView();
         qualityView.setPrefWidth(300);
-        qualityView.setPrefHeight(650);
+        qualityView.setPrefHeight(630);
         qualityView.setEditable(true);
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -212,6 +228,10 @@ public class Planner extends Application {
         addCount.setPromptText("Count");
         addCount.setLayoutX(800);
         addCount.setLayoutY(700);
+        final Text bankValueText = new Text();
+        bankValueText.setText(String.format("Total bank value: %d", p.getTotalBankValue()));
+        bankValueText.setLayoutX(700);
+        bankValueText.setLayoutY(650);
         final Button addToBankButton = new Button("Add");
         addToBankButton.setLayoutX(900);
         addToBankButton.setLayoutY(700);
@@ -237,6 +257,7 @@ public class Planner extends Application {
                         addCount.clear();
                         root.getChildren().remove(addItem);
                         root.getChildren().remove(addCount);
+                        root.getChildren().remove(bankValueText);
                         root.getChildren().remove(addToBankButton);
                         root.getChildren().remove(removeFromBankButton);
                         root.getChildren().remove(tabPane);
@@ -260,6 +281,7 @@ public class Planner extends Application {
                 }
                 root.getChildren().remove(addItem);
                 root.getChildren().remove(addCount);
+                root.getChildren().remove(bankValueText);
                 root.getChildren().remove(addToBankButton);
                 root.getChildren().remove(removeFromBankButton);
                 root.getChildren().remove(tabPane);
@@ -462,6 +484,7 @@ public class Planner extends Application {
                 if (oldValue.equals(bankTab)) {
                     root.getChildren().remove(addItem);
                     root.getChildren().remove(addCount);
+                    root.getChildren().remove(bankValueText);
                     root.getChildren().remove(addToBankButton);
                     root.getChildren().remove(removeFromBankButton);
                 }
@@ -484,6 +507,7 @@ public class Planner extends Application {
                 if (newValue.equals(bankTab)) {
                     root.getChildren().add(addItem);
                     root.getChildren().add(addCount);
+                    root.getChildren().add(bankValueText);
                     root.getChildren().add(addToBankButton);
                     root.getChildren().add(removeFromBankButton);
                 }

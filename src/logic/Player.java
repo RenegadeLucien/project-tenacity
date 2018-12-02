@@ -579,7 +579,8 @@ public class Player implements Serializable {
                 if (coinGain > 0) {
                     if (inputLoss/4 > getTotalBankValue()) {
                         if (inputLoss/4 - getTotalBankValue() < quantifier) {
-                            extraReq = new Requirement("Coins", inputLoss / 4 - getTotalBankValue());
+                            //Might cause overflow errors if it gets to this point with a bank value greater than MAX_INT...but let's be real here, when will you ever have a requirement that big?
+                            extraReq = new Requirement("Coins", inputLoss / 4 - Math.toIntExact(getTotalBankValue()));
                             validAction = true;
                         }
                     }
@@ -642,10 +643,10 @@ public class Player implements Serializable {
         return a;
     }
 
-    private int getTotalBankValue() {
-        int bankVal = 0;
+    public long getTotalBankValue() {
+        long bankVal = 0;
         for (Map.Entry<String, Integer> entry : bank.entrySet()) {
-            bankVal += ItemDatabase.getItemDatabase().getItems().get(entry.getKey()).coinValue(this) * entry.getValue();
+            bankVal += ((long) ItemDatabase.getItemDatabase().getItems().get(entry.getKey()).coinValue(this)) * entry.getValue();
         }
         return bankVal;
     }
@@ -701,8 +702,9 @@ public class Player implements Serializable {
                 }
                 bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
             }
+            //Might cause overflow errors if it gets to this point with a bank value greater than MAX_INT...but let's be real here, when will you ever have a requirement that big?
             else {
-                GoalResults actionsForMoney = new Requirement("Coins", quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this) - getTotalBankValue()).timeAndActionsToMeetRequirement(this);
+                GoalResults actionsForMoney = new Requirement("Coins", quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this) - Math.toIntExact(getTotalBankValue())).timeAndActionsToMeetRequirement(this);
                 for (Entry<String, Double> actionWithTime : actionsForMoney.getActionsWithTimes().entrySet()) {
                     if (!actionWithTime.getKey().equals("")) {
                         performAction(Action.getActionByName(actionWithTime.getKey(), this), actionWithTime.getValue(), "Coins");

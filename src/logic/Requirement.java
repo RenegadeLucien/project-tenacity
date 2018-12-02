@@ -126,4 +126,9 @@ public class Requirement implements Serializable {
         result = 31 * result + quantifier;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %d", qualifier, quantifier);
+    }
 }

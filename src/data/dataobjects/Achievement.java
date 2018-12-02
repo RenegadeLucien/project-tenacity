@@ -87,10 +87,12 @@ public class Achievement implements Serializable {
         double totalTimeForAllReqs = 0;
         final Map<String, Double> initialXP = new HashMap<>(player.getXp());
         Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
+        List<Requirement> trueReqs = new ArrayList<>();
         if (this.time > 0) {
             totalActionsWithTimesForAllReqs.put(this.name, this.time);
         }
         for (Requirement r : reqs) {
+            trueReqs.add(r);
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                 if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
@@ -114,6 +116,7 @@ public class Achievement implements Serializable {
         List<Requirement> encounterRequirements = new ArrayList<>();
         List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
         List<Armour> initialArmours = new ArrayList<>(player.getArmour());
+        double timeOnFights = 0;
         for (Encounter e : encounters) {
             CombatResults meleeCombatResults;
             CombatResults rangedCombatResults;
@@ -224,13 +227,17 @@ public class Achievement implements Serializable {
                 if (magicCombatResults.getHpLost() <= 1000000) {
                     minEncounterTime = Math.min(minEncounterTime, magicCombatResults.getTicks());
                 }
-                totalActionsWithTimesForAllReqs.put("Time fighting", minEncounterTime/6000.0);
+                timeOnFights += minEncounterTime/6000.0;
             }
+        }
+        if (timeOnFights > 0) {
+            totalActionsWithTimesForAllReqs.put("Time spent on scripted fights", timeOnFights);
         }
         player.setXp(initialXP);
         player.setWeapons(initialWeapons);
         player.setArmour(initialArmours);
         for (Requirement r : encounterRequirements) {
+            trueReqs.add(r);
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                 if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
@@ -244,7 +251,7 @@ public class Achievement implements Serializable {
         for (Entry<String, Double> action : totalActionsWithTimesForAllReqs.entrySet()) {
             totalTimeForAllReqs += action.getValue();
         }
-        return new GoalResults(totalTimeForAllReqs, totalActionsWithTimesForAllReqs);
+        return new GoalResults(totalTimeForAllReqs, totalActionsWithTimesForAllReqs, trueReqs);
     }
 
     public double getGainFromRewards(Player player) {

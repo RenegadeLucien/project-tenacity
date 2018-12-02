@@ -47,4 +47,9 @@ public class Reward implements Serializable {
         }
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %d", qualifier, quantifier);
+    }
 }
