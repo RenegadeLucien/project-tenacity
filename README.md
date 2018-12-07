@@ -4,7 +4,7 @@ Project Tenacity is a dynamic account pathing system for RuneScape 3. Its goal i
 # How to run
 Project Tenacity requires Java 9 or higher to run. If you do not have this, you can download the latest version [here.](https://jdk.java.net/11/)
 
-Once you have Java 9+, download Project Tenacity by clicking on the "releases" button above. Select the most recent version (currently 0.7.0b) and download the .jar file.
+Once you have Java 9+, download Project Tenacity by clicking on the "releases" button above. Select the most recent version (currently 0.7.1b) and download the .jar file.
 
 Finally, run the .jar.
 
@@ -13,7 +13,7 @@ To create a new player profile, select "New Profile" and input a player name to 
 
 It is important to note that if this is your first time using Project Tenacity, the tool must gather Grand Exchange data on all of the items in its item database. This takes approximately 5-7 minutes. Also, every time a profile is created or loaded, the tool will calculate the optimal path for the profile, which will take up to a minute depending on player progress.
 
-Once your profile is created or loaded, you will be on the main pathing screen. This screen consists of two tables: an achievement table that contains every achievement in RuneScape that your character has not yet completed, and a plyaer table that includes details about your player, such as your player's skill levels, bank, gear, and the achievements they have completed.
+Once your profile is created or loaded, you will be on the main pathing screen. This screen consists of two tables: an achievement table that contains every achievement in RuneScape that your character has not yet completed, and a player table that includes details about your player, such as your player's skill levels, bank, gear, and the achievements they have completed.
 
 The achievement table will provide an estimate of the amount of time that it will take you to complete each achievement in the game. This estimate is determined through three parts: the time taken to fulfill all the requirements for the achievement, the time taken to actually complete the achievement itself, and the time saved by the rewards the achievement gives (this time is deducted from the previous two.) As such, if an achievement provides a lot of reward for little cost, it will be ranked higher on the table than a task that provides no rewards for the same cost.
 
@@ -36,7 +36,7 @@ The final point of note is the "Save Player Data" button. In order to save your 
 # How to report an error
 **There is absolutely nothing wrong with Project Tenacity. How DARE you-- (SMACK)**
 
-Ahem. If you find something that you think (or know) is wrong, click the "issues" tab above and create a new issue. Include as much detail as possible about the issue, including but not limited to what the issue actually is, what steps you took to cause the issue, if the issue is reproducible, if there is a way you can work around the issue, a screenshot of the issue occurring, and your player data file (if applicable.) Also be sure to use the "labels" option to tag it with the appropriate severity label:
+Ahem. If you find something that you think (or know) is wrong, click the "issues" tab above and create a new issue. Include as much detail as possible about the issue, including but not limited to what the issue actually is, what steps you took to cause the issue, if the issue is reproducible, if there is a way you can work around the issue, a screenshot of the issue occurring, and your player data file (if applicable.) After ain issue is created, I will tag it with the appropriate severity label:
 
 T99 - crash or other technical error (that makes it impossible to use Project Tenacity at all)
 
