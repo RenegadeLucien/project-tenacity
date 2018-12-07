@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import data.databases.ItemDatabase;
 import data.dataobjects.Armour;
 import data.dataobjects.Weapon;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -65,11 +66,11 @@ public class Planner extends Application {
                 return new SimpleStringProperty(a.getValue().getKey());
             }
         });
-        TableColumn<Entry<String, Double>, String> timeCol = new TableColumn<>("Effective Time Cost");
-        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<String, Double>, Double> timeCol = new TableColumn<>("Effective Time Cost");
+        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Double>, ObservableValue<Double>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Double>, String> a) {
-                return new SimpleStringProperty(String.valueOf(a.getValue().getValue()));
+            public ObservableValue<Double> call(TableColumn.CellDataFeatures<Entry<String, Double>, Double> a) {
+                return new SimpleDoubleProperty(a.getValue().getValue()).asObject();
             }
         });
         ObservableList<Entry<String, Double>> tasksWithTimes = FXCollections.observableArrayList(new ArrayList(p.calcAllAchievements().entrySet()));
@@ -115,7 +116,7 @@ public class Planner extends Application {
         }
         Alert taskInformation = new Alert(AlertType.INFORMATION);
         taskInformation.setResizable(true);
-        taskInformation.setTitle("Completion Path Infomration");
+        taskInformation.setTitle("Completion Path Information");
         taskInformation.setHeaderText(row.getKey());
         taskInformation.setContentText(String.format("It will take approximately %f hours to complete this task. To complete this task, you must fulfill the following requirements: %s\n\n" +
                 "This involves performing the following actions for the given amounts of time: %s\n\n" +
@@ -671,7 +672,6 @@ public class Planner extends Application {
             String skillName = Player.ALL_SKILLS.get(skillObject.get("id").getAsInt());
             player.getXp().put(skillName, skillObject.get("xp").getAsDouble()/10.0);
         }
-
     }
 
     private void getPlayerQuests(Player player) {
@@ -707,7 +707,7 @@ public class Planner extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.5.0a by Iron Lucien");
+        primaryStage.setTitle("Project Tenacity v0.7.1b by Iron Lucien");
         Button newProfile = new Button();
         newProfile.setLayoutX(450);
         newProfile.setLayoutY(320);
@@ -726,6 +726,7 @@ public class Planner extends Application {
         root.getChildren().add(nameEntry);
         root.getChildren().add(loadProfile);
         primaryStage.setScene(new Scene(root, 1024, 768));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }

@@ -268,15 +268,20 @@ public class Player implements Serializable {
         Map<String, Double> achievementCalcResults = new HashMap<>();
         for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements()) {
             if (!qualities.containsKey(achievement.getName())) {
-                StoredCombatCalcs.getCalculatedCombats().clear();
-                System.out.print(achievement.getName() + "\t");
-                long taskTime = System.nanoTime();
-                int currentEncounters = totalEncounters;
-                GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
-                achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
-                achievementResults.put(achievement, actionsAndTime);
-                System.out.print(totalEncounters - currentEncounters + "\t");
-                System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+                if (achievement.getTime() < 0 && achievement.getReqs().stream().allMatch(r -> r.meetsRequirement(this))) {
+                    qualities.put(achievement.getName(), 1);
+                }
+                else {
+                    StoredCombatCalcs.getCalculatedCombats().clear();
+                    System.out.print(achievement.getName() + "\t");
+                    long taskTime = System.nanoTime();
+                    int currentEncounters = totalEncounters;
+                    GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
+                    achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
+                    achievementResults.put(achievement, actionsAndTime);
+                    System.out.print(totalEncounters - currentEncounters + "\t");
+                    System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
+                }
             }
         }
         System.out.println((System.nanoTime() - time) / 1000000000.0);
