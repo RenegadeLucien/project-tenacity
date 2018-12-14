@@ -4,7 +4,7 @@ Project Tenacity is a dynamic account pathing system for RuneScape 3. Its goal i
 # How to run
 Project Tenacity requires Java 9 or higher to run. If you do not have this, you can download the latest version [here.](https://jdk.java.net/11/)
 
-Once you have Java 9+, download Project Tenacity by clicking on the "releases" button above. Select the most recent version (currently 0.7.1b) and download the .jar file.
+Once you have Java 9+, download Project Tenacity by clicking on the "releases" button above. Select the most recent version and download the .jar file.
 
 Finally, run the .jar.
 

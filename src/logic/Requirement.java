@@ -29,7 +29,7 @@ public class Requirement implements Serializable {
         if (Player.ALL_SKILLS.contains(qualifier)) {
             return (player.getLevel(qualifier) >= quantifier);
         } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
-            return false;
+            return player.getTotalBankValue() >= ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier;
         } else {
             return (player.getQualities().keySet().contains(qualifier) && player.getQualities().get(qualifier) >= quantifier);
         }
@@ -62,7 +62,7 @@ public class Requirement implements Serializable {
         } else if (Player.ALL_SKILLS.contains(qualifier)) {
             goalResults = player.efficientGoalCompletion(qualifier, player.getXpToLevel(qualifier, quantifier));
         } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null && player.getStatus() == 0) {
-            goalResults = player.efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier);
+            goalResults = player.efficientGoalCompletion("Coins", Math.max(0, ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier)-(int)Math.min(Integer.MAX_VALUE, player.getTotalBankValue()));
         } else if (Achievement.getAchievementByName(qualifier) != null) {
             Achievement achievement = Achievement.getAchievementByName(qualifier);
             if (player.getAchievementResults().get(achievement) != null) {

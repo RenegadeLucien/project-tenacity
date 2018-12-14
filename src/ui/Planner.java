@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
+import javafx.util.converter.DoubleStringConverter;
 import logic.GoalResults;
 import logic.Lamp;
 import logic.Player;
@@ -31,13 +32,11 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import logic.Reward;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.URL;
-import java.text.DecimalFormat;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -48,6 +47,8 @@ import java.util.stream.Collectors;
 public class Planner extends Application {
 
     private Group root = new Group();
+
+    private static final String CURRENT_VERSION = "v0.7.2b";
 
     public static void main(String args[]) {
         launch(args);
@@ -121,8 +122,10 @@ public class Planner extends Application {
         taskInformation.setContentText(String.format("It will take approximately %f hours to complete this task. To complete this task, you must fulfill the following requirements: %s\n\n" +
                 "This involves performing the following actions for the given amounts of time: %s\n\n" +
                 "Lamps should be used on the following skills: %s",
-            timeForRequirements.getTotalTime(), timeForRequirements.getListofAllRequirements(), timeForRequirements.getSortedActionsWithTimes().toString(), lampRewards.toString()));
+            timeForRequirements.getTotalTime(), timeForRequirements.getListofAllRequirements().stream().filter(r -> !r.meetsRequirement(player)).collect(Collectors.toList()),
+            timeForRequirements.getSortedActionsWithTimes().toString(), lampRewards.toString()));
         taskInformation.show();
+        displayPlayer(player);
     }
 
     private void displayPlayer(Player p) {
@@ -176,22 +179,21 @@ public class Planner extends Application {
                 return new SimpleStringProperty(a.getValue().getKey());
             }
         });
-        DecimalFormat decimalFormat = new DecimalFormat("#.#");
-        TableColumn<Entry<String, Double>, String> xpCol = new TableColumn<>("Experience");
-        xpCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<String, Double>, Double> xpCol = new TableColumn<>("Experience");
+        xpCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Double>, ObservableValue<Double>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Double>, String> a) {
-                return new SimpleStringProperty(decimalFormat.format(a.getValue().getValue()));
+            public ObservableValue<Double> call(TableColumn.CellDataFeatures<Entry<String, Double>, Double> a) {
+                return new SimpleDoubleProperty(Math.floor(a.getValue().getValue()*10)/10).asObject();
             }
         });
-        xpCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        xpCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         xpCol.setOnEditCommit(
-            new EventHandler<TableColumn.CellEditEvent<Entry<String, Double>, String>>() {
+            new EventHandler<TableColumn.CellEditEvent<Entry<String, Double>, Double>>() {
                 @Override
-                public void handle(TableColumn.CellEditEvent<Entry<String, Double>, String> t) {
+                public void handle(TableColumn.CellEditEvent<Entry<String, Double>, Double> t) {
                     ((Entry<String, Double>) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
-                    ).setValue(Double.parseDouble(t.getNewValue()));
+                    ).setValue(t.getNewValue());
                 }
             });
         TableColumn<Entry<String, Integer>, String> itemCol = new TableColumn<>("Item");
@@ -583,6 +585,7 @@ public class Planner extends Application {
             root.getChildren().clear();
             displayTasks(player);
             displayPlayer(player);
+            displayLampCalc(player);
         }
         catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "Failed to load player data. Verify that a player data file (" + playerName + ".ptp) exists. " +
@@ -595,6 +598,87 @@ public class Planner extends Application {
             alert.showAndWait();
             throw new RuntimeException(e);
         }
+    }
+
+    private void displayLampCalc(Player player) {
+        Text lampTitle = new Text("What Should I Use My Lamp On?");
+        lampTitle.setLayoutX(510);
+        lampTitle.setLayoutY(25);
+        ObservableList<String> lampOptions =
+            FXCollections.observableArrayList(
+                "Flat XP Reward",
+                "Flat Level Multiplier",
+                "Small prismatic",
+                "Medium prismatic",
+                "Large prismatic",
+                "Huge prismatic",
+                "Dragonkin"
+            );
+        TextField xpNum = new TextField();
+        xpNum.setLayoutX(540);
+        xpNum.setLayoutY(100);
+        xpNum.setPrefWidth(50);
+        Text qualifier = new Text("experience");
+        qualifier.setLayoutX(600);
+        qualifier.setLayoutY(115);
+        final ComboBox lampSelection = new ComboBox(lampOptions);
+        lampSelection.setLayoutX(510);
+        lampSelection.setLayoutY(50);
+        lampSelection.valueProperty().setValue("Flat XP Reward");
+        lampSelection.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue observable, String oldValue, String newValue) {
+                if (!(oldValue.equals("Flat XP Reward") || oldValue.equals("Flat Level Multiplier")) && (newValue.equals("Flat XP Reward") || newValue.equals("Flat Level Multiplier"))) {
+                    root.getChildren().add(xpNum);
+                    root.getChildren().add(qualifier);
+                }
+                if (newValue.equals("Flat XP Reward")) {
+                    qualifier.setText("experience");
+                }
+                else if (newValue.equals("Flat Level Multiplier")) {
+                    qualifier.setText("times level");
+                }
+                else {
+                    root.getChildren().remove(xpNum);
+                    root.getChildren().remove(qualifier);
+                }
+            }
+        });
+        Text lampResult = new Text("");
+        lampResult.setLayoutX(560);
+        lampResult.setLayoutY(200);
+        Button calculateLamp = new Button("Calculate");
+        calculateLamp.setLayoutX(560);
+        calculateLamp.setLayoutY(150);
+        calculateLamp.setOnAction(event -> {
+            if (lampSelection.valueProperty().getValue().equals("Flat XP Reward")) {
+                lampResult.setText(new Lamp(Player.ALL_SKILLS, Integer.parseInt(xpNum.getText()), 1).getBestReward(player).getQualifier());
+            }
+            else if (lampSelection.valueProperty().getValue().equals("Flat Level Multiplier")) {
+                lampResult.setText(new Lamp(Player.ALL_SKILLS, Integer.parseInt(xpNum.getText())*-1, 1).getBestReward(player).getQualifier());
+            }
+            else if (lampSelection.valueProperty().getValue().equals("Small prismatic")) {
+                lampResult.setText(new Lamp(Player.ALL_SKILLS, -1, 1).getBestReward(player).getQualifier());
+            }
+            else if (lampSelection.valueProperty().getValue().equals("Medium prismatic")) {
+                lampResult.setText(new Lamp(Player.ALL_SKILLS, -2, 1).getBestReward(player).getQualifier());
+            }
+            else if (lampSelection.valueProperty().getValue().equals("Large prismatic")) {
+                lampResult.setText(new Lamp(Player.ALL_SKILLS, -4, 1).getBestReward(player).getQualifier());
+            }
+            else if (lampSelection.valueProperty().getValue().equals("Huge prismatic")) {
+                lampResult.setText(new Lamp(Player.ALL_SKILLS, -8, 1).getBestReward(player).getQualifier());
+            }
+            else if (lampSelection.valueProperty().getValue().equals("Dragonkin")) {
+                lampResult.setText(new Lamp(Player.ALL_SKILLS, -9, 1).getBestReward(player).getQualifier());
+            }
+        });
+        root.getChildren().add(lampTitle);
+        root.getChildren().add(lampSelection);
+        root.getChildren().add(xpNum);
+        root.getChildren().add(qualifier);
+        root.getChildren().add(calculateLamp);
+        root.getChildren().add(lampResult);
     }
 
     private void profileCreation() {
@@ -642,6 +726,7 @@ public class Planner extends Application {
             root.getChildren().clear();
             displayTasks(p);
             displayPlayer(p);
+            displayLampCalc(p);
         });
         createProfile.setLayoutX(450);
         createProfile.setLayoutY(410);
@@ -705,9 +790,44 @@ public class Planner extends Application {
         }
     }
 
+    private void checkGeDataAge() {
+        File geData = new File("gedata.txt");
+        if (geData.exists()) {
+            try {
+                long daysSinceGeUpdate = (System.currentTimeMillis() - Files.getFileAttributeView(Paths.get("gedata.txt"), BasicFileAttributeView.class).readAttributes().creationTime().toMillis()) / 86400000;
+                if (daysSinceGeUpdate >= 7) {
+                    Alert alert = new Alert(AlertType.INFORMATION, String.format("Your GE data file is %d days old. It is recommended to refresh your GE data by deleting your gedata.txt file and " +
+                        "restarting Project Tenacity.", daysSinceGeUpdate));
+                    alert.setHeaderText("Your GE Data Is Outdated");
+                    alert.showAndWait();
+                }
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.ERROR, "Looks like the check for outdated GE data failed. Please raise a T90 issue.");
+                alert.showAndWait();
+            }
+        }
+    }
+
+    private void checkForUpdates() {
+        try {
+            Scanner updateCheckScanner = new Scanner(new URL("https://api.github.com/repos/RenegadeLucien/project-tenacity/releases").openStream());
+            JsonArray jsonArray = new JsonParser().parse(updateCheckScanner.nextLine()).getAsJsonArray();
+            updateCheckScanner.close();
+            String latestVersion = jsonArray.get(0).getAsJsonObject().get("tag_name").getAsString();
+            if (!latestVersion.equals(CURRENT_VERSION)) {
+                Alert alert = new Alert(AlertType.INFORMATION, String.format("Version %s has been released. It can be downloaded from the Github releases page.", latestVersion));
+                alert.setHeaderText("Update Available");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR, "Looks like the update check failed. Please raise a T90 issue.");
+            alert.showAndWait();
+        }
+    }
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Project Tenacity v0.7.1b by Iron Lucien");
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle(String.format("Project Tenacity %s by Iron Lucien", CURRENT_VERSION));
         Button newProfile = new Button();
         newProfile.setLayoutX(450);
         newProfile.setLayoutY(320);
@@ -728,5 +848,7 @@ public class Planner extends Application {
         primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.setResizable(false);
         primaryStage.show();
+        checkForUpdates();
+        checkGeDataAge();
     }
 }
