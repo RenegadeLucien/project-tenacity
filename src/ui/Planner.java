@@ -7,29 +7,39 @@ import com.google.gson.JsonParser;
 import data.databases.ItemDatabase;
 import data.dataobjects.Armour;
 import data.dataobjects.Weapon;
+import javafx.application.Application;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.control.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
 import logic.GoalResults;
 import logic.Lamp;
 import logic.Player;
-import javafx.scene.input.MouseButton;
 import data.dataobjects.Achievement;
-import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 import logic.Reward;
 
 import java.io.*;
@@ -48,7 +58,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.7.2b";
+    private static final String CURRENT_VERSION = "v0.7.3b";
 
     public static void main(String args[]) {
         launch(args);
@@ -122,7 +132,8 @@ public class Planner extends Application {
         taskInformation.setContentText(String.format("It will take approximately %f hours to complete this task. To complete this task, you must fulfill the following requirements: %s\n\n" +
                 "This involves performing the following actions for the given amounts of time: %s\n\n" +
                 "Lamps should be used on the following skills: %s",
-            timeForRequirements.getTotalTime(), timeForRequirements.getListofAllRequirements().stream().filter(r -> !r.meetsRequirement(player)).collect(Collectors.toList()),
+            timeForRequirements.getTotalTime(), timeForRequirements.getListofAllRequirements().stream().filter(r -> (!r.meetsRequirement(player) ||
+                ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null)).collect(Collectors.toList()),
             timeForRequirements.getSortedActionsWithTimes().toString(), lampRewards.toString()));
         taskInformation.show();
         displayPlayer(player);
@@ -583,6 +594,7 @@ public class Planner extends Application {
             in.close();
             file.close();
             root.getChildren().clear();
+            getPlayerXp(player);
             displayTasks(player);
             displayPlayer(player);
             displayLampCalc(player);
@@ -730,12 +742,20 @@ public class Planner extends Application {
         });
         createProfile.setLayoutX(450);
         createProfile.setLayoutY(410);
+        Button backButton = new Button();
+        backButton.setLayoutX(500);
+        backButton.setLayoutY(550);
+        backButton.setText("Back");
+        backButton.setOnAction(event -> {
+            displayMainScreen();
+        });
         root.getChildren().clear();
         root.getChildren().add(nameEntry);
         root.getChildren().add(mainscape);
         root.getChildren().add(ironman);
         root.getChildren().add(hardcore);
         root.getChildren().add(createProfile);
+        root.getChildren().add(backButton);
     }
 
     private void getPlayerXp(Player player) {
@@ -825,9 +845,8 @@ public class Planner extends Application {
         }
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle(String.format("Project Tenacity %s by Iron Lucien", CURRENT_VERSION));
+    private void displayMainScreen() {
+        root.getChildren().clear();
         Button newProfile = new Button();
         newProfile.setLayoutX(450);
         newProfile.setLayoutY(320);
@@ -845,8 +864,14 @@ public class Planner extends Application {
         root.getChildren().add(newProfile);
         root.getChildren().add(nameEntry);
         root.getChildren().add(loadProfile);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle(String.format("Project Tenacity %s by Iron Lucien", CURRENT_VERSION));
         primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.setResizable(false);
+        displayMainScreen();
         primaryStage.show();
         checkForUpdates();
         checkGeDataAge();

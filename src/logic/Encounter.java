@@ -386,7 +386,7 @@ public class Encounter implements Serializable {
                                         for (Armour ring : ringArmour) {
                                             for (Weapon offWep : offWeps) {
                                                 for (Armour shield : shields) {
-                                                    Loadout loadout = new Loadout(w, offWep, shield, head, torso, leg, hand, foot, cape, neck, ring, familiar);
+                                                    Loadout loadout = new Loadout(w, offWep, shield, head, torso, leg, hand, foot, cape, neck, ring, familiar, player.getXp());
                                                     if (loadout.checkValid()) {
                                                         loadouts.add(loadout);
                                                     }

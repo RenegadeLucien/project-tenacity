@@ -49,6 +49,8 @@ public class ActionDatabase {
         database.add(new Action("Picking bananas", new ArrayList(), Map.of("Basket", 552), Map.of("Bananas (5)", 552, "Banana", 120), 552, true, true));
         database.add(new Action("Casting egg spawn", Collections.singletonList(new Requirement("Summoning", 10)), Map.of("Egg spawn scroll", 520, "Spirit spider pouch", 4,
             "Summoning potion (4)", 18), Map.of("Red spiders' eggs", 936, "Summoning", 105), 520, true, true));
+        database.add(new Action("Managing Miscellania (Woodcutting)", Collections.singletonList(new Requirement("Throne of Miscellania", 1)), Map.of("Coins", 1000000),
+            Map.of("Maple logs", 17840, "Bird's nest", 160), 20, true, true));
 
         //Agility (WHEN ADDING TO THIS, UPDATE PET)
         database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 11955), 150, true, true));
@@ -229,6 +231,9 @@ public class ActionDatabase {
             new Requirement("Mining", 50)), new HashMap(), Map.of("Mining", resourcesGained(100, 6.0, player, 0.0, "Mining"),
             "Menaphos reputation", (int)(2.7*resourcesGained(100, 6.0, player, 0.0, "Mining")), "Menaphite honey bee in amber", 1,
             "Pygmy giant scarab in amber", 1), resourcesGained(100, 6.0, player, 0.0, "Mining"), true, true));
+
+        database.add(new Action("Mining Seren stones", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Mining", 89)), new HashMap(),
+            Map.of("Corrupted ore", player.getLevel("Mining")*10-490, "Mining", (int)Math.floor(296.7*(player.getLevel("Mining")*10-490))), player.getLevel("Mining")*10-490, true, true));
 
         database.add(new Action("Mining salty crablets", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Mining", 91)),
             new HashMap(), Map.of("Sea salt", 3*(Math.max(91, player.getLevel("Mining"))-60), "Mining", (int)507.5*(3*(Math.max(91, player.getLevel("Mining")) - 60)), "Awah Guan", 1),

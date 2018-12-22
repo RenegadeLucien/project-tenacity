@@ -147,17 +147,9 @@ public class Achievement implements Serializable {
                 }
                 else {
                     Loadout loadout = null;
-                    if (player.getXp().get("Defence") > initialXP.get("Defence")) {
-                        encounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
-                    }
-                    if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
-                        encounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
-                    }
-                    if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
-                        encounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
-                    }
                     if (meleeCombatResults.getHpLost() < 1000000) {
                         loadout = meleeCombatResults.getLoadoutUsed();
+                        player.setXp(loadout.getXp());
                         if (player.getXp().get("Attack") > initialXP.get("Attack")) {
                             encounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
                         }
@@ -167,15 +159,26 @@ public class Achievement implements Serializable {
                     }
                     else if (rangedCombatResults.getHpLost() < 1000000) {
                         loadout = rangedCombatResults.getLoadoutUsed();
+                        player.setXp(loadout.getXp());
                         if (player.getXp().get("Ranged") > initialXP.get("Ranged")) {
                             encounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
                         }
                     }
                     else if (magicCombatResults.getHpLost() < 1000000) {
                         loadout = magicCombatResults.getLoadoutUsed();
+                        player.setXp(loadout.getXp());
                         if (player.getXp().get("Magic") > initialXP.get("Magic")) {
                             encounterRequirements.add(new Requirement("Magic", player.getLevel("Magic")));
                         }
+                    }
+                    if (player.getXp().get("Defence") > initialXP.get("Defence")) {
+                        encounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
+                    }
+                    if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
+                        encounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
+                    }
+                    if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
+                        encounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
                     }
                     if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(Armour.getArmourByName("None"))) {
                         encounterRequirements.add(new Requirement(loadout.getHead().getName(), 1));
@@ -284,15 +287,15 @@ public class Achievement implements Serializable {
                 player.getLevel("Magic") < 99 || player.getLevel("Ranged") < 99);
             for (List<Enemy> enemyGroup : e.getEnemyGroups()) {
                 for (Enemy enemy : enemyGroup) {
-                    totalGainFromAllRewards += player.efficientGoalCompletion("Constitution", (int) enemy.getHpxp()).getTotalTime();
+                    totalGainFromAllRewards += player.efficientGoalCompletion("Constitution", (int) enemy.getHpxp()/e.getPartySize()).getTotalTime();
                     if (rangedCombatResults.getHpLost() < meleeCombatResults.getHpLost() && rangedCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
-                        totalGainFromAllRewards += player.efficientGoalCompletion("rCombat", (int) enemy.getCbxp()).getTotalTime();
+                        totalGainFromAllRewards += player.efficientGoalCompletion("rCombat", (int) enemy.getCbxp()/e.getPartySize()).getTotalTime();
                     }
                     else if (meleeCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
-                        totalGainFromAllRewards += player.efficientGoalCompletion("mCombat", (int) enemy.getCbxp()).getTotalTime();
+                        totalGainFromAllRewards += player.efficientGoalCompletion("mCombat", (int) enemy.getCbxp()/e.getPartySize()).getTotalTime();
                     }
                     else {
-                        totalGainFromAllRewards += player.efficientGoalCompletion("aCombat", (int) enemy.getCbxp()).getTotalTime();
+                        totalGainFromAllRewards += player.efficientGoalCompletion("aCombat", (int) enemy.getCbxp()/e.getPartySize()).getTotalTime();
                     }
                 }
             }

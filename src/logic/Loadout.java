@@ -2,6 +2,8 @@ package logic;
 
 import data.dataobjects.*;
 
+import java.util.Map;
+
 public class Loadout {
 
     private Weapon mainWep;
@@ -16,9 +18,10 @@ public class Loadout {
     private Armour neck;
     private Armour ring;
     private Familiar familiar;
+    private Map<String, Double> xp;
 
 
-    public Loadout(Weapon mainWep, Weapon offWep, Armour shield, Armour head, Armour torso, Armour legs, Armour hands, Armour feet, Armour cape, Armour neck, Armour ring, Familiar familiar) {
+    public Loadout(Weapon mainWep, Weapon offWep, Armour shield, Armour head, Armour torso, Armour legs, Armour hands, Armour feet, Armour cape, Armour neck, Armour ring, Familiar familiar, Map<String, Double> xp) {
         this.mainWep = mainWep;
         this.offWep = offWep;
         this.shield = shield;
@@ -31,6 +34,7 @@ public class Loadout {
         this.neck = neck;
         this.ring = ring;
         this.familiar = familiar;
+        this.xp = xp;
     }
 
     public Weapon getMainWep() {
@@ -79,6 +83,10 @@ public class Loadout {
 
     public Armour getShield() {
         return shield;
+    }
+
+    public Map<String, Double> getXp() {
+        return xp;
     }
 
     public int totalArmour() {
@@ -153,7 +161,7 @@ public class Loadout {
         Loadout loadout = (Loadout) obj;
         return mainWep.equals(loadout.getMainWep()) && head.equals(loadout.getHead()) && torso.equals(loadout.getTorso()) && legs.equals(loadout.getLegs())
             && hands.equals(loadout.getHands()) && feet.equals(loadout.getFeet()) && cape.equals(loadout.getCape()) && neck.equals(loadout.getNeck())
-            && ring.equals(loadout.getRing()) && familiar.equals(loadout.getFamiliar());
+            && ring.equals(loadout.getRing()) && familiar.equals(loadout.getFamiliar()) && xp.equals(loadout.getXp());
     }
 
     @Override
@@ -169,6 +177,7 @@ public class Loadout {
         result = 31*result + neck.hashCode();
         result = 31*result + ring.hashCode();
         result = 31*result + familiar.hashCode();
+        result = 31*result + xp.hashCode();
         return result;
     }
 }

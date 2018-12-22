@@ -312,6 +312,18 @@ public class Player implements Serializable {
                             XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
                         GoalResults magicResults = previousEfficiencyResults.get(new Requirement("aCombat",
                             XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
+                        if (meleeResults == null) {
+                            new Requirement("mCombat", XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier())))
+                                .timeAndActionsToMeetRequirement(this);
+                        }
+                        if (rangedResults == null) {
+                            new Requirement("rCombat", XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier())))
+                                .timeAndActionsToMeetRequirement(this);
+                        }
+                        if (magicResults == null) {
+                            new Requirement("aCombat", XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier())))
+                                .timeAndActionsToMeetRequirement(this);
+                        }
                         if (meleeResults.getTotalTime() < rangedResults.getTotalTime() && meleeResults.getTotalTime() < magicResults.getTotalTime()) {
                             trueTarget = "mCombat";
                         }
@@ -324,9 +336,12 @@ public class Player implements Serializable {
                     }
                     GoalResults reqResults = previousEfficiencyResults.get(new Requirement(trueTarget,
                         XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
+                    if (reqResults == null) {
+                        reqResults = requirement.timeAndActionsToMeetRequirement(this);
+                    }
                     Action primeAction = null;
                     for (String action : reqResults.getActionsWithTimes().keySet()) {
-                        if (Action.getActionByName(action, this).getOutputs().keySet().contains(trueTarget)) {
+                        if (!(action.equals("")) && Action.getActionByName(action, this).getOutputs().keySet().contains(trueTarget)) {
                             primeAction = Action.getActionByName(action, this);
                             break;
                         }
@@ -687,36 +702,33 @@ public class Player implements Serializable {
                     *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
                 bank.remove(item);
             }
-        } else if (bank.containsKey("Coins")) {
-            if (bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+        } else if (bank.containsKey("Coins") && bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
                 bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
-            }
-            else if (getTotalBankValue() > quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
-                List<String> entriesToRemove = new ArrayList<>();
-                for (Entry<String, Integer> bankEntry : bank.entrySet()) {
-                    if (!bankEntry.getKey().equals("Coins")) {
-                        bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this)*bankEntry.getValue());
-                        entriesToRemove.add(bankEntry.getKey());
-                    }
-                    if (bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
-                        break;
-                    }
+        } else if (getTotalBankValue() > quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+            List<String> entriesToRemove = new ArrayList<>();
+            for (Entry<String, Integer> bankEntry : bank.entrySet()) {
+                if (!bankEntry.getKey().equals("Coins")) {
+                    bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this)*bankEntry.getValue());
+                    entriesToRemove.add(bankEntry.getKey());
                 }
-                for (String removal : entriesToRemove) {
-                    bank.remove(removal);
+                if (bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                    break;
                 }
-                bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
             }
-            //Might cause overflow errors if it gets to this point with a bank value greater than MAX_INT...but let's be real here, when will you ever have a requirement that big?
-            else {
-                GoalResults actionsForMoney = new Requirement("Coins", quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this) - Math.toIntExact(getTotalBankValue())).timeAndActionsToMeetRequirement(this);
-                for (Entry<String, Double> actionWithTime : actionsForMoney.getActionsWithTimes().entrySet()) {
-                    if (!actionWithTime.getKey().equals("")) {
-                        performAction(Action.getActionByName(actionWithTime.getKey(), this), actionWithTime.getValue(), "Coins");
-                    }
+            for (String removal : entriesToRemove) {
+                bank.remove(removal);
+            }
+            bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+        }
+        //Might cause overflow errors if it gets to this point with a bank value greater than MAX_INT...but let's be real here, when will you ever have a requirement that big?
+        else {
+            GoalResults actionsForMoney = new Requirement(item, quantity).timeAndActionsToMeetRequirement(this);
+            for (Entry<String, Double> actionWithTime : actionsForMoney.getActionsWithTimes().entrySet()) {
+                if (!actionWithTime.getKey().equals("")) {
+                    performAction(Action.getActionByName(actionWithTime.getKey(), this), actionWithTime.getValue(), "Coins");
                 }
-                updateBank(item, quantity);
             }
+            updateBank(item, quantity);
         }
     }
 
