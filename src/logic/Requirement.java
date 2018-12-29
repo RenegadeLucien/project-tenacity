@@ -88,7 +88,12 @@ public class Requirement implements Serializable {
                 }
             }
         } else {
-            goalResults = player.efficientGoalCompletion(qualifier, quantifier);
+            if (player.getQualities().containsKey(qualifier)) {
+                goalResults = player.efficientGoalCompletion(qualifier, quantifier-player.getQualities().get(qualifier));
+            }
+            else {
+                goalResults = player.efficientGoalCompletion(qualifier, quantifier);
+            }
         }
         time = goalResults.getTotalTime();
         addItemsToMap(actions, goalResults.getActionsWithTimes());

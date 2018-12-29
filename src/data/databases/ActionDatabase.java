@@ -43,8 +43,8 @@ public class ActionDatabase {
             Map.of("Supplies", 300), Map.ofEntries(Map.entry("Taijitu", 26), Map.entry("Sea shell", 9), Map.entry("Driftwood", 9), Map.entry("Sea salt", 9),
             Map.entry("Bamboo", 9), Map.entry("Shell chippings", 9), Map.entry("Spirit dragon charm", 9), Map.entry("Raw tarpon", 9), Map.entry("Bundle of bamboo", 9),
             Map.entry("Fish oil", 9), Map.entry("Stoneberry seed", 1), Map.entry("Stormberry seed", 1), Map.entry("Uncharted Isles visited", 60)), 60, true, true));
-        database.add(new Action("Winning Castle Wars games", new ArrayList(), new HashMap(), Map.of("Gold Castle Wars ticket", 6), 3, true,
-            true));
+        database.add(new Action("Winning Castle Wars games", new ArrayList(), new HashMap(), Map.of("Gold Castle Wars ticket", 6), 3, true, true));
+        database.add(new Action("Winning Soul Wars games", new ArrayList(), new HashMap(), Map.of("Zeal", 9), 3, true, true));
         database.add(new Action("Opening prawn balls", new ArrayList(), Map.of("Prawn balls", 3000), Map.of("Golden fish egg", 15), 3000, true, true));
         database.add(new Action("Picking bananas", new ArrayList(), Map.of("Basket", 552), Map.of("Bananas (5)", 552, "Banana", 120), 552, true, true));
         database.add(new Action("Casting egg spawn", Collections.singletonList(new Requirement("Summoning", 10)), Map.of("Egg spawn scroll", 520, "Spirit spider pouch", 4,
@@ -57,6 +57,8 @@ public class ActionDatabase {
         database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), Map.of("Agility", 8650), 100, true, true));
         database.add(new Action("Agility Pyramid", Collections.singletonList(new Requirement("Agility", 30)), Map.of("Waterskin (4)", 10),
             Map.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22), 22, true, true));
+        database.add(new Action("Brimhaven Agility Arena", Collections.singletonList(new Requirement("Agility", 40)), Map.of("Coins", 200),
+            Map.of("Agility arena ticket", 60, "Agility", 3000), 60, true, true));
         database.add(new Action("Empty Throne Room agility", Arrays.asList(new Requirement("Agility", 65), new Requirement("The Dig Site", 1)),
             new HashMap(), Map.of("Agility", 68760), 1800, true, true));
         database.add(new Action("Hefin Agility Course (77-81 Agility)", Arrays.asList(new Requirement("Plague's End", 1),
@@ -142,6 +144,9 @@ public class ActionDatabase {
         int dungXP = (int) Math.floor(4000 * Math.pow((player.getLevel("Dungeoneering") + 9.0) / 10.0, 2));
         database.add(new Action("Solo dungeoneering", new ArrayList(), new HashMap(), Map.of("Dungeoneering", dungXP, "Dungeoneering token",
             dungXP/10, "Dungeoneering floors completed", 8), 8, true, true));
+        database.add(new Action("Solo dungeoneering (incl. unreadable pages)", Collections.singletonList(new Requirement("Plague's End", 1)),
+            new HashMap(), Map.of("Dungeoneering", dungXP, "Dungeoneering token", dungXP/10, "Dungeoneering floors completed", 8,
+            "Unreadable page points", (int)Math.floor(135305*Math.pow(1.0313, player.getLevel("Dungeoneering")-75))), 8, true, true));
 
         //Farming
         database.add(new Action("Farming potatoes (w/o payments)", new ArrayList(), Map.of("Potato seed", 162, "Supercompost", 54), Map.of("Raw potato", 464, "Farming", 5758), 6, true, true));
@@ -296,16 +301,20 @@ public class ActionDatabase {
             Map.of("Thieving", 250000, "Master clue scroll points", 1), 2000, true, true));
 
         //Woodcutting
-        database.add(new Action("Cutting regular trees with dwarven army axe", new ArrayList(), new HashMap(), Map.of("Woodcutting", logsCut(player, 2, 110)*28), logsCut(player, 2, 110), true, true));
+        database.add(new Action("Cutting regular trees with dwarven army axe", new ArrayList(), new HashMap(), Map.of("Woodcutting",
+            Math.min(1500, itemsReceived(player, 510, 1.0165, "Woodcutting", 1))*28), Math.min(1500, itemsReceived(player, 510, 1.0165, "Woodcutting", 1)), true, true));
 
-        //CHOP RATE CALIBRATION: ~40% at 47, ~67% at 99 (unknown hatchet bonus, rune is assumed)
-        database.add(new Action("Cutting/dropping acadia logs with bronze hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1),
-            new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), Map.of("Woodcutting", 92*logsCut(player, 0, 230),
-            "Menaphos reputation", (int)4.5*logsCut(player, 0, 230), "Desert locust", 1, "Hornless unicornfly", 1, "Kalphite wanderer", 1), logsCut(player, 0, 230), true, true));
+        database.add(new Action("Cutting/dropping acadia logs with rune hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1),
+            new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), Map.of("Woodcutting", 92*itemsReceived(player, 600, 1.01, "Woodcutting", 47),
+            "Menaphos reputation", (int)4.5*itemsReceived(player, 600, 1.01, "Woodcutting", 47), "Desert locust", 1, "Hornless unicornfly", 1, "Kalphite wanderer", 1),
+            itemsReceived(player, 600, 1.01, "Woodcutting", 47), true, true));
 
         database.add(new Action("Cutting bamboo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Woodcutting", 90)),
             new HashMap(), Map.of("Bamboo", 3*player.getLevel("Woodcutting") + 60, "Woodcutting", (int)202.5*(3*player.getLevel("Woodcutting") + 60), "Great Pecker", 1),
             3*player.getLevel("Woodcutting") + 60, true, true));
+
+        database.add(new Action("Cutting crystal trees with dragon hatchet", Collections.singletonList(new Requirement("Woodcutting", 94)), new HashMap(),
+            Map.of("Woodcutting", (int)434.5*itemsReceived(player, 180, 1.037, "Woodcutting", 94), "Crystal geode", 10), itemsReceived(player, 180, 1.037, "Woodcutting", 94), true, true));
 
         //Multi-skill
         database.add(new Action("Cremating vyre corpses", Arrays.asList(new Requirement("Legacy of Seergaze", 1),
@@ -336,6 +345,14 @@ public class ActionDatabase {
         database.add(new Action("Killing TzHaar-Kets for obsidian charms with magic", tzhaarKetReqs, new HashMap(), Map.of("Obsidian charm", (int) (tzhaarKetKills * 2.37),
             "aCombat", (int) Enemy.getEnemyByName("TzHaar-Ket").getCbxp() * tzhaarKetKills, "Constitution",
             (int) Enemy.getEnemyByName("TzHaar-Ket").getHpxp() * tzhaarKetKills), tzhaarKetKills, true, true));
+
+        database.add(new Action("Killing chompy birds", Collections.singletonList(new Requirement("Big Chompy Bird Hunting", 1)), new HashMap(),
+            Map.of("Chompy kills", 200, "rCombat", 12440, "Constitution", 4100), 200, true, true));
+
+        Map<Integer, List<Requirement>> pigKills = combatKills(new Encounter("Pig"), player, 0, "Magic", 0.05, true);
+        database.add(new Action("Killing pigs for teeth with magic", pigKills.values().iterator().next(), new HashMap(), Map.of("Pack pig tooth",
+            (int) (pigKills.keySet().iterator().next() * 0.05), "aCombat", (int) Enemy.getEnemyByName("Pig").getCbxp() * pigKills.keySet().iterator().next(),
+            "Constitution", (int) Enemy.getEnemyByName("Pig").getHpxp() * pigKills.keySet().iterator().next()), pigKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> vyreKillsAndReqs = combatKills(new Encounter("Vyrewatch"), player, 0, "Melee", 1, false);
         int vyreKills = vyreKillsAndReqs.keySet().iterator().next();
@@ -516,6 +533,12 @@ public class ActionDatabase {
         database.add(new Action("Killing the Kalphite King (duo)", kkKills.values().iterator().next(), new HashMap(), Map.of("Kalphite King", kkKills.keySet().iterator().next(),
             "Boss kills", kkKills.keySet().iterator().next()), kkKills.keySet().iterator().next(), true, true));
 
+        Map<Integer, List<Requirement>> corporealBeastKills = combatKills(new Encounter("Corporeal Beast"), player, 28, "Melee", 0, false);
+        ArrayList<Requirement> corporealBeastReqs = new ArrayList(corporealBeastKills.values().iterator().next());
+        corporealBeastReqs.add(new Requirement("Summer's End", 1));
+        database.add(new Action("Killing the Corporeal Beast", corporealBeastReqs, new HashMap(), Map.of("Corporeal Beast", corporealBeastKills.keySet().iterator().next(),
+            "Boss kills", corporealBeastKills.keySet().iterator().next()), corporealBeastKills.keySet().iterator().next(), true, true));
+
         Map<Integer, List<Requirement>> voragoKills = combatKills(new Encounter(Collections.singletonList(Collections.singletonList("Vorago")), 7), player, 28, "Melee", 0, false);
         database.add(new Action("Killing Vorago (7 man)", voragoKills.values().iterator().next(), new HashMap(), Map.of("Vorago", voragoKills.keySet().iterator().next(),
             "Boss kills", voragoKills.keySet().iterator().next()), voragoKills.keySet().iterator().next(), true, true));
@@ -537,6 +560,10 @@ public class ActionDatabase {
         database.add(new Action("Killing Giant Mole", moleKills.values().iterator().next(), new HashMap(), Map.of("Giant Mole", moleKills.keySet().iterator().next(),
             "Boss kills", moleKills.keySet().iterator().next()), moleKills.keySet().iterator().next(), true, true));
 
+        Map<Integer, List<Requirement>> hardMoleKills = combatKills(new Encounter("Giant Mole (hard)"), player, 28, "Magic", 0, false);
+        database.add(new Action("Killing Giant Mole", hardMoleKills.values().iterator().next(), new HashMap(), Map.of("Giant Mole (hard)", hardMoleKills.keySet().iterator().next(),
+            "Boss kills", hardMoleKills.keySet().iterator().next()), hardMoleKills.keySet().iterator().next(), true, true));
+
         Map<Integer, List<Requirement>> twinFuriesKills = combatKills(new Encounter("Twin Furies"), player, 28, "Melee", 0, false);
         ArrayList<Requirement> twinFuriesReqs = new ArrayList(twinFuriesKills.values().iterator().next());
         twinFuriesReqs.add(new Requirement("Ranged", 80));
@@ -549,11 +576,23 @@ public class ActionDatabase {
         database.add(new Action("Killing Vindicta", vindictaReqs, new HashMap(), Map.of("Vindicta", vindictaKills.keySet().iterator().next(),
             "Boss kills", vindictaKills.keySet().iterator().next()), vindictaKills.keySet().iterator().next(), true, true));
 
-        Map<Integer, List<Requirement>> helwyrKills = combatKills(new Encounter("Helwyr"), player, 28, "Melee", 0, false);
+        Map<Integer, List<Requirement>> vindictaHMKills = combatKills(new Encounter("Vindicta (hard)"), player, 28, "Melee", 0, false);
+        ArrayList<Requirement> vindictaHMReqs = new ArrayList(vindictaHMKills.values().iterator().next());
+        vindictaHMReqs.add(new Requirement("Attack", 80));
+        database.add(new Action("Killing Vindicta in hard mode", vindictaHMReqs, new HashMap(), Map.of("Vindicta (hard)", vindictaHMKills.keySet().iterator().next(),
+            "Boss kills", vindictaHMKills.keySet().iterator().next()), vindictaHMKills.keySet().iterator().next(), true, true));
+
+        Map<Integer, List<Requirement>> helwyrKills = combatKills(new Encounter("Helwyr"), player, 28, "Magic", 0, false);
         ArrayList<Requirement> helwyrReqs = new ArrayList(helwyrKills.values().iterator().next());
-        helwyrReqs.add(new Requirement("Attack", 80));
+        helwyrReqs.add(new Requirement("Magic", 80));
         database.add(new Action("Killing Helwyr", helwyrReqs, new HashMap(), Map.of("Helwyr", helwyrKills.keySet().iterator().next(),
             "Boss kills", helwyrKills.keySet().iterator().next()), helwyrKills.keySet().iterator().next(), true, true));
+
+        Map<Integer, List<Requirement>> helwyrHMKills = combatKills(new Encounter("Helwyr (hard)"), player, 28, "Magic", 0, false);
+        ArrayList<Requirement> helwyrHMReqs = new ArrayList(helwyrHMKills.values().iterator().next());
+        helwyrHMReqs.add(new Requirement("Magic", 80));
+        database.add(new Action("Killing Helwyr in hard mode", helwyrHMReqs, new HashMap(), Map.of("Helwyr (hard)", helwyrHMKills.keySet().iterator().next(),
+            "Boss kills", helwyrHMKills.keySet().iterator().next()), helwyrHMKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> gregKills = combatKills(new Encounter("Gregorovic"), player, 28, "Melee", 0, false);
         ArrayList<Requirement> gregReqs = new ArrayList(gregKills.values().iterator().next());
@@ -608,6 +647,12 @@ public class ActionDatabase {
         zilyanaReqs.add(new Requirement("Agility", 70));
         database.add(new Action("Killing Commander Zilyana", zilyanaReqs, new HashMap(), Map.of("Commander Zilyana", zilyanaKills.keySet().iterator().next(),
             "Boss kills", zilyanaKills.keySet().iterator().next()), zilyanaKills.keySet().iterator().next(), true, true));
+
+        Map<Integer, List<Requirement>> zilyanaHMKills = combatKills(new Encounter("Commander Zilyana (hard)"), player, 28, "Magic", 0, false);
+        ArrayList<Requirement> zilyanaHMReqs = new ArrayList(zilyanaKills.values().iterator().next());
+        zilyanaReqs.add(new Requirement("Agility", 70));
+        database.add(new Action("Killing Commander Zilyana (hard)", zilyanaHMReqs, new HashMap(), Map.of("Commander Zilyana (hard)", zilyanaHMKills.keySet().iterator().next(),
+            "Boss kills", zilyanaHMKills.keySet().iterator().next()), zilyanaHMKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> legioKills = combatKills(new Encounter("Legio"), player, 28, "Ranged", 0, false);
         ArrayList<Requirement> legioReqs = new ArrayList(legioKills.values().iterator().next());
@@ -668,6 +713,11 @@ public class ActionDatabase {
             new Requirement("Construction", 50), new Requirement("Dungeoneering", 50),
             new Requirement("Thieving", 50), new Requirement("The Jack of Spades", 1)),
             new HashMap<>(), Map.of("Shifting Tombs", 12), 12, true, true));
+
+        database.add(new Action("Completing Shifting Tombs (w/camo fragmentss)", Arrays.asList(new Requirement("Agility", 50),
+            new Requirement("Construction", 50), new Requirement("Dungeoneering", 50),
+            new Requirement("Thieving", 70), new Requirement("The Jack of Spades", 1)),
+            new HashMap<>(), Map.of("Shifting Tombs", 12, "Camouflage fragment", 3000), 12, true, true));
 
         database.add(new Action("Completing city quests", Collections.singletonList(new Requirement("The Jack of Spades", 1)), new HashMap(),
             Map.of("City quest", 4, "Menaphos reputation", 9400), 4, true, true));
@@ -824,14 +874,12 @@ public class ActionDatabase {
         else if (familiar != null) {
             player.getXp().put("Summoning", player.getXp().get("Summoning") + player.getXpToLevel("Summoning", familiar.getSummonReq()));
         }
+        else if (Player.ALL_SKILLS.contains(gear)) {
+            player.getXp().put(gear, player.getXp().get(gear) + player.getXpToLevel(gear, Math.min(99, player.getLevel(gear)+10)));
+        }
         else {
             throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));
         }
-    }
-
-
-    private int logsCut(Player player, int hatchetRank, int perfectRateFactor) {
-        return (int)Math.floor(((34 + player.getLevel("Woodcutting") * Math.pow(1.035, hatchetRank)) * 1500) / perfectRateFactor);
     }
 
     private int fishCaught(Player player, int levelAtMaxRate) {
@@ -866,6 +914,10 @@ public class ActionDatabase {
         double successRate = Math.min(1.0, (145.0 + (playerLevel - effectiveLevel)) / 255.0);
         double timePerSuccess = (2 * successRate + 8 * (1 - successRate)) / successRate;
         return (int) Math.floor(TICKS_PER_HOUR / timePerSuccess);
+    }
+
+    private int itemsReceived(Player player, int base, double factor, String skill, int levelMin) {
+        return (int)Math.floor(base*Math.pow(factor, player.getLevel(skill)-levelMin));
     }
 
     public static ActionDatabase getActionDatabase(Player player) {

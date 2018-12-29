@@ -209,6 +209,26 @@ public class Player implements Serializable {
                 }
             }
         }
+        List<String> skills = new ArrayList<>();
+        if (combatStyle.equals("Melee")) {
+            skills = Arrays.asList("Attack", "Strength", "Defence");
+        }
+        if (combatStyle.equals("Ranged")) {
+            skills = Arrays.asList("Ranged", "Defence");
+        }
+        if (combatStyle.equals("Magic")) {
+            skills = Arrays.asList("Magic", "Defence");
+        }
+        for (String skill : skills) {
+            if (getLevel(skill) < 99) {
+                int targetLevel = Math.min(99, getLevel(skill) + 10);
+                double skillTime = new Requirement(skill, targetLevel).timeAndActionsToMeetRequirement(this).getTotalTime();
+                if (minTimeToGear > skillTime) {
+                    minTimeToGear = skillTime;
+                    minGear = skill;
+                }
+            }
+        }
         if (minGear != null) {
             return Map.of(minGear, minTimeToGear);
         }
@@ -304,6 +324,12 @@ public class Player implements Serializable {
                     String trueTarget = requirement.getQualifier();
                     if (trueTarget.equals("Attack") || trueTarget.equals("Strength")) {
                         trueTarget = "mCombat";
+                    }
+                    if (trueTarget.equals("Ranged")) {
+                        trueTarget = "rCombat";
+                    }
+                    if (trueTarget.equals("Magic")) {
+                        trueTarget = "aCombat";
                     }
                     if (trueTarget.equals("Defence")) {
                         GoalResults meleeResults = previousEfficiencyResults.get(new Requirement("mCombat",
@@ -708,7 +734,12 @@ public class Player implements Serializable {
             List<String> entriesToRemove = new ArrayList<>();
             for (Entry<String, Integer> bankEntry : bank.entrySet()) {
                 if (!bankEntry.getKey().equals("Coins")) {
-                    bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this)*bankEntry.getValue());
+                    if (bank.get("Coins") != null) {
+                        bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
+                    }
+                    else {
+                        bank.put("Coins", ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
+                    }
                     entriesToRemove.add(bankEntry.getKey());
                 }
                 if (bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {

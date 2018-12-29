@@ -333,6 +333,9 @@ public class Achievement implements Serializable {
         else if (familiar != null) {
             player.getXp().put("Summoning", player.getXp().get("Summoning") + player.getXpToLevel("Summoning", familiar.getSummonReq()));
         }
+        else if (Player.ALL_SKILLS.contains(gear)) {
+            player.getXp().put(gear, player.getXp().get(gear) + player.getXpToLevel(gear, Math.min(99, player.getLevel(gear)+10)));
+        }
         else {
             throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));
         }

@@ -209,6 +209,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Blue spiky vambraces", 3000));
         itemsList.add(new Item("Blue dye", 6));
         itemsList.add(new Item("Blurberry Special", 30));
+        itemsList.add(new Item("Body talisman", 4));
         itemsList.add(new Item("Bolt of cloth", 650));
         itemsList.add(new Item("Bone bolts", 4));
         itemsList.add(new Item("Bone club", 600));
@@ -223,6 +224,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Bowstring", 100));
         itemsList.add(new Item("Box trap", 38));
         itemsList.add(new Item("Bracelet of clay", 1265));
+        itemsList.add(new Item("Brandy", 5));
         itemsList.add(new Item("Bread", 24));
         itemsList.add(new Item("Broad arrowheads", 50));
         itemsList.add(new Item("Bronze 2h crossbow", 73));
@@ -328,6 +330,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Copper ore", 20));
         itemsList.add(new Item("Corrupted magic logs", 600));
         itemsList.add(new Item("Cosmic rune", 232));
+        itemsList.add(new Item("Cosmic talisman", 4));
         itemsList.add(new Item("Cowhide", 1));
         itemsList.add(new Item("Cracked cooking urn (nr)", 40));
         itemsList.add(new Item("Cracked mining urn (nr)", 30));
@@ -418,6 +421,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Elder shieldbow", 4480));
         itemsList.add(new Item("Elder shortbow", 2800));
         itemsList.add(new Item("Elemental shield", 20));
+        itemsList.add(new Item("Elemental talisman", 500));
         itemsList.add(new Item("Elite black full helm", 35200));
         itemsList.add(new Item("Elite black platebody", 64000));
         itemsList.add(new Item("Elite black platelegs", 65000));
@@ -435,6 +439,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Enchanted hat", 15000));
         itemsList.add(new Item("Enchanted robe", 80000));
         itemsList.add(new Item("Enchanted top", 120000));
+        itemsList.add(new Item("Enlightenment scroll", 569));
+        itemsList.add(new Item("Equa leaves", 2));
         itemsList.add(new Item("Eucalyptus logs", 126));
         itemsList.add(new Item("Evil turnip pouch", 3024));
         itemsList.add(new Item("Explosive barrel", 500000));
@@ -480,6 +486,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Geyser titan pouch", 5974));
         itemsList.add(new Item("Giant chinchompa pouch", 2524));
         itemsList.add(new Item("Giant frog legs", 100));
+        itemsList.add(new Item("Gin", 5));
         itemsList.add(new Item("Glaiven boots", 20000));
         itemsList.add(new Item("Gloves of passage", 80000));
         itemsList.add(new Item("Gloves of silence", 600));
@@ -563,6 +570,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Hard leather shield", 238));
         itemsList.add(new Item("Hard leather", 1));
         itemsList.add(new Item("Hardened dragon bones", 1));
+        itemsList.add(new Item("Harmony moss seed", 300));
         itemsList.add(new Item("Harralander potion (unf)", 20));
         itemsList.add(new Item("Hazelmere's signet ring", 500000));
         itemsList.add(new Item("Headless arrow", 1));
@@ -626,6 +634,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Jogre bones", 1));
         itemsList.add(new Item("Jug of water", 1));
         itemsList.add(new Item("Jug of wine", 128));
+        itemsList.add(new Item("Juju farming potion (3)", 300));
         itemsList.add(new Item("Jute fibre", 6));
         itemsList.add(new Item("Jute seed", 86));
         itemsList.add(new Item("Karam. overlord pouch", 4024));
@@ -647,6 +656,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Lava titan pouch", 5899));
         itemsList.add(new Item("Larupia fur", 96));
         itemsList.add(new Item("Law rune", 378));
+        itemsList.add(new Item("Law talisman", 4));
         itemsList.add(new Item("Leaf-bladed sword", 68000));
         itemsList.add(new Item("Leather", 1));
         itemsList.add(new Item("Leather body", 21));
@@ -656,8 +666,14 @@ public class ItemDatabase {
         itemsList.add(new Item("Leather gloves", 6));
         itemsList.add(new Item("Leather shield", 68));
         itemsList.add(new Item("Leather vambraces", 18));
+        itemsList.add(new Item("Lemon", 2));
+        itemsList.add(new Item("Lemon chunks", 2));
+        itemsList.add(new Item("Lemon slices", 2));
         itemsList.add(new Item("Leviathan ring", 20000));
         itemsList.add(new Item("Light creature pouch", 3924));
+        itemsList.add(new Item("Lime", 2));
+        itemsList.add(new Item("Lime chunks", 1));
+        itemsList.add(new Item("Lime slices", 2));
         itemsList.add(new Item("Limestone", 10));
         itemsList.add(new Item("Limpwurt root", 7));
         itemsList.add(new Item("Limpwurt seed", 12));
@@ -867,7 +883,9 @@ public class ItemDatabase {
         itemsList.add(new Item("Onyx", 300000));
         itemsList.add(new Item("Opal", 100));
         itemsList.add(new Item("Orange", 70));
+        itemsList.add(new Item("Orange chunks", 2));
         itemsList.add(new Item("Orange salamander", 100));
+        itemsList.add(new Item("Orange slices", 2));
         itemsList.add(new Item("Orange dye", 6));
         itemsList.add(new Item("Orb of the Cywir elders", 65000));
         itemsList.add(new Item("Ourg bones", 1));
@@ -883,6 +901,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Pie dish", 3));
         itemsList.add(new Item("Pigswill", 32));
         itemsList.add(new Item("Pike", 25));
+        itemsList.add(new Item("Pineapple", 2));
         itemsList.add(new Item("Pineapple chunks", 1));
         itemsList.add(new Item("Pineapple pizza", 100));
         itemsList.add(new Item("Pineapple Punch", 30));
@@ -1086,6 +1105,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Soda ash", 2));
         itemsList.add(new Item("Soft clay", 2));
         itemsList.add(new Item("Soul rune", 410));
+        itemsList.add(new Item("Soul talisman", 4));
         itemsList.add(new Item("Spade", 3));
         itemsList.add(new Item("Spectral spirit shield", 2000000));
         itemsList.add(new Item("Spellstorm drape", 250));
@@ -1290,6 +1310,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Waterskin (0)", 15));
         itemsList.add(new Item("Waterskin (4)", 30));
         itemsList.add(new Item("Wheat", 2));
+        itemsList.add(new Item("Whisky", 5));
         itemsList.add(new Item("White berries", 10));
         itemsList.add(new Item("White magic staff", 200));
         itemsList.add(new Item("Wild pie", 182));
