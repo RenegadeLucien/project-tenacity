@@ -27,10 +27,11 @@ public class Enemy implements Serializable {
     private int affmelee;
     private int affranged;
     private int affmage;
+    private boolean stunimmune;
 
     public Enemy(String name, int lp, double cbxp, double hpxp, int maxhitmelee, int maxhitranged,
           int maxhitmagic, int attack, int ranged, int magic, int atkspd, int accmelee, int accranged, int accmage,
-          int armor, int def, String weakness, int affweakness, int affmelee, int affranged, int affmage) {
+          int armor, int def, String weakness, int affweakness, int affmelee, int affranged, int affmage, boolean stunimmune) {
 
         this.name = name;
         this.lp = lp;
@@ -53,6 +54,7 @@ public class Enemy implements Serializable {
         this.affmelee = affmelee;
         this.affranged = affranged;
         this.affmage = affmage;
+        this.stunimmune = stunimmune;
     }
 
     public static Enemy getEnemyByName(String name) {
@@ -145,5 +147,9 @@ public class Enemy implements Serializable {
 
     public int getAtkspd() {
         return atkspd;
+    }
+
+    public boolean isStunimmune() {
+        return stunimmune;
     }
 }

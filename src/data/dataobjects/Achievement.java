@@ -2,6 +2,7 @@ package data.dataobjects;
 
 import data.databases.AchievementDatabase;
 import data.databases.ItemDatabase;
+import data.databases.WeaponDatabase;
 import logic.*;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class Achievement implements Serializable {
 
@@ -240,7 +242,22 @@ public class Achievement implements Serializable {
         player.setWeapons(initialWeapons);
         player.setArmour(initialArmours);
         for (Requirement r : encounterRequirements) {
-            trueReqs.add(r);
+            if (Weapon.getWeaponByName(r.getQualifier()) == null && Armour.getArmourByName(r.getQualifier()) == null && !Player.ALL_SKILLS.contains(r.getQualifier())) {
+                trueReqs.add(r);
+            }
+            else if (Player.ALL_SKILLS.contains(r.getQualifier())) {
+                if (trueReqs.stream().noneMatch(req -> req.getQualifier().equals(r.getQualifier()))) {
+                    trueReqs.add(r);
+                } else {
+                    Requirement oldReq = trueReqs.stream().filter(req -> req.getQualifier().equals(r.getQualifier())).collect(Collectors.toList()).get(0);
+                    Requirement newReq = new Requirement(r.getQualifier(), Math.max(oldReq.getQuantifier(), r.getQuantifier()));
+                    trueReqs.add(newReq);
+                    trueReqs.remove(oldReq);
+                }
+            }
+            else if (trueReqs.stream().noneMatch(req -> req.getQualifier().equals(r.getQualifier()))) {
+                trueReqs.add(r);
+            }
             GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                 if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {

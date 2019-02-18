@@ -1,5 +1,6 @@
 package logic;
 
+import com.google.common.collect.ImmutableMap;
 import data.databases.ItemDatabase;
 import data.dataobjects.Achievement;
 import data.dataobjects.Item;
@@ -37,7 +38,7 @@ public class Requirement implements Serializable {
 
     public GoalResults timeAndActionsToMeetRequirement(Player player) {
         if (meetsRequirement(player)) {
-            return new GoalResults(0, Map.of("", 0.0));
+            return new GoalResults(0, ImmutableMap.of("", 0.0));
         }
         double time;
         Map<String, Double> actions = new HashMap<>();
@@ -69,7 +70,7 @@ public class Requirement implements Serializable {
                 goalResults = player.getAchievementResults().get(achievement);
             }
             else {
-                goalResults = new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
+                goalResults = new GoalResults(1000000000.0, ImmutableMap.of("Impossible", 1000000000.0));
             }
         } else if (qualifier.equals("Flags unfurled")) {
             goalResults = new Requirement("Master Quester", 1).timeAndActionsToMeetRequirement(player);

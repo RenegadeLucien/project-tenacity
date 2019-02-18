@@ -123,6 +123,7 @@ public class Encounter implements Serializable {
                     cooldowns.put(ability, 0);
             }
             cooldowns.put(new Ability("Auto-attack", loadout.getMainWep().getWeaponClass(), "Any", "Auto", loadout.getMainWep().getAtkspd(),
+                (loadout.getMainWep().getDamage()+ loadout.getMainWep().getMaxAmmo())*0.5/combatStats.getDamage(), 0,
                 (loadout.getMainWep().getDamage()+ loadout.getMainWep().getMaxAmmo())*0.5/combatStats.getDamage(), new ArrayList<>()), 0);
             int adren = 0;
             int foodCooldown = 0;
@@ -133,6 +134,7 @@ public class Encounter implements Serializable {
                 for (List<Enemy> enemyGroup : enemyGroups) {
                     for (Enemy enemy : enemyGroup) {
                         int monsterTicks = -1;
+                        int monsterStun = 0;
                         //System.out.println("Began fighting: " + enemy.getName());
                         int affinity;
                         if (loadout.getMainWep().getStyle().equals(enemy.getWeakness())) {
@@ -169,6 +171,9 @@ public class Encounter implements Serializable {
                         while (myLp > 0 && enemyLp > 0) {
                             ticks++;
                             monsterTicks++;
+                            if (monsterStun > 0) {
+                                monsterStun--;
+                            }
                             Ability abilityUsedThisTick = null;
                             double maxDamage = 0;
                             if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
@@ -189,16 +194,27 @@ public class Encounter implements Serializable {
                                         || abilityWithCooldown.getKey().getType().equals("Basic")
                                         || (abilityWithCooldown.getKey().getType().equals("Threshold") && adren >= 50)
                                         || (abilityWithCooldown.getKey().getType().equals("Ultimate") && adren == 100))) {
-                                        if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage
-                                            || (abilityWithCooldown.getKey().getExpectedDamage() == maxDamage && abilityWithCooldown.getKey().getCooldown() > abilityUsedThisTick.getCooldown())) {
-                                            abilityUsedThisTick = abilityWithCooldown.getKey();
-                                            maxDamage = abilityWithCooldown.getKey().getExpectedDamage();
+                                        if (monsterStun > 0) {
+                                            if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getStunDamage() > maxDamage
+                                                || (abilityWithCooldown.getKey().getStunDamage() == maxDamage && abilityWithCooldown.getKey().getCooldown() > abilityUsedThisTick.getCooldown())) {
+                                                abilityUsedThisTick = abilityWithCooldown.getKey();
+                                                maxDamage = abilityWithCooldown.getKey().getStunDamage();
+                                            }
+                                        } else {
+                                            if (abilityUsedThisTick == null || abilityWithCooldown.getKey().getExpectedDamage() > maxDamage
+                                                || (abilityWithCooldown.getKey().getExpectedDamage() == maxDamage && abilityWithCooldown.getKey().getCooldown() > abilityUsedThisTick.getCooldown())) {
+                                                abilityUsedThisTick = abilityWithCooldown.getKey();
+                                                maxDamage = abilityWithCooldown.getKey().getExpectedDamage();
+                                            }
                                         }
                                     }
                                 }
                             }
                             if (abilityUsedThisTick != null) {
                                 enemyLp -= myHitChance * combatStats.getDamage() * maxDamage;
+                                if (!enemy.isStunimmune()) {
+                                    monsterStun = Math.max(monsterStun, abilityUsedThisTick.getStunTicks());
+                                }
                                 //System.out.println("Tick " + ticks + ": Used " + abilityUsedThisTick.getName() + ", Enemy has " + enemyLp + " LP left");
                                 cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
                                 if (!abilityUsedThisTick.getType().equals("Auto")) {
@@ -229,7 +245,7 @@ public class Encounter implements Serializable {
                             for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
                                 cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 1);
                             foodCooldown--;
-                            if (monsterTicks % (enemy.getAtkspd() * partySize) == 0 && monsterTicks != 0) {
+                            if (monsterTicks % (enemy.getAtkspd() * partySize) == 0 && monsterTicks != 0 && monsterStun == 0) {
                                 double enemyDamage;
                                 enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
                                 myLp -= enemyDamage * (1 - loadout.totalReduc());

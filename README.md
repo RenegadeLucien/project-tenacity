@@ -2,9 +2,9 @@
 Project Tenacity is a dynamic account pathing system for RuneScape 3. Its goal is to provide RS3 players with a powerful, easy-to-use tool to determine the optimal method to progress their account. This tool serves as a replacement and upgrade to my former attempts at making this type of guide, namely my "Level 3 to Quest Cape" and "Level 3 to All Capes" Reddit guides from several years ago.
 
 # How to run
-Project Tenacity requires Java 11 (or higher) to run. If you do not have this, you can download the latest version [here.](https://jdk.java.net/11/)
+Project Tenacity requires Java 8 (or higher) to run. If you do not have this, you can download the latest version [here.](https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
-Once you have Java 11, download Project Tenacity by clicking on the "releases" button above. Select the most recent version and download the .jar file.
+Once you have Java 8, download Project Tenacity by clicking on the "releases" button above. Select the most recent version and download the .jar file.
 
 Finally, run the .jar.
 

@@ -25,28 +25,43 @@ public class Lamp implements Serializable {
         double maxGain = 0;
         //Placeholder so null reward doesn't get returned and cause a mess if can't use lamp yet. This should be overwritten
         Reward maxReward = new Reward("Attack", 1);
+        boolean cantUse = true;
         for (String choice : choices) {
-            if (player.getLevel(choice) >= minLevel && player.getLevel(choice) < 99) {
-                int xpReward = xp;
-                //-1: small pris, -2: med pris, -4: large pris, -8: huge pris, -3/5/6/7: other rewards that use pris formula
-                if (xp < 0 && xp > -9) {
-                    xpReward = PRISMATIC_LAMP_EXP_VALUES[player.getLevel(choice)] * -1 * xp;
-                }
-                //-9: dragonkin lamp
-                else if (xp == -9) {
-                    xpReward = (int)Math.floor((Math.pow(player.getLevel(choice), 3) - 2*Math.pow(player.getLevel(choice), 2) + 100*player.getLevel(choice))/20);
-                }
-                //-10+: flat level multiplier (ex. goulash, peng points)
-                else if (xp <= -10) {
-                    xpReward = player.getLevel(choice)*-1*xp;
-                }
-                Reward choiceReward = new Reward(choice, xpReward);
-                double gain = choiceReward.getGainFromReward(player);
-                if (gain > maxGain) {
-                    maxGain = gain;
-                    maxReward = choiceReward;
+            if (player.getLevel(choice) >= minLevel) {
+                cantUse = false;
+                if (player.getLevel(choice) < 99) {
+                    int xpReward = xp;
+                    //-6: Shattered Heart
+                    if (xp == -6) {
+                        xpReward = player.getLevel(choice)*player.getLevel(choice) - player.getLevel(choice)*2 + 100;
+                    }
+                    //-7: Troll Invasion
+                    if (xp == -7) {
+                        xpReward = 8*(player.getLevel(choice)*player.getLevel(choice) - player.getLevel(choice)*2 + 100);
+                    }
+                    //-1: small pris, -2: med pris, -4: large pris, -8: huge pris, -3: other rewards that use pris formula
+                    else if (xp < 0 && xp > -9) {
+                        xpReward = PRISMATIC_LAMP_EXP_VALUES[player.getLevel(choice)] * -1 * xp;
+                    }
+                    //-9: dragonkin lamp
+                    else if (xp == -9) {
+                        xpReward = (int) Math.floor((Math.pow(player.getLevel(choice), 3) - 2 * Math.pow(player.getLevel(choice), 2) + 100 * player.getLevel(choice)) / 20);
+                    }
+                    //-10+: flat level multiplier (ex. goulash, peng points)
+                    else if (xp <= -10) {
+                        xpReward = player.getLevel(choice) * -1 * xp;
+                    }
+                    Reward choiceReward = new Reward(choice, xpReward);
+                    double gain = choiceReward.getGainFromReward(player);
+                    if (gain > maxGain) {
+                        maxGain = gain;
+                        maxReward = choiceReward;
+                    }
                 }
             }
+        }
+        if (maxReward.getQuantifier() == 1 && maxReward.getQualifier().equals("Attack") && !cantUse) {
+            maxReward = new Reward("Attack", 2);
         }
         return maxReward;
     }

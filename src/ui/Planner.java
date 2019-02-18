@@ -58,7 +58,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.7.4b";
+    private static final String CURRENT_VERSION = "v0.7.5b";
 
     public static void main(String args[]) {
         launch(args);
@@ -123,7 +123,13 @@ public class Planner extends Application {
         GoalResults timeForRequirements = Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player);
         List<Reward> lampRewards = new ArrayList<>();
         for (Lamp lamp : Achievement.getAchievementByName(row.getKey()).getLamps()) {
-            lampRewards.add(lamp.getBestReward(player));
+            Reward lampReward = lamp.getBestReward(player);
+            if (lampReward.getQuantifier() > 2 || !lampReward.getQualifier().equals("Attack")) {
+                lampRewards.add(lampReward);
+            }
+            else if (lampReward.getQualifier().equals("Attack") && lampReward.getQuantifier() == 1) {
+                lampRewards.add(new Reward("Can't use lamp", 0));
+            }
         }
         Alert taskInformation = new Alert(AlertType.INFORMATION);
         taskInformation.setResizable(true);

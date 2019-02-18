@@ -1,6 +1,7 @@
 package logic;
 
 
+import com.google.common.collect.ImmutableMap;
 import data.databases.*;
 import data.dataobjects.*;
 
@@ -230,7 +231,7 @@ public class Player implements Serializable {
             }
         }
         if (minGear != null) {
-            return Map.of(minGear, minTimeToGear);
+            return ImmutableMap.of(minGear, minTimeToGear);
         }
         return null;
     }
@@ -282,6 +283,7 @@ public class Player implements Serializable {
         previousEfficiencyResults.clear();
         achievementResults.clear();
         totalEncounters = 0;
+        int incompleteAchievements = 0;
         StoredCombatCalcs.getCalculatedCombats().clear();
         StoredCombatCalcs.getSuccessfulCombats().clear();
         ActionDatabase.reset();
@@ -299,11 +301,15 @@ public class Player implements Serializable {
                     GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
                     achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
                     achievementResults.put(achievement, actionsAndTime);
+                    if (actionsAndTime.getTotalTime() > 100000) {
+                        incompleteAchievements++;
+                    }
                     System.out.print(totalEncounters - currentEncounters + "\t");
                     System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
                 }
             }
         }
+        System.out.println("Incomplete Achievements: " + incompleteAchievements);
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
         for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
@@ -458,7 +464,7 @@ public class Player implements Serializable {
         }
         //Basically, this if you're trying to make 15000 coins to get 3000 coins. By definition, you won't need to do this, so this should not be done
         if (!qualifier.equals("Coins") && currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
-            return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
+            return new GoalResults(1000000000.0, ImmutableMap.of("Impossible", 1000000000.0));
         }
         currentTargets.add(generatedRequirement);
         if (qualifier.equals("Quest points")) {
@@ -496,7 +502,7 @@ public class Player implements Serializable {
                 questPointMap.remove(quest);
             }
             if (questpoints < quantifier) {
-                return new GoalResults(1000000000.0, Map.of("Impossible", 1000000000.0));
+                return new GoalResults(1000000000.0, ImmutableMap.of("Impossible", 1000000000.0));
             }
             double questTotalTime = questTotalActions.values().stream().mapToDouble(d -> d).sum();
             GoalResults result = new GoalResults(questTotalTime, questTotalActions);
