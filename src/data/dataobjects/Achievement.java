@@ -138,13 +138,13 @@ public class Achievement implements Serializable {
                     double timeToMagic = nextGearMagic == null ? Double.POSITIVE_INFINITY : nextGearMagic.values().iterator().next();
                     double timeToRanged = nextGearRanged == null ? Double.POSITIVE_INFINITY : nextGearRanged.values().iterator().next();
                     if (timeToMelee != Double.POSITIVE_INFINITY && timeToMelee <= Math.min(timeToMagic, timeToRanged)) {
-                        addGearToPlayer(player, nextGearMelee.keySet().iterator().next());
+                        player.addGearToPlayer(nextGearMelee.keySet().iterator().next());
                     }
                     else if (timeToMagic != Double.POSITIVE_INFINITY && timeToMagic <= timeToRanged) {
-                        addGearToPlayer(player, nextGearMagic.keySet().iterator().next());
+                        player.addGearToPlayer(nextGearMagic.keySet().iterator().next());
                     }
                     else if (timeToRanged != Double.POSITIVE_INFINITY){
-                        addGearToPlayer(player, nextGearRanged.keySet().iterator().next());
+                        player.addGearToPlayer(nextGearRanged.keySet().iterator().next());
                     }
                 }
                 else {
@@ -181,6 +181,9 @@ public class Achievement implements Serializable {
                     }
                     if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
                         encounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
+                    }
+                    if (player.getXp().get("Herblore") > initialXP.get("Herblore")) {
+                        encounterRequirements.add(new Requirement("Herblore", player.getLevel("Herblore")));
                     }
                     if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(Armour.getArmourByName("None"))) {
                         encounterRequirements.add(new Requirement(loadout.getHead().getName(), 1));
@@ -281,27 +284,9 @@ public class Achievement implements Serializable {
         }
         final Map<String, Double> initialXP = new HashMap<>(player.getXp());
         for (Encounter e : encounters) {
-            CombatResults meleeCombatResults;
-            CombatResults rangedCombatResults;
-            CombatResults magicCombatResults;
-            do {
-                meleeCombatResults = e.calculateCombat(player, new CombatParameters(28, "Melee", false, 0, false));
-                rangedCombatResults = e.calculateCombat(player, new CombatParameters(28, "Ranged", false, 0, false));
-                magicCombatResults = e.calculateCombat(player, new CombatParameters(28, "Magic", false, 0, false));
-                if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
-                    player.getXp().put("Attack", player.getXp().get("Attack") + player.getXpToLevel("Attack", player.getLevel("Attack")+1));
-                    player.getXp().put("Strength", player.getXp().get("Strength") + player.getXpToLevel("Strength", player.getLevel("Strength")+1));
-                    player.getXp().put("Ranged", player.getXp().get("Ranged") + player.getXpToLevel("Ranged", player.getLevel("Ranged")+1));
-                    player.getXp().put("Magic", player.getXp().get("Magic") + player.getXpToLevel("Magic", player.getLevel("Magic")+1));
-                    player.getXp().put("Defence", player.getXp().get("Defence") + player.getXpToLevel("Defence", player.getLevel("Defence")+1));
-                    player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", player.getLevel("Constitution") + 1));
-                }
-                else {
-                    break;
-                }
-            }
-            while (player.getLevel("Constitution") < 99 || player.getLevel("Attack") < 99 || player.getLevel("Strength") < 99 || player.getLevel("Defence") < 99 ||
-                player.getLevel("Magic") < 99 || player.getLevel("Ranged") < 99);
+            CombatResults meleeCombatResults = e.calculateCombat(player, new CombatParameters(28, "Melee", false, 0, false));
+            CombatResults rangedCombatResults = e.calculateCombat(player, new CombatParameters(28, "Ranged", false, 0, false));
+            CombatResults magicCombatResults = e.calculateCombat(player, new CombatParameters(28, "Magic", false, 0, false));
             for (List<Enemy> enemyGroup : e.getEnemyGroups()) {
                 for (Enemy enemy : enemyGroup) {
                     totalGainFromAllRewards += player.efficientGoalCompletion("Constitution", (int) enemy.getHpxp()/e.getPartySize()).getTotalTime();
@@ -325,37 +310,6 @@ public class Achievement implements Serializable {
         }
         player.setXp(initialXP);
         return totalGainFromAllRewards;
-    }
-
-    private void addGearToPlayer(Player player, String gear) {
-        Weapon weapon = Weapon.getWeaponByName(gear);
-        Armour armour = Armour.getArmourByName(gear);
-        Food food = Food.getFoodByName(gear);
-        Familiar familiar = Familiar.getFamiliarByName(gear);
-        if (weapon != null) {
-            for (Requirement requirement : weapon.getReqs()) {
-                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
-            }
-            player.addWeapon(weapon);
-        }
-        else if (armour != null) {
-            for (Requirement requirement : armour.getReqs()) {
-                player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
-            }
-            player.addArmour(armour);
-        }
-        else if (food != null) {
-            player.getXp().put("Constitution", player.getXp().get("Constitution") + player.getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
-        }
-        else if (familiar != null) {
-            player.getXp().put("Summoning", player.getXp().get("Summoning") + player.getXpToLevel("Summoning", familiar.getSummonReq()));
-        }
-        else if (Player.ALL_SKILLS.contains(gear)) {
-            player.getXp().put(gear, player.getXp().get(gear) + player.getXpToLevel(gear, Math.min(99, player.getLevel(gear)+10)));
-        }
-        else {
-            throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));
-        }
     }
 
     public String getName() {

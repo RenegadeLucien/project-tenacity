@@ -121,16 +121,25 @@ public class Loadout {
         } else {
             accuracySkill = damageSkill = "Magic";
         }
-        double myDamage = 2.5 * player.getLevel(damageSkill) + mainWep.effectiveDamage() + totalBonus();
+        int damageSkillLevel = player.getLevel(damageSkill);
+        int accSkillLevel = player.getLevel(accuracySkill);
+        int defLevel = player.getLevel("Defence");
+        //Standard overload used
+        if (player.getLevel("Herblore") >= 96) {
+            damageSkillLevel = (int)(Math.floor(damageSkillLevel * 1.15 + 3));
+            accSkillLevel = (int)(Math.floor(accSkillLevel * 1.15 + 3));
+            defLevel = (int)(Math.floor(defLevel * 1.15 + 3));
+        }
+        double myDamage = 2.5 * damageSkillLevel + mainWep.effectiveDamage() + totalBonus();
         if (offWep.getAtkspd() > 0) {
-            myDamage += 1.25 * player.getLevel(damageSkill) + offWep.effectiveDamage() + totalBonus()*.5;
+            myDamage += 1.25 * damageSkillLevel + offWep.effectiveDamage() + totalBonus()*.5;
         }
         if (mainWep.getSlot().equals("Two-handed")) {
-            myDamage += 1.25 * player.getLevel(damageSkill) + totalBonus()*0.5;
+            myDamage += 1.25 * damageSkillLevel + totalBonus()*0.5;
         }
-        double myArmour = (0.0008 * Math.pow(player.getLevel("Defence"), 3) + 4 * player.getLevel("Defence") + 40) + totalArmour();
-        double myAccuracy = (0.0008 * Math.pow(player.getLevel(accuracySkill), 3) + 4 * player.getLevel(accuracySkill) + 40) + mainWep.getAccuracy();
-        return new CombatStats(myAccuracy, myArmour, myDamage, totalReduc() + player.getLevel("Defence")/1000.0);
+        double myArmour = (0.0008 * Math.pow(defLevel, 3) + 4 * defLevel + 40) + totalArmour();
+        double myAccuracy = (0.0008 * Math.pow(accSkillLevel, 3) + 4 * accSkillLevel + 40) + mainWep.getAccuracy();
+        return new CombatStats(myAccuracy, myArmour, myDamage, totalReduc() + defLevel/1000.0);
     }
 
     public boolean checkValid() {

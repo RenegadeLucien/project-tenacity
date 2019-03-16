@@ -169,6 +169,9 @@ public class Encounter implements Serializable {
                         }
                         double enemyLp = enemy.getLp() / partySize;
                         while (myLp > 0 && enemyLp > 0) {
+                            if (ticks % 2000 == 0 && p.getLevel("Herblore") >= 96) {
+                                invenUsed++;
+                            }
                             ticks++;
                             monsterTicks++;
                             if (monsterStun > 0) {
@@ -424,12 +427,10 @@ public class Encounter implements Serializable {
             List<Loadout> obsoletedLoadouts = new ArrayList<>();
             for (Map.Entry<Loadout, CombatStats> loadoutToStats : loadoutsToStats.entrySet()) {
                 CombatStats previousStats = loadoutToStats.getValue();
-                if (combatStats.getAccuracy() <= previousStats.getAccuracy() && combatStats.getArmour() <= previousStats.getArmour() &&
-                    combatStats.getDamage() <= previousStats.getDamage() && combatStats.getReduc()  <= previousStats.getReduc()) {
+                if (combatStats.getDamage() <= previousStats.getDamage() && combatStats.getReduc()  <= previousStats.getReduc()) {
                     insertLoadout = false;
                 }
-                else if (combatStats.getAccuracy() >= previousStats.getAccuracy() && combatStats.getArmour() >= previousStats.getArmour() &&
-                    combatStats.getDamage() >= previousStats.getDamage() && combatStats.getReduc() >= previousStats.getReduc()) {
+                else if (combatStats.getDamage() >= previousStats.getDamage() && combatStats.getReduc() >= previousStats.getReduc()) {
                     obsoletedLoadouts.add(loadoutToStats.getKey());
                 }
             }
@@ -440,6 +441,7 @@ public class Encounter implements Serializable {
                 loadoutsToStats.put(loadout, combatStats);
             }
         }
+        //System.out.println(loadoutsToStats.keySet().size());
         return new ArrayList<>(loadoutsToStats.keySet());
     }
 

@@ -154,44 +154,6 @@ public class Player implements Serializable {
         }
         double minTimeToGear = 1000000000.0;
         String minGear = null;
-        for (Weapon weapon : WeaponDatabase.getWeaponDatabase().getWeapons().stream().filter(w -> w.getWeaponClass().equals(combatStyle)).collect(Collectors.toList())) {
-            if (!weapons.contains(weapon) && !checkIfHaveBetterWeapon(weapon)) {
-                double weaponTime = 0;
-                if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
-                    weaponTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(weapon.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
-                }
-                else {
-                    //Getting time to untradeable gear that aren't already owned is unsupported
-                    weaponTime += 1000000000.0;
-                }
-                for (Requirement weaponReq : weapon.getReqs()) {
-                    weaponTime += weaponReq.timeAndActionsToMeetRequirement(this).getTotalTime();
-                }
-                if (minTimeToGear > weaponTime) {
-                    minTimeToGear = weaponTime;
-                    minGear = weapon.getName();
-                }
-            }
-        }
-        for (Armour armourPiece : ArmourDatabase.getArmourDatabase().getArmours().stream().filter(a -> a.getType().equals(combatStyle) || a.getType().equals("All")).collect(Collectors.toList())) {
-            if (!armour.contains(armourPiece) && !checkIfHaveBetterArmour(armourPiece)) {
-                double armourTime = 0;
-                if (ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()) != null) {
-                    armourTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
-                }
-                else {
-                    //Getting time to untradeable gear that aren't already owned is unsupported
-                    armourTime += 1000000000.0;
-                }
-                for (Requirement armourReq : armourPiece.getReqs()) {
-                    armourTime += armourReq.timeAndActionsToMeetRequirement(this).getTotalTime();
-                }
-                if (minTimeToGear > armourTime) {
-                    minTimeToGear = armourTime;
-                    minGear = armourPiece.getName();
-                }
-            }
-        }
         for (Food newFood : FoodDatabase.getFoodDatabase().getFoods()) {
             if (getLevel("Constitution") < 99 && newFood.getAmountHealed() > getLevel("Constitution")*25) {
                 double foodTime = new Requirement("Constitution", Math.min(99, newFood.getAmountHealed()/25)).timeAndActionsToMeetRequirement(this).getTotalTime();
@@ -230,6 +192,57 @@ public class Player implements Serializable {
                 }
             }
         }
+        if (getLevel("Herblore") < 96) {
+            double herbTime = new Requirement("Herblore", 96).timeAndActionsToMeetRequirement(this).getTotalTime();
+            if (minTimeToGear > herbTime) {
+                minTimeToGear = herbTime;
+                minGear = "Herblore";
+            }
+        }
+        for (Weapon weapon : WeaponDatabase.getWeaponDatabase().getWeapons().stream().filter(w -> w.getWeaponClass().equals(combatStyle)).collect(Collectors.toList())) {
+            if (!weapons.contains(weapon) && !checkIfHaveBetterWeapon(weapon)) {
+                double weaponTime = 0;
+                if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
+                    weaponTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(weapon.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                else {
+                    //Getting time to untradeable gear that aren't already owned is unsupported
+                    weaponTime += 1000000000.0;
+                }
+                //if the time to get the weapon is already too big, don't bother getting all the req times
+                if (weaponTime < minTimeToGear) {
+                    for (Requirement weaponReq : weapon.getReqs()) {
+                        weaponTime += weaponReq.timeAndActionsToMeetRequirement(this).getTotalTime();
+                    }
+                    if (minTimeToGear > weaponTime) {
+                        minTimeToGear = weaponTime;
+                        minGear = weapon.getName();
+                    }
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+        for (Armour armourPiece : ArmourDatabase.getArmourDatabase().getArmours().stream().filter(a -> a.getType().equals(combatStyle) || a.getType().equals("All")).collect(Collectors.toList())) {
+            if (!armour.contains(armourPiece) && !checkIfHaveBetterArmour(armourPiece)) {
+                double armourTime = 0;
+                if (ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()) != null) {
+                    armourTime += new Requirement("Coins", ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()).coinValue(this)).timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                else {
+                    //Getting time to untradeable gear that aren't already owned is unsupported
+                    armourTime += 1000000000.0;
+                }
+                for (Requirement armourReq : armourPiece.getReqs()) {
+                    armourTime += armourReq.timeAndActionsToMeetRequirement(this).getTotalTime();
+                }
+                if (minTimeToGear > armourTime) {
+                    minTimeToGear = armourTime;
+                    minGear = armourPiece.getName();
+                }
+            }
+        }
         if (minGear != null) {
             return ImmutableMap.of(minGear, minTimeToGear);
         }
@@ -261,7 +274,7 @@ public class Player implements Serializable {
     private boolean checkIfHaveBetterWeapon(Weapon weapon) {
         for (Weapon ownedWeapon : weapons) {
             if (!weapon.equals(ownedWeapon) && weapon.getWeaponClass().equals(ownedWeapon.getWeaponClass()) && weapon.getSlot().equals(ownedWeapon.getSlot()) &&
-                weapon.effectiveDamage() <= ownedWeapon.effectiveDamage() && weapon.getAccuracy() <= ownedWeapon.getAccuracy()) {
+                weapon.effectiveDamage() <= ownedWeapon.effectiveDamage()) {
                 return true;
             }
         }
@@ -271,11 +284,46 @@ public class Player implements Serializable {
     private boolean checkIfHaveBetterArmour(Armour newArmour) {
         for (Armour ownedArmour : armour) {
             if (!ownedArmour.equals(newArmour) && (newArmour.getType().equals(ownedArmour.getType()) || ownedArmour.getType().equals("All")) && newArmour.getSlot().equals(ownedArmour.getSlot()) &&
-                newArmour.getArmour() <= ownedArmour.getArmour() && newArmour.getReduc() <= ownedArmour.getReduc() && newArmour.getBonus() <= ownedArmour.getBonus()) {
+                newArmour.getReduc() <= ownedArmour.getReduc() && newArmour.getBonus() <= ownedArmour.getBonus()) {
                 return true;
             }
         }
         return false;
+    }
+
+    public void addGearToPlayer(String gear) {
+        Weapon weapon = Weapon.getWeaponByName(gear);
+        Armour armour = Armour.getArmourByName(gear);
+        Food food = Food.getFoodByName(gear);
+        Familiar familiar = Familiar.getFamiliarByName(gear);
+        if (weapon != null) {
+            for (Requirement requirement : weapon.getReqs()) {
+                getXp().put(requirement.getQualifier(), getXp().get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+            }
+            addWeapon(weapon);
+        }
+        else if (armour != null) {
+            for (Requirement requirement : armour.getReqs()) {
+                getXp().put(requirement.getQualifier(), getXp().get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+            }
+            addArmour(armour);
+        }
+        else if (food != null) {
+            getXp().put("Constitution", getXp().get("Constitution") + getXpToLevel("Constitution", Math.min(99, food.getAmountHealed()/25)));
+        }
+        else if (familiar != null) {
+            getXp().put("Summoning", getXp().get("Summoning") + getXpToLevel("Summoning", familiar.getSummonReq()));
+        }
+        else if (Player.ALL_SKILLS.contains(gear)) {
+            if (gear.equals("Herblore")) {
+                getXp().put(gear, getXp().get(gear) + getXpToLevel(gear, 96));
+            } else {
+                getXp().put(gear, getXp().get(gear) + getXpToLevel(gear, Math.min(99, getLevel(gear) + 10)));
+            }
+        }
+        else {
+            throw new RuntimeException(String.format("Attempted to equip gear that does not exist: %s. Please raise a T99 issue.", gear));
+        }
     }
 
     public Map<String, Double> calcAllAchievements() {
