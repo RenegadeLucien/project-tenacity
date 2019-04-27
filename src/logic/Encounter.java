@@ -142,7 +142,11 @@ public class Encounter implements Serializable {
                         } else if (parameters.getCombatStyle().equals("Melee")) {
                             affinity = enemy.getAffmelee();
                         } else if (parameters.getCombatStyle().equals("Ranged")) {
-                            affinity = enemy.getAffranged();
+                            if (enemy.getName().equals("Black Stone Dragon")) { //using bane for BSD cause the simulator says it's impossible otherwise
+                                affinity = enemy.getAffweakness();
+                            } else {
+                                affinity = enemy.getAffranged();
+                            }
                         } else {
                             affinity = enemy.getAffmage();
                         }
@@ -312,7 +316,7 @@ public class Encounter implements Serializable {
                 maxKills = kills;
             }
         }
-        if (results.getHpLost() < 1000000) {
+        if (results.getHpLost() < 1000000 && results.getKills() > 0) {
             StoredCombatCalcs.getSuccessfulCombats().put(new CombatScenario(this, parameters), results);
         }
         return results;

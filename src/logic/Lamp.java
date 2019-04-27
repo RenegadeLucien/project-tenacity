@@ -31,6 +31,10 @@ public class Lamp implements Serializable {
                 cantUse = false;
                 if (player.getLevel(choice) < 99) {
                     int xpReward = xp;
+                    //-5: Shattered Heart (gold)
+                    if (xp == -5) {
+                        xpReward = (int)(Math.floor(player.getLevel(choice)*player.getLevel(choice)*1.2 - player.getLevel(choice)*2.4 + 120));
+                    }
                     //-6: Shattered Heart
                     if (xp == -6) {
                         xpReward = player.getLevel(choice)*player.getLevel(choice) - player.getLevel(choice)*2 + 100;

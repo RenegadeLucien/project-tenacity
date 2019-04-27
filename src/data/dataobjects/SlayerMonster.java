@@ -19,6 +19,10 @@ public class SlayerMonster {
         this.reqs = reqs;
     }
 
+    public String getMonster() {
+        return monster;
+    }
+
     public String getCategory() {
         return category;
     }

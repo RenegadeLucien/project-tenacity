@@ -58,7 +58,7 @@ public enum SlayerMaster {
         .put(new SlayerAssignment("Kalphites", 55), 10)
         .put(new SlayerAssignment("Mogres", 55), 10)
         .put(new SlayerAssignment("Pyrefiends", 55), 20)
-        .put(new SlayerAssignment("Rock slugs", 55), 15)
+        .put(new SlayerAssignment("Rockslugs", 55), 15)
         .put(new SlayerAssignment("Skeletons", 55), 10)
         .put(new SlayerAssignment("Vampyres", 55), 10)
         .put(new SlayerAssignment("Wall beasts", 15), 15)
