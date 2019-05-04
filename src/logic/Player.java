@@ -368,73 +368,42 @@ public class Player implements Serializable {
         return achievementCalcResults;
     }
 
-    public void completeTask(String taskName) {
+    public void completeTask(String taskName, boolean parent) {
         Achievement task = Achievement.getAchievementByName(taskName);
-        for (Requirement requirement : task.getReqs()) {
-            if (Achievement.getAchievementByName(requirement.getQualifier()) != null && !qualities.containsKey(requirement.getQualifier())) {
-                completeTask(requirement.getQualifier());
-            } else if (ALL_SKILLS.contains(requirement.getQualifier())) {
-                if (!requirement.meetsRequirement(this)) {
-                    String trueTarget = requirement.getQualifier();
-                    if (trueTarget.equals("Attack") || trueTarget.equals("Strength")) {
-                        trueTarget = "mCombat";
+        GoalResults calcedResults = achievementResults.get(task);
+        Map<String, Double> calcedActions = calcedResults.getActionsWithTimes();
+        while (calcedActions.size() > 0) {
+            List<String> actionsToRemove = new ArrayList<>();
+            for (Entry<String, Double> action : calcedActions.entrySet()) {
+                if (Achievement.getAchievementByName(action.getKey()) != null) {
+                    actionsToRemove.add(action.getKey());
+                    if (!action.getKey().equals(taskName) && !qualities.containsKey(action.getKey())) {
+                        completeTask(action.getKey(), false);
                     }
-                    if (trueTarget.equals("Ranged")) {
-                        trueTarget = "rCombat";
-                    }
-                    if (trueTarget.equals("Magic")) {
-                        trueTarget = "aCombat";
-                    }
-                    if (trueTarget.equals("Defence")) {
-                        GoalResults meleeResults = previousEfficiencyResults.get(new Requirement("mCombat",
-                            XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
-                        GoalResults rangedResults = previousEfficiencyResults.get(new Requirement("rCombat",
-                            XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
-                        GoalResults magicResults = previousEfficiencyResults.get(new Requirement("aCombat",
-                            XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
-                        if (meleeResults == null) {
-                            new Requirement("mCombat", XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier())))
-                                .timeAndActionsToMeetRequirement(this);
-                        }
-                        if (rangedResults == null) {
-                            new Requirement("rCombat", XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier())))
-                                .timeAndActionsToMeetRequirement(this);
-                        }
-                        if (magicResults == null) {
-                            new Requirement("aCombat", XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier())))
-                                .timeAndActionsToMeetRequirement(this);
-                        }
-                        if (meleeResults.getTotalTime() < rangedResults.getTotalTime() && meleeResults.getTotalTime() < magicResults.getTotalTime()) {
-                            trueTarget = "mCombat";
-                        }
-                        else if(rangedResults.getTotalTime() < magicResults.getTotalTime()) {
-                            trueTarget = "rCombat";
-                        }
-                        else {
-                            trueTarget = "aCombat";
-                        }
-                    }
-                    GoalResults reqResults = previousEfficiencyResults.get(new Requirement(trueTarget,
-                        XP_TO_LEVELS[requirement.getQuantifier() - 1] - (int) Math.floor(xp.get(requirement.getQualifier()))));
-                    if (reqResults == null) {
-                        reqResults = requirement.timeAndActionsToMeetRequirement(this);
-                    }
-                    Action primeAction = null;
-                    for (String action : reqResults.getActionsWithTimes().keySet()) {
-                        if (!(action.equals("")) && Action.getActionByName(action, this).getOutputs().keySet().contains(trueTarget)) {
-                            primeAction = Action.getActionByName(action, this);
-                            break;
-                        }
-                    }
-                    performAction(primeAction, reqResults.getActionsWithTimes().get(primeAction.getName()), requirement.getQualifier());
                 }
-            } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
-                updateBank(requirement.getQualifier(), requirement.getQuantifier());
-            } else if (!requirement.meetsRequirement(this)) {
-                if (qualities.containsKey(requirement.getQualifier()))
-                    qualities.put(requirement.getQualifier(), Math.max(qualities.get(requirement.getQualifier()), requirement.getQuantifier()));
-                else
-                    qualities.put(requirement.getQualifier(), requirement.getQuantifier());
+                else if (parent) {
+                    if (action.getKey().equals("")) {
+                        actionsToRemove.add(action.getKey());
+                    }
+                    else {
+                        Action actionWithGraph = Action.getActionByName(action.getKey(), this);
+                        int steps = (int)Math.ceil(action.getValue()*actionWithGraph.getActionsPerHour());
+                        int totalInputs = 0;
+                        for (Entry<String, Integer> input : actionWithGraph.getInputs().entrySet()) {
+                            totalInputs += input.getValue()*steps/actionWithGraph.getActionsPerHour();
+                        }
+                        if (getTotalBankValue() >= totalInputs) {
+                            performAction(actionWithGraph, action.getValue());
+                            actionsToRemove.add(action.getKey());
+                        }
+                    }
+                }
+                else {
+                    actionsToRemove.add(action.getKey());
+                }
+            }
+            for (String action : actionsToRemove) {
+                calcedActions.remove(action);
             }
         }
         for (Encounter e : task.getEncounters()) {
@@ -692,6 +661,9 @@ public class Player implements Serializable {
             else if (action.getOutputs().containsKey(qualifier)) {
                 validAction = true;
             }
+            if (validAction && ALL_SKILLS.contains(qualifier) && action.getReqs().stream().anyMatch(r -> r.getQualifier().equals(qualifier) && getXpToLevel(qualifier, r.getQuantifier()) >= quantifier)) {
+                validAction = false;
+            }
             if (lockedActions.stream().anyMatch(la -> la.getQualifier().equals(qualifier) && la.getAction().equals(action.getName()))) {
                 validAction = false;
             }
@@ -705,12 +677,16 @@ public class Player implements Serializable {
                     effectiveTimeThisAction += reqResults.getTotalTime();
                     addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
                 }
+                int trueQuantifier = quantifier;
                 for (Requirement requirement : action.getReqs()) {
                     GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                     effectiveTimeThisAction += reqResults.getTotalTime();
                     addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
+                    if (requirement.getQualifier().equals(qualifier) && ALL_SKILLS.contains(qualifier) && !requirement.meetsRequirement(this)) {
+                        trueQuantifier = quantifier - getXpToLevel(qualifier, requirement.getQuantifier());
+                    }
                 }
-                GoalResults actionResults = action.effectiveRate(qualifier, quantifier, this);
+                GoalResults actionResults = action.effectiveRate(qualifier, trueQuantifier, this);
                 effectiveTimeThisAction += actionResults.getTotalTime();
                 addItemsToMap(efficiencyThisAction, actionResults.getActionsWithTimes());
                 if (effectiveTimeThisAction < minimum) {
@@ -751,16 +727,16 @@ public class Player implements Serializable {
         return bankVal;
     }
 
-    private void performAction(Action action, double time, String mainTarget) {
+    private void performAction(Action action, double time) {
         int steps = (int)Math.ceil(time*action.getActionsPerHour());
         for (Entry<String, Integer> input : action.getInputs().entrySet()) {
             updateBank(input.getKey(), input.getValue()*steps/action.getActionsPerHour());
         }
         for (Entry<String, Integer> output : action.getOutputs().entrySet()) {
-            if (output.getKey().equals("mCombat")) {
+            /*if (output.getKey().equals("mCombat") || output.getKey().equals("rCombat") || output.getKey().equals("aCombat")) {
                 xp.put(mainTarget, xp.get(mainTarget) + output.getValue()*steps/action.getActionsPerHour());
-            }
-            else if (ALL_SKILLS.contains(output.getKey())) {
+            }*/
+            if (ALL_SKILLS.contains(output.getKey())) {
                 xp.put(output.getKey(), xp.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
             }
             else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null && output.getValue()*steps/action.getActionsPerHour() > 0) {
@@ -768,6 +744,9 @@ public class Player implements Serializable {
                     bank.put(output.getKey(), bank.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
                 else
                     bank.put(output.getKey(), output.getValue()*steps/action.getActionsPerHour());
+            }
+            else {
+                qualities.put(output.getKey(), output.getValue()*steps/action.getActionsPerHour());
             }
         }
     }
@@ -804,16 +783,6 @@ public class Player implements Serializable {
                 bank.remove(removal);
             }
             bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
-        }
-        //Might cause overflow errors if it gets to this point with a bank value greater than MAX_INT...but let's be real here, when will you ever have a requirement that big?
-        else {
-            GoalResults actionsForMoney = new Requirement(item, quantity).timeAndActionsToMeetRequirement(this);
-            for (Entry<String, Double> actionWithTime : actionsForMoney.getActionsWithTimes().entrySet()) {
-                if (!actionWithTime.getKey().equals("")) {
-                    performAction(Action.getActionByName(actionWithTime.getKey(), this), actionWithTime.getValue(), "Coins");
-                }
-            }
-            updateBank(item, quantity);
         }
     }
 

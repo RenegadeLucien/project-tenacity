@@ -219,6 +219,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Black crossbow", 800));
         itemsList.add(new Item("Black dagger", 240));
         itemsList.add(new Item("Black dragon egg (unchecked)", 1));
+        itemsList.add(new Item("Black dragon leather", 110));
+        itemsList.add(new Item("Black dragonhide", 80));
         itemsList.add(new Item("Black dragonhide body", 13480));
         itemsList.add(new Item("Black dragonhide boots", 4320));
         itemsList.add(new Item("Black dragonhide chaps", 6220));
@@ -291,7 +293,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Broad arrowheads", 50));
         itemsList.add(new Item("Bronze 2h crossbow", 73));
         itemsList.add(new Item("Bronze 2h sword", 80));
-        itemsList.add(new Item("Bronze armoured boots", 24));
+        itemsList.add(new Item("Bronze armoured boots", 84));
         itemsList.add(new Item("Bronze arrow", 7));
         itemsList.add(new Item("Bronze bar", 8));
         itemsList.add(new Item("Bronze battleaxe", 52));
@@ -300,6 +302,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Bronze claws", 24));
         itemsList.add(new Item("Bronze dagger", 10));
         itemsList.add(new Item("Bronze full helm", 44));
+        itemsList.add(new Item("Bronze gauntlets", 84));
         itemsList.add(new Item("Bronze halberd", 104));
         itemsList.add(new Item("Bronze hatchet", 16));
         itemsList.add(new Item("Bronze javelin", 6));
@@ -463,6 +466,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Demon slayer gloves", 3000));
         itemsList.add(new Item("Demon slayer skirt", 4500));
         itemsList.add(new Item("Demon slayer torso", 5000));
+        //Special case, required for many actions
+        itemsList.add(new Item("Demonic skull", 550000));
         itemsList.add(new Item("Desert boots", 20));
         itemsList.add(new Item("Desert robe", 40));
         itemsList.add(new Item("Desert shirt", 40));
@@ -665,6 +670,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Graahk fur", 144));
         itemsList.add(new Item("Grand defence potion (6)", 1500));
         itemsList.add(new Item("Granite (500g)", 1));
+        itemsList.add(new Item("Granite (2kg)", 1));
         itemsList.add(new Item("Granite (5kg)", 1));
         itemsList.add(new Item("Granite body", 80000));
         itemsList.add(new Item("Granite crab pouch", 599));
@@ -714,6 +720,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Grimy torstol", 1));
         itemsList.add(new Item("Grimy wergali", 1));
         itemsList.add(new Item("Grog", 3));
+        itemsList.add(new Item("Guam potion (unf)", 3));
         itemsList.add(new Item("Guam seed", 4));
         itemsList.add(new Item("Gud raider axe", 50000));
         itemsList.add(new Item("Gud raider chainbody", 50000));
@@ -803,15 +810,18 @@ public class ItemDatabase {
         itemsList.add(new Item("Insulated boots", 200));
         itemsList.add(new Item("Irit seed", 64));
         itemsList.add(new Item("Iron 2h crossbow", 157));
-        itemsList.add(new Item("Iron 2h sword", 280));
+        itemsList.add(new Item("Iron 2h sword", 501));
+        itemsList.add(new Item("Iron 2h sword + 1", 1001));
         itemsList.add(new Item("Iron armoured boots", 84));
+        itemsList.add(new Item("Iron armoured boots + 1", 251));
         itemsList.add(new Item("Iron bar", 28));
         itemsList.add(new Item("Iron battleaxe", 182));
         itemsList.add(new Item("Iron bolts", 2));
         itemsList.add(new Item("Iron chainbody", 210));
         itemsList.add(new Item("Iron claws", 25));
         itemsList.add(new Item("Iron crossbow", 157));
-        itemsList.add(new Item("Iron full helm", 154));
+        itemsList.add(new Item("Iron full helm", 251));
+        itemsList.add(new Item("Iron full helm + 1", 501));
         itemsList.add(new Item("Iron halberd", 364));
         itemsList.add(new Item("Iron hatchet", 56));
         itemsList.add(new Item("Iron ingot", 626));
@@ -832,8 +842,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Iron ore", 17));
         itemsList.add(new Item("Iron pickaxe", 251));
         itemsList.add(new Item("Iron pickaxe + 1", 501));
-        itemsList.add(new Item("Iron platebody", 560));
-        itemsList.add(new Item("Iron platelegs", 280));
+        itemsList.add(new Item("Iron platebody", 626));
+        itemsList.add(new Item("Iron platebody + 1", 1251));
+        itemsList.add(new Item("Iron platelegs", 376));
+        itemsList.add(new Item("Iron platelegs + 1", 751));
         itemsList.add(new Item("Iron plateskirt", 280));
         itemsList.add(new Item("Iron scimitar", 112));
         itemsList.add(new Item("Iron spear", 91));
@@ -1165,6 +1177,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Polar camo top", 20));
         itemsList.add(new Item("Polar kebbit fur", 12));
         itemsList.add(new Item("Pork pie", 320));
+        itemsList.add(new Item("Portable crafter", 500));
+        itemsList.add(new Item("Portable sawmill", 500));
         itemsList.add(new Item("Portent of restoration IX", 2910));
         itemsList.add(new Item("Pot (unfired)", 1));
         itemsList.add(new Item("Pot lid", 15));
@@ -1223,6 +1237,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Red boater", 225));
         itemsList.add(new Item("Red chinchompa", 160));
         itemsList.add(new Item("Red dragon egg (unchecked)", 1));
+        itemsList.add(new Item("Red dragon leather", 90));
+        itemsList.add(new Item("Red dragonhide", 60));
         itemsList.add(new Item("Red dragonhide body", 11230));
         itemsList.add(new Item("Red dragonhide boots", 3600));
         itemsList.add(new Item("Red dragonhide chaps", 5180));
@@ -1272,6 +1288,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Rocktail soup", 1000));
         itemsList.add(new Item("Roe", 20));
         itemsList.add(new Item("Rope", 18));
+        itemsList.add(new Item("Royal dragon leather", 130));
+        itemsList.add(new Item("Royal dragonhide", 100));
         itemsList.add(new Item("Royal dragonhide body", 19200));
         itemsList.add(new Item("Royal dragonhide boots", 6200));
         itemsList.add(new Item("Royal dragonhide chaps", 9300));
@@ -1371,6 +1389,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Shears", 1));
         itemsList.add(new Item("Shieldbow", 80));
         itemsList.add(new Item("Short Green Guy", 30));
+        itemsList.add(new Item("Shortbow (u)", 23));
         itemsList.add(new Item("Shortbow", 50));
         itemsList.add(new Item("Shrimps", 5));
         itemsList.add(new Item("Sickle mould", 10));
@@ -1473,7 +1492,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Steadfast boots", 20000));
         itemsList.add(new Item("Steam rune", 20));
         itemsList.add(new Item("Steel 2h crossbow", 360));
-        itemsList.add(new Item("Steel armoured boots", 300));
+        itemsList.add(new Item("Steel 2h sword", 668));
+        itemsList.add(new Item("Steel 2h sword + 1", 1334));
+        itemsList.add(new Item("Steel armoured boots", 168));
+        itemsList.add(new Item("Steel armoured boots + 1", 334));
         itemsList.add(new Item("Steel bar", 100));
         itemsList.add(new Item("Steel battleaxe", 650));
         itemsList.add(new Item("Steel bolts", 8));
@@ -1501,10 +1523,13 @@ public class ItemDatabase {
         itemsList.add(new Item("Steel off hand warhammer", 832));
         itemsList.add(new Item("Steel pickaxe", 500));
         itemsList.add(new Item("Steel pickaxe + 1", 668));
-        itemsList.add(new Item("Steel platebody", 2000));
-        itemsList.add(new Item("Steel platelegs", 1000));
+        itemsList.add(new Item("Steel platebody", 834));
+        itemsList.add(new Item("Steel platebody + 1", 1668));
+        itemsList.add(new Item("Steel platelegs", 501));
+        itemsList.add(new Item("Steel platelegs + 1", 1001));
         itemsList.add(new Item("Steel plateskirt", 1000));
-        itemsList.add(new Item("Steel scimitar", 400));
+        itemsList.add(new Item("Steel scimitar", 334));
+        itemsList.add(new Item("Steel scimitar + 1", 668));
         itemsList.add(new Item("Steel spear", 325));
         itemsList.add(new Item("Steel square shield", 600));
         itemsList.add(new Item("Steel sword", 325));
@@ -1698,6 +1723,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Wolf bones", 1));
         itemsList.add(new Item("Wood camo top", 20));
         itemsList.add(new Item("Wooden cat", 1));
+        itemsList.add(new Item("Wool", 1));
         itemsList.add(new Item("Worm batta", 1));
         itemsList.add(new Item("Worm crunchies", 1));
         itemsList.add(new Item("Worm hole", 2));

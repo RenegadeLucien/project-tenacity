@@ -58,7 +58,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.8.0b";
+    private static final String CURRENT_VERSION = "v0.8.1b";
 
     public static void main(String args[]) {
         launch(args);
@@ -106,7 +106,7 @@ public class Planner extends Application {
         completeTask.setText("Complete Achievement/Recalc");
         completeTask.setOnAction(event -> {
             if (taskView.getSelectionModel().getSelectedItem() != null) {
-                p.completeTask(((Entry<String, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey());
+                p.completeTask(((Entry<String, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey(), true);
                 displayTasks(p);
                 displayPlayer(p);
             }
@@ -600,7 +600,13 @@ public class Planner extends Application {
             in.close();
             file.close();
             root.getChildren().clear();
-            getPlayerXp(player);
+            try {
+                getPlayerXp(player);
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.WARNING, "Failed to obtain player XP from RuneMetrics, using saved data. Verify that the username " + playerName + " is a valid RSN. " +
+                    "If so, please open a T99 issue and include your player data file.");
+                alert.showAndWait();
+            }
             displayTasks(player);
             displayPlayer(player);
             displayLampCalc(player);
@@ -616,6 +622,7 @@ public class Planner extends Application {
             alert.showAndWait();
             throw new RuntimeException(e);
         }
+
     }
 
     private void displayLampCalc(Player player) {

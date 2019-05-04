@@ -19,10 +19,13 @@ public class Item {
 
     public Item(String n, int baseval) {
         name = n;
-        if (!n.equals("Coins"))
-            this.geval = getData();
-        else
+        if (n.equals("Coins")) {
             this.geval = 1;
+        } else if (n.equals("Demonic skull")) {
+            this.geval = 550000;
+        } else {
+            this.geval = getData();
+        }
         this.baseval = baseval;
     }
 

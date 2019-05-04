@@ -36,11 +36,11 @@ public class Lamp implements Serializable {
                         xpReward = (int)(Math.floor(player.getLevel(choice)*player.getLevel(choice)*1.2 - player.getLevel(choice)*2.4 + 120));
                     }
                     //-6: Shattered Heart
-                    if (xp == -6) {
+                    else if (xp == -6) {
                         xpReward = player.getLevel(choice)*player.getLevel(choice) - player.getLevel(choice)*2 + 100;
                     }
                     //-7: Troll Invasion
-                    if (xp == -7) {
+                    else if (xp == -7) {
                         xpReward = 8*(player.getLevel(choice)*player.getLevel(choice) - player.getLevel(choice)*2 + 100);
                     }
                     //-1: small pris, -2: med pris, -4: large pris, -8: huge pris, -3: other rewards that use pris formula

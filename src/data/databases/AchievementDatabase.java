@@ -938,8 +938,8 @@ public class AchievementDatabase {
             .requirement("Bronze nails", 2).reward("Quest points", 1).reward("Farming", 500).reward("Hunter", 500).reward("Thieving", 500)
             .build());
         achievements.add(new AchievementBuilder("The Needle Skips", 0.25).reward("Quest points", 1).lamp(Player.ALL_SKILLS, -1, 1).build());
-        achievements.add(new AchievementBuilder("Violet is Blue", 0.25).lamp(Player.ALL_SKILLS, 1000, 1).lamp(Player.ALL_SKILLS, 1000, 1)
-            .lamp(Player.ALL_SKILLS, 1000, 1).build());
+        achievements.add(new AchievementBuilder("Violet is Blue", 0.75).reward("Quest points", 1).lamp(Player.ALL_SKILLS, 1000, 1)
+            .lamp(Player.ALL_SKILLS, 1000, 1).lamp(Player.ALL_SKILLS, 1000, 1).build());
         achievements.add(new AchievementBuilder("Imp Catcher", 0.25).requirement("Bowl of hot water", 1)
             .encounter(new Encounter("Choleric imp", 1)).reward("Quest points", 1).reward("Magic", 875).reward("Amulet of accuracy", 1)
             .build());
@@ -2361,12 +2361,12 @@ public class AchievementDatabase {
                 "Summoning"), 3500, 40).build());
         achievements.add(new AchievementBuilder("The Death of Chivalry prayer lamp", 0).requirement("The Death of Chivalry", 1)
             .requirement("Strength", 80).requirement("Prayer", 65).reward("Prayer", 60000).build());
-        achievements.add(new AchievementBuilder("Chivalry is Dead", 0).requirement("The Death of Chivalry supply crate", 1)
-            .requirement("Gilded cabbage", 1).requirement("The Death of Chivalry ancient lamp", 1)
-            .requirement("The Death of Chivalry prayer lamp", 1).build());
     }
 
     private void addAchievementsPhase2() {
+        achievements.add(new AchievementBuilder("Chivalry is Dead", 0).requirement("The Death of Chivalry supply crate", 1)
+            .requirement("Gilded cabbage", 1).requirement("The Death of Chivalry ancient lamp", 1)
+            .requirement("The Death of Chivalry prayer lamp", 1).build());
         achievements.add(new AchievementBuilder("Circus of Fire", 0.25).requirement("The Firemaker's Curse", 1)
             .requirement("Some Like It Cold", 1).reward("Magic", 25006).reward("Ranged", 17710).reward("Agility", 13750)
             .reward("Firemaking", 19230).reward("Thieving", 14260).build());
@@ -7598,11 +7598,13 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Bean There, Done That", 0).requirement("Four Seasons", 1).requirement("Farm totems", 1)
             .requirement("Granny Knows Best", 1).requirement("Farming", 71).requirement("POF bean", 31100).build());
-        achievements.add(new AchievementBuilder("Benedict's World Tour", 0.25).lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -1, 1)
-            .lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -4, 1).lamp(Player.ALL_SKILLS, -4, 1)
+        achievements.add(new AchievementBuilder("Benedict's World Tour (miniquest)", 0.25).lamp(Player.ALL_SKILLS, -1, 1)
+            .lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -4, 1)
+            .lamp(Player.ALL_SKILLS, -4, 1).build());
+        achievements.add(new AchievementBuilder("Benedict's World Tour, part 1", 0).requirement("Benedict's World Tour (miniquest)", 1)
             .build());
-        achievements.add(new AchievementBuilder("Benedict's World Tour, part 1", 0).requirement("Benedict's World Tour", 1).build());
-        achievements.add(new AchievementBuilder("Benedict's World Tour, part 2", 0).requirement("Benedict's World Tour", 1).build());
+        achievements.add(new AchievementBuilder("Benedict's World Tour, part 2", 0).requirement("Benedict's World Tour (miniquest)", 1)
+            .build());
         achievements.add(new AchievementBuilder("Besting the Celestial I", 0).requirement("Astellarn group kills", 5).build());
         achievements.add(new AchievementBuilder("Besting the Celestial II", 0).requirement("Astellarn group kills", 10).build());
         achievements.add(new AchievementBuilder("Besting the Celestial III", 0).requirement("Astellarn group kills", 25).build());
