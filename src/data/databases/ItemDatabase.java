@@ -1179,6 +1179,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Pork pie", 320));
         itemsList.add(new Item("Portable crafter", 500));
         itemsList.add(new Item("Portable sawmill", 500));
+        itemsList.add(new Item("Portent of restoration I", 186));
         itemsList.add(new Item("Portent of restoration IX", 2910));
         itemsList.add(new Item("Pot (unfired)", 1));
         itemsList.add(new Item("Pot lid", 15));
@@ -1461,6 +1462,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Spirit shards", 25));
         itemsList.add(new Item("Spirit spider pouch", 624));
         itemsList.add(new Item("Spirit terrorbird pouch", 724));
+        itemsList.add(new Item("Spirit tz-kih pouch", 2024));
         itemsList.add(new Item("Spirit vulatrice pouch", 2624));
         itemsList.add(new Item("Spirit weed seed", 18));
         itemsList.add(new Item("Spirit wolf pouch", 599));

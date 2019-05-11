@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ActionDatabase {
-    
+
     private static ActionDatabase actionDatabase;
 
     private static final int TICKS_PER_HOUR = 6000;
@@ -17,7 +17,7 @@ public class ActionDatabase {
     private ActionDatabase() {
     }
 
-    private void addActionsToDatabase(Player player) {
+    private void addSkillingActionsToDatabase(Player player) {
 
         //Placeholder for dailies/spawns/shops/etc (move when applicable feature is fully implemented)
         database.add(new Action("Rosie's daily supplies", Collections.singletonList(new Requirement("Impressing the Locals", 1)),
@@ -75,38 +75,36 @@ public class ActionDatabase {
             ImmutableMap.of("Black dragon leather", 60000), 12, false, false));
         database.add(new Action("Tanning royal dragonhide", new ArrayList(), ImmutableMap.of("Royal dragonhide", 60000, "Portable crafter", 12, "Coins", 200000),
             ImmutableMap.of("Royal dragon leather", 60000), 12, false, false));
-        Map<Integer, List<Requirement>> chickenKillsAndReqs = combatKills(new Encounter("Chicken"), player, 28, "Magic", 1, true);
-        int chickenKills = chickenKillsAndReqs.keySet().iterator().next();
-        ArrayList<Requirement> chickenReqs = new ArrayList<>(chickenKillsAndReqs.values().iterator().next());
-        database.add(new Action("Killing chickens for money", chickenReqs, new HashMap(), ImmutableMap.builder()
-            .put("aCombat", (int)Enemy.getEnemyByName("Chicken").getCbxp() * chickenKills)
-            .put("Constitution", (int)Enemy.getEnemyByName("Chicken").getHpxp() * chickenKills)
-            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int)Enemy.getEnemyByName("Chicken").getHpxp() * chickenKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int)Enemy.getEnemyByName("Chicken").getCbxp() * chickenKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int)Enemy.getEnemyByName("Chicken").getCbxp() * chickenKills)/2))
-            .put("Raw chicken", chickenKills).put("Egg", chickenKills).put("Feather", chickenKills*4).build(), chickenKills, true, true));
 
         //Agility
-        database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 11955, "Agility level-ticks", 6000*player.getLevel("Agility")), 150, true, true));
-        database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 8650, "Agility level-ticks", 6000*player.getLevel("Agility")), 100, true, true));
+        database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 11955, "Agility level-ticks", 6000 * player.getLevel("Agility")), 150, true, true));
+        database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 8650, "Agility level-ticks", 6000 * player.getLevel("Agility")), 100, true, true));
         database.add(new Action("Agility Pyramid", Collections.singletonList(new Requirement("Agility", 30)), ImmutableMap.of("Waterskin (4)", 10),
-            ImmutableMap.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22, "Agility level-ticks", 6000*Math.max(30,player.getLevel("Agility"))), 22, true, true));
+            ImmutableMap.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 22, true, true));
         database.add(new Action("Brimhaven Agility Arena", Collections.singletonList(new Requirement("Agility", 40)), ImmutableMap.of("Coins", 200),
-            ImmutableMap.of("Agility arena ticket", 60, "Agility", 3000, "Agility level-ticks", 6000*Math.max(40,player.getLevel("Agility"))), 60, true, true));
+            ImmutableMap.of("Agility arena ticket", 60, "Agility", 3000, "Agility level-ticks", 6000 * Math.max(40, player.getLevel("Agility"))), 60, true, true));
         database.add(new Action("Empty Throne Room agility", Arrays.asList(new Requirement("Agility", 65), new Requirement("The Dig Site", 1)),
-            new HashMap(), ImmutableMap.of("Agility", 68760, "Senntisten scroll", 17, "Agility level-ticks", 6000*Math.max(65,player.getLevel("Agility"))), 1800, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 68760, "Senntisten scroll", 17, "Agility level-ticks", 6000 * Math.max(65, player.getLevel("Agility"))), 1800, true, true));
         database.add(new Action("Hefin Agility Course (77-81 Agility)", Arrays.asList(new Requirement("Plague's End", 1),
-            new Requirement("Agility", 77)), new HashMap(), ImmutableMap.of("Agility", 56320, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000*Math.max(77,player.getLevel("Agility"))), 80, true, true));
+            new Requirement("Agility", 77)), new HashMap(), ImmutableMap.of("Agility", 56320, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(77, player.getLevel("Agility"))), 80, true, true));
         database.add(new Action("Advanced Gnome Stronghold Agility Course", Collections.singletonList(new Requirement("Agility", 85)),
-            new HashMap(), ImmutableMap.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94, "Agility level-ticks", 6000*Math.max(85,player.getLevel("Agility"))), 34, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 34, true, true));
         database.add(new Action("Advanced Barbarian Outpost Agility Course", Arrays.asList(new Requirement("Bar Crawl", 1),
-            new Requirement("Agility", 90)), new HashMap(), ImmutableMap.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96, "Agility level-ticks", 6000*Math.max(90,player.getLevel("Agility"))),
+            new Requirement("Agility", 90)), new HashMap(), ImmutableMap.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))),
             96, true, true));
 
 
-        //Construction
-        database.add(new Action("Building crude wooden chairs with bronze nails", new ArrayList(), ImmutableMap.of("Plank", 490, "Bronze nails", 1470),
-            ImmutableMap.of("Construction", 16170, "Construction pet points", totalPetPoints(player, "Construction", 16170)), 490, true, true));
+        //Construction (done to lv3)
+        database.add(new Action("Building garden plants", new ArrayList(), ImmutableMap.of("Bagged plant 1", 448), ImmutableMap.of("Construction", 13888, "Farming", 13888,
+            "Construction pet points", totalPetPoints(player, "Construction", 13888)), 448, true, true));
+        database.add(new Action("Building crude wooden chairs", new ArrayList(), ImmutableMap.of("Plank", 676, "Bronze nails", 3380), ImmutableMap.of("Construction", 22308,
+            "Construction pet points", totalPetPoints(player, "Construction", 22308)), 338, true, true));
+        database.add(new Action("Building brown rugs", Collections.singletonList(new Requirement("Construction", 2)), ImmutableMap.of("Bolt of cloth", 700),
+            ImmutableMap.of("Construction", 10500, "Construction pet points", totalPetPoints(player, "Construction", 10500)), 350, true, true));
+        database.add(new Action("Building torn curtains", Collections.singletonList(new Requirement("Construction", 2)), ImmutableMap.of("Plank", 504, "Bolt of cloth", 504, "Bronze nails", 2520),
+            ImmutableMap.of("Construction", 22176, "Construction pet points", totalPetPoints(player, "Construction", 22176)), 168, true, true));
+        database.add(new Action("Building clay fireplaces", Collections.singletonList(new Requirement("Construction", 3)), ImmutableMap.of("Soft clay", 864),
+            ImmutableMap.of("Construction", 8640, "Construction pet points", totalPetPoints(player, "Construction", 8640)), 288, true, true));
 
         //Cooking (done to lv5)
         database.add(new Action("Cooking raw beef", new ArrayList<>(),
@@ -178,9 +176,9 @@ public class ActionDatabase {
             ImmutableMap.of("Cracked cooking urn (nr)", 560, "Crafting", 16800, "Crafting pet points", totalPetPoints(player, "Crafting", 16800)), 560, true, true));
 
         database.add(new Action("Ithell harps (w/o VoS)", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
-            ImmutableMap.of("Crafting", 560*player.getLevel("Crafting"), "Harmonic dust", 7*player.getLevel("Crafting"), "Construction", 10000,
-                "Crafting pet points", totalPetPoints(player, "Crafting", 560*player.getLevel("Crafting")),
-                "Construction pet points", totalPetPoints(player, "Construction", 10000)), 7*player.getLevel("Crafting"), true, true));
+            ImmutableMap.of("Crafting", 560 * player.getLevel("Crafting"), "Harmonic dust", 7 * player.getLevel("Crafting"), "Construction", 10000,
+                "Crafting pet points", totalPetPoints(player, "Crafting", 560 * player.getLevel("Crafting")),
+                "Construction pet points", totalPetPoints(player, "Construction", 10000)), 7 * player.getLevel("Crafting"), true, true));
 
         database.add(new Action("Making tortle shell bowls", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Crafting", 91)),
             ImmutableMap.of("Shell chippings", 6800), ImmutableMap.of("Tortle shell bowl", 1700, "Crafting", 127500, "Crafting pet points", totalPetPoints(player, "Crafting", 127500)), 1700, true, true));
@@ -189,44 +187,59 @@ public class ActionDatabase {
             ImmutableMap.of("Shiny shell chippings", 6800), ImmutableMap.of("Shiny tortle shell bowl", 1700, "Crafting", 170000, "Crafting pet points", totalPetPoints(player, "Crafting", 170000)),
             1700, true, true));
 
-        //Divination (1300 harvests, 900 + enr conversions) (done to lv9)
-        database.add(new Action("Pale wisps (no bought energy)", new ArrayList<>(), new HashMap<>(),
-            ImmutableMap.of("Divination", 4000, "Pale energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000*player.getLevel("Divination")), 1300, true, true));
+        //Divination (1300 harvests, 900 base conversions, 1100 effective conversions (w/ enr)) (done to lv19)
+        database.add(new Action("Pale wisps (w/o bought energy)", new ArrayList<>(), new HashMap<>(),
+            ImmutableMap.of("Divination", 4000, "Pale energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, true));
 
-        database.add(new Action("Pale wisps (with bought energy)", new ArrayList<>(), ImmutableMap.of("Pale energy", 3200),
-            ImmutableMap.of("Divination", 4630, "Memory strand", 288, "Divination level-ticks", 6000*player.getLevel("Divination")), 1300, true, true));
+        database.add(new Action("Pale wisps (w/ bought energy)", new ArrayList<>(), ImmutableMap.of("Pale energy", 3200),
+            ImmutableMap.of("Divination", 4630, "Memory strand", 288, "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, true));
 
-        database.add(new Action("Cursed wisps (level 1-9)", new ArrayList(), new HashMap<>(), ImmutableMap.of("Divination", 6850, "Pale energy", 1950, "Memory strand", 288,
-            "Divination level-ticks", 6000*player.getLevel("Divination")), 1300, true, false));
+        database.add(new Action("Cursed wisps (level 1-9, w/o skull)", new ArrayList(), new HashMap<>(), ImmutableMap.of("Divination", 7650, "Pale energy", 1950, "Memory strand", 288,
+            "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, false));
+
+        database.add(new Action("Cursed wisps (level 1-9, w/ skull)", Collections.singletonList(new Requirement("Demonic skull", 1)), new HashMap<>(),
+            ImmutableMap.of("Divination", 8790, "Pale energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, false));
+
+        database.add(new Action("Flickering wisps (w/o bought energy)", Collections.singletonList(new Requirement("Business is Booning!", 1)), new HashMap<>(),
+            ImmutableMap.of("Divination", 7700, "Flickering energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, true));
+
+        database.add(new Action("Flickering wisps (w/ bought energy)", Collections.singletonList(new Requirement("Business is Booning!", 1)), ImmutableMap.of("Flickering energy", 3200),
+            ImmutableMap.of("Divination", 8910, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, true));
+
+        database.add(new Action("Cursed wisps (level 10-19, w/o skull)", Collections.singletonList(new Requirement("Divination", 10)), new HashMap<>(),
+            ImmutableMap.of("Divination", 10050, "Flickering energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, false));
+
+        database.add(new Action("Cursed wisps (level 10-19, w/ skull)", Arrays.asList(new Requirement("Divination", 10), new Requirement("Demonic skull", 1)), new HashMap<>(),
+            ImmutableMap.of("Divination", 11670, "Flickering energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, false));
 
         database.add(new Action("Elder wisps", Collections.singletonList(new Requirement("Fate of the Gods", 1)), new HashMap(), ImmutableMap.builder().put("Divination", 41200).put("Elder energy", 3900)
-            .put("Elder chronicle fragment", 4).put("Hunter", player.getLevel("Hunter")*40).put("Memory strand", 288).put("Divination level-ticks", 6000*Math.max(75,player.getLevel("Divination")))
+            .put("Elder chronicle fragment", 4).put("Hunter", player.getLevel("Hunter") * 40).put("Memory strand", 288).put("Divination level-ticks", 6000 * Math.max(75, player.getLevel("Divination")))
             .put("Divination fragments", 1200).build(), 1300, true, true));
 
         database.add(new Action("Luminous wisps (no bought energy)", Collections.singletonList(new Requirement("Divination", 90)),
             new HashMap(), ImmutableMap.builder().put("Divination", 71000).put("Luminous energy", 3900).put("Fly dragon", 1).put("Fruit fly", 1).put("Memory strand", 288)
-            .put("Divination level-ticks", 6000*Math.max(90,player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 1300, true, true));
+            .put("Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 1300, true, true));
         database.add(new Action("Positive springs", Arrays.asList(new Requirement("Impressing the Locals", 1),
             new Requirement("Divination", 90)), new HashMap(), ImmutableMap.of("Divination", 60300, "Positive energy", 600, "Memory strand", 288,
-            "Divination level-ticks", 6000*Math.max(90,player.getLevel("Divination")), "Divination fragments", 1200), 600, true, true));
+            "Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination")), "Divination fragments", 1200), 600, true, true));
         database.add(new Action("Ancestral springs", Arrays.asList(new Requirement("Impressing the Locals", 1),
             new Requirement("Divination", 95)), new HashMap(), ImmutableMap.builder().put("Divination", 96300).put("Ancestral energy", 600).put("Cyansoul Kakapo", 1).put("Memory strand", 288)
-            .put("Divination level-ticks", 6000*Math.max(95,player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 600, true, true));
+            .put("Divination level-ticks", 6000 * Math.max(95, player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 600, true, true));
 
         database.add(new Action("Hall of Memories (lustrous)", Collections.singletonList(new Requirement("Divination", 70)), new HashMap(), ImmutableMap.of("Lustrous hall memories", 300,
-            "Divination", 60000, "Divination level-ticks", 6000*Math.max(70,player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 60000, "Divination level-ticks", 6000 * Math.max(70, player.getLevel("Divination"))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (brilliant)", Collections.singletonList(new Requirement("Divination", 80)), new HashMap(), ImmutableMap.of("Brilliant hall memories", 300,
-            "Divination", 90000, "Divination level-ticks", 6000*Math.max(80,player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 90000, "Divination level-ticks", 6000 * Math.max(80, player.getLevel("Divination"))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (radiant)", Collections.singletonList(new Requirement("Divination", 85)), new HashMap(), ImmutableMap.of("Radiant hall memories", 300,
-            "Divination", 135000, "Divination level-ticks", 6000*Math.max(85,player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 135000, "Divination level-ticks", 6000 * Math.max(85, player.getLevel("Divination"))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (luminous)", Collections.singletonList(new Requirement("Divination", 90)), new HashMap(), ImmutableMap.of("Luminous hall memories", 300,
-            "Divination", 200000, "Divination level-ticks", 6000*Math.max(90,player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 200000, "Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination"))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (incandescent)", Collections.singletonList(new Requirement("Divination", 95)), new HashMap(), ImmutableMap.of("Incandescent hall memories", 300,
-            "Divination", 300000, "Divination level-ticks", 6000*Math.max(95,player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 300000, "Divination level-ticks", 6000 * Math.max(95, player.getLevel("Divination"))), 1500, true, true));
 
         //Dungeoneering (major approximation, assumes 7.5 minute floors)
         //4000 * Math.pow((player.getLevel("Dungeoneering") + 9.0) / 10.0, 2));
@@ -237,7 +250,7 @@ public class ActionDatabase {
                 "Dungeoneering floors completed", 8, "Dungeoneering fragment", 800), 8, true, true));
         database.add(new Action("Solo dungeoneering (incl. unreadable pages)", Collections.singletonList(new Requirement("Plague's End", 1)),
             new HashMap(), ImmutableMap.builder().put("Dungeoneering", 280000).put("Dungeoneering token", 28000).put("Dungeoneering pet points", totalPetPoints(player, "Dungeoneering", 280000))
-            .put("Dungeoneering floors completed", 8).put("Dungeoneering fragment", 800).put("Unreadable page points", (int)Math.floor(135305*Math.pow(1.0313, player.getLevel("Dungeoneering")-75)))
+            .put("Dungeoneering floors completed", 8).put("Dungeoneering fragment", 800).put("Unreadable page points", (int) Math.floor(135305 * Math.pow(1.0313, player.getLevel("Dungeoneering") - 75)))
             .build(), 8, true, true));
 
         //Farming
@@ -270,26 +283,26 @@ public class ActionDatabase {
 
         //Firemaking
         database.add(new Action("Burning normal logs on bonfire", new ArrayList(), ImmutableMap.of("Logs", 950), ImmutableMap.of("Firemaking", 47500,
-            "Firemaking level-ticks", 6000*player.getLevel("Firemaking")), 950, true, true));
+            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 950, true, true));
         database.add(new Action("Burning normal logs in lines", new ArrayList(), ImmutableMap.of("Logs", 1200), ImmutableMap.of("Firemaking", 48000,
-            "Firemaking level-ticks", 6000*player.getLevel("Firemaking")), 1200, true, true));
+            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 1200, true, true));
         database.add(new Action("Burning acadia logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 46)), ImmutableMap.of("Acadia logs", 950),
-            ImmutableMap.of("Firemaking", 171000, "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000*Math.max(46,player.getLevel("Firemaking"))), 950, true, true));
+            ImmutableMap.of("Firemaking", 171000, "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000 * Math.max(46, player.getLevel("Firemaking"))), 950, true, true));
 
         //Fishinng
-        database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Fishing", 10 * fishCaught(player, 1), "Prawn balls", fishCaught(player, 1)/175,
-            "Fishing level-ticks", 6000*player.getLevel("Fishing")), fishCaught(player, 1), true, true));
+        database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Fishing", 10 * fishCaught(player, 1), "Prawn balls", fishCaught(player, 1) / 175,
+            "Fishing level-ticks", 6000 * player.getLevel("Fishing")), fishCaught(player, 1), true, true));
 
         database.add(new Action("Fishing/dropping desert sole", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 52)),
             new HashMap(), ImmutableMap.builder().put("Fishing", 60 * resourcesGained(70, 5.0, player, 0.0, "Fishing")).put("Menaphos reputation",
-            3 * resourcesGained(70, 5.0, player, 0.0, "Fishing")).put("Prawn balls", 1450*resourcesGained(70, 5.0, player, 0.0, "Fishing")/35000)
-            .put("Clicker kalphite in amber", 1).put("Desert locust in amber", 1).put("Fishing level-ticks", 6000*Math.max(52,player.getLevel("Fishing")))
+            3 * resourcesGained(70, 5.0, player, 0.0, "Fishing")).put("Prawn balls", 1450 * resourcesGained(70, 5.0, player, 0.0, "Fishing") / 35000)
+            .put("Clicker kalphite in amber", 1).put("Desert locust in amber", 1).put("Fishing level-ticks", 6000 * Math.max(52, player.getLevel("Fishing")))
             .put("Wavecrest opal", 1).put("Maw coral", 1).build(), resourcesGained(70, 5.0, player, 0.0, "Fishing"), true, true));
 
         database.add(new Action("Barbarian fly fishing", Arrays.asList(new Requirement("Fishing", 70), new Requirement("Strength", 45), new Requirement("Agility", 45),
-            new Requirement("Barbarian Fishing", 1)), new HashMap<>(), ImmutableMap.of("Fishing", 62 * (650+5*player.getLevel("Fishing")), "Strength", (int)Math.floor(4.9 * (650+5*player.getLevel("Fishing"))),
-            "Agility", (int)Math.floor(4.9 * (650+5*player.getLevel("Fishing"))), "Shark fragment", 1200, "Fishing level-ticks", 6000*Math.max(70,player.getLevel("Fishing"))),
-            (650+5*player.getLevel("Fishing")), true, true));
+            new Requirement("Barbarian Fishing", 1)), new HashMap<>(), ImmutableMap.of("Fishing", 62 * (650 + 5 * player.getLevel("Fishing")), "Strength", (int) Math.floor(4.9 * (650 + 5 * player.getLevel("Fishing"))),
+            "Agility", (int) Math.floor(4.9 * (650 + 5 * player.getLevel("Fishing"))), "Shark fragment", 1200, "Fishing level-ticks", 6000 * Math.max(70, player.getLevel("Fishing"))),
+            (650 + 5 * player.getLevel("Fishing")), true, true));
 
         //Fletching
         database.add(new Action("Fletching arrow shafts with normal logs", new ArrayList(), ImmutableMap.of("Logs", 1800), ImmutableMap.of("Arrow shaft", 27000,
@@ -307,20 +320,20 @@ public class ActionDatabase {
 
         //Hunter (done to lv20)
         database.add(new Action("Feeding ogleroots to rabbits", new ArrayList(), ImmutableMap.of("Coins", 3000), ImmutableMap.of("Hunter", 9000,
-            "Hunter level-ticks", 6000*player.getLevel("Hunter")), 300, true, true));
+            "Hunter level-ticks", 6000 * player.getLevel("Hunter")), 300, true, true));
         database.add(new Action("Hunting polar kebbits", new ArrayList(), new HashMap(), ImmutableMap.of("Hunter", 3150, "Prayer", 472, "Polar kebbit fur", 105,
-            "Hunter level-ticks", 6000*player.getLevel("Hunter")), 105, true, true));
+            "Hunter level-ticks", 6000 * player.getLevel("Hunter")), 105, true, true));
         database.add(new Action("Catching charm sprites", Collections.singletonList(new Requirement("Hunter", 72)), new HashMap(),
             ImmutableMap.builder().put("Hunter", 60000).put("Crimson charm", 40).put("Blue charm", 28).put("Green charm", 17).put("Gold charm", 6).put("Charm sprites", 435)
-                .put("Hunter level-ticks", 6000*Math.max(72,player.getLevel("Hunter"))).build(), 435, true, true));
+                .put("Hunter level-ticks", 6000 * Math.max(72, player.getLevel("Hunter"))).build(), 435, true, true));
         database.add(new Action("Catching plover birds", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Hunter", 73)),
-            ImmutableMap.of("Logs", 200), ImmutableMap.builder().put("Plover bird", 68+player.getLevel("Hunter")).put("Hunter", 510*(68+player.getLevel("Hunter")))
-            .put("Menaphos reputaton", 30*(68+player.getLevel("Hunter"))).put("Pygmy giant scarab", 1).put("Clicker kalphite", 1).put("Hunter level-ticks", 6000*Math.max(73,player.getLevel("Hunter"))).build(),
-            68+player.getLevel("Hunter"), true, true));
+            ImmutableMap.of("Logs", 200), ImmutableMap.builder().put("Plover bird", 68 + player.getLevel("Hunter")).put("Hunter", 510 * (68 + player.getLevel("Hunter")))
+            .put("Menaphos reputaton", 30 * (68 + player.getLevel("Hunter"))).put("Pygmy giant scarab", 1).put("Clicker kalphite", 1).put("Hunter level-ticks", 6000 * Math.max(73, player.getLevel("Hunter"))).build(),
+            68 + player.getLevel("Hunter"), true, true));
         database.add(new Action("Hunting common jadinkos", Arrays.asList(new Requirement("Hunter", 70), new Requirement("Farming", 54)), new HashMap(), ImmutableMap.of("Hunter", 38500,
-            "Lergberry seed", 2, "Kalferberry seed", 2, "Hunter level-ticks", 6000*Math.max(70,player.getLevel("Hunter"))), 110, true, true));
+            "Lergberry seed", 2, "Kalferberry seed", 2, "Hunter level-ticks", 6000 * Math.max(70, player.getLevel("Hunter"))), 110, true, true));
         database.add(new Action("Hunting tortles", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Hunter", 90)),
-            new HashMap(), ImmutableMap.of("Hunter", 258000, "Tortoiseshell Plover", 2, "Shell chippings", 400, "Hunter level-ticks", 6000*Math.max(90,player.getLevel("Hunter"))), 400, true, true));
+            new HashMap(), ImmutableMap.of("Hunter", 258000, "Tortoiseshell Plover", 2, "Shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(90, player.getLevel("Hunter"))), 400, true, true));
 
         //Invention
         database.add(new Action("Refining junk", new ArrayList(), ImmutableMap.of("Junk refiner", 130, "Junk", 117000), ImmutableMap.of("Refined components", 1170, "Invention", 11700),
@@ -329,69 +342,69 @@ public class ActionDatabase {
         database.add(new Action("Disassembling huge spiky iron salvage", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Huge spiky iron salvage", 3000), ImmutableMap.builder().put("Invention", 900).put("Connector parts", 1757).put("Spiked parts", 1509)
             .put("Crafted parts", 1534).put("Swift components", 49).put("Precise components", 49).put("Light components", 49).put("Junk", 40050)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 900)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 900) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling huge plated steel salvage", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Huge plated steel salvage", 3000), ImmutableMap.builder().put("Invention", 1800).put("Cover parts", 3514).put("Plated parts", 3019)
             .put("Deflecting parts", 3068).put("Protective components", 99).put("Heavy components", 99).put("Strong components", 99).put("Junk", 35100)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 1800)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 1800) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling lantern lenses", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Lantern lens", 3000), ImmutableMap.builder().put("Invention", 4200).put("Clear parts", 1131).put("Delicate parts", 1034)
-            .put("Smooth parts", 970).put("Enhancing components", 97).put("Junk", 2766).put("Invention pet points", totalPetPoints(player, "Invention", 4200)/10).build(), 3000, true, true));
+            .put("Smooth parts", 970).put("Enhancing components", 97).put("Junk", 2766).put("Invention pet points", totalPetPoints(player, "Invention", 4200) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling harralander tar", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Harralander tar", 3000), ImmutableMap.of("Invention", 6300, "Simple parts", 2286, "Variable components", 23,
-            "Junk", 690, "Invention pet points", totalPetPoints(player, "Invention", 6300)/10), 3000, true, true));
+            "Junk", 690, "Invention pet points", totalPetPoints(player, "Invention", 6300) / 10), 3000, true, true));
         database.add(new Action("Disassembling super runecrafting (4)", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Super runecrafting (4)", 3000), ImmutableMap.builder().put("Invention", 6600).put("Delicate parts", 4023).put("Organic parts", 3563)
-            .put("Crafted parts", 3448).put("Enhancing components", 344).put("Healthy components", 114).put("Junk", 504).put("Invention pet points", totalPetPoints(player, "Invention", 6600)/10).build(),
+            .put("Crafted parts", 3448).put("Enhancing components", 344).put("Healthy components", 114).put("Junk", 504).put("Invention pet points", totalPetPoints(player, "Invention", 6600) / 10).build(),
             3000, true, true));
         database.add(new Action("Disassembling rune bull rush scrolls", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Rune bull rush scroll", 30000), ImmutableMap.builder().put("Invention", 7500).put("Spiritual parts", 3571)
-            .put("Crafted parts", 2202).put("Powerful components", 178).put("Junk", 48).put("Invention pet points", totalPetPoints(player, "Invention", 7500)/10).build(), 3000, true, true));
+            .put("Crafted parts", 2202).put("Powerful components", 178).put("Junk", 48).put("Invention pet points", totalPetPoints(player, "Invention", 7500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling portents of restoration IX", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Portent of restoration IX", 3000), ImmutableMap.builder().put("Invention", 7500).put("Magic parts", 7588)
-            .put("Crafted parts", 1160).put("Ethereal components", 178).put("Junk", 72).put("Invention pet points", totalPetPoints(player, "Invention", 7500)/10).build(), 3000, true, true));
+            .put("Crafted parts", 1160).put("Ethereal components", 178).put("Junk", 72).put("Invention pet points", totalPetPoints(player, "Invention", 7500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling tortured souls", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Tortured soul", 3000), ImmutableMap.of("Invention", 8100, "Organic parts", 2940, "Pious components", 60,
-            "Invention pet points", totalPetPoints(player, "Invention", 8100)/10), 3000, true, true));
+            "Invention pet points", totalPetPoints(player, "Invention", 8100) / 10), 3000, true, true));
         database.add(new Action("Disassembling fly trap seeds", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Fly trap seed", 3000), ImmutableMap.of("Invention", 8100, "Organic parts", 2970, "Living components", 30,
-            "Invention pet points", totalPetPoints(player, "Invention", 8100)/10), 3000, true, true));
+            "Invention pet points", totalPetPoints(player, "Invention", 8100) / 10), 3000, true, true));
         database.add(new Action("Disassembling unpowered symbols", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Unpowered symbol", 3000), ImmutableMap.builder().put("Invention", 15300).put("Delicate parts", 981)
             .put("Connector parts", 841).put("Smooth parts", 841).put("Precious components", 84).put("Enhancing components", 56).put("Junk", 12194)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 15300)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 15300) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling steel hastae", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Steel hasta", 3000), ImmutableMap.builder().put("Invention", 18000).put("Stave parts", 1848)
             .put("Blade parts", 1583).put("Crafted parts", 1583).put("Precise components", 158).put("Direct components", 105).put("Junk", 18720)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 18000)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 18000) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling black 2h swords", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Black 2h sword", 3000), ImmutableMap.builder().put("Invention", 22500).put("Knightly components", 3000).put("Base parts", 3465)
             .put("Blade parts", 2970).put("Metallic parts", 2970).put("Sharp components", 297).put("Strong components", 198).put("Junk", 26099)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 22500)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 22500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling off-hand black scimitars", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Off-hand black scimitar", 3000), ImmutableMap.builder().put("Invention", 22500).put("Knightly components", 3000).put("Base parts", 2310)
             .put("Blade parts", 1980).put("Metallic parts", 1980).put("Sharp components", 198).put("Subtle components", 132).put("Junk", 17400)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 22500)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 22500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling white maces", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("White mace", 3000), ImmutableMap.builder().put("Invention", 22500).put("Knightly components", 3000).put("Base parts", 2310)
             .put("Head parts", 1980).put("Smooth parts", 1980).put("Heavy components", 198).put("Dextrous components", 132).put("Junk", 17400)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 22500)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 22500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling carapace boots", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Carapace boots", 3000), ImmutableMap.builder().put("Invention", 27000).put("Cover parts", 1386).put("Tensile parts", 1188)
             .put("Padded parts", 1188).put("Evasive components", 118).put("Protective components", 79).put("Junk", 8040)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 27000)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 27000) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling yew shieldbows", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Yew shieldbow", 3000), ImmutableMap.builder().put("Invention", 36000).put("Stave parts", 5544).put("Tensile parts", 4752)
             .put("Flexible parts", 4752).put("Precise components", 475).put("Imbued components", 316).put("Junk", 20160)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 36000)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 36000) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling Slayer's staves", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Slayer's staff", 3000), ImmutableMap.builder().put("Invention", 49500).put("Stave parts", 7623).put("Magic parts", 6534)
             .put("Padded parts", 6534).put("Powerful components", 653).put("Imbued components", 435).put("Junk", 14220)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 49500)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 49500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling red salamanders", Arrays.asList(new Requirement("Divination", 80), new Requirement("Crafting", 80),
             new Requirement("Smithing", 80)), ImmutableMap.of("Red salamander", 3000), ImmutableMap.builder().put("Invention", 54000).put("Connector parts", 8316).put("Tensile parts", 7127)
             .put("Crafted parts", 7127).put("Stunning components", 712).put("Dextrous components", 475).put("Junk", 12240)
-            .put("Invention pet points", totalPetPoints(player, "Invention", 54000)/10).build(), 3000, true, true));
+            .put("Invention pet points", totalPetPoints(player, "Invention", 54000) / 10).build(), 3000, true, true));
 
         //Magic (non-combat)
         database.add(new Action("Mage Training Arena (telekinetic)", Arrays.asList(new Requirement("Magic", 33), new Requirement("Staff of air", 0)), ImmutableMap.of("Law rune", 500),
@@ -424,128 +437,128 @@ public class ActionDatabase {
 
         //Mining (done to lv90)
         database.add(new Action("Mining copper with bronze pickaxe", Collections.singletonList(new Requirement("Bronze pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 5, 0.66), "Copper ore", miningDamage(player, 5)/40,
-            "Copper mined", miningDamage(player, 5)/40, "Mining level-ticks", 6000*player.getLevel("Mining")), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 5, 0.66), "Copper ore", miningDamage(player, 5) / 40,
+            "Copper mined", miningDamage(player, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
 
         database.add(new Action("Mining tin with bronze pickaxe", Collections.singletonList(new Requirement("Bronze pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 5, 0.66), "Tin ore", miningDamage(player, 5)/40,
-            "Tin mined", miningDamage(player, 5)/40, "Mining level-ticks", 6000*player.getLevel("Mining")), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 5, 0.66), "Tin ore", miningDamage(player, 5) / 40,
+            "Tin mined", miningDamage(player, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
 
         database.add(new Action("Mining iron with iron pickaxe + 1", Arrays.asList(new Requirement("Mining", 10), new Requirement("Iron pickaxe + 1", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.68), "Iron ore", miningDamage(player, 11)/120,
-            "Iron mined", miningDamage(player, 11)/120, "Mining level-ticks", 6000*Math.max(10,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.68), "Iron ore", miningDamage(player, 11) / 120,
+            "Iron mined", miningDamage(player, 11) / 120, "Mining level-ticks", 6000 * Math.max(10, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining coal with steel pickaxe + 1", Arrays.asList(new Requirement("Mining", 20), new Requirement("Steel pickaxe + 1", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.7), "Coal", miningDamage(player, 21)/140,
-            "Coal mined", miningDamage(player, 21)/140, "Mining level-ticks", 6000*Math.max(20,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.7), "Coal", miningDamage(player, 21) / 140,
+            "Coal mined", miningDamage(player, 21) / 140, "Mining level-ticks", 6000 * Math.max(20, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining mithril with mithril pickaxe + 2", Arrays.asList(new Requirement("Mining", 30), new Requirement("Mithril pickaxe + 2", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.72), "Mithril ore", miningDamage(player, 32)/240,
-            "Mithril mined", miningDamage(player, 32)/240, "Mining level-ticks", 6000*Math.max(30,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.72), "Mithril ore", miningDamage(player, 32) / 240,
+            "Mithril mined", miningDamage(player, 32) / 240, "Mining level-ticks", 6000 * Math.max(30, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining adamantite with adamant pickaxe + 2", Arrays.asList(new Requirement("Mining", 40), new Requirement("Adamant pickaxe + 2", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.74), "Adamantite ore", miningDamage(player, 42)/380,
-            "Adamantite mined", miningDamage(player, 42)/380, "Mining level-ticks", 6000*Math.max(40,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.74), "Adamantite ore", miningDamage(player, 42) / 380,
+            "Adamantite mined", miningDamage(player, 42) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining luminite with adamant pickaxe + 2", Arrays.asList(new Requirement("Mining", 40), new Requirement("Adamant pickaxe + 2", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.74), "Luminite", miningDamage(player, 42)/380,
-            "Luminite mined", miningDamage(player, 42)/380, "Mining level-ticks", 6000*Math.max(40,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.74), "Luminite", miningDamage(player, 42) / 380,
+            "Luminite mined", miningDamage(player, 42) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining runite with rune pickaxe + 3", Arrays.asList(new Requirement("Mining", 50), new Requirement("Rune pickaxe + 3", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.76), "Runite ore", miningDamage(player, 53)/600,
-            "Runite mined", miningDamage(player, 53)/600, "Mining level-ticks", 6000*Math.max(50,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.76), "Runite ore", miningDamage(player, 53) / 600,
+            "Runite mined", miningDamage(player, 53) / 600, "Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3", Arrays.asList(new Requirement("Mining", 60), new Requirement("Orikalkum pickaxe + 3", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.78), "Orichalcite ore", miningDamage(player, 63)/1400,
-            "Orichalcite mined", miningDamage(player, 63)/1400, "Mining level-ticks", 6000*Math.max(60,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.78), "Orichalcite ore", miningDamage(player, 63) / 1400,
+            "Orichalcite mined", miningDamage(player, 63) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining drakolith with orikalkum pickaxe + 3", Arrays.asList(new Requirement("Mining", 60), new Requirement("Orikalkum pickaxe + 3", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.78), "Drakolith", miningDamage(player, 63)/1400,
-            "Drakolith mined", miningDamage(player, 63)/1400, "Mining level-ticks", 6000*Math.max(60,player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.78), "Drakolith", miningDamage(player, 63) / 1400,
+            "Drakolith mined", miningDamage(player, 63) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining necrite with necronium pickaxe", Arrays.asList(new Requirement("Mining", 70), new Requirement("Necronium pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.8), "Necrite ore", miningDamage(player, 70)/1300,
-            "Necrite mined", miningDamage(player, 70)/1300, "Mining level-ticks", 6000*Math.max(70,player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.8), "Necrite ore", miningDamage(player, 70) / 1300,
+            "Necrite mined", miningDamage(player, 70) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining phasmatite with necronium pickaxe", Arrays.asList(new Requirement("Mining", 70), new Requirement("Necronium pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.8), "Phasmatite", miningDamage(player, 70)/1300,
-            "Phasmatite mined", miningDamage(player, 70)/1300, "Mining level-ticks", 6000*Math.max(70,player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.8), "Phasmatite", miningDamage(player, 70) / 1300,
+            "Phasmatite mined", miningDamage(player, 70) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining banite with bane pickaxe", Arrays.asList(new Requirement("Mining", 80), new Requirement("Bane pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.82), "Banite ore", miningDamage(player, 80)/1700,
-            "Banite mined", miningDamage(player, 80)/1700, "Mining level-ticks", 6000*Math.max(80,player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.82), "Banite ore", miningDamage(player, 80) / 1700,
+            "Banite mined", miningDamage(player, 80) / 1700, "Mining level-ticks", 6000 * Math.max(80, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining light animica with elder rune pickaxe", Arrays.asList(new Requirement("Mining", 90), new Requirement("Elder rune pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.84), "Light animica", miningDamage(player, 90)/2000,
-            "Light animica mined", miningDamage(player, 90)/2000, "Mining level-ticks", 6000*Math.max(90,player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.84), "Light animica", miningDamage(player, 90) / 2000,
+            "Light animica mined", miningDamage(player, 90) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining dark animica with elder rune pickaxe", Arrays.asList(new Requirement("Mining", 90), new Requirement("Elder rune pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.84), "Dark animica", miningDamage(player, 90)/2000,
-            "Dark animica mined", miningDamage(player, 90)/2000, "Mining level-ticks", 6000*Math.max(90,player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.84), "Dark animica", miningDamage(player, 90) / 2000,
+            "Dark animica mined", miningDamage(player, 90) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
 
         database.add(new Action("Mining/dropping concentrated sandstone with rune pickaxe", Arrays.asList(new Requirement("The Jack of Spades", 1),
             new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1)), new HashMap(), ImmutableMap.builder().put("Mining", miningXP(player, 50, 0.76))
-            .put("Menaphos reputation", (int)Math.floor(miningXP(player, 50, 0.76)/45.6)).put("Menaphite honey bee in amber", 1)
-            .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000*Math.max(50,player.getLevel("Mining"))).put("Umesco arpos", 1)
+            .put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.76) / 45.6)).put("Menaphite honey bee in amber", 1)
+            .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))).put("Umesco arpos", 1)
             .put("Crondite", 1).build(), 1500, true, true));
 
         database.add(new Action("Mining/dropping concentrated sandstone with rune pickaxe (VIP area)", Arrays.asList(new Requirement("The Jack of Spades", 1),
             new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1), new Requirement("Menaphos reputation", 141900)), new HashMap(), ImmutableMap.builder().put("Mining", miningXP(player, 50, 0.76))
-            .put("Menaphos reputation", (int)Math.floor(miningXP(player, 50, 0.76)/45.6)).put("Menaphite honey bee in amber", 1)
-            .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000*Math.max(50,player.getLevel("Mining"))).put("Phenakite", 1)
+            .put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.76) / 45.6)).put("Menaphite honey bee in amber", 1)
+            .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))).put("Phenakite", 1)
             .put("Crondite", 1).put("Umesco arpos", 1).build(), 1500, true, true));
 
         database.add(new Action("Lava Flow Mine with necronium pickaxe", Arrays.asList(new Requirement("King of the Dwarves", 1), new Requirement("Necronium pickaxe", 1)),
             new HashMap(), ImmutableMap.of("Mining", miningXP(player, 70, 0.78), "Imcando pickaxe fragment", 1, "Lava Flow Mine damage", miningDamage(player, 70),
-            "Mining level-ticks", 6000*Math.max(68,player.getLevel("Mining"))), 1500, true, true));
+            "Mining level-ticks", 6000 * Math.max(68, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining Seren stones with bane pickaxe", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Mining", 89),
-            new Requirement("Bane pickaxe", 1)), new HashMap(), ImmutableMap.of("Corrupted ore", miningDamage(player, 80)/240,
-            "Mining", miningXP(player, 80, 1.2), "Mining level-ticks", 6000*Math.max(89,player.getLevel("Mining")),
+            new Requirement("Bane pickaxe", 1)), new HashMap(), ImmutableMap.of("Corrupted ore", miningDamage(player, 80) / 240,
+            "Mining", miningXP(player, 80, 1.2), "Mining level-ticks", 6000 * Math.max(89, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining salty crablets with elder rune pickaxe", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Mining", 90),
-            new Requirement("Elder rune pickaxe", 1)), new HashMap(), ImmutableMap.of("Sea salt", (int)Math.floor(miningDamage(player, 90)/1200),
-            "Mining", miningXP(player, 90, 0.82), "Awah Guan", 1, "Mining level-ticks", 6000*Math.max(90,player.getLevel("Mining")),
+            new Requirement("Elder rune pickaxe", 1)), new HashMap(), ImmutableMap.of("Sea salt", (int) Math.floor(miningDamage(player, 90) / 1200),
+            "Mining", miningXP(player, 90, 0.82), "Awah Guan", 1, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         //Prayer (done to lv99)
         database.add(new Action("Offering impious ashes to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Impious ashes", 1400), ImmutableMap.of("Prayer", 19600,
-            "Prayer pet points", 19600*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 19600 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering bones to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Bones", 1400), ImmutableMap.of("Prayer", 22050,
-            "Prayer pet points", 22050*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 22050 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering accursed ashes to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Accursed ashes", 1400), ImmutableMap.of("Prayer", 61250,
-            "Prayer pet points", 61250*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 61250 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering big bones to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Big bones", 1400), ImmutableMap.of("Prayer", 73500,
-            "Prayer pet points", 73500*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 73500 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering baby dragon bones to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Baby dragon bones", 1400), ImmutableMap.of("Prayer", 147000,
-            "Prayer pet points", 147000*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 147000 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering wyvern bones to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Wyvern bones", 1400), ImmutableMap.of("Prayer", 245000,
-            "Prayer pet points", 245000*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 245000 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering infernal ashes to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Infernal ashes", 1400), ImmutableMap.of("Prayer", 306250,
-            "Prayer pet points", 306250*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 306250 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering dragon bones to Chaos Altar", new ArrayList<>(), ImmutableMap.of("Dragon bones", 1400), ImmutableMap.of("Prayer", 352800,
-            "Prayer pet points", 352800*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 352800 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering dagannoth bones to Chaos Altar", new ArrayList(), ImmutableMap.of("Dagannoth bones", 1400), ImmutableMap.of("Prayer", 612500,
-            "Prayer pet points", 612500*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 612500 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering airut bones to Chaos Altar", new ArrayList(), ImmutableMap.of("Airut bones", 1400), ImmutableMap.of("Prayer", 649250,
-            "Prayer pet points", 649250*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 649250 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering ourg bones to Chaos Altar", new ArrayList(), ImmutableMap.of("Ourg bones (General Graardor)", 1400), ImmutableMap.of("Prayer", 686000,
-            "Prayer pet points", 686000*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 686000 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering hardened dragon bones to Chaos Altar", new ArrayList(), ImmutableMap.of("Hardened dragon bones", 1400), ImmutableMap.of("Prayer", 705600,
-            "Prayer pet points", 705600*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 705600 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering frost dragon bones to Chaos Altar", new ArrayList(), ImmutableMap.of("Frost dragon bones", 1400), ImmutableMap.of("Prayer", 882000,
-            "Prayer pet points", 882000*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 882000 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering reinforced dragon bones to Chaos Altar", new ArrayList(), ImmutableMap.of("Reinforced dragon bones", 1400), ImmutableMap.of("Prayer", 931000,
-            "Prayer pet points", 931000*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 931000 * player.getLevel("Prayer")), 1400, true, false));
         database.add(new Action("Offering searing ashes to Chaos Altar", new ArrayList(), ImmutableMap.of("Searing ashes", 1400), ImmutableMap.of("Prayer", 980000,
-            "Prayer pet points", 980000*player.getLevel("Prayer")), 1400, true, false));
+            "Prayer pet points", 980000 * player.getLevel("Prayer")), 1400, true, false));
 
         //Runecrafting (done to lv70)
         database.add(new Action("Low-level Runespan (island 1)", new ArrayList(), new HashMap(), ImmutableMap.of("Runecrafting", 16500, "Runespan points", 330,
@@ -667,7 +680,7 @@ public class ActionDatabase {
 
         database.add(new Action("Slayer tasks from Mazchna", Collections.singletonList(new Requirement("Combat", 20)), new HashMap(),
             ImmutableMap.of("Slayer", SlayerMaster.MAZCHNA.calculateAvgXpAndSlayerPointsPerHour(player).keySet().iterator().next().intValue(),
-            "Slayer point", SlayerMaster.MAZCHNA.calculateAvgXpAndSlayerPointsPerHour(player).values().iterator().next().intValue(), "Slayer task streak", 1,
+                "Slayer point", SlayerMaster.MAZCHNA.calculateAvgXpAndSlayerPointsPerHour(player).values().iterator().next().intValue(), "Slayer task streak", 1,
                 "Slayer pet points", totalPetPoints(player, "Slayer", SlayerMaster.MAZCHNA.calculateAvgXpAndSlayerPointsPerHour(player).keySet().iterator().next().intValue())), 6000, true, true));
 
         //Smithing (done to lv29)
@@ -896,7 +909,7 @@ public class ActionDatabase {
         database.add(new Action("Smithing steel platebodies + 1 (max heat start)", Collections.singletonList(new Requirement("Smithing", 28)), ImmutableMap.of("Steel bar", 255, "Steel platebody", 51),
             ImmutableMap.of("Steel platebody + 1", 51, "Smithing", 19125, "Smithing pet points", totalPetPoints(player, "Smithing", 19125)), 51, true, true));
 
-        //Summoning (done to lv16)
+        //Summoning (done to lv17)
         database.add(new Action("Making spirit wolf pouches", new ArrayList(), ImmutableMap.of("Spirit shards", 10500, "Pouch", 1500,
             "Wolf bones", 1500, "Gold charm", 1500), ImmutableMap.of("Spirit wolf pouch", 1500, "Summoning", 7200,
             "Summoning pet points", totalPetPoints(player, "Summoning", 7200)), 1500, true, true));
@@ -915,74 +928,83 @@ public class ActionDatabase {
         database.add(new Action("Making spirit mosquito pouches", Collections.singletonList(new Requirement("Summoning", 17)), ImmutableMap.of("Spirit shards", 1500,
             "Pouch", 1500, "Proboscis", 1500, "Gold charm", 1500), ImmutableMap.of("Spirit mosquito pouch", 1500, "Summoning", 69750,
             "Summoning pet points", totalPetPoints(player, "Summoning", 69750)), 1500, true, true));
+        database.add(new Action("Making desert wyrm pouches", Collections.singletonList(new Requirement("Summoning", 18)), ImmutableMap.of("Spirit shards", 67500,
+            "Pouch", 1500, "Bucket of sand", 1500, "Green charm", 1500), ImmutableMap.of("Desert wyrm pouch", 1500, "Summoning", 46800,
+            "Summoning pet points", totalPetPoints(player, "Summoning", 46800)), 1500, true, true));
+        database.add(new Action("Making spirit scorpion pouches", Collections.singletonList(new Requirement("Summoning", 19)), ImmutableMap.of("Spirit shards", 85500,
+            "Pouch", 1500, "Bronze claws", 1500, "Crimson charm", 1500), ImmutableMap.of("Spirit scorpion pouch", 1500, "Summoning", 124800,
+            "Summoning pet points", totalPetPoints(player, "Summoning", 124800)), 1500, true, true));
+        database.add(new Action("Making spirit tz-kih pouches", Collections.singletonList(new Requirement("Summoning", 22)), ImmutableMap.of("Spirit shards", 96000,
+            "Pouch", 1500, "Obsidian charm", 1500, "Crimson charm", 1500), ImmutableMap.of("Spirit tz-kih pouch", 1500, "Summoning", 145200,
+            "Summoning pet points", totalPetPoints(player, "Summoning", 145200)), 1500, true, true));
 
         //Thieving
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), ImmutableMap.of("Coins", 3 * pocketsPicked(1, player),
-            "Thieving", 8 * pocketsPicked(1, player), "Thieving level-ticks", 6000*player.getLevel("Thieving")), pocketsPicked(1, player), true, true));
+            "Thieving", 8 * pocketsPicked(1, player), "Thieving level-ticks", 6000 * player.getLevel("Thieving")), pocketsPicked(1, player), true, true));
         database.add(new Action("Pickpocketing the Gullible tourist", Collections.singletonList(new Requirement("The Jack of Spades", 1)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 73750).put("Coins", 75000).put("Menaphos reputation", 3250).put("Hornless fly in amber", 1)
                 .put("Kalphite wanderer in amber", 1).put("Waikonite", 1).build(), 3000, true, true));
         database.add(new Action("Bakery stalls", Collections.singletonList(new Requirement("Thieving", 5)), new HashMap(), ImmutableMap.of("Thieving", 10500,
-            "Thieving level-ticks", 6000*Math.max(5,player.getLevel("Thieving"))), 656, true, true));
+            "Thieving level-ticks", 6000 * Math.max(5, player.getLevel("Thieving"))), 656, true, true));
         database.add(new Action("Pyramid Plunder (to room 1)", Arrays.asList(new Requirement("Icthlarin's Little Helper", 1), new Requirement("Thieving", 21)),
-            new HashMap(), ImmutableMap.of("Thieving", 17000, "Jenifurr", 1, "Thieving level-ticks", 6000*Math.max(21,player.getLevel("Thieving")), "Menaphyrite", 1), 12, true, true));
+            new HashMap(), ImmutableMap.of("Thieving", 17000, "Jenifurr", 1, "Thieving level-ticks", 6000 * Math.max(21, player.getLevel("Thieving")), "Menaphyrite", 1), 12, true, true));
         database.add(new Action("Menaphos silk stall (drop silk)", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Thieving", 20)),
-            new HashMap(), ImmutableMap.of("Thieving", 9600, "Menaphos reputation", 2400, "Fly dragon in amber", 1, "Thieving level-ticks", 6000*Math.max(20,player.getLevel("Thieving"))), 400, true, true));
+            new HashMap(), ImmutableMap.of("Thieving", 9600, "Menaphos reputation", 2400, "Fly dragon in amber", 1, "Thieving level-ticks", 6000 * Math.max(20, player.getLevel("Thieving"))), 400, true, true));
         database.add(new Action("Pickpocketing Menaphite marketeers", Arrays.asList(new Requirement("The Jack of Spades", 1),
-            new Requirement("Thieving", 46)), new HashMap(), ImmutableMap.builder().put("Thieving", (int)(29.5 * pocketsPicked(46, player))).put("Menaphos reputation",
-            (int)(1.3 * pocketsPicked(46, player))).put("Coins", 30*pocketsPicked(46, player)).put("Kalphite wanderer in amber", 1).put("Hornless unicornfly in amber", 1)
-            .put("Thieving level-ticks", 6000*Math.max(46,player.getLevel("Thieving"))).build(), pocketsPicked(46, player), true, true));
+            new Requirement("Thieving", 46)), new HashMap(), ImmutableMap.builder().put("Thieving", (int) (29.5 * pocketsPicked(46, player))).put("Menaphos reputation",
+            (int) (1.3 * pocketsPicked(46, player))).put("Coins", 30 * pocketsPicked(46, player)).put("Kalphite wanderer in amber", 1).put("Hornless unicornfly in amber", 1)
+            .put("Thieving level-ticks", 6000 * Math.max(46, player.getLevel("Thieving"))).build(), pocketsPicked(46, player), true, true));
         database.add(new Action("Safecracking (Misthalin)", Arrays.asList(new Requirement("A Guild of Our Own", 1), new Requirement("Thieving", 62)), new HashMap(),
-            ImmutableMap.of("Thieving", 300000, "Pilfer Points", 800, "Coins", 200000, "Thieving level-ticks", 6000*Math.max(62,player.getLevel("Thieving"))), 60, true, true));
+            ImmutableMap.of("Thieving", 300000, "Pilfer Points", 800, "Coins", 200000, "Thieving level-ticks", 6000 * Math.max(62, player.getLevel("Thieving"))), 60, true, true));
         database.add(new Action("Iorwerth workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 91)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 250000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-            .put("Prifddinian musician's robe pieces", 1).put("Iorwerth symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(91,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Iorwerth symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(91, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Ithell workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 92)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 260000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-                .put("Prifddinian musician's robe pieces", 1).put("Ithell symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(92,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Ithell symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(92, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Cadarn workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 93)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 270000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-                .put("Prifddinian musician's robe pieces", 1).put("Cadarn symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(93,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Cadarn symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(93, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Amlodd workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 94)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 280000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-                .put("Prifddinian musician's robe pieces", 1).put("Amlodd symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(94,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Amlodd symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(94, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Trahearn workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 95)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 290000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-                .put("Prifddinian musician's robe pieces", 1).put("Trahearn symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(95,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Trahearn symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(95, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Hefin workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 96)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 300000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-                .put("Prifddinian musician's robe pieces", 1).put("Hefin symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(96,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Hefin symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(96, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Crwys workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 97)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 310000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-                .put("Prifddinian musician's robe pieces", 1).put("Crwys symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(97,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Crwys symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(97, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Meilyr workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 98)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 320000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3).put("Master clue scroll points", 1)
-                .put("Prifddinian musician's robe pieces", 1).put("Meilyr symbol piece", 1).put("Thieving level-ticks", 6000*Math.max(98,player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Meilyr symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(98, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
 
         //Woodcutting
         database.add(new Action("Cutting regular trees with dwarven army axe", new ArrayList(), new HashMap(), ImmutableMap.of("Woodcutting",
-            Math.min(1500, itemsReceived(player, 510, 1.0165, "Woodcutting", 1))*28, "Woodcutting level-ticks", 6000*player.getLevel("Woodcutting")),
+            Math.min(1500, itemsReceived(player, 510, 1.0165, "Woodcutting", 1)) * 28, "Woodcutting level-ticks", 6000 * player.getLevel("Woodcutting")),
             Math.min(1500, itemsReceived(player, 510, 1.0165, "Woodcutting", 1)), true, true));
 
         database.add(new Action("Cutting/dropping acadia logs with rune hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1),
-            new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), ImmutableMap.builder().put("Woodcutting", 92*itemsReceived(player, 600, 1.01, "Woodcutting", 47))
-            .put("Menaphos reputation", (int)4.5*itemsReceived(player, 600, 1.01, "Woodcutting", 47)).put("Desert locust", 1).put("Hornless unicornfly", 1).put("Kalphite wanderer", 1)
-            .put("Woodcutting level-ticks", 6000*Math.max(47,player.getLevel("Woodcutting"))).build(), itemsReceived(player, 600, 1.01, "Woodcutting", 47), true, true));
+            new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), ImmutableMap.builder().put("Woodcutting", 92 * itemsReceived(player, 600, 1.01, "Woodcutting", 47))
+            .put("Menaphos reputation", (int) 4.5 * itemsReceived(player, 600, 1.01, "Woodcutting", 47)).put("Desert locust", 1).put("Hornless unicornfly", 1).put("Kalphite wanderer", 1)
+            .put("Woodcutting level-ticks", 6000 * Math.max(47, player.getLevel("Woodcutting"))).build(), itemsReceived(player, 600, 1.01, "Woodcutting", 47), true, true));
 
         database.add(new Action("Cutting bamboo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Woodcutting", 90)),
-            new HashMap(), ImmutableMap.of("Bamboo", 3*player.getLevel("Woodcutting") + 60, "Woodcutting", (int)202.5*(3*player.getLevel("Woodcutting") + 60), "Great Pecker", 1,
-            "Woodcutting level-ticks", 6000*Math.max(90,player.getLevel("Woodcutting"))), 3*player.getLevel("Woodcutting") + 60, true, true));
+            new HashMap(), ImmutableMap.of("Bamboo", 3 * player.getLevel("Woodcutting") + 60, "Woodcutting", (int) 202.5 * (3 * player.getLevel("Woodcutting") + 60), "Great Pecker", 1,
+            "Woodcutting level-ticks", 6000 * Math.max(90, player.getLevel("Woodcutting"))), 3 * player.getLevel("Woodcutting") + 60, true, true));
 
         database.add(new Action("Cutting crystal trees with dragon hatchet", Collections.singletonList(new Requirement("Woodcutting", 94)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int)434.5*itemsReceived(player, 180, 1.037, "Woodcutting", 94), "Crystal geode", 10, "Woodcutting level-ticks", 6000*Math.max(94,player.getLevel("Woodcutting"))),
+            ImmutableMap.of("Woodcutting", (int) 434.5 * itemsReceived(player, 180, 1.037, "Woodcutting", 94), "Crystal geode", 10, "Woodcutting level-ticks", 6000 * Math.max(94, player.getLevel("Woodcutting"))),
             itemsReceived(player, 180, 1.037, "Woodcutting", 94), true, true));
 
         //Multi-skill
@@ -1000,78 +1022,152 @@ public class ActionDatabase {
         database.add(new Action("Slicing mushrooms", Arrays.asList(new Requirement("Farming", 90), new Requirement("Cooking", 86)), ImmutableMap.of("Slicing mushrooms", 2000),
             ImmutableMap.of("Sliced mushrooms", 1000, "Cooking", 85000, "Herblore", 15000), 1000, true, true));
 
-        //Combat
-        Map<Integer, List<Requirement>> trollBruteKills = combatKills(new Encounter("Troll brute"), player, 0, "Magic", 0, false);
-        database.add(new Action("Killing troll brutes", trollBruteKills.values().iterator().next(), new HashMap(), ImmutableMap.of("aCombat", (int)Enemy.getEnemyByName("Troll brute").getCbxp()
+        database.add(new Action("Completing city quests", Collections.singletonList(new Requirement("The Jack of Spades", 1)), new HashMap(),
+            ImmutableMap.of("City quest", 4, "Menaphos reputation", 9400), 4, true, true));
+
+        database.add(new Action("Completing easy clue scrolls", new ArrayList(), ImmutableMap.of("Sealed clue scroll (easy)", 6), ImmutableMap.of("Clue scrolls", 6,
+            "Treasure Trail reward points", 6), 6, true, true));
+    }
+
+
+    private void addCombatActionsToDatabase(Player player) {
+        Map<Integer, List<Requirement>> chickenKillsAndReqs = combatKills(new Encounter("Chicken"), player, 0, "Magic", 1, true);
+        int chickenKills = chickenKillsAndReqs.keySet().iterator().next();
+        ArrayList<Requirement> chickenReqs = new ArrayList<>(chickenKillsAndReqs.values().iterator().next());
+        database.add(new Action("Killing chickens for money", chickenReqs, new HashMap(), ImmutableMap.builder()
+            .put("aCombat", (int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Chicken").getHpxp() * chickenKills))
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Chicken").getCbxp() * chickenKills) / 2))
+            .put("Raw chicken", chickenKills).put("Egg", chickenKills).put("Feather", chickenKills * 4).build(), chickenKills, true, true));
+
+        Map<Integer, List<Requirement>> trollBruteKills = combatKills(new Encounter("Troll brute"), player, 28, "Magic", 0, false);
+        database.add(new Action("Killing troll brutes", trollBruteKills.values().iterator().next(), new HashMap(), ImmutableMap.of("aCombat", (int) Enemy.getEnemyByName("Troll brute").getCbxp()
                 * trollBruteKills.keySet().iterator().next(), "Constitution", (int) Enemy.getEnemyByName("Troll brute").getHpxp() * trollBruteKills.keySet().iterator().next(),
             "Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Troll brute").getHpxp() * trollBruteKills.keySet().iterator().next()),
-            "Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Troll brute").getCbxp() * trollBruteKills.keySet().iterator().next())/2),
-            "Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Troll brute").getCbxp() * trollBruteKills.keySet().iterator().next())/2)),
+            "Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Troll brute").getCbxp() * trollBruteKills.keySet().iterator().next()) / 2),
+            "Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Troll brute").getCbxp() * trollBruteKills.keySet().iterator().next()) / 2)),
             trollBruteKills.keySet().iterator().next(), true, true));
 
-        Map<Integer, List<Requirement>> trollChuckerKillsAndReqs = combatKills(new Encounter("Troll chucker"), player, 0, "Melee", 0, false);
+        Map<Integer, List<Requirement>> trollChuckerKillsAndReqs = combatKills(new Encounter("Troll chucker"), player, 28, "Melee", 0, false);
         int trollChuckerKills = trollChuckerKillsAndReqs.keySet().iterator().next();
         List<Requirement> trollChuckerReqs = trollChuckerKillsAndReqs.values().iterator().next();
-        database.add(new Action("Killing troll chuckers", trollChuckerReqs, new HashMap(), ImmutableMap.builder().put("mCombat", (int)Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills)
+        database.add(new Action("Killing troll chuckers", trollChuckerReqs, new HashMap(), ImmutableMap.builder().put("mCombat", (int) Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills)
             .put("Constitution", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getHpxp() * trollChuckerKills))
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getHpxp() * trollChuckerKills)))
-            .put("Attack pet points", totalPetPoints(player, "Attack", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills)/3))
-            .put("Strength pet points", totalPetPoints(player, "Strength", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills)/3))
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills)/3)).build(), trollChuckerKills, true, true));
+            .put("Attack pet points", totalPetPoints(player, "Attack", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills) / 3))
+            .put("Strength pet points", totalPetPoints(player, "Strength", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills) / 3))
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Math.floor(Enemy.getEnemyByName("Troll chucker").getCbxp() * trollChuckerKills) / 3)).build(), trollChuckerKills, true, true));
 
-        Map<Integer, List<Requirement>> trollShamanKillsAndReqs = combatKills(new Encounter("Troll shaman"), player, 0, "Ranged", 0, false);
+        Map<Integer, List<Requirement>> trollShamanKillsAndReqs = combatKills(new Encounter("Troll shaman"), player, 28, "Ranged", 0, false);
         int trollShamanKills = trollShamanKillsAndReqs.keySet().iterator().next();
         List<Requirement> trollShamanReqs = trollShamanKillsAndReqs.values().iterator().next();
-        database.add(new Action("Killing troll shamans", trollShamanReqs, new HashMap(), ImmutableMap.of("rCombat", (int)Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills,
-            "Ranged pet points", totalPetPoints(player, "Ranged", (int) Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills)/2,
-            "Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills)/2,
+        database.add(new Action("Killing troll shamans", trollShamanReqs, new HashMap(), ImmutableMap.of("rCombat", (int) Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills,
+            "Ranged pet points", totalPetPoints(player, "Ranged", (int) Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills) / 2,
+            "Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Troll shaman").getCbxp() * trollShamanKills) / 2,
             "Constitution", (int) Enemy.getEnemyByName("Troll shaman").getHpxp() * trollShamanKills,
             "Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Troll shaman").getHpxp() * trollShamanKills)), trollShamanKills, true, true));
 
 
-        Map<Integer, List<Requirement>> gelatinousAbominationKills = combatKills(new Encounter("Gelatinous abomination"), player, 0, "Ranged", 0.4, true);
+        Map<Integer, List<Requirement>> gelatinousAbominationKills = combatKills(new Encounter("Gelatinous abomination"), player, 27, "Ranged", 0.4, true);
         database.add(new Action("Killing gelatinous abominations for gold charms", gelatinousAbominationKills.values().iterator().next(), new HashMap(), ImmutableMap.builder()
             .put("Gold charm", (int) (gelatinousAbominationKills.keySet().iterator().next() * 0.4)).put("rCombat", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() *
                 gelatinousAbominationKills.keySet().iterator().next()).put("Constitution", (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() *
                 gelatinousAbominationKills.keySet().iterator().next()).put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Gelatinous abomination").getHpxp() *
                 gelatinousAbominationKills.keySet().iterator().next())).put("Ranged pet points", totalPetPoints(player, "Ranged", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() *
-                gelatinousAbominationKills.keySet().iterator().next()/2)).put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() *
-                gelatinousAbominationKills.keySet().iterator().next()/2)).put("Spirit sapphire", gelatinousAbominationKills.keySet().iterator().next()/400).build(),
+                gelatinousAbominationKills.keySet().iterator().next() / 2)).put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Gelatinous abomination").getCbxp() *
+                gelatinousAbominationKills.keySet().iterator().next() / 2)).put("Spirit sapphire", gelatinousAbominationKills.keySet().iterator().next() / 400).build(),
             gelatinousAbominationKills.keySet().iterator().next(), true, true));
 
-        Map<Integer, List<Requirement>> giantRockCrabKillsAndReqs = combatKills(new Encounter("Giant rock crab"), player, 0, "Magic", 0.79, true);
+        Map<Integer, List<Requirement>> giantRockCrabKillsAndReqs = combatKills(new Encounter("Giant rock crab"), player, 27, "Magic", 0.79, true);
         int giantRockCrabKills = giantRockCrabKillsAndReqs.keySet().iterator().next();
         List<Requirement> giantRockCrabReqs = giantRockCrabKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing giant rock crabs for gold charms", giantRockCrabReqs, new HashMap(), ImmutableMap.builder().put("Gold charm", (int) (giantRockCrabKills * 2.37))
             .put("aCombat", (int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Giant rock crab").getHpxp() * giantRockCrabKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Giant rock crab").getHpxp() * giantRockCrabKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKills))/2)
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKills))/2).build(), giantRockCrabKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKills)) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Giant rock crab").getCbxp() * giantRockCrabKills)) / 2).build(), giantRockCrabKills, true, true));
 
-        Map<Integer, List<Requirement>> tzhaarKetKillsAndReqs = combatKills(new Encounter("TzHaar-Ket"), player, 0, "Magic", 0.2, true);
+        Map<Integer, List<Requirement>> caveBugKillsAndReqs = combatKills(new Encounter("Cave bug"), player, 27, "Melee", 0.36, true);
+        int caveBugKills = caveBugKillsAndReqs.keySet().iterator().next();
+        List<Requirement> caveBugReqs = caveBugKillsAndReqs.values().iterator().next();
+        caveBugReqs.add(new Requirement("Slayer", 7));
+        database.add(new Action("Killing cave bugs for green charms", caveBugReqs, new HashMap(), ImmutableMap.builder().put("Green charm", (int) (caveBugKills * 0.36))
+            .put("mCombat", (int) Enemy.getEnemyByName("Cave bug").getCbxp() * caveBugKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Cave bug").getHpxp() * caveBugKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Cave bug").getHpxp() * caveBugKills))
+            .put("Attack pet points", totalPetPoints(player, "Attack", ((int) Enemy.getEnemyByName("Cave bug").getCbxp() * caveBugKills)) / 3)
+            .put("Strength pet points", totalPetPoints(player, "Strength", ((int) Enemy.getEnemyByName("Cave bug").getCbxp() * caveBugKills)) / 3)
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Cave bug").getCbxp() * caveBugKills)) / 3).build(), caveBugKills, true, true));
+
+        Map<Integer, List<Requirement>> mithrilDragonKillsAndReqs = combatKills(new Encounter("Mithril dragon"), player, 27, "Magic", 0.48, true);
+        int mithrilDragonKills = mithrilDragonKillsAndReqs.keySet().iterator().next();
+        List<Requirement> mithrilDragonReqs = mithrilDragonKillsAndReqs.values().iterator().next();
+        mithrilDragonReqs.add(new Requirement("Barbarian Firemaking", 1));
+        database.add(new Action("Killing mithril dragons for green charms", mithrilDragonReqs, new HashMap(), ImmutableMap.builder().put("Green charm", (int) (mithrilDragonKills * 1.96))
+            .put("aCombat", (int) Enemy.getEnemyByName("Mithril dragon").getCbxp() * mithrilDragonKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Mithril dragon").getHpxp() * mithrilDragonKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Mithril dragon").getHpxp() * mithrilDragonKills))
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Mithril dragon").getCbxp() * mithrilDragonKills)) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Mithril dragon").getCbxp() * mithrilDragonKills)) / 2).build(), mithrilDragonKills, true, true));
+
+        Map<Integer, List<Requirement>> cockroachSoldierKillsAndReqs = combatKills(new Encounter("Cockroach soldier"), player, 27, "Magic", 0.26, true);
+        int cockroachSoldierKills = cockroachSoldierKillsAndReqs.keySet().iterator().next();
+        List<Requirement> cockroachSoldierReqs = cockroachSoldierKillsAndReqs.values().iterator().next();
+        database.add(new Action("Killing cockroach soldiers for crimson charms", cockroachSoldierReqs, new HashMap(), ImmutableMap.builder().put("Crimson charm", (int) (cockroachSoldierKills * 0.26))
+            .put("aCombat", (int) Enemy.getEnemyByName("Cockroach soldier").getCbxp() * cockroachSoldierKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Cockroach soldier").getHpxp() * cockroachSoldierKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Cockroach soldier").getHpxp() * cockroachSoldierKills))
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Cockroach soldier").getCbxp() * cockroachSoldierKills)) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Cockroach soldier").getCbxp() * cockroachSoldierKills)) / 2).build(), cockroachSoldierKills, true, true));
+
+        Map<Integer, List<Requirement>> waterfiendKillsAndReqs = combatKills(new Encounter("Waterfiend"), player, 27, "Ranged", 0.78, true);
+        int waterfiendKills = waterfiendKillsAndReqs.keySet().iterator().next();
+        List<Requirement> waterfiendReqs = waterfiendKillsAndReqs.values().iterator().next();
+        waterfiendReqs.add(new Requirement("Barbarian Firemaking", 1));
+        database.add(new Action("Killing waterfiends for crimson charms", waterfiendReqs, new HashMap(), ImmutableMap.builder().put("Crimson charm", (int) (waterfiendKills * 0.78))
+            .put("rCombat", (int) Enemy.getEnemyByName("Waterfiend").getCbxp() * waterfiendKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Waterfiend").getHpxp() * waterfiendKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Waterfiend").getHpxp() * waterfiendKills))
+            .put("Ranged pet points", totalPetPoints(player, "Ranged", ((int) Enemy.getEnemyByName("Waterfiend").getCbxp() * waterfiendKills)) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Waterfiend").getCbxp() * waterfiendKills)) / 2).build(), waterfiendKills, true, true));
+
+        Map<Integer, List<Requirement>> celestialDragonKillsAndReqs = combatKills(new Encounter("Celestial dragon"), player, 27, "Ranged", 0.74, true);
+        int celestialDragonKills = celestialDragonKillsAndReqs.keySet().iterator().next();
+        List<Requirement> celestialDragonReqs = celestialDragonKillsAndReqs.values().iterator().next();
+        celestialDragonReqs.add(new Requirement("One of a Kind", 1));
+        database.add(new Action("Killing celestial dragons for crimson charms", celestialDragonReqs, new HashMap(), ImmutableMap.builder().put("Crimson charm", (int) (celestialDragonKills * 1.48))
+            .put("rCombat", (int) Enemy.getEnemyByName("Celestial dragon").getCbxp() * celestialDragonKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Celestial dragon").getHpxp() * celestialDragonKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Celestial dragon").getHpxp() * celestialDragonKills))
+            .put("Ranged pet points", totalPetPoints(player, "Ranged", ((int) Enemy.getEnemyByName("Celestial dragon").getCbxp() * celestialDragonKills)) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Celestial dragon").getCbxp() * celestialDragonKills)) / 2).build(), celestialDragonKills, true, true));
+
+        Map<Integer, List<Requirement>> tzhaarKetKillsAndReqs = combatKills(new Encounter("TzHaar-Ket"), player, 27, "Magic", 0.2, true);
         int tzhaarKetKills = tzhaarKetKillsAndReqs.keySet().iterator().next();
         List<Requirement> tzhaarKetReqs = tzhaarKetKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing TzHaar-Kets for obsidian charms", tzhaarKetReqs, new HashMap(), ImmutableMap.builder().put("Obsidian charm", (int) (tzhaarKetKills * 0.4))
             .put("aCombat", (int) Enemy.getEnemyByName("TzHaar-Ket").getCbxp() * tzhaarKetKills)
             .put("Constitution", (int) Enemy.getEnemyByName("TzHaar-Ket").getHpxp() * tzhaarKetKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("TzHaar-Ket").getHpxp() * tzhaarKetKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("TzHaar-Ket").getCbxp() * tzhaarKetKills))/2)
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("TzHaar-Ket").getCbxp() * tzhaarKetKills))/2).build(), tzhaarKetKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("TzHaar-Ket").getCbxp() * tzhaarKetKills)) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("TzHaar-Ket").getCbxp() * tzhaarKetKills)) / 2).build(), tzhaarKetKills, true, true));
 
         for (SlayerMonster slayerMonster : SlayerMonsterDatabase.getSlayerMonsterDatabase().getSlayerMonsters()) {
             Enemy enemy = Enemy.getEnemyByName(slayerMonster.getMonster());
-            if (enemy.getAffmage() > enemy.getAccmelee() && enemy.getAffmage()> enemy.getAffranged()) {
+            if (enemy.getAffmage() > enemy.getAccmelee() && enemy.getAffmage() > enemy.getAffranged()) {
                 Map<Integer, List<Requirement>> monsterKillsAndReqs = combatKills(new Encounter(slayerMonster.getMonster()), player, 28, "Magic", 0, true);
                 int monsterKills = monsterKillsAndReqs.keySet().iterator().next();
                 ArrayList<Requirement> monsterReqs = new ArrayList<>(monsterKillsAndReqs.values().iterator().next());
                 monsterReqs.addAll(slayerMonster.getReqs());
                 database.add(new Action(String.format("Killing %s", slayerMonster.getMonster()), monsterReqs, new HashMap(), ImmutableMap.builder()
-                    .put("aCombat", (int)enemy.getCbxp() * monsterKills)
-                    .put("Constitution", (int)enemy.getHpxp() * monsterKills)
+                    .put("aCombat", (int) enemy.getCbxp() * monsterKills)
+                    .put("Constitution", (int) enemy.getHpxp() * monsterKills)
                     .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) enemy.getHpxp() * monsterKills))
-                    .put("Magic pet points", totalPetPoints(player, "Magic", ((int) enemy.getCbxp() * monsterKills)/2))
-                    .put("Defence pet points", totalPetPoints(player, "Defence", ((int) enemy.getCbxp() * monsterKills)/2))
+                    .put("Magic pet points", totalPetPoints(player, "Magic", ((int) enemy.getCbxp() * monsterKills) / 2))
+                    .put("Defence pet points", totalPetPoints(player, "Defence", ((int) enemy.getCbxp() * monsterKills) / 2))
                     .put(String.format("%s", slayerMonster.getCategory()), monsterKills)
                     .put(String.format("%s", slayerMonster.getMonster()), monsterKills).build(), monsterKills, true, true));
             } else if (enemy.getAffranged() > enemy.getAffmelee()) {
@@ -1080,11 +1176,11 @@ public class ActionDatabase {
                 ArrayList<Requirement> monsterReqs = new ArrayList<>(monsterKillsAndReqs.values().iterator().next());
                 monsterReqs.addAll(slayerMonster.getReqs());
                 database.add(new Action(String.format("Killing %s", slayerMonster.getMonster()), monsterReqs, new HashMap(), ImmutableMap.builder()
-                    .put("rCombat", (int)enemy.getCbxp() * monsterKills)
-                    .put("Constitution", (int)enemy.getHpxp() * monsterKills)
+                    .put("rCombat", (int) enemy.getCbxp() * monsterKills)
+                    .put("Constitution", (int) enemy.getHpxp() * monsterKills)
                     .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) enemy.getHpxp() * monsterKills))
-                    .put("Ranged pet points", totalPetPoints(player, "Ranged", ((int) enemy.getCbxp() * monsterKills)/2))
-                    .put("Defence pet points", totalPetPoints(player, "Defence", ((int) enemy.getCbxp() * monsterKills)/2))
+                    .put("Ranged pet points", totalPetPoints(player, "Ranged", ((int) enemy.getCbxp() * monsterKills) / 2))
+                    .put("Defence pet points", totalPetPoints(player, "Defence", ((int) enemy.getCbxp() * monsterKills) / 2))
                     .put(String.format("%s", slayerMonster.getCategory()), monsterKills)
                     .put(String.format("%s", slayerMonster.getMonster()), monsterKills).build(), monsterKills, true, true));
             } else {
@@ -1093,12 +1189,12 @@ public class ActionDatabase {
                 ArrayList<Requirement> monsterReqs = new ArrayList<>(monsterKillsAndReqs.values().iterator().next());
                 monsterReqs.addAll(slayerMonster.getReqs());
                 database.add(new Action(String.format("Killing %s", slayerMonster.getMonster()), monsterReqs, new HashMap(), ImmutableMap.builder()
-                    .put("mCombat", (int)enemy.getCbxp() * monsterKills)
-                    .put("Constitution", (int)enemy.getHpxp() * monsterKills)
+                    .put("mCombat", (int) enemy.getCbxp() * monsterKills)
+                    .put("Constitution", (int) enemy.getHpxp() * monsterKills)
                     .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) enemy.getHpxp() * monsterKills))
-                    .put("Attack pet points", totalPetPoints(player, "Attack", ((int) enemy.getCbxp() * monsterKills)/3))
-                    .put("Strength pet points", totalPetPoints(player, "Strength", ((int) enemy.getCbxp() * monsterKills)/3))
-                    .put("Defence pet points", totalPetPoints(player, "Defence", ((int) enemy.getCbxp() * monsterKills)/3))
+                    .put("Attack pet points", totalPetPoints(player, "Attack", ((int) enemy.getCbxp() * monsterKills) / 3))
+                    .put("Strength pet points", totalPetPoints(player, "Strength", ((int) enemy.getCbxp() * monsterKills) / 3))
+                    .put("Defence pet points", totalPetPoints(player, "Defence", ((int) enemy.getCbxp() * monsterKills) / 3))
                     .put(String.format("%s", slayerMonster.getCategory()), monsterKills)
                     .put(String.format("%s", slayerMonster.getMonster()), monsterKills).build(), monsterKills, true, true));
             }
@@ -1106,15 +1202,15 @@ public class ActionDatabase {
 
         database.add(new Action("Killing chompy birds", Collections.singletonList(new Requirement("Big Chompy Bird Hunting", 1)), new HashMap(),
             ImmutableMap.builder().put("Chompy kills", 200).put("rCombat", 12440).put("Ranged pet points", totalPetPoints(player, "Ranged", 6220))
-            .put("Defence pet points", totalPetPoints(player, "Defence", 6220)).put("Constitution", 4100).put("Constitution pet points", totalPetPoints(player, "Constitution", 4100)).build(), 200, true, true));
+                .put("Defence pet points", totalPetPoints(player, "Defence", 6220)).put("Constitution", 4100).put("Constitution pet points", totalPetPoints(player, "Constitution", 4100)).build(), 200, true, true));
 
         Map<Integer, List<Requirement>> pigKills = combatKills(new Encounter("Pig"), player, 0, "Magic", 0.05, true);
         database.add(new Action("Killing pigs for teeth", pigKills.values().iterator().next(), new HashMap(), ImmutableMap.builder().put("Pig tooth",
             (int) (pigKills.keySet().iterator().next() * 0.05)).put("aCombat", (int) Enemy.getEnemyByName("Pig").getCbxp() * pigKills.keySet().iterator().next())
             .put("Constitution", (int) Enemy.getEnemyByName("Pig").getHpxp() * pigKills.keySet().iterator().next())
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Pig").getHpxp() * pigKills.keySet().iterator().next()))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Pig").getCbxp() * pigKills.keySet().iterator().next())/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Pig").getCbxp() * pigKills.keySet().iterator().next())/2)).build(),
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Pig").getCbxp() * pigKills.keySet().iterator().next()) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Pig").getCbxp() * pigKills.keySet().iterator().next()) / 2)).build(),
             pigKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> vyreKillsAndReqs = combatKills(new Encounter("Vyrewatch"), player, 0, "Melee", 1, false);
@@ -1122,12 +1218,12 @@ public class ActionDatabase {
         ArrayList<Requirement> vyreReqs = new ArrayList<>(vyreKillsAndReqs.values().iterator().next());
         vyreReqs.add(new Requirement("Legacy of Seergaze", 1));
         database.add(new Action("Killing vyres for corpses", vyreReqs, new HashMap(),
-            ImmutableMap.builder().put("Vyre corpse", vyreKills).put("mCombat", (int)Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills)
+            ImmutableMap.builder().put("Vyre corpse", vyreKills).put("mCombat", (int) Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills)
                 .put("Constitution", (int) Enemy.getEnemyByName("Vyrewatch").getHpxp() * vyreKills)
                 .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Vyrewatch").getHpxp() * vyreKills))
-                .put("Attack pet points", totalPetPoints(player, "Attack", (int) Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills)/3)
-                .put("Strength pet points", totalPetPoints(player, "Strength", (int) Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills)/3)
-                .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills)/3)
+                .put("Attack pet points", totalPetPoints(player, "Attack", (int) Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills) / 3)
+                .put("Strength pet points", totalPetPoints(player, "Strength", (int) Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills) / 3)
+                .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Vyrewatch").getCbxp() * vyreKills) / 3)
                 .put("Vyrewatch kills", vyreKills).build(), vyreKills, true, true));
 
         Map<Integer, List<Requirement>> truthfulShadowKillsAndReqs = combatKills(new Encounter("Truthful shadow"), player, 0, "Magic", 0.2, false);
@@ -1135,216 +1231,216 @@ public class ActionDatabase {
         ArrayList<Requirement> truthfulShadowReqs = new ArrayList<>(truthfulShadowKillsAndReqs.values().iterator().next());
         truthfulShadowReqs.add(new Requirement("Plague's End", 1));
         database.add(new Action("Killing truthful shadows for cores", truthfulShadowReqs, new HashMap(),
-            ImmutableMap.builder().put("Truthful shadow core", truthfulShadowKills/5).put("aCombat", (int)Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulShadowKills)
+            ImmutableMap.builder().put("Truthful shadow core", truthfulShadowKills / 5).put("aCombat", (int) Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulShadowKills)
                 .put("Constitution", (int) Enemy.getEnemyByName("Truthful shadow").getHpxp() * truthfulShadowKills)
                 .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Truthful shadow").getHpxp() * truthfulShadowKills))
-                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulShadowKills)/2))
-                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulShadowKills)/2)).build(), truthfulShadowKills, true, true));
+                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulShadowKills) / 2))
+                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Truthful shadow").getCbxp() * truthfulShadowKills) / 2)).build(), truthfulShadowKills, true, true));
 
         Map<Integer, List<Requirement>> blissfulShadowKillsAndReqs = combatKills(new Encounter("Blissful shadow"), player, 0, "Magic", 0.2, false);
         int blissfulShadowKills = blissfulShadowKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> blissfulShadowReqs = new ArrayList<>(blissfulShadowKillsAndReqs.values().iterator().next());
         blissfulShadowReqs.add(new Requirement("Plague's End", 1));
         database.add(new Action("Killing blissful shadows for cores", blissfulShadowReqs, new HashMap(),
-            ImmutableMap.builder().put("Blissful shadow core", blissfulShadowKills/5).put("aCombat", (int)Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulShadowKills)
+            ImmutableMap.builder().put("Blissful shadow core", blissfulShadowKills / 5).put("aCombat", (int) Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulShadowKills)
                 .put("Constitution", (int) Enemy.getEnemyByName("Blissful shadow").getHpxp() * blissfulShadowKills)
                 .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Blissful shadow").getHpxp() * blissfulShadowKills))
-                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulShadowKills)/2))
-                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulShadowKills)/2)).build(), blissfulShadowKills, true, true));
+                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulShadowKills) / 2))
+                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Blissful shadow").getCbxp() * blissfulShadowKills) / 2)).build(), blissfulShadowKills, true, true));
 
         Map<Integer, List<Requirement>> manifestShadowKillsAndReqs = combatKills(new Encounter("Manifest shadow"), player, 0, "Magic", 0.2, false);
         int manifestShadowKills = manifestShadowKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> manifestShadowReqs = new ArrayList<>(manifestShadowKillsAndReqs.values().iterator().next());
         manifestShadowReqs.add(new Requirement("Plague's End", 1));
         database.add(new Action("Killing manifest shadows for cores", manifestShadowReqs, new HashMap(),
-            ImmutableMap.builder().put("Manifest shadow core", manifestShadowKills/5).put("aCombat", (int)Enemy.getEnemyByName("Manifest shadow").getCbxp() * manifestShadowKills)
+            ImmutableMap.builder().put("Manifest shadow core", manifestShadowKills / 5).put("aCombat", (int) Enemy.getEnemyByName("Manifest shadow").getCbxp() * manifestShadowKills)
                 .put("Constitution", (int) Enemy.getEnemyByName("Manifest shadow").getHpxp() * manifestShadowKills)
                 .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Manifest shadow").getHpxp() * manifestShadowKills))
-                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Manifest shadow").getCbxp() * manifestShadowKills)/2))
-                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Manifest shadow").getCbxp() * manifestShadowKills)/2)).build(), manifestShadowKills, true, true));
+                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Manifest shadow").getCbxp() * manifestShadowKills) / 2))
+                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Manifest shadow").getCbxp() * manifestShadowKills) / 2)).build(), manifestShadowKills, true, true));
 
-        Map<Integer, List<Requirement>> camelWarriorKillsAndReqs = combatKills(new Encounter("Camel warrior"), player, 0, "Melee", 0, false);
+        Map<Integer, List<Requirement>> camelWarriorKillsAndReqs = combatKills(new Encounter("Camel warrior"), player, 28, "Melee", 0, false);
         int camelWarriorKills = camelWarriorKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> camelWarriorReqs = new ArrayList<>(camelWarriorKillsAndReqs.values().iterator().next());
         camelWarriorReqs.add(new Requirement("Slayer", 96));
         database.add(new Action("Killing camel warriors", camelWarriorReqs, new HashMap(),
-            ImmutableMap.builder().put("Camel warrior", camelWarriorKills).put("mCombat", (int)Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills)
+            ImmutableMap.builder().put("Camel warrior", camelWarriorKills).put("mCombat", (int) Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills)
                 .put("Constitution", (int) Enemy.getEnemyByName("Camel warrior").getHpxp() * camelWarriorKills)
                 .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Camel warrior").getHpxp() * camelWarriorKills))
-                .put("Attack pet points", totalPetPoints(player, "Attack", (int) Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills)/3)
-                .put("Strength pet points", totalPetPoints(player, "Strength", (int) Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills)/3)
-                .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills)/3).build(), camelWarriorKills, true, true));
+                .put("Attack pet points", totalPetPoints(player, "Attack", (int) Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills) / 3)
+                .put("Strength pet points", totalPetPoints(player, "Strength", (int) Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills) / 3)
+                .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Camel warrior").getCbxp() * camelWarriorKills) / 3).build(), camelWarriorKills, true, true));
 
-        Map<Integer, List<Requirement>> blackKnightKillsAndReqs = combatKills(new Encounter("Black Knight"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> blackKnightKillsAndReqs = combatKills(new Encounter("Black Knight"), player, 28, "Magic", 0, false);
         int blackKnightKills = blackKnightKillsAndReqs.keySet().iterator().next();
         List<Requirement> blackKnightReqs = blackKnightKillsAndReqs.values().iterator().next();
         blackKnightReqs.add(new Requirement("Wanted!", 1));
         database.add(new Action("Killing Black Knights for rank points", blackKnightReqs, new HashMap(), ImmutableMap.builder().put("Black Knight", blackKnightKills)
-            .put("aCombat", (int)Enemy.getEnemyByName("Black Knight").getCbxp() * blackKnightKills).put("Constitution", (int) Enemy.getEnemyByName("Black Knight").getHpxp() * blackKnightKills)
+            .put("aCombat", (int) Enemy.getEnemyByName("Black Knight").getCbxp() * blackKnightKills).put("Constitution", (int) Enemy.getEnemyByName("Black Knight").getHpxp() * blackKnightKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Black Knight").getHpxp() * blackKnightKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Black Knight").getCbxp() * blackKnightKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Black Knight").getCbxp() * blackKnightKills)/2))
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Black Knight").getCbxp() * blackKnightKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Black Knight").getCbxp() * blackKnightKills) / 2))
             .put("White Knight rank points", blackKnightKills).build(), blackKnightKills, true, true));
 
-        Map<Integer, List<Requirement>> goblinKillsAndReqs = combatKills(new Encounter("Goblin"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> goblinKillsAndReqs = combatKills(new Encounter("Goblin"), player, 28, "Magic", 0, false);
         int goblinKills = goblinKillsAndReqs.keySet().iterator().next();
         List<Requirement> goblinReqs = goblinKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing goblins for easy clues", goblinReqs, new HashMap(), ImmutableMap.builder().put("Goblin", goblinKills)
-            .put("aCombat", (int)Enemy.getEnemyByName("Goblin").getCbxp() * goblinKills)
+            .put("aCombat", (int) Enemy.getEnemyByName("Goblin").getCbxp() * goblinKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Goblin").getHpxp() * goblinKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Goblin").getHpxp() * goblinKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Goblin").getCbxp() * goblinKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Goblin").getCbxp() * goblinKills)/2))
-            .put("Sealed clue scroll (easy)", goblinKills/128).build(), goblinKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Goblin").getCbxp() * goblinKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Goblin").getCbxp() * goblinKills) / 2))
+            .put("Sealed clue scroll (easy)", goblinKills / 128).build(), goblinKills, true, true));
 
-        Map<Integer, List<Requirement>> hillGiantKillsAndReqs = combatKills(new Encounter("Hill giant"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> hillGiantKillsAndReqs = combatKills(new Encounter("Hill giant"), player, 28, "Magic", 0, false);
         int hillGiantKills = hillGiantKillsAndReqs.keySet().iterator().next();
         List<Requirement> hillGiantReqs = hillGiantKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing hill giants", hillGiantReqs, new HashMap(), ImmutableMap.builder().put("Giant", hillGiantKills)
-            .put("aCombat", (int)Enemy.getEnemyByName("Hill giant").getCbxp() * hillGiantKills)
+            .put("aCombat", (int) Enemy.getEnemyByName("Hill giant").getCbxp() * hillGiantKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Hill giant").getHpxp() * hillGiantKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Hill giant").getHpxp() * hillGiantKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Hill giant").getCbxp() * hillGiantKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Hill giant").getCbxp() * hillGiantKills)/2)).build(), hillGiantKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Hill giant").getCbxp() * hillGiantKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Hill giant").getCbxp() * hillGiantKills) / 2)).build(), hillGiantKills, true, true));
 
-        Map<Integer, List<Requirement>> ghoulKillsAndReqs = combatKills(new Encounter("Ghoul"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> ghoulKillsAndReqs = combatKills(new Encounter("Ghoul"), player, 28, "Magic", 0, false);
         int ghoulKills = ghoulKillsAndReqs.keySet().iterator().next();
         List<Requirement> ghoulReqs = ghoulKillsAndReqs.values().iterator().next();
-        database.add(new Action("Killing ghouls", ghoulReqs, new HashMap(), ImmutableMap.builder().put("Ghoul", ghoulKills).put("aCombat", (int)Enemy.getEnemyByName("Ghoul").getCbxp() * ghoulKills)
+        database.add(new Action("Killing ghouls", ghoulReqs, new HashMap(), ImmutableMap.builder().put("Ghoul", ghoulKills).put("aCombat", (int) Enemy.getEnemyByName("Ghoul").getCbxp() * ghoulKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Ghoul").getHpxp() * ghoulKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Ghoul").getHpxp() * ghoulKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Ghoul").getCbxp() * ghoulKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Ghoul").getCbxp() * ghoulKills)/2)).build(), ghoulKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Ghoul").getCbxp() * ghoulKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Ghoul").getCbxp() * ghoulKills) / 2)).build(), ghoulKills, true, true));
 
-        Map<Integer, List<Requirement>> earthWarriorKillsAndReqs = combatKills(new Encounter("Earth warrior"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> earthWarriorKillsAndReqs = combatKills(new Encounter("Earth warrior"), player, 28, "Magic", 0, false);
         int earthWarriorKills = earthWarriorKillsAndReqs.keySet().iterator().next();
         List<Requirement> earthWarriorReqs = earthWarriorKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing earth warriors", earthWarriorReqs, new HashMap(), ImmutableMap.builder().put("Earth warrior", earthWarriorKills)
-            .put("aCombat", (int)Enemy.getEnemyByName("Earth warrior").getCbxp() * earthWarriorKills).put("Constitution", (int) Enemy.getEnemyByName("Earth warrior").getHpxp() * earthWarriorKills)
+            .put("aCombat", (int) Enemy.getEnemyByName("Earth warrior").getCbxp() * earthWarriorKills).put("Constitution", (int) Enemy.getEnemyByName("Earth warrior").getHpxp() * earthWarriorKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Earth warrior").getHpxp() * earthWarriorKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Earth warrior").getCbxp() * earthWarriorKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Earth warrior").getCbxp() * earthWarriorKills)/2)).build(), earthWarriorKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Earth warrior").getCbxp() * earthWarriorKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Earth warrior").getCbxp() * earthWarriorKills) / 2)).build(), earthWarriorKills, true, true));
 
-        Map<Integer, List<Requirement>> cadarnMagusKillsAndReqs = combatKills(new Encounter("Cadarn magus"), player, 0, "Ranged", 0, false);
+        Map<Integer, List<Requirement>> cadarnMagusKillsAndReqs = combatKills(new Encounter("Cadarn magus"), player, 28, "Ranged", 0, false);
         int cadarnMagusKills = cadarnMagusKillsAndReqs.keySet().iterator().next();
         ArrayList<Requirement> cadarnMagusReqs = new ArrayList<>(cadarnMagusKillsAndReqs.values().iterator().next());
         cadarnMagusReqs.add(new Requirement("Plague's End", 1));
         database.add(new Action("Killing Cadarn magi", cadarnMagusReqs, new HashMap(), ImmutableMap.builder().put("Cadarn magus", cadarnMagusKills).put("Elf kills", cadarnMagusKills)
-            .put("rCombat", (int)Enemy.getEnemyByName("Cadarn magus").getCbxp() * cadarnMagusKills)
-            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int)Enemy.getEnemyByName("Cadarn magus").getCbxp() * cadarnMagusKills)/2)
+            .put("rCombat", (int) Enemy.getEnemyByName("Cadarn magus").getCbxp() * cadarnMagusKills)
+            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int) Enemy.getEnemyByName("Cadarn magus").getCbxp() * cadarnMagusKills) / 2)
             .put("Constitution", (int) Enemy.getEnemyByName("Cadarn magus").getHpxp() * cadarnMagusKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Cadarn magus").getHpxp() * cadarnMagusKills))
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("Cadarn magus").getCbxp() * cadarnMagusKills)/2).build(), cadarnMagusKills, true, true));
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Cadarn magus").getCbxp() * cadarnMagusKills) / 2).build(), cadarnMagusKills, true, true));
 
-        Map<Integer, List<Requirement>> jogreKillsAndReqs = combatKills(new Encounter("Jogre"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> jogreKillsAndReqs = combatKills(new Encounter("Jogre"), player, 28, "Magic", 0, false);
         int jogreKills = jogreKillsAndReqs.keySet().iterator().next();
         List<Requirement> jogreReqs = jogreKillsAndReqs.values().iterator().next();
-        database.add(new Action("Killing jogres", jogreReqs, new HashMap(), ImmutableMap.builder().put("Jogre", jogreKills).put("aCombat", (int)Enemy.getEnemyByName("Jogre").getCbxp() * jogreKills)
+        database.add(new Action("Killing jogres", jogreReqs, new HashMap(), ImmutableMap.builder().put("Jogre", jogreKills).put("aCombat", (int) Enemy.getEnemyByName("Jogre").getCbxp() * jogreKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Jogre").getHpxp() * jogreKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Jogre").getHpxp() * jogreKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Jogre").getCbxp() * jogreKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Jogre").getCbxp() * jogreKills)/2)).build(), jogreKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Jogre").getCbxp() * jogreKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Jogre").getCbxp() * jogreKills) / 2)).build(), jogreKills, true, true));
 
-        Map<Integer, List<Requirement>> mogreKillsAndReqs = combatKills(new Encounter("Mogre"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> mogreKillsAndReqs = combatKills(new Encounter("Mogre"), player, 28, "Magic", 0, false);
         int mogreKills = mogreKillsAndReqs.keySet().iterator().next();
         List<Requirement> mogreReqs = mogreKillsAndReqs.values().iterator().next();
         mogreReqs.add(new Requirement("Mogre miniquest", 1));
-        database.add(new Action("Killing mogres", mogreReqs, new HashMap(), ImmutableMap.builder().put("Mogre", mogreKills).put("aCombat", (int)Enemy.getEnemyByName("Mogre").getCbxp() * mogreKills)
+        database.add(new Action("Killing mogres", mogreReqs, new HashMap(), ImmutableMap.builder().put("Mogre", mogreKills).put("aCombat", (int) Enemy.getEnemyByName("Mogre").getCbxp() * mogreKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Mogre").getHpxp() * mogreKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Mogre").getHpxp() * mogreKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Mogre").getCbxp() * mogreKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Mogre").getCbxp() * mogreKills)/2)).build(), mogreKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Mogre").getCbxp() * mogreKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Mogre").getCbxp() * mogreKills) / 2)).build(), mogreKills, true, true));
 
-        Map<Integer, List<Requirement>> mummyKillsAndReqs = combatKills(new Encounter("Mummy"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> mummyKillsAndReqs = combatKills(new Encounter("Mummy"), player, 28, "Magic", 0, false);
         int mummyKills = mummyKillsAndReqs.keySet().iterator().next();
         List<Requirement> mummyReqs = mummyKillsAndReqs.values().iterator().next();
         mummyReqs.add(new Requirement("Dealing with Scabaras", 1));
         database.add(new Action("Killing mummies (post-Dealing With Scabaras)", mummyReqs, new HashMap(), ImmutableMap.builder().put("Mummy", mummyKills)
-            .put("aCombat", (int)Enemy.getEnemyByName("Mummy").getCbxp() * mummyKills).put("Constitution", (int) Enemy.getEnemyByName("Mummy").getHpxp() * mummyKills)
+            .put("aCombat", (int) Enemy.getEnemyByName("Mummy").getCbxp() * mummyKills).put("Constitution", (int) Enemy.getEnemyByName("Mummy").getHpxp() * mummyKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Mummy").getHpxp() * mummyKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Mummy").getCbxp() * mummyKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Mummy").getCbxp() * mummyKills)/2)).build(), mummyKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Mummy").getCbxp() * mummyKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Mummy").getCbxp() * mummyKills) / 2)).build(), mummyKills, true, true));
 
-        Map<Integer, List<Requirement>> lesserDemonKillsAndReqs = combatKills(new Encounter("Lesser demon"), player, 0, "Ranged", 0, false);
+        Map<Integer, List<Requirement>> lesserDemonKillsAndReqs = combatKills(new Encounter("Lesser demon"), player, 28, "Ranged", 0, false);
         int lesserDemonKills = lesserDemonKillsAndReqs.keySet().iterator().next();
         List<Requirement> lesserDemonReqs = lesserDemonKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing lesser demons", lesserDemonReqs, new HashMap(), ImmutableMap.builder().put("Lesser demon", lesserDemonKills)
-            .put("rCombat", (int)Enemy.getEnemyByName("Lesser demon").getCbxp() * lesserDemonKills)
-            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int)Enemy.getEnemyByName("Lesser demon").getCbxp() * lesserDemonKills)/2)
+            .put("rCombat", (int) Enemy.getEnemyByName("Lesser demon").getCbxp() * lesserDemonKills)
+            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int) Enemy.getEnemyByName("Lesser demon").getCbxp() * lesserDemonKills) / 2)
             .put("Constitution", (int) Enemy.getEnemyByName("Lesser demon").getHpxp() * lesserDemonKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Lesser demon").getHpxp() * lesserDemonKills))
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("Lesser demon").getCbxp() * lesserDemonKills)/2).build(), lesserDemonKills, true, true));
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Lesser demon").getCbxp() * lesserDemonKills) / 2).build(), lesserDemonKills, true, true));
 
-        Map<Integer, List<Requirement>> corruptedScorpionKillsAndReqs = combatKills(new Encounter("Corrupted scorpion"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> corruptedScorpionKillsAndReqs = combatKills(new Encounter("Corrupted scorpion"), player, 28, "Magic", 0, false);
         int corruptedScorpionKills = corruptedScorpionKillsAndReqs.keySet().iterator().next();
         List<Requirement> corruptedScorpionReqs = corruptedScorpionKillsAndReqs.values().iterator().next();
         corruptedScorpionReqs.add(new Requirement("Slayer", 88));
         database.add(new Action("Killing corrupted scorpions", corruptedScorpionReqs, ImmutableMap.of("Feather of Ma'at", corruptedScorpionKills),
-            ImmutableMap.builder().put("Corrupted creatures", corruptedScorpionKills).put("aCombat", (int)Enemy.getEnemyByName("Corrupted scorpion").getCbxp() * corruptedScorpionKills)
+            ImmutableMap.builder().put("Corrupted creatures", corruptedScorpionKills).put("aCombat", (int) Enemy.getEnemyByName("Corrupted scorpion").getCbxp() * corruptedScorpionKills)
                 .put("Constitution", (int) Enemy.getEnemyByName("Corrupted scorpion").getHpxp() * corruptedScorpionKills)
                 .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Corrupted scorpion").getHpxp() * corruptedScorpionKills))
-                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Corrupted scorpion").getCbxp() * corruptedScorpionKills)/2))
-                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Corrupted scorpion").getCbxp() * corruptedScorpionKills)/2)).build(),
+                .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Corrupted scorpion").getCbxp() * corruptedScorpionKills) / 2))
+                .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Corrupted scorpion").getCbxp() * corruptedScorpionKills) / 2)).build(),
             corruptedScorpionKills, true, true));
 
-        Map<Integer, List<Requirement>> ripperDemonKillsAndReqs = combatKills(new Encounter("Ripper demon"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> ripperDemonKillsAndReqs = combatKills(new Encounter("Ripper demon"), player, 28, "Magic", 0, false);
         int ripperDemonKills = ripperDemonKillsAndReqs.keySet().iterator().next();
         List<Requirement> ripperDemonReqs = ripperDemonKillsAndReqs.values().iterator().next();
         ripperDemonReqs.add(new Requirement("Slayer", 96));
         database.add(new Action("Killing ripper demons", ripperDemonReqs, new HashMap(), ImmutableMap.builder().put("Ripper demons", ripperDemonKills)
-            .put("aCombat", (int)Enemy.getEnemyByName("Ripper demon").getCbxp() * ripperDemonKills)
+            .put("aCombat", (int) Enemy.getEnemyByName("Ripper demon").getCbxp() * ripperDemonKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Ripper demon").getHpxp() * ripperDemonKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Ripper demon").getHpxp() * ripperDemonKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Ripper demon").getCbxp() * ripperDemonKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Ripper demon").getCbxp() * ripperDemonKills)/2)).build(), ripperDemonKills, true, true));
-        
-        Map<Integer, List<Requirement>> kalgerionDemonKillsAndReqs = combatKills(new Encounter("Kal'gerion demon"), player, 0, "Magic", 0, false);
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Ripper demon").getCbxp() * ripperDemonKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Ripper demon").getCbxp() * ripperDemonKills) / 2)).build(), ripperDemonKills, true, true));
+
+        Map<Integer, List<Requirement>> kalgerionDemonKillsAndReqs = combatKills(new Encounter("Kal'gerion demon"), player, 28, "Magic", 0, false);
         int kalgerionDemonKills = kalgerionDemonKillsAndReqs.keySet().iterator().next();
         List<Requirement> kalgerionDemonReqs = kalgerionDemonKillsAndReqs.values().iterator().next();
         kalgerionDemonReqs.add(new Requirement("Dungeoneering", 90));
         database.add(new Action("Killing Kal'gerion demons", kalgerionDemonReqs, new HashMap(), ImmutableMap.builder().put("Kal'gerion demon", kalgerionDemonKills)
-            .put("aCombat", (int)Enemy.getEnemyByName("Kal'gerion demon").getCbxp() * kalgerionDemonKills)
+            .put("aCombat", (int) Enemy.getEnemyByName("Kal'gerion demon").getCbxp() * kalgerionDemonKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Kal'gerion demon").getHpxp() * kalgerionDemonKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Kal'gerion demon").getHpxp() * kalgerionDemonKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Kal'gerion demon").getCbxp() * kalgerionDemonKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Kal'gerion demon").getCbxp() * kalgerionDemonKills)/2)).build(), kalgerionDemonKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Kal'gerion demon").getCbxp() * kalgerionDemonKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Kal'gerion demon").getCbxp() * kalgerionDemonKills) / 2)).build(), kalgerionDemonKills, true, true));
 
-        Map<Integer, List<Requirement>> impKillsAndReqs = combatKills(new Encounter("Imp"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> impKillsAndReqs = combatKills(new Encounter("Imp"), player, 28, "Magic", 0, false);
         int impKills = impKillsAndReqs.keySet().iterator().next();
         List<Requirement> impReqs = impKillsAndReqs.values().iterator().next();
-        database.add(new Action("Killing imps", impReqs, new HashMap(), ImmutableMap.builder().put("Imp", impKills).put("aCombat", (int)Enemy.getEnemyByName("Imp").getCbxp() * impKills)
+        database.add(new Action("Killing imps", impReqs, new HashMap(), ImmutableMap.builder().put("Imp", impKills).put("aCombat", (int) Enemy.getEnemyByName("Imp").getCbxp() * impKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Imp").getHpxp() * impKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Imp").getHpxp() * impKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Imp").getCbxp() * impKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Imp").getCbxp() * impKills)/2)).build(), impKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Imp").getCbxp() * impKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Imp").getCbxp() * impKills) / 2)).build(), impKills, true, true));
 
-        Map<Integer, List<Requirement>> cowKills = combatKills(new Encounter("Cow"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> cowKills = combatKills(new Encounter("Cow"), player, 28, "Magic", 0, false);
         database.add(new Action("Killing cows", cowKills.values().iterator().next(), new HashMap(), ImmutableMap.builder()
-            .put("aCombat", (int)Enemy.getEnemyByName("Cow").getCbxp() * cowKills.keySet().iterator().next())
+            .put("aCombat", (int) Enemy.getEnemyByName("Cow").getCbxp() * cowKills.keySet().iterator().next())
             .put("Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKills.keySet().iterator().next())
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Cow").getHpxp() * cowKills.keySet().iterator().next()))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Cow").getCbxp() * cowKills.keySet().iterator().next())/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Cow").getCbxp() * cowKills.keySet().iterator().next())/2))
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Cow").getCbxp() * cowKills.keySet().iterator().next()) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Cow").getCbxp() * cowKills.keySet().iterator().next()) / 2))
             .put("Cow kills", cowKills.keySet().iterator().next()).build(), cowKills.keySet().iterator().next(), true, true));
 
-        Map<Integer, List<Requirement>> revenantKills = combatKills(new Encounter("Revenant demon"), player, 0, "Ranged", 0, false);
+        Map<Integer, List<Requirement>> revenantKills = combatKills(new Encounter("Revenant demon"), player, 28, "Ranged", 0, false);
         database.add(new Action("Killing revenants", revenantKills.values().iterator().next(), new HashMap(), ImmutableMap.builder()
-            .put("rCombat", (int)Enemy.getEnemyByName("Revenant demon").getCbxp() * revenantKills.keySet().iterator().next())
+            .put("rCombat", (int) Enemy.getEnemyByName("Revenant demon").getCbxp() * revenantKills.keySet().iterator().next())
             .put("Constitution", (int) Enemy.getEnemyByName("Revenant demon").getHpxp() * revenantKills.keySet().iterator().next())
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Revenant demon").getHpxp() * revenantKills.keySet().iterator().next()))
-            .put("Ranged pet points", totalPetPoints(player, "Ranged", ((int) Enemy.getEnemyByName("Revenant demon").getCbxp() * revenantKills.keySet().iterator().next())/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Revenant demon").getCbxp() * revenantKills.keySet().iterator().next())/2))
+            .put("Ranged pet points", totalPetPoints(player, "Ranged", ((int) Enemy.getEnemyByName("Revenant demon").getCbxp() * revenantKills.keySet().iterator().next()) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Revenant demon").getCbxp() * revenantKills.keySet().iterator().next()) / 2))
             .put("Revenant kills", revenantKills.keySet().iterator().next()).build(), revenantKills.keySet().iterator().next(), true, true));
 
 
-        Map<Integer, List<Requirement>> yakKillsAndReqs = combatKills(new Encounter("Yak"), player, 0, "Magic", 0, false);
+        Map<Integer, List<Requirement>> yakKillsAndReqs = combatKills(new Encounter("Yak"), player, 28, "Magic", 0, false);
         int yakKills = yakKillsAndReqs.keySet().iterator().next();
         List<Requirement> yakReqs = yakKillsAndReqs.values().iterator().next();
-        database.add(new Action("Killing yaks", yakReqs, new HashMap(), ImmutableMap.builder().put("Yak", yakKills).put("aCombat", (int)Enemy.getEnemyByName("Yak").getCbxp() * yakKills)
+        database.add(new Action("Killing yaks", yakReqs, new HashMap(), ImmutableMap.builder().put("Yak", yakKills).put("aCombat", (int) Enemy.getEnemyByName("Yak").getCbxp() * yakKills)
             .put("Constitution", (int) Enemy.getEnemyByName("Yak").getHpxp() * yakKills)
             .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Yak").getHpxp() * yakKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Yak").getCbxp() * yakKills)/2))
-            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Yak").getCbxp() * yakKills)/2)).build(), yakKills, true, true));
+            .put("Magic pet points", totalPetPoints(player, "Magic", ((int) Enemy.getEnemyByName("Yak").getCbxp() * yakKills) / 2))
+            .put("Defence pet points", totalPetPoints(player, "Defence", ((int) Enemy.getEnemyByName("Yak").getCbxp() * yakKills) / 2)).build(), yakKills, true, true));
 
 
         //Bossing
@@ -1352,53 +1448,53 @@ public class ActionDatabase {
         int kbdKills = kbdKillsAndReqs.keySet().iterator().next();
         List<Requirement> kbdReqs = kbdKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing the King Black Dragon", kbdReqs, new HashMap(), ImmutableMap.builder().put("King Black Dragon", kbdKills).put("Boss kills", kbdKills)
-            .put("mCombat", (int)Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills).put("Constitution", (int)Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills)
-            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int)Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills))
-            .put("Attack pet points", totalPetPoints(player, "Attack", (int)Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills)/3)
-            .put("Strength pet points", totalPetPoints(player, "Strength", (int)Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills)/3)
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills)/3).build(), kbdKills, true, true));
+            .put("mCombat", (int) Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills).put("Constitution", (int) Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("King Black Dragon").getHpxp() * kbdKills))
+            .put("Attack pet points", totalPetPoints(player, "Attack", (int) Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills) / 3)
+            .put("Strength pet points", totalPetPoints(player, "Strength", (int) Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills) / 3)
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("King Black Dragon").getCbxp() * kbdKills) / 3).build(), kbdKills, true, true));
 
         Map<Integer, List<Requirement>> chaosElementalKillsAndReqs = combatKills(new Encounter("Chaos Elemental"), player, 28, "Ranged", 0, false);
         int chaosElementalKills = chaosElementalKillsAndReqs.keySet().iterator().next();
         List<Requirement> chaosElementalReqs = chaosElementalKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing the Chaos Elemental", chaosElementalReqs, new HashMap(), ImmutableMap.builder().put("Chaos Elemental", chaosElementalKills).put("Boss kills", chaosElementalKills)
-            .put("rCombat", (int)Enemy.getEnemyByName("Chaos Elemental").getCbxp() * chaosElementalKills)
-            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int)Enemy.getEnemyByName("Chaos Elemental").getCbxp() * chaosElementalKills)/2)
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("Chaos Elemental").getCbxp() * chaosElementalKills)/2)
-            .put("Constitution", (int)Enemy.getEnemyByName("Chaos Elemental").getHpxp() * chaosElementalKills)
-            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int)Enemy.getEnemyByName("Chaos Elemental").getHpxp() * chaosElementalKills)).build(), chaosElementalKills, true, true));
+            .put("rCombat", (int) Enemy.getEnemyByName("Chaos Elemental").getCbxp() * chaosElementalKills)
+            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int) Enemy.getEnemyByName("Chaos Elemental").getCbxp() * chaosElementalKills) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Chaos Elemental").getCbxp() * chaosElementalKills) / 2)
+            .put("Constitution", (int) Enemy.getEnemyByName("Chaos Elemental").getHpxp() * chaosElementalKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Chaos Elemental").getHpxp() * chaosElementalKills)).build(), chaosElementalKills, true, true));
 
         Map<Integer, List<Requirement>> dagannothRexKillsAndReqs = combatKills(new Encounter("Dagannoth Rex"), player, 28, "Magic", 0, false);
         int dagannothRexKills = dagannothRexKillsAndReqs.keySet().iterator().next();
         List<Requirement> dagannothRexReqs = dagannothRexKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing Dagannoth Rex", dagannothRexReqs, new HashMap(), ImmutableMap.builder().put("Dagannoth Rex", dagannothRexKills)
-            .put("Dagannoth Kings", dagannothRexKills).put("Boss kills", dagannothRexKills).put("aCombat", (int)Enemy.getEnemyByName("Dagannoth Rex").getCbxp() * dagannothRexKills)
-            .put("Constitution", (int)Enemy.getEnemyByName("Dagannoth Rex").getHpxp() * dagannothRexKills)
-            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int)Enemy.getEnemyByName("Dagannoth Rex").getHpxp() * dagannothRexKills))
-            .put("Magic pet points", totalPetPoints(player, "Magic", (int)Enemy.getEnemyByName("Dagannoth Rex").getCbxp() * dagannothRexKills)/2)
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("Dagannoth Rex").getCbxp() * dagannothRexKills)/2).build(), dagannothRexKills, true, true));
+            .put("Dagannoth Kings", dagannothRexKills).put("Boss kills", dagannothRexKills).put("aCombat", (int) Enemy.getEnemyByName("Dagannoth Rex").getCbxp() * dagannothRexKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Dagannoth Rex").getHpxp() * dagannothRexKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Dagannoth Rex").getHpxp() * dagannothRexKills))
+            .put("Magic pet points", totalPetPoints(player, "Magic", (int) Enemy.getEnemyByName("Dagannoth Rex").getCbxp() * dagannothRexKills) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Dagannoth Rex").getCbxp() * dagannothRexKills) / 2).build(), dagannothRexKills, true, true));
 
         Map<Integer, List<Requirement>> dagannothPrimeKillsAndReqs = combatKills(new Encounter("Dagannoth Prime"), player, 28, "Ranged", 0, false);
         int dagannothPrimeKills = dagannothPrimeKillsAndReqs.keySet().iterator().next();
         List<Requirement> dagannothPrimeReqs = dagannothPrimeKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing Dagannoth Prime", dagannothPrimeReqs, new HashMap(), ImmutableMap.builder().put("Dagannoth Prime", dagannothPrimeKills)
-            .put("Dagannoth Kings", dagannothPrimeKills).put("Boss kills", dagannothPrimeKills).put("rCombat", (int)Enemy.getEnemyByName("Dagannoth Prime").getCbxp() * dagannothPrimeKills)
-            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int)Enemy.getEnemyByName("Dagannoth Prime").getCbxp() * dagannothPrimeKills)/2)
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("Dagannoth Prime").getCbxp() * dagannothPrimeKills)/2)
-            .put("Constitution", (int)Enemy.getEnemyByName("Dagannoth Prime").getHpxp() * dagannothPrimeKills)
-            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int)Enemy.getEnemyByName("Dagannoth Prime").getHpxp() * dagannothPrimeKills)).build(), dagannothPrimeKills, true, true));
+            .put("Dagannoth Kings", dagannothPrimeKills).put("Boss kills", dagannothPrimeKills).put("rCombat", (int) Enemy.getEnemyByName("Dagannoth Prime").getCbxp() * dagannothPrimeKills)
+            .put("Ranged pet points", totalPetPoints(player, "Ranged", (int) Enemy.getEnemyByName("Dagannoth Prime").getCbxp() * dagannothPrimeKills) / 2)
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Dagannoth Prime").getCbxp() * dagannothPrimeKills) / 2)
+            .put("Constitution", (int) Enemy.getEnemyByName("Dagannoth Prime").getHpxp() * dagannothPrimeKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Dagannoth Prime").getHpxp() * dagannothPrimeKills)).build(), dagannothPrimeKills, true, true));
 
         Map<Integer, List<Requirement>> dagannothSupremeKillsAndReqs = combatKills(new Encounter("Dagannoth Supreme"), player, 28, "Melee", 0, false);
         int dagannothSupremeKills = dagannothSupremeKillsAndReqs.keySet().iterator().next();
         List<Requirement> dagannothSupremeReqs = dagannothSupremeKillsAndReqs.values().iterator().next();
         database.add(new Action("Killing Dagannoth Supreme", dagannothSupremeReqs, new HashMap(), ImmutableMap.builder().put("Dagannoth Supreme", dagannothSupremeKills)
             .put("Dagannoth Kings", dagannothSupremeKills).put("Boss kills", dagannothSupremeKills)
-            .put("mCombat", (int)Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills)
-            .put("Constitution", (int)Enemy.getEnemyByName("Dagannoth Supreme").getHpxp() * dagannothSupremeKills)
-            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int)Enemy.getEnemyByName("Dagannoth Supreme").getHpxp() * dagannothSupremeKills))
-            .put("Attack pet points", totalPetPoints(player, "Attack", (int)Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills))
-            .put("Strength pet points", totalPetPoints(player, "Strength", (int)Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills))
-            .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills)).build(),
+            .put("mCombat", (int) Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills)
+            .put("Constitution", (int) Enemy.getEnemyByName("Dagannoth Supreme").getHpxp() * dagannothSupremeKills)
+            .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Dagannoth Supreme").getHpxp() * dagannothSupremeKills))
+            .put("Attack pet points", totalPetPoints(player, "Attack", (int) Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills))
+            .put("Strength pet points", totalPetPoints(player, "Strength", (int) Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills))
+            .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Dagannoth Supreme").getCbxp() * dagannothSupremeKills)).build(),
             dagannothSupremeKills, true, true));
 
         Map<Integer, List<Requirement>> qbdKillsAndReqs = combatKills(new Encounter("Queen Black Dragon"), player, 28, "Melee", 0, false);
@@ -1406,12 +1502,12 @@ public class ActionDatabase {
         ArrayList<Requirement> qbdReqs = new ArrayList<>(qbdKillsAndReqs.values().iterator().next());
         qbdReqs.add(new Requirement("Summoning", 60));
         database.add(new Action("Killing the Queen Black Dragon", qbdReqs, new HashMap(),
-            ImmutableMap.builder().put("Queen Black Dragon", qbdKills).put("Boss kills", qbdKills).put("mCombat", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills)
-                .put("Constitution", (int)Enemy.getEnemyByName("Queen Black Dragon").getHpxp() * qbdKills)
-                .put("Constitution pet points", totalPetPoints(player, "Constitution", (int)Enemy.getEnemyByName("Queen Black Dragon").getHpxp() * qbdKills))
-                .put("Attack pet points", totalPetPoints(player, "Attack", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills)/3)
-                .put("Strength pet points", totalPetPoints(player, "Strength", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills)/3)
-                .put("Defence pet points", totalPetPoints(player, "Defence", (int)Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills)/3).build(), qbdKills, true, true));
+            ImmutableMap.builder().put("Queen Black Dragon", qbdKills).put("Boss kills", qbdKills).put("mCombat", (int) Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills)
+                .put("Constitution", (int) Enemy.getEnemyByName("Queen Black Dragon").getHpxp() * qbdKills)
+                .put("Constitution pet points", totalPetPoints(player, "Constitution", (int) Enemy.getEnemyByName("Queen Black Dragon").getHpxp() * qbdKills))
+                .put("Attack pet points", totalPetPoints(player, "Attack", (int) Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills) / 3)
+                .put("Strength pet points", totalPetPoints(player, "Strength", (int) Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills) / 3)
+                .put("Defence pet points", totalPetPoints(player, "Defence", (int) Enemy.getEnemyByName("Queen Black Dragon").getCbxp() * qbdKills) / 3).build(), qbdKills, true, true));
 
         Map<Integer, List<Requirement>> durzagKills = combatKills(new Encounter(Arrays.asList(Arrays.asList("Airut", "Airut", "Charger", "Charger"),
             Arrays.asList("Airut", "Airut", "Charger", "Charger"),
@@ -1422,7 +1518,7 @@ public class ActionDatabase {
             Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut", "Airut"),
             Arrays.asList("Tuz", "Krar", "Beastmaster Durzag")), 10), player, 28, "Melee", 0, false);
         database.add(new Action("Killing Beastmaster Durzag (10 man)", durzagKills.values().iterator().next(), new HashMap(), ImmutableMap.of("Beastmaster Durzag", durzagKills.keySet().iterator().next(),
-            "Boss kills", durzagKills.keySet().iterator().next(), "Liberation of Mazcab", durzagKills.keySet().iterator().next(), "Teci", durzagKills.keySet().iterator().next()*1000),
+            "Boss kills", durzagKills.keySet().iterator().next(), "Liberation of Mazcab", durzagKills.keySet().iterator().next(), "Teci", durzagKills.keySet().iterator().next() * 1000),
             durzagKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> raxKills = combatKills(new Encounter(Arrays.asList(Collections.singletonList("Araxxor"), Collections.singletonList("Araxxi"))), player, 28, "Melee", 0, false);
@@ -1492,7 +1588,7 @@ public class ActionDatabase {
             Arrays.asList("Ket-Zek", "Yt-MejKot", "Tok-Xil", "Tz-Kek", "Tz-Kek"), Arrays.asList("Tz-Kek", "Tz-Kek", "Tz-Kek", "Tz-Kek"),
             Arrays.asList("Ket-Zek", "Yt-MejKot", "Tok-Xil", "Tok-Xil"),
             Arrays.asList("Ket-Zek", "Yt-MejKot", "Yt-MejKot"), Arrays.asList("Ket-Zek", "Ket-Zek"),
-        Arrays.asList("TzTok-Jad", "Yt-HurKot", "Yt-HurKot", "Yt-HurKot", "Yt-HurKot")), true), player, 28, "Magic", 0, false);
+            Arrays.asList("TzTok-Jad", "Yt-HurKot", "Yt-HurKot", "Yt-HurKot", "Yt-HurKot")), true), player, 28, "Magic", 0, false);
         database.add(new Action("Completing the Fight Caves", jadKills.values().iterator().next(), new HashMap(), ImmutableMap.of("TzTok-Jad", jadKills.keySet().iterator().next(),
             "Boss kills", jadKills.keySet().iterator().next()), jadKills.keySet().iterator().next(), true, true));
 
@@ -1556,54 +1652,54 @@ public class ActionDatabase {
         ArrayList<Requirement> twinFuriesReqs = new ArrayList(twinFuriesKills.values().iterator().next());
         twinFuriesReqs.add(new Requirement("Ranged", 80));
         database.add(new Action("Killing the Twin Furies", twinFuriesReqs, new HashMap(), ImmutableMap.of("Twin Furies", twinFuriesKills.keySet().iterator().next(),
-            "Boss kills", twinFuriesKills.keySet().iterator().next(), "Zaros reputation", 5*twinFuriesKills.keySet().iterator().next()),
+            "Boss kills", twinFuriesKills.keySet().iterator().next(), "Zaros reputation", 5 * twinFuriesKills.keySet().iterator().next()),
             twinFuriesKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> twinFuriesCMKills = combatKills(new Encounter("Twin Furies (CM)"), player, 28, "Melee", 0, false);
         ArrayList<Requirement> twinFuriesCMReqs = new ArrayList(twinFuriesKills.values().iterator().next());
         twinFuriesReqs.add(new Requirement("Ranged", 80));
         database.add(new Action("Killing the Twin Furies (CM)", twinFuriesCMReqs, new HashMap(), ImmutableMap.of("Twin Furies (CM)", twinFuriesCMKills.keySet().iterator().next(),
-            "Boss kills", twinFuriesCMKills.keySet().iterator().next(), "Zaros reputation", 15*twinFuriesCMKills.keySet().iterator().next()),
+            "Boss kills", twinFuriesCMKills.keySet().iterator().next(), "Zaros reputation", 15 * twinFuriesCMKills.keySet().iterator().next()),
             twinFuriesCMKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> vindictaKills = combatKills(new Encounter("Vindicta"), player, 28, "Melee", 0, false);
         ArrayList<Requirement> vindictaReqs = new ArrayList(vindictaKills.values().iterator().next());
         vindictaReqs.add(new Requirement("Attack", 80));
         database.add(new Action("Killing Vindicta", vindictaReqs, new HashMap(), ImmutableMap.of("Vindicta", vindictaKills.keySet().iterator().next(),
-            "Boss kills", vindictaKills.keySet().iterator().next(), "Seren reputation", 5*vindictaKills.keySet().iterator().next()),
+            "Boss kills", vindictaKills.keySet().iterator().next(), "Seren reputation", 5 * vindictaKills.keySet().iterator().next()),
             vindictaKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> vindictaHMKills = combatKills(new Encounter("Vindicta (hard)"), player, 28, "Melee", 0, false);
         ArrayList<Requirement> vindictaHMReqs = new ArrayList(vindictaHMKills.values().iterator().next());
         vindictaHMReqs.add(new Requirement("Attack", 80));
         database.add(new Action("Killing Vindicta in hard mode", vindictaHMReqs, new HashMap(), ImmutableMap.of("Vindicta (hard)", vindictaHMKills.keySet().iterator().next(),
-            "Boss kills", vindictaHMKills.keySet().iterator().next(), "Seren reputation", 15*vindictaHMKills.keySet().iterator().next()),
+            "Boss kills", vindictaHMKills.keySet().iterator().next(), "Seren reputation", 15 * vindictaHMKills.keySet().iterator().next()),
             vindictaHMKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> helwyrKills = combatKills(new Encounter("Helwyr"), player, 28, "Magic", 0, false);
         ArrayList<Requirement> helwyrReqs = new ArrayList(helwyrKills.values().iterator().next());
         helwyrReqs.add(new Requirement("Magic", 80));
         database.add(new Action("Killing Helwyr", helwyrReqs, new HashMap(), ImmutableMap.of("Helwyr", helwyrKills.keySet().iterator().next(),
-            "Boss kills", helwyrKills.keySet().iterator().next(), "Sliske reputation", 5*helwyrKills.keySet().iterator().next()), helwyrKills.keySet().iterator().next(), true, true));
+            "Boss kills", helwyrKills.keySet().iterator().next(), "Sliske reputation", 5 * helwyrKills.keySet().iterator().next()), helwyrKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> helwyrHMKills = combatKills(new Encounter("Helwyr (hard)"), player, 28, "Magic", 0, false);
         ArrayList<Requirement> helwyrHMReqs = new ArrayList(helwyrHMKills.values().iterator().next());
         helwyrHMReqs.add(new Requirement("Magic", 80));
         database.add(new Action("Killing Helwyr in hard mode", helwyrHMReqs, new HashMap(), ImmutableMap.of("Helwyr (hard)", helwyrHMKills.keySet().iterator().next(),
-            "Boss kills", helwyrHMKills.keySet().iterator().next(), "Sliske reputation", 15*helwyrHMKills.keySet().iterator().next()),
+            "Boss kills", helwyrHMKills.keySet().iterator().next(), "Sliske reputation", 15 * helwyrHMKills.keySet().iterator().next()),
             helwyrHMKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> gregKills = combatKills(new Encounter("Gregorovic"), player, 28, "Melee", 0, false);
         ArrayList<Requirement> gregReqs = new ArrayList(gregKills.values().iterator().next());
         gregReqs.add(new Requirement("Prayer", 80));
         database.add(new Action("Killing Gregorovic", gregReqs, new HashMap(), ImmutableMap.of("Gregorovic", gregKills.keySet().iterator().next(),
-            "Boss kills", gregKills.keySet().iterator().next(), "Zamorak reputation", 5*gregKills.keySet().iterator().next()), gregKills.keySet().iterator().next(), true, true));
+            "Boss kills", gregKills.keySet().iterator().next(), "Zamorak reputation", 5 * gregKills.keySet().iterator().next()), gregKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> gregCMKills = combatKills(new Encounter("Gregorovic (CM)"), player, 28, "Melee", 0, false);
         ArrayList<Requirement> gregCMReqs = new ArrayList(gregCMKills.values().iterator().next());
         gregCMReqs.add(new Requirement("Prayer", 80));
         database.add(new Action("Killing Gregorovic (CM)", gregCMReqs, new HashMap(), ImmutableMap.of("Gregorovic (hard)", gregCMKills.keySet().iterator().next(),
-            "Boss kills", gregCMKills.keySet().iterator().next(), "Zamorak reputation", 15*gregCMKills.keySet().iterator().next()),
+            "Boss kills", gregCMKills.keySet().iterator().next(), "Zamorak reputation", 15 * gregCMKills.keySet().iterator().next()),
             gregCMKills.keySet().iterator().next(), true, true));
 
         Map<Integer, List<Requirement>> kreeKills = combatKills(new Encounter("Kree'arra"), player, 28, "Ranged", 0, false);
@@ -1943,13 +2039,7 @@ public class ActionDatabase {
         slayerFromReaper /= reaperBosses.size();
 
         database.add(new Action("Soul Reaper", Collections.singletonList(new Requirement("Combat", 50)), new HashMap(),
-            ImmutableMap.of("Reaper point", (int)(Math.floor(reaperPointsPerHour)), "Slayer", (int)(Math.floor(slayerFromReaper))), 2, true, true));
-
-        database.add(new Action("Completing city quests", Collections.singletonList(new Requirement("The Jack of Spades", 1)), new HashMap(),
-            ImmutableMap.of("City quest", 4, "Menaphos reputation", 9400), 4, true, true));
-
-        database.add(new Action("Completing easy clue scrolls", new ArrayList(), ImmutableMap.of("Sealed clue scroll (easy)", 6), ImmutableMap.of("Clue scrolls", 6,
-            "Treasure Trail reward points", 6), 6, true, true));
+            ImmutableMap.of("Reaper point", (int) (Math.floor(reaperPointsPerHour)), "Slayer", (int) (Math.floor(slayerFromReaper))), 2, true, true));
     }
 
     public List<Action> getDatabase() {
@@ -2254,7 +2344,8 @@ public class ActionDatabase {
     public static ActionDatabase getActionDatabase(Player player) {
         if (actionDatabase == null) {
             actionDatabase = new ActionDatabase();
-            actionDatabase.addActionsToDatabase(player);
+            actionDatabase.addSkillingActionsToDatabase(player);
+            actionDatabase.addCombatActionsToDatabase(player);
         }
         return actionDatabase;
     }

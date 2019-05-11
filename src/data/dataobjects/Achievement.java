@@ -6,10 +6,7 @@ import data.databases.WeaponDatabase;
 import logic.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -85,41 +82,50 @@ public class Achievement implements Serializable {
         }
     }
 
-    public GoalResults getTimeForRequirements(Player player) {
-        double totalTimeForAllReqs = 0;
-        final Map<String, Double> initialXP = new HashMap<>(player.getXp());
-        Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
+    private List<Requirement> getTrueRequirements(Player player) {
+        Map<String, Integer> trueReqsMap = new HashMap<>();
+        for (Requirement r : reqs) {
+            if (Achievement.getAchievementByName(r.getQualifier()) != null) {
+                List<Requirement> subReqs = Achievement.getAchievementByName(r.getQualifier()).getTrueRequirements(player);
+                combineRequirements(trueReqsMap, subReqs);
+            } else {
+                combineRequirements(trueReqsMap, Collections.singletonList(r));
+            }
+        }
+        combineRequirements(trueReqsMap, getRequirementsFromEncounters(player));
         List<Requirement> trueReqs = new ArrayList<>();
-        if (this.time > 0) {
-            totalActionsWithTimesForAllReqs.put(this.name, this.time);
+        for (Entry<String, Integer> req : trueReqsMap.entrySet()) {
+            trueReqs.add(new Requirement(req.getKey(), req.getValue()));
         }
-        for (Requirement r : reqs) {
-            trueReqs.add(r);
-            GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
-            for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
-                if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
-                    if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) == null) {
-                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
-                    }
-                    else  {
-                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()) + actionWithTime.getValue());
-                    }
-                }
-                else {
-                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
-                }
+        if (time >= 0) {
+            trueReqs.add(new Requirement(name, 1));
+        }
+        return trueReqs;
+    }
+
+    private void combineRequirements(Map<String, Integer> reqsMap, List<Requirement> newReqs) {
+        for (Requirement requirement : newReqs) {
+            if (Weapon.getWeaponByName(requirement.getQualifier()) != null || Armour.getArmourByName(requirement.getQualifier()) != null) {
+                reqsMap.put(requirement.getQualifier(), 1);
+            } else if (reqsMap.containsKey(requirement.getQualifier()) && ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                reqsMap.put(requirement.getQualifier(), reqsMap.get(requirement.getQualifier()) + requirement.getQuantifier());
+            } else if (reqsMap.containsKey(requirement.getQualifier())) {
+                reqsMap.put(requirement.getQualifier(), Math.max(reqsMap.get(requirement.getQualifier()),requirement.getQuantifier()));
+            } else {
+                reqsMap.put(requirement.getQualifier(), requirement.getQuantifier());
             }
         }
-        for (Requirement r : reqs) {
-            if (Player.ALL_SKILLS.contains(r.getQualifier())) {
-                player.getXp().put(r.getQualifier(), player.getXp().get(r.getQualifier()) + player.getXpToLevel(r.getQualifier(), r.getQuantifier()));
-            }
-        }
-        List<Requirement> encounterRequirements = new ArrayList<>();
+    }
+
+    private List<Requirement> getRequirementsFromEncounters(Player player) {
+        List<Requirement> allEncounterRequirements = new ArrayList<>();
+        Map<String, Integer> allEncounterReqsMap = new HashMap<>();
+        final Map<String, Double> initialXP = new HashMap<>(player.getXp());
         List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
         List<Armour> initialArmours = new ArrayList<>(player.getArmour());
-        double timeOnFights = 0;
+        int ticksOnFights = 0;
         for (Encounter e : encounters) {
+            List<Requirement> singleEncounterRequirements = new ArrayList<>();
             CombatResults meleeCombatResults;
             CombatResults rangedCombatResults;
             CombatResults magicCombatResults;
@@ -153,76 +159,76 @@ public class Achievement implements Serializable {
                         loadout = meleeCombatResults.getLoadoutUsed();
                         player.setXp(loadout.getXp());
                         if (player.getXp().get("Attack") > initialXP.get("Attack")) {
-                            encounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
+                            singleEncounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
                         }
                         if (player.getXp().get("Strength") > initialXP.get("Strength")) {
-                            encounterRequirements.add(new Requirement("Strength", player.getLevel("Strength")));
+                            singleEncounterRequirements.add(new Requirement("Strength", player.getLevel("Strength")));
                         }
                     }
                     else if (rangedCombatResults.getHpLost() < 1000000) {
                         loadout = rangedCombatResults.getLoadoutUsed();
                         player.setXp(loadout.getXp());
                         if (player.getXp().get("Ranged") > initialXP.get("Ranged")) {
-                            encounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
+                            singleEncounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
                         }
                     }
                     else if (magicCombatResults.getHpLost() < 1000000) {
                         loadout = magicCombatResults.getLoadoutUsed();
                         player.setXp(loadout.getXp());
                         if (player.getXp().get("Magic") > initialXP.get("Magic")) {
-                            encounterRequirements.add(new Requirement("Magic", player.getLevel("Magic")));
+                            singleEncounterRequirements.add(new Requirement("Magic", player.getLevel("Magic")));
                         }
                     }
                     if (player.getXp().get("Defence") > initialXP.get("Defence")) {
-                        encounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
+                        singleEncounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
                     }
                     if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
-                        encounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
+                        singleEncounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
                     }
                     if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
-                        encounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
+                        singleEncounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
                     }
                     if (player.getXp().get("Herblore") > initialXP.get("Herblore")) {
-                        encounterRequirements.add(new Requirement("Herblore", player.getLevel("Herblore")));
+                        singleEncounterRequirements.add(new Requirement("Herblore", player.getLevel("Herblore")));
                     }
                     if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getHead().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getHead().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getTorso()) && !loadout.getTorso().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getTorso().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getTorso().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getLegs()) && !loadout.getLegs().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getLegs().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getLegs().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getHands()) && !loadout.getHands().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getHands().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getHands().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getFeet()) && !loadout.getFeet().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getFeet().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getFeet().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getRing()) && !loadout.getRing().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getRing().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getRing().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getNeck()) && !loadout.getNeck().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getNeck().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getNeck().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getCape()) && !loadout.getCape().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getCape().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getCape().getName(), 1));
                     }
                     if (!initialWeapons.contains(loadout.getMainWep())) {
-                        encounterRequirements.add(new Requirement(loadout.getMainWep().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getMainWep().getName(), 1));
                     }
                     if (!initialWeapons.contains(loadout.getOffWep()) && !loadout.getOffWep().equals(Weapon.getWeaponByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getOffWep().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getOffWep().getName(), 1));
                     }
                     if (!initialArmours.contains(loadout.getShield()) && !loadout.getShield().equals(Armour.getArmourByName("None"))) {
-                        encounterRequirements.add(new Requirement(loadout.getShield().getName(), 1));
+                        singleEncounterRequirements.add(new Requirement(loadout.getShield().getName(), 1));
                     }
                     break;
                 }
             }
             if (meleeCombatResults.getHpLost() > 1000000 && rangedCombatResults.getHpLost() > 1000000 && magicCombatResults.getHpLost() > 1000000) {
-                totalTimeForAllReqs += 2147000.0;
+                singleEncounterRequirements.add(new Requirement("Fight is impossible", 2147000));
             }
             else {
                 double minEncounterTime = 9999999;
@@ -235,38 +241,51 @@ public class Achievement implements Serializable {
                 if (magicCombatResults.getHpLost() <= 1000000) {
                     minEncounterTime = Math.min(minEncounterTime, magicCombatResults.getTicks());
                 }
-                timeOnFights += minEncounterTime/6000.0;
+                ticksOnFights += minEncounterTime;
+            }
+            combineRequirements(allEncounterReqsMap, singleEncounterRequirements);
+        }
+        for (Entry<String, Integer> req : allEncounterReqsMap.entrySet()) {
+            if (Weapon.getWeaponByName(req.getKey()) != null || Armour.getArmourByName(req.getKey())!= null) {
+                allEncounterRequirements.add(new Requirement(req.getKey(), 1));
+            } else {
+                allEncounterRequirements.add(new Requirement(req.getKey(), req.getValue()));
             }
         }
-        if (timeOnFights > 0) {
-            totalActionsWithTimesForAllReqs.put("Time spent on scripted fights", timeOnFights);
+        if (ticksOnFights > 0) {
+            allEncounterRequirements.add(new Requirement("Time spent on scripted fights", ticksOnFights));
         }
         player.setXp(initialXP);
         player.setWeapons(initialWeapons);
         player.setArmour(initialArmours);
-        for (Requirement r : encounterRequirements) {
-            if (Weapon.getWeaponByName(r.getQualifier()) == null && Armour.getArmourByName(r.getQualifier()) == null && !Player.ALL_SKILLS.contains(r.getQualifier())) {
-                trueReqs.add(r);
-            }
-            else if (Player.ALL_SKILLS.contains(r.getQualifier())) {
-                if (trueReqs.stream().noneMatch(req -> req.getQualifier().equals(r.getQualifier()))) {
-                    trueReqs.add(r);
-                } else {
-                    Requirement oldReq = trueReqs.stream().filter(req -> req.getQualifier().equals(r.getQualifier())).collect(Collectors.toList()).get(0);
-                    Requirement newReq = new Requirement(r.getQualifier(), Math.max(oldReq.getQuantifier(), r.getQuantifier()));
-                    trueReqs.add(newReq);
-                    trueReqs.remove(oldReq);
+        return allEncounterRequirements;
+    }
+
+    public GoalResults getTimeForRequirements(Player player) {
+        double totalTimeForAllReqs = 0;
+        Map<String, Double> totalActionsWithTimesForAllReqs = new HashMap<>();
+        List<Requirement> trueReqs = getTrueRequirements(player);
+        int totalCoinReq = 0;
+        for (Requirement r : trueReqs) {
+            if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null) {
+                totalCoinReq += ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player)*r.getQuantifier();
+            } else {
+                GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
+                for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
+                    if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
+                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
+                    } else {
+                        totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
+                    }
                 }
             }
-            else if (trueReqs.stream().noneMatch(req -> req.getQualifier().equals(r.getQualifier()))) {
-                trueReqs.add(r);
-            }
-            GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
+        }
+        if (totalCoinReq > 0) {
+            GoalResults resultsForOneRequirement = new Requirement("Coins", totalCoinReq).timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                 if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
                     totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
-                }
-                else {
+                } else {
                     totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
                 }
             }

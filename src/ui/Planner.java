@@ -58,7 +58,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.8.1b";
+    private static final String CURRENT_VERSION = "v0.8.2b";
 
     public static void main(String args[]) {
         launch(args);

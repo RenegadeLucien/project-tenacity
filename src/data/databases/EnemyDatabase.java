@@ -126,6 +126,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Redeyes", 1300, 56.1, 18.5, 78, 0, 104, 19, 0, 26, 4, 195, 0, 395, 395, 26, "Thrown", 90, 45, 65, 55, false));
         enemies.add(new Enemy("Strongbones", 1300, 56.1, 18.5, 78, 0, 104, 19, 0, 26, 4, 195, 0, 395, 395, 26, "Thrown", 90, 45, 65, 55, false));
         enemies.add(new Enemy("Big frog", 1300, 56.1, 18.5, 0, 104, 0, 0, 26, 0, 4, 0, 395, 0, 395, 26, "Slash", 90, 65, 55, 45, false));
+        enemies.add(new Enemy("Cockroach soldier", 1300, 56.1, 18.5, 104, 0, 0, 26, 0, 0, 4, 395, 0, 0, 395, 26, "Earth", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Mounted terrorbird gnome", 1320, 63, 20.7, 264, 0, 0, 33, 0, 0, 4, 502, 0, 0, 502, 33, "Air", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Golem Guard", 1350, 58.5, 19.3, 108, 0, 0, 27, 0, 0, 4, 409, 0, 0, 409, 27, "Air", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Customs Officer", 1350, 58.5, 19.3, 108, 0, 0, 27, 0, 0, 4, 409, 0, 0, 409, 27, "Fire", 90, 55, 45, 65, false));
@@ -886,6 +887,6 @@ public class EnemyDatabase {
     }
 
     private Enemy shatteredWorldsGenerator(int world) {
-        return new Enemy(String.format("Shattered Worlds %d", world), 100*world, 6*world, 2*world, 10*world, 10*world, 10*world, 1, 1, 1, 4, 10*world, 10*world, 10*world, 10*world, 1, "Everything", 90, 90, 90, 90, false);
+        return new Enemy(String.format("Shattered Worlds %d", world), 100*world, 4.5*world, 1.5*world, 10*world, 10*world, 10*world, 1, 1, 1, 4, 20*world, 20*world, 20*world, 20*world, 1, "Everything", 90, 90, 90, 90, false);
     }
 }

@@ -361,7 +361,7 @@ public class Player implements Serializable {
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
         for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-           // System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours");
+            //System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours");
         }
         System.out.println("The total bank value of this account is " + getTotalBankValue());
         System.out.println(String.format("%d total combat encounters were calculated", totalEncounters));
@@ -382,7 +382,7 @@ public class Player implements Serializable {
                     }
                 }
                 else if (parent) {
-                    if (action.getKey().equals("")) {
+                    if (action.getKey().equals("") || action.getKey().equals("Time spent on scripted fights")) {
                         actionsToRemove.add(action.getKey());
                     }
                     else {
@@ -404,6 +404,11 @@ public class Player implements Serializable {
             }
             for (String action : actionsToRemove) {
                 calcedActions.remove(action);
+            }
+        }
+        for (Requirement requirement : task.getReqs()) {
+            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                updateBank(requirement.getQualifier(), requirement.getQuantifier());
             }
         }
         for (Encounter e : task.getEncounters()) {
@@ -729,14 +734,34 @@ public class Player implements Serializable {
 
     private void performAction(Action action, double time) {
         int steps = (int)Math.ceil(time*action.getActionsPerHour());
+        for (Requirement requirement : action.getReqs()) {
+            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                updateBank(requirement.getQualifier(), requirement.getQuantifier());
+                if (bank.containsKey(requirement.getQualifier())) {
+                    bank.put(requirement.getQualifier(), bank.get(requirement.getQualifier()) + requirement.getQuantifier());
+                }
+                else {
+                    bank.put(requirement.getQualifier(), requirement.getQuantifier());
+                }
+            }
+        }
         for (Entry<String, Integer> input : action.getInputs().entrySet()) {
             updateBank(input.getKey(), input.getValue()*steps/action.getActionsPerHour());
         }
         for (Entry<String, Integer> output : action.getOutputs().entrySet()) {
-            /*if (output.getKey().equals("mCombat") || output.getKey().equals("rCombat") || output.getKey().equals("aCombat")) {
-                xp.put(mainTarget, xp.get(mainTarget) + output.getValue()*steps/action.getActionsPerHour());
-            }*/
-            if (ALL_SKILLS.contains(output.getKey())) {
+            if (output.getKey().equals("aCombat")) {
+                double diff = xp.get("Magic") - xp.get("Defence");
+                int totalXp = output.getValue()*steps/action.getActionsPerHour();
+                if (diff > totalXp) {
+                    xp.put("Defence", xp.get("Defence") + totalXp);
+                } else if (diff < -1*output.getValue()*steps/action.getActionsPerHour()) {
+                    xp.put("Magic", xp.get("Defence") + totalXp);
+                } else {
+                    xp.put("Defence", xp.get("Defence") + (totalXp + diff)/2);
+                    xp.put("Magic", xp.get("Magic") + (totalXp - diff)/2);
+                }
+            }
+            else if (ALL_SKILLS.contains(output.getKey())) {
                 xp.put(output.getKey(), xp.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
             }
             else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null && output.getValue()*steps/action.getActionsPerHour() > 0) {
@@ -757,6 +782,28 @@ public class Player implements Serializable {
                 bank.put(item, (bank.get(item) - quantity));
             } else if (bank.containsKey("Coins") && bank.get("Coins") >= (quantity-bank.get(item))
                 *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                bank.put("Coins", bank.get("Coins")-(quantity-bank.get(item))
+                    *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+                bank.remove(item);
+            } else {
+                List<String> entriesToRemove = new ArrayList<>();
+                for (Entry<String, Integer> bankEntry : bank.entrySet()) {
+                    if (!bankEntry.getKey().equals("Coins")) {
+                        if (bank.get("Coins") != null) {
+                            bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
+                        }
+                        else {
+                            bank.put("Coins", ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
+                        }
+                        entriesToRemove.add(bankEntry.getKey());
+                    }
+                    if (bank.get("Coins") >= (quantity-bank.get(item))*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                        break;
+                    }
+                }
+                for (String removal : entriesToRemove) {
+                    bank.remove(removal);
+                }
                 bank.put("Coins", bank.get("Coins")-(quantity-bank.get(item))
                     *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
                 bank.remove(item);

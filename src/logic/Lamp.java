@@ -10,6 +10,12 @@ public class Lamp implements Serializable {
         1422, 1485, 1546, 1616, 1684, 1757, 1835, 1911, 2004, 2108, 2171, 2269, 2379, 2470, 2592, 2693, 2809, 2946, 3082,
         3213, 3339, 3495, 3646, 3792, 3980, 4166, 4347, 4521, 4762, 4918, 5033, 5375, 5592, 5922, 6121, 6451, 6614, 6928,
         7236, 7532, 8064, 8347, 8602, 0};
+    private static final Integer[] GUTHIXIAN_CACHE_EXP_VALUES = {-1, 1650, 1700, 1750, 1800, 1800, 1850, 1900, 1950, 2000, 2500,
+        2550, 2600, 2650, 2700, 2750, 2800, 2850, 2900, 2900, 3350, 3400, 3450, 3500, 3550, 3650, 3700, 3750, 3800, 3850, 4050,
+        4200, 4300, 4500, 4600, 4750, 4850, 5000, 5150, 5250, 7100, 7200, 7350, 7500, 7650, 15600, 15800, 16100, 16300, 16600, 20800,
+        21300, 21900, 22500, 23000, 23600, 24100, 24600, 25100, 25600, 27800, 28500, 29100, 29800, 30500, 31100, 31700, 32300, 32900,
+        33400, 35800, 36800, 37700, 38600, 39500, 40400, 41200, 42000, 42800, 43500, 46100, 47000, 47700, 48200, 48400, 50900, 51900,
+        52700, 53300, 53600, 56600, 57900, 58900, 59500, 59900, 67900, 70000, 71600, 72800, 0};
 
     private List<String> choices;
     private int xp;
@@ -51,8 +57,15 @@ public class Lamp implements Serializable {
                     else if (xp == -9) {
                         xpReward = (int) Math.floor((Math.pow(player.getLevel(choice), 3) - 2 * Math.pow(player.getLevel(choice), 2) + 100 * player.getLevel(choice)) / 20);
                     }
-                    //-10+: flat level multiplier (ex. goulash, peng points)
-                    else if (xp <= -10) {
+                    //-11: Guthixian Caches
+                    else if (xp == -11) {
+                        xpReward = GUTHIXIAN_CACHE_EXP_VALUES[player.getLevel(choice)];
+                    }
+                    //-10/-12+: flat level multiplier (ex. goulash, peng points)
+                    else if (xp == -10) {
+                        xpReward = player.getLevel(choice) * -1 * xp;
+                    }
+                    else if (xp <= -12) {
                         xpReward = player.getLevel(choice) * -1 * xp;
                     }
                     Reward choiceReward = new Reward(choice, xpReward);

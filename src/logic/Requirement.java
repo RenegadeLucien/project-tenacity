@@ -66,12 +66,9 @@ public class Requirement implements Serializable {
             goalResults = player.efficientGoalCompletion("Coins", Math.max(0, ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier)-(int)Math.min(Integer.MAX_VALUE, player.getTotalBankValue()));
         } else if (Achievement.getAchievementByName(qualifier) != null) {
             Achievement achievement = Achievement.getAchievementByName(qualifier);
-            if (player.getAchievementResults().get(achievement) != null) {
-                goalResults = player.getAchievementResults().get(achievement);
-            }
-            else {
-                goalResults = new GoalResults(1000000000.0, ImmutableMap.of("Impossible", 1000000000.0));
-            }
+            goalResults = new GoalResults(achievement.getTime(), ImmutableMap.of(achievement.getName(), achievement.getTime()));
+        } else if (qualifier.equals("Time spent on scripted fights")) {
+            goalResults = new GoalResults(quantifier/6000.0, ImmutableMap.of("Time spent on scripted fights", quantifier/6000.0));
         } else if (qualifier.equals("Flags unfurled")) {
             goalResults = new Requirement("Master Quester", 1).timeAndActionsToMeetRequirement(player);
             for (String skill : Player.ALL_SKILLS) {
@@ -97,11 +94,11 @@ public class Requirement implements Serializable {
             }
         }
         time = goalResults.getTotalTime();
-        addItemsToMap(actions, goalResults.getActionsWithTimes());
+        addItemsToRequirementsMap(actions, goalResults.getActionsWithTimes());
         return new GoalResults(time, actions);
     }
 
-    public void addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
+    public void addItemsToRequirementsMap(Map<String, Double> a, Map<String, Double> b) {
         for (String item : b.keySet()) {
             if (a.containsKey(item) && ItemDatabase.getItemDatabase().getItems().get(item) != null) {
                 a.put(item, a.get(item) + b.get(item));
