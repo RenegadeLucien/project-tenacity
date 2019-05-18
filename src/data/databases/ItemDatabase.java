@@ -519,6 +519,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Dragonstone necklace", 18375));
         itemsList.add(new Item("Dragonstone ring", 17625));
         itemsList.add(new Item("Dreadfowl pouch", 624));
+        itemsList.add(new Item("Dreadfowl strike scroll", 60));
         itemsList.add(new Item("Druidic mage bottom 0", 5000));
         itemsList.add(new Item("Druidic mage hood 0", 2000));
         itemsList.add(new Item("Druidic mage top 0", 6000));
@@ -775,8 +776,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Hexhunter bow", 1250000));
         itemsList.add(new Item("Holy mould", 5));
         itemsList.add(new Item("Holy symbol", 300));
+        itemsList.add(new Item("Honey badger pouch", 2524));
         itemsList.add(new Item("Honeycomb", 5));
         itemsList.add(new Item("Hood of subjugation", 14000));
+        itemsList.add(new Item("Howl scroll", 59));
         itemsList.add(new Item("Huge plated steel salvage", 2000));
         itemsList.add(new Item("Huge spiky iron salvage", 542));
         itemsList.add(new Item("Hunters' crossbow", 1300));
@@ -1335,6 +1338,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Rune sword", 20800));
         itemsList.add(new Item("Rune warhammer", 41500));
         itemsList.add(new Item("Runite bolts", 300));
+        itemsList.add(new Item("Runite stone spirit", 209));
         itemsList.add(new Item("Sacred oil (1)", 60));
         itemsList.add(new Item("Sagaie", 400));
         itemsList.add(new Item("Sailfish soup", 1200));
@@ -1458,6 +1462,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Spirit larupia pouch", 4299));
         itemsList.add(new Item("Spirit mosquito pouch", 449));
         itemsList.add(new Item("Spirit pengatrice pouch", 2624));
+        itemsList.add(new Item("Spirit saratrice pouch", 2624));
         itemsList.add(new Item("Spirit scorpion pouch", 1849));
         itemsList.add(new Item("Spirit shards", 25));
         itemsList.add(new Item("Spirit spider pouch", 624));
@@ -1652,6 +1657,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Unlit torch", 4));
         itemsList.add(new Item("Unpowered orb", 100));
         itemsList.add(new Item("Unpowered symbol", 200));
+        itemsList.add(new Item("Vampyre bat pouch", 2449));
         itemsList.add(new Item("Vampyre dust", 2));
         itemsList.add(new Item("Vanilla cream cheese", 4));
         itemsList.add(new Item("Veg ball", 2));

@@ -107,6 +107,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Grizzly bear cub", 1050, 46.5, 15.3, 84, 0, 0, 21, 0, 0, 4, 329, 0, 0, 329, 21, "Air", 90, 55, 45, 65, false));
         enemies.add(new Enemy("White wolf", 1100, 48.9, 16.1, 88, 0, 0, 22, 0, 0, 4, 341, 0, 0, 341, 22, "Water", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Mosschin", 1100, 48.9, 16.1, 66, 0, 88, 16, 0, 22, 4, 165, 0, 341, 341, 22, "Thrown", 90, 45, 65, 55, false));
+        enemies.add(new Enemy("Cockroach worker", 1100, 48.9, 16.1, 88, 0, 0, 22, 0, 0, 4, 341, 0, 0, 341, 22, "Earth", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Outlaw", 1150, 50.4, 16.6, 92, 0, 0, 23, 0, 0, 4, 354, 0, 0, 354, 23, "Fire", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Grizzly bear", 1150, 50.4, 16.6, 92, 0, 0, 23, 0, 0, 4, 354, 0, 0, 354, 23, "Water", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Black unicorn", 1200, 51.9, 17.1, 0, 0, 96, 0, 0, 24, 4, 0, 0, 368, 368, 24, "Arrows", 90, 45, 65, 55, false));
@@ -331,6 +332,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Ulfric", 3500, 124.6, 41.1, 210, 0, 0, 35, 0, 0, 6, 536, 0, 0, 536, 35, "Nothing", 0, 40, 40, 40, false));
         enemies.add(new Enemy("Brine rat", 3500, 124.6, 41.1, 140, 0, 0, 35, 0, 0, 4, 536, 0, 0, 536, 35, "Fire", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Sea Snake Hatchling", 3500, 132, 43.5, 0, 225, 0, 0, 45, 0, 5, 0, 732, 0, 732, 45, "Slash", 90, 65, 55, 45, false));
+        enemies.add(new Enemy("Rock lobster", 3600, 486, 160.3, 144, 0, 0, 72, 0, 0, 2, 1566, 0, 0, 1566, 72, "Water", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Pit ogre", 3650, 0, 0, 300, 0, 0, 50, 0, 0, 6, 850, 0, 0, 850, 50, "Air", 90, 55, 45, 65, true));
         enemies.add(new Enemy("Ice giant", 3700, 136.3, 44.9, 185, 0, 0, 37, 0, 0, 5, 571, 0, 0, 571, 37, "Fire", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Lava monster", 3700, 536.7, 177.1, 222, 0, 296, 55, 0, 74, 4, 555, 0, 1650, 1650, 74, "Bolts", 90, 45, 65, 55, false));

@@ -43,6 +43,7 @@ public class Player implements Serializable {
 
     private List<Requirement> currentTargets = new ArrayList<>();
     private List<QualifierAction> lockedActions = new ArrayList<>();
+    private double actionMinimum = 1000000000.0;
 
     private Map<Requirement, GoalResults> previousEfficiencyResults = new HashMap<>();
     private Map<Achievement, GoalResults> achievementResults = new HashMap<>();
@@ -342,7 +343,6 @@ public class Player implements Serializable {
                     qualities.put(achievement.getName(), 1);
                 }
                 else {
-                    StoredCombatCalcs.getCalculatedCombats().clear();
                     System.out.print(achievement.getName() + "\t");
                     long taskTime = System.nanoTime();
                     int currentEncounters = totalEncounters;
@@ -350,7 +350,7 @@ public class Player implements Serializable {
                     achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
                     achievementResults.put(achievement, actionsAndTime);
                     if (actionsAndTime.getTotalTime() > 100000) {
-                        incompleteAchievements++;
+                        incompleteAchievements++; //2,934 total as of v0.8.3b
                     }
                     System.out.print(totalEncounters - currentEncounters + "\t");
                     System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
@@ -361,7 +361,8 @@ public class Player implements Serializable {
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
         for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-            //System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours");
+        //    System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours: "
+        //        + entry.getKey().getQuantifier()/entry.getValue().getTotalTime());
         }
         System.out.println("The total bank value of this account is " + getTotalBankValue());
         System.out.println(String.format("%d total combat encounters were calculated", totalEncounters));
@@ -488,6 +489,9 @@ public class Player implements Serializable {
         if (!qualifier.equals("Coins") && currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
             return new GoalResults(1000000000.0, ImmutableMap.of("Impossible", 1000000000.0));
         }
+        if (qualifier.equals("Shiny tortle shell bowl") && quantifier == 1300) {
+            System.out.println("Quack");
+        }
         currentTargets.add(generatedRequirement);
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();
@@ -528,7 +532,9 @@ public class Player implements Serializable {
             }
             double questTotalTime = questTotalActions.values().stream().mapToDouble(d -> d).sum();
             GoalResults result = new GoalResults(questTotalTime, questTotalActions);
-            previousEfficiencyResults.put(generatedRequirement, result);
+            if (result.getTotalTime() < 1000000.0) {
+                previousEfficiencyResults.put(generatedRequirement, result);
+            }
             currentTargets.remove(generatedRequirement);
             return result;
         } else if (qualifier.equals("Combat")) {
@@ -548,9 +554,9 @@ public class Player implements Serializable {
             }
             GoalResults ranged = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", targetLevel));
             GoalResults magic = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Magic", targetLevel));
+            GoalResults hp = this.efficientGoalCompletion("Constitution", this.getXpToLevel("Constitution", targetLevel));
             GoalResults prayer = this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", targetLevel));
             GoalResults summ = this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", targetLevel));
-            GoalResults hp = this.efficientGoalCompletion("Constitution", this.getXpToLevel("Constitution", targetLevel));
             Map<String, Double> meleeMap = new HashMap<>();
             Map<String, Double> rangedMap = new HashMap<>();
             Map<String, Double> magicMap = new HashMap<>();
@@ -611,21 +617,28 @@ public class Player implements Serializable {
                 magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             if (attack.getTotalTime() + strength.getTotalTime() < ranged.getTotalTime() && attack.getTotalTime() + strength.getTotalTime() < magic.getTotalTime()) {
                 GoalResults result = new GoalResults(attack.getTotalTime() + strength.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), meleeMap);
-                previousEfficiencyResults.put(generatedRequirement, result);
+                if (result.getTotalTime() < 1000000.0) {
+                    previousEfficiencyResults.put(generatedRequirement, result);
+                }
                 currentTargets.remove(generatedRequirement);
                 return result;
             } else if (ranged.getTotalTime() < magic.getTotalTime()) {
                 GoalResults result = new GoalResults(ranged.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), rangedMap);
-                previousEfficiencyResults.put(generatedRequirement, result);
+                if (result.getTotalTime() < 1000000.0) {
+                    previousEfficiencyResults.put(generatedRequirement, result);
+                }
                 currentTargets.remove(generatedRequirement);
                 return result;
             } else {
                 GoalResults result = new GoalResults(magic.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), magicMap);
-                previousEfficiencyResults.put(generatedRequirement, result);
+                if (result.getTotalTime() < 1000000.0) {
+                    previousEfficiencyResults.put(generatedRequirement, result);
+                }
                 currentTargets.remove(generatedRequirement);
                 return result;
             }
         }
+        double initialMin = actionMinimum;
         double minimum = Double.POSITIVE_INFINITY;
         String minAction = qualifier;
         Map<String, Double> efficiency = new HashMap<>();
@@ -663,13 +676,26 @@ public class Player implements Serializable {
                     }
                 }
             }
-            else if (action.getOutputs().containsKey(qualifier)) {
+            else if (action.getOutputs().containsKey(qualifier) && action.getOutputs().get(qualifier)*actionMinimum > quantifier) {
                 validAction = true;
             }
-            if (validAction && ALL_SKILLS.contains(qualifier) && action.getReqs().stream().anyMatch(r -> r.getQualifier().equals(qualifier) && getXpToLevel(qualifier, r.getQuantifier()) >= quantifier)) {
+            if (lockedActions.stream().anyMatch(la -> la.getQualifier().equals(qualifier) && la.getAction().equals(action.getName()))) {
                 validAction = false;
             }
-            if (lockedActions.stream().anyMatch(la -> la.getQualifier().equals(qualifier) && la.getAction().equals(action.getName()))) {
+            if (validAction) {
+                for (Requirement r : action.getReqs()) {
+                    if (ALL_SKILLS.contains(r.getQualifier())) {
+                        if (currentTargets.stream().anyMatch(targ -> targ.getQualifier().equals(r.getQualifier()) && getXpToLevel(r.getQualifier(), r.getQuantifier()) >= targ.getQuantifier())) {
+                            validAction = false;
+                            break;
+                        } else if (currentTargets.stream().anyMatch(targ -> targ.getQualifier().equals(r.getQualifier()) && r.getQuantifier() > targ.getQuantifier())) {
+                            validAction = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (validAction && ALL_SKILLS.contains(qualifier) && action.getReqs().stream().anyMatch(r -> r.getQualifier().equals(qualifier) && getXpToLevel(qualifier, r.getQuantifier()) >= quantifier)) {
                 validAction = false;
             }
             if (validAction) {
@@ -696,6 +722,7 @@ public class Player implements Serializable {
                 addItemsToMap(efficiencyThisAction, actionResults.getActionsWithTimes());
                 if (effectiveTimeThisAction < minimum) {
                     minimum = effectiveTimeThisAction;
+                    actionMinimum = effectiveTimeThisAction;
                     efficiency = efficiencyThisAction;
                 }
                 lockedActions.remove(qualifierAction);
@@ -706,10 +733,11 @@ public class Player implements Serializable {
             efficiency.put(minAction, minimum);
         }
         GoalResults result = new GoalResults(minimum, efficiency);
-        if (minimum < 1000000000.0) {
+        if (minimum < 1000000.0) {
             previousEfficiencyResults.put(generatedRequirement, result);
         }
         currentTargets.remove(generatedRequirement);
+        actionMinimum = initialMin;
         return result;
     }
 

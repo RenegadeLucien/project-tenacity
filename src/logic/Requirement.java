@@ -66,7 +66,12 @@ public class Requirement implements Serializable {
             goalResults = player.efficientGoalCompletion("Coins", Math.max(0, ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier)-(int)Math.min(Integer.MAX_VALUE, player.getTotalBankValue()));
         } else if (Achievement.getAchievementByName(qualifier) != null) {
             Achievement achievement = Achievement.getAchievementByName(qualifier);
-            goalResults = new GoalResults(achievement.getTime(), ImmutableMap.of(achievement.getName(), achievement.getTime()));
+            if (player.getAchievementResults().get(achievement) != null) {
+                goalResults = player.getAchievementResults().get(achievement);
+            }
+            else {
+                goalResults = new GoalResults(1000000000.0, ImmutableMap.of("Impossible", 1000000000.0));
+            }
         } else if (qualifier.equals("Time spent on scripted fights")) {
             goalResults = new GoalResults(quantifier/6000.0, ImmutableMap.of("Time spent on scripted fights", quantifier/6000.0));
         } else if (qualifier.equals("Flags unfurled")) {

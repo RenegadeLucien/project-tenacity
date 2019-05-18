@@ -1,5 +1,6 @@
 package data.dataobjects;
 
+import com.google.common.collect.ImmutableMap;
 import data.databases.AchievementDatabase;
 import data.databases.ItemDatabase;
 import data.databases.WeaponDatabase;
@@ -157,38 +158,35 @@ public class Achievement implements Serializable {
                     Loadout loadout = null;
                     if (meleeCombatResults.getHpLost() < 1000000) {
                         loadout = meleeCombatResults.getLoadoutUsed();
-                        player.setXp(loadout.getXp());
-                        if (player.getXp().get("Attack") > initialXP.get("Attack")) {
+                        if (loadout.getXp().get("Attack") > initialXP.get("Attack")) {
                             singleEncounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
                         }
-                        if (player.getXp().get("Strength") > initialXP.get("Strength")) {
+                        if (loadout.getXp().get("Strength") > initialXP.get("Strength")) {
                             singleEncounterRequirements.add(new Requirement("Strength", player.getLevel("Strength")));
                         }
                     }
                     else if (rangedCombatResults.getHpLost() < 1000000) {
                         loadout = rangedCombatResults.getLoadoutUsed();
-                        player.setXp(loadout.getXp());
-                        if (player.getXp().get("Ranged") > initialXP.get("Ranged")) {
+                        if (loadout.getXp().get("Ranged") > initialXP.get("Ranged")) {
                             singleEncounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
                         }
                     }
                     else if (magicCombatResults.getHpLost() < 1000000) {
                         loadout = magicCombatResults.getLoadoutUsed();
-                        player.setXp(loadout.getXp());
-                        if (player.getXp().get("Magic") > initialXP.get("Magic")) {
+                        if (loadout.getXp().get("Magic") > initialXP.get("Magic")) {
                             singleEncounterRequirements.add(new Requirement("Magic", player.getLevel("Magic")));
                         }
                     }
-                    if (player.getXp().get("Defence") > initialXP.get("Defence")) {
+                    if (loadout.getXp().get("Defence") > initialXP.get("Defence")) {
                         singleEncounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
                     }
-                    if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
+                    if (loadout.getXp().get("Constitution") > initialXP.get("Constitution")) {
                         singleEncounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
                     }
-                    if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
+                    if (loadout.getXp().get("Summoning") > initialXP.get("Summoning")) {
                         singleEncounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
                     }
-                    if (player.getXp().get("Herblore") > initialXP.get("Herblore")) {
+                    if (loadout.getXp().get("Herblore") > initialXP.get("Herblore")) {
                         singleEncounterRequirements.add(new Requirement("Herblore", player.getLevel("Herblore")));
                     }
                     if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(Armour.getArmourByName("None"))) {
@@ -270,7 +268,13 @@ public class Achievement implements Serializable {
             if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null) {
                 totalCoinReq += ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player)*r.getQuantifier();
             } else {
-                GoalResults resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
+                GoalResults resultsForOneRequirement;
+                if (Achievement.getAchievementByName(r.getQualifier()) != null) {
+                    Achievement achievement = Achievement.getAchievementByName(r.getQualifier());
+                    resultsForOneRequirement = new GoalResults(achievement.getTime(), ImmutableMap.of(achievement.getName(), achievement.getTime()));
+                } else {
+                    resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
+                }
                 for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                     if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
                         totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
@@ -298,8 +302,34 @@ public class Achievement implements Serializable {
 
     public double getGainFromRewards(Player player) {
         double totalGainFromAllRewards = 0;
+        boolean itemRewards = false;
         for (Reward r : rewards) {
-            totalGainFromAllRewards += r.getGainFromReward(player);
+            if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null) {
+                itemRewards = true;
+            }
+        }
+        int totalCoinReq = 0;
+        if (itemRewards) {
+            List<Requirement> trueReqs = getTrueRequirements(player);
+            for (Requirement r : trueReqs) {
+                if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null) {
+                    totalCoinReq += ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player) * r.getQuantifier();
+                }
+            }
+        }
+        for (Reward r : rewards) {
+            if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null && totalCoinReq > 0) {
+                int coinReward = ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player) * r.getQuantifier();
+                if (totalCoinReq >= coinReward) {
+                    totalCoinReq -= coinReward;
+                } else {
+                    totalGainFromAllRewards += new Reward("Coins", coinReward-totalCoinReq).getGainFromReward(player);
+                    totalCoinReq = 0;
+                }
+            }
+            else {
+                totalGainFromAllRewards += r.getGainFromReward(player);
+            }
         }
         final Map<String, Double> initialXP = new HashMap<>(player.getXp());
         for (Encounter e : encounters) {

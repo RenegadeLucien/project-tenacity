@@ -924,7 +924,7 @@ public class AchievementDatabase {
             .reward("Thieving", 1500).reward("Agility", 1500).reward("Dungeoneering", 500).lamp(Arrays.asList("Attack", "Strength",
                 "Defence", "Magic", "Ranged", "Constitution"), 1500, 1).build());
         achievements.add(new AchievementBuilder("Our Man in the North", 0.5).requirement("Do No Evil", 1).requirement("Crocodile Tears", 1)
-            .requirement("Menaphos reputation", 99000).encounter(new Encounter("Ambassador Jabari")).reward("Quest point", 1)
+            .requirement("Menaphos reputation", 99000).encounter(new Encounter("Ambassador Jabari")).reward("Quest points", 1)
             .reward("Menaphos reputation", 5500).build());
         achievements.add(new AchievementBuilder("'Phite Club", 0.25).requirement("Our Man in the North", 1)
             .requirement("Menaphos reputation", 254100).encounter(new Encounter(Collections.singletonList(
@@ -938,6 +938,10 @@ public class AchievementDatabase {
             .requirement("Bronze nails", 2).reward("Quest points", 1).reward("Farming", 500).reward("Hunter", 500).reward("Thieving", 500)
             .build());
         achievements.add(new AchievementBuilder("The Needle Skips", 0.25).reward("Quest points", 1).lamp(Player.ALL_SKILLS, -1, 1).build());
+        achievements.add(new AchievementBuilder("Desperate Times", 0.75).requirement("The Needle Skips", 1).requirement("You Are It", 1)
+            .requirement("Mining", 50).requirement("Smithing", 50).requirement("Divination", 50).requirement("Rune bar", 3)
+            .requirement("Runite stone spirit", 2).requirement("Mind rune", 10).requirement("Gleaming energy", 10).reward("Quest points", 3)
+            .lamp(Player.ALL_SKILLS, -8, 1).build());
         achievements.add(new AchievementBuilder("Violet is Blue", 0.75).reward("Quest points", 1).lamp(Player.ALL_SKILLS, 1000, 1)
             .lamp(Player.ALL_SKILLS, 1000, 1).lamp(Player.ALL_SKILLS, 1000, 1).build());
         achievements.add(new AchievementBuilder("Imp Catcher", 0.25).requirement("Bowl of hot water", 1)
@@ -945,8 +949,7 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("A Shadow over Ashdale", 0.75).reward("Quest points", 1).reward("Attack", 300)
             .reward("Strength", 300).reward("Defence", 300).reward("Constitution", 300).lamp(Player.ALL_SKILLS, -4, 1)
-            .lamp(Player.ALL_SKILLS, -4, 1).lamp(Player.ALL_SKILLS, -4, 1).reward("Coins", 757).reward("Uncut sapphire", 4)
-            .reward("Uncut emerald", 1).build());
+            .lamp(Player.ALL_SKILLS, -4, 1).lamp(Player.ALL_SKILLS, -4, 1).build());
         achievements.add(new AchievementBuilder("Grim Tales", 0.75).requirement("Witch's House", 1).requirement("Farming", 45)
             .requirement("Herblore", 52).requirement("Thieving", 58).requirement("Agility", 59).requirement("Woodcutting", 71)
             .requirement("Vial of water", 2).requirement("Clean tarromin", 2).requirement("Leather gloves", 1)
@@ -1854,7 +1857,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("B Sharp, Not Flat", 0.05).requirement("Plague's End", 1).reward("Crafting", 300)
             .reward("Construction", 200).reward("Harmonic dust", 4).build());
         achievements.add(new AchievementBuilder("Back Cran-door", 0).requirement("Dragon Slayer", 1).build());
-        achievements.add(new AchievementBuilder("Balanced Combat Triangle", 0).requirement("Master clue scroll points", 5).build());
+        achievements.add(new AchievementBuilder("Balanced Combat Triangle", 0).requirement("Desperate Times", 1).build());
         achievements.add(new AchievementBuilder("Bandit Camp", 0).requirement("Desert Treasure", 1).build());
         achievements.add(new AchievementBuilder("Bandos's Memories", 0.05).requirement("The Mighty Fall", 1).reward("Divination", 130)
             .build());
@@ -1984,7 +1987,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Beware of the Dog", 0).requirement("Fairy Tale II - Cure a Queen", 1).build());
         achievements.add(new AchievementBuilder("Big Chinchompa", 0.25).requirement("Hunter", 78).reward("Competence points", 1111)
             .build());
-        achievements.add(new AchievementBuilder("Bipedal Mask", 0).requirement("Airut", 102)
+        achievements.add(new AchievementBuilder("Bipedal Mask", 0).requirement("Airuts", 102)
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Slayer"), 43680, 90).build());
         achievements.add(new AchievementBuilder("Bird is the Word I", 0).requirement("Kree'arra", 5).build());
         achievements.add(new AchievementBuilder("Bird is the Word II", 0).requirement("Kree'arra", 10).build());
@@ -2356,14 +2359,14 @@ public class AchievementDatabase {
             .reward("Water rune", 200).reward("Fire rune", 100).build());
         achievements.add(new AchievementBuilder("Gilded cabbage", 0.05).requirement("The Death of Chivalry", 1).requirement("Strength", 60)
             .reward("Prayer", 10000).build());
+    }
+
+    private void addAchievementsPhase2() {
         achievements.add(new AchievementBuilder("The Death of Chivalry ancient lamp", 0).requirement("The Death of Chivalry", 1)
             .requirement("Strength", 40).lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Prayer",
                 "Summoning"), 3500, 40).build());
         achievements.add(new AchievementBuilder("The Death of Chivalry prayer lamp", 0).requirement("The Death of Chivalry", 1)
             .requirement("Strength", 80).requirement("Prayer", 65).reward("Prayer", 60000).build());
-    }
-
-    private void addAchievementsPhase2() {
         achievements.add(new AchievementBuilder("Chivalry is Dead", 0).requirement("The Death of Chivalry supply crate", 1)
             .requirement("Gilded cabbage", 1).requirement("The Death of Chivalry ancient lamp", 1)
             .requirement("The Death of Chivalry prayer lamp", 1).build());
@@ -3618,8 +3621,8 @@ public class AchievementDatabase {
             .requirement("One Piercing Note", 1).requirement("Perils of Ice Mountain", 1).requirement("Rune Mechanics", 1)
             .requirement("Scorpion Catcher", 1).requirement("A Shadow over Ashdale", 1).requirement("Song from the Depths", 1)
             .requirement("A Soul's Bane", 1).requirement("Swept Away", 1).requirement("TokTz-Ket-Dill", 1).requirement("Vampyre Slayer", 1)
-            .requirement("The Watchtower", 1).requirement("You Are It", 1).requirement("The Needle Skips", 1)
-            .requirement("Violet is Blue", 1).requirement("Chef's Assistant", 1).requirement("Summer's End", 1)
+            .requirement("The Watchtower", 1).requirement("Desperate Times", 1).requirement("Violet is Blue", 1)
+            .requirement("Chef's Assistant", 1).requirement("Summer's End", 1)
             .requirement("Recipe for Disaster: Defeating the Culinaromancer", 1).requirement("Ritual of the Mahjarrat", 1).build());
         achievements.add(new AchievementBuilder("Music Maestro", 1).requirement("Master Quester", 1).requirement("Attack", 80)
             .requirement("Dungeoneering", 113).requirement("Ranged", 80).requirement("Runecrafting", 66).requirement("Slayer", 115)
@@ -4571,7 +4574,7 @@ public class AchievementDatabase {
             .encounter(new Encounter("K'ril Tsutsaroth")).build());
         achievements.add(new AchievementBuilder("K'rilow", 0).requirement("Constitution", 70).requirement("Willow shieldbow", 1)
             .encounter(new Encounter("K'ril Tsutsaroth")).build());
-        achievements.add(new AchievementBuilder("Kaiki's Tusks", 0).requirement("Airut", 102).build());
+        achievements.add(new AchievementBuilder("Kaiki's Tusks", 0).requirement("Airuts", 102).build());
         achievements.add(new AchievementBuilder("Kal'gerion Commander", 0).requirement("Kal'gerion demon", 2093)
             .requirement("Dungeoneering", 113).build());
         achievements.add(new AchievementBuilder("Kal'gerion Notes", 0.1).requirement("Dungeoneering", 113).build());
@@ -6989,7 +6992,7 @@ public class AchievementDatabase {
             .encounter(new Encounter("TokHaar-Hok")).reward("Obsidian shard", 16)
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged", "Summoning", "Prayer", "Herblore",
                 "Slayer"), 20000, 80).build());
-        achievements.add(new AchievementBuilder("Towering Over Us All", 0).requirement("Master clue scroll points", 5).build());
+        achievements.add(new AchievementBuilder("Towering Over Us All", 0).requirement("Desperate Times", 1).build());
         achievements.add(new AchievementBuilder("Traitorous", 0).requirement("Agility", 70).encounter(new Encounter("Commander Zilyana"))
             .build());
         achievements.add(new AchievementBuilder("Treasure Seeker I", 0).requirement("Clue scrolls", 1).build());
