@@ -2971,7 +2971,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Money Down the Drayn", 0).build());
         achievements.add(new AchievementBuilder("Klept-Old-Man-ia", 0).build());
         achievements.add(new AchievementBuilder("It Was Dead Already!", 0).reward("Logs", 1).reward("Woodcutting", 25).build());
-        achievements.add(new AchievementBuilder("Iron On", 0).requirement("Mining", 15).reward("Iron ore", 1).reward("Mining", 35)
+        achievements.add(new AchievementBuilder("Iron On", 0).requirement("Mining", 10).reward("Iron ore", 1).reward("Mining", 32)
             .build());
         achievements.add(new AchievementBuilder("I Can't Hear Dead People", 0).requirement("The Restless Ghost", 1).build());
         achievements.add(new AchievementBuilder("Eye on the Prize", 0).build());
@@ -8314,7 +8314,8 @@ public class AchievementDatabase {
             .requirement("Phasmatite mined", 1).requirement("Banite mined", 1).requirement("Light animica mined", 1)
             .requirement("Dark animica mined", 1).reward("Mining", 177).reward("Clay", 1).reward("Sandstone (2kg)", 1)
             .reward("Pure essence", 1).reward("Silver ore", 1).reward("Limestone", 1).reward("Granite (500g)", 1).build());
-        achievements.add(new AchievementBuilder("My Sick Four Tick Trick", 0).reward("Mining", 40).build());
+        achievements.add(new AchievementBuilder("My Sick Four Tick Trick", 0).reward("Mining", 30)
+            .lamp(Collections.singletonList("Mining"), -10, 1).build());
         achievements.add(new AchievementBuilder("Purple Reign", 0).requirement("Fate of the Gods", 1).build());
         achievements.add(new AchievementBuilder("Shine On You Crazy Diamond", 0.05).requirement("Plague's End", 1).reward("Mining", 3200)
             .reward("Uncut diamond", 1).build());

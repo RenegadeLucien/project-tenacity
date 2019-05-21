@@ -367,6 +367,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Charcoal", 45));
         itemsList.add(new Item("Chargebow", 20));
         itemsList.add(new Item("Cheese", 8));
+        itemsList.add(new Item("Cheese feast scroll", 229));
         itemsList.add(new Item("Cheese+tom batta", 2));
         itemsList.add(new Item("Chef's delight", 2));
         itemsList.add(new Item("Chef's hat", 2));
@@ -566,6 +567,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Elder seed", 1000));
         itemsList.add(new Item("Elder shieldbow", 4480));
         itemsList.add(new Item("Elder shortbow", 2800));
+        itemsList.add(new Item("Electric lash scroll", 154));
         itemsList.add(new Item("Elemental shield", 20));
         itemsList.add(new Item("Elemental talisman", 500));
         itemsList.add(new Item("Elite black full helm", 35200));
@@ -1155,6 +1157,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Pernix chaps", 400000));
         itemsList.add(new Item("Pernix cowl", 400000));
         itemsList.add(new Item("Pernix gloves", 30000));
+        itemsList.add(new Item("Pester scroll", 44));
         itemsList.add(new Item("Pestle and mortar", 4));
         itemsList.add(new Item("Phoenix quill", 100));
         itemsList.add(new Item("Pie dish", 3));
@@ -1415,6 +1418,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Slayer's respite", 2));
         itemsList.add(new Item("Slayer's respite (m)", 2));
         itemsList.add(new Item("Sliced banana", 2));
+        itemsList.add(new Item("Slime spray scroll", 64));
         itemsList.add(new Item("Slimy eel", 1));
         itemsList.add(new Item("Small fishing net", 40));
         itemsList.add(new Item("Smoke nihil pouch", 5699));
@@ -1542,6 +1546,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Steel sword", 325));
         itemsList.add(new Item("Steel warhammer", 832));
         itemsList.add(new Item("Stew", 100));
+        itemsList.add(new Item("Stony shell scroll", 59));
         itemsList.add(new Item("Strawberry", 17));
         itemsList.add(new Item("Strawberry cream cheese", 4));
         itemsList.add(new Item("Strength potion (4)", 950));
@@ -1663,6 +1668,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Veg ball", 2));
         itemsList.add(new Item("Vegetable batta", 2));
         itemsList.add(new Item("Vengeful kiteshield", 500000));
+        itemsList.add(new Item("Venom shot scroll", 184));
         itemsList.add(new Item("Verac's brassard", 280000));
         itemsList.add(new Item("Verac's flail", 160000));
         itemsList.add(new Item("Verac's helm", 103000));

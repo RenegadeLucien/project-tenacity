@@ -357,13 +357,13 @@ public class Player implements Serializable {
                 }
             }
         }
-        System.out.println("Incomplete Achievements: " + incompleteAchievements);
-        System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("====================================");
         for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-        //    System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours: "
-        //        + entry.getKey().getQuantifier()/entry.getValue().getTotalTime());
+            System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours via following actions: "
+                + entry.getValue().getActionsWithTimes());
         }
+        System.out.println("Incomplete Achievements: " + incompleteAchievements);
+        System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("The total bank value of this account is " + getTotalBankValue());
         System.out.println(String.format("%d total combat encounters were calculated", totalEncounters));
         return achievementCalcResults;
@@ -489,9 +489,9 @@ public class Player implements Serializable {
         if (!qualifier.equals("Coins") && currentTargets.stream().anyMatch(r -> r.getQualifier().equals(qualifier) && r.getQuantifier() <= quantifier)) {
             return new GoalResults(1000000000.0, ImmutableMap.of("Impossible", 1000000000.0));
         }
-        if (qualifier.equals("Shiny tortle shell bowl") && quantifier == 1300) {
+        /*if (qualifier.equals("Crimson charm") && quantifier == 1500) {
             System.out.println("Quack");
-        }
+        }*/
         currentTargets.add(generatedRequirement);
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();
@@ -639,8 +639,8 @@ public class Player implements Serializable {
             }
         }
         double initialMin = actionMinimum;
-        double minimum = Double.POSITIVE_INFINITY;
-        String minAction = qualifier;
+        double minimum = actionMinimum;
+        boolean successful = false;
         Map<String, Double> efficiency = new HashMap<>();
         for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
             boolean validAction = false;
@@ -663,7 +663,7 @@ public class Player implements Serializable {
                     coinGain -= inputLoss;
                 }
                 //Rather arbitrary cutoff: must have 15 minutes worth of inputs in order for using an action for making money to be valid
-                if (coinGain > 0) {
+                if (coinGain > quantifier/minimum) {
                     if (inputLoss/4 > getTotalBankValue()) {
                         if (inputLoss/4 - getTotalBankValue() < quantifier) {
                             //Might cause overflow errors if it gets to this point with a bank value greater than MAX_INT...but let's be real here, when will you ever have a requirement that big?
@@ -674,6 +674,8 @@ public class Player implements Serializable {
                     else {
                         validAction = true;
                     }
+                } else {
+                    validAction = false;
                 }
             }
             else if (action.getOutputs().containsKey(qualifier) && action.getOutputs().get(qualifier)*actionMinimum > quantifier) {
@@ -723,14 +725,15 @@ public class Player implements Serializable {
                 if (effectiveTimeThisAction < minimum) {
                     minimum = effectiveTimeThisAction;
                     actionMinimum = effectiveTimeThisAction;
+                    successful = true;
                     efficiency = efficiencyThisAction;
                 }
                 lockedActions.remove(qualifierAction);
             }
         }
-        if (minimum == Double.POSITIVE_INFINITY) {
+        if (!successful) {
             minimum = 1000000000.0;
-            efficiency.put(minAction, minimum);
+            efficiency.put(qualifier, minimum);
         }
         GoalResults result = new GoalResults(minimum, efficiency);
         if (minimum < 1000000.0) {

@@ -86,13 +86,36 @@ public class Action {
             }
             else {
                 gainForThisAction = outputs.get(target);
+                Map<String, Integer> trueInputs = new HashMap<>();
                 for (Map.Entry<String, Integer> input : inputs.entrySet()) {
-                    GoalResults inputResults;
                     if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) == null) {
-                        inputResults = player.efficientGoalCompletion(input.getKey(), input.getValue());
+                        trueInputs.put(input.getKey(), input.getValue());
                     } else {
-                        inputResults = player.efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(player) * input.getValue());
+                        trueInputs.merge("Coins", input.getValue()*ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(player), (v1, v2) -> v1+v2);
                     }
+                }
+                for (Map.Entry<String, Integer> output : outputs.entrySet()) {
+                    if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) == null) {
+                        if (trueInputs.get(output.getKey()) != null) {
+                            if (output.getValue() > trueInputs.get(output.getKey())) {
+                                trueInputs.remove(output.getKey());
+                            } else {
+                                trueInputs.put(output.getKey(), trueInputs.get(output.getKey()) - output.getValue());
+                            }
+                        }
+                    } else {
+                        if (trueInputs.get("Coins") != null) {
+                            int coinRecovery = output.getValue()*ItemDatabase.getItemDatabase().getItems().get(output.getKey()).coinValue(player);
+                            if (coinRecovery > trueInputs.get("Coins")) {
+                                trueInputs.remove("Coins");
+                            } else  {
+                                trueInputs.put("Coins", trueInputs.get("Coins") - coinRecovery);
+                            }
+                        }
+                    }
+                }
+                for (Map.Entry<String, Integer> input : trueInputs.entrySet()) {
+                    GoalResults inputResults = player.efficientGoalCompletion(input.getKey(), input.getValue());
                     player.addItemsToMap(timeAndActionsTakenForInputs, inputResults.getActionsWithTimes());
                 }
                 timeAndActionsTakenForInputs.put(name, 1.0);

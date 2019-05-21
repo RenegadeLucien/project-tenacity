@@ -47,18 +47,15 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributeView;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.8.3b";
+    private static final String CURRENT_VERSION = "v0.8.3.1b";
 
     public static void main(String args[]) {
         launch(args);
@@ -122,6 +119,7 @@ public class Planner extends Application {
     private void handleRow(Entry<String, Double> row, Player player) {
         GoalResults timeForRequirements = Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player);
         List<Reward> lampRewards = new ArrayList<>();
+        Map<String, Double> initialXp = new HashMap<>(player.getXp());
         for (Lamp lamp : Achievement.getAchievementByName(row.getKey()).getLamps()) {
             Reward lampReward = lamp.getBestReward(player);
             if (lampReward.getQuantifier() > 2 || !lampReward.getQualifier().equals("Attack")) {
@@ -130,7 +128,9 @@ public class Planner extends Application {
             else if (lampReward.getQualifier().equals("Attack") && lampReward.getQuantifier() == 1) {
                 lampRewards.add(new Reward("Can't use lamp", 0));
             }
+            player.getXp().put(lampReward.getQualifier(), player.getXp().get(lampReward.getQualifier()) + lampReward.getQuantifier());
         }
+        player.setXp(initialXp);
         Alert taskInformation = new Alert(AlertType.INFORMATION);
         taskInformation.setResizable(true);
         taskInformation.setTitle("Completion Path Information");

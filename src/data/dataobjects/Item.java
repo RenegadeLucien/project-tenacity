@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Scanner;
 
 public class Item {
@@ -61,7 +62,9 @@ public class Item {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             String alteredName = name.replace(' ', '_');
             URL url = new URL("https://runescape.wiki/w/Module:Exchange/" + alteredName + "?action=raw");
-            Scanner scan = new Scanner(url.openStream());
+            URLConnection conn = url.openConnection();
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36");
+            Scanner scan = new Scanner(conn.getInputStream());
             String itemData = new String();
             while (scan.hasNext()) {
                 itemData += scan.nextLine();
