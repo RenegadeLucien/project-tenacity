@@ -116,7 +116,6 @@ public class Encounter implements Serializable {
                 return results;
             }
         }
-        p.setTotalEncounters(p.getTotalEncounters() + 1);
         Map<Ability, Integer> cooldowns = new HashMap<>();
         for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
             if (ability.canUse(loadout.getMainWep(), loadout.getOffWep(),  p))
@@ -172,7 +171,7 @@ public class Encounter implements Serializable {
                             / combatStats.getArmour()) / 100) * enemy.getMaxhitmagic() / 2.0;
                     }
                     double enemyLp = enemy.getLp() / partySize;
-                    while (myLp > 0 && enemyLp > 0) {
+                    while (myLp > 0 && enemyLp > 0 && ticks <= TICKS_PER_HOUR) {
                         if (ticks % 2000 == 0 && p.getLevel("Herblore") >= 96) {
                             invenUsed++;
                         }
@@ -307,6 +306,7 @@ public class Encounter implements Serializable {
             }
             failedStats.add(0, combatStats);
             StoredCombatCalcs.getCalculatedCombats().put(new CombatScenario(this, parameters), failedStats);
+            p.setTotalEncounters(p.getTotalEncounters() + ticks);
             return results;
         }
         if (kills > maxKills || (kills == maxKills && hpLost < minHpLost)) {
@@ -317,6 +317,7 @@ public class Encounter implements Serializable {
         if (results.getHpLost() < 1000000 && results.getKills() > 0) {
             StoredCombatCalcs.getSuccessfulCombats().put(new CombatScenario(this, parameters), results);
         }
+        p.setTotalEncounters(p.getTotalEncounters() + ticks);
         return results;
     }
 

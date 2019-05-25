@@ -1,16 +1,15 @@
 package data.dataobjects;
 
+import com.google.gson.annotations.Expose;
 import data.databases.ArmourDatabase;
 import logic.Requirement;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Armour implements Serializable {
 
-    private String name;
+    @Expose private String name;
     private String type;
     private String slot;
     private int armour;

@@ -1,14 +1,12 @@
 package ui;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import data.databases.ItemDatabase;
 import data.dataobjects.Armour;
 import data.dataobjects.Weapon;
 import javafx.application.Application;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -55,7 +53,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.8.3.1b";
+    private static final String CURRENT_VERSION = "v0.8.4b";
 
     public static void main(String args[]) {
         launch(args);
@@ -148,7 +146,7 @@ public class Planner extends Application {
     private void displayPlayer(Player p) {
         TableView skillView = new TableView();
         skillView.setPrefWidth(300);
-        skillView.setPrefHeight(630);
+        skillView.setPrefHeight(675);
         skillView.setEditable(true);
         TableView bankView = new TableView();
         bankView.setPrefWidth(300);
@@ -211,8 +209,16 @@ public class Planner extends Application {
                     ((Entry<String, Double>) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
                     ).setValue(t.getNewValue());
+                    displayPlayer(p);
                 }
             });
+        TableColumn<Entry<String, Double>, Integer> levelCol = new TableColumn<>("Level");
+        levelCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Entry<String, Double>, Integer> a) {
+                return new SimpleIntegerProperty(p.getLevel(a.getValue().getKey())).asObject();
+            }
+        });
         TableColumn<Entry<String, Integer>, String> itemCol = new TableColumn<>("Item");
         itemCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
             @Override
@@ -251,7 +257,7 @@ public class Planner extends Application {
         final Text bankValueText = new Text();
         bankValueText.setText(String.format("Total bank value: %d", p.getTotalBankValue()));
         bankValueText.setLayoutX(700);
-        bankValueText.setLayoutY(650);
+        bankValueText.setLayoutY(695);
         final Button addToBankButton = new Button("Add");
         addToBankButton.setLayoutX(900);
         addToBankButton.setLayoutY(700);
@@ -335,7 +341,7 @@ public class Planner extends Application {
                     alert.showAndWait();
                 }
                 else if (p.getWeapons().contains(Weapon.getWeaponByName(addWeapon.getText()))) {
-                    Alert alert = new Alert(AlertType.INFORMATION, "You already have this weapon--you don't need another one!!");
+                    Alert alert = new Alert(AlertType.INFORMATION, "You already have this weapon--you don't need another one!");
                     alert.showAndWait();
                 }
                 else {
@@ -392,7 +398,7 @@ public class Planner extends Application {
                     alert.showAndWait();
                 }
                 else if (p.getArmour().contains(Armour.getArmourByName(addArmour.getText()))) {
-                    Alert alert = new Alert(AlertType.INFORMATION, "You already have this armour--you don't need another one!!");
+                    Alert alert = new Alert(AlertType.INFORMATION, "You already have this armour--you don't need another one!");
                     alert.showAndWait();
                 }
                 else {
@@ -555,7 +561,7 @@ public class Planner extends Application {
         ObservableList<String> weapons = FXCollections.observableArrayList(p.getWeapons().stream().map(a -> a.getName()).collect(Collectors.toList()));
         ObservableList<String> armour = FXCollections.observableArrayList(p.getArmour().stream().map(a -> a.getName()).collect(Collectors.toList()));
         skillView.setItems(skillsAndExperience);
-        skillView.getColumns().addAll(skillCol, xpCol);
+        skillView.getColumns().addAll(skillCol, xpCol, levelCol);
         bankView.setItems(itemsAndCount);
         bankView.getColumns().addAll(itemCol, itemCountCol);
         weaponView.setItems(weapons);
@@ -577,14 +583,13 @@ public class Planner extends Application {
 
     private void savePlayer(Player p) {
         String filename = p.getName() + ".ptp";
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
         try {
-            FileOutputStream file = new FileOutputStream(filename);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(p);
-            out.close();
-            file.close();
+            FileWriter writer = new FileWriter(filename);
+            gson.toJson(p, writer);
+            writer.close();
         }
-        catch (IOException e) {
+        catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR, "Could not save player data. Please open a T99 issue.");
             alert.showAndWait();
             throw new RuntimeException(e);
@@ -592,37 +597,37 @@ public class Planner extends Application {
     }
 
     private void loadPlayer(String playerName) {
-        try
-        {
-            FileInputStream file = new FileInputStream(playerName + ".ptp");
-            ObjectInputStream in = new ObjectInputStream(file);
-            Player player = (Player)in.readObject();
-            in.close();
-            file.close();
-            root.getChildren().clear();
+        Gson gson = new Gson();
+        try {
+            Player loadedPlayer = gson.fromJson(new FileReader(playerName + ".ptp"), Player.class);
             try {
-                getPlayerXp(player);
+                getPlayerXp(loadedPlayer);
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.WARNING, "Failed to obtain player XP from RuneMetrics, using saved data. Verify that the username " + playerName + " is a valid RSN. " +
                     "If so, please open a T99 issue and include your player data file.");
                 alert.showAndWait();
             }
+            Player player = new Player(playerName, "Mainscape");
+            player.setXp(loadedPlayer.getXp());
+            player.setBank(loadedPlayer.getBank());
+            player.setQualities(loadedPlayer.getQualities());
+            player.getWeapons().clear();
+            for (Weapon w : loadedPlayer.getWeapons()) {
+                player.addWeapon(Weapon.getWeaponByName(w.getName()));
+            }
+            for (Armour a : loadedPlayer.getArmour()) {
+                player.addArmour(Armour.getArmourByName(a.getName()));
+            }
+            root.getChildren().clear();
             displayTasks(player);
             displayPlayer(player);
             displayLampCalc(player);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "Failed to load player data. Verify that a player data file (" + playerName + ".ptp) exists. " +
                 "If so, please open a T99 issue and include your player data file.");
             alert.showAndWait();
             throw new RuntimeException(e);
         }
-        catch (ClassNotFoundException e) {
-            Alert alert = new Alert(AlertType.ERROR, "Failed to load internal player class. Please open a T99 issue and include your player data file.");
-            alert.showAndWait();
-            throw new RuntimeException(e);
-        }
-
     }
 
     private void displayLampCalc(Player player) {

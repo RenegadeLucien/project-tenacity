@@ -2,6 +2,7 @@ package logic;
 
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.annotations.Expose;
 import data.databases.*;
 import data.dataobjects.*;
 
@@ -33,13 +34,13 @@ public class Player implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String name;
-    private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
-    private Map<String, Double> xp = new HashMap<>();
-    private Map<String, Integer> qualities = new HashMap<>();
-    private Map<String, Integer> bank = new HashMap<>();
-    private List<Weapon> weapons = new ArrayList<>();
-    private List<Armour> armour = new ArrayList<>();
+    @Expose private String name;
+    @Expose private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
+    @Expose private Map<String, Double> xp = new HashMap<>();
+    @Expose private Map<String, Integer> qualities = new HashMap<>();
+    @Expose private Map<String, Integer> bank = new HashMap<>();
+    @Expose private List<Weapon> weapons = new ArrayList<>();
+    @Expose private List<Armour> armour = new ArrayList<>();
 
     private List<Requirement> currentTargets = new ArrayList<>();
     private List<QualifierAction> lockedActions = new ArrayList<>();
@@ -49,6 +50,11 @@ public class Player implements Serializable {
     private Map<Achievement, GoalResults> achievementResults = new HashMap<>();
 
     private int totalEncounters = 0;
+
+    //should only be used when loading a profile
+    public Player(String name) {
+        this.name = name;
+    }
 
     public Player(String name, String status) {
         this.name = name;
@@ -108,6 +114,14 @@ public class Player implements Serializable {
 
     public void setXp(Map<String, Double> newXp) {
         xp = newXp;
+    }
+
+    public void setBank(Map<String, Integer> bank) {
+        this.bank = bank;
+    }
+
+    public void setQualities(Map<String, Integer> qualities) {
+        this.qualities = qualities;
     }
 
     public int getTotalEncounters() {
@@ -329,8 +343,6 @@ public class Player implements Serializable {
 
     public Map<String, Double> calcAllAchievements() {
         long time = System.nanoTime();
-        previousEfficiencyResults.clear();
-        achievementResults.clear();
         totalEncounters = 0;
         int incompleteAchievements = 0;
         StoredCombatCalcs.getCalculatedCombats().clear();
@@ -365,7 +377,7 @@ public class Player implements Serializable {
         System.out.println("Incomplete Achievements: " + incompleteAchievements);
         System.out.println((System.nanoTime() - time) / 1000000000.0);
         System.out.println("The total bank value of this account is " + getTotalBankValue());
-        System.out.println(String.format("%d total combat encounters were calculated", totalEncounters));
+        System.out.println(String.format("%d total combat ticks were calculated", totalEncounters));
         return achievementCalcResults;
     }
 

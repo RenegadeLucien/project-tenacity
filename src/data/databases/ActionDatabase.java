@@ -282,17 +282,21 @@ public class ActionDatabase {
             new Requirement("Impressing the Locals", 1)), ImmutableMap.of("Supplies", 60), ImmutableMap.of("Farming", 50000, "Uncharted mushrooms", 7, "Slicing mushrooms", 1200,
             "Farming pet points", totalPetPoints(player, "Farming", 50000)), 1200, true, true));
 
-        //Firemaking
+        //Firemaking (done to lv14)
         database.add(new Action("Burning normal logs on bonfire", new ArrayList(), ImmutableMap.of("Logs", 950), ImmutableMap.of("Firemaking", 47500,
             "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 950, true, true));
         database.add(new Action("Burning normal logs in lines", new ArrayList(), ImmutableMap.of("Logs", 1200), ImmutableMap.of("Firemaking", 48000,
             "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 1200, true, true));
+        database.add(new Action("Burning achey logs on bonfire", new ArrayList(), ImmutableMap.of("Achey tree logs", 950), ImmutableMap.of("Firemaking", 47500,
+            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 950, true, true));
+        database.add(new Action("Burning achey logs in lines", new ArrayList(), ImmutableMap.of("Achey tree logs", 1200), ImmutableMap.of("Firemaking", 48000,
+            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 1200, true, true));
         database.add(new Action("Burning acadia logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 46)), ImmutableMap.of("Acadia logs", 950),
             ImmutableMap.of("Firemaking", 171000, "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000 * Math.max(46, player.getLevel("Firemaking"))), 950, true, true));
 
-        //Fishinng
-        database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Fishing", 10 * fishCaught(player, 1), "Prawn balls", fishCaught(player, 1) / 175,
-            "Fishing level-ticks", 6000 * player.getLevel("Fishing")), fishCaught(player, 1), true, true));
+        //Fishing (done to lv4)
+        database.add(new Action("Fishing/dropping raw crayfish", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Fishing", 11500, "Prawn balls", 6,
+            "Fishing level-ticks", 6000 * player.getLevel("Fishing")), 1150, true, true));
 
         database.add(new Action("Fishing/dropping desert sole", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 52)),
             new HashMap(), ImmutableMap.builder().put("Fishing", 60 * resourcesGained(70, 5.0, player, 0.0, "Fishing")).put("Menaphos reputation",
@@ -436,7 +440,7 @@ public class ActionDatabase {
         database.add(new Action("Mage Training Arena (enchantment, lvl-6)", Arrays.asList(new Requirement("Magic", 87), new Requirement("Lava battlestaff", 0)), ImmutableMap.of("Cosmic rune", 360),
             ImmutableMap.of("Enchantment pizazz points", 4320, "Magic", 26190), 60, true, true));
 
-        //Mining (done to lv90)
+        //Mining (done to lv70)
         database.add(new Action("Mining copper with bronze pickaxe", Collections.singletonList(new Requirement("Bronze pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 5, 0.66), "Copper ore", miningDamage(player, 5) / 40,
             "Copper mined", miningDamage(player, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
@@ -1083,10 +1087,9 @@ public class ActionDatabase {
                 .put("Prifddinian musician's robe pieces", 1).put("Meilyr symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(98, player.getLevel("Thieving")))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
 
-        //Woodcutting
-        database.add(new Action("Cutting regular trees with dwarven army axe", new ArrayList(), new HashMap(), ImmutableMap.of("Woodcutting",
-            Math.min(1500, itemsReceived(player, 510, 1.0165, "Woodcutting", 1)) * 28, "Woodcutting level-ticks", 6000 * player.getLevel("Woodcutting")),
-            Math.min(1500, itemsReceived(player, 510, 1.0165, "Woodcutting", 1)), true, true));
+        //Woodcutting (done to lv14)
+        database.add(new Action("Cutting regular trees with dwarven army axe", new ArrayList(), new HashMap(), ImmutableMap.of("Woodcutting", 14500,
+            "Woodcutting level-ticks", 6000 * player.getLevel("Woodcutting")), 580, true, true));
 
         database.add(new Action("Cutting/dropping acadia logs with rune hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1),
             new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), ImmutableMap.builder().put("Woodcutting", 92 * itemsReceived(player, 600, 1.01, "Woodcutting", 47))

@@ -1,5 +1,6 @@
 package data.dataobjects;
 
+import com.google.gson.annotations.Expose;
 import data.databases.WeaponDatabase;
 import logic.Requirement;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class Weapon implements Serializable {
 
-    private String name;
+    @Expose private String name;
     private String weaponClass;
     private String style;
     private String slot;

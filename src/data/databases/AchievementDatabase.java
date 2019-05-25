@@ -2546,7 +2546,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("I'm Just Bor-rogue-ing it", 0).requirement("Thieving", 32).reward("Coins", 20)
             .reward("Thieving", 12).build());
         achievements.add(new AchievementBuilder("Hardcore Parkour", 0).requirement("Agility", 52).reward("Agility", 571).build());
-        achievements.add(new AchievementBuilder("Filthy Rich", 0).requirement("Muddy key", 1).reward("Coins", 15000).build());
+        achievements.add(new AchievementBuilder("Filthy Rich", 0).requirement("Muddy key", 1).reward("Coins", 5000).build());
         achievements.add(new AchievementBuilder("Doyouthinkhesaurus", 0).requirement("Hunter", 67).requirement("Small fishing net", 0)
             .requirement("Rope", 0).reward("Black salamander", 1).reward("Hunter", 304).build());
         achievements.add(new AchievementBuilder("Don't Axe for Permission", 0).requirement("Thieving", 23).reward("Thieving", 7)
@@ -2612,8 +2612,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Digsite pendant unlock", 0.5).requirement("The Dig Site", 1).build());
         achievements.add(new AchievementBuilder("Return to Senntisten", 0).requirement("Digsite pendant unlock", 1)
             .requirement("Ruby necklace", 1).requirement("Fire rune", 5).requirement("Cosmic rune", 1).reward("Magic", 59).build());
-        achievements.add(new AchievementBuilder("Promised the Earth", 0).requirement("Runecrafting", 9).requirement("Tiara", 1)
-            .requirement("Earth talisman", 1).reward("Earth tiara", 1).reward("Runecrafting", 32).build());
+        achievements.add(new AchievementBuilder("Promised the Earth", 0).requirement("Tiara", 1).requirement("Earth talisman", 1)
+            .reward("Earth tiara", 1).reward("Runecrafting", 32).build());
         achievements.add(new AchievementBuilder("Point of En-tree", 0).requirement("Tree Gnome Village", 1).build());
         achievements.add(new AchievementBuilder("Master Scrumper", 0).requirement("Garden of Tranquility", 1).reward("Farming", 12)
             .build());
@@ -2935,7 +2935,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("The Rules of Engagement", 0).build());
         achievements.add(new AchievementBuilder("The Nexus Has You", 0).build());
         achievements.add(new AchievementBuilder("The Fruit of the Sea", 0).requirement("Raw shrimps", 1).reward("Coins", 1).build());
-        achievements.add(new AchievementBuilder("Take Your Pick", 0).reward("Mining", 17).reward("Copper ore", 1).build());
+        achievements.add(new AchievementBuilder("Take Your Pick", 0).reward("Mining", 10).reward("Copper ore", 1).build());
         achievements.add(new AchievementBuilder("Shrimpin' Ain't Easy", 0).reward("Raw shrimps", 1).reward("Fishing", 10).build());
         achievements.add(new AchievementBuilder("Sage Advice", 0).build());
         achievements.add(new AchievementBuilder("Ring My Bell", 0).build());
@@ -2964,8 +2964,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("What Is This Place?", 0).build());
         achievements.add(new AchievementBuilder("Slippery When Wet", 0).requirement("Pure essence", 1).requirement("Runecrafting", 5)
             .requirement("Water talisman", 0).reward("Water rune", 1).reward("Runecrafting", 6).build());
-        achievements.add(new AchievementBuilder("Ratatouille", 0).requirement("Raw rat meat", 1).reward("Cooked meat", 1)
-            .reward("Cooking", 30).build());
+        achievements.add(new AchievementBuilder("Ratatouille", 0).requirement("Raw rat meat", 1).requirement("Logs", 1)
+            .reward("Cooked meat", 1).reward("Cooking", 30).reward("Firemaking", 40).build());
         achievements.add(new AchievementBuilder("Nowt Tool Look At", 0).build());
         achievements.add(new AchievementBuilder("Morgan the Merrier", 0).requirement("Clay ring", 1).reward("Coins", 10).build());
         achievements.add(new AchievementBuilder("Money Down the Drayn", 0).build());
@@ -3003,7 +3003,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Steel Justice", 0).requirement("Steel bar", 2).requirement("Smithing", 36)
             .reward("Smithing", 75).reward("Steel longsword", 1).build());
         achievements.add(new AchievementBuilder("One Day, You Shall Be a Fork", 0).requirement("Silver ore", 1)
-            .requirement("Smithing", 20).reward("Smithing", 14).reward("Silver bar", 1).build());
+            .requirement("Smithing", 20).reward("Smithing", 3).reward("Silver bar", 1).build());
         achievements.add(new AchievementBuilder("Made to Order", 0).requirement("Silver bar", 1).requirement("Crafting", 16)
             .reward("Unstrung symbol", 1).reward("Crafting", 54).build());
         achievements.add(new AchievementBuilder("Lovely With a Squeeze of Lemon", 0).requirement("Fishing", 30)
@@ -3185,7 +3185,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("The Mogre Mash", 0).requirement("Mogre miniquest", 1).requirement("Coins", 60)
             .requirement("Slayer", 32).encounter(new Encounter("Mogre")).build());
         achievements.add(new AchievementBuilder("Mass Production", 0).requirement("Pure essence", 28).requirement("Runecrafting", 56)
-            .reward("Mind rune", 140).build());
+            .requirement("Mind tiara", 0).reward("Mind rune", 140).reward("Runecrafting", 154).build());
         achievements.add(new AchievementBuilder("It Spoiled My View", 0).requirement("Yew seed", 1).requirement("Farming", 60)
             .requirement("Woodcutting", 60).reward("Farming", 7151).reward("Woodcutting", 175).reward("Yew logs", 1).build());
         achievements.add(new AchievementBuilder("It Matches My Eyes", 0).requirement("The Hand in the Sand", 1)
