@@ -1,6 +1,7 @@
 package logic;
 
 import com.google.common.collect.ImmutableMap;
+import data.databases.AchievementDatabase;
 import data.databases.ItemDatabase;
 import data.dataobjects.Achievement;
 import data.dataobjects.Item;
@@ -30,9 +31,9 @@ public class Requirement implements Serializable {
         if (Player.ALL_SKILLS.contains(qualifier)) {
             return (player.getLevel(qualifier) >= quantifier);
         } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
-            return player.getTotalBankValue() >= ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier;
+            return player.getBankValue() >= ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier;
         } else {
-            return (player.getQualities().keySet().contains(qualifier) && player.getQualities().get(qualifier) >= quantifier);
+            return (player.getQualities().get(qualifier) != null && player.getQualities().get(qualifier) >= quantifier);
         }
     }
 
@@ -63,9 +64,9 @@ public class Requirement implements Serializable {
         } else if (Player.ALL_SKILLS.contains(qualifier)) {
             goalResults = player.efficientGoalCompletion(qualifier, player.getXpToLevel(qualifier, quantifier));
         } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null && player.getStatus() == 0) {
-            goalResults = player.efficientGoalCompletion("Coins", Math.max(0, ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier)-(int)Math.min(Integer.MAX_VALUE, player.getTotalBankValue()));
-        } else if (Achievement.getAchievementByName(qualifier) != null) {
-            Achievement achievement = Achievement.getAchievementByName(qualifier);
+            goalResults = player.efficientGoalCompletion("Coins", Math.max(0, ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier)-(int)Math.min(Integer.MAX_VALUE, player.getBankValue()));
+        } else if (AchievementDatabase.getAchievementDatabase().getAchievements().get(qualifier) != null) {
+            Achievement achievement = AchievementDatabase.getAchievementDatabase().getAchievements().get(qualifier);
             if (player.getAchievementResults().get(achievement) != null) {
                 goalResults = player.getAchievementResults().get(achievement);
             }
@@ -98,21 +99,7 @@ public class Requirement implements Serializable {
                 goalResults = player.efficientGoalCompletion(qualifier, quantifier);
             }
         }
-        time = goalResults.getTotalTime();
-        addItemsToRequirementsMap(actions, goalResults.getActionsWithTimes());
-        return new GoalResults(time, actions);
-    }
-
-    public void addItemsToRequirementsMap(Map<String, Double> a, Map<String, Double> b) {
-        for (String item : b.keySet()) {
-            if (a.containsKey(item) && ItemDatabase.getItemDatabase().getItems().get(item) != null) {
-                a.put(item, a.get(item) + b.get(item));
-            } else if (a.containsKey(item)) {
-                a.put(item, Math.max(a.get(item), b.get(item)));
-            } else {
-                a.put(item, b.get(item));
-            }
-        }
+        return goalResults;
     }
 
     @Override

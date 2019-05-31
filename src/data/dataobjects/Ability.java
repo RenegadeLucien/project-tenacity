@@ -1,5 +1,6 @@
 package data.dataobjects;
 
+import data.databases.WeaponDatabase;
 import logic.Player;
 import logic.Requirement;
 
@@ -57,7 +58,7 @@ public class Ability {
         if (type.equals("Auto") || weaponType.equals("Any")) {
             return true;
         }
-        if (mainWep.getWeaponClass().equals(weaponType) && (weaponStyle.equals("Any") || (weaponStyle.equals("Dual") && !offWep.equals(Weapon.getWeaponByName("None"))) ||
+        if (mainWep.getWeaponClass().equals(weaponType) && (weaponStyle.equals("Any") || (weaponStyle.equals("Dual") && !offWep.equals(WeaponDatabase.getWeaponDatabase().getWeapons().get("None"))) ||
             (weaponStyle.equals("Two-handed") && mainWep.getSlot().equals("Two-handed")))) {
             for (Requirement requirement : reqs) {
                 if (!requirement.meetsRequirement(player))

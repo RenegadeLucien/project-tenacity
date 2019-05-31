@@ -1,7 +1,9 @@
 package logic;
 
 import data.databases.AbilityDatabase;
+import data.databases.ArmourDatabase;
 import data.databases.FamiliarDatabase;
+import data.databases.WeaponDatabase;
 import data.dataobjects.*;
 
 import java.io.Serializable;
@@ -116,7 +118,7 @@ public class Encounter implements Serializable {
                 return results;
             }
         }
-        Map<Ability, Integer> cooldowns = new HashMap<>();
+        Map<Ability, Integer> cooldowns = new LinkedHashMap<>();
         for (Ability ability : AbilityDatabase.getAbilityDatabase().getAbilities()) {
             if (ability.canUse(loadout.getMainWep(), loadout.getOffWep(),  p))
                 cooldowns.put(ability, 0);
@@ -130,6 +132,7 @@ public class Encounter implements Serializable {
         double nextDrop = 0.0;
         boolean stackableUsed = false;
         while (ticks < TICKS_PER_HOUR) {
+            int ticksToNext = 1;
             for (List<Enemy> enemyGroup : enemyGroups) {
                 for (Enemy enemy : enemyGroup) {
                     int monsterTicks = -1;
@@ -170,15 +173,15 @@ public class Encounter implements Serializable {
                         enemyMagicDamage = Math.min(1, (myMagicAffinity * (enemy.getAccmage() + (0.0008 * Math.pow(enemy.getMagic(), 3) + 4 * enemy.getMagic() + 40))
                             / combatStats.getArmour()) / 100) * enemy.getMaxhitmagic() / 2.0;
                     }
-                    double enemyLp = enemy.getLp() / partySize;
+                    double enemyDamage = ((enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles) * (1 - (loadout.totalReduc() + p.getLevel("Defence")/1000.0));
+                    double enemyLp = enemy.getLp()*1.0 / partySize;
                     while (myLp > 0 && enemyLp > 0 && ticks <= TICKS_PER_HOUR) {
-                        if (ticks % 2000 == 0 && p.getLevel("Herblore") >= 96) {
+                        boolean uselessTick = true;
+                        ticks+=ticksToNext;
+                        monsterTicks+=ticksToNext;
+                        if (p.getLevel("Herblore") >= 96 && ticks % 2000 == 0) {
                             invenUsed++;
-                        }
-                        ticks++;
-                        monsterTicks++;
-                        if (monsterStun > 0) {
-                            monsterStun--;
+                            uselessTick = false;
                         }
                         Ability abilityUsedThisTick = null;
                         double maxDamage = 0;
@@ -192,6 +195,7 @@ public class Encounter implements Serializable {
                                     if (abilityWithCooldown.getValue() < 3)
                                         cooldowns.put(abilityWithCooldown.getKey(), 3);
                                 }
+                                uselessTick = false;
                                 //System.out.println("Tick " + ticks + ": Ate food number " + invenUsed);
                             }
                         } else {
@@ -217,6 +221,7 @@ public class Encounter implements Serializable {
                             }
                         }
                         if (abilityUsedThisTick != null) {
+                            uselessTick = false;
                             enemyLp -= myHitChance * combatStats.getDamage() * maxDamage;
                             if (!enemy.isStunimmune()) {
                                 monsterStun = Math.max(monsterStun, abilityUsedThisTick.getStunTicks());
@@ -225,10 +230,9 @@ public class Encounter implements Serializable {
                             cooldowns.put(abilityUsedThisTick, abilityUsedThisTick.getCooldown());
                             if (!abilityUsedThisTick.getType().equals("Auto")) {
                                 for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
-                                    if (abilityWithCooldown.getValue() < 3)
-                                        cooldowns.put(abilityWithCooldown.getKey(), 3);
-                                    foodCooldown = 3;
+                                    cooldowns.put(abilityWithCooldown.getKey(), Math.max(abilityWithCooldown.getValue(), 3));
                                 }
+                                foodCooldown = 3;
                             }
                             switch (abilityUsedThisTick.getType()) {
                                 case "Auto":
@@ -248,21 +252,42 @@ public class Encounter implements Serializable {
                             }
                             adren = Math.min(100, adren);
                         }
-                        for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
-                            cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - 1);
-                        foodCooldown--;
                         if (monsterTicks % (enemy.getAtkspd() * partySize) == 0 && monsterTicks != 0 && monsterStun == 0) {
-                            double enemyDamage;
-                            enemyDamage = (enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles;
-                            myLp -= enemyDamage * (1 - loadout.totalReduc());
-                            hpLost += enemyDamage * (1 - (loadout.totalReduc() + p.getLevel("Defence")/1000.0));
+                            uselessTick = false;
+                            myLp -= enemyDamage;
+                            hpLost += enemyDamage;
                             //System.out.println("Tick " + ticks + ": LP Remaining: " + myLp);
                         }
+                        /*ticksToNext = TICKS_PER_HOUR;
+                        if (p.getLevel("Herblore") >= 96) {
+                            ticksToNext = 2000 - (ticks % 2000);
+                        }
+                        if (myLp < Math.max(enemy.getMaxhitmagic(), Math.max(enemy.getMaxhitmelee(), enemy.getMaxhitranged())) && invenUsed < inventorySize) {
+                            ticksToNext = Math.min(ticksToNext, foodCooldown);
+                        } else {
+                            for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
+                                if (abilityWithCooldown.getKey().getType().equals("Auto")
+                                    || abilityWithCooldown.getKey().getType().equals("Basic")
+                                    || (abilityWithCooldown.getKey().getType().equals("Threshold") && adren >= 50)
+                                    || (abilityWithCooldown.getKey().getType().equals("Ultimate") && adren == 100)) {
+                                    ticksToNext = Math.min(ticksToNext, abilityWithCooldown.getValue());
+                                }
+                            }
+                        }
+                        if (enemyLp > 0 && monsterStun <= (enemy.getAtkspd() * partySize) - (monsterTicks % (enemy.getAtkspd() * partySize))) {
+                            ticksToNext = Math.min(ticksToNext, (enemy.getAtkspd() * partySize) - (monsterTicks % (enemy.getAtkspd() * partySize)));
+                        }
+                        ticksToNext = Math.max(ticksToNext, 1);*/
+                        for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
+                            cooldowns.put(abilityWithCooldown.getKey(), Math.max(0,abilityWithCooldown.getValue() - ticksToNext));
+                        }
+                        foodCooldown=Math.max(0,foodCooldown-ticksToNext);
+                        monsterStun=Math.max(0,monsterStun-ticksToNext);
                     }
                 }
                 //hide in safespot and heal w/regen between enemy groups/waves
                 if (myLp > 0 && safespot) {
-                    myLp += (p.getLevel("Constitution") * adren) / 5;
+                    myLp += (p.getLevel("Constitution") * adren) / 5.0;
                     adren = 0;
                     //System.out.println("LP Remaining after Regenerate: " + myLp);
                 }
@@ -286,8 +311,9 @@ public class Encounter implements Serializable {
                 if (minCooldown > 0) {
                     ticks += minCooldown;
                     foodCooldown-=minCooldown;
-                    for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet())
+                    for (Map.Entry<Ability, Integer> abilityWithCooldown : cooldowns.entrySet()) {
                         cooldowns.put(abilityWithCooldown.getKey(), abilityWithCooldown.getValue() - minCooldown);
+                    }
                 }
                 //System.out.println("Total kills so far: " + kills);
             }
@@ -306,7 +332,6 @@ public class Encounter implements Serializable {
             }
             failedStats.add(0, combatStats);
             StoredCombatCalcs.getCalculatedCombats().put(new CombatScenario(this, parameters), failedStats);
-            p.setTotalEncounters(p.getTotalEncounters() + ticks);
             return results;
         }
         if (kills > maxKills || (kills == maxKills && hpLost < minHpLost)) {
@@ -317,7 +342,6 @@ public class Encounter implements Serializable {
         if (results.getHpLost() < 1000000 && results.getKills() > 0) {
             StoredCombatCalcs.getSuccessfulCombats().put(new CombatScenario(this, parameters), results);
         }
-        p.setTotalEncounters(p.getTotalEncounters() + ticks);
         return results;
     }
 
@@ -372,31 +396,31 @@ public class Encounter implements Serializable {
             }
         }
         if (headArmour.size() == 0) {
-            headArmour.add(Armour.getArmourByName("None"));
+            headArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
         if (torsoArmour.size() == 0) {
-            torsoArmour.add(Armour.getArmourByName("None"));
+            torsoArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
         if (legArmour.size() == 0) {
-            legArmour.add(Armour.getArmourByName("None"));
+            legArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
         if (handArmour.size() == 0) {
-            handArmour.add(Armour.getArmourByName("None"));
+            handArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
         if (feetArmour.size() == 0) {
-            feetArmour.add(Armour.getArmourByName("None"));
+            feetArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
         if (capeArmour.size() == 0) {
-            capeArmour.add(Armour.getArmourByName("None"));
+            capeArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
         if (neckArmour.size() == 0) {
-            neckArmour.add(Armour.getArmourByName("None"));
+            neckArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
         if (ringArmour.size() == 0) {
-            ringArmour.add(Armour.getArmourByName("None"));
+            ringArmour.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         }
-        offWeps.add(Weapon.getWeaponByName("None"));
-        shields.add(Armour.getArmourByName("None"));
+        offWeps.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("None"));
+        shields.add(ArmourDatabase.getArmourDatabase().getArmours().get("None"));
         for (Weapon w : mainWeps) {
             for (Armour head : headArmour) {
                 for (Armour torso : torsoArmour) {
@@ -422,9 +446,6 @@ public class Encounter implements Serializable {
                     }
                 }
             }
-        }
-        if (possibleLoadouts.size() == 0) {
-            System.out.println("Huh?");
         }
         Loadout trueLoadout = possibleLoadouts.get(0);
         CombatStats trueStats = trueLoadout.getCombatStats(player, combatStyle);

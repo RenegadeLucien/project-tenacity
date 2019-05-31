@@ -66,12 +66,4 @@ public class Armour implements Serializable {
     public List<Requirement> getReqs() {
         return reqs;
     }
-
-    public static Armour getArmourByName(String name) {
-        for (Armour a : ArmourDatabase.getArmourDatabase().getArmours()) {
-            if (name.equals(a.getName()))
-                return a;
-        }
-        return null;
-    }
 }

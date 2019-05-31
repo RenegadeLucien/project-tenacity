@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 public class Lamp implements Serializable {
@@ -17,11 +18,11 @@ public class Lamp implements Serializable {
         33400, 35800, 36800, 37700, 38600, 39500, 40400, 41200, 42000, 42800, 43500, 46100, 47000, 47700, 48200, 48400, 50900, 51900,
         52700, 53300, 53600, 56600, 57900, 58900, 59500, 59900, 67900, 70000, 71600, 72800, 0};
 
-    private List<String> choices;
+    private Collection<String> choices;
     private int xp;
     private int minLevel;
 
-    public Lamp(List<String> choices, int xp, int minLevel) {
+    public Lamp(Collection<String> choices, int xp, int minLevel) {
         this.choices = choices;
         this.xp = xp;
         this.minLevel = minLevel;

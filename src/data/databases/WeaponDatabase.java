@@ -3,16 +3,14 @@ package data.databases;
 import data.dataobjects.Weapon;
 import logic.Requirement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class WeaponDatabase {
 
     private static WeaponDatabase weaponDatabase;
 
     private List<Weapon> weapons = new ArrayList<>();
+    private Map<String, Weapon> namedWeapons = new LinkedHashMap<>();
 
     private WeaponDatabase() {addWeapons();}
 
@@ -359,6 +357,10 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Obliteration", "Magic", "Magic", "Two-handed", 0, 2287, 6, 1944, 0, 0, Collections.singletonList(new Requirement("Magic", 87))));
         weapons.add(new Weapon("Noxious staff", "Magic", "Magic", "Two-handed", 0, 2458, 6, 2012, 0, 0, Collections.singletonList(new Requirement("Magic", 90))));
         weapons.add(new Weapon("Staff of Sliske", "Magic", "Magic", "Two-handed", 0, 2577, 6, 2056, 0, 0, Collections.singletonList(new Requirement("Magic", 92))));
+
+        for (Weapon weapon : weapons) {
+            namedWeapons.put(weapon.getName(), weapon);
+        }
     }
 
     public static WeaponDatabase getWeaponDatabase() {
@@ -369,7 +371,7 @@ public class WeaponDatabase {
     }
 
 
-    public List<Weapon> getWeapons() {
-        return weapons;
+    public Map<String, Weapon> getWeapons() {
+        return namedWeapons;
     }
 }

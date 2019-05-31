@@ -199,6 +199,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Beaver pouch", 2224));
         itemsList.add(new Item("Beer", 2));
         itemsList.add(new Item("Beer (tankard)", 26));
+        itemsList.add(new Item("Beer glass", 2));
         itemsList.add(new Item("Beginner wand", 1200));
         itemsList.add(new Item("Belladonna seed", 177));
         itemsList.add(new Item("Beltfish", 280));
@@ -242,7 +243,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Black spiky vambraces", 4320));
         itemsList.add(new Item("Black sword", 624));
         itemsList.add(new Item("Black warhammer", 1274));
+        itemsList.add(new Item("Black wizard boots", 100));
+        itemsList.add(new Item("Black wizard gloves", 100));
         itemsList.add(new Item("Black wizard hat", 2));
+        itemsList.add(new Item("Black wizard robe skirt", 2));
         itemsList.add(new Item("Blade of Avaryss", 130000));
         itemsList.add(new Item("Blade of Nymora", 130000));
         itemsList.add(new Item("Bladestorm drape", 250));
@@ -295,6 +299,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Bronze 2h sword", 80));
         itemsList.add(new Item("Bronze armoured boots", 84));
         itemsList.add(new Item("Bronze arrow", 7));
+        itemsList.add(new Item("Bronze arrowheads", 2));
         itemsList.add(new Item("Bronze bar", 8));
         itemsList.add(new Item("Bronze battleaxe", 52));
         itemsList.add(new Item("Bronze bolts", 3));
@@ -347,6 +352,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Cake tin", 10));
         itemsList.add(new Item("Camel staff", 1000000));
         itemsList.add(new Item("Candle", 3));
+        itemsList.add(new Item("Candle lantern (empty)", 10));
         itemsList.add(new Item("Cape (black)", 20));
         itemsList.add(new Item("Carapace boots", 200));
         itemsList.add(new Item("Carapace gloves", 200));
@@ -424,7 +430,13 @@ public class ItemDatabase {
         itemsList.add(new Item("Cosmic talisman", 4));
         itemsList.add(new Item("Cowhide", 1));
         itemsList.add(new Item("Cracked cooking urn (nr)", 40));
+        itemsList.add(new Item("Cracked divination urn (nr)", 40));
+        itemsList.add(new Item("Cracked fishing urn (nr)", 40));
+        itemsList.add(new Item("Cracked hunter urn (nr)", 40));
         itemsList.add(new Item("Cracked mining urn (nr)", 30));
+        itemsList.add(new Item("Cracked runecrafting urn (nr)", 40));
+        itemsList.add(new Item("Cracked smelting urn (nr)", 50));
+        itemsList.add(new Item("Cracked woodcutting urn (nr)", 50));
         itemsList.add(new Item("Crayfish", 5));
         itemsList.add(new Item("Crayfish cage", 20));
         itemsList.add(new Item("Cream cheese", 4));
@@ -631,6 +643,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Fruit batta", 2));
         itemsList.add(new Item("Fruit Blast", 30));
         itemsList.add(new Item("Fruit bat pouch", 3674));
+        itemsList.add(new Item("Fungal flake", 4));
         itemsList.add(new Item("Fungal leggings", 2500));
         itemsList.add(new Item("Fungal poncho", 3000));
         itemsList.add(new Item("Fungal visor", 2000));
@@ -802,6 +815,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Imphide robe top", 500));
         itemsList.add(new Item("Imphide shield", 100));
         itemsList.add(new Item("Impious ashes", 2));
+        itemsList.add(new Item("Impious urn (nr)", 40));
         itemsList.add(new Item("Incandescent energy", 61));
         itemsList.add(new Item("Infernal ashes", 2));
         itemsList.add(new Item("Infinity boots", 12000));
@@ -1031,6 +1045,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Mutated Barge ability codex", 1250000));
         itemsList.add(new Item("Mutated Flurry ability codex", 1250000));
         itemsList.add(new Item("Mutated Fury ability codex", 1250000));
+        itemsList.add(new Item("Mycelium visor web", 90));
         itemsList.add(new Item("Mystic air staff", 42500));
         itemsList.add(new Item("Mystic boots (blue)", 5000));
         itemsList.add(new Item("Mystic gloves (blue)", 5000));
@@ -1133,6 +1148,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Opal bakriminel bolts", 118));
         itemsList.add(new Item("Opal bolt tips", 7));
         itemsList.add(new Item("Opal bolts", 7));
+        itemsList.add(new Item("Opal ring", 100));
         itemsList.add(new Item("Orange", 70));
         itemsList.add(new Item("Orange chunks", 2));
         itemsList.add(new Item("Orange dye", 6));
@@ -1550,6 +1566,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Strawberry", 17));
         itemsList.add(new Item("Strawberry cream cheese", 4));
         itemsList.add(new Item("Strength potion (4)", 950));
+        itemsList.add(new Item("Strip of black cloth", 25));
         itemsList.add(new Item("Strip of cloth", 10));
         itemsList.add(new Item("Stripy feather", 20));
         itemsList.add(new Item("Studded body", 850));

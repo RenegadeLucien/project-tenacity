@@ -4,16 +4,14 @@ import data.dataobjects.Armour;
 import logic.Requirement;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ArmourDatabase {
 
     private static ArmourDatabase armourDatabase;
 
     private List<Armour> armours = new ArrayList<>();
+    private Map<String, Armour> namedArmours = new LinkedHashMap<>();
 
     private ArmourDatabase() {addArmours();}
 
@@ -474,6 +472,10 @@ public class ArmourDatabase {
         armours.add(new Armour("Abomination cape", "Melee", "Cape", 50, 0, 0, 0, 28, Collections.singletonList(new Requirement("Defence", 75))));
         armours.add(new Armour("Reefwalker's cape", "All", "Cape", 62, 200, 0, 0, 9, Collections.singletonList(new Requirement("Defence", 85))));
 
+        for (Armour armour : armours) {
+            namedArmours.put(armour.getName(), armour);
+        }
+
     }
 
     public static ArmourDatabase getArmourDatabase() {
@@ -484,7 +486,7 @@ public class ArmourDatabase {
     }
 
 
-    public List<Armour> getArmours() {
-        return armours;
+    public Map<String, Armour> getArmours() {
+        return namedArmours;
     }
 }

@@ -1,5 +1,7 @@
 package logic;
 
+import data.databases.ArmourDatabase;
+import data.databases.WeaponDatabase;
 import data.dataobjects.*;
 
 import java.util.Map;
@@ -150,10 +152,10 @@ public class Loadout {
         else {
             hands++;
         }
-        if (!offWep.equals(Weapon.getWeaponByName("None"))) {
+        if (!offWep.equals(WeaponDatabase.getWeaponDatabase().getWeapons().get("None"))) {
             hands++;
         }
-        if (!shield.equals(Armour.getArmourByName("None"))) {
+        if (!shield.equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
             hands++;
         }
         return hands<3;

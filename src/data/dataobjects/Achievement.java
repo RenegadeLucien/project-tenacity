@@ -2,6 +2,7 @@ package data.dataobjects;
 
 import com.google.common.collect.ImmutableMap;
 import data.databases.AchievementDatabase;
+import data.databases.ArmourDatabase;
 import data.databases.ItemDatabase;
 import data.databases.WeaponDatabase;
 import logic.*;
@@ -73,7 +74,7 @@ public class Achievement implements Serializable {
             return this;
         }
 
-        public AchievementBuilder lamp(List<String> choices, int xp, int minLevel) {
+        public AchievementBuilder lamp(Collection<String> choices, int xp, int minLevel) {
             lamps.add(new Lamp(choices, xp, minLevel));
             return this;
         }
@@ -86,8 +87,8 @@ public class Achievement implements Serializable {
     private List<Requirement> getTrueRequirements(Player player) {
         Map<String, Integer> trueReqsMap = new HashMap<>();
         for (Requirement r : reqs) {
-            if (Achievement.getAchievementByName(r.getQualifier()) != null) {
-                List<Requirement> subReqs = Achievement.getAchievementByName(r.getQualifier()).getTrueRequirements(player);
+            if (AchievementDatabase.getAchievementDatabase().getAchievements().get(r.getQualifier()) != null && !r.meetsRequirement(player)) {
+                List<Requirement> subReqs = AchievementDatabase.getAchievementDatabase().getAchievements().get(r.getQualifier()).getTrueRequirements(player);
                 combineRequirements(trueReqsMap, subReqs);
             } else {
                 combineRequirements(trueReqsMap, Collections.singletonList(r));
@@ -106,7 +107,7 @@ public class Achievement implements Serializable {
 
     private void combineRequirements(Map<String, Integer> reqsMap, List<Requirement> newReqs) {
         for (Requirement requirement : newReqs) {
-            if (Weapon.getWeaponByName(requirement.getQualifier()) != null || Armour.getArmourByName(requirement.getQualifier()) != null) {
+            if (WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()) != null || ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()) != null) {
                 reqsMap.put(requirement.getQualifier(), 1);
             } else if (reqsMap.containsKey(requirement.getQualifier()) && ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
                 reqsMap.put(requirement.getQualifier(), reqsMap.get(requirement.getQualifier()) + requirement.getQuantifier());
@@ -122,8 +123,8 @@ public class Achievement implements Serializable {
         List<Requirement> allEncounterRequirements = new ArrayList<>();
         Map<String, Integer> allEncounterReqsMap = new HashMap<>();
         final Map<String, Double> initialXP = new HashMap<>(player.getXp());
-        List<Weapon> initialWeapons = new ArrayList<>(player.getWeapons());
-        List<Armour> initialArmours = new ArrayList<>(player.getArmour());
+        LinkedHashSet<Weapon> initialWeapons = new LinkedHashSet<>(player.getWeapons());
+        LinkedHashSet<Armour> initialArmours = new LinkedHashSet<>(player.getArmour());
         int ticksOnFights = 0;
         for (Encounter e : encounters) {
             List<Requirement> singleEncounterRequirements = new ArrayList<>();
@@ -189,37 +190,37 @@ public class Achievement implements Serializable {
                     if (loadout.getXp().get("Herblore") > initialXP.get("Herblore")) {
                         singleEncounterRequirements.add(new Requirement("Herblore", player.getLevel("Herblore")));
                     }
-                    if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getHead().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getTorso()) && !loadout.getTorso().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getTorso()) && !loadout.getTorso().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getTorso().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getLegs()) && !loadout.getLegs().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getLegs()) && !loadout.getLegs().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getLegs().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getHands()) && !loadout.getHands().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getHands()) && !loadout.getHands().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getHands().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getFeet()) && !loadout.getFeet().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getFeet()) && !loadout.getFeet().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getFeet().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getRing()) && !loadout.getRing().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getRing()) && !loadout.getRing().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getRing().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getNeck()) && !loadout.getNeck().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getNeck()) && !loadout.getNeck().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getNeck().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getCape()) && !loadout.getCape().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getCape()) && !loadout.getCape().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getCape().getName(), 1));
                     }
                     if (!initialWeapons.contains(loadout.getMainWep())) {
                         singleEncounterRequirements.add(new Requirement(loadout.getMainWep().getName(), 1));
                     }
-                    if (!initialWeapons.contains(loadout.getOffWep()) && !loadout.getOffWep().equals(Weapon.getWeaponByName("None"))) {
+                    if (!initialWeapons.contains(loadout.getOffWep()) && !loadout.getOffWep().equals(WeaponDatabase.getWeaponDatabase().getWeapons().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getOffWep().getName(), 1));
                     }
-                    if (!initialArmours.contains(loadout.getShield()) && !loadout.getShield().equals(Armour.getArmourByName("None"))) {
+                    if (!initialArmours.contains(loadout.getShield()) && !loadout.getShield().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getShield().getName(), 1));
                     }
                     break;
@@ -244,7 +245,7 @@ public class Achievement implements Serializable {
             combineRequirements(allEncounterReqsMap, singleEncounterRequirements);
         }
         for (Entry<String, Integer> req : allEncounterReqsMap.entrySet()) {
-            if (Weapon.getWeaponByName(req.getKey()) != null || Armour.getArmourByName(req.getKey())!= null) {
+            if (WeaponDatabase.getWeaponDatabase().getWeapons().get(req.getKey()) != null || ArmourDatabase.getArmourDatabase().getArmours().get(req.getKey())!= null) {
                 allEncounterRequirements.add(new Requirement(req.getKey(), 1));
             } else {
                 allEncounterRequirements.add(new Requirement(req.getKey(), req.getValue()));
@@ -269,8 +270,8 @@ public class Achievement implements Serializable {
                 totalCoinReq += ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player)*r.getQuantifier();
             } else {
                 GoalResults resultsForOneRequirement;
-                if (Achievement.getAchievementByName(r.getQualifier()) != null) {
-                    Achievement achievement = Achievement.getAchievementByName(r.getQualifier());
+                if (AchievementDatabase.getAchievementDatabase().getAchievements().get(r.getQualifier()) != null && !r.meetsRequirement(player)) {
+                    Achievement achievement = AchievementDatabase.getAchievementDatabase().getAchievements().get(r.getQualifier());
                     resultsForOneRequirement = new GoalResults(achievement.getTime(), ImmutableMap.of(achievement.getName(), achievement.getTime()));
                 } else {
                     resultsForOneRequirement = r.timeAndActionsToMeetRequirement(player);
@@ -383,13 +384,5 @@ public class Achievement implements Serializable {
 
     public List<Lamp> getLamps() {
         return lamps;
-    }
-
-    public static Achievement getAchievementByName(String name) {
-        for (Achievement a : AchievementDatabase.getAchievementDatabase().getAchievements()) {
-            if (a.getName().equals(name))
-                return a;
-        }
-        return null;
     }
 }

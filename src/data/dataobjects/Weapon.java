@@ -77,14 +77,6 @@ public class Weapon implements Serializable {
         return reqs;
     }
 
-    public static Weapon getWeaponByName(String name) {
-        for (Weapon w : WeaponDatabase.getWeaponDatabase().getWeapons()) {
-            if (name.equals(w.getName()))
-                return w;
-        }
-        return null;
-    }
-
     public double effectiveDamage() {
         if (atkspd == 4) {
             return damage + maxAmmo;

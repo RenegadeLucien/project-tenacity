@@ -1,7 +1,10 @@
 package ui;
 
 import com.google.gson.*;
+import data.databases.AchievementDatabase;
+import data.databases.ArmourDatabase;
 import data.databases.ItemDatabase;
+import data.databases.WeaponDatabase;
 import data.dataobjects.Armour;
 import data.dataobjects.Weapon;
 import javafx.application.Application;
@@ -53,7 +56,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.8.4b";
+    private static final String CURRENT_VERSION = "v0.8.5b";
 
     public static void main(String args[]) {
         launch(args);
@@ -102,23 +105,21 @@ public class Planner extends Application {
         completeTask.setOnAction(event -> {
             if (taskView.getSelectionModel().getSelectedItem() != null) {
                 p.completeTask(((Entry<String, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey(), true);
-                displayTasks(p);
-                displayPlayer(p);
             }
-            else {
-                displayTasks(p);
-                displayPlayer(p);
-            }
+            root.getChildren().clear();
+            displayTasks(p);
+            displayPlayer(p);
+            displayLampCalc(p);
         });
         completeTask.setLayoutY(740);
         root.getChildren().add(completeTask);
     }
 
     private void handleRow(Entry<String, Double> row, Player player) {
-        GoalResults timeForRequirements = Achievement.getAchievementByName(row.getKey()).getTimeForRequirements(player);
+        GoalResults timeForRequirements = AchievementDatabase.getAchievementDatabase().getAchievements().get(row.getKey()).getTimeForRequirements(player);
         List<Reward> lampRewards = new ArrayList<>();
         Map<String, Double> initialXp = new HashMap<>(player.getXp());
-        for (Lamp lamp : Achievement.getAchievementByName(row.getKey()).getLamps()) {
+        for (Lamp lamp : AchievementDatabase.getAchievementDatabase().getAchievements().get(row.getKey()).getLamps()) {
             Reward lampReward = lamp.getBestReward(player);
             if (lampReward.getQuantifier() > 2 || !lampReward.getQualifier().equals("Attack")) {
                 lampRewards.add(lampReward);
@@ -144,13 +145,18 @@ public class Planner extends Application {
     }
 
     private void displayPlayer(Player p) {
+        if (root.lookup("#tabPane") != null) {
+            root.getChildren().remove(root.lookup("#tabPane"));
+        }
         TableView skillView = new TableView();
         skillView.setPrefWidth(300);
-        skillView.setPrefHeight(675);
+        skillView.setMinHeight(675);
+        skillView.setMaxHeight(675);
         skillView.setEditable(true);
         TableView bankView = new TableView();
         bankView.setPrefWidth(300);
-        bankView.setPrefHeight(630);
+        bankView.setMinHeight(630);
+        bankView.setMaxHeight(630);
         bankView.setEditable(true);
         TableView weaponView = new TableView();
         weaponView.setPrefWidth(300);
@@ -167,6 +173,7 @@ public class Planner extends Application {
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.setLayoutX(700);
+        tabPane.setId("tabPane");
         Tab skillTab = new Tab();
         skillTab.setText("Skills");
         skillTab.setContent(skillView);
@@ -255,7 +262,7 @@ public class Planner extends Application {
         addCount.setLayoutX(800);
         addCount.setLayoutY(700);
         final Text bankValueText = new Text();
-        bankValueText.setText(String.format("Total bank value: %d", p.getTotalBankValue()));
+        bankValueText.setText(String.format("Total bank value: %d", p.getBankValue()));
         bankValueText.setLayoutX(700);
         bankValueText.setLayoutY(695);
         final Button addToBankButton = new Button("Add");
@@ -279,6 +286,7 @@ public class Planner extends Application {
                 else {
                     try {
                         p.getBank().put(addItem.getText(), Integer.parseInt(addCount.getText()));
+                        p.setBankValue();
                         addItem.clear();
                         addCount.clear();
                         root.getChildren().remove(addItem);
@@ -301,6 +309,7 @@ public class Planner extends Application {
             public void handle(ActionEvent event) {
                 try {
                     p.getBank().remove(itemCol.getCellObservableValue(bankView.getSelectionModel().getSelectedIndex()).getValue());
+                    p.setBankValue();
                 } catch (NullPointerException e) {
                     Alert alert = new Alert(AlertType.INFORMATION, "You must select an item to remove it.");
                     alert.showAndWait();
@@ -335,17 +344,17 @@ public class Planner extends Application {
         addToWeaponButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (Weapon.getWeaponByName(addWeapon.getText()) == null) {
+                if (WeaponDatabase.getWeaponDatabase().getWeapons().get(addWeapon.getText()) == null) {
                     Alert alert = new Alert(AlertType.WARNING, String.format("Input weapon %s is not present in the weapons database. " +
                         "If you believe this weapon is valid, please raise a T90 issue.", addWeapon.getText()));
                     alert.showAndWait();
                 }
-                else if (p.getWeapons().contains(Weapon.getWeaponByName(addWeapon.getText()))) {
+                else if (p.getWeapons().contains(WeaponDatabase.getWeaponDatabase().getWeapons().get(addWeapon.getText()))) {
                     Alert alert = new Alert(AlertType.INFORMATION, "You already have this weapon--you don't need another one!");
                     alert.showAndWait();
                 }
                 else {
-                    p.addWeapon(Weapon.getWeaponByName(addWeapon.getText()));
+                    p.addWeapon(WeaponDatabase.getWeaponDatabase().getWeapons().get(addWeapon.getText()));
                     addWeapon.clear();
                     root.getChildren().remove(addWeapon);
                     root.getChildren().remove(addToWeaponButton);
@@ -359,7 +368,7 @@ public class Planner extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    p.getWeapons().remove(Weapon.getWeaponByName(weaponCol.getCellObservableValue(weaponView.getSelectionModel().getSelectedIndex()).getValue()));
+                    p.getWeapons().remove(WeaponDatabase.getWeaponDatabase().getWeapons().get(weaponCol.getCellObservableValue(weaponView.getSelectionModel().getSelectedIndex()).getValue()));
                 } catch (NullPointerException e) {
                     Alert alert = new Alert(AlertType.INFORMATION, "You must select a weapon to remove it.");
                     alert.showAndWait();
@@ -392,17 +401,17 @@ public class Planner extends Application {
         addToArmourButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (Armour.getArmourByName(addArmour.getText()) == null) {
-                    Alert alert = new Alert(AlertType.WARNING, String.format("Input Armour %s is not present in the armours database. " +
+                if (ArmourDatabase.getArmourDatabase().getArmours().get(addArmour.getText()) == null) {
+                    Alert alert = new Alert(AlertType.WARNING, String.format("Input armour %s is not present in the armours database. " +
                         "If you believe this armour is valid, please raise a T90 issue.", addArmour.getText()));
                     alert.showAndWait();
                 }
-                else if (p.getArmour().contains(Armour.getArmourByName(addArmour.getText()))) {
+                else if (p.getArmour().contains(ArmourDatabase.getArmourDatabase().getArmours().get(addArmour.getText()))) {
                     Alert alert = new Alert(AlertType.INFORMATION, "You already have this armour--you don't need another one!");
                     alert.showAndWait();
                 }
                 else {
-                    p.addArmour(Armour.getArmourByName(addArmour.getText()));
+                    p.addArmour(ArmourDatabase.getArmourDatabase().getArmours().get(addArmour.getText()));
                     addArmour.clear();
                     root.getChildren().remove(addArmour);
                     root.getChildren().remove(addToArmourButton);
@@ -416,7 +425,7 @@ public class Planner extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    p.getArmour().remove(Armour.getArmourByName(armourCol.getCellObservableValue(armourView.getSelectionModel().getSelectedIndex()).getValue()));
+                    p.getArmour().remove(ArmourDatabase.getArmourDatabase().getArmours().get(armourCol.getCellObservableValue(armourView.getSelectionModel().getSelectedIndex()).getValue()));
                 } catch (NullPointerException e) {
                     Alert alert = new Alert(AlertType.INFORMATION, "You must select an armour to remove it.");
                     alert.showAndWait();
@@ -466,7 +475,7 @@ public class Planner extends Application {
         addToQualityButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (p.getBank().containsKey(addItem.getText())) {
+                if (p.getQualities().containsKey(addItem.getText())) {
                     Alert alert = new Alert(AlertType.INFORMATION, "You already have this quality. Please edit the existing entry rather than create a new one.");
                     alert.showAndWait();
                 } else {
@@ -613,10 +622,10 @@ public class Planner extends Application {
             player.setQualities(loadedPlayer.getQualities());
             player.getWeapons().clear();
             for (Weapon w : loadedPlayer.getWeapons()) {
-                player.addWeapon(Weapon.getWeaponByName(w.getName()));
+                player.addWeapon(WeaponDatabase.getWeaponDatabase().getWeapons().get(w.getName()));
             }
             for (Armour a : loadedPlayer.getArmour()) {
-                player.addArmour(Armour.getArmourByName(a.getName()));
+                player.addArmour(ArmourDatabase.getArmourDatabase().getArmours().get(a.getName()));
             }
             root.getChildren().clear();
             displayTasks(player);
@@ -790,9 +799,11 @@ public class Planner extends Application {
         JsonObject jsonObject = new JsonParser().parse(runeMetricsSkillScanner.nextLine()).getAsJsonObject();
         runeMetricsSkillScanner.close();
         JsonArray skillValues = (jsonObject.get("skillvalues").getAsJsonArray());
+        Iterator skillIterator = Player.ALL_SKILLS.iterator();
         for (JsonElement skill : skillValues) {
             JsonObject skillObject = (JsonObject) skill;
-            String skillName = Player.ALL_SKILLS.get(skillObject.get("id").getAsInt());
+            List<String> skillList = new ArrayList<>(Player.ALL_SKILLS);
+            String skillName = skillList.get(skillObject.get("id").getAsInt());
             player.getXp().put(skillName, skillObject.get("xp").getAsDouble()/10.0);
         }
     }

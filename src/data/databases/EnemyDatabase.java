@@ -802,7 +802,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Hanto", 180000, 19962.7, 6587.6, 1400, 1400, 1400, 94, 94, 94, 4, 2701, 2701, 2701, 1468, 70, "Nothing", 0, 45, 65, 55, true));
         enemies.add(new Enemy("Yor'Ger the Deceiver", 180000, 20500.2, 6765, 1425, 0, 0, 100, 0, 0, 6, 2577, 0, 0, 1694, 72, "Nothing", 0, 45, 65, 55, true));
         enemies.add(new Enemy("The Violet Lotus", 180000, 8321.4, 2746, 1960, 0, 0, 88, 0, 0, 6, 2343, 0, 0, 1566, 72, "Nothing", 0, 55, 45, 65, false));
-        enemies.add(new Enemy("The Crassian Leviathan (story)", 190000, 9000, 2970, 300, 300, 0, 90, 90, 0, 4, 2765, 2765, 0, 2178, 85, "Nothing", 0, 55, 55, 55, true));
+        enemies.add(new Enemy("The Crassian Leviathan (story)", 190000, 900, 297, 300, 300, 0, 90, 90, 0, 4, 2765, 2765, 0, 2178, 85, "Nothing", 0, 55, 55, 55, true));
         enemies.add(new Enemy("Masuta the Descended", 195000, 23085, 7618, 1368, 1368, 1368, 90, 90, 90, 4, 2765, 2765, 2765, 1694, 85, "Nothing", 0, 55, 55, 55, true));
         enemies.add(new Enemy("Twin Furies", 200000, 8000, 2640, 816, 816, 0, 85, 85, 0, 3, 2178, 2178, 0, 1486, 70, "Nothing", 0, 40, 40, 40, true));
         enemies.add(new Enemy("Vindicta", 200000, 8000, 2640, 3000, 4500, 0, 80, 80, 0, 5, 1924, 1924, 0, 1694, 75, "Nothing", 0, 50, 50, 50, true));
@@ -811,7 +811,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Nex", 200000, 19480, 6428.4, 2500, 2500, 2500, 80, 80, 80, 4, 2023, 2023, 2023, 1924, 80, "Nothing", 0, 40, 40, 40, true));
         enemies.add(new Enemy("Yelps", 200000, 8602.8, 2838.9, 240, 0, 0, 60, 0, 0, 4, 1132, 0, 0, 1132, 60, "Nothing", 0, 55, 45, 65, true));
         enemies.add(new Enemy("The Magister", 200000, 30536.1, 10076.9, 3000, 3000, 2500, 92, 92, 92, 4, 2577, 2577, 2577, 2458, 90, "Nothing", 0, 55, 55, 55, false));
-        enemies.add(new Enemy("Taraket the Necromancer (story)", 200000, 9000, 2970, 500, 250, 250, 90, 90, 90, 4, 2765, 2765, 2765, 1694, 85, "Nothing", 0, 55, 55, 55, true));
+        enemies.add(new Enemy("Taraket the Necromancer (story)", 200000, 900, 297, 500, 250, 250, 90, 90, 90, 4, 2765, 2765, 2765, 1694, 85, "Nothing", 0, 55, 55, 55, true));
         enemies.add(new Enemy("The Sanctum Guardian (story)", 225000, 0, 0, 380, 380, 0, 85, 85, 0, 4, 2178, 2178, 0, 1694, 75, "Nothing", 0, 55, 55, 55, false));
         enemies.add(new Enemy("Astellarn (story)", 225000, 0, 0, 137, 137, 137, 95, 95, 95, 4, 2765, 2765, 2765, 2178, 85, "Bane", 90, 55, 55, 55, true));
         enemies.add(new Enemy("Kalphite King", 260000, 26462.2, 8732.5, 2560, 2560, 2560, 90, 90, 90, 5, 2343, 2343, 2343, 2178, 85, "Nothing", 0, 30, 30, 30, false));
@@ -860,11 +860,11 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Yakamaru", 5000000, 5000, 1650, 0, 1653, 1653, 0, 99, 99, 4, 0, 2458, 2458, 2765, 99, "Nothing", 0, 55, 55, 55, true));
         enemies.add(new Enemy("Solak", 8000000, 4000, 1320, 4000, 4000, 0, 95, 95, 0, 5, 2765, 1765, 0, 1486, 70, "Nothing", 0, 55, 55, 55, true));
 
-        for (int enrage = 0; enrage <= 4000; enrage += 5) {
+        for (int enrage = 0; enrage <= 1000; enrage += 5) {
             enemies.add(telosGenerator(enrage));
         }
 
-        for (int world = 1; world <= 200; world++) {
+        for (int world = 1; world <= 100; world++) {
             enemies.add(shatteredWorldsGenerator(world));
         }
     }
