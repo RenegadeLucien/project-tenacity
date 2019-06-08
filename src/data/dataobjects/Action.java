@@ -1,12 +1,9 @@
 package data.dataobjects;
 
 import data.databases.ActionDatabase;
-import data.databases.ItemDatabase;
-import logic.GoalResults;
 import logic.Player;
 import logic.Requirement;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 

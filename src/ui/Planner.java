@@ -1,6 +1,11 @@
 package ui;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import data.databases.AchievementDatabase;
 import data.databases.ArmourDatabase;
 import data.databases.ItemDatabase;
@@ -40,23 +45,31 @@ import javafx.util.converter.DoubleStringConverter;
 import logic.GoalResults;
 import logic.Lamp;
 import logic.Player;
-import data.dataobjects.Achievement;
 import logic.Reward;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributeView;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.8.5b";
+    private static final String CURRENT_VERSION = "v0.8.6b";
 
     public static void main(String args[]) {
         launch(args);

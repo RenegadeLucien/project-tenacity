@@ -600,7 +600,7 @@ public class EnemyDatabase {
         enemies.add(new Enemy("Dragon-hunter warrior", 16350, 949.5, 313.3, 325, 0, 0, 65, 0, 0, 5, 1299, 0, 0, 1299, 65, "Air", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Dragon-hunter archer", 16450, 903.7, 298.2, 0, 325, 0, 0, 65, 0, 5, 0, 1299, 0, 1299, 65, "Stab", 90, 65, 55, 45, false));
         enemies.add(new Enemy("Airut", 16875, 2052, 677.1, 816, 816, 0, 85, 85, 0, 4, 3031, 3031, 0, 2458, 90, "Nothing", 0, 65, 55, 45, false));
-        enemies.add(new Enemy("Chaos Elemental", 17250, 1257.3, 414.9, 1104, 1104, 1104, 1, 1, 69, 4, 1447, 1447, 2178, 1447, 69, "Bolts", 90, 45, 65, 55, true));
+        enemies.add(new Enemy("Chaos Elemental", 17250, 1257.3, 414.9, 0, 0, 1104, 1, 1, 69, 4, 0, 0, 2178, 1447, 69, "Bolts", 90, 45, 65, 55, true));
         enemies.add(new Enemy("Glophren", 17400, 1857, 612.8, 0, 0, 1561, 0, 0, 85, 5, 0, 0, 2178, 2178, 85, "Thrown", 90, 45, 65, 55, true));
         enemies.add(new Enemy("Head mourner", 17500, 1215, 400.9, 1036, 0, 0, 72, 0, 0, 4, 1566, 0, 0, 1566, 72, "Fire", 90, 55, 45, 65, false));
         enemies.add(new Enemy("Mithril dragon", 17800, 1809, 596.9, 1068, 1068, 1068, 80, 80, 80, 4, 1924, 1924, 1924, 2178, 80, "Earth", 90, 55, 45, 65, false));

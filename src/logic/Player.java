@@ -290,6 +290,20 @@ public class Player {
         weapons.removeAll(weaponsToRemove);
     }
 
+    public void addWeaponAndMoveToBank(Weapon newWeapon) {
+        weapons.add(newWeapon);
+        List<Weapon> weaponsToRemove = new ArrayList<>();
+        for (Weapon weapon : weapons) {
+            if (checkIfHaveBetterWeapon(weapon)) {
+                weaponsToRemove.add(weapon);
+            }
+        }
+        weapons.removeAll(weaponsToRemove);
+        for (Weapon weapon : weaponsToRemove) {
+            bank.put(weapon.getName(), 1);
+        }
+    }
+
     public void addArmour(Armour newArmour) {
         armour.add(newArmour);
         List<Armour> armoursToRemove = new ArrayList<>();
@@ -299,6 +313,20 @@ public class Player {
             }
         }
         armour.removeAll(armoursToRemove);
+    }
+
+    public void addArmourAndMoveToBank(Armour newArmour) {
+        armour.add(newArmour);
+        List<Armour> armoursToRemove = new ArrayList<>();
+        for (Armour armour : armour) {
+            if (checkIfHaveBetterArmour(armour)) {
+                armoursToRemove.add(armour);
+            }
+        }
+        armour.removeAll(armoursToRemove);
+        for (Armour armour : armoursToRemove) {
+            bank.put(armour.getName(), 1);
+        }
     }
 
     private boolean checkIfHaveBetterWeapon(Weapon weapon) {
@@ -417,11 +445,19 @@ public class Player {
                     else {
                         Action actionWithGraph = Action.getActionByName(action.getKey(), this);
                         int steps = (int)Math.ceil(action.getValue()*actionWithGraph.getActionsPerHour());
-                        int totalInputs = 0;
+                        int totalInputCoins = 0;
                         for (Entry<String, Integer> input : actionWithGraph.getInputs().entrySet()) {
-                            totalInputs += input.getValue()*steps/actionWithGraph.getActionsPerHour();
+                            if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
+                                long inputItems = (long) input.getValue() * ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(this) * steps;
+                                totalInputCoins += (int) (inputItems / actionWithGraph.getActionsPerHour());
+                            }
                         }
-                        if (bankValue >= totalInputs) {
+                        for (Requirement requirement : actionWithGraph.getReqs()) {
+                            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                                totalInputCoins += requirement.getQuantifier() * ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this);
+                            }
+                        }
+                        if (bankValue >= totalInputCoins) {
                             performAction(actionWithGraph, action.getValue(), combatRequirements);
                             actionsToRemove.add(action.getKey());
                         }
@@ -435,9 +471,36 @@ public class Player {
                 calcedActions.remove(action);
             }
         }
-        for (Requirement requirement : task.getReqs()) {
-            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
-                updateBank(requirement.getQualifier(), requirement.getQuantifier());
+        if (parent) {
+            for (Requirement requirement : calcedResults.getListofAllRequirements()) {
+                if (WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()) != null
+                    && !checkIfHaveBetterWeapon(WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()))) {
+                    boolean canUse = true;
+                    for (Requirement gearReq : WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()).getReqs()) {
+                        if (!gearReq.meetsRequirement(this)) {
+                            canUse = false;
+                            break;
+                        }
+                    }
+                    if (canUse) {
+                        addWeaponAndMoveToBank(WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()));
+                    }
+                } else if (ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()) != null
+                    && !checkIfHaveBetterArmour(ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()))) {
+                    boolean canUse = true;
+                    for (Requirement gearReq : ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()).getReqs()) {
+                        if (!gearReq.meetsRequirement(this)) {
+                            canUse = false;
+                            break;
+                        }
+                    }
+                    if (canUse) {
+                        addArmourAndMoveToBank(ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()));
+                    }
+                }
+                if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                    updateBank(requirement.getQualifier(), requirement.getQuantifier());
+                }
             }
         }
         for (Encounter e : task.getEncounters()) {
@@ -493,7 +556,7 @@ public class Player {
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
         //Rounding coins to the next thousand for the sake of time
-        if (qualifier.equals("Coins") && quantifier < 2147483000) {
+        if (qualifier.equals("Coins") && quantifier+bankValue < 2147483000) {
             quantifier = ((quantifier + 999)/1000)*1000;
         }
         //Because lambdas are picky jerks that must have a final variable or else they throw a tantrum
@@ -514,7 +577,7 @@ public class Player {
             return new GoalResults(0, ImmutableMap.of("", 0.0));
         }
         currentTargets.add(generatedRequirement);
-        if (qualifier.equals("Herblore") && quantifier == 388) {
+        if (qualifier.equals("Construction") && quantifier == 1567) {
             System.out.println("Quack");
         }
         if (qualifier.equals("Quest points")) {
@@ -717,17 +780,33 @@ public class Player {
                 QualifierAction qualifierAction = new QualifierAction(qualifier, action.getName());
                 lockedActions.add(qualifierAction);
                 double effectiveTimeThisAction = 0.0;
+                long bankLeft = bankValue;
+                Map<String, Integer> initialBank = new HashMap<>(bank);
                 Map<String, Double> efficiencyThisAction = new HashMap<>();
                 int trueQuantifier = quantifier;
+                //Items first, then others. This is so that when the others are calculated, they use the items gained in their calculations
                 for (Requirement requirement : action.getReqs()) {
-                    GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
-                    effectiveTimeThisAction += reqResults.getTotalTime();
-                    addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
-                    if (requirement.getQualifier().equals(qualifier) && ALL_SKILLS.contains(qualifier) && !requirement.meetsRequirement(this)) {
-                        trueQuantifier = quantifier - getXpToLevel(qualifier, requirement.getQuantifier());
+                    if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                        GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
+                        effectiveTimeThisAction += reqResults.getTotalTime();
+                        addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
+                        bank.put(requirement.getQualifier(), requirement.getQuantifier());
+                        setBankValue();
+                    }
+                }
+                for (Requirement requirement : action.getReqs()) {
+                    if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) == null) {
+                        GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
+                        effectiveTimeThisAction += reqResults.getTotalTime();
+                        addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
+                        if (requirement.getQualifier().equals(qualifier) && ALL_SKILLS.contains(qualifier) && !requirement.meetsRequirement(this)) {
+                            trueQuantifier = quantifier - getXpToLevel(qualifier, requirement.getQuantifier());
+                        }
                     }
                 }
                 if (effectiveTimeThisAction > minimum) {
+                    bank = initialBank;
+                    setBankValue();
                     lockedActions.remove(qualifierAction);
                     continue;
                 }
@@ -739,15 +818,26 @@ public class Player {
                 }
                 effectiveTimeThisAction += timeToReachGoal;
                 addItemsToMap(efficiencyThisAction, ImmutableMap.of(action.getName(), timeToReachGoal));
-                long bankLeft = bankValue;
                 for (Entry<String, Integer> input : action.getInputs().entrySet()) {
                     GoalResults timeToInput = null;
                     if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
-                        if (bankLeft > (int)Math.ceil(input.getValue()*timeToReachGoal*ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(this))) {
-                            bankLeft -= (int)Math.ceil(input.getValue()*timeToReachGoal*ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(this));
+                        int inputsPerStep = (int)Math.ceil((double)input.getValue()/action.getActionsPerHour());
+                        long trueInputs = (((int)Math.floor(input.getValue()*timeToReachGoal)/inputsPerStep) + 1) * (long)inputsPerStep;
+                        long totalCost = trueInputs*ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(this);
+                        if (totalCost - bankLeft > Integer.MAX_VALUE) {
+                            totalCost -= bankLeft;
+                            bankLeft = 0;
+                            while (totalCost > Integer.MAX_VALUE) {
+                                GoalResults timeToMaxCash = efficientGoalCompletion("Coins", Integer.MAX_VALUE);
+                                effectiveTimeThisAction += timeToMaxCash.getTotalTime();
+                                addItemsToMap(efficiencyThisAction, timeToMaxCash.getActionsWithTimes());
+                                totalCost -= Integer.MAX_VALUE;
+                            }
+                        }
+                        if (bankLeft > totalCost) {
+                            bankLeft -= totalCost;
                         } else {
-                            timeToInput = efficientGoalCompletion("Coins", (int)Math.ceil(input.getValue() * timeToReachGoal * ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(this))
-                                -(int)bankLeft);
+                            timeToInput = efficientGoalCompletion("Coins", (int) totalCost - (int) bankLeft);
                             bankLeft = 0;
                         }
                     } else {
@@ -764,6 +854,8 @@ public class Player {
                     successful = true;
                     efficiency = efficiencyThisAction;
                 }
+                bank = initialBank;
+                setBankValue();
                 lockedActions.remove(qualifierAction);
             }
         }
@@ -812,17 +904,23 @@ public class Player {
                 updateBank(requirement.getQualifier(), requirement.getQuantifier());
                 if (bank.containsKey(requirement.getQualifier())) {
                     bank.put(requirement.getQualifier(), bank.get(requirement.getQualifier()) + requirement.getQuantifier());
+                    setBankValue();
                 }
                 else {
                     bank.put(requirement.getQualifier(), requirement.getQuantifier());
+                    setBankValue();
                 }
             }
         }
         for (Entry<String, Integer> input : action.getInputs().entrySet()) {
-            updateBank(input.getKey(), input.getValue()*steps/action.getActionsPerHour());
+            if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
+                long inputItems = (long)input.getValue() * steps;
+                updateBank(input.getKey(), (int)(inputItems / action.getActionsPerHour()));
+            }
         }
         for (Entry<String, Integer> output : action.getOutputs().entrySet()) {
-            int totalXp = output.getValue()*steps/action.getActionsPerHour();
+            long outputItems = (long)output.getValue()*steps;
+            int totalXp = (int)(outputItems/action.getActionsPerHour());
             if (output.getKey().equals("aCombat")) {
                 for (Requirement combatReq : combatRequirements) {
                     if (combatReq.getQualifier().equals("Defence")) {
@@ -940,16 +1038,18 @@ public class Player {
                 }
             }
             else if (ALL_SKILLS.contains(output.getKey())) {
-                xp.put(output.getKey(), xp.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
+                xp.put(output.getKey(), xp.get(output.getKey()) + (int)(outputItems/action.getActionsPerHour()));
             }
-            else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null && output.getValue()*steps/action.getActionsPerHour() > 0) {
-                if (bank.containsKey(output.getKey()))
-                    bank.put(output.getKey(), bank.get(output.getKey()) + output.getValue()*steps/action.getActionsPerHour());
-                else
-                    bank.put(output.getKey(), output.getValue()*steps/action.getActionsPerHour());
+            else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null && (int)(outputItems/action.getActionsPerHour()) > 0) {
+                if (bank.containsKey(output.getKey())) {
+                    bank.put(output.getKey(), bank.get(output.getKey()) + (int)(outputItems / action.getActionsPerHour()));
+                } else {
+                    bank.put(output.getKey(), (int)(outputItems / action.getActionsPerHour()));
+                }
+                setBankValue();
             }
             else {
-                qualities.put(output.getKey(), output.getValue()*steps/action.getActionsPerHour());
+                qualities.put(output.getKey(), (int)(outputItems/action.getActionsPerHour()));
             }
         }
     }
@@ -990,24 +1090,30 @@ public class Player {
                 bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
         } else if (bankValue > quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
             List<String> entriesToRemove = new ArrayList<>();
+            int coinsToAdd = 0;
             for (Entry<String, Integer> bankEntry : bank.entrySet()) {
                 if (!bankEntry.getKey().equals("Coins")) {
-                    if (bank.get("Coins") != null) {
-                        bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
-                    }
-                    else {
-                        bank.put("Coins", ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
-                    }
+                    coinsToAdd += ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue();
                     entriesToRemove.add(bankEntry.getKey());
                 }
-                if (bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
-                    break;
+                if (bank.get("Coins") != null) {
+                    if (bank.get("Coins") + coinsToAdd >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                        break;
+                    }
+                } else {
+                    if (coinsToAdd >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                        break;
+                    }
                 }
             }
             for (String removal : entriesToRemove) {
                 bank.remove(removal);
             }
-            bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+            if (bank.get("Coins") != null) {
+                bank.put("Coins", bank.get("Coins")+coinsToAdd-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+            } else {
+                bank.put("Coins", coinsToAdd-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+            }
         }
         setBankValue();
     }

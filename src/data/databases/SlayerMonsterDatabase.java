@@ -190,6 +190,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Killerwatt", 32.6, "Killerwatts", Collections.singletonList(new Requirement("Slayer", 37))));
         slayerMonsters.add(new SlayerMonster("Kurask", 115.2, "Kurasks", Collections.singletonList(new Requirement("Slayer", 70))));
         slayerMonsters.add(new SlayerMonster("Lava strykewyrm", 1872, "Lava strykewyrms", Collections.singletonList(new Requirement("Slayer", 94))));
+        slayerMonsters.add(new SlayerMonster("Lesser demon", 86.6, "Lesser demons", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Living rock protector", 156, "Living rock creatures", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Living rock striker", 156, "Living rock creatures", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Vinecrawler", 2086, "Lost Grove creatures", Collections.singletonList(new Requirement("Slayer", 104))));

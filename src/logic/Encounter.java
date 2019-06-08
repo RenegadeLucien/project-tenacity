@@ -4,13 +4,20 @@ import data.databases.AbilityDatabase;
 import data.databases.ArmourDatabase;
 import data.databases.FamiliarDatabase;
 import data.databases.WeaponDatabase;
-import data.dataobjects.*;
+import data.dataobjects.Ability;
+import data.dataobjects.Armour;
+import data.dataobjects.Enemy;
+import data.dataobjects.Familiar;
+import data.dataobjects.Weapon;
 
-import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Encounter implements Serializable {
+public class Encounter {
 
     private static final int TICKS_PER_HOUR = 6000;
 
@@ -321,7 +328,7 @@ public class Encounter implements Serializable {
                 break;
             }
         }
-        if (myLp <= 0 && kills == 0) {
+        if (kills == 0) {
             List<CombatStats> currentFailedStats = StoredCombatCalcs.getCalculatedCombats().get(new CombatScenario(this, parameters));
             List<CombatStats> failedStats;
             if (currentFailedStats == null) {
@@ -446,6 +453,9 @@ public class Encounter implements Serializable {
                     }
                 }
             }
+        }
+        if (possibleLoadouts.size() == 0) {
+            System.out.println("Huh?");
         }
         Loadout trueLoadout = possibleLoadouts.get(0);
         CombatStats trueStats = trueLoadout.getCombatStats(player, combatStyle);

@@ -1,13 +1,11 @@
 package data.dataobjects;
 
 import com.google.gson.annotations.Expose;
-import data.databases.ArmourDatabase;
 import logic.Requirement;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Armour implements Serializable {
+public class Armour {
 
     @Expose private String name;
     private String type;

@@ -3,8 +3,13 @@ package data.databases;
 import data.dataobjects.Armour;
 import logic.Requirement;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class ArmourDatabase {
 
@@ -114,6 +119,7 @@ public class ArmourDatabase {
         //Melee torso (done)
         armours.add(new Armour("Bronze platebody", "Melee", "Torso", 34, 0, 0, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Iron platebody", "Melee", "Torso", 46, 0, 0, 0.002, 0, Collections.singletonList(new Requirement("Defence", 10))));
+        armours.add(new Armour("Black chainbody", "Melee", "Torso", 81, 0, 0, 0.005, 0, Collections.singletonList(new Requirement("Defence", 25))));
         armours.add(new Armour("Yak-hide armour (top)", "Melee", "Torso", 87, 0, 0, 0.005, 0, Collections.singletonList(new Requirement("Defence", 20))));
         armours.add(new Armour("Mithril platebody", "Melee", "Torso", 104, 0, 0, 0.006, 0, Collections.singletonList(new Requirement("Defence", 30))));
         armours.add(new Armour("Adamant platebody", "Melee", "Torso", 144, 0, 0, 0.008, 0, Collections.singletonList(new Requirement("Defence", 40))));
@@ -336,6 +342,7 @@ public class ArmourDatabase {
 
         //Melee feet (done)
         armours.add(new Armour("Bronze armoured boots", "Melee", "Feet", 7, 0, 0, 0.0008, 0, new ArrayList<>()));
+        armours.add(new Armour("Fancy boots", "Melee", "Feet", 7, 0, 0, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Steel armoured boots", "Melee", "Feet", 15, 0, 0, 0.004, 0, Collections.singletonList(new Requirement("Defence", 20))));
         armours.add(new Armour("Black boots", "Melee", "Feet", 19, 0, 0, 0.005, 0, Collections.singletonList(new Requirement("Defence", 25))));
         armours.add(new Armour("Mithril armoured boots", "Melee", "Feet", 22, 0, 0, 0.006, 0, Collections.singletonList(new Requirement("Defence", 30))));

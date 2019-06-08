@@ -4,13 +4,11 @@ import com.google.common.collect.ImmutableMap;
 import data.databases.AchievementDatabase;
 import data.databases.ItemDatabase;
 import data.dataobjects.Achievement;
-import data.dataobjects.Item;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Requirement implements Serializable {
+public class Requirement {
     private String qualifier;
     private int quantifier;
 

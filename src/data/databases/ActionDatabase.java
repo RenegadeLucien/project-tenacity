@@ -1,10 +1,26 @@
 package data.databases;
 
 import com.google.common.collect.ImmutableMap;
-import data.dataobjects.*;
-import logic.*;
+import data.dataobjects.Action;
+import data.dataobjects.Armour;
+import data.dataobjects.Enemy;
+import data.dataobjects.SlayerMaster;
+import data.dataobjects.SlayerMonster;
+import data.dataobjects.Weapon;
+import logic.CombatParameters;
+import logic.CombatResults;
+import logic.Encounter;
+import logic.Loadout;
+import logic.Player;
+import logic.Requirement;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ActionDatabase {
@@ -77,99 +93,415 @@ public class ActionDatabase {
         database.add(new Action("Tanning royal dragonhide", new ArrayList(), ImmutableMap.of("Royal dragonhide", 60000, "Portable crafter", 12, "Coins", 200000),
             ImmutableMap.of("Royal dragon leather", 60000), 12, false, false));
 
-        //Agility (done to lv25)
-        database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 11955, "Agility level-ticks", 6000 * player.getLevel("Agility")), 150, true, true));
-        database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 8650, "Agility level-ticks", 6000 * player.getLevel("Agility")), 100, true, true));
+        //Agility (done)
+        database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 7632, "Agility level-ticks", 6000 * player.getLevel("Agility")),
+            96, true, true));
+        database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 7266, "Agility level-ticks", 6000 * player.getLevel("Agility")),
+            84, true, true));
+        database.add(new Action("Watchtower shortcut", Collections.singletonList(new Requirement("Agility", 18)), new HashMap(),
+            ImmutableMap.of("Agility", 9300, "Agility level-ticks", 6000 * Math.max(18, player.getLevel("Agility"))), 300, true, true));
+        database.add(new Action("Werewolf Skullball", Arrays.asList(new Requirement("Agility", 25), new Requirement("Creature of Fenkenstrain", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 21600, "Agility level-ticks", 6000 * Math.max(25, player.getLevel("Agility"))), 24, true, true));
         database.add(new Action("Agility Pyramid", Collections.singletonList(new Requirement("Agility", 30)), ImmutableMap.of("Waterskin (4)", 10),
             ImmutableMap.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 22, true, true));
+        database.add(new Action("Clockwork suits", Arrays.asList(new Requirement("Agility", 30), new Requirement("Cold War", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 37500, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 3000, true, true));
+        database.add(new Action("Barbarian Outpost Agility Course", Collections.singletonList(new Requirement("Agility", 35)), new HashMap(),
+            ImmutableMap.of("Agility", 20880, "Agility level-ticks", 6000 * Math.max(35, player.getLevel("Agility"))), 120, true, true));
         database.add(new Action("Brimhaven Agility Arena", Collections.singletonList(new Requirement("Agility", 40)), ImmutableMap.of("Coins", 200),
             ImmutableMap.of("Agility arena ticket", 60, "Agility", 3000, "Agility level-ticks", 6000 * Math.max(40, player.getLevel("Agility"))), 60, true, true));
+        database.add(new Action("Ape Atoll Agility Course", Arrays.asList(new Requirement("Agility", 48), new Requirement("Monkey Madness", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 46400, "Agility level-ticks", 6000 * Math.max(48, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course", Collections.singletonList(new Requirement("Agility", 52)), new HashMap(),
+            ImmutableMap.of("Agility", 45720, "Agility level-ticks", 6000 * Math.max(52, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv52 xp rates)", Arrays.asList(new Requirement("Agility", 52), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 49377, "Agility level-ticks", 6000 * Math.max(52, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv53 xp rates)", Arrays.asList(new Requirement("Agility", 53), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 51206, "Agility level-ticks", 6000 * Math.max(53, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv54 xp rates)", Arrays.asList(new Requirement("Agility", 54), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 53035, "Agility level-ticks", 6000 * Math.max(54, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv55 xp rates)", Arrays.asList(new Requirement("Agility", 55), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 54864, "Agility level-ticks", 6000 * Math.max(55, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv56 xp rates)", Arrays.asList(new Requirement("Agility", 56), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 56692, "Agility level-ticks", 6000 * Math.max(56, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv57 xp rates)", Arrays.asList(new Requirement("Agility", 57), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 58521, "Agility level-ticks", 6000 * Math.max(57, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv58 xp rates)", Arrays.asList(new Requirement("Agility", 58), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 60350, "Agility level-ticks", 6000 * Math.max(58, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv59 xp rates)", Arrays.asList(new Requirement("Agility", 59), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 62179, "Agility level-ticks", 6000 * Math.max(59, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv60 xp rates)", Arrays.asList(new Requirement("Agility", 60), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 64008, "Agility level-ticks", 6000 * Math.max(60, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Bandos Agility Course", Arrays.asList(new Requirement("Agility", 60), new Requirement("The Chosen Commander", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 38000, "Ranged", 12500, "Strength", 12500, "Agility level-ticks", 6000 * Math.max(60, player.getLevel("Agility"))), 100, true, true));
+        database.add(new Action("Werewolf Agility Course", Arrays.asList(new Requirement("Agility", 60), new Requirement("Creature of Fenkenstrain", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 43200, "Agility level-ticks", 6000 * Math.max(60, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv61 xp rates)", Arrays.asList(new Requirement("Agility", 61), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 65836, "Agility level-ticks", 6000 * Math.max(61, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv62 xp rates)", Arrays.asList(new Requirement("Agility", 62), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 67665, "Agility level-ticks", 6000 * Math.max(62, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv63 xp rates)", Arrays.asList(new Requirement("Agility", 63), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 69494, "Agility level-ticks", 6000 * Math.max(63, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv64 xp rates)", Arrays.asList(new Requirement("Agility", 64), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 71323, "Agility level-ticks", 6000 * Math.max(64, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv65 xp rates)", Arrays.asList(new Requirement("Agility", 65), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 73152, "Agility level-ticks", 6000 * Math.max(65, player.getLevel("Agility"))), 80, true, false));
         database.add(new Action("Empty Throne Room agility", Arrays.asList(new Requirement("Agility", 65), new Requirement("The Dig Site", 1)),
             new HashMap(), ImmutableMap.of("Agility", 68760, "Senntisten scroll", 17, "Agility level-ticks", 6000 * Math.max(65, player.getLevel("Agility"))), 1800, true, true));
-        database.add(new Action("Hefin Agility Course (77-81 Agility)", Arrays.asList(new Requirement("Plague's End", 1),
-            new Requirement("Agility", 77)), new HashMap(), ImmutableMap.of("Agility", 56320, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(77, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv66 xp rates)", Arrays.asList(new Requirement("Agility", 66), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 74980, "Agility level-ticks", 6000 * Math.max(66, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv67 xp rates)", Arrays.asList(new Requirement("Agility", 67), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 76809, "Agility level-ticks", 6000 * Math.max(67, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv68 xp rates)", Arrays.asList(new Requirement("Agility", 68), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 78638, "Agility level-ticks", 6000 * Math.max(68, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv69 xp rates)", Arrays.asList(new Requirement("Agility", 69), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 80467, "Agility level-ticks", 6000 * Math.max(69, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv70 xp rates)", Arrays.asList(new Requirement("Agility", 70), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 82296, "Agility level-ticks", 6000 * Math.max(70, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv71 xp rates)", Arrays.asList(new Requirement("Agility", 71), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 84124, "Agility level-ticks", 6000 * Math.max(71, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv72 xp rates)", Arrays.asList(new Requirement("Agility", 72), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 85953, "Agility level-ticks", 6000 * Math.max(72, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv73 xp rates)", Arrays.asList(new Requirement("Agility", 73), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 87782, "Agility level-ticks", 6000 * Math.max(73, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv74 xp rates)", Arrays.asList(new Requirement("Agility", 74), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 89611, "Agility level-ticks", 6000 * Math.max(74, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv75 xp rates)", Arrays.asList(new Requirement("Agility", 75), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 91440, "Agility level-ticks", 6000 * Math.max(75, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv76 xp rates)", Arrays.asList(new Requirement("Agility", 76), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 93268, "Agility level-ticks", 6000 * Math.max(76, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv77 xp rates)", Arrays.asList(new Requirement("Agility", 77), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 95097, "Agility level-ticks", 6000 * Math.max(77, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Hefin Agility Course (77-81 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 77)),
+            new HashMap(), ImmutableMap.of("Agility", 56320, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(77, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv78 xp rates)", Arrays.asList(new Requirement("Agility", 78), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 96926, "Agility level-ticks", 6000 * Math.max(78, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv79 xp rates)", Arrays.asList(new Requirement("Agility", 79), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 98755, "Agility level-ticks", 6000 * Math.max(79, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv80 xp rates)", Arrays.asList(new Requirement("Agility", 80), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 100584, "Agility level-ticks", 6000 * Math.max(80, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Dorgesh-Kaan Agility Course", Arrays.asList(new Requirement("Agility", 80), new Requirement("Death to the Dorgeshuun", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 52250, "Agility level-ticks", 6000 * Math.max(80, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv81 xp rates)", Arrays.asList(new Requirement("Agility", 81), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 102412, "Agility level-ticks", 6000 * Math.max(81, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv82 xp rates)", Arrays.asList(new Requirement("Agility", 82), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 104241, "Agility level-ticks", 6000 * Math.max(82, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Hefin Agility Course (82-86 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 82)),
+            new HashMap(), ImmutableMap.of("Agility", 70800, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(82, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv83 xp rates)", Arrays.asList(new Requirement("Agility", 83), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 106070, "Agility level-ticks", 6000 * Math.max(83, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv84 xp rates)", Arrays.asList(new Requirement("Agility", 84), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 107899, "Agility level-ticks", 6000 * Math.max(84, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv85 xp rates)", Arrays.asList(new Requirement("Agility", 85), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 109728, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 80, true, false));
         database.add(new Action("Advanced Gnome Stronghold Agility Course", Collections.singletonList(new Requirement("Agility", 85)),
             new HashMap(), ImmutableMap.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 34, true, true));
-        database.add(new Action("Advanced Barbarian Outpost Agility Course", Arrays.asList(new Requirement("Bar Crawl", 1),
-            new Requirement("Agility", 90)), new HashMap(), ImmutableMap.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))),
-            96, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv86 xp rates)", Arrays.asList(new Requirement("Agility", 86), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 111556, "Agility level-ticks", 6000 * Math.max(86, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv87 xp rates)", Arrays.asList(new Requirement("Agility", 87), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 113385, "Agility level-ticks", 6000 * Math.max(87, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Hefin Agility Course (87-91 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 87)),
+            new HashMap(), ImmutableMap.of("Agility", 84480, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(87, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv88 xp rates)", Arrays.asList(new Requirement("Agility", 88), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 115214, "Agility level-ticks", 6000 * Math.max(88, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv89 xp rates)", Arrays.asList(new Requirement("Agility", 89), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 117043, "Agility level-ticks", 6000 * Math.max(89, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv90 xp rates)", Arrays.asList(new Requirement("Agility", 90), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 118872, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Advanced Barbarian Outpost Agility Course", Arrays.asList(new Requirement("Bar Crawl", 1), new Requirement("Agility", 90)),
+            new HashMap(), ImmutableMap.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))), 96, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv91 xp rates)", Arrays.asList(new Requirement("Agility", 91), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 120700, "Agility level-ticks", 6000 * Math.max(91, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv92 xp rates)", Arrays.asList(new Requirement("Agility", 92), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 122529, "Agility level-ticks", 6000 * Math.max(92, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Hefin Agility Course (92-96 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 92)),
+            new HashMap(), ImmutableMap.of("Agility", 94720, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(792, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv93 xp rates)", Arrays.asList(new Requirement("Agility", 93), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 124358, "Agility level-ticks", 6000 * Math.max(93, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv94 xp rates)", Arrays.asList(new Requirement("Agility", 94), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 126187, "Agility level-ticks", 6000 * Math.max(94, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv95 xp rates)", Arrays.asList(new Requirement("Agility", 95), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 128016, "Agility level-ticks", 6000 * Math.max(95, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv96 xp rates)", Arrays.asList(new Requirement("Agility", 96), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 129844, "Agility level-ticks", 6000 * Math.max(96, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv97 xp rates)", Arrays.asList(new Requirement("Agility", 97), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 131673, "Agility level-ticks", 6000 * Math.max(97, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Hefin Agility Course (97+ Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 97)),
+            new HashMap(), ImmutableMap.of("Agility", 106240, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(97, player.getLevel("Agility"))), 80, true, true));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv98 xp rates)", Arrays.asList(new Requirement("Agility", 98), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 133502, "Agility level-ticks", 6000 * Math.max(98, player.getLevel("Agility"))), 80, true, false));
+        database.add(new Action("Wilderness Agility Course (w/skull, lv99 xp rates)", Arrays.asList(new Requirement("Agility", 99), new Requirement("Demonic skull", 1)), new HashMap(),
+            ImmutableMap.of("Agility", 135331, "Agility level-ticks", 594000), 80, true, false));
 
 
-        //Construction (done to lv5)
-        database.add(new Action("Building garden plants", new ArrayList(), ImmutableMap.of("Bagged plant 1", 448), ImmutableMap.of("Construction", 13888, "Farming", 13888,
-            "Construction pet points", totalPetPoints(player, "Construction", 13888)), 448, true, true));
+        //Construction
+        database.add(new Action("Building garden plants 1", new ArrayList(), ImmutableMap.of("Bagged plant 1", 504), ImmutableMap.of("Construction", 15624, "Farming", 15624,
+            "Construction pet points", totalPetPoints(player, "Construction", 15624)), 504, true, true));
         database.add(new Action("Building crude wooden chairs", new ArrayList(), ImmutableMap.of("Plank", 676, "Bronze nails", 3380), ImmutableMap.of("Construction", 22308,
             "Construction pet points", totalPetPoints(player, "Construction", 22308)), 338, true, true));
-        database.add(new Action("Building brown rugs", Collections.singletonList(new Requirement("Construction", 2)), ImmutableMap.of("Bolt of cloth", 700),
-            ImmutableMap.of("Construction", 10500, "Construction pet points", totalPetPoints(player, "Construction", 10500)), 350, true, true));
-        database.add(new Action("Building torn curtains", Collections.singletonList(new Requirement("Construction", 2)), ImmutableMap.of("Plank", 504, "Bolt of cloth", 504, "Bronze nails", 2520),
-            ImmutableMap.of("Construction", 22176, "Construction pet points", totalPetPoints(player, "Construction", 22176)), 168, true, true));
-        database.add(new Action("Building clay fireplaces", Collections.singletonList(new Requirement("Construction", 3)), ImmutableMap.of("Soft clay", 864),
-            ImmutableMap.of("Construction", 8640, "Construction pet points", totalPetPoints(player, "Construction", 8640)), 288, true, true));
-        database.add(new Action("Building wooden bookcases", Collections.singletonList(new Requirement("Construction", 4)), ImmutableMap.of("Plank", 648, "Bronze nails", 3240),
-            ImmutableMap.of("Construction", 20412, "Construction pet points", totalPetPoints(player, "Construction", 20412)), 162, true, true));
+        database.add(new Action("Building decorative rocks", Collections.singletonList(new Requirement("Construction", 5)), ImmutableMap.of("Limestone brick", 1050),
+            ImmutableMap.of("Construction", 21000, "Construction pet points", totalPetPoints(player, "Construction", 21000)), 210, true, true));
+        database.add(new Action("Building dead trees", Collections.singletonList(new Requirement("Construction", 5)), ImmutableMap.of("Coins", 504000),
+            ImmutableMap.of("Construction", 15624, "Farming", 15624, "Construction pet points", totalPetPoints(player, "Construction", 15624)), 504, true, true));
+        database.add(new Action("Building garden plants 2", Collections.singletonList(new Requirement("Construction", 6)), ImmutableMap.of("Coins", 2520000),
+            ImmutableMap.of("Construction", 35280, "Farming", 35280, "Construction pet points", totalPetPoints(player, "Construction", 35820)), 504, true, true));
+        database.add(new Action("Building garden plants 3", Collections.singletonList(new Requirement("Construction", 12)), ImmutableMap.of("Coins", 5040000),
+            ImmutableMap.of("Construction", 50400, "Farming", 50400, "Construction pet points", totalPetPoints(player, "Construction", 50400)), 504, true, true));
+        database.add(new Action("Building repair benches 1", Collections.singletonList(new Requirement("Construction", 15)), ImmutableMap.of("Oak plank", 792),
+            ImmutableMap.of("Construction", 47520, "Construction pet points", totalPetPoints(player, "Construction", 47520)), 396, true, true));
+        database.add(new Action("Building crafting tables 1", Collections.singletonList(new Requirement("Construction", 16)), ImmutableMap.of("Oak plank", 1064),
+            ImmutableMap.of("Construction", 63840, "Construction pet points", totalPetPoints(player, "Construction", 63840)), 266, true, true));
+        database.add(new Action("Building carved oak tables", Collections.singletonList(new Requirement("Construction", 31)), ImmutableMap.of("Oak plank", 1080),
+            ImmutableMap.of("Construction", 64800, "Construction pet points", totalPetPoints(player, "Construction", 64800)), 180, true, true));
+        database.add(new Action("Building oak larders", Collections.singletonList(new Requirement("Construction", 33)), ImmutableMap.of("Oak plank", 1152),
+            ImmutableMap.of("Construction", 69120, "Construction pet points", totalPetPoints(player, "Construction", 69120)), 144, true, true));
+        database.add(new Action("Building teak armchairs", Collections.singletonList(new Requirement("Construction", 35)), ImmutableMap.of("Teak plank", 792),
+            ImmutableMap.of("Construction", 71280, "Construction pet points", totalPetPoints(player, "Construction", 71280)), 396, true, true));
+        database.add(new Action("Building whetstones", Collections.singletonList(new Requirement("Construction", 35)), ImmutableMap.of("Oak plank", 840, "Limestone brick", 210),
+            ImmutableMap.of("Construction", 54600, "Construction pet points", totalPetPoints(player, "Construction", 54600)), 210, true, true));
+        database.add(new Action("Building garden habitats", Collections.singletonList(new Requirement("Construction", 37)), ImmutableMap.of("Bagged plant 1", 306, "Coins", 4590000),
+            ImmutableMap.of("Construction", 61506, "Construction pet points", totalPetPoints(player, "Construction", 61506)), 306, true, true));
+        database.add(new Action("Building teak tables", Collections.singletonList(new Requirement("Construction", 38)), ImmutableMap.of("Teak plank", 1064),
+            ImmutableMap.of("Construction", 95760, "Construction pet points", totalPetPoints(player, "Construction", 95760)), 266, true, true));
+        database.add(new Action("Building mahogany bookcases", Collections.singletonList(new Requirement("Construction", 40)), ImmutableMap.of("Mahogany plank", 918),
+            ImmutableMap.of("Construction", 128520, "Construction pet points", totalPetPoints(player, "Construction", 128520)), 306, true, true));
+        database.add(new Action("Building teak prize chests", Collections.singletonList(new Requirement("Construction", 44)), ImmutableMap.of("Teak plank", 840, "Gold leaf", 210),
+            ImmutableMap.of("Construction", 138600, "Construction pet points", totalPetPoints(player, "Construction", 138600)), 210, true, true));
+        database.add(new Action("Building maple trees", Collections.singletonList(new Requirement("Construction", 45)), ImmutableMap.of("Coins", 7560000),
+            ImmutableMap.of("Construction", 61488, "Farming", 61488, "Construction pet points", totalPetPoints(player, "Construction", 61488)), 504, true, true));
+        database.add(new Action("Building mahogany tables", Collections.singletonList(new Requirement("Construction", 52)), ImmutableMap.of("Mahogany plank", 1080),
+            ImmutableMap.of("Construction", 151200, "Construction pet points", totalPetPoints(player, "Construction", 151200)), 180, true, true));
+        database.add(new Action("Building mahogany prize chests", Collections.singletonList(new Requirement("Construction", 54)), ImmutableMap.of("Mahogany plank", 840, "Gold leaf", 210),
+            ImmutableMap.of("Construction", 180600, "Construction pet points", totalPetPoints(player, "Construction", 180600)), 210, true, true));
+        database.add(new Action("Building armour stands", Collections.singletonList(new Requirement("Construction", 55)), ImmutableMap.of("Oak plank", 1152, "Limestone brick", 144),
+            ImmutableMap.of("Construction", 72000, "Construction pet points", totalPetPoints(player, "Construction", 72000)), 144, true, true));
+        database.add(new Action("Building gilded benches", Collections.singletonList(new Requirement("Construction", 56)), ImmutableMap.of("Mahogany plank", 630, "Gold leaf", 420),
+            ImmutableMap.of("Construction", 214200, "Construction pet points", totalPetPoints(player, "Construction", 214200)), 210, true, true));
+        database.add(new Action("Building lunar globes", Collections.singletonList(new Requirement("Construction", 59)), ImmutableMap.of("Teak plank", 798, "Gold leaf", 266),
+            ImmutableMap.of("Construction", 151620, "Construction pet points", totalPetPoints(player, "Construction", 151620)), 266, true, true));
+        database.add(new Action("Building god icons", Collections.singletonList(new Requirement("Construction", 59)), ImmutableMap.of("Teak plank", 720, "Gold leaf", 360),
+            ImmutableMap.of("Construction", 172800, "Construction pet points", totalPetPoints(player, "Construction", 172800)), 180, true, true));
+        database.add(new Action("Building yew trees", Collections.singletonList(new Requirement("Construction", 60)), ImmutableMap.of("Coins", 10080000),
+            ImmutableMap.of("Construction", 71064, "Farming", 71064, "Construction pet points", totalPetPoints(player, "Construction", 71064)), 504, true, true));
+        database.add(new Action("Building oak thrones", Collections.singletonList(new Requirement("Construction", 60)), ImmutableMap.of("Oak plank", 900, "Marble block", 180),
+            ImmutableMap.of("Construction", 144000, "Construction pet points", totalPetPoints(player, "Construction", 144000)), 180, true, true));
+        database.add(new Action("Building gilded benches", Collections.singletonList(new Requirement("Construction", 61)), ImmutableMap.of("Mahogany plank", 576, "Gold leaf", 576),
+            ImmutableMap.of("Construction", 253440, "Construction pet points", totalPetPoints(player, "Construction", 253440)), 144, true, true));
+        database.add(new Action("Building marble fireplaces", Collections.singletonList(new Requirement("Construction", 63)), ImmutableMap.of("Marble block", 504),
+            ImmutableMap.of("Construction", 252000, "Construction pet points", totalPetPoints(player, "Construction", 252000)), 504, true, true));
+        database.add(new Action("Building driftwood prawnbrokers", Collections.singletonList(new Requirement("Construction", 63)), ImmutableMap.of("Teak plank", 1152),
+            ImmutableMap.of("Construction", 103680, "Construction pet points", totalPetPoints(player, "Construction", 103680)), 144, true, true));
+        database.add(new Action("Building spiral staircases", Collections.singletonList(new Requirement("Construction", 67)), ImmutableMap.of("Teak plank", 550, "Limestone brick", 385),
+            ImmutableMap.of("Construction", 57200, "Construction pet points", totalPetPoints(player, "Construction", 57200)), 55, true, true));
+        database.add(new Action("Building teak thrones", Collections.singletonList(new Requirement("Construction", 67)), ImmutableMap.of("Teak plank", 875, "Marble block", 350),
+            ImmutableMap.of("Construction", 253750, "Construction pet points", totalPetPoints(player, "Construction", 253750)), 175, true, true));
+        database.add(new Action("Building carved teak magic wardrobes", Collections.singletonList(new Requirement("Construction", 69)), ImmutableMap.of("Teak plank", 1080),
+            ImmutableMap.of("Construction", 97200, "Construction pet points", totalPetPoints(player, "Construction", 97200)), 180, true, true));
+        database.add(new Action("Building skeleton guards", Collections.singletonList(new Requirement("Construction", 70)), ImmutableMap.of("Coins", 37500000),
+            ImmutableMap.of("Construction", 167250, "Construction pet points", totalPetPoints(player, "Construction", 167250)), 750, true, true));
+        database.add(new Action("Building icons of Bob", Collections.singletonList(new Requirement("Construction", 71)), ImmutableMap.of("Mahogany plank", 720, "Gold leaf", 360),
+            ImmutableMap.of("Construction", 208800, "Construction pet points", totalPetPoints(player, "Construction", 208800)), 180, true, true));
+        database.add(new Action("Building flotsam prawnbrokers", Collections.singletonList(new Requirement("Construction", 73)), ImmutableMap.of("Mahogany plank", 1152),
+            ImmutableMap.of("Construction", 161280, "Construction pet points", totalPetPoints(player, "Construction", 161280)), 144, true, true));
+        database.add(new Action("Building pit ogres", Collections.singletonList(new Requirement("Construction", 73)), ImmutableMap.of("Coins", 41250000),
+            ImmutableMap.of("Construction", 175500, "Construction pet points", totalPetPoints(player, "Construction", 175500)), 750, true, true));
+        database.add(new Action("Building mahogany thrones", Collections.singletonList(new Requirement("Construction", 74)), ImmutableMap.of("Mahogany plank", 720, "Marble block", 288),
+            ImmutableMap.of("Construction", 308000, "Construction pet points", totalPetPoints(player, "Construction", 308000)), 144, true, true));
+        database.add(new Action("Building guard dogs", Collections.singletonList(new Requirement("Construction", 74)), ImmutableMap.of("Coins", 56250000),
+            ImmutableMap.of("Construction", 204750, "Construction pet points", totalPetPoints(player, "Construction", 204750)), 750, true, true));
+        database.add(new Action("Building magic trees", Collections.singletonList(new Requirement("Construction", 75)), ImmutableMap.of("Coins", 25200000),
+            ImmutableMap.of("Construction", 112392, "Farming", 112392, "Construction pet points", totalPetPoints(player, "Construction", 112392)), 504, true, true));
+        database.add(new Action("Building large fountains", Collections.singletonList(new Requirement("Construction", 75)), ImmutableMap.of("Marble block", 792),
+            ImmutableMap.of("Construction", 396000, "Construction pet points", totalPetPoints(player, "Construction", 396000)), 396, true, true));
+        database.add(new Action("Building demons", Collections.singletonList(new Requirement("Construction", 75)), ImmutableMap.of("Coins", 375000000),
+            ImmutableMap.of("Construction", 530250, "Construction pet points", totalPetPoints(player, "Construction", 530250)), 750, true, true));
+        database.add(new Action("Building marble attack stones", Collections.singletonList(new Requirement("Construction", 79)), ImmutableMap.of("Marble block", 1064),
+            ImmutableMap.of("Construction", 532000, "Construction pet points", totalPetPoints(player, "Construction", 532000)), 266, true, true));
+        database.add(new Action("Building marble walls", Collections.singletonList(new Requirement("Construction", 79)), ImmutableMap.of("Marble block", 1152),
+            ImmutableMap.of("Construction", 576000, "Construction pet points", totalPetPoints(player, "Construction", 576000)), 144, true, true));
+        database.add(new Action("Building kalphite soldiers", Collections.singletonList(new Requirement("Construction", 80)), ImmutableMap.of("Coins", 562500000),
+            ImmutableMap.of("Construction", 649500, "Construction pet points", totalPetPoints(player, "Construction", 649500)), 750, true, true));
+        database.add(new Action("Building marble staircases", Collections.singletonList(new Requirement("Construction", 82)), ImmutableMap.of("Mahogany plank", 510, "Marble block", 510),
+            ImmutableMap.of("Construction", 326400, "Construction pet points", totalPetPoints(player, "Construction", 326400)), 102, true, true));
+        database.add(new Action("Building lesser magic cages", Collections.singletonList(new Requirement("Construction", 82)), ImmutableMap.of("Mahogany plank", 875, "Magic stone", 350),
+            ImmutableMap.of("Construction", 472500, "Construction pet points", totalPetPoints(player, "Construction", 472500)), 175, true, true));
+        database.add(new Action("Building Tok-Xils", Collections.singletonList(new Requirement("Construction", 85)), ImmutableMap.of("Spirit shards", 150000000),
+            ImmutableMap.of("Construction", 1677000, "Construction pet points", totalPetPoints(player, "Construction", 1677000)), 750, true, true));
+        database.add(new Action("Building gilded wardrobes", Collections.singletonList(new Requirement("Construction", 87)), ImmutableMap.of("Mahogany plank", 798, "Gold leaf", 266),
+            ImmutableMap.of("Construction", 191520, "Construction pet points", totalPetPoints(player, "Construction", 191520)), 266, true, true));
+        database.add(new Action("Building mahogany chests", Collections.singletonList(new Requirement("Construction", 87)), ImmutableMap.of("Mahogany plank", 900, "Gold leaf", 180),
+            ImmutableMap.of("Construction", 180000, "Construction pet points", totalPetPoints(player, "Construction", 180000)), 180, true, true));
+        database.add(new Action("Building greater magic cages", Collections.singletonList(new Requirement("Construction", 89)), ImmutableMap.of("Mahogany plank", 720, "Magic stone", 576),
+            ImmutableMap.of("Construction", 822500, "Construction pet points", totalPetPoints(player, "Construction", 822500)), 144, true, true));
+        database.add(new Action("Building dagannoths", Collections.singletonList(new Requirement("Construction", 90)), ImmutableMap.of("Spirit shards", 225000000),
+            ImmutableMap.of("Construction", 2053500, "Construction pet points", totalPetPoints(player, "Construction", 2053500)), 750, true, true));
+        database.add(new Action("Building magic chests", Collections.singletonList(new Requirement("Construction", 91)), ImmutableMap.of("Magic stone", 504),
+            ImmutableMap.of("Construction", 504000, "Construction pet points", totalPetPoints(player, "Construction", 504000)), 504, true, true));
+        database.add(new Action("Building large orneries", Collections.singletonList(new Requirement("Construction", 95)), ImmutableMap.of("Mahogany plank", 432, "Gold leaf", 720),
+            ImmutableMap.of("Construction", 204480, "Construction pet points", totalPetPoints(player, "Construction", 204480)), 144, true, true));
+        database.add(new Action("Building crystal thrones", Collections.singletonList(new Requirement("Construction", 95)), ImmutableMap.of("Magic stone", 825),
+            ImmutableMap.of("Construction", 825000, "Construction pet points", totalPetPoints(player, "Construction", 825000)), 55, true, true));
+        database.add(new Action("Building steel dragons", Collections.singletonList(new Requirement("Construction", 90)), ImmutableMap.of("Spirit shards", 300000000),
+            ImmutableMap.of("Construction", 2371500, "Construction pet points", totalPetPoints(player, "Construction", 2371500)), 750, true, true));
+        database.add(new Action("Building marble spirals", Collections.singletonList(new Requirement("Construction", 97)), ImmutableMap.of("Teak plank", 550, "Marble block", 385),
+            ImmutableMap.of("Construction", 242000, "Construction pet points", totalPetPoints(player, "Construction", 242000)), 55, true, true));
+        database.add(new Action("Building demonic thrones", Collections.singletonList(new Requirement("Construction", 99)), ImmutableMap.of("Magic stone", 1375),
+            ImmutableMap.of("Construction", 1375000, "Construction pet points", totalPetPoints(player, "Construction", 1375000)), 55, true, true));
 
-        //Cooking (done to lv5)
+        //Cooking (done to lv20)
         database.add(new Action("Cooking raw beef", new ArrayList<>(),
-            ImmutableMap.of("Raw beef", 1300), ImmutableMap.of("Cooked meat", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-            "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-            "Cooking pet points", totalPetPoints(player, "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
-            (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
+            ImmutableMap.of("Raw beef", 1279), ImmutableMap.of("Cooked meat", (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+            "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+            "Cooking pet points", totalPetPoints(player, "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
 
-        database.add(new Action("Cooking shrimps", new ArrayList<>(), ImmutableMap.of("Raw shrimps", 1300),
-            ImmutableMap.of("Shrimps", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking pet points", totalPetPoints(player, "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
-            (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
+        database.add(new Action("Cooking shrimps", new ArrayList<>(), ImmutableMap.of("Raw shrimps", 1279),
+            ImmutableMap.of("Shrimps", (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
 
-        database.add(new Action("Cooking crayfish", new ArrayList<>(), ImmutableMap.of("Raw crayfish", 1300),
-            ImmutableMap.of("Crayfish", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking pet points", totalPetPoints(player, "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
-            (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
+        database.add(new Action("Cooking crayfish", new ArrayList<>(), ImmutableMap.of("Raw crayfish", 1279),
+            ImmutableMap.of("Crayfish", (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
 
-        database.add(new Action("Cooking chicken", new ArrayList<>(), ImmutableMap.of("Raw chicken", 1300),
-            ImmutableMap.of("Cooked chicken", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking pet points", totalPetPoints(player, "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
-            (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
+        database.add(new Action("Cooking chicken", new ArrayList<>(), ImmutableMap.of("Raw chicken", 1279),
+            ImmutableMap.of("Cooked chicken", (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
 
-        database.add(new Action("Cooking sardines", new ArrayList<>(), ImmutableMap.of("Raw sardine", 1300),
-            ImmutableMap.of("Sardine", (int) Math.floor(1300 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(52000 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking pet points", totalPetPoints(player, "Cooking", (int) Math.floor(52000 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)))),
-            (int) Math.floor(1300 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)), true, true));
+        database.add(new Action("Cooking sardines", new ArrayList<>(), ImmutableMap.of("Raw sardine", 1279),
+            ImmutableMap.of("Sardine", (int) Math.floor(1279 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 40*(int) Math.floor(1279*Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 40*(int) Math.floor(1279*Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0)), true, true));
 
-        database.add(new Action("Cooking anchovies", new ArrayList<>(), ImmutableMap.of("Raw anchovies", 1300),
-            ImmutableMap.of("Anchovies", (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
-                "Cooking pet points", totalPetPoints(player, "Cooking", (int) Math.floor(39000 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
-            (int) Math.floor(1300 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
+        database.add(new Action("Cooking anchovies", new ArrayList<>(), ImmutableMap.of("Raw anchovies", 1279),
+            ImmutableMap.of("Anchovies", (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking ugthanki meat", new ArrayList<>(), ImmutableMap.of("Raw ugthanki meat", 1279),
+            ImmutableMap.of("Ugthanki meat", (int) Math.floor(1279 * Math.min(1, 1 - (100 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 40*(int) Math.floor(1279*Math.min(1, 1 - (100 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 40*(int) Math.floor(1279*Math.min(1, 1 - (100 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (100 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking rabbit", new ArrayList<>(), ImmutableMap.of("Raw rabbit", 1279),
+            ImmutableMap.of("Cooked rabbit", (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 30*(int) Math.floor(1279*Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking bread", new ArrayList<>(), ImmutableMap.of("Bread dough", 1279),
+            ImmutableMap.of("Bread", (int) Math.floor(1279 * Math.min(1, 1 - (37 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 40*(int) Math.floor(1279*Math.min(1, 1 - (37 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 40*(int) Math.floor(1279*Math.min(1, 1 - (37 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (37 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking herrings", Collections.singletonList(new Requirement("Cooking", 5)), ImmutableMap.of("Raw herring", 1279),
+            ImmutableMap.of("Herring", (int) Math.floor(1279 * Math.min(1, 1 - (41 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 50*(int) Math.floor(1279*Math.min(1, 1 - (41 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 50*(int) Math.floor(1279*Math.min(1, 1 - (41 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (41 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Baking potatoes", Collections.singletonList(new Requirement("Cooking", 7)), ImmutableMap.of("Raw potato", 1279),
+            ImmutableMap.of("Baked potato", 1279, "Cooking", 19185, "Cooking pet points", totalPetPoints(player, "Cooking", 19185)), 1279, true, true));
+
+        database.add(new Action("Making spicy sauce", Collections.singletonList(new Requirement("Cooking", 9)), ImmutableMap.of("Chopped garlic", 1354, "Gnome spice", 1354),
+            ImmutableMap.of("Spicy sauce", 1354, "Cooking", 33850, "Cooking pet points", totalPetPoints(player, "Cooking", 33850)), 1354, true, true));
+
+        database.add(new Action("Making chilli con carne", Collections.singletonList(new Requirement("Cooking", 9)), ImmutableMap.of("Spicy sauce", 1354, "Cooked meat", 1354),
+            ImmutableMap.of("Chilli con carne", 1354, "Cooking", 33850, "Cooking pet points", totalPetPoints(player, "Cooking", 33850)), 1354, true, true));
+
+        database.add(new Action("Cooking mackerel", Collections.singletonList(new Requirement("Cooking", 10)), ImmutableMap.of("Raw mackerel", 1279),
+            ImmutableMap.of("Mackerel", (int) Math.floor(1279 * Math.min(1, 1 - (45 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 60*(int) Math.floor(1279*Math.min(1, 1 - (45 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 60*(int) Math.floor(1279*Math.min(1, 1 - (45 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (45 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking redberry pies", Collections.singletonList(new Requirement("Cooking", 10)), ImmutableMap.of("Uncooked berry pie", 1279),
+            ImmutableMap.of("Redberry pie", (int) Math.floor(1279 * Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 78*(int) Math.floor(1279*Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 78*(int) Math.floor(1279*Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking bird meat", Collections.singletonList(new Requirement("Cooking", 11)), ImmutableMap.of("Skewered bird meat", 1279),
+            ImmutableMap.of("Roast bird meat", (int) Math.floor(1279 * Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 62*(int) Math.floor(1279*Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 62*(int) Math.floor(1279*Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking thin snails", Collections.singletonList(new Requirement("Cooking", 12)), ImmutableMap.of("Thin snail", 1279),
+            ImmutableMap.of("Thin snail meat", (int) Math.floor(1279 * Math.min(1, 1 - (47 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 70*(int) Math.floor(1279*Math.min(1, 1 - (47 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 70*(int) Math.floor(1279*Math.min(1, 1 - (47 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (47 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking trout", Collections.singletonList(new Requirement("Cooking", 15)), ImmutableMap.of("Raw trout", 1279),
+            ImmutableMap.of("Trout", (int) Math.floor(1279 * Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 70*(int) Math.floor(1279*Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 70*(int) Math.floor(1279*Math.min(1, 1 - (50- player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking scrambled eggs", Collections.singletonList(new Requirement("Cooking", 13)), ImmutableMap.of("Uncooked egg", 1279),
+            ImmutableMap.of("Scrambled egg", (int) Math.floor(1279 * Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 50*(int) Math.floor(1279*Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 50*(int) Math.floor(1279*Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking roast rabbit", Collections.singletonList(new Requirement("Cooking", 16)), ImmutableMap.of("Skewered rabbit", 1279),
+            ImmutableMap.of("Roast rabbit", (int) Math.floor(1279 * Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 72*(int) Math.floor(1279*Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 72*(int) Math.floor(1279*Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (99 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking spiders on sticks", Collections.singletonList(new Requirement("Cooking", 16)), ImmutableMap.of("Spider on stick (raw)", 1279),
+            ImmutableMap.of("Spider on stick", (int) Math.floor(1279 * Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 80*(int) Math.floor(1279*Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 80*(int) Math.floor(1279*Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (48 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking lean snails", Collections.singletonList(new Requirement("Cooking", 17)), ImmutableMap.of("Lean snail", 1279),
+            ImmutableMap.of("Lean snail meat", (int) Math.floor(1279 * Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 80*(int) Math.floor(1279*Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 80*(int) Math.floor(1279*Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (50 - player.getLevel("Cooking")) / 100.0)), true, true));
+
+        database.add(new Action("Cooking cod", Collections.singletonList(new Requirement("Cooking", 18)), ImmutableMap.of("Raw cod", 1279),
+            ImmutableMap.of("Cod", (int) Math.floor(1279 * Math.min(1, 1 - (52 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking", 75*(int) Math.floor(1279*Math.min(1, 1 - (52 - player.getLevel("Cooking")) / 100.0)),
+                "Cooking pet points", totalPetPoints(player, "Cooking", 75*(int) Math.floor(1279*Math.min(1, 1 - (52 - player.getLevel("Cooking")) / 100.0)))),
+            (int) Math.floor(1279 * Math.min(1, 1 - (52 - player.getLevel("Cooking")) / 100.0)), true, true));
 
         database.add(new Action("Making uncooked arc gumbo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 94)),
-            ImmutableMap.of("Bundle of bamboo", 1300, "Tortle shell bowl", 1300, "Rumberry", 1300, "Fish oil", 1300, "Sea salt", 1300), ImmutableMap.of("Uncooked arc gumbo", 1300,
-            "Cooking", 13000, "Cooking pet points", totalPetPoints(player, "Cooking", 13000)), 1300, true, true));
+            ImmutableMap.of("Bundle of bamboo", 1279, "Tortle shell bowl", 1279, "Rumberry", 1279, "Fish oil", 1279, "Sea salt", 1279), ImmutableMap.of("Uncooked arc gumbo", 1279,
+            "Cooking", 12790, "Cooking pet points", totalPetPoints(player, "Cooking", 12790)), 1279, true, true));
 
         database.add(new Action("Cooking arc gumbo", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 94)),
-            ImmutableMap.of("Uncooked arc gumbo", 1300), ImmutableMap.of("Arc gumbo", 1300, "Cooking", 169000, "Cooking pet points", totalPetPoints(player, "Cooking", 169000), "Azure Parrot", 21),
-            1300, true, true));
+            ImmutableMap.of("Uncooked arc gumbo", 1279), ImmutableMap.of("Arc gumbo", 1279, "Cooking", 169000, "Cooking pet points", totalPetPoints(player, "Cooking", 169000), "Azure Parrot", 21),
+            1279, true, true));
 
         database.add(new Action("Making uncooked shark soup", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 96)),
-            ImmutableMap.of("Bundle of bamboo", 1300, "Shiny tortle shell bowl", 1300, "Sliced mushrooms", 1300, "Wobbegong oil", 1300, "Alaea sea salt", 1300), ImmutableMap.of("Uncooked shark soup", 1300,
-            "Cooking", 13000, "Cooking pet points", totalPetPoints(player, "Cooking", 13000)), 1300, true, true));
+            ImmutableMap.of("Bundle of bamboo", 1279, "Shiny tortle shell bowl", 1279, "Sliced mushrooms", 1279, "Wobbegong oil", 1279, "Alaea sea salt", 1279), ImmutableMap.of("Uncooked shark soup", 1279,
+            "Cooking", 12790, "Cooking pet points", totalPetPoints(player, "Cooking", 12790)), 1279, true, true));
 
         database.add(new Action("Cooking shark soup", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Cooking", 96)),
-            ImmutableMap.of("Uncooked shark soup", 1300), ImmutableMap.of("Shark soup", 1300, "Cooking", 312000, "Cooking pet points", totalPetPoints(player, "Cooking", 312000), "Azure Parrot", 21),
-            1300, true, true));
+            ImmutableMap.of("Uncooked shark soup", 1279), ImmutableMap.of("Shark soup", 1279, "Cooking", 312000, "Cooking pet points", totalPetPoints(player, "Cooking", 312000), "Azure Parrot", 21),
+            1279, true, true));
 
 
-        //Crafting (done to lv5)
+        //Crafting (done to lv20)
         database.add(new Action("Making soft clay", new ArrayList(), ImmutableMap.of("Clay", 2212), ImmutableMap.of("Soft clay", 2212, "Crafting", 2212,
             "Crafting pet points", totalPetPoints(player, "Crafting", 2212)), 2212, true, true));
         database.add(new Action("Spinning wool", new ArrayList(), ImmutableMap.of("Wool", 1400), ImmutableMap.of("Ball of wool", 1400, "Crafting", 3500,
             "Crafting pet points", totalPetPoints(player, "Crafting", 3500)), 1400, true, true));
-        database.add(new Action("Crafting molten glass", new ArrayList<>(), ImmutableMap.of("Soda ash", 1344, "Bucket of sand", 1344), ImmutableMap.of("Molten glass", 1344, "Crafting", 26880,
-            "Crafting pet points", totalPetPoints(player, "Crafting", 26880)), 1344, true, true));
+        database.add(new Action("Crafting molten glass", new ArrayList<>(), ImmutableMap.of("Soda ash", 1354, "Bucket of sand", 1354), ImmutableMap.of("Molten glass", 1354, "Crafting", 27080,
+            "Crafting pet points", totalPetPoints(player, "Crafting", 27080)), 1354, true, true));
         database.add(new Action("Spinning flax", new ArrayList(), ImmutableMap.of("Flax", 1400), ImmutableMap.of("Bowstring", 1400, "Crafting", 21000,
             "Crafting pet points", totalPetPoints(player, "Crafting", 21000)), 1400, true, true));
         database.add(new Action("Making unfired pots", new ArrayList(), ImmutableMap.of("Soft clay", 1568), ImmutableMap.of("Pot (unfired)", 1568, "Crafting", 9878,
@@ -187,8 +519,8 @@ public class ActionDatabase {
         database.add(new Action("Cutting opals", new ArrayList(), ImmutableMap.of("Uncut opal", 4928), ImmutableMap.of("Opal", (int)(4928*(.5 + player.getLevel("Crafting")*.005)),
             "Crafting", (int)(18726+11.2*4928*(.5 + player.getLevel("Crafting")*.005)), "Crafting pet points",
             totalPetPoints(player, "Crafting", (int)(18726+11.2*4928*(.5 + player.getLevel("Crafting")*.005)))), 4928, true, true));
-        database.add(new Action("Making opal rings", new ArrayList(), ImmutableMap.of("Opal", 1344, "Silver bar", 1344), ImmutableMap.of("Opal ring", 1344, "Crafting", 13440,
-            "Crafting pet points", totalPetPoints(player, "Crafting", 13440)), 1344, true, true));
+        database.add(new Action("Making opal rings", new ArrayList(), ImmutableMap.of("Opal", 1354, "Silver bar", 1354), ImmutableMap.of("Opal ring", 1354, "Crafting", 13540,
+            "Crafting pet points", totalPetPoints(player, "Crafting", 13540)), 1354, true, true));
         database.add(new Action("Making cracked mining urns (nr)", Collections.singletonList(new Requirement("Crafting", 2)), ImmutableMap.of("Soft clay", 1120),
             ImmutableMap.of("Cracked mining urn (nr)", 560, "Crafting", 15680, "Crafting pet points", totalPetPoints(player, "Crafting", 15680)), 560, true, true));
         database.add(new Action("Making cracked cooking urns (nr)", Collections.singletonList(new Requirement("Crafting", 2)), ImmutableMap.of("Soft clay", 1120),
@@ -222,11 +554,119 @@ public class ActionDatabase {
         database.add(new Action("Making cracked woodcutting urns (nr)", Collections.singletonList(new Requirement("Crafting", 4)), ImmutableMap.of("Soft clay", 1120),
             ImmutableMap.of("Cracked woodcutting urn (nr)", 560, "Crafting", 21560, "Crafting pet points", totalPetPoints(player, "Crafting", 21560)), 560, true, true));
         database.add(new Action("Crafting wizard robe skirts", Collections.singletonList(new Requirement("Crafting", 4)), ImmutableMap.of("Strip of cloth", 3458, "Thread", 432),
-            ImmutableMap.of("Wizard robe skirt)", 1729, "Crafting", 17290, "Crafting pet points", totalPetPoints(player, "Crafting", 17290)), 1729, true, true));
+            ImmutableMap.of("Wizard robe skirt", 1729, "Crafting", 17290, "Crafting pet points", totalPetPoints(player, "Crafting", 17290)), 1729, true, true));
         database.add(new Action("Crafting black wizard robe skirts", Collections.singletonList(new Requirement("Crafting", 4)), ImmutableMap.of("Strip of black cloth", 3458, "Thread", 459),
             ImmutableMap.of("Black wizard robe skirt", 1729, "Crafting", 17290, "Crafting pet points", totalPetPoints(player, "Crafting", 17290)), 1836, true, true));
         database.add(new Action("Making candle lanterns", Collections.singletonList(new Requirement("Crafting", 4)), ImmutableMap.of("Molten glass", 1848),
             ImmutableMap.of("Candle lantern (empty)", 1848, "Crafting", 35112, "Crafting pet points", totalPetPoints(player, "Crafting", 35112)), 1848, true, true));
+        database.add(new Action("Making cracked farming urns (nr)", Collections.singletonList(new Requirement("Crafting", 5)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Cracked farming urn (nr)", 560, "Crafting", 16800, "Crafting pet points", totalPetPoints(player, "Crafting", 16800)), 560, true, true));
+        database.add(new Action("Crafting wizard robe tops", Collections.singletonList(new Requirement("Crafting", 5)), ImmutableMap.of("Strip of cloth", 3458, "Thread", 432),
+            ImmutableMap.of("Wizard robe top", 1729, "Crafting", 17290, "Crafting pet points", totalPetPoints(player, "Crafting", 17290)), 1729, true, true));
+        database.add(new Action("Crafting black wizard robe tops", Collections.singletonList(new Requirement("Crafting", 5)), ImmutableMap.of("Strip of black cloth", 3458, "Thread", 459),
+            ImmutableMap.of("Black wizard robe top", 1729, "Crafting", 17290, "Crafting pet points", totalPetPoints(player, "Crafting", 17290)), 1836, true, true));
+        database.add(new Action("Crafting gold rings", Collections.singletonList(new Requirement("Crafting", 5)), ImmutableMap.of("Gold bar", 1615),
+            ImmutableMap.of("Gold ring", 1615, "Crafting", 24225, "Crafting pet points", totalPetPoints(player, "Crafting", 24225)), 1615, true, true));
+        database.add(new Action("Crafting wizard books", Collections.singletonList(new Requirement("Crafting", 6)), ImmutableMap.of("Strip of cloth", 4908, "Thread", 409),
+            ImmutableMap.of("Wizard book", 1636, "Crafting", 24540, "Crafting pet points", totalPetPoints(player, "Crafting", 24540)), 1636, true, true));
+        database.add(new Action("Crafting gold necklaces", Collections.singletonList(new Requirement("Crafting", 6)), ImmutableMap.of("Gold bar", 1615),
+            ImmutableMap.of("Gold necklace", 1615, "Crafting", 32300, "Crafting pet points", totalPetPoints(player, "Crafting", 32300)), 1615, true, true));
+        database.add(new Action("Crafting wizard wands", Collections.singletonList(new Requirement("Crafting", 7)), ImmutableMap.of("Strip of cloth", 4908, "Thread", 409),
+            ImmutableMap.of("Wizard wand", 1636, "Crafting", 24540, "Crafting pet points", totalPetPoints(player, "Crafting", 24540)), 1636, true, true));
+        database.add(new Action("Making unfired pie dishes", Collections.singletonList(new Requirement("Crafting", 7)), ImmutableMap.of("Soft clay", 1568), ImmutableMap.of("Pie dish (unfired)", 1568,
+            "Crafting", 23520, "Crafting pet points", totalPetPoints(player, "Crafting", 23520)), 1568, true, true));
+        database.add(new Action("Firing unfired pie dishes", Collections.singletonList(new Requirement("Crafting", 7)), ImmutableMap.of("Pie dish (unfired)", 868),
+            ImmutableMap.of("Pie dish", 868, "Crafting", 8680, "Crafting pet points", totalPetPoints(player, "Crafting", 8680)), 868, true, true));
+        database.add(new Action("Crafting leather boots", Collections.singletonList(new Requirement("Crafting", 7)), ImmutableMap.of("Leather", 1836, "Thread", 459),
+            ImmutableMap.of("Leather boots", 1836, "Crafting", 29835, "Crafting pet points", totalPetPoints(player, "Crafting", 29835)), 1836, true, true));
+        database.add(new Action("Crafting gold bracelets", Collections.singletonList(new Requirement("Crafting", 7)), ImmutableMap.of("Gold bar", 1615),
+            ImmutableMap.of("Gold bracelet", 1615, "Crafting", 40375, "Crafting pet points", totalPetPoints(player, "Crafting", 40375)), 1615, true, true));
+        database.add(new Action("Making unfired bowls", Collections.singletonList(new Requirement("Crafting", 8)), ImmutableMap.of("Soft clay", 1568), ImmutableMap.of("Bowl (unfired)", 1568,
+            "Crafting", 28224, "Crafting pet points", totalPetPoints(player, "Crafting", 28224)), 1568, true, true));
+        database.add(new Action("Firing unfired bowls", Collections.singletonList(new Requirement("Crafting", 8)), ImmutableMap.of("Bowl (unfired)", 868),
+            ImmutableMap.of("Bowl", 868, "Crafting", 10416, "Crafting pet points", totalPetPoints(player, "Crafting", 10416)), 868, true, true));
+        database.add(new Action("Crafting wizard shields", Collections.singletonList(new Requirement("Crafting", 8)), ImmutableMap.of("Strip of cloth", 4908, "Thread", 409),
+            ImmutableMap.of("Wizard shield", 1636, "Crafting", 24540, "Crafting pet points", totalPetPoints(player, "Crafting", 24540)), 1636, true, true));
+        database.add(new Action("Crafting black wizard shields", Collections.singletonList(new Requirement("Crafting", 8)), ImmutableMap.of("Strip of black cloth", 4908, "Thread", 409),
+            ImmutableMap.of("Black wizard shield", 1636, "Crafting", 24540, "Crafting pet points", totalPetPoints(player, "Crafting", 24540)), 1636, true, true));
+        database.add(new Action("Crafting gold amulets", Collections.singletonList(new Requirement("Crafting", 8)), ImmutableMap.of("Gold bar", 1615),
+            ImmutableMap.of("Gold amulet (unstrung)", 1615, "Crafting", 48450, "Crafting pet points", totalPetPoints(player, "Crafting", 48450)), 1615, true, true));
+        database.add(new Action("Crafting leather cowls", Collections.singletonList(new Requirement("Crafting", 9)), ImmutableMap.of("Leather", 1836, "Thread", 459),
+            ImmutableMap.of("Leather cowl", 1836, "Crafting", 33966, "Crafting pet points", totalPetPoints(player, "Crafting", 33966)), 1836, true, true));
+        database.add(new Action("Crafting imphide gloves", Collections.singletonList(new Requirement("Crafting", 10)), ImmutableMap.of("Imphide", 1836, "Thread", 459),
+            ImmutableMap.of("Imphide gloves", 1836, "Crafting", 18360, "Crafting pet points", totalPetPoints(player, "Crafting", 18360)), 1836, true, true));
+        database.add(new Action("Spinning maple roots", Collections.singletonList(new Requirement("Crafting", 10)), ImmutableMap.of("Maple roots", 1400),
+            ImmutableMap.of("Crossbow string", 1400, "Crafting", 21000, "Crafting pet points", totalPetPoints(player, "Crafting", 21000)), 1400, true, true));
+        database.add(new Action("Crafting leather vambraces", Collections.singletonList(new Requirement("Crafting", 11)), ImmutableMap.of("Leather", 1836, "Thread", 459),
+            ImmutableMap.of("Leather vambraces", 1836, "Crafting", 40392, "Crafting pet points", totalPetPoints(player, "Crafting", 40392)), 1836, true, true));
+        database.add(new Action("Crafting imphide boots", Collections.singletonList(new Requirement("Crafting", 11)), ImmutableMap.of("Imphide", 1836, "Thread", 459),
+            ImmutableMap.of("Imphide boots", 1836, "Crafting", 18360, "Crafting pet points", totalPetPoints(player, "Crafting", 18360)), 1836, true, true));;
+        database.add(new Action("Making fragile cooking urns (nr)", Collections.singletonList(new Requirement("Crafting", 12)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile cooking urn (nr)", 560, "Crafting", 22400, "Crafting pet points", totalPetPoints(player, "Crafting", 22400)), 560, true, true));
+        database.add(new Action("Crafting imphide hoods", Collections.singletonList(new Requirement("Crafting", 12)), ImmutableMap.of("Imphide", 3458, "Thread", 422),
+            ImmutableMap.of("Imphide hood", 1729, "Crafting", 34580, "Crafting pet points", totalPetPoints(player, "Crafting", 34580)), 1729, true, true));
+        database.add(new Action("Crafting fungal leggings", Collections.singletonList(new Requirement("Crafting", 12)), ImmutableMap.of("Mycelium leggings web", 1836, "Fungal flake", 1836000),
+            ImmutableMap.of("Fungal leggings", 1836, "Crafting", 91800, "Crafting pet points", totalPetPoints(player, "Crafting", 91800)), 1836, true, true));
+        database.add(new Action("Making oil lamps", Collections.singletonList(new Requirement("Crafting", 12)), ImmutableMap.of("Molten glass", 1848),
+            ImmutableMap.of("Oil lamp (empty)", 1848, "Crafting", 46200, "Crafting pet points", totalPetPoints(player, "Crafting", 46200)), 1848, true, true));
+        database.add(new Action("Crafting imphide robe bottoms", Collections.singletonList(new Requirement("Crafting", 13)), ImmutableMap.of("Imphide", 3458, "Thread", 422),
+            ImmutableMap.of("Imphide robe bottom", 1729, "Crafting", 34580, "Crafting pet points", totalPetPoints(player, "Crafting", 34580)), 1729, true, true));
+        database.add(new Action("Cutting jades", Collections.singletonList(new Requirement("Crafting", 13)),
+            ImmutableMap.of("Uncut jade", 4928), ImmutableMap.of("Jade", (int)(4928*(.4 + player.getLevel("Crafting")*.006)),
+            "Crafting", (int)(24640+15*4928*(.4 + player.getLevel("Crafting")*.006)), "Crafting pet points",
+            totalPetPoints(player, "Crafting", (int)(24640+15*4928*(.4 + player.getLevel("Crafting")*.006)))), 4928, true, true));
+        database.add(new Action("Making jade rings", Collections.singletonList(new Requirement("Crafting", 13)), ImmutableMap.of("Jade", 1354, "Silver bar", 1354),
+            ImmutableMap.of("Jade ring", 1354, "Crafting", 17602, "Crafting pet points", totalPetPoints(player, "Crafting", 17602)), 1354, true, true));
+        database.add(new Action("Crafting leather bodies", Collections.singletonList(new Requirement("Crafting", 14)), ImmutableMap.of("Leather", 1836, "Thread", 459),
+            ImmutableMap.of("Leather body", 1836, "Crafting", 45900, "Crafting pet points", totalPetPoints(player, "Crafting", 45900)), 1836, true, true));
+        database.add(new Action("Crafting imphide robe tops", Collections.singletonList(new Requirement("Crafting", 14)), ImmutableMap.of("Imphide", 4908, "Thread", 409),
+            ImmutableMap.of("Imphide robe top", 1636, "Crafting", 49080, "Crafting pet points", totalPetPoints(player, "Crafting", 49080)), 1636, true, true));
+        database.add(new Action("Making fragile fishing urns (nr)", Collections.singletonList(new Requirement("Crafting", 15)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile fishing urn (nr)", 560, "Crafting", 28000, "Crafting pet points", totalPetPoints(player, "Crafting", 28000)), 560, true, true));
+        database.add(new Action("Making fragile woodcutting urns (nr)", Collections.singletonList(new Requirement("Crafting", 15)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile woodcutting urn (nr)", 560, "Crafting", 28000, "Crafting pet points", totalPetPoints(player, "Crafting", 28000)), 560, true, true));
+        database.add(new Action("Crafting imphide books", Collections.singletonList(new Requirement("Crafting", 15)), ImmutableMap.of("Imphide", 4908, "Thread", 409),
+            ImmutableMap.of("Imphide book", 1636, "Crafting", 49080, "Crafting pet points", totalPetPoints(player, "Crafting", 49080)), 1636, true, true));
+        database.add(new Action("Making snelms", Collections.singletonList(new Requirement("Crafting", 15)), ImmutableMap.of("Blamish red shell (pointed)", 1848),
+            ImmutableMap.of("Blood'n'tar snelm (pointed)", 1848, "Crafting", 60060, "Crafting pet points", totalPetPoints(player, "Crafting", 60060)), 1848, true, true));
+        database.add(new Action("Making unstrung symbols", Collections.singletonList(new Requirement("Crafting", 16)), ImmutableMap.of("Silver bar", 1615),
+            ImmutableMap.of("Unstrung symbol", 1615, "Crafting", 80750, "Crafting pet points", totalPetPoints(player, "Crafting", 80750)), 1615, true, true));
+        database.add(new Action("Crafting imp horn wands", Collections.singletonList(new Requirement("Crafting", 16)), ImmutableMap.of("Imphide", 4908, "Thread", 409),
+            ImmutableMap.of("Imp horn wand", 1636, "Crafting", 49080, "Crafting pet points", totalPetPoints(player, "Crafting", 49080)), 1636, true, true));
+        database.add(new Action("Cutting red topaz", Collections.singletonList(new Requirement("Crafting", 16)),
+            ImmutableMap.of("Uncut red topaz", 4928), ImmutableMap.of("Red topaz", (int)(4928*(.3 + player.getLevel("Crafting")*.007)),
+            "Crafting", (int)(31046+18.7*4928*(.3 + player.getLevel("Crafting")*.007)), "Crafting pet points",
+            totalPetPoints(player, "Crafting", (int)(24640+18.7*4928*(.3 + player.getLevel("Crafting")*.007)))), 4928, true, true));
+        database.add(new Action("Making fragile divination urns (nr)", Collections.singletonList(new Requirement("Crafting", 16)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile divination urn (nr)", 560, "Crafting", 22400, "Crafting pet points", totalPetPoints(player, "Crafting", 22400)), 560, true, true));
+        database.add(new Action("Making opal necklaces", Collections.singletonList(new Requirement("Crafting", 16)), ImmutableMap.of("Opal", 1354, "Silver bar", 1354),
+            ImmutableMap.of("Opal necklace", 1354, "Crafting", 15571, "Crafting pet points", totalPetPoints(player, "Crafting", 15571)), 1354, true, true));
+        database.add(new Action("Making topaz rings", Collections.singletonList(new Requirement("Crafting", 16)), ImmutableMap.of("Red topaz", 1354, "Silver bar", 1354),
+            ImmutableMap.of("Topaz ring", 1354, "Crafting", 20310, "Crafting pet points", totalPetPoints(player, "Crafting", 20310)), 1354, true, true));
+        database.add(new Action("Making fragile hunter urns (nr)", Collections.singletonList(new Requirement("Crafting", 17)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile hunter urn (nr)", 560, "Crafting", 22400, "Crafting pet points", totalPetPoints(player, "Crafting", 22400)), 560, true, true));
+        database.add(new Action("Making fragile mining urns (nr)", Collections.singletonList(new Requirement("Crafting", 17)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile mining urn (nr)", 560, "Crafting", 29680, "Crafting pet points", totalPetPoints(player, "Crafting", 29680)), 560, true, true));
+        database.add(new Action("Making fragile smelting urns (nr)", Collections.singletonList(new Requirement("Crafting", 17)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile smelting urn (nr)", 560, "Crafting", 29680, "Crafting pet points", totalPetPoints(player, "Crafting", 29680)), 560, true, true));
+        database.add(new Action("Crafting imphide shield", Collections.singletonList(new Requirement("Crafting", 17)), ImmutableMap.of("Imphide", 6000, "Thread", 375),
+            ImmutableMap.of("Imphide shield", 1500, "Crafting", 60000, "Crafting pet points", totalPetPoints(player, "Crafting", 60000)), 1500, true, true));
+        database.add(new Action("Making unpowered symbols", Collections.singletonList(new Requirement("Crafting", 17)), ImmutableMap.of("Silver bar", 1615),
+            ImmutableMap.of("Unpowered symbol", 1615, "Crafting", 80750, "Crafting pet points", totalPetPoints(player, "Crafting", 80750)), 1615, true, true));
+        database.add(new Action("Making fragile farming urns (nr)", Collections.singletonList(new Requirement("Crafting", 18)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile farming urn (nr)", 560, "Crafting", 22400, "Crafting pet points", totalPetPoints(player, "Crafting", 22400)), 560, true, true));
+        database.add(new Action("Making fragile runecrafting urns (nr)", Collections.singletonList(new Requirement("Crafting", 18)), ImmutableMap.of("Soft clay", 1120),
+            ImmutableMap.of("Fragile runecrafting urn (nr)", 560, "Crafting", 22400, "Crafting pet points", totalPetPoints(player, "Crafting", 22400)), 560, true, true));
+        database.add(new Action("Crafting leather chaps", Collections.singletonList(new Requirement("Crafting", 18)), ImmutableMap.of("Leather", 1836, "Thread", 459),
+            ImmutableMap.of("Leather chaps", 1836, "Crafting", 49572, "Crafting pet points", totalPetPoints(player, "Crafting", 49572)), 1836, true, true));
+        database.add(new Action("Making unfired plant pots", Collections.singletonList(new Requirement("Crafting", 19)), ImmutableMap.of("Soft clay", 1568), ImmutableMap.of("Unfired plant pot", 1568,
+            "Crafting", 31360, "Crafting pet points", totalPetPoints(player, "Crafting", 31360)), 1568, true, true));
+        database.add(new Action("Firing unfired plant pots", Collections.singletonList(new Requirement("Crafting", 19)), ImmutableMap.of("Unfired plant pot", 868),
+            ImmutableMap.of("Plant pot", 868, "Crafting", 15190, "Crafting pet points", totalPetPoints(player, "Crafting", 15190)), 868, true, true));
+        database.add(new Action("Crafting leather shields", Collections.singletonList(new Requirement("Crafting", 19)), ImmutableMap.of("Leather", 1836, "Thread", 459),
+            ImmutableMap.of("Leather shield", 1836, "Crafting", 55080, "Crafting pet points", totalPetPoints(player, "Crafting", 55080)), 1836, true, true));
+        database.add(new Action("Spinning magic roots", Collections.singletonList(new Requirement("Crafting", 19)), ImmutableMap.of("Magic roots", 1400),
+            ImmutableMap.of("Magic string", 1400, "Crafting", 42000, "Crafting pet points", totalPetPoints(player, "Crafting", 42000)), 1400, true, true));
 
         database.add(new Action("Ithell harps (w/o VoS)", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
             ImmutableMap.of("Crafting", 560 * player.getLevel("Crafting"), "Harmonic dust", 7 * player.getLevel("Crafting"), "Construction", 10000,
@@ -294,7 +734,7 @@ public class ActionDatabase {
 
         //Dungeoneering (major approximation, assumes 7.5 minute floors)
         //4000 * Math.pow((player.getLevel("Dungeoneering") + 9.0) / 10.0, 2));
-        database.add(new Action("Solo dungeoneering (floor 1 max)", new ArrayList(), new HashMap(), ImmutableMap.of("Dungeoneering", 4000, "Dungeoneering token",
+        database.add(new Action("Dungeoneering (floor 1 max)", new ArrayList(), new HashMap(), ImmutableMap.of("Dungeoneering", 4000, "Dungeoneering token",
             400, "Dungeoneering pet points", totalPetPoints(player, "Dungeoneering", 4000), "Dungeoneering floors completed", 8), 8, true, true));
         database.add(new Action("Solo dungeoneering (incl. fragments)", Collections.singletonList(new Requirement("Dungeoneering", 70)), new HashMap(),
             ImmutableMap.of("Dungeoneering", 250000, "Dungeoneering token", 25000, "Dungeoneering pet points", totalPetPoints(player, "Dungeoneering", 250000),
@@ -304,11 +744,22 @@ public class ActionDatabase {
             .put("Dungeoneering floors completed", 8).put("Dungeoneering fragment", 800).put("Unreadable page points", (int) Math.floor(135305 * Math.pow(1.0313, player.getLevel("Dungeoneering") - 75)))
             .build(), 8, true, true));
 
-        //Farming (done to lv2)
+        //Farming (done to lv5)
+        //avg yield 10, 14% death rate w/o payments
         database.add(new Action("Farming potatoes (w/o payments)", new ArrayList(), ImmutableMap.of("Potato seed", 162, "Supercompost", 54),
             ImmutableMap.of("Raw potato", 464, "Farming", 5976, "Farming pet points", totalPetPoints(player, "Farming", 5976)), 6, true, true));
-        database.add(new Action("Farming potatoes (w/ payments)", new ArrayList(), ImmutableMap.of("Potato seed", 162, "Supercompost", 54, "Compost", 60),
+        database.add(new Action("Farming potatoes (w/ payments)", new ArrayList(), ImmutableMap.of("Potato seed", 162, "Supercompost", 54, "Compost", 108),
             ImmutableMap.of("Raw potato", 540, "Farming", 6696, "Farming pet points", totalPetPoints(player, "Farming", 6696)), 6, true, true));
+        database.add(new Action("Farming marigolds", Collections.singletonList(new Requirement("Farming", 2)), ImmutableMap.of("Marigold seed", 24, "Supercompost", 24),
+            ImmutableMap.of("Marigolds", 24, "Farming", 1956, "Farming pet points", totalPetPoints(player, "Farming", 1596)), 6, true, true));
+        database.add(new Action("Farming barley (w/o payments)", Collections.singletonList(new Requirement("Farming", 3)), ImmutableMap.of("Barley seed", 96, "Supercompost", 24),
+            ImmutableMap.of("Barley", 206, "Farming", 2785, "Farming pet points", totalPetPoints(player, "Farming", 2785)), 6, true, true));
+        database.add(new Action("Farming barley (w payments)", Collections.singletonList(new Requirement("Farming", 3)), ImmutableMap.of("Barley seed", 96, "Supercompost", 24, "Compost", 72),
+            ImmutableMap.of("Barley", 240, "Farming", 3108, "Farming pet points", totalPetPoints(player, "Farming", 3108)), 6, true, true));
+        database.add(new Action("Farming hammerstone (w/o payments)", Collections.singletonList(new Requirement("Farming", 4)), ImmutableMap.of("Hammerstone seed", 96, "Supercompost", 24),
+            ImmutableMap.of("Hamemrstone hops", 206, "Farming", 2900, "Farming pet points", totalPetPoints(player, "Farming", 2900)), 6, true, true));
+        database.add(new Action("Farming hammerstone (w payments)", Collections.singletonList(new Requirement("Farming", 4)), ImmutableMap.of("Hammerstone seed", 96, "Supercompost", 24, "Marigolds", 24),
+            ImmutableMap.of("Hammerstone hops", 240, "Farming", 3240, "Farming pet points", totalPetPoints(player, "Farming", 3240)), 6, true, true));
 
         database.add(new Action("Farming/selling rabbits for beans", Collections.singletonList(new Requirement("Granny Knows Best", 1)), ImmutableMap.of("Common brown rabbit (unchecked)", 20),
             ImmutableMap.of("Farming", 2000, "POF bean", 500, "Rabbit teeth", 40, "Farming pet points", totalPetPoints(player, "Farming", 2000)), 20, true, true));
@@ -344,7 +795,7 @@ public class ActionDatabase {
         database.add(new Action("Burning acadia logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 46)), ImmutableMap.of("Acadia logs", 950),
             ImmutableMap.of("Firemaking", 171000, "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000 * Math.max(46, player.getLevel("Firemaking"))), 950, true, true));
 
-        //Fishing (done to lv4)
+        //Fishing (done to lv5)
         database.add(new Action("Fishing/dropping raw crayfish", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Fishing", 11500, "Prawn balls", 6,
             "Fishing level-ticks", 6000 * player.getLevel("Fishing")), 1150, true, true));
 
@@ -359,7 +810,7 @@ public class ActionDatabase {
             "Agility", (int) Math.floor(4.9 * (650 + 5 * player.getLevel("Fishing"))), "Shark fragment", 1200, "Fishing level-ticks", 6000 * Math.max(70, player.getLevel("Fishing"))),
             (650 + 5 * player.getLevel("Fishing")), true, true));
 
-        //Fletching (done to lv9)
+        //Fletching (done to lv10)
         database.add(new Action("Fletching arrow shafts with normal logs", new ArrayList(), ImmutableMap.of("Logs", 1848), ImmutableMap.of("Arrow shaft", 27720,
             "Fletching", 9240, "Fletching pet points", totalPetPoints(player, "Fletching", 9240)), 1848, true, true));
         database.add(new Action("Fletching unstrung shortbows", new ArrayList(), ImmutableMap.of("Logs", 1848), ImmutableMap.of("Shortbow (u)", 1848, "Fletching", 9240,
@@ -370,6 +821,14 @@ public class ActionDatabase {
             ImmutableMap.of("Headless arrow", 45000, "Fletching", 45000, "Fletching pet points", totalPetPoints(player, "Fletching", 45000)), 3000, true, true));
         database.add(new Action("Fletching bronze arrows", new ArrayList(), ImmutableMap.of("Headless arrow", 45000, "Bronze arrowheads", 45000),
             ImmutableMap.of("Bronze arrow", 45000, "Fletching", 58500, "Fletching pet points", totalPetPoints(player, "Fletching", 58500)), 3000, true, true));
+        database.add(new Action("Fletching wooden stocks", Collections.singletonList(new Requirement("Fletching", 9)), ImmutableMap.of("Logs", 1848),
+            ImmutableMap.of("Wooden stock", 1848, "Fletching", 11088, "Fletching pet points", totalPetPoints(player, "Fletching", 11088)), 1848, true, true));
+        database.add(new Action("Making bronze crossbows (u)", Collections.singletonList(new Requirement("Fletching", 9)), ImmutableMap.of("Wooden stock", 1750, "Bronze limbs", 1750),
+            ImmutableMap.of("Bronze crossbow (u)", 1750, "Fletching", 21000, "Fletching pet points", totalPetPoints(player, "Fletching", 21000)), 1750, true, true));
+        database.add(new Action("Stringing bronze crossbows", Collections.singletonList(new Requirement("Fletching", 9)), ImmutableMap.of("Bronze crossbow (u)", 2464, "Crossbow string", 2464),
+            ImmutableMap.of("Bronze crossbow", 2464, "Fletching", 14784, "Fletching pet points", totalPetPoints(player, "Fletching", 14784)), 2464, true, true));
+        database.add(new Action("Making bronze bolts", Collections.singletonList(new Requirement("Fletching", 9)), ImmutableMap.of("Bronze bolts (unf)", 30000, "Feather", 30000),
+            ImmutableMap.of("Bronze bolts", 30000, "Fletching", 15000, "Fletching pet points", totalPetPoints(player, "Fletching", 15000)), 3000, true, true));
 
         //Herblore
         database.add(new Action("Cleaning grimy guams", new ArrayList(), ImmutableMap.of("Grimy guam", 5090), ImmutableMap.of("Clean guam", 5090,
@@ -378,7 +837,7 @@ public class ActionDatabase {
         database.add(new Action("Making unfinished guam potions", new ArrayList(), ImmutableMap.of("Clean guam", 2400, "Vial of water", 2400),
             ImmutableMap.of("Guam potion (unf)", 2400, "Herblore", 2400, "Herblore pet points", totalPetPoints(player, "Herblore", 2400)), 2400, true, true));
 
-        //Hunter (done to lv20)
+        //Hunter (done to lv5, 165 snares, 105 kebbits)
         database.add(new Action("Feeding ogleroots to rabbits", new ArrayList(), ImmutableMap.of("Coins", 3000), ImmutableMap.of("Hunter", 9000,
             "Hunter level-ticks", 6000 * player.getLevel("Hunter")), 300, true, true));
         database.add(new Action("Hunting polar kebbits", new ArrayList(), new HashMap(), ImmutableMap.of("Hunter", 3150, "Prayer", 472, "Polar kebbit fur", 105,
@@ -620,7 +1079,7 @@ public class ActionDatabase {
         database.add(new Action("Offering searing ashes to Chaos Altar", new ArrayList(), ImmutableMap.of("Searing ashes", 1400), ImmutableMap.of("Prayer", 980000,
             "Prayer pet points", 980000 * player.getLevel("Prayer")), 1400, true, false));
 
-        //Runecrafting (done to lv71)
+        //Runecrafting (done to lv77)
         database.add(new Action("Low-level Runespan (island 1)", new ArrayList(), new HashMap(), ImmutableMap.of("Runecrafting", 16500, "Runespan points", 330,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 16500)), 1500, true, true));
 
@@ -733,7 +1192,7 @@ public class ActionDatabase {
             ImmutableMap.of("Runecrafting", 63000, "Runespan points", 1260, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 63000),
                 "Rune ethereal fragments", 1200), 1500, true, true));
 
-        //Slayer
+        //Slayer (done until Lost City)
         database.add(new Action("Slayer tasks from Turael", new ArrayList(), new HashMap(), ImmutableMap.of("Slayer",
             SlayerMaster.TURAEL.calculateAvgXpAndSlayerPointsPerHour(player).keySet().iterator().next().intValue(), "Slayer pet points", totalPetPoints(player, "Slayer",
                 SlayerMaster.TURAEL.calculateAvgXpAndSlayerPointsPerHour(player).keySet().iterator().next().intValue())), 6000, true, true));
@@ -743,7 +1202,12 @@ public class ActionDatabase {
                 "Slayer point", SlayerMaster.MAZCHNA.calculateAvgXpAndSlayerPointsPerHour(player).values().iterator().next().intValue(), "Slayer task streak", 1,
                 "Slayer pet points", totalPetPoints(player, "Slayer", SlayerMaster.MAZCHNA.calculateAvgXpAndSlayerPointsPerHour(player).keySet().iterator().next().intValue())), 6000, true, true));
 
-        //Smithing (done to lv30)
+        database.add(new Action("Slayer tasks from Vannaka", Collections.singletonList(new Requirement("Combat", 40)), new HashMap(),
+            ImmutableMap.of("Slayer", SlayerMaster.VANNAKA.calculateAvgXpAndSlayerPointsPerHour(player).keySet().iterator().next().intValue(),
+                "Slayer point", SlayerMaster.VANNAKA.calculateAvgXpAndSlayerPointsPerHour(player).values().iterator().next().intValue(), "Slayer task streak", 1,
+                "Slayer pet points", totalPetPoints(player, "Slayer", SlayerMaster.VANNAKA.calculateAvgXpAndSlayerPointsPerHour(player).keySet().iterator().next().intValue())), 6000, true, true));
+
+        //Smithing (done to lv31)
         database.add(new Action("Smithing bronze wire", new ArrayList(), ImmutableMap.of("Bronze bar", 315), ImmutableMap.of("Bronze wire", 315, "Smithing", 4725,
             "Smithing pet points", totalPetPoints(player, "Smithing", 4725)), 315, true, true));
         database.add(new Action("Smithing bronze scimitars", new ArrayList(), ImmutableMap.of("Bronze bar", 412), ImmutableMap.of("Bronze scimitar", 206, "Smithing", 6180,
@@ -968,6 +1432,36 @@ public class ActionDatabase {
             ImmutableMap.of("Steel platebody", 40, "Smithing", 15000, "Smithing pet points", totalPetPoints(player, "Smithing", 15000)), 40, true, true));
         database.add(new Action("Smithing steel platebodies + 1 (max heat start)", Collections.singletonList(new Requirement("Smithing", 28)), ImmutableMap.of("Steel bar", 255, "Steel platebody", 51),
             ImmutableMap.of("Steel platebody + 1", 51, "Smithing", 19125, "Smithing pet points", totalPetPoints(player, "Smithing", 19125)), 51, true, true));
+        database.add(new Action("Smithing mithril armoured boots", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 122),
+            ImmutableMap.of("Mithril armoured boots", 122, "Smithing", 14640, "Smithing pet points", totalPetPoints(player, "Smithing", 14640)), 122, true, true));
+        database.add(new Action("Smithing mithril armoured boots + 1", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 146, "Mithril armoured boots", 146),
+            ImmutableMap.of("Mithril armoured boots + 1", 146, "Smithing", 17520, "Smithing pet points", totalPetPoints(player, "Smithing", 17520)), 146, true, true));
+        database.add(new Action("Smithing mithril armoured boots + 2", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 244, "Mithril armoured boots + 1", 122),
+            ImmutableMap.of("Mithril armoured boots + 2", 122, "Smithing", 29280, "Smithing pet points", totalPetPoints(player, "Smithing", 29280)), 122, true, true));
+        database.add(new Action("Smithing mithril scimitars", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 124),
+            ImmutableMap.of("Mithril scimitar", 62, "Smithing", 14880, "Smithing pet points", totalPetPoints(player, "Smithing", 14880)), 62, true, true));
+        database.add(new Action("Smithing mithril scimitars + 1", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 150, "Mithril scimitar", 75),
+            ImmutableMap.of("Mithril scimitar + 1", 75, "Smithing", 18000, "Smithing pet points", totalPetPoints(player, "Smithing", 18000)), 75, true, true));
+        database.add(new Action("Smithing mithril scimitars + 2", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 248, "Mithril scimitar + 1", 62),
+            ImmutableMap.of("Mithril scimitar + 2", 62, "Smithing", 29760, "Smithing pet points", totalPetPoints(player, "Smithing", 29760)), 62, true, true));
+        database.add(new Action("Smithing mithril platelegs", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 123),
+            ImmutableMap.of("Mithril platelegs", 41, "Smithing", 14760, "Smithing pet points", totalPetPoints(player, "Smithing", 14760)), 41, true, true));
+        database.add(new Action("Smithing mithril platelegs + 1", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 159, "Mithril platelegs", 53),
+            ImmutableMap.of("Mithril platelegs + 1", 53, "Smithing", 19080, "Smithing pet points", totalPetPoints(player, "Smithing", 19080)), 53, true, true));
+        database.add(new Action("Smithing mithril platelegs + 2", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 246, "Mithril platelegs + 1", 41),
+            ImmutableMap.of("Mithril platelegs + 2", 41, "Smithing", 29520, "Smithing pet points", totalPetPoints(player, "Smithing", 29520)), 41, true, true));
+        database.add(new Action("Smithing mithril 2h swords", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 128),
+            ImmutableMap.of("Mithril 2h sword", 32, "Smithing", 15360, "Smithing pet points", totalPetPoints(player, "Smithing", 15360)), 32, true, true));
+        database.add(new Action("Smithing mithril 2h swords + 1", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 156, "Mithril 2h sword", 39),
+            ImmutableMap.of("Mithril 2h sword + 1", 39, "Smithing", 18720, "Smithing pet points", totalPetPoints(player, "Smithing", 18720)), 39, true, true));
+        database.add(new Action("Smithing mithril 2h swords + 2", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 256, "Mithril 2h sword + 1", 32),
+            ImmutableMap.of("Mithril 2h sword + 2", 32, "Smithing", 30720, "Smithing pet points", totalPetPoints(player, "Smithing", 30720)), 32, true, true));
+        database.add(new Action("Smithing mithril platebodies", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 130),
+            ImmutableMap.of("Mithril platebody", 26, "Smithing", 15600, "Smithing pet points", totalPetPoints(player, "Smithing", 15600)), 26, true, true));
+        database.add(new Action("Smithing mithril platebodies + 1", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 160, "Mithril platebody", 32),
+            ImmutableMap.of("Mithril platebody + 1", 32, "Smithing", 19200, "Smithing pet points", totalPetPoints(player, "Smithing", 19200)), 32, true, true));
+        database.add(new Action("Smithing mithril platebodies + 2", Collections.singletonList(new Requirement("Smithing", 30)), ImmutableMap.of("Mithril bar", 260, "Mithril platebody + 1", 26),
+            ImmutableMap.of("Mithril platebody + 2", 26, "Smithing", 31200, "Smithing pet points", totalPetPoints(player, "Smithing", 31200)), 26, true, true));
 
         //Summoning (done to lv24)
         database.add(new Action("Making spirit wolf pouches", new ArrayList(), ImmutableMap.of("Spirit shards", 10500, "Pouch", 1500,
@@ -2291,7 +2785,7 @@ public class ActionDatabase {
         CombatResults combatResults;
         while(true) {
             combatResults = combatEncounter.calculateCombat(player, new CombatParameters(invenSpaces, combatStyle, false, 0, false));
-            if (combatResults.getHpLost() > 1000000 || combatResults.getKills() == 0) {
+            if (combatResults.getKills() == 0) {
                 Map<String, Double> nextGear = player.nextGear(combatStyle);
                 if (nextGear == null) {
                     break;
@@ -2392,7 +2886,7 @@ public class ActionDatabase {
         CombatParameters parameters = new CombatParameters(invenSpaces, combatStyle, true, dropRateOfItem, stackable);
         CombatResults combatResults = combatEncounter.calculateCombat(player, parameters);
         List<Requirement> combatReqs = new ArrayList<>();
-        if (combatResults.getHpLost() == 1000000000 || combatResults.getKills() == 0) {
+        if (combatResults.getKills() == 0) {
             combatReqs = getRequirementsForCombat(combatEncounter, player, invenSpaces, combatStyle);
             for (Requirement requirement : combatReqs) {
                 if (Player.ALL_SKILLS.contains(requirement.getQualifier())) {
@@ -2406,7 +2900,7 @@ public class ActionDatabase {
                 }
             }
             combatResults = combatEncounter.calculateCombat(player, parameters);
-            if (combatResults.getHpLost() == 1000000000) {
+            if (combatResults.getKills() == 0) {
                 player.setXp(initialXP);
                 player.setWeapons(initialWeapons);
                 player.setArmour(initialArmours);
@@ -2416,7 +2910,7 @@ public class ActionDatabase {
         player.setXp(initialXP);
         player.setWeapons(initialWeapons);
         player.setArmour(initialArmours);
-        if (combatResults.getTicks() >= TICKS_PER_HOUR) {
+        if (combatResults.getTicks() >= TICKS_PER_HOUR-100) {
             return ImmutableMap.of(combatResults.getKills(), combatReqs);
         }
         else {

@@ -1,15 +1,11 @@
 package data.dataobjects;
 
 import com.google.gson.annotations.Expose;
-import data.databases.WeaponDatabase;
 import logic.Requirement;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Weapon implements Serializable {
+public class Weapon {
 
     @Expose private String name;
     private String weaponClass;

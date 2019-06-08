@@ -2,7 +2,9 @@ package logic;
 
 import data.databases.ArmourDatabase;
 import data.databases.WeaponDatabase;
-import data.dataobjects.*;
+import data.dataobjects.Armour;
+import data.dataobjects.Familiar;
+import data.dataobjects.Weapon;
 
 import java.util.Map;
 

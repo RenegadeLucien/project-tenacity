@@ -5,14 +5,26 @@ import data.databases.AchievementDatabase;
 import data.databases.ArmourDatabase;
 import data.databases.ItemDatabase;
 import data.databases.WeaponDatabase;
-import logic.*;
+import logic.CombatParameters;
+import logic.CombatResults;
+import logic.Encounter;
+import logic.GoalResults;
+import logic.Lamp;
+import logic.Loadout;
+import logic.Player;
+import logic.Requirement;
+import logic.Reward;
 
-import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
-public class Achievement implements Serializable {
+public class Achievement {
 
     private String name; //name of the task
     private double time; //est. time taken in hours [not including time to gather items/complete requirements]
@@ -112,7 +124,11 @@ public class Achievement implements Serializable {
             } else if (reqsMap.containsKey(requirement.getQualifier()) && ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
                 reqsMap.put(requirement.getQualifier(), reqsMap.get(requirement.getQualifier()) + requirement.getQuantifier());
             } else if (reqsMap.containsKey(requirement.getQualifier())) {
-                reqsMap.put(requirement.getQualifier(), Math.max(reqsMap.get(requirement.getQualifier()),requirement.getQuantifier()));
+                if (requirement.getQualifier().equals("Time spent on scripted fights")) {
+                    reqsMap.put(requirement.getQualifier(), reqsMap.get(requirement.getQualifier()) + requirement.getQuantifier());
+                } else {
+                    reqsMap.put(requirement.getQualifier(), Math.max(reqsMap.get(requirement.getQualifier()), requirement.getQuantifier()));
+                }
             } else {
                 reqsMap.put(requirement.getQualifier(), requirement.getQuantifier());
             }
@@ -157,7 +173,7 @@ public class Achievement implements Serializable {
                 }
                 else {
                     Loadout loadout = null;
-                    if (meleeCombatResults.getHpLost() < 1000000) {
+                    if (meleeCombatResults.getHpLost() < 1000000 && meleeCombatResults.getHpLost() < rangedCombatResults.getHpLost() && meleeCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
                         loadout = meleeCombatResults.getLoadoutUsed();
                         if (loadout.getXp().get("Attack") > initialXP.get("Attack")) {
                             singleEncounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
@@ -166,7 +182,7 @@ public class Achievement implements Serializable {
                             singleEncounterRequirements.add(new Requirement("Strength", player.getLevel("Strength")));
                         }
                     }
-                    else if (rangedCombatResults.getHpLost() < 1000000) {
+                    else if (rangedCombatResults.getHpLost() < 1000000 && rangedCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
                         loadout = rangedCombatResults.getLoadoutUsed();
                         if (loadout.getXp().get("Ranged") > initialXP.get("Ranged")) {
                             singleEncounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));

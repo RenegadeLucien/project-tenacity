@@ -1,13 +1,12 @@
 package logic;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class GoalResults implements Serializable {
+public class GoalResults {
     private double totalTime;
     private Map<String, Double> actionsWithTimes;
     private List<Requirement> listofAllRequirements;

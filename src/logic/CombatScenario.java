@@ -1,7 +1,5 @@
 package logic;
 
-import java.util.Map;
-
 public class CombatScenario {
 
     private Encounter encounter;

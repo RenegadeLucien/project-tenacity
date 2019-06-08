@@ -2,9 +2,7 @@ package logic;
 
 import data.databases.ItemDatabase;
 
-import java.io.Serializable;
-
-public class Reward implements Serializable {
+public class Reward {
     private String qualifier;
     private int quantifier;
 

@@ -1,8 +1,11 @@
 package data.dataobjects;
 
-import logic.*;
+import logic.CombatParameters;
+import logic.CombatResults;
+import logic.Encounter;
+import logic.Player;
+import logic.Requirement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SlayerMonster {
