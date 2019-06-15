@@ -3739,10 +3739,12 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Thalassus hunt 10", 0.05).requirement("Thalassus hunt 9", 1).reward("Hunter", 6820)
             .build());
         achievements.add(new AchievementBuilder("Deadlier Catch", 0).requirement("Thalassus hunt 10", 1).build());
-        achievements.add(new AchievementBuilder("Potion for a Lady", 0).requirement("Plague's End", 1).requirement("Coins", 150000)
-            .requirement("Unreadable page points", 1000000).lamp(Arrays.asList("Attack", "Strength"), 50000, 1).build());
-        achievements.add(new AchievementBuilder("Potion Mixer Master", 0).requirement("Potion for a Lady", 1)
-            .requirement("Coins", 11350000).requirement("Unreadable page points", 9000000).build());
+        achievements.add(new AchievementBuilder("Potion for a Lady", 3).requirement("Plague's End", 1).requirement("Coins", 150000)
+            .reward("Dungeoneering", 750000).reward("Dungeoneering token", 75000).reward("Dungeoneering floors completed", 24)
+            .lamp(Arrays.asList("Attack", "Strength"), 50000, 1).build());
+        achievements.add(new AchievementBuilder("Potion Mixer Master", 20).requirement("Potion for a Lady", 1)
+            .requirement("Coins", 11350000).reward("Dungeoneering", 7000000).reward("Dungeoneering token", 700000)
+            .reward("Dungeoneering floors completed", 160).build());
         achievements.add(new AchievementBuilder("Everything Is Oresome", 0).requirement("Copper mined", 100).requirement("Tin mined", 100)
             .requirement("Iron mined", 100).requirement("Coal mined", 100).requirement("Mithril mined", 100)
             .requirement("Adamantite mined", 100).requirement("Luminite mined", 100).requirement("Runite mined", 100)

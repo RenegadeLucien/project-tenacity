@@ -457,6 +457,12 @@ public class Player {
                                 totalInputCoins += requirement.getQuantifier() * ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this);
                             }
                         }
+                        for (Entry<String, Integer> output : actionWithGraph.getOutputs().entrySet()) {
+                            if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null) {
+                                long outputItems = (long) output.getValue() * ItemDatabase.getItemDatabase().getItems().get(output.getKey()).coinValue(this) * steps;
+                                totalInputCoins -= (int) (outputItems / actionWithGraph.getActionsPerHour());
+                            }
+                        }
                         if (bankValue >= totalInputCoins) {
                             performAction(actionWithGraph, action.getValue(), combatRequirements);
                             actionsToRemove.add(action.getKey());
@@ -577,9 +583,9 @@ public class Player {
             return new GoalResults(0, ImmutableMap.of("", 0.0));
         }
         currentTargets.add(generatedRequirement);
-        if (qualifier.equals("Construction") && quantifier == 1567) {
+        /*if (qualifier.equals("Coins") && quantifier > 1000000000) {
             System.out.println("Quack");
-        }
+        }*/
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
@@ -732,23 +738,22 @@ public class Player {
         for (Action action : ActionDatabase.getActionDatabase(this).getDatabase()) {
             boolean validAction = false;
             double coinGain = 0;
+            for (Map.Entry<String, Integer> output : action.getOutputs().entrySet()) {
+                Item item = ItemDatabase.getItemDatabase().getItems().get(output.getKey());
+                if (item != null) {
+                    coinGain += output.getValue()*item.coinValue(this);
+                }
+            }
+            long inputLoss = 0;
+            for (Map.Entry<String, Integer> input : action.getInputs().entrySet()) {
+                Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
+                if (item != null) {
+                    inputLoss += (long)input.getValue()*item.coinValue(this);
+                }
+            }
+            coinGain -= inputLoss;
             if (qualifier.equals("Coins")) {
-                for (Map.Entry<String, Integer> output : action.getOutputs().entrySet()) {
-                    Item item = ItemDatabase.getItemDatabase().getItems().get(output.getKey());
-                    if (item != null) {
-                        coinGain += output.getValue()*item.coinValue(this);
-                    }
-                }
-                int inputLoss = 0;
-                for (Map.Entry<String, Integer> input : action.getInputs().entrySet()) {
-                    Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
-                    if (item != null) {
-                        inputLoss += input.getValue()*item.coinValue(this);
-
-                    }
-                    coinGain -= inputLoss;
-                }
-                if (coinGain > quantifier/minimum && inputLoss < quantifier/minimum) {
+                if (coinGain > quantifier/minimum) {
                     validAction = true;
                 } else {
                     validAction = false;
@@ -780,7 +785,6 @@ public class Player {
                 QualifierAction qualifierAction = new QualifierAction(qualifier, action.getName());
                 lockedActions.add(qualifierAction);
                 double effectiveTimeThisAction = 0.0;
-                long bankLeft = bankValue;
                 Map<String, Integer> initialBank = new HashMap<>(bank);
                 Map<String, Double> efficiencyThisAction = new HashMap<>();
                 int trueQuantifier = quantifier;
@@ -818,29 +822,30 @@ public class Player {
                 }
                 effectiveTimeThisAction += timeToReachGoal;
                 addItemsToMap(efficiencyThisAction, ImmutableMap.of(action.getName(), timeToReachGoal));
+                long minInputsLong = inputLoss/4; //15 minutes of inputs to start an action (arbitrary threshold)
+                int minInputs;
+                if (minInputsLong > Integer.MAX_VALUE) {
+                    GoalResults coinResults = efficientGoalCompletion("Coins", Integer.MAX_VALUE);
+                    effectiveTimeThisAction += coinResults.getTotalTime();
+                    addItemsToMap(efficiencyThisAction, coinResults.getActionsWithTimes());
+                    minInputs = (int)(minInputsLong - Integer.MAX_VALUE);
+                } else {
+                    minInputs = (int)minInputsLong;
+                }
+                if (coinGain >= 0) {
+                    if (minInputs > bankValue) {
+                        GoalResults coinResults = efficientGoalCompletion("Coins", (int) (minInputs - bankValue));
+                        effectiveTimeThisAction += coinResults.getTotalTime();
+                        addItemsToMap(efficiencyThisAction, coinResults.getActionsWithTimes());
+                    }
+                } else if (Math.max(minInputs, (int)(Math.ceil(coinGain*timeToReachGoal*-1))) > bankValue){
+                    GoalResults coinResults = efficientGoalCompletion("Coins", (int)(Math.max(minInputs, (int)(Math.ceil(coinGain*timeToReachGoal*-1))) - bankValue));
+                    effectiveTimeThisAction += coinResults.getTotalTime();
+                    addItemsToMap(efficiencyThisAction, coinResults.getActionsWithTimes());
+                }
                 for (Entry<String, Integer> input : action.getInputs().entrySet()) {
                     GoalResults timeToInput = null;
-                    if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
-                        int inputsPerStep = (int)Math.ceil((double)input.getValue()/action.getActionsPerHour());
-                        long trueInputs = (((int)Math.floor(input.getValue()*timeToReachGoal)/inputsPerStep) + 1) * (long)inputsPerStep;
-                        long totalCost = trueInputs*ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(this);
-                        if (totalCost - bankLeft > Integer.MAX_VALUE) {
-                            totalCost -= bankLeft;
-                            bankLeft = 0;
-                            while (totalCost > Integer.MAX_VALUE) {
-                                GoalResults timeToMaxCash = efficientGoalCompletion("Coins", Integer.MAX_VALUE);
-                                effectiveTimeThisAction += timeToMaxCash.getTotalTime();
-                                addItemsToMap(efficiencyThisAction, timeToMaxCash.getActionsWithTimes());
-                                totalCost -= Integer.MAX_VALUE;
-                            }
-                        }
-                        if (bankLeft > totalCost) {
-                            bankLeft -= totalCost;
-                        } else {
-                            timeToInput = efficientGoalCompletion("Coins", (int) totalCost - (int) bankLeft);
-                            bankLeft = 0;
-                        }
-                    } else {
+                    if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) == null) {
                         timeToInput = efficientGoalCompletion(input.getKey(), (int)Math.ceil(input.getValue()*timeToReachGoal));
                     }
                     if (timeToInput != null) {
@@ -910,12 +915,6 @@ public class Player {
                     bank.put(requirement.getQualifier(), requirement.getQuantifier());
                     setBankValue();
                 }
-            }
-        }
-        for (Entry<String, Integer> input : action.getInputs().entrySet()) {
-            if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
-                long inputItems = (long)input.getValue() * steps;
-                updateBank(input.getKey(), (int)(inputItems / action.getActionsPerHour()));
             }
         }
         for (Entry<String, Integer> output : action.getOutputs().entrySet()) {
@@ -1050,6 +1049,12 @@ public class Player {
             }
             else {
                 qualities.put(output.getKey(), (int)(outputItems/action.getActionsPerHour()));
+            }
+        }
+        for (Entry<String, Integer> input : action.getInputs().entrySet()) {
+            if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
+                long inputItems = (long)input.getValue() * steps;
+                updateBank(input.getKey(), (int)(inputItems / action.getActionsPerHour()));
             }
         }
     }

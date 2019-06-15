@@ -176,6 +176,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Jelly", 75.5, "Jellies", Collections.singletonList(new Requirement("Slayer", 52))));
         slayerMonsters.add(new SlayerMonster("Jungle horror", 41.5, "Jungle horrors", Collections.singletonList(new Requirement("Cabin Fever", 1))));
         slayerMonsters.add(new SlayerMonster("Jungle strykewyrm", 250, "Jungle strykewyrms", Collections.singletonList(new Requirement("Slayer", 73))));
+        slayerMonsters.add(new SlayerMonster("Kal'gerion demon", 1858.8, "Kal'gerion demons", Collections.singletonList(new Requirement("Dungeoneering", 90))));
         slayerMonsters.add(new SlayerMonster("Kalphite Worker", 59.3, "Kalphites", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Kalphite Soldier", 78.8, "Kalphites", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Kalphite guardian", 95, "Kalphites", new ArrayList<>()));
@@ -228,6 +229,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Pyrefiend", 32.6, "Pyrefiends", Collections.singletonList(new Requirement("Slayer", 30))));
         slayerMonsters.add(new SlayerMonster("Baby red dragon", 50, "Red dragons", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Red dragon", 220.8, "Red dragons", new ArrayList<>()));
+        slayerMonsters.add(new SlayerMonster("Ripper demon", 2721.5, "Ripper demons", Collections.singletonList(new Requirement("Slayer", 96))));
         slayerMonsters.add(new SlayerMonster("Rockslug", 20, "Rockslugs", Collections.singletonList(new Requirement("Slayer", 20))));
         slayerMonsters.add(new SlayerMonster("Rune dragon", 2051, "Rune dragons", Arrays.asList(new Requirement("Ritual of the Mahjarrat", 1), new Requirement("Fate of the Gods", 1))));
         slayerMonsters.add(new SlayerMonster("Scabaras lancer", 55, "Scabarites", Collections.singletonList(new Requirement("Dealing with Scabaras", 1))));
