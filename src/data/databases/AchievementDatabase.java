@@ -3910,19 +3910,7 @@ public class AchievementDatabase {
                 "Charger", "Charger"), Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Charger", "Charger", "Cormes"),
             Arrays.asList("Airut", "Airut", "Airut", "Airut", "Airut", "Airut", "Airut"), Arrays.asList("Airut", "Airut", "Airut", "Airut", 
                     "Airut", "Airut", "Airut"), Arrays.asList("Tuz", "Krar", "Beastmaster Durzag")), 10)).build());
-        achievements.add(new AchievementBuilder("Book of death", 0).requirement("Reaper point", 500).build());
-        achievements.add(new AchievementBuilder("Reaper's choice", 0).requirement("Reaper point", 250).build());
-        achievements.add(new AchievementBuilder("Rainbow loot beam", 0).requirement("Reaper point", 75).build());
-        achievements.add(new AchievementBuilder("Grave loot beam", 0).requirement("Reaper point", 75).build());
-        achievements.add(new AchievementBuilder("Bonfire booster", 0).requirement("Reaper point", 250).build());
-        achievements.add(new AchievementBuilder("Instance cost", 0).requirement("Reaper point", 250).build());
-        achievements.add(new AchievementBuilder("Additional tasks", 0).requirement("Reaper point", 150).build());
-        achievements.add(new AchievementBuilder("Reaper scroll", 0).requirement("Reaper point", 250).build());
-        achievements.add(new AchievementBuilder("Death's support", 0).requirement("Reaper point", 250).build());
-        achievements.add(new AchievementBuilder("Death Effect", 0).requirement("Book of death", 1).requirement("Reaper's choice", 1)
-            .requirement("Rainbow loot beam", 1).requirement("Grave loot beam", 1).requirement("Bonfire booster", 1)
-            .requirement("Instance cost", 1).requirement("Additional tasks", 1).requirement("Reaper scroll", 1)
-            .requirement("Death's support", 1).build());
+        achievements.add(new AchievementBuilder("Death Effect", 100).requirement("Combat", 50).build());
         achievements.add(new AchievementBuilder("Death to the Mahjarrat", 0.1).requirement("Children of Mah", 1).build());
         achievements.add(new AchievementBuilder("Deep and Bloody Experience", 0).requirement("Blood Runs Deep", 1)
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Ranged", "Magic", "Prayer"), 150000, 75)

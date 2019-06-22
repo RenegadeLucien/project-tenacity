@@ -39,11 +39,11 @@ public class SlayerMonster {
     }
 
     public int timeToTask(Player player, String combatStyle, int monstersInTask) {
-        CombatResults combatResults = new Encounter(monster).calculateCombat(player, new CombatParameters(0, combatStyle, true, 0, false));
-        if (combatResults.getHpLost() == 1000000000) {
+        CombatResults combatResults = new Encounter(monster).calculateCombat(player, new CombatParameters(28, combatStyle, true, 0, false));
+        int killsPerTrip = combatResults.getKills();
+        if (killsPerTrip == 0) {
             return 1000000000;
         }
-        int killsPerTrip = combatResults.getKills();
         if (killsPerTrip >= monstersInTask) {
             return monstersInTask * combatResults.getTicks() / killsPerTrip;
         }

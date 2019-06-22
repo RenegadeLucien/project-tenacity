@@ -637,13 +637,13 @@ public class Player {
             GoalResults meleeDefence = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defence", targetLevel));
             GoalResults rangedDefence = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Defence", targetLevel));
             GoalResults magicDefence = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Defence", targetLevel));
-            GoalResults Defence;
+            GoalResults trueDefence;
             if (meleeDefence.getTotalTime() < Math.min(rangedDefence.getTotalTime(), magicDefence.getTotalTime())) {
-                Defence = meleeDefence;
+                trueDefence = meleeDefence;
             } else if (rangedDefence.getTotalTime() < magicDefence.getTotalTime()) {
-                Defence = rangedDefence;
+                trueDefence = rangedDefence;
             } else {
-                Defence = magicDefence;
+                trueDefence = magicDefence;
             }
             GoalResults ranged = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", targetLevel));
             GoalResults magic = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Magic", targetLevel));
@@ -658,10 +658,10 @@ public class Player {
                 meleeMap.put(strength.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(strength.getActionsWithTimes().keySet().iterator().next()) + strength.getTotalTime());
             else
                 meleeMap.put(strength.getActionsWithTimes().keySet().iterator().next(), strength.getTotalTime());
-            if (meleeMap.keySet().contains(Defence.getActionsWithTimes().keySet().iterator().next()))
-                meleeMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(Defence.getActionsWithTimes().keySet().iterator().next()) + Defence.getTotalTime());
+            if (meleeMap.keySet().contains(trueDefence.getActionsWithTimes().keySet().iterator().next()))
+                meleeMap.put(trueDefence.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(trueDefence.getActionsWithTimes().keySet().iterator().next()) + trueDefence.getTotalTime());
             else
-                meleeMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), Defence.getTotalTime());
+                meleeMap.put(trueDefence.getActionsWithTimes().keySet().iterator().next(), trueDefence.getTotalTime());
             if (meleeMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
                 meleeMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), meleeMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
             else
@@ -675,10 +675,10 @@ public class Player {
             else
                 meleeMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             rangedMap.put(ranged.getActionsWithTimes().keySet().iterator().next(), ranged.getTotalTime());
-            if (rangedMap.keySet().contains(Defence.getActionsWithTimes().keySet().iterator().next()))
-                rangedMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(Defence.getActionsWithTimes().keySet().iterator().next()) + Defence.getTotalTime());
+            if (rangedMap.keySet().contains(trueDefence.getActionsWithTimes().keySet().iterator().next()))
+                rangedMap.put(trueDefence.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(trueDefence.getActionsWithTimes().keySet().iterator().next()) + trueDefence.getTotalTime());
             else
-                rangedMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), Defence.getTotalTime());
+                rangedMap.put(trueDefence.getActionsWithTimes().keySet().iterator().next(), trueDefence.getTotalTime());
             if (rangedMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
                 rangedMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), rangedMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
             else
@@ -692,10 +692,10 @@ public class Player {
             else
                 rangedMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
             magicMap.put(magic.getActionsWithTimes().keySet().iterator().next(), magic.getTotalTime());
-            if (magicMap.keySet().contains(Defence.getActionsWithTimes().keySet().iterator().next()))
-                magicMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), magicMap.get(Defence.getActionsWithTimes().keySet().iterator().next()) + Defence.getTotalTime());
+            if (magicMap.keySet().contains(trueDefence.getActionsWithTimes().keySet().iterator().next()))
+                magicMap.put(trueDefence.getActionsWithTimes().keySet().iterator().next(), magicMap.get(trueDefence.getActionsWithTimes().keySet().iterator().next()) + trueDefence.getTotalTime());
             else
-                magicMap.put(Defence.getActionsWithTimes().keySet().iterator().next(), Defence.getTotalTime());
+                magicMap.put(trueDefence.getActionsWithTimes().keySet().iterator().next(), trueDefence.getTotalTime());
             if (magicMap.keySet().contains(prayer.getActionsWithTimes().keySet().iterator().next()))
                 magicMap.put(prayer.getActionsWithTimes().keySet().iterator().next(), magicMap.get(prayer.getActionsWithTimes().keySet().iterator().next()) + prayer.getTotalTime());
             else
@@ -708,22 +708,32 @@ public class Player {
                 magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), magicMap.get(hp.getActionsWithTimes().keySet().iterator().next()) + hp.getTotalTime());
             else
                 magicMap.put(hp.getActionsWithTimes().keySet().iterator().next(), hp.getTotalTime());
+            List<Requirement> requirements = new ArrayList<>();
+            requirements.add(new Requirement("Defence", targetLevel));
+            requirements.add(new Requirement("Constitution", targetLevel));
+            requirements.add(new Requirement("Prayer", targetLevel));
+            requirements.add(new Requirement("Summoning", targetLevel));
             if (attack.getTotalTime() + strength.getTotalTime() < ranged.getTotalTime() && attack.getTotalTime() + strength.getTotalTime() < magic.getTotalTime()) {
-                GoalResults result = new GoalResults(attack.getTotalTime() + strength.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), meleeMap);
+                requirements.add(new Requirement("Attack", targetLevel));
+                requirements.add(new Requirement("Strength", targetLevel));
+                GoalResults result = new GoalResults(attack.getTotalTime() + strength.getTotalTime() + trueDefence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(),
+                    meleeMap, requirements);
                 if (result.getTotalTime() < 1000000.0) {
                     previousEfficiencyResults.put(generatedRequirement, result);
                 }
                 currentTargets.remove(generatedRequirement);
                 return result;
             } else if (ranged.getTotalTime() < magic.getTotalTime()) {
-                GoalResults result = new GoalResults(ranged.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), rangedMap);
+                requirements.add(new Requirement("Ranged", targetLevel));
+                GoalResults result = new GoalResults(ranged.getTotalTime() + trueDefence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), rangedMap, requirements);
                 if (result.getTotalTime() < 1000000.0) {
                     previousEfficiencyResults.put(generatedRequirement, result);
                 }
                 currentTargets.remove(generatedRequirement);
                 return result;
             } else {
-                GoalResults result = new GoalResults(magic.getTotalTime() + Defence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), magicMap);
+                requirements.add(new Requirement("Magic", targetLevel));
+                GoalResults result = new GoalResults(magic.getTotalTime() + trueDefence.getTotalTime() + prayer.getTotalTime() + summ.getTotalTime() + hp.getTotalTime(), magicMap, requirements);
                 if (result.getTotalTime() < 1000000.0) {
                     previousEfficiencyResults.put(generatedRequirement, result);
                 }
