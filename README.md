@@ -36,7 +36,7 @@ The final point of note is the "Save Player Data" button. In order to save your 
 # How to report an error
 **There is absolutely nothing wrong with Project Tenacity. How DARE you-- (SMACK)**
 
-Ahem. If you find something that you think (or know) is wrong, click the "issues" tab above and create a new issue. Include as much detail as possible about the issue, including but not limited to what the issue actually is, what steps you took to cause the issue, if the issue is reproducible, if there is a way you can work around the issue, a screenshot of the issue occurring, and your player data file (if applicable.) After ain issue is created, I will tag it with the appropriate severity label:
+Ahem. If you find something that you think (or know) is wrong, click the "issues" tab above and create a new issue. Include as much detail as possible about the issue, including but not limited to what the issue actually is, what steps you took to cause the issue, if the issue is reproducible, if there is a way you can work around the issue, a screenshot of the issue occurring, and your player data file (if applicable.) After an issue is created, I will tag it with the appropriate severity label:
 
 T99 - crash or other technical error (that makes it impossible to use Project Tenacity at all)
 
