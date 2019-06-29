@@ -119,6 +119,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Apple mush", 13));
         itemsList.add(new Item("Apple pie", 140));
         itemsList.add(new Item("Apple tree seed", 13));
+        itemsList.add(new Item("Apples (5)", 1));
         itemsList.add(new Item("Araxyte spider egg (unchecked)", 1));
         itemsList.add(new Item("Archer helm", 78000));
         itemsList.add(new Item("Archers' ring", 10000));
@@ -156,6 +157,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Axeman's folly", 2));
         itemsList.add(new Item("Axeman's folly (m)", 2));
         itemsList.add(new Item("Azure chinchompa (unchecked)", 1));
+        itemsList.add(new Item("Azure skillchompa", 150));
         itemsList.add(new Item("Baby dragon bones", 1));
         itemsList.add(new Item("Bacon", 5));
         itemsList.add(new Item("Bacon heap", 40));
@@ -289,6 +291,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Blue blossom seed", 50));
         itemsList.add(new Item("Blue blubber jellyfish", 700));
         itemsList.add(new Item("Blue dragon egg (unchecked)", 1));
+        itemsList.add(new Item("Blue dragon leather", 70));
         itemsList.add(new Item("Blue dragonhide body", 9360));
         itemsList.add(new Item("Blue dragonhide boots", 3000));
         itemsList.add(new Item("Blue dragonhide chaps", 4320));
@@ -378,8 +381,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Bullseye lantern (oil)", 420));
         itemsList.add(new Item("Bunyip pouch", 3174));
         itemsList.add(new Item("Burnt bones", 1));
+        itemsList.add(new Item("Cabbage", 1));
         itemsList.add(new Item("Cabbage seed", 25));
         itemsList.add(new Item("Cactus seed", 99));
+        itemsList.add(new Item("Cactus spine", 1));
         itemsList.add(new Item("Cadantine potion (unf)", 65));
         itemsList.add(new Item("Cadantine seed", 64));
         itemsList.add(new Item("Calquat tree seed", 340));
@@ -455,7 +460,9 @@ public class ItemDatabase {
         itemsList.add(new Item("Clockwork", 500));
         itemsList.add(new Item("Coal", 45));
         itemsList.add(new Item("Cobalt chinchompa (unchecked)", 1));
+        itemsList.add(new Item("Cobalt skillchompa", 60));
         itemsList.add(new Item("Cockatrice egg", 100));
+        itemsList.add(new Item("Coconut", 87));
         itemsList.add(new Item("Cod", 26));
         //Special case. Coins can't be alched so value is so Ironmen perceive it as value of 1
         itemsList.add(new Item("Coins", 4));
@@ -499,6 +506,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Crayfish cage", 20));
         itemsList.add(new Item("Cream cheese", 4));
         itemsList.add(new Item("Crimson chinchompa (unchecked)", 1));
+        itemsList.add(new Item("Crimson skillchompa", 300));
         itemsList.add(new Item("Crossbow", 70));
         itemsList.add(new Item("Crossbow string", 1));
         itemsList.add(new Item("Crushed nest", 1));
@@ -516,6 +524,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Cup of tea", 10));
         itemsList.add(new Item("Curry", 20));
         itemsList.add(new Item("Curry leaf", 19));
+        itemsList.add(new Item("Curry tree seed", 39));
         itemsList.add(new Item("Dagannoth bones", 1));
         itemsList.add(new Item("Dagannoth hide", 60));
         itemsList.add(new Item("Dagon'hai hat", 15000));
@@ -660,6 +669,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Elder shortbow", 2800));
         itemsList.add(new Item("Elder shortbow (u)", 1400));
         itemsList.add(new Item("Electric lash scroll", 154));
+        itemsList.add(new Item("Elemental helmet", 20));
         itemsList.add(new Item("Elemental shield", 20));
         itemsList.add(new Item("Elemental talisman", 500));
         itemsList.add(new Item("Elite black full helm", 35200));
@@ -803,6 +813,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Green blossom seed", 50));
         itemsList.add(new Item("Green blubber jellyfish", 300));
         itemsList.add(new Item("Green dragon egg (unchecked)", 1));
+        itemsList.add(new Item("Green dragon leather", 50));
         itemsList.add(new Item("Green dragon mask", 900));
         itemsList.add(new Item("Green dragonhide body", 7800));
         itemsList.add(new Item("Green dragonhide boots", 2500));
@@ -1097,6 +1108,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Manta ray", 500));
         itemsList.add(new Item("Maple logs", 80));
         itemsList.add(new Item("Maple roots", 1));
+        itemsList.add(new Item("Maple seed", 48));
         itemsList.add(new Item("Maple shieldbow", 640));
         itemsList.add(new Item("Maple shieldbow (u)", 320));
         itemsList.add(new Item("Maple shortbow", 400));
@@ -1304,6 +1316,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Oil lamp (empty)", 25));
         itemsList.add(new Item("Onion seed", 10));
         itemsList.add(new Item("Onion", 12));
+        itemsList.add(new Item("Onions (10)", 1));
         itemsList.add(new Item("Onyx", 300000));
         itemsList.add(new Item("Onyx bakriminel bolts", 6863));
         itemsList.add(new Item("Onyx bolt tips", 9000));
@@ -1320,6 +1333,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Orange salamander", 100));
         itemsList.add(new Item("Orange slices", 2));
         itemsList.add(new Item("Orange tree seed", 31));
+        itemsList.add(new Item("Oranges (5)", 1));
         itemsList.add(new Item("Orb of the Cywir elders", 65000));
         itemsList.add(new Item("Orikalkum bar", 834));
         itemsList.add(new Item("Orikalkum pickaxe + 3", 26668));
@@ -1332,6 +1346,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Pack mammoth pouch", 5750));
         itemsList.add(new Item("Pack yak pouch", 5699));
         itemsList.add(new Item("Pale energy", 6));
+        itemsList.add(new Item("Palm tree seed", 254));
         itemsList.add(new Item("Papaya fruit", 64));
         itemsList.add(new Item("Papaya tree seed", 115));
         itemsList.add(new Item("Papyrus", 10));
@@ -1357,6 +1372,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Pineapple chunks", 1));
         itemsList.add(new Item("Pineapple pizza", 100));
         itemsList.add(new Item("Pineapple Punch", 30));
+        itemsList.add(new Item("Pineapple seed", 74));
         itemsList.add(new Item("Pirate bandana (white)", 100));
         itemsList.add(new Item("Pirate hook (left)", 89));
         itemsList.add(new Item("Pirate leggings (white)", 350));
@@ -1389,6 +1405,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Potato seed", 8));
         itemsList.add(new Item("Potato with butter", 8));
         itemsList.add(new Item("Potato with cheese", 350));
+        itemsList.add(new Item("Potatoes (10)", 1));
         itemsList.add(new Item("Pouch", 1));
         itemsList.add(new Item("Prayer potion (3)", 152));
         itemsList.add(new Item("Prayer renewal (3)", 220));
@@ -1553,6 +1570,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Rune full helm + 3", 13334));
         itemsList.add(new Item("Rune gauntlets", 7500));
         itemsList.add(new Item("Rune gauntlets + 3", 6668));
+        itemsList.add(new Item("Rune halberd", 2501));
         itemsList.add(new Item("Rune hatchet", 12800));
         itemsList.add(new Item("Rune javelin", 624));
         itemsList.add(new Item("Rune kiteshield", 54400));
@@ -1813,6 +1831,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Stew", 100));
         itemsList.add(new Item("Stony shell scroll", 59));
         itemsList.add(new Item("Stranger plant pouch", 3624));
+        itemsList.add(new Item("Strawberries (5)", 1));
         itemsList.add(new Item("Strawberry", 17));
         itemsList.add(new Item("Strawberry cream cheese", 4));
         itemsList.add(new Item("Strength potion (3)", 1200));
@@ -1899,6 +1918,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Toktz-xil-ek", 25000));
         itemsList.add(new Item("Toktz-xil-ul", 250));
         itemsList.add(new Item("Tomato", 14));
+        itemsList.add(new Item("Tomatoes (5)", 1));
         itemsList.add(new Item("Topaz bolt tips", 13));
         itemsList.add(new Item("Topaz bolts", 22));
         itemsList.add(new Item("Topaz ring", 350));
@@ -1977,6 +1997,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Vial of water", 10));
         itemsList.add(new Item("Vibrant energy", 28));
         itemsList.add(new Item("Viridian chinchompa (unchecked)", 1));
+        itemsList.add(new Item("Viridian skillchompa", 100));
         itemsList.add(new Item("Virtus book", 50000));
         itemsList.add(new Item("Virtus boots", 25000));
         itemsList.add(new Item("Virtus gloves", 30000));
@@ -2022,6 +2043,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Willow branch", 2));
         itemsList.add(new Item("Willow logs", 40));
         itemsList.add(new Item("Willow composite bow", 300));
+        itemsList.add(new Item("Willow seed", 16));
         itemsList.add(new Item("Willow shortbow", 200));
         itemsList.add(new Item("Willow shortbow (u)", 100));
         itemsList.add(new Item("Willow shieldbow", 320));

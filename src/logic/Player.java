@@ -50,6 +50,14 @@ public class Player {
         6517253, 7195629, 7944614, 8771558, 9684577, 10692629, 11805606, 13034431, 14391160, 15889109, 17542976, 19368992, 21385073, 23611006, 26068632,
         28782069, 31777943, 35085654, 38737661, 42769801, 47221641, 52136869, 57563718, 63555443, 70170840, 77474828, 85539082, 94442737, 104273167};
 
+    private static final int[] XP_TO_LEVELS_ELITE = {0, 830, 1861, 2902, 3980, 5126, 6390, 7787, 9400, 11275, 13605, 16372, 19656, 23546, 28138, 33520, 39809, 47109,
+        55535, 64802, 77190, 90811, 106221, 123573, 143025, 164742, 188893, 215651, 245196, 277713, 316311, 358547, 404634, 454796, 509259, 568254, 632019, 700797, 774834,
+        854383, 946227, 1044569, 1149696, 1261903, 1381488, 1508756, 1644015, 1787581, 1939773, 2100917, 2283490, 2476369, 2679907, 2894505, 3120508, 3358307, 3608290, 3870846,
+        4146374, 4435275, 4758122, 5096111, 5449685, 5819299, 6205407, 6608473, 7028964, 7467354, 7924122, 8399751, 8925664, 9472665, 10041285, 10632061, 11245538,
+        11882262, 12542789, 13227679, 13937496, 14672812, 15478994, 16313404, 17176661, 18069395, 18992239, 19945833, 20930821, 21947856, 22997593, 24080695, 25259906,
+        26475754, 27728955, 29020233, 30350318, 31719944, 33129852, 34580790, 36073511, 37608773, 39270442, 40978509, 42733789, 44537107, 46389292, 48291180,
+        50243611, 52247435, 54303504, 56412678, 58575823, 60793812, 63067521, 65397835, 67785643, 70231841, 72737330, 75303019, 77929820, 80618654};
+
     @Expose private String name;
     @Expose private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
     @Expose private Map<String, Double> xp = new HashMap<>();
@@ -156,12 +164,20 @@ public class Player {
 
     public int getLevel(String skill) {
         double skillXp = xp.get(skill);
-        for (int i = 1; i < XP_TO_LEVELS.length; i++) {
-            if (skillXp < XP_TO_LEVELS[i]) {
-                return i;
+        if (skill.equals("Invention")) {
+            for (int i = 1; i < XP_TO_LEVELS_ELITE.length; i++) {
+                if (skillXp < XP_TO_LEVELS_ELITE[i]) {
+                    return i;
+                }
             }
-            if (i == 99 && !(skill.equals("Dungeoneering") || skill.equals("Slayer") || skill.equals("Invention"))) {
-                return 99;
+        } else {
+            for (int i = 1; i < XP_TO_LEVELS.length; i++) {
+                if (skillXp < XP_TO_LEVELS[i]) {
+                    return i;
+                }
+                if (i == 99 && !(skill.equals("Dungeoneering") || skill.equals("Slayer"))) {
+                    return 99;
+                }
             }
         }
         return 120;
@@ -173,7 +189,11 @@ public class Player {
     }
 
     public int getXpToLevel(String skill, int level) {
-        return Math.max(0, XP_TO_LEVELS[level-1] - xp.get(skill).intValue());
+        if (skill.equals("Invention")) {
+            return Math.max(0, XP_TO_LEVELS_ELITE[level - 1] - xp.get(skill).intValue());
+        } else {
+            return Math.max(0, XP_TO_LEVELS[level - 1] - xp.get(skill).intValue());
+        }
     }
 
     public Map<String, Double> nextGear(String combatStyle) {
@@ -380,9 +400,7 @@ public class Player {
         }
     }
 
-    public Map<String, Double> calcAllAchievements() {
-        long time = System.nanoTime();
-        int incompleteAchievements = 0;
+    public void resetPlayer() {
         StoredCombatCalcs.getCalculatedCombats().clear();
         StoredCombatCalcs.getSuccessfulCombats().clear();
         previousEfficiencyResults.clear();
@@ -390,31 +408,23 @@ public class Player {
         ActionDatabase.reset();
         setBankValue();
         ActionDatabase.getActionDatabase(this);
-        Map<String, Double> achievementCalcResults = new HashMap<>();
-        for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements().values()) {
-            if (!qualities.containsKey(achievement.getName())) {
-                if (achievement.getTime() < 0 && achievement.getReqs().stream().allMatch(r -> r.meetsRequirement(this))) {
-                    qualities.put(achievement.getName(), 1);
-                }
-                else {
-                    System.out.print(achievement.getName() + "\t");
-                    long taskTime = System.nanoTime();
-                    GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
-                    achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
-                    achievementResults.put(achievement, actionsAndTime);
-                    incompleteAchievements++;
-                    System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
-                }
+    }
+
+    public Map<String,Double> calcOneAchievement(Achievement achievement) {
+        HashMap<String, Double> achievementCalcResults = new HashMap<>();
+        if (!qualities.containsKey(achievement.getName())) {
+            if (achievement.getTime() < 0 && achievement.getReqs().stream().allMatch(r -> r.meetsRequirement(this))) {
+                qualities.put(achievement.getName(), 1);
+            }
+            else {
+                System.out.print(achievement.getName() + "\t");
+                long taskTime = System.nanoTime();
+                GoalResults actionsAndTime = achievement.getTimeForRequirements(this);
+                achievementResults.put(achievement, actionsAndTime);
+                achievementCalcResults.put(achievement.getName(), actionsAndTime.getTotalTime() - achievement.getGainFromRewards(this));
+                System.out.println((System.nanoTime() - taskTime) / 1000000000.0);
             }
         }
-        System.out.println("====================================");
-        /*for (Map.Entry<Requirement, GoalResults> entry : previousEfficiencyResults.entrySet()) {
-            System.out.println(entry.getKey().getQualifier() + " " + entry.getKey().getQuantifier() + " in " + entry.getValue().getTotalTime() + " hours via following actions: "
-                + entry.getValue().getActionsWithTimes());
-        }*/
-        System.out.println("Incomplete Achievements: " + incompleteAchievements);
-        System.out.println((System.nanoTime() - time) / 1000000000.0);
-        System.out.println("The total bank value of this account is " + bankValue);
         return achievementCalcResults;
     }
 
@@ -583,9 +593,9 @@ public class Player {
             return new GoalResults(0, ImmutableMap.of("", 0.0));
         }
         currentTargets.add(generatedRequirement);
-        /*if (qualifier.equals("Coins") && quantifier > 1000000000) {
+        if (qualifier.equals("Thieving") && quantifier == 13034431) {
             System.out.println("Quack");
-        }*/
+        }
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
@@ -832,7 +842,7 @@ public class Player {
                 }
                 effectiveTimeThisAction += timeToReachGoal;
                 addItemsToMap(efficiencyThisAction, ImmutableMap.of(action.getName(), timeToReachGoal));
-                long minInputsLong = inputLoss/4; //15 minutes of inputs to start an action (arbitrary threshold)
+                long minInputsLong = inputLoss/action.getActionsPerHour(); //got to be able to at least perform the action once!
                 int minInputs;
                 if (minInputsLong > Integer.MAX_VALUE) {
                     GoalResults coinResults = efficientGoalCompletion("Coins", Integer.MAX_VALUE);

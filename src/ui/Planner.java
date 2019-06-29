@@ -10,6 +10,7 @@ import data.databases.AchievementDatabase;
 import data.databases.ArmourDatabase;
 import data.databases.ItemDatabase;
 import data.databases.WeaponDatabase;
+import data.dataobjects.Achievement;
 import data.dataobjects.Armour;
 import data.dataobjects.Weapon;
 import javafx.application.Application;
@@ -20,6 +21,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -28,6 +30,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -69,63 +72,94 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.8.8b";
+    private static final String CURRENT_VERSION = "v0.9.0b";
 
     public static void main(String args[]) {
         launch(args);
     }
 
     private void displayTasks(Player p) {
-        TableView taskView = new TableView();
-        root.getChildren().add(taskView);
-        taskView.setPrefWidth(500);
-        taskView.setPrefHeight(700);
-        taskView.setEditable(true);
-        TableColumn<Entry<String, Double>, String> taskCol = new TableColumn<>("Achievement");
-        taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
+        Task<Map<String, Double>> futureTask = new Task<Map<String, Double>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Double>, String> a) {
-                return new SimpleStringProperty(a.getValue().getKey());
-            }
-        });
-        TableColumn<Entry<String, Double>, Double> timeCol = new TableColumn<>("Effective Time Cost");
-        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Double>, ObservableValue<Double>>() {
-            @Override
-            public ObservableValue<Double> call(TableColumn.CellDataFeatures<Entry<String, Double>, Double> a) {
-                return new SimpleDoubleProperty(a.getValue().getValue()).asObject();
-            }
-        });
-        ObservableList<Entry<String, Double>> tasksWithTimes = FXCollections.observableArrayList(new ArrayList(p.calcAllAchievements().entrySet()));
-        tasksWithTimes.sort(Comparator.comparing(Entry::getValue));
-        taskView.setItems(tasksWithTimes);
-        taskView.getColumns().addAll(taskCol, timeCol);
-        taskView.setRowFactory(tv -> {
-            TableRow<Entry<String, Double>> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
-                    Entry<String, Double> clickedRow = row.getItem();
-                    handleRow(clickedRow, p);
+            protected Map<String, Double> call() {
+                p.resetPlayer();
+                HashMap<String,Double> achievementCalc = new HashMap<>();
+                int achievementNum = 0;
+                for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements().values()) {
+                    achievementCalc.putAll(p.calcOneAchievement(achievement));
+                    achievementNum++;
+                    updateProgress(achievementNum, AchievementDatabase.getAchievementDatabase().getAchievements().size());
                 }
-                if (event.getButton() == MouseButton.SECONDARY) {
-                    taskView.getSelectionModel().clearSelection();
+                return achievementCalc;
+            }
+        };
+        ProgressBar progressBar = new ProgressBar();
+        progressBar.setLayoutX(400);
+        progressBar.setLayoutY(725);
+        progressBar.setPrefWidth(200);
+        progressBar.setPrefHeight(25);
+        progressBar.progressProperty().bind(futureTask.progressProperty());
+        root.getChildren().add(progressBar);
+        futureTask.setOnSucceeded(success -> {
+            root.getChildren().remove(progressBar);
+            TableView taskView = new TableView();
+            root.getChildren().add(taskView);
+            taskView.setPrefWidth(500);
+            taskView.setPrefHeight(700);
+            taskView.setEditable(true);
+            TableColumn<Entry<String, Double>, String> taskCol = new TableColumn<>("Achievement");
+            taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Double>, String> a) {
+                    return new SimpleStringProperty(a.getValue().getKey());
                 }
-
             });
-            return row;
-        });
-        Button completeTask = new Button();
-        completeTask.setText("Complete Achievement/Recalc");
-        completeTask.setOnAction(event -> {
-            if (taskView.getSelectionModel().getSelectedItem() != null) {
-                p.completeTask(((Entry<String, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey(), true);
+            TableColumn<Entry<String, Double>, Double> timeCol = new TableColumn<>("Effective Time Cost");
+            timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Double>, ObservableValue<Double>>() {
+                @Override
+                public ObservableValue<Double> call(TableColumn.CellDataFeatures<Entry<String, Double>, Double> a) {
+                    return new SimpleDoubleProperty(a.getValue().getValue()).asObject();
+                }
+            });
+            ObservableList<Entry<String, Double>> tasksWithTimes = null;
+            try {
+                tasksWithTimes = FXCollections.observableArrayList(new ArrayList(futureTask.get().entrySet()));
+            } catch (Exception e) {
+                System.out.println("Fail");
             }
-            root.getChildren().clear();
-            displayTasks(p);
+            tasksWithTimes.sort(Comparator.comparing(Entry::getValue));
+            taskView.setItems(tasksWithTimes);
+            taskView.getColumns().addAll(taskCol, timeCol);
+            taskView.setRowFactory(tv -> {
+                TableRow<Entry<String, Double>> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                        Entry<String, Double> clickedRow = row.getItem();
+                        handleRow(clickedRow, p);
+                    }
+                    if (event.getButton() == MouseButton.SECONDARY) {
+                        taskView.getSelectionModel().clearSelection();
+                    }
+
+                });
+                return row;
+            });
+            Button completeTask = new Button();
+            completeTask.setText("Complete Achievement/Recalc");
+            completeTask.setOnAction(event -> {
+                if (taskView.getSelectionModel().getSelectedItem() != null) {
+                    p.completeTask(((Entry<String, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey(), true);
+                }
+                root.getChildren().clear();
+                displayTasks(p);
+            });
+            completeTask.setLayoutY(740);
+            root.getChildren().add(completeTask);
             displayPlayer(p);
             displayLampCalc(p);
         });
-        completeTask.setLayoutY(740);
-        root.getChildren().add(completeTask);
+        Thread achievementThread = new Thread(futureTask);
+        achievementThread.start();
     }
 
     private void handleRow(Entry<String, Double> row, Player player) {
@@ -642,8 +676,6 @@ public class Planner extends Application {
             }
             root.getChildren().clear();
             displayTasks(player);
-            displayPlayer(player);
-            displayLampCalc(player);
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "Failed to load player data. Verify that a player data file (" + playerName + ".ptp) exists. " +
                 "If so, please open a T99 issue and include your player data file.");
@@ -777,8 +809,6 @@ public class Planner extends Application {
             }
             root.getChildren().clear();
             displayTasks(p);
-            displayPlayer(p);
-            displayLampCalc(p);
         });
         createProfile.setLayoutX(450);
         createProfile.setLayoutY(410);
