@@ -1150,11 +1150,11 @@ public class ActionDatabase {
             .put("Prawn balls", desertSoleFished / 25).put("Clicker kalphite in amber", 1).put("Desert locust in amber", 1)
             .put("Fishing level-ticks", 6000 * Math.max(52, player.getLevel("Fishing"))).put("Wavecrest opal", 1).put("Maw coral", 1).build(), desertSoleFished, true, true));
         database.add(new Action("Barbarian fly fishing", Arrays.asList(new Requirement("Fishing", 70), new Requirement("Strength", 45), new Requirement("Agility", 45),
-            new Requirement("Barbarian Fishing", 1)), new HashMap<>(), ImmutableMap.of("Fishing", 62 * barbarianFished, "Strength", (int) Math.floor(4.9 * barbarianFished),
+            new Requirement("Barbarian Fishing", 1)), new HashMap<>(), ImmutableMap.of("Fishing", 64 * barbarianFished, "Strength", (int) Math.floor(4.9 * barbarianFished),
             "Agility", (int) Math.floor(4.9 * barbarianFished), "Shark fragment", 1200, "Fishing level-ticks", 6000 * Math.max(70, player.getLevel("Fishing"))),
             (650 + 5 * player.getLevel("Fishing")), true, true));
         database.add(new Action("Fishing in Menaphos (w/ beltfish)", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 72)),
-            new HashMap(), ImmutableMap.builder().put("Fishing", 60 * menaphosFished).put("Menaphos reputation", (int)(4.4 * menaphosFished))
+            new HashMap(), ImmutableMap.builder().put("Fishing", 79 * menaphosFished).put("Menaphos reputation", (int)(4.4 * menaphosFished))
             .put("Prawn balls", menaphosFished / 23).put("Clicker kalphite in amber", 1).put("Desert locust in amber", 1)
             .put("Fishing level-ticks", 6000 * Math.max(72, player.getLevel("Fishing"))).put("Wavecrest opal", 1).put("Maw coral", 1).build(), menaphosFished, true, true));
         database.add(new Action("Fishing Frenzy", Collections.singletonList(new Requirement("Fishing", 94)), new HashMap(), ImmutableMap.of("Fishing", 285000,

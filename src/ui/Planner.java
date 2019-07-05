@@ -29,9 +29,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -72,7 +74,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.9.0b";
+    private static final String CURRENT_VERSION = "v0.9.1b";
 
     public static void main(String args[]) {
         launch(args);
@@ -100,27 +102,50 @@ public class Planner extends Application {
         progressBar.setPrefHeight(25);
         progressBar.progressProperty().bind(futureTask.progressProperty());
         root.getChildren().add(progressBar);
+        TableView taskView = new TableView();
+        taskView.setPrefWidth(500);
+        taskView.setPrefHeight(700);
+        taskView.setEditable(true);
+        taskView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        TableColumn<Entry<String, Double>, String> taskCol = new TableColumn<>("Achievement");
+        taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Double>, String> a) {
+                return new SimpleStringProperty(a.getValue().getKey());
+            }
+        });
+        TableColumn<Entry<String, Double>, Double> timeCol = new TableColumn<>("Effective Time Cost");
+        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Double>, ObservableValue<Double>>() {
+            @Override
+            public ObservableValue<Double> call(TableColumn.CellDataFeatures<Entry<String, Double>, Double> a) {
+                return new SimpleDoubleProperty(a.getValue().getValue()).asObject();
+            }
+        });
+        Button completeTask = new Button();
+        completeTask.setText("Complete Achievement/Recalc");
+        completeTask.setOnAction(event -> {
+            if (taskView.getSelectionModel().getSelectedItems().size() == 1) {
+                p.completeTask(((Entry<String, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey(), true);
+            } else {
+                List<String> selectedItems = new ArrayList<>();
+                for (Object selectedItem : taskView.getSelectionModel().getSelectedItems()) {
+                    Entry<String, Double> item = (Entry<String, Double>) selectedItem;
+                    selectedItems.add(item.getKey());
+                }
+                p.completeTasks(selectedItems);
+            }
+            root.getChildren().clear();
+            displayTasks(p);
+        });
+        completeTask.setLayoutY(740);
+        CheckBox dialogOn = new CheckBox("Display detailed achievement information on click");
+        dialogOn.setLayoutY(710);
+        dialogOn.setAllowIndeterminate(false);
+        dialogOn.setSelected(true);
         futureTask.setOnSucceeded(success -> {
             root.getChildren().remove(progressBar);
-            TableView taskView = new TableView();
             root.getChildren().add(taskView);
-            taskView.setPrefWidth(500);
-            taskView.setPrefHeight(700);
-            taskView.setEditable(true);
-            TableColumn<Entry<String, Double>, String> taskCol = new TableColumn<>("Achievement");
-            taskCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Double>, String> a) {
-                    return new SimpleStringProperty(a.getValue().getKey());
-                }
-            });
-            TableColumn<Entry<String, Double>, Double> timeCol = new TableColumn<>("Effective Time Cost");
-            timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Double>, ObservableValue<Double>>() {
-                @Override
-                public ObservableValue<Double> call(TableColumn.CellDataFeatures<Entry<String, Double>, Double> a) {
-                    return new SimpleDoubleProperty(a.getValue().getValue()).asObject();
-                }
-            });
+            root.getChildren().add(dialogOn);
             ObservableList<Entry<String, Double>> tasksWithTimes = null;
             try {
                 tasksWithTimes = FXCollections.observableArrayList(new ArrayList(futureTask.get().entrySet()));
@@ -135,7 +160,9 @@ public class Planner extends Application {
                 row.setOnMouseClicked(event -> {
                     if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
                         Entry<String, Double> clickedRow = row.getItem();
-                        handleRow(clickedRow, p);
+                        if (dialogOn.isSelected()) {
+                            handleRow(clickedRow, p);
+                        }
                     }
                     if (event.getButton() == MouseButton.SECONDARY) {
                         taskView.getSelectionModel().clearSelection();
@@ -144,16 +171,6 @@ public class Planner extends Application {
                 });
                 return row;
             });
-            Button completeTask = new Button();
-            completeTask.setText("Complete Achievement/Recalc");
-            completeTask.setOnAction(event -> {
-                if (taskView.getSelectionModel().getSelectedItem() != null) {
-                    p.completeTask(((Entry<String, Double>) (taskView.getSelectionModel().getSelectedItem())).getKey(), true);
-                }
-                root.getChildren().clear();
-                displayTasks(p);
-            });
-            completeTask.setLayoutY(740);
             root.getChildren().add(completeTask);
             displayPlayer(p);
             displayLampCalc(p);
@@ -270,7 +287,7 @@ public class Planner extends Application {
         levelCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Integer>, ObservableValue<Integer>>() {
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Entry<String, Double>, Integer> a) {
-                return new SimpleIntegerProperty(p.getLevel(a.getValue().getKey())).asObject();
+                return new SimpleIntegerProperty(p.getVirtualLevel(a.getValue().getKey())).asObject();
             }
         });
         TableColumn<Entry<String, Integer>, String> itemCol = new TableColumn<>("Item");
@@ -418,6 +435,25 @@ public class Planner extends Application {
                     p.getWeapons().remove(WeaponDatabase.getWeaponDatabase().getWeapons().get(weaponCol.getCellObservableValue(weaponView.getSelectionModel().getSelectedIndex()).getValue()));
                 } catch (NullPointerException e) {
                     Alert alert = new Alert(AlertType.INFORMATION, "You must select a weapon to remove it.");
+                    alert.showAndWait();
+                }
+                boolean meleeMain = false;
+                boolean rangedMain = false;
+                boolean magicMain = false;
+                for (Weapon weapon : p.getWeapons()) {
+                    if (!weapon.getSlot().equals("Off-hand")) {
+                        if (weapon.getWeaponClass().equals("Melee")) {
+                            meleeMain = true;
+                        } else if (weapon.getWeaponClass().equals("Ranged")) {
+                            rangedMain = true;
+                        } else if (weapon.getWeaponClass().equals("Magic")) {
+                            magicMain = true;
+                        }
+                    }
+                }
+                if (!(meleeMain && rangedMain && magicMain)) {
+                    p.getWeapons().add(WeaponDatabase.getWeaponDatabase().getWeapons().get(weaponCol.getCellObservableValue(weaponView.getSelectionModel().getSelectedIndex()).getValue()));
+                    Alert alert = new Alert(AlertType.WARNING, "You cannot remove this weapon, as it is your last of its combat style. Add another weapon of its combat style first.");
                     alert.showAndWait();
                 }
                 root.getChildren().remove(addWeapon);

@@ -56,7 +56,9 @@ public class Player {
         4146374, 4435275, 4758122, 5096111, 5449685, 5819299, 6205407, 6608473, 7028964, 7467354, 7924122, 8399751, 8925664, 9472665, 10041285, 10632061, 11245538,
         11882262, 12542789, 13227679, 13937496, 14672812, 15478994, 16313404, 17176661, 18069395, 18992239, 19945833, 20930821, 21947856, 22997593, 24080695, 25259906,
         26475754, 27728955, 29020233, 30350318, 31719944, 33129852, 34580790, 36073511, 37608773, 39270442, 40978509, 42733789, 44537107, 46389292, 48291180,
-        50243611, 52247435, 54303504, 56412678, 58575823, 60793812, 63067521, 65397835, 67785643, 70231841, 72737330, 75303019, 77929820, 80618654};
+        50243611, 52247435, 54303504, 56412678, 58575823, 60793812, 63067521, 65397835, 67785643, 70231841, 72737330, 75303019, 77929820, 80618654, 83370445, 86186124,
+        89066630, 92012904, 95025896, 98106559, 101255855, 104474750, 107764216, 111125230, 114558777, 118065845, 121647430, 125304532, 129038159, 132849323, 136739041,
+        140708338, 144758242, 148889790, 153104021, 157401983, 161784728, 166253312, 170808801, 175452262, 180184770, 185007406, 189921255, 194927409};
 
     @Expose private String name;
     @Expose private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
@@ -169,6 +171,9 @@ public class Player {
                 if (skillXp < XP_TO_LEVELS_ELITE[i]) {
                     return i;
                 }
+                if (i == 120) {
+                    return 120;
+                }
             }
         } else {
             for (int i = 1; i < XP_TO_LEVELS.length; i++) {
@@ -181,6 +186,25 @@ public class Player {
             }
         }
         return 120;
+    }
+
+    public int getVirtualLevel(String skill) {
+        double skillXp = xp.get(skill);
+        if (skill.equals("Invention")) {
+            for (int i = 1; i < XP_TO_LEVELS_ELITE.length; i++) {
+                if (skillXp < XP_TO_LEVELS_ELITE[i]) {
+                    return i;
+                }
+            }
+            return 150;
+        } else {
+            for (int i = 1; i < XP_TO_LEVELS.length; i++) {
+                if (skillXp < XP_TO_LEVELS[i]) {
+                    return i;
+                }
+            }
+            return 120;
+        }
     }
 
     public double calcCombatLevel() {
@@ -567,6 +591,18 @@ public class Player {
         for (Lamp lamp : task.getLamps()) {
             Reward reward = lamp.getBestReward(this);
             xp.put(reward.getQualifier(), xp.get(reward.getQualifier()) + reward.getQuantifier());
+        }
+    }
+
+    public void completeTasks(List<String> tasks) {
+        for (String taskName : tasks) {
+            Achievement task = AchievementDatabase.getAchievementDatabase().getAchievements().get(taskName);
+            GoalResults calcedResults = achievementResults.get(task);
+            for (Requirement requirement : calcedResults.getListofAllRequirements()) {
+                if (AchievementDatabase.getAchievementDatabase().getAchievements().get(requirement.getQualifier()) != null) {
+                    qualities.put(requirement.getQualifier(), 1);
+                }
+            }
         }
     }
 
