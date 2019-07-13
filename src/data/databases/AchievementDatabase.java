@@ -8401,6 +8401,19 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Reset to Phylactery Settings Solo Kills VI", 0)
             .requirement("Taraket the Necromancer solo kills", 100).build());
         achievements.add(new AchievementBuilder("Ambi", 0).requirement("Ambassador solo kills", 130).build());
+        achievements.add(new AchievementBuilder("Spinal Surgery", 0).requirement("Magic", 30).build());
+        achievements.add(new AchievementBuilder("Setting The Foundation", 0.05).build());
+        achievements.add(new AchievementBuilder("Spud That", 0).requirement("Raw potato", 0).build());
+        achievements.add(new AchievementBuilder("Leave No Zygomite Buried", 1).requirement("Agility", 85).build());
+        achievements.add(new AchievementBuilder("Swings Both Ways", 0.25).requirement("Agility", 85).reward("Agility", 41080)
+            .reward("Codex page", 20).build());
+        achievements.add(new AchievementBuilder("In A Flash", 0.1).requirement("Agility", 85).reward("Agility", 21040)
+            .reward("Codex page", 10).build());
+        achievements.add(new AchievementBuilder("Home Away From Home", 0.1).requirement("Setting The Foundation", 1)
+            .requirement("Construction", 40).build());
+        achievements.add(new AchievementBuilder("End Of The World", 0.05).requirement("Attack", 81).requirement("Slayer", 114).build());
+        achievements.add(new AchievementBuilder("Father And Son", 0.05).build());
+        achievements.add(new AchievementBuilder("Stone Cold Observers", 0.1).build());
     }
 
     public static AchievementDatabase getAchievementDatabase() {

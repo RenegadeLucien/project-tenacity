@@ -46,7 +46,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.converter.DoubleStringConverter;
+import javafx.util.StringConverter;
 import logic.GoalResults;
 import logic.Lamp;
 import logic.Player;
@@ -60,6 +60,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributeView;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -74,7 +75,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v0.9.1b";
+    private static final String CURRENT_VERSION = "v0.9.2b";
 
     public static void main(String args[]) {
         launch(args);
@@ -272,7 +273,18 @@ public class Planner extends Application {
                 return new SimpleDoubleProperty(Math.floor(a.getValue().getValue()*10)/10).asObject();
             }
         });
-        xpCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        xpCol.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Double>() {
+            @Override
+            public String toString(Double aDouble) {
+                DecimalFormat format = new DecimalFormat("#,##0.0");
+                return format.format(aDouble);
+            }
+
+            @Override
+            public Double fromString(String s) {
+                return Double.parseDouble(s);
+            }
+        }));
         xpCol.setOnEditCommit(
             new EventHandler<TableColumn.CellEditEvent<Entry<String, Double>, Double>>() {
                 @Override
@@ -297,22 +309,33 @@ public class Planner extends Application {
                 return new SimpleStringProperty(a.getValue().getKey());
             }
         });
-        TableColumn<Entry<String, Integer>, String> itemCountCol = new TableColumn<>("Count");
-        itemCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<String, Integer>, Integer> itemCountCol = new TableColumn<>("Count");
+        itemCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, Integer>, ObservableValue<Integer>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
-                return new SimpleStringProperty(a.getValue().getValue().toString());
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Entry<String, Integer>, Integer> a) {
+                return new SimpleIntegerProperty(a.getValue().getValue()).asObject();
             }
 
         });
-        itemCountCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        itemCountCol.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer integer) {
+                DecimalFormat format = new DecimalFormat("#,##0");
+                return format.format(integer);
+            }
+
+            @Override
+            public Integer fromString(String s) {
+                return Integer.parseInt(s);
+            }
+        }));
         itemCountCol.setOnEditCommit(
-            new EventHandler<TableColumn.CellEditEvent<Entry<String, Integer>, String>>() {
+            new EventHandler<TableColumn.CellEditEvent<Entry<String, Integer>, Integer>>() {
                 @Override
-                public void handle(TableColumn.CellEditEvent<Entry<String, Integer>, String> t) {
+                public void handle(TableColumn.CellEditEvent<Entry<String, Integer>, Integer> t) {
                     ((Entry<String, Integer>) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
-                    ).setValue(Integer.parseInt(t.getNewValue()));
+                    ).setValue(t.getNewValue());
                 }
             });
         final TextField addItem = new TextField();
@@ -527,21 +550,32 @@ public class Planner extends Application {
                 return new SimpleStringProperty(a.getValue().getKey());
             }
         });
-        TableColumn<Entry<String, Integer>, String> qualityCountCol = new TableColumn<>("Count");
-        qualityCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<String, Integer>, Integer> qualityCountCol = new TableColumn<>("Count");
+        qualityCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, Integer>, ObservableValue<Integer>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
-                return new SimpleStringProperty(a.getValue().getValue().toString());
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Entry<String, Integer>, Integer> a) {
+                return new SimpleIntegerProperty(a.getValue().getValue()).asObject();
             }
         });
-        qualityCountCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        qualityCountCol.setOnEditCommit(
-            new EventHandler<TableColumn.CellEditEvent<Entry<String, Integer>, String>>() {
+        qualityCountCol.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
                 @Override
-                public void handle(TableColumn.CellEditEvent<Entry<String, Integer>, String> t) {
+                public String toString(Integer integer) {
+                    DecimalFormat format = new DecimalFormat("#,##0");
+                    return format.format(integer);
+                }
+
+                @Override
+                public Integer fromString(String s) {
+                    return Integer.parseInt(s);
+                }
+            }));
+        qualityCountCol.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Entry<String, Integer>, Integer>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Entry<String, Integer>, Integer> t) {
                     ((Entry<String, Integer>) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
-                    ).setValue(Integer.parseInt(t.getNewValue()));
+                    ).setValue(t.getNewValue());
                 }
             });
         final TextField addQuality = new TextField();
