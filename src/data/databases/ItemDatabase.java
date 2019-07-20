@@ -572,6 +572,8 @@ public class ItemDatabase {
         itemsList.add(new Item("Divine charge", 1000));
         itemsList.add(new Item("Divine spirit shield", 2000000));
         itemsList.add(new Item("Dorgeshuun crossbow", 2000));
+        itemsList.add(new Item("Double Escape codex (tradeable)", 300000));
+        itemsList.add(new Item("Double Surge codex (tradeable)", 300000));
         itemsList.add(new Item("Dragon 2h sword", 220000));
         itemsList.add(new Item("Dragon arrow", 800));
         itemsList.add(new Item("Dragon arrowheads", 500));
@@ -1434,7 +1436,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Raurg bones", 1));
         itemsList.add(new Item("Ravenous locust pouch", 2399));
         itemsList.add(new Item("Raw admiral pie", 155));
+        itemsList.add(new Item("Raw arcane apoterrasaur meat", 800));
         itemsList.add(new Item("Raw anchovies", 16));
+        itemsList.add(new Item("Raw asciatops meat", 800));
+        itemsList.add(new Item("Raw bagrada rex meat", 800));
         itemsList.add(new Item("Raw bass", 280));
         itemsList.add(new Item("Raw beef", 59));
         itemsList.add(new Item("Raw beltfish", 280));
@@ -1446,6 +1451,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Raw chicken", 60));
         itemsList.add(new Item("Raw chompy", 85));
         itemsList.add(new Item("Raw cod", 34));
+        itemsList.add(new Item("Raw corbicula rex meat", 800));
         itemsList.add(new Item("Raw crayfish", 5));
         itemsList.add(new Item("Raw desert sole", 270));
         itemsList.add(new Item("Raw fish pie", 50));
@@ -1470,9 +1476,11 @@ public class ItemDatabase {
         itemsList.add(new Item("Raw sailfish", 900));
         itemsList.add(new Item("Raw salmon", 92));
         itemsList.add(new Item("Raw sardine", 10));
+        itemsList.add(new Item("Raw scimitops meat", 800));
         itemsList.add(new Item("Raw sea turtle", 500));
         itemsList.add(new Item("Raw shark", 300));
         itemsList.add(new Item("Raw shrimps", 6));
+        itemsList.add(new Item("Raw spicati apoterrasaur meat", 800));
         itemsList.add(new Item("Raw summer pie", 70));
         itemsList.add(new Item("Raw swordfish", 340));
         itemsList.add(new Item("Raw trout", 20));

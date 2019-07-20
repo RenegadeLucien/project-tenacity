@@ -104,6 +104,8 @@ public class ActionDatabase {
             ImmutableMap.of("Agility", 21600, "Agility level-ticks", 6000 * Math.max(25, player.getLevel("Agility"))), 24, true, true));
         database.add(new Action("Agility Pyramid", Collections.singletonList(new Requirement("Agility", 30)), ImmutableMap.of("Waterskin (4)", 10),
             ImmutableMap.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 22, true, true));
+        database.add(new Action("Anachronia Agility course (lv30 only)", Collections.singletonList(new Requirement("Agility", 30)), new HashMap(),
+            ImmutableMap.of("Agility", 32400, "Anachronia sections", 120, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 120, true, true));
         database.add(new Action("Clockwork suits", Arrays.asList(new Requirement("Agility", 30), new Requirement("Cold War", 1)), new HashMap(),
             ImmutableMap.of("Agility", 37500, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 3000, true, true));
         database.add(new Action("Barbarian Outpost Agility Course", Collections.singletonList(new Requirement("Agility", 35)), new HashMap(),
@@ -196,6 +198,8 @@ public class ActionDatabase {
             ImmutableMap.of("Agility", 109728, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 80, true, false));
         database.add(new Action("Advanced Gnome Stronghold Agility Course", Collections.singletonList(new Requirement("Agility", 85)),
             new HashMap(), ImmutableMap.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 34, true, true));
+        database.add(new Action("Anachronia Agility course (full laps)", Collections.singletonList(new Requirement("Agility", 85)), new HashMap(),
+            ImmutableMap.of("Agility", 160320, "Anachronia sections", 64, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 8, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv86 xp rates)", Arrays.asList(new Requirement("Agility", 86), new Requirement("Demonic skull", 1)), new HashMap(),
             ImmutableMap.of("Agility", 111556, "Agility level-ticks", 6000 * Math.max(86, player.getLevel("Agility"))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv87 xp rates)", Arrays.asList(new Requirement("Agility", 87), new Requirement("Demonic skull", 1)), new HashMap(),
@@ -208,7 +212,7 @@ public class ActionDatabase {
             ImmutableMap.of("Agility", 117043, "Agility level-ticks", 6000 * Math.max(89, player.getLevel("Agility"))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv90 xp rates)", Arrays.asList(new Requirement("Agility", 90), new Requirement("Demonic skull", 1)), new HashMap(),
             ImmutableMap.of("Agility", 118872, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))), 80, true, false));
-        database.add(new Action("Advanced Barbarian Outpost Agility Course", Arrays.asList(new Requirement("Bar Crawl", 1), new Requirement("Agility", 90)),
+        database.add(new Action("Advanced Barbarian Outpost Agility Course", Arrays.asList(new Requirement("Bar Crawl (miniquest)", 1), new Requirement("Agility", 90)),
             new HashMap(), ImmutableMap.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))), 96, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv91 xp rates)", Arrays.asList(new Requirement("Agility", 91), new Requirement("Demonic skull", 1)), new HashMap(),
             ImmutableMap.of("Agility", 120700, "Agility level-ticks", 6000 * Math.max(91, player.getLevel("Agility"))), 80, true, false));
@@ -1462,49 +1466,49 @@ public class ActionDatabase {
 
         //Hunter (60 base per snare, 90 base ber trap)
         int tropicalWagtailsCaught = 100 + Math.max(20, player.getLevel("Hunter"));
-        int cobaltSkillchompasCaught2 = (int)Math.floor((154 + Math.max(26, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/42.0)));
-        int cobaltSkillchompasCaught3 = (int)Math.floor((244 + Math.max(26, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/42.0)));
-        int viridianSkillchompasCaught3 = (int)Math.floor((224 + Math.max(46, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/64.0)));
-        int viridianSkillchompasCaught4 = (int)Math.floor((314 + Math.max(46, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/64.0)));
-        int azureSkillchompasCaught4 = (int)Math.floor((292 + Math.max(68, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/81.0)));
-        int azureSkillchompasCaught5 = (int)Math.floor((382 + Math.max(68, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/81.0)));
-        int crimsonSkillchompasCaught = (int)Math.floor((361 + Math.max(89, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/94.0)));
-        int crystalSkillchompasCaught = (int)Math.floor((353 + Math.max(97, player.getLevel("Hunter"))) * (2 + Math.max(1, player.getLevel("Agility")/99.0)));
+        int cobaltSkillchompasCaught2 = 154 + Math.max(26, player.getLevel("Hunter"));
+        int cobaltSkillchompasCaught3 = 244 + Math.max(26, player.getLevel("Hunter"));
+        int viridianSkillchompasCaught3 = 224 + Math.max(46, player.getLevel("Hunter"));
+        int viridianSkillchompasCaught4 = 314 + Math.max(46, player.getLevel("Hunter"));
+        int azureSkillchompasCaught4 = 292 + Math.max(68, player.getLevel("Hunter"));
+        int azureSkillchompasCaught5 = 382 + Math.max(68, player.getLevel("Hunter"));
+        int crimsonSkillchompasCaught = 361 + Math.max(89, player.getLevel("Hunter"));
+        int crystalSkillchompasCaught = 353 + Math.max(97, player.getLevel("Hunter"));
         int grenwallsCaught4 = 283 + Math.max(77, player.getLevel("Hunter"));
         int grenwallsCaught5 = 373 + Math.max(77, player.getLevel("Hunter"));
         database.add(new Action("Feeding ogleroots to rabbits", new ArrayList(), ImmutableMap.of("Coins", 3000), ImmutableMap.of("Hunter", 9000,
             "Hunter level-ticks", 6000 * player.getLevel("Hunter")), 300, true, true));
         database.add(new Action("Hunting tropical wagtails", Collections.singletonList(new Requirement("Hunter", 20)), new HashMap(), ImmutableMap.of("Hunter",
             (int)(95.8*tropicalWagtailsCaught), "Hunter level-ticks", 6000 * Math.max(20, player.getLevel("Hunter"))), tropicalWagtailsCaught, true, true));
-        database.add(new Action("Hunting cobalt skillchompas (2 traps)", Collections.singletonList(new Requirement("Hunter", 26)), new HashMap(), ImmutableMap.of("Hunter",
-            (int)(80.7*cobaltSkillchompasCaught2), "Cobalt skillchompa", cobaltSkillchompasCaught2, "Hunter level-ticks", 6000 * Math.max(26, player.getLevel("Hunter"))),
+        database.add(new Action("Hunting cobalt skillchompas (2 traps)", Collections.singletonList(new Requirement("Hunter", 27)), new HashMap(), ImmutableMap.of("Hunter",
+            (int)(121*cobaltSkillchompasCaught2), "Cobalt skillchompa", 2*cobaltSkillchompasCaught2, "Hunter level-ticks", 6000 * Math.max(26, player.getLevel("Hunter"))),
             cobaltSkillchompasCaught2, true, true));
         database.add(new Action("Hunting cobalt skillchompas (3 traps)", Collections.singletonList(new Requirement("Hunter", 40)), new HashMap(), ImmutableMap.of("Hunter",
-            (int)(80.7*cobaltSkillchompasCaught3), "Cobalt skillchompa", cobaltSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(40, player.getLevel("Hunter"))),
+            (int)(121*cobaltSkillchompasCaught3), "Cobalt skillchompa", 2*cobaltSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(40, player.getLevel("Hunter"))),
             cobaltSkillchompasCaught3, true, true));
         database.add(new Action("Hunting viridian skillchompas (3 traps)", Collections.singletonList(new Requirement("Hunter", 46)), new HashMap(), ImmutableMap.of("Hunter",
-            119*viridianSkillchompasCaught3, "Viridian skillchompa", viridianSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(46, player.getLevel("Hunter"))),
+            176*viridianSkillchompasCaught3, "Viridian skillchompa", 2*viridianSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(46, player.getLevel("Hunter"))),
             viridianSkillchompasCaught3, true, true));
         database.add(new Action("Hunting viridian skillchompas (4 traps)", Collections.singletonList(new Requirement("Hunter", 60)), new HashMap(), ImmutableMap.of("Hunter",
-            119*viridianSkillchompasCaught4, "Viridian skillchompa", viridianSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(60, player.getLevel("Hunter"))),
+            176*viridianSkillchompasCaught4, "Viridian skillchompa", 2*viridianSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(60, player.getLevel("Hunter"))),
             viridianSkillchompasCaught4, true, true));
         database.add(new Action("Hunting azure skillchompas (4 traps)", Collections.singletonList(new Requirement("Hunter", 68)), new HashMap(), ImmutableMap.of("Hunter",
-            178*azureSkillchompasCaught4, "Azure skillchompa", azureSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(68, player.getLevel("Hunter"))),
+            199*azureSkillchompasCaught4, "Azure skillchompa", 2*azureSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(68, player.getLevel("Hunter"))),
             azureSkillchompasCaught4, true, true));
         database.add(new Action("Hunting azure skillchompas (5 traps)", Collections.singletonList(new Requirement("Hunter", 80)), new HashMap(), ImmutableMap.of("Hunter",
-            178*azureSkillchompasCaught5, "Azure skillchompa", azureSkillchompasCaught5, "Hunter level-ticks", 6000 * Math.max(80, player.getLevel("Hunter"))),
+            199*azureSkillchompasCaught5, "Azure skillchompa", 2*azureSkillchompasCaught5, "Hunter level-ticks", 6000 * Math.max(80, player.getLevel("Hunter"))),
             azureSkillchompasCaught5, true, true));
         database.add(new Action("Hunting crimson skillchompas", Collections.singletonList(new Requirement("Hunter", 89)), new HashMap(), ImmutableMap.of("Hunter",
-            382*crimsonSkillchompasCaught, "Crimson skillchompa", crimsonSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(89, player.getLevel("Hunter"))),
+            382*crimsonSkillchompasCaught, "Crimson skillchompa", 2*crimsonSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(89, player.getLevel("Hunter"))),
             crimsonSkillchompasCaught, true, true));
         database.add(new Action("Hunting crystal skillchompas", Arrays.asList(new Requirement("Hunter", 97), new Requirement("Regicide", 1)), new HashMap(), ImmutableMap.of("Hunter",
-            476*crystalSkillchompasCaught, "Crystal skillchompa", crystalSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(97, player.getLevel("Hunter"))),
+            476*crystalSkillchompasCaught, "Crystal skillchompa", 2*crystalSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(97, player.getLevel("Hunter"))),
             crystalSkillchompasCaught, true, true));
         database.add(new Action("Hunting grenwalls (w/C+LF+quiver2), 4 traps", Arrays.asList(new Requirement("Hunter", 77), new Requirement("The Light Within", 1),
-            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(2062.5*grenwallsCaught4), "Grenwall spikes", 20*grenwallsCaught4,
+            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(1361.25*grenwallsCaught4), "Grenwall spikes", 20*grenwallsCaught4,
             "Hunter level-ticks", 6000 * Math.max(77, player.getLevel("Hunter"))), grenwallsCaught4, true, true));
         database.add(new Action("Hunting grenwalls (w/C+LF+quiver2), 5 traps", Arrays.asList(new Requirement("Hunter", 80), new Requirement("The Light Within", 1),
-            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(2062.5*grenwallsCaught5), "Grenwall spikes", 20*grenwallsCaught5,
+            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(1361.25*grenwallsCaught5), "Grenwall spikes", 20*grenwallsCaught5,
             "Hunter level-ticks", 6000 * Math.max(80, player.getLevel("Hunter"))), grenwallsCaught5, true, true));
         database.add(new Action("Hunting common jadinkos", Arrays.asList(new Requirement("Hunter", 70), new Requirement("Farming", 54)), new HashMap(), ImmutableMap.of("Hunter", 38500,
             "Lergberry seed", 2, "Kalferberry seed", 2, "Hunter level-ticks", 6000 * Math.max(70, player.getLevel("Hunter"))), 110, true, true));
@@ -1516,10 +1520,22 @@ public class ActionDatabase {
             .put("Menaphos reputaton", 30 * (68 + player.getLevel("Hunter"))).put("Pygmy giant scarab", 1).put("Clicker kalphite", 1).put("Hunter level-ticks", 6000 * Math.max(73, player.getLevel("Hunter"))).build(),
             68 + player.getLevel("Hunter"), true, true));
         database.add(new Action("Hunting tortles", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Hunter", 90)),
-            new HashMap(), ImmutableMap.of("Hunter", 258000, "Tortoiseshell Plover", 2, "Shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(90, player.getLevel("Hunter"))), 400, true, true));
+            new HashMap(), ImmutableMap.of("Hunter", 131600, "Tortoiseshell Plover", 2, "Shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(90, player.getLevel("Hunter"))), 400, true, true));
         database.add(new Action("Hunting ornate tortles", Arrays.asList(new Requirement("Arc I - Flag Fall", 1), new Requirement("Hunter", 96)),
-            new HashMap(), ImmutableMap.of("Hunter", 634000, "Tortoiseshell Plover", 2, "Shiny shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(96, player.getLevel("Hunter"))),
+            new HashMap(), ImmutableMap.of("Hunter", 279200, "Tortoiseshell Plover", 2, "Shiny shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(96, player.getLevel("Hunter"))),
             400, true, true));
+        database.add(new Action("Big Game Hunter (tier 1)", Arrays.asList(new Requirement("Hunter", 75), new Requirement("Slayer", 55)), new HashMap(),
+            ImmutableMap.builder().put("Hunter", 96000).put("Slayer", 16800).put("Fletching", 600).put("Woodcutting", player.getLevel("Woodcutting")*144)
+            .put("Herblore", player.getLevel("Herblore")*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 16800))
+            .put("Hunter level-ticks", 6000 * Math.max(75, player.getLevel("Hunter"))).build(), 12, true, true));
+        database.add(new Action("Big Game Hunter (tier 2)", Arrays.asList(new Requirement("Hunter", 90), new Requirement("Slayer", 70)), new HashMap(),
+            ImmutableMap.builder().put("Hunter", 168000).put("Slayer", 31800).put("Fletching", 600).put("Woodcutting", player.getLevel("Woodcutting")*144)
+                .put("Herblore", player.getLevel("Herblore")*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 31800))
+                .put("Hunter level-ticks", 6000 * Math.max(90, player.getLevel("Hunter"))).build(), 12, true, true));
+        database.add(new Action("Big Game Hunter (tier 3)", Arrays.asList(new Requirement("Hunter", 96), new Requirement("Slayer", 76)), new HashMap(),
+            ImmutableMap.builder().put("Hunter", 276000).put("Slayer", 52800).put("Fletching", 600).put("Woodcutting", player.getLevel("Woodcutting")*144)
+                .put("Herblore", player.getLevel("Herblore")*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 52800))
+                .put("Hunter level-ticks", 6000 * Math.max(96, player.getLevel("Hunter"))).build(), 12, true, true));
     }
 
     private void addSkillingActionsToDatabasePart2(Player player) {
@@ -1813,87 +1829,87 @@ public class ActionDatabase {
             ImmutableMap.of("Runecrafting", 93000, "Runespan points", 1860, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 93000),
                 "Rune ethereal fragments", 1200), 1500, true, true));
 
-        database.add(new Action("Crafting earth runes via Abyss (w/o skull)", Collections.singletonList(new Requirement("Abyssal Reach", 1)), ImmutableMap.of("Pure essence", 1800),
+        database.add(new Action("Crafting earth runes via Abyss (w/o skull)", Collections.singletonList(new Requirement("Abyss (miniquest)", 1)), ImmutableMap.of("Pure essence", 1800),
             ImmutableMap.of("Earth rune", 1800, "Runecrafting", 29250, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 29250)), 60, true, false));
-        database.add(new Action("Crafting earth runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1)),
+        database.add(new Action("Crafting earth runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1)),
             ImmutableMap.of("Pure essence", 1800), ImmutableMap.of("Earth rune", 1800, "Runecrafting", 40950, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 40950)),
             60, true, false));
-        database.add(new Action("Crafting fire runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 14)),
+        database.add(new Action("Crafting fire runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 14)),
             ImmutableMap.of("Pure essence", 1800), ImmutableMap.of("Fire rune", 1800, "Runecrafting", 31500, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 31500)),
             60, true, false));
-        database.add(new Action("Crafting fire runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1), new Requirement("Runecrafting", 14)),
+        database.add(new Action("Crafting fire runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1), new Requirement("Runecrafting", 14)),
             ImmutableMap.of("Pure essence", 1800), ImmutableMap.of("Fire rune", 1800, "Runecrafting", 44100, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 44100)),
             60, true, false));
-        database.add(new Action("Crafting body runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 20)),
+        database.add(new Action("Crafting body runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 20)),
             ImmutableMap.of("Pure essence", 1800), ImmutableMap.of("Body rune", 1800, "Runecrafting", 33750, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 33750)),
             60, true, false));
-        database.add(new Action("Crafting body runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1), new Requirement("Runecrafting", 20)),
+        database.add(new Action("Crafting body runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1), new Requirement("Runecrafting", 20)),
             ImmutableMap.of("Pure essence", 1800), ImmutableMap.of("Body rune", 1800, "Runecrafting", 47250, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 47250)),
             60, true, false));
-        database.add(new Action("Crafting body runes via Abyss (w/o skull, w/med pouch)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 25)),
+        database.add(new Action("Crafting body runes via Abyss (w/o skull, w/med pouch)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 25)),
             ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Body rune", 2100, "Runecrafting", 39375, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 39375)),
             60, true, false));
-        database.add(new Action("Crafting body runes via Abyss (w/ skull and med pouch)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting body runes via Abyss (w/ skull and med pouch)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 25)), ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Body rune", 2100, "Runecrafting", 55125,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 55125)), 60, true, false));
-        database.add(new Action("Crafting cosmic runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 27), new Requirement("Lost City", 1)),
+        database.add(new Action("Crafting cosmic runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 27), new Requirement("Lost City", 1)),
             ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Cosmic rune", 2100, "Runecrafting", 42000, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 42000)),
             60, true, false));
-        database.add(new Action("Crafting cosmic runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting cosmic runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 27), new Requirement("Lost City", 1)), ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Cosmic rune", 2100, "Runecrafting", 58800,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 58800)), 60, true, false));
-        database.add(new Action("Crafting chaos runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 35)),
+        database.add(new Action("Crafting chaos runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 35)),
             ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Chaos rune", 2100, "Runecrafting", 44625, "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 44625)),
             60, true, false));
-        database.add(new Action("Crafting chaos runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting chaos runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 35)), ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Chaos rune", 2100, "Runecrafting", 62475,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 62475)), 60, true, false));
-        database.add(new Action("Crafting astral runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 40),
+        database.add(new Action("Crafting astral runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 40),
             new Requirement("Lunar Diplomacy", 1)), ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Astral rune", 2100, "Runecrafting", 45675, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 45675)), 60, true, false));
-        database.add(new Action("Crafting astral runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting astral runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 40), new Requirement("Lunar Diplomacy", 1)), ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Astral rune", 2100, "Runecrafting", 63945,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 63945)), 60, true, false));
-        database.add(new Action("Crafting nature runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 44)),
+        database.add(new Action("Crafting nature runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 44)),
             ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Nature rune", 2100, "Runecrafting", 47250, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 47250)), 60, true, false));
-        database.add(new Action("Crafting nature runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting nature runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 44)), ImmutableMap.of("Pure essence", 2100), ImmutableMap.of("Nature rune", 2100, "Runecrafting", 66150,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 66150)), 60, true, false));
-        database.add(new Action("Crafting nature runes via Abyss (w/o skull, w/large pouch)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 50)),
+        database.add(new Action("Crafting nature runes via Abyss (w/o skull, w/large pouch)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 50)),
             ImmutableMap.of("Pure essence", 2580), ImmutableMap.of("Nature rune", 2580, "Runecrafting", 58050, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 58050)), 60, true, false));
-        database.add(new Action("Crafting nature runes via Abyss (w/ skull and large pouch)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting nature runes via Abyss (w/ skull and large pouch)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 50)), ImmutableMap.of("Pure essence", 2580), ImmutableMap.of("Nature rune", 2580, "Runecrafting", 81270,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 81270)), 60, true, false));
-        database.add(new Action("Crafting law runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 54)),
+        database.add(new Action("Crafting law runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 54)),
             ImmutableMap.of("Pure essence", 2580), ImmutableMap.of("Law rune", 2580, "Runecrafting", 61275, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 61275)), 60, true, false));
-        database.add(new Action("Crafting law runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting law runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 54)), ImmutableMap.of("Pure essence", 2580), ImmutableMap.of("Law rune", 2580, "Runecrafting", 85785,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 85785)), 60, true, false));
-        database.add(new Action("Crafting death runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 65),
+        database.add(new Action("Crafting death runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 65),
             new Requirement("Mourning's End Part II", 1)), ImmutableMap.of("Pure essence", 2580), ImmutableMap.of("Death rune", 2580, "Runecrafting", 64500, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 64500)), 60, true, false));
-        database.add(new Action("Crafting death runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting death runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 65), new Requirement("Mourning's End Part II", 1)), ImmutableMap.of("Pure essence", 2580), ImmutableMap.of("Death rune", 2580, "Runecrafting", 90300,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 90300)), 60, true, false));
-        database.add(new Action("Crafting death runes via Abyss (w/o skull, w/giant pouch)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 75),
+        database.add(new Action("Crafting death runes via Abyss (w/o skull, w/giant pouch)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 75),
             new Requirement("Mourning's End Part II", 1)), ImmutableMap.of("Pure essence", 3240), ImmutableMap.of("Death rune", 3240, "Runecrafting", 81000, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 81000)), 60, true, false));
-        database.add(new Action("Crafting death runes via Abyss (w/ skull & giant pouch)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting death runes via Abyss (w/ skull & giant pouch)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 75), new Requirement("Mourning's End Part II", 1)), ImmutableMap.of("Pure essence", 3240), ImmutableMap.of("Death rune", 3240, "Runecrafting", 111340,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 111340)), 60, true, false));
-        database.add(new Action("Crafting blood runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 77),
+        database.add(new Action("Crafting blood runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 77),
             new Requirement("Legacy of Seergaze", 1)), ImmutableMap.of("Pure essence", 3240), ImmutableMap.of("Blood rune", 3240, "Runecrafting", 85050, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 85050)), 60, true, false));
-        database.add(new Action("Crafting blood runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting blood runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 77), new Requirement("Legacy of Seergaze", 1)), ImmutableMap.of("Pure essence", 3240), ImmutableMap.of("Blood rune", 3240, "Runecrafting", 119070,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 119070)), 60, true, false));
-        database.add(new Action("Crafting soul runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Runecrafting", 90),
+        database.add(new Action("Crafting soul runes via Abyss (w/o skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Runecrafting", 90),
             new Requirement("'Phite Club", 1)), ImmutableMap.of("Pure essence", 1500), ImmutableMap.of("Soul rune", 375, "Runecrafting", 206250, "Runecrafting pet points",
             totalPetPoints(player, "Runecrafting", 206250)), 60, true, false));
-        database.add(new Action("Crafting soul runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyssal Reach", 1), new Requirement("Demonic skull", 1),
+        database.add(new Action("Crafting soul runes via Abyss (w/ skull)", Arrays.asList(new Requirement("Abyss (miniquest)", 1), new Requirement("Demonic skull", 1),
             new Requirement("Runecrafting", 90), new Requirement("'Phite Club", 1)), ImmutableMap.of("Pure essence", 1500), ImmutableMap.of("Soul rune", 375, "Runecrafting", 288750,
             "Runecrafting pet points", totalPetPoints(player, "Runecrafting", 288750)), 60, true, false));
 
@@ -2497,13 +2513,13 @@ public class ActionDatabase {
         database.add(new Action("Thieves' Guild jail doors (w/lv50 door)", Arrays.asList(new Requirement("Thieving", 50), new Requirement("Buyers and Cellars", 1),
             new Requirement("Lockpick", 1)), new HashMap(), ImmutableMap.of("Thieving", 147000, "Thieving level-ticks", 6000 * Math.max(50, player.getLevel("Thieving"))), 600, true, true));
 
-        database.add(new Action("Safecracking (Misthalin)", Arrays.asList(new Requirement("A Guild of Our Own", 1), new Requirement("Thieving", 62)), new HashMap(),
+        database.add(new Action("Safecracking (Misthalin)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 62)), new HashMap(),
             ImmutableMap.of("Thieving", 300000, "Pilfer Points", 800, "Coins", 200000, "Thieving level-ticks", 6000 * Math.max(62, player.getLevel("Thieving"))), 60, true, true));
-        database.add(new Action("Safecracking (Asgarnia)", Arrays.asList(new Requirement("A Guild of Our Own", 1), new Requirement("Thieving", 76)), new HashMap(),
+        database.add(new Action("Safecracking (Asgarnia)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 76)), new HashMap(),
             ImmutableMap.of("Thieving", 400000, "Pilfer Points", 600, "Coins", 150000, "Thieving level-ticks", 6000 * Math.max(76, player.getLevel("Thieving"))), 60, true, true));
-        database.add(new Action("Safecracking (Kandarin)", Arrays.asList(new Requirement("A Guild of Our Own", 1), new Requirement("Thieving", 83)), new HashMap(),
+        database.add(new Action("Safecracking (Kandarin)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 83)), new HashMap(),
             ImmutableMap.of("Thieving", 575000, "Pilfer Points", 500, "Coins", 125000, "Thieving level-ticks", 6000 * Math.max(83, player.getLevel("Thieving"))), 60, true, true));
-        database.add(new Action("Safecracking (Hidden)", Arrays.asList(new Requirement("A Guild of Our Own", 1), new Requirement("Thieving", 94)), new HashMap(),
+        database.add(new Action("Safecracking (Hidden)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 94)), new HashMap(),
             ImmutableMap.of("Thieving", 700000, "Pilfer Points", 400, "Coins", 100000, "Thieving level-ticks", 6000 * Math.max(90, player.getLevel("Thieving"))), 60, true, true));
 
         database.add(new Action("Pyramid Plunder (to room 1)", Arrays.asList(new Requirement("Icthlarin's Little Helper", 1), new Requirement("Thieving", 21)),

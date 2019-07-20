@@ -117,6 +117,10 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Small Lizard", 9.6, "Desert lizards", Collections.singletonList(new Requirement("Slayer", 22))));
         slayerMonsters.add(new SlayerMonster("Corrupted lizard", 533, "Desert lizards", Collections.singletonList(new Requirement("Slayer", 94))));
         slayerMonsters.add(new SlayerMonster("Desert strykewyrm", 376.5, "Desert strykewyrms", Collections.singletonList(new Requirement("Slayer", 77))));
+        slayerMonsters.add(new SlayerMonster("Feral Dinosaur", 1810, "Dinosaurs", Collections.singletonList(new Requirement("Slayer", 90))));
+        slayerMonsters.add(new SlayerMonster("Brutish dinosaur", 3100, "Dinosaurs", Collections.singletonList(new Requirement("Slayer", 99))));
+        slayerMonsters.add(new SlayerMonster("Venomous dinosaur", 1332, "Dinosaurs", Collections.singletonList(new Requirement("Slayer", 105))));
+        slayerMonsters.add(new SlayerMonster("Ripper dinosaur", 1961, "Dinosaurs", Collections.singletonList(new Requirement("Slayer", 114))));
         slayerMonsters.add(new SlayerMonster("Guard dog", 13.4, "Dogs", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Jackal", 43.2, "Dogs", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Shadow Hound", 39.4, "Dogs", Collections.singletonList(new Requirement("Desert Treasure", 1))));
@@ -289,7 +293,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Soulgazer", 1950, "Stalker creatures", Arrays.asList(new Requirement("Slayer", 99), new Requirement("Dishonour among Thieves", 1))));
         slayerMonsters.add(new SlayerMonster("Steel dragon", 350, "Steel dragons", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Suqah", 47.4, "Suqahs", Collections.singletonList(new Requirement("Lunar Diplomacy", 1))));
-        slayerMonsters.add(new SlayerMonster("Terror dog", 75.4, "Terror dogs", Collections.singletonList(new Requirement("The Lair of Tarn Razorlor", 1))));
+        slayerMonsters.add(new SlayerMonster("Terror dog", 75.4, "Terror dogs", Collections.singletonList(new Requirement("Lair of Tarn Razorlor (miniquest)", 1))));
         slayerMonsters.add(new SlayerMonster("Tormented demon", 1136, "Tormented demons", Collections.singletonList(new Requirement("While Guthix Sleeps", 1))));
         slayerMonsters.add(new SlayerMonster("Mountain troll", 55, "Trolls", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Troll general", 89.4, "Trolls", Collections.singletonList(new Requirement("Troll Stronghold", 1))));
@@ -299,6 +303,10 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("River troll", 89.4, "Trolls", Collections.singletonList(new Requirement("Fairy Tale II - Cure a Queen", 1))));
         slayerMonsters.add(new SlayerMonster("Turoth", 41.4, "Turoths", Collections.singletonList(new Requirement("Slayer", 55))));
         slayerMonsters.add(new SlayerMonster("Feral vampyre", 32.6, "Vampyres", new ArrayList<>()));
+        slayerMonsters.add(new SlayerMonster("Lampenflora", 1332, "Vile blooms", Collections.singletonList(new Requirement("Slayer", 102))));
+        slayerMonsters.add(new SlayerMonster("Devil's snare", 1760, "Vile blooms", Collections.singletonList(new Requirement("Slayer", 90))));
+        slayerMonsters.add(new SlayerMonster("Luminous snaggler", 1536, "Vile blooms", Collections.singletonList(new Requirement("Slayer", 95))));
+        slayerMonsters.add(new SlayerMonster("Liverworts", 3471.6, "Vile blooms", Collections.singletonList(new Requirement("Slayer", 110))));
         slayerMonsters.add(new SlayerMonster("Vyrewatch", 43.2, "Vyrewatches", Collections.singletonList(new Requirement("Legacy of Seergaze", 1))));
         slayerMonsters.add(new SlayerMonster("Vyrelord", 340, "Vyrewatches", Collections.singletonList(new Requirement("The Branches of Darkmeyer", 1))));
         slayerMonsters.add(new SlayerMonster("Wall beast", 20.6, "Wall beasts", Collections.singletonList(new Requirement("Slayer", 35))));

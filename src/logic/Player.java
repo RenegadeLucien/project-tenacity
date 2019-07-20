@@ -629,9 +629,6 @@ public class Player {
             return new GoalResults(0, ImmutableMap.of("", 0.0));
         }
         currentTargets.add(generatedRequirement);
-        if (qualifier.equals("Thieving") && quantifier == 13034431) {
-            System.out.println("Quack");
-        }
         if (qualifier.equals("Quest points")) {
             Map <String, Double> questTotalActions = new HashMap<>();
             Map<Achievement, Double> questPointMap = new LinkedHashMap<>();
