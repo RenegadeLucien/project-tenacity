@@ -360,7 +360,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Elder rune armoured boots + 2", "Melee", "Feet", 101, 0, 0, 0.018, 0, Collections.singletonList(new Requirement("Defence", 90))));
         armours.add(new Armour("Elder rune armoured boots + 5", "Melee", "Feet", 108, 0, 0, 0.018, 0, Collections.singletonList(new Requirement("Defence", 90))));
         armours.add(new Armour("Emberkeen boots", "Melee", "Feet", 108, 0, 2, 0, 14, Collections.singletonList(new Requirement("Defence", 90))));
-        armours.add(new Armour("Trimmed masterwork boots", "Melee", "Hands", 114, 0, 0, 0, 15, Collections.singletonList(new Requirement("Defence", 92))));
+        armours.add(new Armour("Trimmed masterwork boots", "Melee", "Feet", 114, 0, 0, 0, 15, Collections.singletonList(new Requirement("Defence", 92))));
 
         //Ranged feet (done)
         armours.add(new Armour("Leather boots", "Ranged", "Feet", 5, 0, 0, 0.0002, 0, new ArrayList<>()));

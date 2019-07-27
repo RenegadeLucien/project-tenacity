@@ -75,7 +75,7 @@ public class Planner extends Application {
 
     private Group root = new Group();
 
-    private static final String CURRENT_VERSION = "v1.0.0";
+    private static final String CURRENT_VERSION = "v1.0.1";
 
     public static void main(String args[]) {
         launch(args);
@@ -210,7 +210,10 @@ public class Planner extends Application {
     }
 
     private void displayPlayer(Player p) {
+        int tabIndex = 0;
         if (root.lookup("#tabPane") != null) {
+            TabPane tabPane = (TabPane)root.lookup("#tabPane");
+            tabIndex = tabPane.getSelectionModel().getSelectedIndex();
             root.getChildren().remove(root.lookup("#tabPane"));
         }
         TableView skillView = new TableView();
@@ -381,7 +384,6 @@ public class Planner extends Application {
                         root.getChildren().remove(bankValueText);
                         root.getChildren().remove(addToBankButton);
                         root.getChildren().remove(removeFromBankButton);
-                        root.getChildren().remove(tabPane);
                         displayPlayer(p);
                     }
                     catch (NumberFormatException e) {
@@ -406,7 +408,6 @@ public class Planner extends Application {
                 root.getChildren().remove(bankValueText);
                 root.getChildren().remove(addToBankButton);
                 root.getChildren().remove(removeFromBankButton);
-                root.getChildren().remove(tabPane);
                 displayPlayer(p);
             }
         });
@@ -446,7 +447,6 @@ public class Planner extends Application {
                     root.getChildren().remove(addWeapon);
                     root.getChildren().remove(addToWeaponButton);
                     root.getChildren().remove(removeFromWeaponButton);
-                    root.getChildren().remove(tabPane);
                     displayPlayer(p);
                 }
             }
@@ -482,7 +482,6 @@ public class Planner extends Application {
                 root.getChildren().remove(addWeapon);
                 root.getChildren().remove(addToWeaponButton);
                 root.getChildren().remove(removeFromWeaponButton);
-                root.getChildren().remove(tabPane);
                 displayPlayer(p);
             }
         });
@@ -522,7 +521,6 @@ public class Planner extends Application {
                     root.getChildren().remove(addArmour);
                     root.getChildren().remove(addToArmourButton);
                     root.getChildren().remove(removeFromArmourButton);
-                    root.getChildren().remove(tabPane);
                     displayPlayer(p);
                 }
             }
@@ -539,7 +537,6 @@ public class Planner extends Application {
                 root.getChildren().remove(addArmour);
                 root.getChildren().remove(addToArmourButton);
                 root.getChildren().remove(removeFromArmourButton);
-                root.getChildren().remove(tabPane);
                 displayPlayer(p);
             }
         });
@@ -604,7 +601,6 @@ public class Planner extends Application {
                         root.getChildren().remove(addCount);
                         root.getChildren().remove(addToQualityButton);
                         root.getChildren().remove(removeFromQualityButton);
-                        root.getChildren().remove(tabPane);
                         displayPlayer(p);
                     } catch (NumberFormatException e) {
                         Alert alert = new Alert(AlertType.INFORMATION, String.format("%s is not an integer. Only integer quantities of qualities are allowed.", addCount.getText()));
@@ -626,7 +622,6 @@ public class Planner extends Application {
                 root.getChildren().remove(addCount);
                 root.getChildren().remove(addToQualityButton);
                 root.getChildren().remove(removeFromQualityButton);
-                root.getChildren().remove(tabPane);
                 displayPlayer(p);
             }
         });
@@ -698,6 +693,7 @@ public class Planner extends Application {
         qualityView.getColumns().addAll(qualityCol, qualityCountCol);
 
         root.getChildren().add(tabPane);
+        tabPane.getSelectionModel().select(tabIndex);
 
         Button savePlayer = new Button();
         savePlayer.setText("Save Player Data");

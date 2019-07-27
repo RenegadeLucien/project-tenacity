@@ -8051,12 +8051,49 @@ public class AchievementDatabase {
             .reward("Runespan points", 21).build());
         achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? I", 0.15).requirement("Runecrafting", 29)
             .reward("Runecrafting", 28000).build());
-        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? II", 0.6)
-            .requirement("Y'all Got Any More of that Rune Dust? I", 1).reward("Runecrafting", 112000).build());
-        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? III", 0.75)
-            .requirement("Y'all Got Any More of that Rune Dust? II", 1).reward("Runecrafting", 140000).build());
-        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? IV", 2.25)
-            .requirement("Y'all Got Any More of that Rune Dust? III", 1).reward("Runecrafting", 420000).build());
+        achievements.add(new AchievementBuilder("Runesphere 2", 0.15).requirement("Y'all Got Any More of that Rune Dust? I", 1)
+            .reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 3", 0.15).requirement("Runesphere 2", 1).reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 4", 0.15).requirement("Runesphere 3", 1).reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? II", 0.15).requirement("Runesphere 4", 1)
+            .reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 6", 0.15).requirement("Y'all Got Any More of that Rune Dust? II", 1)
+            .reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 7", 0.15).requirement("Runesphere 6", 1).reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 8", 0.15).requirement("Runesphere 7", 1).reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 9", 0.15).requirement("Runesphere 8", 1).reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? III", 0.15).requirement("Runesphere 9", 1)
+            .reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 11", 0.15).requirement("Y'all Got Any More of that Rune Dust? III", 1)
+            .reward("Runecrafting", 28000).build());
+        achievements.add(new AchievementBuilder("Runesphere 12", 0.15).requirement("Runesphere 11", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 13", 0.15).requirement("Runesphere 12", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 14", 0.15).requirement("Runesphere 13", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 15", 0.15).requirement("Runesphere 14", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 16", 0.15).requirement("Runesphere 15", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 17", 0.15).requirement("Runesphere 16", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 18", 0.15).requirement("Runesphere 17", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 19", 0.15).requirement("Runesphere 18", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 20", 0.15).requirement("Runesphere 19", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 21", 0.15).requirement("Runesphere 20", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 22", 0.15).requirement("Runesphere 21", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 23", 0.15).requirement("Runesphere 22", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Runesphere 24", 0.15).requirement("Runesphere 23", 1).reward("Runecrafting", 28000)
+            .build());
+        achievements.add(new AchievementBuilder("Y'all Got Any More of that Rune Dust? IV", 0.15).requirement("Runesphere 24", 1)
+            .reward("Runecrafting", 28000).build());
         achievements.add(new AchievementBuilder("Splinters of Power", 0).requirement("Rune ethereal fragments", 54000).build());
         achievements.add(new AchievementBuilder("Rinsit Transit", 0).requirement("Runespan points", 1000).build());
         achievements.add(new AchievementBuilder("Loving would be easy", 0).requirement("Fate of the Gods", 1).requirement("Summoning", 87)
@@ -8487,6 +8524,23 @@ public class AchievementDatabase {
             .reward("Big game hunted", 3).lamp(Collections.singletonList("Woodcutting"), -36, 1)
             .lamp(Collections.singletonList("Herblore"), -15, 1).build());
         achievements.add(new AchievementBuilder("A New Direction", 0.05).requirement("Big game hunted", 1).build());
+        achievements.add(new AchievementBuilder("A Fresh Batch", 0).requirement("Eye of newt", 1).requirement("Guam potion (unf)", 1)
+            .reward("Herblore", 25).reward("Attack potion (3)", 1).build());
+        achievements.add(new AchievementBuilder("Bottoms Up", 0).requirement("Attack potion (3)", 1).reward("Attack potion (2)", 1)
+            .build());
+        achievements.add(new AchievementBuilder("Guam Fly With Me", 0).requirement("Grimy guam", 1).reward("Clean guam", 1)
+            .reward("Herblore", 2).build());
+        achievements.add(new AchievementBuilder("Crystal pickaxe", 0).requirement("Plague's End", 1).requirement("Dragon pickaxe", 1)
+            .requirement("Harmonic dust", 4000).build());
+        achievements.add(new AchievementBuilder("A Song of Earth and Pickaxes", 0).requirement("Smithing", 90)
+            .requirement("Imcando Attitude", 1).requirement("Crystal pickaxe", 1).requirement("While Guthix Sleeps", 1)
+            .requirement("Coins", 1000000).build());
+        achievements.add(new AchievementBuilder("Got To Go Around It", 0.1).requirement("Hunter", 75).requirement("Slayer", 55)
+            .requirement("Raw shark", 1).reward("Hunter", 8000).reward("Slayer", 2800).reward("Fletching", 50).reward("Herblore", 5)
+            .reward("Big game hunted", 1).lamp(Collections.singletonList("Woodcutting"), -12, 1).build());
+        achievements.add(new AchievementBuilder("In and Out, Nice ad Slow", 0.1).requirement("Hunter", 75).requirement("Slayer", 55)
+            .requirement("Raw shark", 1).reward("Hunter", 8000).reward("Slayer", 2800).reward("Fletching", 50).reward("Herblore", 5)
+            .reward("Big game hunted", 1).lamp(Collections.singletonList("Woodcutting"), -12, 1).build());
     }
 
     public static AchievementDatabase getAchievementDatabase() {

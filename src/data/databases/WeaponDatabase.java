@@ -360,6 +360,7 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Zuriel's staff", "Magic", "Magic", "Two-handed", 0, 1829, 6, 1743, 0, 0, Collections.singletonList(new Requirement("Magic", 78))));
         weapons.add(new Weapon("Second-Age staff", "Magic", "Magic", "Two-handed", 0, 1924, 6, 1788, 0, 0, Collections.singletonList(new Requirement("Magic", 80))));
         weapons.add(new Weapon("Camel staff", "Magic", "Magic", "Two-handed", 0, 2178, 6, 1900, 0, 0, Collections.singletonList(new Requirement("Magic", 85))));
+        weapons.add(new Weapon("Staff of darkness", "Magic", "Magic", "Two-handed", 0, 2178, 6, 1900, 0, 0, Collections.singletonList(new Requirement("Magic", 85))));
         weapons.add(new Weapon("Obliteration", "Magic", "Magic", "Two-handed", 0, 2287, 6, 1944, 0, 0, Collections.singletonList(new Requirement("Magic", 87))));
         weapons.add(new Weapon("Noxious staff", "Magic", "Magic", "Two-handed", 0, 2458, 6, 2012, 0, 0, Collections.singletonList(new Requirement("Magic", 90))));
         weapons.add(new Weapon("Staff of Sliske", "Magic", "Magic", "Two-handed", 0, 2577, 6, 2056, 0, 0, Collections.singletonList(new Requirement("Magic", 92))));
