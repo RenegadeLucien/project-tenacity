@@ -808,8 +808,6 @@ public class Player {
             if (qualifier.equals("Coins")) {
                 if (coinGain > quantifier/minimum) {
                     validAction = true;
-                } else {
-                    validAction = false;
                 }
             }
             else if (action.getOutputs().containsKey(qualifier) && action.getOutputs().get(qualifier)*actionMinimum > quantifier) {
@@ -835,6 +833,9 @@ public class Player {
                 validAction = false;
             }
             if (validAction) {
+                if (qualifier.equals("Firemaking") && quantifier == 388) {
+                    System.out.println("Test");
+                }
                 QualifierAction qualifierAction = new QualifierAction(qualifier, action.getName());
                 lockedActions.add(qualifierAction);
                 double effectiveTimeThisAction = 0.0;
@@ -875,7 +876,14 @@ public class Player {
                 }
                 effectiveTimeThisAction += timeToReachGoal;
                 addItemsToMap(efficiencyThisAction, ImmutableMap.of(action.getName(), timeToReachGoal));
-                long minInputsLong = inputLoss/action.getActionsPerHour(); //got to be able to at least perform the action once!
+                long minInputsLong = 0;
+                for (Entry<String, Integer> input : action.getInputs().entrySet()) {
+                    Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
+                    if (item != null) {
+                        int inputsUsed = (int)Math.ceil((input.getValue()*1.0)/action.getActionsPerHour());
+                        minInputsLong += (long)inputsUsed*item.coinValue(this);
+                    }
+                }
                 int minInputs;
                 if (minInputsLong > Integer.MAX_VALUE) {
                     GoalResults coinResults = efficientGoalCompletion("Coins", Integer.MAX_VALUE);

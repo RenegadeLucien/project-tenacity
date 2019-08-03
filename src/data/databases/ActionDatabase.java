@@ -1683,96 +1683,315 @@ public class ActionDatabase {
             ImmutableMap.of("Enchantment pizazz points", 4320, "Magic", 26190), 60, true, true));
 
         //Mining (done)
-        database.add(new Action("Mining copper with bronze pickaxe", Collections.singletonList(new Requirement("Bronze pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 5, 0.66), "Copper ore", miningDamage(player, 5) / 40,
-            "Copper mined", miningDamage(player, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
+        database.add(new Action("Mining copper with bronze pickaxe", new ArrayList(), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.1, 5, 0.66), "Copper ore", miningDamage(player, 5, 0.1, 5) / 40,
+            "Copper mined", miningDamage(player, 5, 0.1, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
 
-        database.add(new Action("Mining tin with bronze pickaxe", Collections.singletonList(new Requirement("Bronze pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 5, 0.66), "Tin ore", miningDamage(player, 5) / 40,
-            "Tin mined", miningDamage(player, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
+        database.add(new Action("Mining tin with bronze pickaxe", new ArrayList(), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.1, 5, 0.66), "Tin ore", miningDamage(player, 5, 0.1, 5) / 40,
+            "Tin mined", miningDamage(player, 5, 0.1, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
+
+        database.add(new Action("Mining copper with bronze pickaxe (20% crit rate)", Collections.singletonList(new Requirement("Mining", 2)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 5, 0.66), "Copper ore", miningDamage(player, 5, 0.2, 5) / 40,
+                "Copper mined", miningDamage(player, 5, 0.2, 5) / 40, "Mining level-ticks", 6000 * Math.max(2, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining tin with bronze pickaxe (20% crit rate)", Collections.singletonList(new Requirement("Mining", 2)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 5, 0.66), "Tin ore", miningDamage(player, 5, 0.2, 5) / 40,
+                "Tin mined", miningDamage(player, 5, 0.2, 5) / 40, "Mining level-ticks", 6000 * Math.max(2, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining copper with bronze pickaxe (10 crit bonus)", Collections.singletonList(new Requirement("Mining", 3)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 10, 0.66), "Copper ore", miningDamage(player, 5, 0.2, 10) / 40,
+                "Copper mined", miningDamage(player, 5, 0.2, 10) / 40, "Mining level-ticks", 6000 * Math.max(3, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining tin with bronze pickaxe (10 crit bonus)", Collections.singletonList(new Requirement("Mining", 3)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 10, 0.66), "Tin ore", miningDamage(player, 5, 0.2, 10) / 40,
+                "Tin mined", miningDamage(player, 5, 0.2, 10) / 40, "Mining level-ticks", 6000 * Math.max(3, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining copper with bronze pickaxe (30% crit rate)", Collections.singletonList(new Requirement("Mining", 8)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 10, 0.66), "Copper ore", miningDamage(player, 5, 0.3, 10) / 40,
+                "Copper mined", miningDamage(player, 5, 0.3, 10) / 40, "Mining level-ticks", 6000 * Math.max(8, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining tin with bronze pickaxe (30# crit rate)", Collections.singletonList(new Requirement("Mining", 8)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 10, 0.66), "Tin ore", miningDamage(player, 5, 0.3, 10) / 40,
+                "Tin mined", miningDamage(player, 5, 0.3, 10) / 40, "Mining level-ticks", 6000 * Math.max(8, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining copper with bronze pickaxe (15 crit bonus)", Collections.singletonList(new Requirement("Mining", 9)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 15, 0.66), "Copper ore", miningDamage(player, 5, 0.3, 15) / 40,
+                "Copper mined", miningDamage(player, 5, 0.3, 15) / 40, "Mining level-ticks", 6000 * Math.max(9, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining tin with bronze pickaxe (15 crit bonus)", Collections.singletonList(new Requirement("Mining", 9)), new HashMap<>(),
+            ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 15, 0.66), "Tin ore", miningDamage(player, 5, 0.3, 15) / 40,
+                "Tin mined", miningDamage(player, 5, 0.3, 15) / 40, "Mining level-ticks", 6000 * Math.max(9, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining iron with iron pickaxe + 1", Arrays.asList(new Requirement("Mining", 10), new Requirement("Iron pickaxe + 1", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.68), "Iron ore", miningDamage(player, 11) / 120,
-            "Iron mined", miningDamage(player, 11) / 120, "Mining level-ticks", 6000 * Math.max(10, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.1, 15, 0.68), "Iron ore", miningDamage(player, 11, 0.1, 15) / 120,
+            "Iron mined", miningDamage(player, 11, 0.1, 15) / 120, "Mining level-ticks", 6000 * Math.max(10, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining iron with iron pickaxe + 1 (20 crit bonus)", Arrays.asList(new Requirement("Mining", 11), new Requirement("Iron pickaxe + 1", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.1, 20, 0.68), "Iron ore", miningDamage(player, 11, 0.1, 20) / 120,
+            "Iron mined", miningDamage(player, 11, 0.1, 20) / 120, "Mining level-ticks", 6000 * Math.max(11, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining iron with iron pickaxe + 1 (20% crit chance)", Arrays.asList(new Requirement("Mining", 12), new Requirement("Iron pickaxe + 1", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.2, 20, 0.68), "Iron ore", miningDamage(player, 11, 0.2, 20) / 120,
+            "Iron mined", miningDamage(player, 11, 0.2, 20) / 120, "Mining level-ticks", 6000 * Math.max(12, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining iron with iron pickaxe + 1 (25 crit bonus)", Arrays.asList(new Requirement("Mining", 17), new Requirement("Iron pickaxe + 1", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.2, 25, 0.68), "Iron ore", miningDamage(player, 11, 0.2, 25) / 120,
+            "Iron mined", miningDamage(player, 11, 0.2, 25) / 120, "Mining level-ticks", 6000 * Math.max(17, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining coal with steel pickaxe + 1", Arrays.asList(new Requirement("Mining", 20), new Requirement("Steel pickaxe + 1", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.7), "Coal", miningDamage(player, 21) / 140,
-            "Coal mined", miningDamage(player, 21) / 140, "Mining level-ticks", 6000 * Math.max(20, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.1, 25, 0.7), "Coal", miningDamage(player, 21, 0.1, 25) / 140,
+            "Coal mined", miningDamage(player, 21, 0.1, 25) / 140, "Mining level-ticks", 6000 * Math.max(20, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining coal with steel pickaxe + 1 (30 crit bonus)", Arrays.asList(new Requirement("Mining", 22), new Requirement("Steel pickaxe + 1", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.1, 30, 0.7), "Coal", miningDamage(player, 21, 0.1, 30) / 140,
+            "Coal mined", miningDamage(player, 21, 0.1, 30) / 140, "Mining level-ticks", 6000 * Math.max(22, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining coal with steel pickaxe + 1 (35 crit bonus)", Arrays.asList(new Requirement("Mining", 24), new Requirement("Steel pickaxe + 1", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.1, 35, 0.7), "Coal", miningDamage(player, 21, 0.1, 35) / 140,
+            "Coal mined", miningDamage(player, 21, 0.1, 35) / 140, "Mining level-ticks", 6000 * Math.max(24, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining coal with steel pickaxe + 1 (20% crit chance)", Arrays.asList(new Requirement("Mining", 25), new Requirement("Steel pickaxe + 1", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.2, 35, 0.7), "Coal", miningDamage(player, 21, 0.2, 35) / 140,
+            "Coal mined", miningDamage(player, 21, 0.2, 35) / 140, "Mining level-ticks", 6000 * Math.max(25, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining mithril with mithril pickaxe + 2", Arrays.asList(new Requirement("Mining", 30), new Requirement("Mithril pickaxe + 2", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.72), "Mithril ore", miningDamage(player, 32) / 240,
-            "Mithril mined", miningDamage(player, 32) / 240, "Mining level-ticks", 6000 * Math.max(30, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.1, 35, 0.72), "Mithril ore", miningDamage(player, 32, 0.1, 35) / 240,
+            "Mithril mined", miningDamage(player, 32, 0.1, 35) / 240, "Mining level-ticks", 6000 * Math.max(30, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining mithril with mithril pickaxe + 2 (20% crit chance)", Arrays.asList(new Requirement("Mining", 31), new Requirement("Mithril pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.2, 35, 0.72), "Mithril ore", miningDamage(player, 32, 0.2, 35) / 240,
+            "Mithril mined", miningDamage(player, 32, 0.2, 35) / 240, "Mining level-ticks", 6000 * Math.max(31, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining mithril with mithril pickaxe + 2 (40 crit bonus)", Arrays.asList(new Requirement("Mining", 32), new Requirement("Mithril pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.2, 40, 0.72), "Mithril ore", miningDamage(player, 32, 0.2, 40) / 240,
+            "Mithril mined", miningDamage(player, 32, 0.2, 40) / 240, "Mining level-ticks", 6000 * Math.max(32, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining mithril with mithril pickaxe + 2 (45 crit bonus)", Arrays.asList(new Requirement("Mining", 34), new Requirement("Mithril pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.2, 45, 0.72), "Mithril ore", miningDamage(player, 32, 0.2, 45) / 240,
+            "Mithril mined", miningDamage(player, 32, 0.2, 45) / 240, "Mining level-ticks", 6000 * Math.max(34, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining mithril with mithril pickaxe + 2 (30% crit chance)", Arrays.asList(new Requirement("Mining", 35), new Requirement("Mithril pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.3, 45, 0.72), "Mithril ore", miningDamage(player, 32, 0.3, 45) / 240,
+            "Mithril mined", miningDamage(player, 32, 0.3, 45) / 240, "Mining level-ticks", 6000 * Math.max(35, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining adamantite with adamant pickaxe + 2", Arrays.asList(new Requirement("Mining", 40), new Requirement("Adamant pickaxe + 2", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.74), "Adamantite ore", miningDamage(player, 42) / 380,
-            "Adamantite mined", miningDamage(player, 42) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 45, 0.74), "Adamantite ore", miningDamage(player, 42, 0.1, 45) / 380,
+            "Adamantite mined", miningDamage(player, 42, 0.1, 45) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining luminite with adamant pickaxe + 2", Arrays.asList(new Requirement("Mining", 40), new Requirement("Adamant pickaxe + 2", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.74), "Luminite", miningDamage(player, 42) / 380,
-            "Luminite mined", miningDamage(player, 42) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 45, 0.74), "Luminite", miningDamage(player, 42, 0.1, 45) / 380,
+            "Luminite mined", miningDamage(player, 42, 0.1, 45) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining adamantite with adamant pickaxe + 2 (50 crit bonus)", Arrays.asList(new Requirement("Mining", 43), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 50, 0.74), "Adamantite ore", miningDamage(player, 42, 0.1, 50) / 380,
+            "Adamantite mined", miningDamage(player, 42, 0.1, 50) / 380, "Mining level-ticks", 6000 * Math.max(43, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining luminite with adamant pickaxe + 2 (50 crit bonus)", Arrays.asList(new Requirement("Mining", 43), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 50, 0.74), "Luminite", miningDamage(player, 42, 0.1, 50) / 380,
+            "Luminite mined", miningDamage(player, 42, 0.1, 50) / 380, "Mining level-ticks", 6000 * Math.max(43, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining adamantite with adamant pickaxe + 2 (55 crit bonus)", Arrays.asList(new Requirement("Mining", 44), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 55, 0.74), "Adamantite ore", miningDamage(player, 42, 0.1, 55) / 380,
+            "Adamantite mined", miningDamage(player, 42, 0.1, 55) / 380, "Mining level-ticks", 6000 * Math.max(44, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining luminite with adamant pickaxe + 2 (55 crit bonus)", Arrays.asList(new Requirement("Mining", 44), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 55, 0.74), "Luminite", miningDamage(player, 42, 0.1, 55) / 380,
+            "Luminite mined", miningDamage(player, 42, 0.1, 55) / 380, "Mining level-ticks", 6000 * Math.max(44, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining adamantite with adamant pickaxe + 2 (20% crit chance)", Arrays.asList(new Requirement("Mining", 45), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.2, 55, 0.74), "Adamantite ore", miningDamage(player, 42, 0.2, 55) / 380,
+            "Adamantite mined", miningDamage(player, 42, 0.2, 55) / 380, "Mining level-ticks", 6000 * Math.max(45, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining luminite with adamant pickaxe + 2 (20% crit chance)", Arrays.asList(new Requirement("Mining", 45), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.2, 55, 0.74), "Luminite", miningDamage(player, 42, 0.2, 55) / 380,
+            "Luminite mined", miningDamage(player, 42, 0.2, 55) / 380, "Mining level-ticks", 6000 * Math.max(45, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining adamantite with adamant pickaxe + 2 (30% crit chance)", Arrays.asList(new Requirement("Mining", 48), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.3, 55, 0.74), "Adamantite ore", miningDamage(player, 42, 0.3, 55) / 380,
+            "Adamantite mined", miningDamage(player, 42, 0.3, 55) / 380, "Mining level-ticks", 6000 * Math.max(48, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining luminite with adamant pickaxe + 2 (30% crit chance)", Arrays.asList(new Requirement("Mining", 48), new Requirement("Adamant pickaxe + 2", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.3, 55, 0.74), "Luminite", miningDamage(player, 42, 0.3, 55) / 380,
+            "Luminite mined", miningDamage(player, 42, 0.23, 55) / 380, "Mining level-ticks", 6000 * Math.max(48, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining runite with rune pickaxe + 3", Arrays.asList(new Requirement("Mining", 50), new Requirement("Rune pickaxe + 3", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.76), "Runite ore", miningDamage(player, 53) / 600,
-            "Runite mined", miningDamage(player, 53) / 600, "Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.1, 55, 0.76), "Runite ore", miningDamage(player, 53, 0.1, 55) / 600,
+            "Runite mined", miningDamage(player, 53, 0.1, 55) / 600, "Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining runite with rune pickaxe + 3 (60 crit bonus)", Arrays.asList(new Requirement("Mining", 52), new Requirement("Rune pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.1, 60, 0.76), "Runite ore", miningDamage(player, 53, 0.1, 60) / 600,
+            "Runite mined", miningDamage(player, 53, 0.1, 60) / 600, "Mining level-ticks", 6000 * Math.max(52, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining runite with rune pickaxe + 3 (20% crit chance)", Arrays.asList(new Requirement("Mining", 56), new Requirement("Rune pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.2, 60, 0.76), "Runite ore", miningDamage(player, 53, 0.2, 60) / 600,
+            "Runite mined", miningDamage(player, 53, 0.2, 60) / 600, "Mining level-ticks", 6000 * Math.max(56, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining runite with rune pickaxe + 3 (30% crit chance)", Arrays.asList(new Requirement("Mining", 58), new Requirement("Rune pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.3, 60, 0.76), "Runite ore", miningDamage(player, 53, 0.3, 60) / 600,
+            "Runite mined", miningDamage(player, 53, 0.3, 60) / 600, "Mining level-ticks", 6000 * Math.max(58, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining runite with rune pickaxe + 3 (65 crit bonus)", Arrays.asList(new Requirement("Mining", 59), new Requirement("Rune pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.3, 65, 0.76), "Runite ore", miningDamage(player, 53, 0.3, 65) / 600,
+            "Runite mined", miningDamage(player, 53, 0.3, 65) / 600, "Mining level-ticks", 6000 * Math.max(59, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3", Arrays.asList(new Requirement("Mining", 60), new Requirement("Orikalkum pickaxe + 3", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.78), "Orichalcite ore", miningDamage(player, 63) / 1400,
-            "Orichalcite mined", miningDamage(player, 63) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 65, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.1, 65) / 1400,
+            "Orichalcite mined", miningDamage(player, 63, 0.1, 65) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining drakolith with orikalkum pickaxe + 3", Arrays.asList(new Requirement("Mining", 60), new Requirement("Orikalkum pickaxe + 3", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.78), "Drakolith", miningDamage(player, 63) / 1400,
-            "Drakolith mined", miningDamage(player, 63) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 65, 0.78), "Drakolith", miningDamage(player, 63, 0.1, 65) / 1400,
+            "Drakolith mined", miningDamage(player, 63, 0.1, 65) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3 (70 crit bonus)", Arrays.asList(new Requirement("Mining", 61), new Requirement("Orikalkum pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 70, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.1, 70) / 1400,
+            "Orichalcite mined", miningDamage(player, 63, 0.1, 70) / 1400, "Mining level-ticks", 6000 * Math.max(61, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining drakolith with orikalkum pickaxe + 3 (70 crit bonus)", Arrays.asList(new Requirement("Mining", 61), new Requirement("Orikalkum pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 70, 0.78), "Drakolith", miningDamage(player, 63, 0.1, 70) / 1400,
+            "Drakolith mined", miningDamage(player, 63, 0.1, 70) / 1400, "Mining level-ticks", 6000 * Math.max(61, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3 (20% crit chance)", Arrays.asList(new Requirement("Mining", 64), new Requirement("Orikalkum pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 70, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.2, 70) / 1400,
+            "Orichalcite mined", miningDamage(player, 63, 0.2, 70) / 1400, "Mining level-ticks", 6000 * Math.max(64, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining drakolith with orikalkum pickaxe + 3 (20% crit chance)", Arrays.asList(new Requirement("Mining", 64), new Requirement("Orikalkum pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 70, 0.78), "Drakolith", miningDamage(player, 63, 0.2, 70) / 1400,
+            "Drakolith mined", miningDamage(player, 63, 0.2, 70) / 1400, "Mining level-ticks", 6000 * Math.max(64, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3 (75 crit bonus)", Arrays.asList(new Requirement("Mining", 65), new Requirement("Orikalkum pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 75, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.2, 75) / 1400,
+            "Orichalcite mined", miningDamage(player, 63, 0.2, 75) / 1400, "Mining level-ticks", 6000 * Math.max(65, player.getLevel("Mining"))), 1500, true, true));
+
+        database.add(new Action("Mining drakolith with orikalkum pickaxe + 3 (75 crit bonus)", Arrays.asList(new Requirement("Mining", 65), new Requirement("Orikalkum pickaxe + 3", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 75, 0.78), "Drakolith", miningDamage(player, 63, 0.2, 75) / 1400,
+            "Drakolith mined", miningDamage(player, 63, 0.2, 75) / 1400, "Mining level-ticks", 6000 * Math.max(65, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining necrite with necronium pickaxe", Arrays.asList(new Requirement("Mining", 70), new Requirement("Necronium pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.8), "Necrite ore", miningDamage(player, 70) / 1300,
-            "Necrite mined", miningDamage(player, 70) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 75, 0.8), "Necrite ore", miningDamage(player, 70, 0.1, 75) / 1300,
+            "Necrite mined", miningDamage(player, 70, 0.1, 75) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining phasmatite with necronium pickaxe", Arrays.asList(new Requirement("Mining", 70), new Requirement("Necronium pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.8), "Phasmatite", miningDamage(player, 70) / 1300,
-            "Phasmatite mined", miningDamage(player, 70) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 75, 0.8), "Phasmatite", miningDamage(player, 70, 0.1, 75) / 1300,
+            "Phasmatite mined", miningDamage(player, 70, 0.1, 75) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining necrite with necronium pickaxe (80 crit bonus)", Arrays.asList(new Requirement("Mining", 74), new Requirement("Necronium pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 80, 0.8), "Necrite ore", miningDamage(player, 70, 0.1, 80) / 1300,
+            "Necrite mined", miningDamage(player, 70, 0.1, 80) / 1300, "Mining level-ticks", 6000 * Math.max(74, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining phasmatite with necronium pickaxe (80 crit bonus)", Arrays.asList(new Requirement("Mining", 74), new Requirement("Necronium pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 80, 0.8), "Phasmatite", miningDamage(player, 70, 0.1, 80) / 1300,
+            "Phasmatite mined", miningDamage(player, 70, 0.1, 80) / 1300, "Mining level-ticks", 6000 * Math.max(74, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining necrite with necronium pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 75), new Requirement("Necronium pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 80, 0.8), "Necrite ore", miningDamage(player, 70, 0.2, 80) / 1300,
+            "Necrite mined", miningDamage(player, 70, 0.2, 80) / 1300, "Mining level-ticks", 6000 * Math.max(75, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining phasmatite with necronium pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 75), new Requirement("Necronium pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 80, 0.8), "Phasmatite", miningDamage(player, 70, 0.2, 80) / 1300,
+            "Phasmatite mined", miningDamage(player, 70, 0.2, 80) / 1300, "Mining level-ticks", 6000 * Math.max(75, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining necrite with necronium pickaxe (85 crit bonus)", Arrays.asList(new Requirement("Mining", 79), new Requirement("Necronium pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 85, 0.8), "Necrite ore", miningDamage(player, 70, 0.2, 85) / 1300,
+            "Necrite mined", miningDamage(player, 70, 0.2, 85) / 1300, "Mining level-ticks", 6000 * Math.max(79, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining phasmatite with necronium pickaxe (85 crit bonus)", Arrays.asList(new Requirement("Mining", 79), new Requirement("Necronium pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 85, 0.8), "Phasmatite", miningDamage(player, 70, 0.2, 85) / 1300,
+            "Phasmatite mined", miningDamage(player, 70, 0.2, 85) / 1300, "Mining level-ticks", 6000 * Math.max(79, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining banite with bane pickaxe", Arrays.asList(new Requirement("Mining", 80), new Requirement("Bane pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.82), "Banite ore", miningDamage(player, 80) / 1700,
-            "Banite mined", miningDamage(player, 80) / 1700, "Mining level-ticks", 6000 * Math.max(80, player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.1, 85, 0.82), "Banite ore", miningDamage(player, 80, 0.1, 85) / 1700,
+            "Banite mined", miningDamage(player, 80, 0.1, 85) / 1700, "Mining level-ticks", 6000 * Math.max(80, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining banite with bane pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 81), new Requirement("Bane pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.2, 85, 0.82), "Banite ore", miningDamage(player, 80, 0.2, 85) / 1700,
+            "Banite mined", miningDamage(player, 80, 0.2, 85) / 1700, "Mining level-ticks", 6000 * Math.max(81, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining banite with bane pickaxe (90 crit bonus)", Arrays.asList(new Requirement("Mining", 84), new Requirement("Bane pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.2, 90, 0.82), "Banite ore", miningDamage(player, 80, 0.2, 90) / 1700,
+            "Banite mined", miningDamage(player, 80, 0.2, 90) / 1700, "Mining level-ticks", 6000 * Math.max(84, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining banite with bane pickaxe (95 crit bonus)", Arrays.asList(new Requirement("Mining", 87), new Requirement("Bane pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.2, 95, 0.82), "Banite ore", miningDamage(player, 80, 0.2, 95) / 1700,
+            "Banite mined", miningDamage(player, 80, 0.2, 95) / 1700, "Mining level-ticks", 6000 * Math.max(87, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining light animica with elder rune pickaxe", Arrays.asList(new Requirement("Mining", 90), new Requirement("Elder rune pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.84), "Light animica", miningDamage(player, 90) / 2000,
-            "Light animica mined", miningDamage(player, 90) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.1, 95, 0.84), "Light animica", miningDamage(player, 90, 0.1, 95) / 2000,
+            "Light animica mined", miningDamage(player, 90, 0.1, 95) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining dark animica with elder rune pickaxe", Arrays.asList(new Requirement("Mining", 90), new Requirement("Elder rune pickaxe", 1)),
-            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.84), "Dark animica", miningDamage(player, 90) / 2000,
-            "Dark animica mined", miningDamage(player, 90) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.1, 95, 0.84), "Dark animica", miningDamage(player, 90, 0.1, 95) / 2000,
+            "Dark animica mined", miningDamage(player, 90, 0.1, 95) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining light animica with elder rune pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 91), new Requirement("Elder rune pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.2, 95, 0.84), "Light animica", miningDamage(player, 90, 0.2, 95) / 2000,
+            "Light animica mined", miningDamage(player, 90, 0.2, 95) / 2000, "Mining level-ticks", 6000 * Math.max(91, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining dark animica with elder rune pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 91), new Requirement("Elder rune pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.2, 95, 0.84), "Dark animica", miningDamage(player, 90, 0.2, 95) / 2000,
+            "Dark animica mined", miningDamage(player, 90, 0.2, 95) / 2000, "Mining level-ticks", 6000 * Math.max(91, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining light animica with elder rune pickaxe (30% crit chance)", Arrays.asList(new Requirement("Mining", 97), new Requirement("Elder rune pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 95, 0.84), "Light animica", miningDamage(player, 90, 0.3, 95) / 2000,
+            "Light animica mined", miningDamage(player, 90, 0.3, 95) / 2000, "Mining level-ticks", 6000 * Math.max(97, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining dark animica with elder rune pickaxe (30% crit chance)", Arrays.asList(new Requirement("Mining", 97), new Requirement("Elder rune pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 95, 0.84), "Dark animica", miningDamage(player, 90, 0.3, 95) / 2000,
+            "Dark animica mined", miningDamage(player, 90, 0.3, 95) / 2000, "Mining level-ticks", 6000 * Math.max(97, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining light animica with elder rune pickaxe (100 crit bonus)", Arrays.asList(new Requirement("Mining", 99), new Requirement("Elder rune pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 100, 0.84), "Light animica", miningDamage(player, 90, 0.3, 100) / 2000,
+            "Light animica mined", miningDamage(player, 90, 0.3, 100) / 2000, "Mining level-ticks", 6000 * Math.max(99, player.getLevel("Mining")),
+            "Gemstone golem fragments", 1200), 1500, true, true));
+
+        database.add(new Action("Mining dark animica with elder rune pickaxe (100 crit bonus)", Arrays.asList(new Requirement("Mining", 99), new Requirement("Elder rune pickaxe", 1)),
+            new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 100, 0.84), "Dark animica", miningDamage(player, 90, 0.3, 100) / 2000,
+            "Dark animica mined", miningDamage(player, 90, 0.3, 100) / 2000, "Mining level-ticks", 6000 * Math.max(99, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
 
         database.add(new Action("Mining/dropping concentrated sandstone with rune pickaxe", Arrays.asList(new Requirement("The Jack of Spades", 1),
-            new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1)), new HashMap(), ImmutableMap.builder().put("Mining", miningXP(player, 50, 0.76))
-            .put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.76) / 45.6)).put("Menaphite honey bee in amber", 1)
+            new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1)), new HashMap(), ImmutableMap.builder().put("Mining", miningXP(player, 50, 0.1, 55, 0.76))
+            .put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.1, 55, 0.76) / 45.6)).put("Menaphite honey bee in amber", 1)
             .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))).put("Umesco arpos", 1)
             .put("Crondite", 1).build(), 1500, true, true));
 
         database.add(new Action("Mining/dropping concentrated sandstone with rune pickaxe (VIP area)", Arrays.asList(new Requirement("The Jack of Spades", 1),
-            new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1), new Requirement("Menaphos reputation", 141900)), new HashMap(), ImmutableMap.builder().put("Mining", miningXP(player, 50, 0.76))
-            .put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.76) / 45.6)).put("Menaphite honey bee in amber", 1)
-            .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))).put("Phenakite", 1)
-            .put("Crondite", 1).put("Umesco arpos", 1).build(), 1500, true, true));
+            new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1), new Requirement("Menaphos reputation", 141900)), new HashMap(), ImmutableMap.builder()
+            .put("Mining", miningXP(player, 50, 0.1, 55, 0.76)).put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.1, 55, 0.76) / 45.6))
+            .put("Menaphite honey bee in amber", 1).put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining")))
+            .put("Phenakite", 1).put("Crondite", 1).put("Umesco arpos", 1).build(), 1500, true, true));
 
         database.add(new Action("Lava Flow Mine with necronium pickaxe", Arrays.asList(new Requirement("King of the Dwarves", 1), new Requirement("Necronium pickaxe", 1)),
-            new HashMap(), ImmutableMap.of("Mining", miningXP(player, 70, 0.78), "Imcando pickaxe fragment", 1, "Lava Flow Mine damage", miningDamage(player, 70),
+            new HashMap(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 75, 0.78), "Imcando pickaxe fragment", 1, "Lava Flow Mine damage", miningDamage(player, 70, 0.1, 75),
             "Mining level-ticks", 6000 * Math.max(68, player.getLevel("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining Seren stones with bane pickaxe", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Mining", 89),
-            new Requirement("Bane pickaxe", 1)), new HashMap(), ImmutableMap.of("Corrupted ore", miningDamage(player, 80) / 240,
-            "Mining", miningXP(player, 80, 1.2), "Mining level-ticks", 6000 * Math.max(89, player.getLevel("Mining")),
+            new Requirement("Bane pickaxe", 1)), new HashMap(), ImmutableMap.of("Corrupted ore", miningDamage(player, 80, 0.1, 95) / 240,
+            "Mining", miningXP(player, 80, 0.1, 95, 1.2), "Mining level-ticks", 6000 * Math.max(89, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining salty crablets with elder rune pickaxe", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Mining", 90),
-            new Requirement("Elder rune pickaxe", 1)), new HashMap(), ImmutableMap.of("Sea salt", (int) Math.floor(miningDamage(player, 90) / 1200),
-            "Mining", miningXP(player, 90, 0.82), "Awah Guan", 1, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
+            new Requirement("Elder rune pickaxe", 1)), new HashMap(), ImmutableMap.of("Sea salt", miningDamage(player, 90, 0.1, 95) / 1200,
+            "Mining", miningXP(player, 90, 0.1, 95, 0.82), "Awah Guan", 1, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         //Prayer (done)
@@ -1922,6 +2141,7 @@ public class ActionDatabase {
         Map<Double, Double> duradelXpAndPoints = SlayerMaster.DURADEL.calculateAvgXpAndSlayerPointsPerHour(player);
         Map<Double, Double> kuradalXpAndPoints = SlayerMaster.KURADAL.calculateAvgXpAndSlayerPointsPerHour(player);
         Map<Double, Double> morvranXpAndPoints = SlayerMaster.MORVRAN.calculateAvgXpAndSlayerPointsPerHour(player);
+        Map<Double, Double> laniakeaXpAndPoints = SlayerMaster.LANIAKEA.calculateAvgXpAndSlayerPointsPerHour(player);
 
         database.add(new Action("Slayer tasks from Turael", new ArrayList(), new HashMap(), ImmutableMap.of("Slayer", turaelXpAndPoints.keySet().iterator().next().intValue(),
             "Slayer pet points", totalPetPoints(player, "Slayer", turaelXpAndPoints.keySet().iterator().next().intValue())), 6000, true, true));
@@ -1946,6 +2166,9 @@ public class ActionDatabase {
         database.add(new Action("Slayer tasks from Morvran", Arrays.asList(new Requirement("Combat", 120), new Requirement("Slayer", 85), new Requirement("Plague's End", 1)), new HashMap(),
             ImmutableMap.of("Slayer", morvranXpAndPoints.keySet().iterator().next().intValue(), "Slayer point", morvranXpAndPoints.values().iterator().next().intValue(), "Slayer task streak", 1,
                 "Slayer pet points", totalPetPoints(player, "Slayer", morvranXpAndPoints.keySet().iterator().next().intValue())), 6000, true, true));
+        database.add(new Action("Slayer tasks from Laniakea", Arrays.asList(new Requirement("Combat", 120), new Requirement("Slayer", 90)), new HashMap(),
+            ImmutableMap.of("Slayer", laniakeaXpAndPoints.keySet().iterator().next().intValue(), "Slayer point", laniakeaXpAndPoints.values().iterator().next().intValue(), "Slayer task streak", 1,
+                "Slayer pet points", totalPetPoints(player, "Slayer", laniakeaXpAndPoints.keySet().iterator().next().intValue())), 6000, true, true));
 
         //Smithing (done)
         database.add(new Action("Smithing bronze platebodies", new ArrayList(), ImmutableMap.of("Bronze bar", 450), ImmutableMap.of("Bronze platebody", 90, "Smithing", 6750,
@@ -3741,12 +3964,13 @@ public class ActionDatabase {
 
     }
 
-    private int miningDamage(Player player, int pickDamage) {
-        return (player.getLevel("Mining") + player.getLevel("Strength")/10 + pickDamage)*1500;
+    private int miningDamage(Player player, int pickDamage, double critRate, int critBonus) {
+        return (int)Math.floor(((1-critRate)*(player.getLevel("Mining") + player.getLevel("Strength")/10 + pickDamage) +
+            (critRate)*(player.getLevel("Mining") + player.getLevel("Strength")/10 + pickDamage + critBonus))*1500);
     }
 
-    private int miningXP(Player player, int pickDamage, double rockXPFactor) {
-        return (int)Math.floor(0.4*miningDamage(player, pickDamage)*rockXPFactor);
+    private int miningXP(Player player, int pickDamage, double critRate, int critBonus, double rockXPFactor) {
+        return (int)Math.floor(0.4*miningDamage(player, pickDamage, critRate, critBonus)*rockXPFactor);
     }
 
     @Deprecated

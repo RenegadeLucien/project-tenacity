@@ -88,6 +88,9 @@ public class ArmourDatabase {
         armours.add(new Armour("Sirenic mask", "Ranged", "Head", 435, 0, 2, 0, 23, Collections.singletonList(new Requirement("Defence", 90))));
         armours.add(new Armour("Elite sirenic mask", "Ranged", "Head", 457, 0, 2, 0, 24, Collections.singletonList(new Requirement("Defence", 92))));
 
+        //All/hybrid head
+        armours.add(new Armour("Mask of the Troll", "All", "Head", 40, 0, 0, 0, 0, new ArrayList<>()));
+
         //Magic head (done)
         armours.add(new Armour("Black wizard hat", "Magic", "Head", 30, 0, 0, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Imphide hood", "Magic", "Head", 40, 0, 0, 0.002, 0, Collections.singletonList(new Requirement("Defence", 10))));
@@ -281,7 +284,7 @@ public class ArmourDatabase {
 
 
         //Melee hands (done)
-        armours.add(new Armour("Safety gloves", "Melee", "Hands", 7, 0, 0, 0.0008, 0, new ArrayList<>()));
+        armours.add(new Armour("Safety gloves", "Melee", "Hands", 7, 0, 0, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Pirate hook (left)", "Melee", "Hands", 7, 0, 0, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Black gauntlets", "Melee", "Hands", 19, 0, 0, 0.005, 0, Collections.singletonList(new Requirement("Defence", 25))));
         armours.add(new Armour("Mithril gauntlets", "Melee", "Hands", 22, 0, 0, 0.006, 0, Collections.singletonList(new Requirement("Defence", 30))));
@@ -397,6 +400,9 @@ public class ArmourDatabase {
         armours.add(new Armour("Virtus boots", "Magic", "Feet", 84, 0, 2, 0, 12, Arrays.asList(new Requirement("Defence", 80), new Requirement("Constitution", 80))));
         armours.add(new Armour("Ragefire boots", "Magic", "Feet", 108, 0, 0, 0.017, 0, Collections.singletonList(new Requirement("Defence", 85))));
         armours.add(new Armour("Hailfire boots", "Magic", "Feet", 108, 0, 2, 0, 14, Collections.singletonList(new Requirement("Defence", 90))));
+
+        //All/hybrid feet
+        armours.add(new Armour("Silverhawk boots", "All", "Feet", 5, 0, 0, 0, 0, new ArrayList<>()));
 
         //Melee shield (done)
         armours.add(new Armour("Bronze kiteshield", "Melee", "Shield", 30, 0, 0, 0.005, 0, new ArrayList<>()));

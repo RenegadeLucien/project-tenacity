@@ -729,6 +729,13 @@ public class Planner extends Application {
                     "If so, please open a T99 issue and include your player data file.");
                 alert.showAndWait();
             }
+            try {
+                getPlayerQuests(loadedPlayer);
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.WARNING, "Failed to obtain player XP from RuneMetrics, using saved data. Verify that the username " + playerName + " is a valid RSN. " +
+                    "If so, please open a T99 issue and include your player data file.");
+                alert.showAndWait();
+            }
             Player player = new Player(playerName, "Mainscape");
             player.setXp(loadedPlayer.getXp());
             player.setBank(loadedPlayer.getBank());
@@ -931,6 +938,9 @@ public class Planner extends Application {
         JsonObject jsonObject = new JsonParser().parse(runeMetricsQuestScanner.nextLine()).getAsJsonObject();
         runeMetricsQuestScanner.close();
         JsonArray questValues = (jsonObject.get("quests").getAsJsonArray());
+        if (player.getQualities().keySet().contains("Quest points")) {
+            player.getQualities().remove("Quest points");
+        }
         for (JsonElement quest : questValues) {
             JsonObject questObject = (JsonObject) quest;
             String questName = questObject.get("title").getAsString();

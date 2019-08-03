@@ -374,7 +374,7 @@ public class AchievementDatabase {
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged"), 100, 1)
             .lamp(Arrays.asList("Attack", "Strength", "Defence", "Constitution", "Magic", "Ranged"), 100, 1).build());
         achievements.add(new AchievementBuilder("The Knight's Sword", 0.25).requirement("Mining", 10).requirement("Iron bar", 2)
-            .requirement("Redberry pie", 1).reward("Quest points", 1).build());
+            .requirement("Redberry pie", 1).requirement("Iron pickaxe", 0).reward("Quest points", 1).build());
         achievements.add(new AchievementBuilder("Granny Knows Best", 0.1).requirement("Farming", 17).requirement("Construction", 20)
             .reward("POF bean", 480).reward("Farming", 600).reward("Construction", 600).build());
         achievements.add(new AchievementBuilder("Abyss (miniquest)", 0.25).requirement("Rune Mysteries", 1).reward("Runecrafting", 1000)
@@ -951,8 +951,8 @@ public class AchievementDatabase {
             .requirement("Mining", 50).requirement("Smithing", 50).requirement("Divination", 50).requirement("Rune bar", 3)
             .requirement("Runite stone spirit", 2).requirement("Mind rune", 10).requirement("Gleaming energy", 10).reward("Quest points", 3)
             .lamp(Player.ALL_SKILLS, -8, 1).build());
-        achievements.add(new AchievementBuilder("Violet is Blue", 0.75).reward("Quest points", 1).lamp(Player.ALL_SKILLS, 1000, 1)
-            .lamp(Player.ALL_SKILLS, 1000, 1).lamp(Player.ALL_SKILLS, 1000, 1).build());
+        achievements.add(new AchievementBuilder("Violet is Blue", 0.75).reward("Quest points", 1).reward("Construction", 24)
+            .lamp(Player.ALL_SKILLS, 1000, 1).lamp(Player.ALL_SKILLS, 1000, 1).lamp(Player.ALL_SKILLS, 1000, 1).build());
         achievements.add(new AchievementBuilder("Imp Catcher", 0.25).requirement("Bowl of hot water", 1)
             .encounter(new Encounter("Choleric imp", 1)).reward("Quest points", 1).reward("Magic", 875).reward("Amulet of accuracy", 1)
             .build());
@@ -1063,10 +1063,10 @@ public class AchievementDatabase {
             .requirement("Willow branch", 12).reward("Quest points", 1).reward("Crafting", 2000).reward("Farming", 3000)
             .reward("Woodcutting", 1500).reward("Firemaking", 4000).build());
         achievements.add(new AchievementBuilder("Wanted!", 1).requirement("Quest points", 33).requirement("Recruitment Drive", 1)
-            .requirement("The Lost Tribe", 1).requirement("Priest in Peril", 1).requirement("Coins", 1).requirement("Molten glass", 1)
-            .requirement("Law rune", 1).requirement("Pure essence", -20).encounter(new Encounter("Black Knight"))
-            .encounter(new Encounter("Black Knight")).encounter(new Encounter("Solus Dellagar")).reward("Quest points", 1)
-            .reward("Slayer", 5000).reward("White Knight reward points", 100).build());
+            .requirement("The Lost Tribe", 1).requirement("Priest in Peril", 1).requirement("Abyss (miniquest)", 1).requirement("Coins", 1)
+            .requirement("Molten glass", 1).requirement("Law rune", 1).requirement("Pure essence", -20)
+            .encounter(new Encounter("Black Knight")).encounter(new Encounter("Black Knight")).encounter(new Encounter("Solus Dellagar"))
+            .reward("Quest points", 1).reward("Slayer", 5000).reward("White Knight reward points", 100).build());
         achievements.add(new AchievementBuilder("Quiet Before the Swarm", 1).requirement("Imp Catcher", 1).requirement("Wanted!", 1)
             .requirement("Attack", 35).requirement("Strength", 42).reward("Quest points", 1).reward("Attack", 4000).reward("Strength", 4900)
             .build());
@@ -2364,11 +2364,11 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Checkmate", 0).requirement("Kalphite Queen", 1090).build());
         achievements.add(new AchievementBuilder("Chick'arra", 0).requirement("Kree'arra", 2156).build());
-        achievements.add(new AchievementBuilder("Child of Saradomin", 0).requirement("Prayer", 70).requirement("Construction", 16)
-            .requirement("Coins", 5000).build());
     }
 
     private void addAchievementsPhase2() {
+        achievements.add(new AchievementBuilder("Child of Saradomin", 0).requirement("Prayer", 70).requirement("Construction", 16)
+            .requirement("Coins", 5000).build());
         achievements.add(new AchievementBuilder("Chilling with Arrav", 0).requirement("Ritual of the Mahjarrat", 1)
             .reward("Prayer", 3000).build());
         achievements.add(new AchievementBuilder("Chinchompa Powered!", 0).requirement("Cheese", 1).build());
@@ -4750,11 +4750,11 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Uzer Master", 0).requirement("Missing My Mummy", 1).build());
         achievements.add(new AchievementBuilder("Unholy Crafting", 0).requirement("Observatory Quest", 1).build());
-        achievements.add(new AchievementBuilder("Under Croc and Key", 0).requirement("Crocodile Tears", 1)
-            .requirement("Constitution", 80).reward("Constitution", 20000).build());
     }
 
     private void addAchievementsPhase3() {
+        achievements.add(new AchievementBuilder("Under Croc and Key", 0).requirement("Crocodile Tears", 1)
+            .requirement("Constitution", 80).reward("Constitution", 20000).build());
         achievements.add(new AchievementBuilder("Ultimate Codex", 0).requirement("The Dig Site", 1).requirement("Magic", 75).build());
         achievements.add(new AchievementBuilder("Triple Trouble", 0.05).requirement("Tai Bwo Wannai Trio", 1).reward("Attack", 2500)
             .reward("Strength", 2500).reward("Rune spear", 1).reward("Cooking", 5000).reward("Fishing", 5000).build());

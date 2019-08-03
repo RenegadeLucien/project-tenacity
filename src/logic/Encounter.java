@@ -377,7 +377,7 @@ public class Encounter {
             }
         }
         for (Armour a : player.getArmour()) {
-            if (a.getSlot().equals("Head") && a.getType().equals(combatStyle)) {
+            if (a.getSlot().equals("Head") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
                 headArmour.add(a);
             } else if (a.getSlot().equals("Torso") && a.getType().equals(combatStyle)) {
                 torsoArmour.add(a);
@@ -385,7 +385,7 @@ public class Encounter {
                 legArmour.add(a);
             } else if (a.getSlot().equals("Hands") && a.getType().equals(combatStyle)) {
                 handArmour.add(a);
-            } else if (a.getSlot().equals("Feet") && a.getType().equals(combatStyle)) {
+            } else if (a.getSlot().equals("Feet") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
                 feetArmour.add(a);
             } else if (a.getSlot().equals("Cape") && (a.getType().equals(combatStyle) || a.getType().equals("All"))) {
                 capeArmour.add(a);
