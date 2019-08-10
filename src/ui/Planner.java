@@ -16,6 +16,7 @@ import data.dataobjects.Weapon;
 import javafx.application.Application;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -43,7 +43,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -73,9 +75,9 @@ import java.util.stream.Collectors;
 
 public class Planner extends Application {
 
-    private Group root = new Group();
+    private Pane root = new Pane();
 
-    private static final String CURRENT_VERSION = "v1.0.2";
+    private static final String CURRENT_VERSION = "v1.0.3";
 
     public static void main(String args[]) {
         launch(args);
@@ -181,7 +183,7 @@ public class Planner extends Application {
     }
 
     private void handleRow(Entry<String, Double> row, Player player) {
-        GoalResults timeForRequirements = AchievementDatabase.getAchievementDatabase().getAchievements().get(row.getKey()).getTimeForRequirements(player);
+        GoalResults timeForRequirements = player.getAchievementResults().get(AchievementDatabase.getAchievementDatabase().getAchievements().get(row.getKey()));
         List<Reward> lampRewards = new ArrayList<>();
         Map<String, Double> initialXp = new HashMap<>(player.getXp());
         for (Lamp lamp : AchievementDatabase.getAchievementDatabase().getAchievements().get(row.getKey()).getLamps()) {
@@ -305,38 +307,38 @@ public class Planner extends Application {
                 return new SimpleIntegerProperty(p.getVirtualLevel(a.getValue().getKey())).asObject();
             }
         });
-        TableColumn<Entry<String, Integer>, String> itemCol = new TableColumn<>("Item");
-        itemCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, String>, ObservableValue<String>>() {
+        TableColumn<Entry<String, Long>, String> itemCol = new TableColumn<>("Item");
+        itemCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Long>, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Integer>, String> a) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Entry<String, Long>, String> a) {
                 return new SimpleStringProperty(a.getValue().getKey());
             }
         });
-        TableColumn<Entry<String, Integer>, Integer> itemCountCol = new TableColumn<>("Count");
-        itemCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Integer>, Integer>, ObservableValue<Integer>>() {
+        TableColumn<Entry<String, Long>, Long> itemCountCol = new TableColumn<>("Count");
+        itemCountCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Long>, Long>, ObservableValue<Long>>() {
             @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Entry<String, Integer>, Integer> a) {
-                return new SimpleIntegerProperty(a.getValue().getValue()).asObject();
+            public ObservableValue<Long> call(TableColumn.CellDataFeatures<Entry<String, Long>, Long> a) {
+                return new SimpleLongProperty(a.getValue().getValue()).asObject();
             }
 
         });
-        itemCountCol.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+        itemCountCol.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Long>() {
             @Override
-            public String toString(Integer integer) {
+            public String toString(Long Long) {
                 DecimalFormat format = new DecimalFormat("#,##0");
-                return format.format(integer);
+                return format.format(Long);
             }
 
             @Override
-            public Integer fromString(String s) {
-                return Integer.parseInt(s);
+            public Long fromString(String s) {
+                return Long.parseLong(s);
             }
         }));
         itemCountCol.setOnEditCommit(
-            new EventHandler<TableColumn.CellEditEvent<Entry<String, Integer>, Integer>>() {
+            new EventHandler<TableColumn.CellEditEvent<Entry<String, Long>, Long>>() {
                 @Override
-                public void handle(TableColumn.CellEditEvent<Entry<String, Integer>, Integer> t) {
-                    ((Entry<String, Integer>) t.getTableView().getItems().get(
+                public void handle(TableColumn.CellEditEvent<Entry<String, Long>, Long> t) {
+                    ((Entry<String, Long>) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
                     ).setValue(t.getNewValue());
                 }
@@ -375,7 +377,7 @@ public class Planner extends Application {
                 }
                 else {
                     try {
-                        p.getBank().put(addItem.getText(), Integer.parseInt(addCount.getText()));
+                        p.getBank().put(addItem.getText(), Long.parseLong(addCount.getText()));
                         p.setBankValue();
                         addItem.clear();
                         addCount.clear();
@@ -677,7 +679,7 @@ public class Planner extends Application {
             }
         });
         ObservableList<Entry<String, Double>> skillsAndExperience = FXCollections.observableArrayList(p.getXp().entrySet());
-        ObservableList<Entry<String, Integer>> itemsAndCount = FXCollections.observableArrayList(p.getBank().entrySet());
+        ObservableList<Entry<String, Long>> itemsAndCount = FXCollections.observableArrayList(p.getBank().entrySet());
         ObservableList<Entry<String, Integer>> qualitiesAndCount = FXCollections.observableArrayList(p.getQualities().entrySet());
         ObservableList<String> weapons = FXCollections.observableArrayList(p.getWeapons().stream().map(a -> a.getName()).collect(Collectors.toList()));
         ObservableList<String> armour = FXCollections.observableArrayList(p.getArmour().stream().map(a -> a.getName()).collect(Collectors.toList()));
@@ -1017,11 +1019,57 @@ public class Planner extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle(String.format("Project Tenacity %s by Iron Lucien", CURRENT_VERSION));
-        primaryStage.setScene(new Scene(root, 1024, 768));
-        primaryStage.setResizable(false);
+        Scene scene = new Scene(root, 1024, 768);
+        primaryStage.setScene(scene);
+        Scale scale = new Scale(1, 1);
+        scale.setPivotX(0);
+        scale.setPivotY(0);
+        root.getTransforms().setAll(scale);
+        root.setBackground(null);
+        letterbox(scene, root);
         displayMainScreen();
         primaryStage.show();
         checkForUpdates();
         checkGeDataAge();
+    }
+
+    private void letterbox(final Scene scene, final Pane contentPane) {
+        final double initWidth = scene.getWidth();
+        final double initHeight = scene.getHeight();
+        final double ratio = initWidth / initHeight;
+
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
+    }
+
+    private static class SceneSizeChangeListener implements ChangeListener<Number> {
+        private final Scene scene;
+        private final double ratio;
+        private final double initHeight;
+        private final double initWidth;
+        private final Pane contentPane;
+
+        public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
+            this.scene = scene;
+            this.ratio = ratio;
+            this.initHeight = initHeight;
+            this.initWidth = initWidth;
+            this.contentPane = contentPane;
+        }
+
+        @Override
+        public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+            final double newWidth  = scene.getWidth();
+            final double newHeight = scene.getHeight();
+
+            double scaleFactor = newWidth / newHeight > ratio ? newHeight / initHeight : newWidth / initWidth;
+            Scale scale = new Scale(scaleFactor, scaleFactor);
+            scale.setPivotX(0);
+            scale.setPivotY(0);
+            scene.getRoot().getTransforms().setAll(scale);
+            contentPane.setPrefWidth (newWidth / scaleFactor);
+            contentPane.setPrefHeight(newHeight / scaleFactor);
+        }
     }
 }

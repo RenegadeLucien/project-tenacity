@@ -305,7 +305,7 @@ public class Achievement {
             GoalResults resultsForOneRequirement = new Requirement("Coins", totalCoinReq).timeAndActionsToMeetRequirement(player);
             for (Entry<String, Double> actionWithTime : resultsForOneRequirement.getActionsWithTimes().entrySet()) {
                 if (totalActionsWithTimesForAllReqs.containsKey(actionWithTime.getKey())) {
-                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), Math.max(totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()), actionWithTime.getValue()));
+                    totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), totalActionsWithTimesForAllReqs.get(actionWithTime.getKey()) + actionWithTime.getValue());
                 } else {
                     totalActionsWithTimesForAllReqs.put(actionWithTime.getKey(), actionWithTime.getValue());
                 }

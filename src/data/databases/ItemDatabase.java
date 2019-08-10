@@ -131,6 +131,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Armadyl chainskirt", 50000));
         itemsList.add(new Item("Armadyl chestplate", 60000));
         itemsList.add(new Item("Armadyl crossbow", 40000));
+        itemsList.add(new Item("Armadyl godsword", 1250000));
         itemsList.add(new Item("Armadyl gloves", 19000));
         itemsList.add(new Item("Armadyl helmet", 20000));
         itemsList.add(new Item("Arrow shaft", 12));
@@ -1421,6 +1422,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Pyre logs", 8));
         itemsList.add(new Item("Pyrelord pouch", 3199));
         itemsList.add(new Item("Rabbit foot", 30));
+        itemsList.add(new Item("Rabbit sandwich", 200));
         itemsList.add(new Item("Rabbit teeth", 160));
         itemsList.add(new Item("Radiant energy", 48));
         itemsList.add(new Item("Rainbow fish", 120));
@@ -1625,6 +1627,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Saradomin arrows", 300));
         itemsList.add(new Item("Saradomin brew (1)", 125));
         itemsList.add(new Item("Saradomin brew (3)", 175));
+        itemsList.add(new Item("Saradomin godsword", 1250000));
         itemsList.add(new Item("Saradomin sword", 130000));
         itemsList.add(new Item("Saradomin's hiss", 40000));
         itemsList.add(new Item("Saradomin's murmur", 40000));
@@ -2099,8 +2102,10 @@ public class ItemDatabase {
         itemsList.add(new Item("Yew stock", 167));
         itemsList.add(new Item("Zamatrice egg", 1000));
         itemsList.add(new Item("Zamorak brew (3)", 175));
+        itemsList.add(new Item("Zamorak godsword", 1250000));
         itemsList.add(new Item("Zamorak robe (top)", 40));
         itemsList.add(new Item("Zamorakian spear", 100000));
+        itemsList.add(new Item("Zaros godsword", 1250000));
         itemsList.add(new Item("Zaryte bow", 900000));
         itemsList.add(new Item("Zogre bones", 1));
         itemsList.add(new Item("Zuriel's hood", 250000));

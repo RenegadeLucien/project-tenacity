@@ -26,8 +26,8 @@ public class ArmourDatabase {
         armours.add(new Armour("None", "None", "None", 0, 0, 0, 0, 0, new ArrayList<>()));
 
         //Melee head (done)
-        armours.add(new Armour("Bronze full helm", "Melee", "Head", 30, 0, 0, 0.001, 0, new ArrayList<>()));
-        armours.add(new Armour("Spiny helmet", "Melee", "Head", 40, 0, 0, 0.002, 0, Collections.singletonList(new Requirement("Defence", 5))));
+        armours.add(new Armour("Bronze full helm", "Melee", "Head", 30, 0, 0, 0.0002, 0, new ArrayList<>()));
+        armours.add(new Armour("Spiny helmet", "Melee", "Head", 40, 0, 0, 0.001, 0, Collections.singletonList(new Requirement("Defence", 5))));
         armours.add(new Armour("Steel full helm", "Melee", "Head", 63, 0, 0, 0.004, 0, Collections.singletonList(new Requirement("Defence", 20))));
         armours.add(new Armour("Black full helm", "Melee", "Head", 76, 0, 0, 0.005, 0, Collections.singletonList(new Requirement("Defence", 25))));
         armours.add(new Armour("Mithril full helm", "Melee", "Head", 90, 0, 0, 0.006, 0, Collections.singletonList(new Requirement("Defence", 30))));

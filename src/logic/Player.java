@@ -64,7 +64,7 @@ public class Player {
     @Expose private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
     @Expose private Map<String, Double> xp = new HashMap<>();
     @Expose private Map<String, Integer> qualities = new HashMap<>();
-    @Expose private Map<String, Integer> bank = new HashMap<>();
+    @Expose private Map<String, Long> bank = new HashMap<>();
     @Expose private LinkedHashSet<Weapon> weapons = new LinkedHashSet<>();
     @Expose private LinkedHashSet<Armour> armour = new LinkedHashSet<>();
 
@@ -93,8 +93,8 @@ public class Player {
             this.status = 2;
         xp = setInitialXP();
         //While these aren't obtained strictly at startup, they can be obtained for free in 30 seconds.
-        weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Bronze 2h sword"));
-        weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Dwarven army axe"));
+        weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Bronze sword"));
+        weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Bronze offhand sword"));
         weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Chargebow"));
         weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Staff"));
     }
@@ -103,7 +103,7 @@ public class Player {
         return xp;
     }
 
-    public Map<String, Integer> getBank() {
+    public Map<String, Long> getBank() {
         return bank;
     }
 
@@ -147,7 +147,7 @@ public class Player {
         xp = newXp;
     }
 
-    public void setBank(Map<String, Integer> bank) {
+    public void setBank(Map<String, Long> bank) {
         this.bank = bank;
     }
 
@@ -344,7 +344,9 @@ public class Player {
         }
         weapons.removeAll(weaponsToRemove);
         for (Weapon weapon : weaponsToRemove) {
-            bank.put(weapon.getName(), 1);
+            if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
+                bank.put(weapon.getName(), 1L);
+            }
         }
     }
 
@@ -369,7 +371,9 @@ public class Player {
         }
         armour.removeAll(armoursToRemove);
         for (Armour armour : armoursToRemove) {
-            bank.put(armour.getName(), 1);
+            if (ItemDatabase.getItemDatabase().getItems().get(armour.getName()) != null) {
+                bank.put(armour.getName(), 1L);
+            }
         }
     }
 
@@ -487,8 +491,11 @@ public class Player {
                             }
                         }
                         for (Requirement requirement : actionWithGraph.getReqs()) {
-                            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
-                                totalInputCoins += requirement.getQuantifier() * ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this);
+                            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null &&
+                                WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()) == null &&
+                                ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()) == null &&
+                                bankValue < requirement.getQuantifier() * ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
+                                totalInputCoins -= requirement.getQuantifier() * ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this);
                             }
                         }
                         for (Entry<String, Integer> output : actionWithGraph.getOutputs().entrySet()) {
@@ -497,8 +504,10 @@ public class Player {
                                 totalInputCoins -= (int) (outputItems / actionWithGraph.getActionsPerHour());
                             }
                         }
+                        setBankValue();
                         if (bankValue >= totalInputCoins) {
                             performAction(actionWithGraph, action.getValue(), combatRequirements);
+                            setBankValue();
                             actionsToRemove.add(action.getKey());
                         }
                     }
@@ -580,7 +589,7 @@ public class Player {
                 if (bank.containsKey(reward.getQualifier()))
                     bank.put(reward.getQualifier(), bank.get(reward.getQualifier()) + reward.getQuantifier());
                 else
-                    bank.put(reward.getQualifier(), reward.getQuantifier());
+                    bank.put(reward.getQualifier(), Long.valueOf(reward.getQuantifier()));
             } else {
                 if (qualities.containsKey(reward.getQualifier()))
                     qualities.put(reward.getQualifier(), qualities.get(reward.getQualifier()) + reward.getQuantifier());
@@ -833,13 +842,10 @@ public class Player {
                 validAction = false;
             }
             if (validAction) {
-                if (qualifier.equals("Firemaking") && quantifier == 388) {
-                    System.out.println("Test");
-                }
                 QualifierAction qualifierAction = new QualifierAction(qualifier, action.getName());
                 lockedActions.add(qualifierAction);
                 double effectiveTimeThisAction = 0.0;
-                Map<String, Integer> initialBank = new HashMap<>(bank);
+                Map<String, Long> initialBank = new HashMap<>(bank);
                 Map<String, Double> efficiencyThisAction = new HashMap<>();
                 int trueQuantifier = quantifier;
                 //Items first, then others. This is so that when the others are calculated, they use the items gained in their calculations
@@ -848,7 +854,7 @@ public class Player {
                         GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                         effectiveTimeThisAction += reqResults.getTotalTime();
                         addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
-                        bank.put(requirement.getQualifier(), requirement.getQuantifier());
+                        bank.put(requirement.getQualifier(), Long.valueOf(requirement.getQuantifier()));
                         setBankValue();
                     }
                 }
@@ -874,6 +880,7 @@ public class Player {
                 } else {
                     timeToReachGoal = (trueQuantifier*1.0)/action.getOutputs().get(qualifier);
                 }
+                timeToReachGoal = Math.ceil(timeToReachGoal*Math.max(120,action.getActionsPerHour()))/Math.max(120,action.getActionsPerHour());
                 effectiveTimeThisAction += timeToReachGoal;
                 addItemsToMap(efficiencyThisAction, ImmutableMap.of(action.getName(), timeToReachGoal));
                 long minInputsLong = 0;
@@ -944,7 +951,7 @@ public class Player {
         return result;
     }
 
-    public Map addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
+    private void addItemsToMap(Map<String, Double> a, Map<String, Double> b) {
         for (String item : b.keySet()) {
             if (a.containsKey(item)) {
                 a.put(item, a.get(item) + b.get(item));
@@ -952,12 +959,11 @@ public class Player {
                 a.put(item, b.get(item));
             }
         }
-        return a;
     }
 
     public void setBankValue() {
         long bankVal = 0;
-        for (Map.Entry<String, Integer> entry : bank.entrySet()) {
+        for (Map.Entry<String, Long> entry : bank.entrySet()) {
             bankVal += ((long) ItemDatabase.getItemDatabase().getItems().get(entry.getKey()).coinValue(this)) * entry.getValue();
         }
         bankValue = bankVal;
@@ -966,14 +972,38 @@ public class Player {
     private void performAction(Action action, double time, List<Requirement> combatRequirements) {
         int steps = (int)Math.ceil(time*action.getActionsPerHour());
         for (Requirement requirement : action.getReqs()) {
-            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+            if (WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()) != null
+                && !checkIfHaveBetterWeapon(WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()))) {
+                boolean canUse = true;
+                for (Requirement gearReq : WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()).getReqs()) {
+                    if (!gearReq.meetsRequirement(this)) {
+                        canUse = false;
+                        break;
+                    }
+                }
+                if (canUse) {
+                    addWeaponAndMoveToBank(WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()));
+                }
+            } else if (ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()) != null
+                && !checkIfHaveBetterArmour(ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()))) {
+                boolean canUse = true;
+                for (Requirement gearReq : ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()).getReqs()) {
+                    if (!gearReq.meetsRequirement(this)) {
+                        canUse = false;
+                        break;
+                    }
+                }
+                if (canUse) {
+                    addArmourAndMoveToBank(ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()));
+                }
+            } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
                 updateBank(requirement.getQualifier(), requirement.getQuantifier());
                 if (bank.containsKey(requirement.getQualifier())) {
                     bank.put(requirement.getQualifier(), bank.get(requirement.getQualifier()) + requirement.getQuantifier());
                     setBankValue();
                 }
                 else {
-                    bank.put(requirement.getQualifier(), requirement.getQuantifier());
+                    bank.put(requirement.getQualifier(), Long.valueOf(requirement.getQuantifier()));
                     setBankValue();
                 }
             }
@@ -1104,7 +1134,7 @@ public class Player {
                 if (bank.containsKey(output.getKey())) {
                     bank.put(output.getKey(), bank.get(output.getKey()) + (int)(outputItems / action.getActionsPerHour()));
                 } else {
-                    bank.put(output.getKey(), (int)(outputItems / action.getActionsPerHour()));
+                    bank.put(output.getKey(), (outputItems / action.getActionsPerHour()));
                 }
                 setBankValue();
             }
@@ -1131,8 +1161,8 @@ public class Player {
                 bank.remove(item);
             } else {
                 List<String> entriesToRemove = new ArrayList<>();
-                for (Entry<String, Integer> bankEntry : bank.entrySet()) {
-                    if (!bankEntry.getKey().equals("Coins")) {
+                for (Entry<String, Long> bankEntry : bank.entrySet()) {
+                    if (!bankEntry.getKey().equals("Coins") && !bankEntry.getKey().equals(item)) {
                         if (bank.get("Coins") != null) {
                             bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
                         }
@@ -1156,8 +1186,8 @@ public class Player {
                 bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
         } else if (bankValue > quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
             List<String> entriesToRemove = new ArrayList<>();
-            int coinsToAdd = 0;
-            for (Entry<String, Integer> bankEntry : bank.entrySet()) {
+            long coinsToAdd = 0;
+            for (Entry<String, Long> bankEntry : bank.entrySet()) {
                 if (!bankEntry.getKey().equals("Coins")) {
                     coinsToAdd += ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue();
                     entriesToRemove.add(bankEntry.getKey());

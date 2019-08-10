@@ -30,7 +30,6 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Bronze scimitar", "Melee", "Slash", "Mainhand", 48, 150, 4, 0, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("Bronze mace", "Melee", "Crush", "Mainhand", 48, 150, 4, 0, 1, 0, new ArrayList<>()));
         weapons.add(new Weapon("Bronze sword", "Melee", "Stab", "Mainhand", 61, 150, 5, 0, 0, 0, new ArrayList<>()));
-        weapons.add(new Weapon("Dwarven army axe", "Melee", "Slash", "Mainhand", 183, 160, 5, 0, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("Bronze battleaxe", "Melee", "Slash", "Mainhand", 74, 150, 6, 0, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("Bone club", "Melee", "Crush", "Mainhand", 223, 257, 6, 0, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("Iron claws", "Melee", "Slash", "Mainhand", 96, 202, 4, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 10))));
@@ -188,6 +187,9 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Verac's flail", "Melee", "Crush", "Two-handed", 1564, 1486, 6, 0, 2, 0, Collections.singletonList(new Requirement("Attack", 70))));
         weapons.add(new Weapon("Zamorakian spear", "Melee", "Stab", "Two-handed", 1676, 1694, 6, 0, 2, 0, Collections.singletonList(new Requirement("Attack", 75))));
         weapons.add(new Weapon("Bandos godsword", "Melee", "Slash", "Two-handed", 1676, 1694, 6, 0, 4, 0, Collections.singletonList(new Requirement("Attack", 75))));
+        weapons.add(new Weapon("Saradomin godsword", "Melee", "Slash", "Two-handed", 1676, 1694, 6, 0, 4, 0, Collections.singletonList(new Requirement("Attack", 75))));
+        weapons.add(new Weapon("Armadyl godsword", "Melee", "Slash", "Two-handed", 1676, 1694, 6, 0, 4, 0, Collections.singletonList(new Requirement("Attack", 75))));
+        weapons.add(new Weapon("Zamorak godsword", "Melee", "Slash", "Two-handed", 1676, 1694, 6, 0, 4, 0, Collections.singletonList(new Requirement("Attack", 75))));
         weapons.add(new Weapon("Saradomin sword", "Melee", "Crush", "Two-handed", 1378, 1694, 5, 0, 2, 0, Collections.singletonList(new Requirement("Attack", 75))));
         weapons.add(new Weapon("Vesta's spear", "Melee", "Stab", "Two-handed", 1743, 1829, 6, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 78))));
         weapons.add(new Weapon("Masuta's warspear", "Melee", "Stab", "Two-handed", 1832, 2023, 6, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 82))));
