@@ -44,6 +44,10 @@ public class ArmourDatabase {
         armours.add(new Armour("Helm of neitiznot", "Melee", "Head", 196, 0, 0, 0.011, 0, Arrays.asList(new Requirement("Defence", 55), new Requirement("Crafting", 46),
             new Requirement("Fletching", 25), new Requirement("Woodcutting", 56), new Requirement("Construction", 20), new Requirement("Agility", 40))));
         armours.add(new Armour("Dragon helm", "Melee", "Head", 196, 0, 0, 0, 14, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum full helm", "Melee", "Head", 226, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum full helm + 1", "Melee", "Head", 232, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum full helm + 2", "Melee", "Head", 239, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum full helm + 3", "Melee", "Head", 246, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
         armours.add(new Armour("Third-age full helmet", "Melee", "Head", 259, 0, 0, 0.013, 0, Collections.singletonList(new Requirement("Defence", 65))));
         armours.add(new Armour("Bandos helmet", "Melee", "Head", 259, 0, 1, 0, 17, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Dharok's helm", "Melee", "Head", 297, 0, 0, 0.014, 0, Collections.singletonList(new Requirement("Defence", 70))));
@@ -133,6 +137,10 @@ public class ArmourDatabase {
         armours.add(new Armour("Granite body", "Melee", "Torso", 226, 0, 0, 0.011, 0, Arrays.asList(new Requirement("Defence", 55), new Requirement("Strength", 55))));
         armours.add(new Armour("Gud raider chainbody", "Melee", "Torso", 195, 0, 0, 0, 20, Collections.singletonList(new Requirement("Defence", 55))));
         armours.add(new Armour("Dragon chainbody", "Melee", "Torso", 226, 0, 0, 0, 22, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platebody", "Melee", "Torso", 260, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platebody + 1", "Melee", "Torso", 267, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platebody + 2", "Melee", "Torso", 275, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platebody + 3", "Melee", "Torso", 282, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
         armours.add(new Armour("Third-age platebody", "Melee", "Torso", 298, 0, 0, 0.013, 0, Collections.singletonList(new Requirement("Defence", 65))));
         armours.add(new Armour("Bandos chestplate", "Melee", "Torso", 298, 0, 2, 0, 26, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Necronium platebody", "Melee", "Torso", 341, 40, 0, 0.014, 0, Collections.singletonList(new Requirement("Defence", 70))));
@@ -214,6 +222,10 @@ public class ArmourDatabase {
             new Requirement("Fletching", 25), new Requirement("Woodcutting", 40))));
         armours.add(new Armour("Granite legs", "Melee", "Legs", 216, 0, 0, 0.011, 0, Arrays.asList(new Requirement("Defence", 55), new Requirement("Strength", 55))));
         armours.add(new Armour("Dragon platelegs", "Melee", "Legs", 216, 0, 0, 0, 18, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platelegs", "Melee", "Legs", 249, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platelegs + 1", "Melee", "Legs", 256, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platelegs + 2", "Melee", "Legs", 263, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum platelegs + 3", "Melee", "Legs", 270, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
         armours.add(new Armour("Third-age platelegs", "Melee", "Legs", 285, 0, 0, 0.013, 0, Collections.singletonList(new Requirement("Defence", 65))));
         armours.add(new Armour("Bandos tassets", "Melee", "Legs", 285, 0, 1, 0, 22, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Necronium platelegs", "Melee", "Legs", 326, 30, 0, 0.014, 0, Collections.singletonList(new Requirement("Defence", 70))));
@@ -292,6 +304,10 @@ public class ArmourDatabase {
             new Requirement("Fletching", 25), new Requirement("Woodcutting", 40))));
         armours.add(new Armour("Rune gauntlets", "Melee", "Hands", 42, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 50))));
         armours.add(new Armour("Dragon gauntlets", "Melee", "Hands", 49, 0, 0, 0, 9, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum gauntlets", "Melee", "Hands", 56, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum gauntlets + 1", "Melee", "Hands", 58, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum gauntlets + 2", "Melee", "Hands", 59, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum gauntlets + 3", "Melee", "Hands", 61, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
         armours.add(new Armour("Bandos gloves", "Melee", "Hands", 64, 0, 1, 0, 11, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Necronium gauntlets", "Melee", "Hands", 74, 0, 0, 0.014, 0, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Torva gloves", "Melee", "Hands", 84, 0, 2, 0, 12, Arrays.asList(new Requirement("Defence", 80), new Requirement("Constitution", 80))));
@@ -354,6 +370,10 @@ public class ArmourDatabase {
         armours.add(new Armour("Rock-shell boots", "Melee", "Feet", 36, 0, 0, 0, 7, Arrays.asList(new Requirement("Defence", 50), new Requirement("Crafting", 40),
             new Requirement("Fletching", 25), new Requirement("Woodcutting", 40))));
         armours.add(new Armour("Dragon boots", "Melee", "Feet", 49, 0, 0, 0, 9, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum armoured boots", "Melee", "Feet", 56, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum armoured boots + 1", "Melee", "Feet", 58, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum armoured boots + 2", "Melee", "Feet", 59, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
+        armours.add(new Armour("Orikalkum armoured boots + 3", "Melee", "Feet", 61, 0, 0, 0.012, 0, Collections.singletonList(new Requirement("Defence", 60))));
         armours.add(new Armour("Bandos boots", "Melee", "Feet", 64, 0, 1, 0, 11, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Necronium armoured botos", "Melee", "Feet", 74, 0, 0, 0.014, 0, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Torva boots", "Melee", "Feet", 84, 0, 2, 0, 12, Arrays.asList(new Requirement("Defence", 80), new Requirement("Constitution", 80))));
@@ -477,7 +497,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Bladestorm drape", "Melee", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
         armours.add(new Armour("Arrowstorm drape", "Ranged", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
         armours.add(new Armour("Spellstorm drape", "Magic", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
-        armours.add(new Armour("Obsidian cape", "All", "Cape", 16, 0, 0, 0, 17, new ArrayList<>()));
+        armours.add(new Armour("Obsidian cape", "All", "Cape", 18, 0, 0, 0, 13, new ArrayList<>()));
         armours.add(new Armour("Ancient cloak", "All", "Cape", 18, 0, 3, 0, 0, Arrays.asList(new Requirement("Prayer", 40), new Requirement("Defence", 40))));
         armours.add(new Armour("Dragon Rider cape", "All", "Cape", 29, 0, 6, 0, 0, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Explosive barrel", "All", "Cape", 38, 0, 0, 0, 0, new ArrayList<>()));

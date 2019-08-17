@@ -77,7 +77,7 @@ public class Planner extends Application {
 
     private Pane root = new Pane();
 
-    private static final String CURRENT_VERSION = "v1.0.3";
+    private static final String CURRENT_VERSION = "v1.0.4";
 
     public static void main(String args[]) {
         launch(args);

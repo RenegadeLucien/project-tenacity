@@ -276,6 +276,7 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Chargebow", "Ranged", "Arrows", "Two-handed", 91, 150, 5, 0, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("Shieldbow", "Ranged", "Arrows", "Two-handed", 26, 150, 6, 48, 0, 30, new ArrayList<>()));
         weapons.add(new Weapon("Bronze 2h crossbow", "Ranged", "Bolts", "Two-handed", 63, 150, 6, 48, 0, 0, new ArrayList<>()));
+        weapons.add(new Weapon("Quickbow", "Ranged", "Arrows", "Two-handed", 183, 202, 5, 0, 0, 0, Collections.singletonList(new Requirement("Ranged", 5))));
         weapons.add(new Weapon("Oak shortbow", "Ranged", "Arrows", "Two-handed", 87, 202, 5, 96, 0, 0, Collections.singletonList(new Requirement("Ranged", 10))));
         weapons.add(new Weapon("Oak shieldbow", "Ranged", "Arrows", "Two-handed", 53, 202, 6, 96, 0, 40, Arrays.asList(new Requirement("Ranged", 10), new Requirement("Defence", 10))));
         weapons.add(new Weapon("Iron 2h crossbow", "Ranged", "Bolts", "Two-handed", 127, 202, 6, 96, 0, 0, Collections.singletonList(new Requirement("Ranged", 10))));

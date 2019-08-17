@@ -7668,8 +7668,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Bean Counter II", 0).requirement("POF bean", 10000).build());
         achievements.add(new AchievementBuilder("Bean Counter III", 0).requirement("POF bean", 100000).build());
         achievements.add(new AchievementBuilder("Bean Counter IV", 0).requirement("POF bean", 1000000).build());
-        achievements.add(new AchievementBuilder("Benedict's World Tour, part 1", 0.15).lamp(Player.ALL_SKILLS, -1, 1)
-            .lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -4, 1).build());
+        achievements.add(new AchievementBuilder("Benedict's World Tour, part 1", 0.15).requirement("Stolen Hearts", 1)
+            .lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -4, 1).build());
         achievements.add(new AchievementBuilder("Benedict's World Tour, part 2", 0.1).requirement("Benedict's World Tour, part 1", 1)
             .lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -1, 1).lamp(Player.ALL_SKILLS, -4, 1).build());
         achievements.add(new AchievementBuilder("Benedict's World Tour (miniquest)", 0).requirement("Benedict's World Tour, part 2", 1)
@@ -8543,6 +8543,8 @@ public class AchievementDatabase {
             .requirement("Raw shark", 1).reward("Hunter", 8000).reward("Slayer", 2800).reward("Fletching", 50).reward("Herblore", 5)
             .reward("Big game hunted", 1).lamp(Collections.singletonList("Woodcutting"), -12, 1).build());
         achievements.add(new AchievementBuilder("Not What We Mean By Irony", 0).requirement("Iron pickaxe", 0).build());
+        achievements.add(new AchievementBuilder("All's Ferrous in Love and War", 0).requirement("Iron platelegs", 0)
+            .requirement("Defence", 10).build());
     }
 
     public static AchievementDatabase getAchievementDatabase() {
