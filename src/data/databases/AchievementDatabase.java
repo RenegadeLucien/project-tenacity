@@ -8240,7 +8240,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Something 'bout that Sq'irk, Sq'irk, Sq'irk, Sq'irk, Sq'irk", 0.25)
             .requirement("Thieving", 65).requirement("Diamond in the Rough", 1).reward("Farming", 580).reward("Thieving", 7050).build());
         achievements.add(new AchievementBuilder("Troll Invasion (first run)", 0.25).lamp(Player.ALL_SKILLS, -7, 1).build());
-        achievements.add(new AchievementBuilder("Agoroth", 0.05).requirement("A Shadow over Ashdale", 1).reward("Coins", 41390).build());
+        achievements.add(new AchievementBuilder("Agoroth", 0.05).requirement("A Shadow over Ashdale", 1).lamp(Player.ALL_SKILLS, -2, 1)
+            .build());
         achievements.add(new AchievementBuilder("Regard my Shards", 0.3).build());
         achievements.add(new AchievementBuilder("Hacks", 0.5).reward("Woodcutting", 4525).reward("Firemaking", 1600).reward("Logs", 12)
             .reward("Coins", 253).build());

@@ -94,7 +94,7 @@ public class Player {
         xp = setInitialXP();
         //While these aren't obtained strictly at startup, they can be obtained for free in 30 seconds.
         weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Bronze sword"));
-        weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Bronze offhand sword"));
+        weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Bronze off hand sword"));
         weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Chargebow"));
         weapons.add(WeaponDatabase.getWeaponDatabase().getWeapons().get("Staff"));
     }

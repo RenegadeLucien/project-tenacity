@@ -50,6 +50,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Adamant dart tip", 10));
         itemsList.add(new Item("Adamant full helm", 3520));
         itemsList.add(new Item("Adamant full helm + 2", 2668));
+        itemsList.add(new Item("Adamant gauntlets", 334));
         itemsList.add(new Item("Adamant gauntlets + 2", 1334));
         itemsList.add(new Item("Adamant hatchet", 334));
         itemsList.add(new Item("Adamant javelin", 246));
@@ -189,6 +190,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Bane platelegs + 4", 320001));
         itemsList.add(new Item("Bandos boots", 25000));
         itemsList.add(new Item("Bandos chestplate", 265000));
+        itemsList.add(new Item("Bandos cloak", 2000));
         itemsList.add(new Item("Bandos gloves", 19000));
         itemsList.add(new Item("Bandos godsword", 1250000));
         itemsList.add(new Item("Bandos helmet", 60000));
@@ -1616,6 +1618,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Rune off hand dagger", 8000));
         itemsList.add(new Item("Rune off hand longsword", 32000));
         itemsList.add(new Item("Rune off hand mace", 14400));
+        itemsList.add(new Item("Rune off hand scimitar", 1668));
         itemsList.add(new Item("Rune off hand sword", 20800));
         itemsList.add(new Item("Rune off hand warhammer", 41500));
         itemsList.add(new Item("Rune pickaxe", 32000));
@@ -1626,6 +1629,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Rune platebody + 3", 33334));
         itemsList.add(new Item("Rune platelegs", 64000));
         itemsList.add(new Item("Rune platelegs + 3", 20001));
+        itemsList.add(new Item("Rune scimitar", 1668));
         itemsList.add(new Item("Rune spear", 20800));
         itemsList.add(new Item("Rune sword", 20800));
         itemsList.add(new Item("Rune warhammer", 41500));

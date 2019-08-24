@@ -300,6 +300,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Pirate hook (left)", "Melee", "Hands", 7, 0, 0, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Black gauntlets", "Melee", "Hands", 19, 0, 0, 0.005, 0, Collections.singletonList(new Requirement("Defence", 25))));
         armours.add(new Armour("Mithril gauntlets", "Melee", "Hands", 22, 0, 0, 0.006, 0, Collections.singletonList(new Requirement("Defence", 30))));
+        armours.add(new Armour("Adamant gauntlets", "Melee", "Hands", 31, 0, 0, 0.008, 0, Collections.singletonList(new Requirement("Defence", 40))));
         armours.add(new Armour("Rock-shell gloves", "Melee", "Hands", 36, 0, 0, 0, 7, Arrays.asList(new Requirement("Defence", 50), new Requirement("Crafting", 40),
             new Requirement("Fletching", 25), new Requirement("Woodcutting", 40))));
         armours.add(new Armour("Rune gauntlets", "Melee", "Hands", 42, 0, 0, 0.01, 0, Collections.singletonList(new Requirement("Defence", 50))));
@@ -498,6 +499,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Arrowstorm drape", "Ranged", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
         armours.add(new Armour("Spellstorm drape", "Magic", "Cape", 4, 0, 0, 0, 1, new ArrayList<>()));
         armours.add(new Armour("Obsidian cape", "All", "Cape", 18, 0, 0, 0, 13, new ArrayList<>()));
+        armours.add(new Armour("Bandos cloak", "All", "Cape", 18, 0, 3, 0, 0, Arrays.asList(new Requirement("Prayer", 40), new Requirement("Defence", 40))));
         armours.add(new Armour("Ancient cloak", "All", "Cape", 18, 0, 3, 0, 0, Arrays.asList(new Requirement("Prayer", 40), new Requirement("Defence", 40))));
         armours.add(new Armour("Dragon Rider cape", "All", "Cape", 29, 0, 6, 0, 0, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Explosive barrel", "All", "Cape", 38, 0, 0, 0, 0, new ArrayList<>()));
