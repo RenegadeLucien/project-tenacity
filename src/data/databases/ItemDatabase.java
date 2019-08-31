@@ -1180,6 +1180,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Mithril off hand dagger", 325));
         itemsList.add(new Item("Mithril off hand longsword", 1300));
         itemsList.add(new Item("Mithril off hand mace", 585));
+        itemsList.add(new Item("Mithril off hand scimitar", 501));
         itemsList.add(new Item("Mithril off hand sword", 845));
         itemsList.add(new Item("Mithril off hand warhammer", 2158));
         itemsList.add(new Item("Mithril pickaxe + 2", 2001));

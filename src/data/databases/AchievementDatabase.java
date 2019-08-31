@@ -1227,8 +1227,8 @@ public class AchievementDatabase {
             .requirement("Yak-hide armour (legs)", 0).requirement("The Fremennik Isles", 1).encounter(new Encounter("Ice troll male"))
             .build());
         achievements.add(new AchievementBuilder("Who's a Good Boy?", 0).requirement("The Fremennik Trials", 1).build());
-        achievements.add(new AchievementBuilder("Only Takes a Little Vial", 0).requirement("Molten glass", 3)
-            .requirement("Crafting", 33).reward("Vial", 3).reward("Crafting", 105).build());
+        achievements.add(new AchievementBuilder("Only Takes a Little Vial", 0).requirement("Molten glass", 3).requirement("Crafting", 3)
+            .requirement("The Fremennik Trials", 1).reward("Vial", 3).reward("Crafting", 105).build());
         achievements.add(new AchievementBuilder("Grand Theft Fish", 0).requirement("The Fremennik Trials", 1)
             .requirement("Thieving", 42).reward("Thieving", 42).build());
         achievements.add(new AchievementBuilder("Fremmental", 0).requirement("The Fremennik Trials", 1).requirement("Cooking", 48)

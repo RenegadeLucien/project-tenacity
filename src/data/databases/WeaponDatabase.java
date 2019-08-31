@@ -27,6 +27,7 @@ public class WeaponDatabase {
 
         //Melee main-hand (done)
         weapons.add(new Weapon("Bone dagger", "Melee", "Stab", "Mainhand", 96, 223, 4, 0, 0, 0, new ArrayList<>()));
+        weapons.add(new Weapon("Bronze dagger", "Melee", "Stab", "Mainhand", 48, 150, 4, 0, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("Bronze scimitar", "Melee", "Slash", "Mainhand", 48, 150, 4, 0, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("Bronze mace", "Melee", "Crush", "Mainhand", 48, 150, 4, 0, 1, 0, new ArrayList<>()));
         weapons.add(new Weapon("Bronze sword", "Melee", "Stab", "Mainhand", 61, 150, 5, 0, 0, 0, new ArrayList<>()));
@@ -128,6 +129,7 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Off-hand black warhammer", "Melee", "Crush", "Off-hand", 186, 381, 6, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 25))));
         weapons.add(new Weapon("Mithril off hand dagger", "Melee", "Stab", "Off-hand", 144, 454, 4, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 30))));
         weapons.add(new Weapon("Mithril off hand claws", "Melee", "Slash", "Off-hand", 144, 454, 4, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 30))));
+        weapons.add(new Weapon("Mithril off hand scimitar", "Melee", "Slash", "Off-hand", 144, 454, 4, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 30))));
         weapons.add(new Weapon("Mithril off hand mace", "Melee", "Crush", "Off-hand", 144, 454, 4, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 30))));
         weapons.add(new Weapon("Mithril off hand sword", "Melee", "Stab", "Off-hand", 183, 454, 5, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 30))));
         weapons.add(new Weapon("Mithril off hand longsword", "Melee", "Slash", "Off-hand", 183, 454, 5, 0, 0, 0, Collections.singletonList(new Requirement("Attack", 30))));
