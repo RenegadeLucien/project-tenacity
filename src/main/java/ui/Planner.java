@@ -64,6 +64,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributeView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -349,6 +350,7 @@ public class Planner extends Application {
         addItem.setMaxWidth(itemCol.getPrefWidth());
         addItem.setLayoutX(700);
         addItem.setLayoutY(700);
+        TextFields.bindAutoCompletion(addItem, ItemDatabase.getItemDatabase().getItems().keySet().stream().collect(Collectors.toList()));
         final TextField addCount = new TextField();
         addCount.setMaxWidth(itemCountCol.getPrefWidth());
         addCount.setPromptText("Count");
@@ -1006,6 +1008,16 @@ public class Planner extends Application {
         newProfile.setText("New Profile");
         newProfile.setOnAction(event -> { profileCreation(); });
         TextField nameEntry = new TextField();
+        // Binds local folder (./) and lists all base filenames without .ptp extension.
+        TextFields.bindAutoCompletion(
+                nameEntry, 
+                Arrays.stream(
+                        new File("./")
+                                .listFiles((File dir, String name) -> {
+                                    return name.endsWith(".ptp");
+                                }))
+                        .map(file -> file.getName().substring(0, file.getName().lastIndexOf(".")))
+                        .collect(Collectors.toList()));
         nameEntry.setLayoutX(450);
         nameEntry.setLayoutY(360);
         nameEntry.setPromptText("Profile Name");
