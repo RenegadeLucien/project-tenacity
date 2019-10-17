@@ -72,6 +72,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import org.controlsfx.control.textfield.TextFields;
 
 public class Planner extends Application {
 
@@ -87,11 +88,11 @@ public class Planner extends Application {
         Task<Map<String, Double>> futureTask = new Task<Map<String, Double>>() {
             @Override
             protected Map<String, Double> call() {
-                p.resetPlayer();
+                // p.resetPlayer();
                 HashMap<String,Double> achievementCalc = new HashMap<>();
                 int achievementNum = 0;
                 for (Achievement achievement : AchievementDatabase.getAchievementDatabase().getAchievements().values()) {
-                    achievementCalc.putAll(p.calcOneAchievement(achievement));
+                    // achievementCalc.putAll(p.calcOneAchievement(achievement));
                     achievementNum++;
                     updateProgress(achievementNum, AchievementDatabase.getAchievementDatabase().getAchievements().size());
                 }
@@ -425,6 +426,7 @@ public class Planner extends Application {
         addWeapon.setMaxWidth(itemCol.getPrefWidth());
         addWeapon.setLayoutX(700);
         addWeapon.setLayoutY(700);
+        TextFields.bindAutoCompletion(addWeapon, WeaponDatabase.getWeaponDatabase().getWeapons().keySet().stream().collect(Collectors.toList()));
         final Button addToWeaponButton = new Button("Add");
         addToWeaponButton.setLayoutX(900);
         addToWeaponButton.setLayoutY(700);
@@ -499,6 +501,7 @@ public class Planner extends Application {
         addArmour.setMaxWidth(itemCol.getPrefWidth());
         addArmour.setLayoutX(700);
         addArmour.setLayoutY(700);
+        TextFields.bindAutoCompletion(addArmour, ArmourDatabase.getArmourDatabase().getArmours().keySet().stream().collect(Collectors.toList()));
         final Button addToArmourButton = new Button("Add");
         addToArmourButton.setLayoutX(900);
         addToArmourButton.setLayoutY(700);
