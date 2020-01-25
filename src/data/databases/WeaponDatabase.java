@@ -273,7 +273,7 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Karil's off-hand pistol crossbow", "Ranged", "Bolts", "Off-hand", 0, 1486, 4, 336, 0, 0, Collections.singletonList(new Requirement("Ranged", 70))));
         weapons.add(new Weapon("Off-hand Armadyl crossbow", "Ranged", "Bolts", "Off-hand", 0, 1694, 4, 360, 0, 0, Collections.singletonList(new Requirement("Ranged", 75))));
         weapons.add(new Weapon("Off-hand shadow glaive", "Ranged", "Thrown", "Off-hand", 490, 2458, 5, 0, 0, 0, Collections.singletonList(new Requirement("Ranged", 85))));
-        weapons.add(new Weapon("Off-hand Ascension crossbow", "Ranged", "Bolts", "Off-hand", 0, 2458, 4, 432, 0, 0, Collections.singletonList(new Requirement("Ranged", 90))));
+        weapons.add(new Weapon("Off-hand ascension crossbow", "Ranged", "Bolts", "Off-hand", 0, 2458, 4, 432, 0, 0, Collections.singletonList(new Requirement("Ranged", 90))));
         weapons.add(new Weapon("Off-hand Blightbound crossbow", "Ranged", "Bolts", "Off-hand", 0, 2577, 4, 441, 0, 0, Collections.singletonList(new Requirement("Ranged", 92))));
 
         //Ranged two-hand (done)
@@ -291,7 +291,7 @@ public class WeaponDatabase {
         weapons.add(new Weapon("Black 2h crossbow", "Ranged", "Bolts", "Two-handed", 318, 381, 6, 240, 0, 0, Collections.singletonList(new Requirement("Ranged", 25))));
         weapons.add(new Weapon("Maple shortbow", "Ranged", "Arrows", "Two-handed", 263, 454, 5, 288, 0, 0, Collections.singletonList(new Requirement("Ranged", 30))));
         weapons.add(new Weapon("Maple shieldbow", "Ranged", "Arrows", "Two-handed", 159, 454, 6, 288, 0, 90, Arrays.asList(new Requirement("Ranged", 30), new Requirement("Defence", 30))));
-        weapons.add(new Weapon("Swamp lizard", "Ranged", "Bolts", "Two-handed", 397, 454, 6, 288, 0, 0, Collections.singletonList(new Requirement("Ranged", 30))));
+        weapons.add(new Weapon("Green salamander", "Ranged", "Bolts", "Two-handed", 397, 454, 6, 288, 0, 0, Collections.singletonList(new Requirement("Ranged", 30))));
         weapons.add(new Weapon("Yew shortbow", "Ranged", "Arrows", "Two-handed", 351, 628, 5, 384, 0, 0, Collections.singletonList(new Requirement("Ranged", 40))));
         weapons.add(new Weapon("Yew shieldbow", "Ranged", "Arrows", "Two-handed", 212, 628, 6, 384, 0, 125, Arrays.asList(new Requirement("Ranged", 40), new Requirement("Defence", 40))));
         weapons.add(new Weapon("Yew composite bow", "Ranged", "Arrows", "Two-handed", 212, 628, 6, 384, 0, 125, Collections.singletonList(new Requirement("Ranged", 40))));

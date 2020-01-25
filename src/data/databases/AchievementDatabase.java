@@ -1931,8 +1931,7 @@ public class AchievementDatabase {
                 Collections.singletonList("Wyrd"), Collections.singletonList("Wyrd"), Collections.singletonList("Wyrd"),
                 Collections.singletonList("Wyrd")))).reward("Quest points", 3).reward("Woodcutting", 800).reward("Herblore", 75000)
             .reward("Firemaking", 50000).reward("Fletching", 50000).reward("Mining", 50000).lamp(Player.ALL_SKILLS, 75000, 75)
-            .lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75)
-            .lamp(Player.ALL_SKILLS, 75000, 75).build());
+            .lamp(Player.ALL_SKILLS, 75000, 75).lamp(Player.ALL_SKILLS, 75000, 75).build());
         achievements.add(new AchievementBuilder("Recipe for Disaster: Defeating the Culinaromancer", 0.25)
             .requirement("Recipe for Disaster: Freeing Evil Dave", 1).requirement("Recipe for Disaster: Freeing the Goblin generals", 1)
             .requirement("Recipe for Disaster: Freeing King Awowogei", 1).requirement("Recipe for Disaster: Freeing the Lumbridge Sage", 1)
@@ -2926,7 +2925,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Obvious Forgery", 0).requirement("Dwarf Cannon", 1).requirement("Steel bar", 1)
             .requirement("Smithing", 35).reward("Cannonball", 4).reward("Smithing", 25).build());
         achievements.add(new AchievementBuilder("Izzy Wizzy Let's Get Lizzy", 0).requirement("Rope", 0)
-            .requirement("Small fishing net", 0).requirement("Hunter", 29).reward("Hunter", 152).reward("Swamp lizard", 1).build());
+            .requirement("Small fishing net", 0).requirement("Hunter", 29).reward("Hunter", 152).reward("Green salamander", 1).build());
         achievements.add(new AchievementBuilder("I Wonder How Far It Ghost?", 0).requirement("In Search of the Myreque", 1).build());
         achievements.add(new AchievementBuilder("Fun Guy But Bitter", 0.05).requirement("Farming", 53)
             .requirement("Bittercap mushroom spore", 1).reward("Farming", 413).reward("Bittercap mushroom", 6).build());
@@ -8124,7 +8123,7 @@ public class AchievementDatabase {
             .requirement("Vampyre dust", 1).requirement("Honeycomb", 1).requirement("Carved evil turnip", 1).requirement("Tinderbox", 1)
             .requirement("Raw beef", 1).requirement("Goat horn dust", 1).requirement("Snake hide", 1).requirement("Bagged plant 1", 1)
             .requirement("Pot of flour", 1).requirement("Phoenix quill", 3).requirement("Granite (500g)", 1).requirement("Red flowers", 1)
-            .requirement("Demon claw", 3).requirement("Dagannoth hide", 1).requirement("Swamp lizard", 1).requirement("Raw rabbit", 1)
+            .requirement("Demon claw", 3).requirement("Dagannoth hide", 1).requirement("Green salamander", 1).requirement("Raw rabbit", 1)
             .requirement("Wolf bones", 1).requirement("Iron ingot", 1).requirement("Yak-hide", 1).requirement("Steel ingot", 1)
             .requirement("Mammoth tusk", 1).requirement("In Aid of the Myreque", 1).encounter(new Encounter("Nail beast"))
             .reward("Summoning", 8259).reward("Spirit scorpion pouch", 1).reward("Spirit tz-kih pouch", 1).reward("Vampyre bat pouch", 1)
@@ -8201,8 +8200,8 @@ public class AchievementDatabase {
             .requirement("Dragonstone", -28).encounter(new Encounter("Dragonstone dragon")).build());
         achievements.add(new AchievementBuilder("Unlocking Expertise", 0).requirement("Ultimate Codex", 1).requirement("The World Wakes", 1)
             .requirement("Scare Tactics", 1).requirement("Reprisal Ability Codex", 1).requirement("Mazcab ability codex", 4)
-            .requirement("Mutated Fury ability codex", 1).requirement("Mutated Flurry ability codex", 1)
-            .requirement("Mutated Barge ability codex", 1).requirement("Shattering Worlds V", 1)
+            .requirement("Greater Fury ability codex", 1).requirement("Greater Flurry ability codex", 1)
+            .requirement("Greater Barge ability codex", 1).requirement("Shattering Worlds V", 1)
             .requirement("Anima Islands Reward Currency", 14500).build());
         achievements.add(new AchievementBuilder("Don't Choke", 0).requirement("Shrimps", 1).requirement("Saradomin brew (1)", 1)
             .reward("Vial", 1).build());

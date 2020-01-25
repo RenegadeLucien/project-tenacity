@@ -818,6 +818,9 @@ public class ItemDatabase {
         itemsList.add(new Item("Grapes", 1));
         itemsList.add(new Item("Great maki", 600));
         itemsList.add(new Item("Great white shark", 325));
+        itemsList.add(new Item("Greater Barge ability codex", 1250000));
+        itemsList.add(new Item("Greater Flurry ability codex", 1250000));
+        itemsList.add(new Item("Greater Fury ability codex", 1250000));
         itemsList.add(new Item("Green blossom seed", 50));
         itemsList.add(new Item("Green blubber jellyfish", 300));
         itemsList.add(new Item("Green dragon egg (unchecked)", 1));
@@ -829,6 +832,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Green dragonhide coif", 3900));
         itemsList.add(new Item("Green dragonhide shield", 10400));
         itemsList.add(new Item("Green dragonhide vambraces", 2500));
+        itemsList.add(new Item("Green salamander", 400));
         itemsList.add(new Item("Green spiky vambraces", 2500));
         itemsList.add(new Item("Greenman's ale", 2));
         itemsList.add(new Item("Grenwall spikes", 200));
@@ -1221,9 +1225,6 @@ public class ItemDatabase {
         itemsList.add(new Item("Muddy key", 1));
         itemsList.add(new Item("Mushroom & onion", 45));
         itemsList.add(new Item("Mushroom potato", 45));
-        itemsList.add(new Item("Mutated Barge ability codex", 1250000));
-        itemsList.add(new Item("Mutated Flurry ability codex", 1250000));
-        itemsList.add(new Item("Mutated Fury ability codex", 1250000));
         itemsList.add(new Item("Mycelial webbing", 160));
         itemsList.add(new Item("Mycelium leggings web", 200));
         itemsList.add(new Item("Mycelium visor web", 90));
@@ -1282,7 +1283,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Off-hand adamant dart", 65));
         itemsList.add(new Item("Off-hand adamant throwing axe", 262));
         itemsList.add(new Item("Off-hand Armadyl crossbow", 40000));
-        itemsList.add(new Item("Off-hand Ascension crossbow", 900000));
+        itemsList.add(new Item("Off-hand ascension crossbow", 900000));
         itemsList.add(new Item("Off-hand black battleaxe", 1248));
         itemsList.add(new Item("Off-hand black claw", 180));
         itemsList.add(new Item("Off-hand black crossbow", 157));
@@ -1908,7 +1909,6 @@ public class ItemDatabase {
         itemsList.add(new Item("Super Zamorak brew (3)", 175));
         itemsList.add(new Item("Super strength (3)", 220));
         itemsList.add(new Item("Supercompost", 85));
-        itemsList.add(new Item("Swamp lizard", 400));
         itemsList.add(new Item("Swamp paste", 31));
         itemsList.add(new Item("Swamp tar", 1));
         itemsList.add(new Item("Swamp titan pouch", 4174));
@@ -1935,14 +1935,14 @@ public class ItemDatabase {
         itemsList.add(new Item("Tetsu platelegs", 4000000));
         itemsList.add(new Item("Thin snail", 60));
         itemsList.add(new Item("Thin snail meat", 10));
-        itemsList.add(new Item("Third-age druidic cloak", 40000));
-        itemsList.add(new Item("Third-age full helmet", 90000));
-        itemsList.add(new Item("Third-age kiteshield", 180000));
-        itemsList.add(new Item("Third-age mage hat", 10000));
-        itemsList.add(new Item("Third-age platebody", 200000));
-        itemsList.add(new Item("Third-age platelegs", 200000));
-        itemsList.add(new Item("Third-age robe", 40000));
-        itemsList.add(new Item("Third-age robe top", 45000));
+        itemsList.add(new Item("Third age druidic cloak", 40000));
+        itemsList.add(new Item("Third age full helmet", 90000));
+        itemsList.add(new Item("Third age kiteshield", 180000));
+        itemsList.add(new Item("Third age mage hat", 10000));
+        itemsList.add(new Item("Third age platebody", 200000));
+        itemsList.add(new Item("Third age platelegs", 200000));
+        itemsList.add(new Item("Third age robe", 40000));
+        itemsList.add(new Item("Third age robe top", 45000));
         itemsList.add(new Item("Thorny snail pouch", 649));
         itemsList.add(new Item("Thread", 4));
         itemsList.add(new Item("Tiara", 100));
