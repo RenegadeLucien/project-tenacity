@@ -363,6 +363,10 @@ public class ArmourDatabase {
         armours.add(new Armour("Static gloves", "Magic", "Hands", 108, 0, 0, 0.017, 0, Collections.singletonList(new Requirement("Defence", 85))));
         armours.add(new Armour("Celestial handwraps", "Magic", "Hands", 108, 0, 2, 0, 14, Collections.singletonList(new Requirement("Defence", 90))));
 
+        //All/hybrid hands
+        armours.add(new Armour("Deathtouch bracelet", "All", "Hands", 0, 0, 3, 0, 14, new ArrayList<>()));
+        armours.add(new Armour("Cinderbane gloves", "All", "Hands", 74, 0, 0, 0, 11, Collections.singletonList(new Requirement("Defence", 85))));
+
         //Melee feet (done)
         armours.add(new Armour("Bronze armoured boots", "Melee", "Feet", 7, 0, 0, 0.0008, 0, new ArrayList<>()));
         armours.add(new Armour("Fancy boots", "Melee", "Feet", 7, 0, 0, 0.001, 0, new ArrayList<>()));
@@ -495,6 +499,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Archers' ring", "Ranged", "Ring", 0, 0, 0, 0, 17, new ArrayList<>()));
         armours.add(new Armour("Seers' ring", "Magic", "Ring", 0, 0, 0, 0, 17, new ArrayList<>()));
         armours.add(new Armour("Luck of the dwarves", "All", "Ring", 0, 0, 0, 0, 17, new ArrayList<>()));
+        armours.add(new Armour("Hazelmere's signet ring", "All", "Ring", 0, 0, 0, 0, 21, new ArrayList<>()));
         armours.add(new Armour("Ring of death", "All", "Ring", 0, 0, 3, 0, 25, new ArrayList<>()));
 
         //Cape (done)
@@ -507,7 +512,15 @@ public class ArmourDatabase {
         armours.add(new Armour("Dragon Rider cape", "All", "Cape", 29, 0, 6, 0, 0, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Explosive barrel", "All", "Cape", 38, 0, 0, 0, 0, new ArrayList<>()));
         armours.add(new Armour("Third age druidic cloak", "All", "Cape", 44, 0, 2, 0, 0, Arrays.asList(new Requirement("Defence", 65), new Requirement("Prayer", 65))));
-        armours.add(new Armour("Abomination cape", "Melee", "Cape", 50, 0, 0, 0, 28, Collections.singletonList(new Requirement("Defence", 75))));
+        armours.add(new Armour("Max cape", "All", "Cape", 44, 100, 5, 0, 31, Arrays.asList(new Requirement("Attack", 99), new Requirement("Defence", 99),
+                new Requirement("Strength", 99), new Requirement("Constitution", 99), new Requirement("Ranged", 99), new Requirement("Prayer", 99), new Requirement("Magic", 99),
+                new Requirement("Cooking", 99), new Requirement("Woodcutting", 99), new Requirement("Fletching", 99), new Requirement("Fishing", 99), new Requirement("Firemaking", 99),
+                new Requirement("Crafting", 99), new Requirement("Smithing", 99), new Requirement("Mining", 99), new Requirement("Herblore", 99), new Requirement("Agility", 99),
+                new Requirement("Thieving", 99), new Requirement("Slayer", 99), new Requirement("Farming", 99), new Requirement("Runecrafting", 99), new Requirement("Hunter", 99),
+                new Requirement("Construction", 99), new Requirement("Summoning", 99), new Requirement("Dungeoneering", 99), new Requirement("Divination", 99), new Requirement("Invention", 99))));
+        armours.add(new Armour("TokHaar-Kal-Mej", "Magic", "Cape", 44, 0, 2, 0, 33, Arrays.asList(new Requirement("Magic", 75), new Requirement("Agility", 60), new Requirement("Mining", 41))));
+        armours.add(new Armour("TokHaar-Kal-Ket", "Melee", "Cape", 44, 0, 2, 0, 33, Arrays.asList(new Requirement("Magic", 75), new Requirement("Agility", 60), new Requirement("Mining", 41))));
+        armours.add(new Armour("TokHaar-Kal-Xil", "Ranged", "Cape", 44, 0, 2, 0, 33, Arrays.asList(new Requirement("Magic", 75), new Requirement("Agility", 60), new Requirement("Mining", 41))));armours.add(new Armour("Abomination cape", "Melee", "Cape", 50, 0, 0, 0, 28, Collections.singletonList(new Requirement("Defence", 75))));
         armours.add(new Armour("Reefwalker's cape", "All", "Cape", 62, 200, 0, 0, 9, Collections.singletonList(new Requirement("Defence", 85))));
 
         for (Armour armour : armours) {

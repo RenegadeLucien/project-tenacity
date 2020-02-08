@@ -441,6 +441,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Chopped onion", 3));
         itemsList.add(new Item("Chopped tuna", 104));
         itemsList.add(new Item("Cider", 2));
+        itemsList.add(new Item("Cinderbane gloves", 50000));
         itemsList.add(new Item("Clay", 1));
         itemsList.add(new Item("Clay ring (unfired)", 55));
         itemsList.add(new Item("Clay ring", 140));
@@ -549,6 +550,7 @@ public class ItemDatabase {
         itemsList.add(new Item("Death rune", 310));
         itemsList.add(new Item("Death talisman", 4));
         itemsList.add(new Item("Death tiara", 100));
+        itemsList.add(new Item("Deathtouch bracelet", 255000));
         itemsList.add(new Item("Decimation", 1200000));
         itemsList.add(new Item("Decorated fishing urn (nr)", 410));
         itemsList.add(new Item("Defence potion (3)", 880));
