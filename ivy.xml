@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+  <info organisation="org.apache" module="Tenacity"/>
+  <dependencies>
+    <dependency org="com.google.guava" name="guava" rev="19.0"/>
+    <dependency org="com.google.code.gson" name="gson" rev="2.8.6"/>    
+  </dependencies>
+</ivy-module>
