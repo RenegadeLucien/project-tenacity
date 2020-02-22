@@ -2138,22 +2138,22 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Brothers in More Arms", 0).requirement("Barrows totem", 6)
             .encounter(new Encounter(Arrays.asList(Arrays.asList("Karil the Tainted (ROTS)", "Torag the Corrupted (ROTS)",
                 "Dharok the Wretched (ROTS)"), Arrays.asList("Guthan the Infested (ROTS)", "Ahrim the Blighted (ROTS)",
-                "Verac the Defiled (ROTS)"))))
+                "Verac the Defiled (ROTS)")), 4))
             .encounter(new Encounter(Arrays.asList(Arrays.asList("Karil the Tainted (ROTS)", "Torag the Corrupted (ROTS)",
                 "Dharok the Wretched (ROTS)"), Arrays.asList("Guthan the Infested (ROTS)", "Verac the Defiled (ROTS)",
-                "Ahrim the Blighted (ROTS)"))))
+                "Ahrim the Blighted (ROTS)")), 4))
             .encounter(new Encounter(Arrays.asList(Arrays.asList("Karil the Tainted (ROTS)", "Torag the Corrupted (ROTS)",
                 "Dharok the Wretched (ROTS)"), Arrays.asList("Ahrim the Blighted (ROTS)", "Verac the Defiled (ROTS)",
-                "Guthan the Infested (ROTS)"))))
+                "Guthan the Infested (ROTS)")), 4))
             .encounter(new Encounter(Arrays.asList(Arrays.asList("Karil the Tainted (ROTS)", "Torag the Corrupted (ROTS)",
                 "Guthan the Infested (ROTS)"), Arrays.asList("Ahrim the Blighted (ROTS)", "Verac the Defiled (ROTS)",
-                "Dharok the Wretched (ROTS)"))))
+                "Dharok the Wretched (ROTS)")), 4))
             .encounter(new Encounter(Arrays.asList(Arrays.asList("Karil the Tainted (ROTS)", "Dharok the Wretched (ROTS)",
                 "Guthan the Infested (ROTS)"), Arrays.asList("Ahrim the Blighted (ROTS)", "Verac the Defiled (ROTS)",
-                "Torag the Corrupted (ROTS)"))))
+                "Torag the Corrupted (ROTS)")), 4))
             .encounter(new Encounter(Arrays.asList(Arrays.asList("Torag the Corrupted (ROTS)", "Dharok the Wretched (ROTS)",
                 "Guthan the Infested (ROTS)"), Arrays.asList("Ahrim the Blighted (ROTS)", "Verac the Defiled (ROTS)",
-                "Karil the Tainted (ROTS)")))).build());
+                "Karil the Tainted (ROTS)")), 4)).build());
         achievements.add(new AchievementBuilder("Brutal Stuffies", 0).requirement("Zogre Flesh Eaters", 1)
             .requirement("Relicym's balm (4)", 1).build());
         achievements.add(new AchievementBuilder("Bug Swatter I", 0).requirement("Kalphite Queen", 5).build());
