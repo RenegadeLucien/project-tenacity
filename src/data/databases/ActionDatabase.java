@@ -1163,7 +1163,7 @@ public class ActionDatabase {
             .put("Fishing level-ticks", 6000 * Math.max(72, player.getLevel("Fishing"))).put("Wavecrest opal", 1).put("Maw coral", 1).build(), menaphosFished, true, true));
         database.add(new Action("Fishing Frenzy", Collections.singletonList(new Requirement("Fishing", 94)), new HashMap(), ImmutableMap.of("Fishing", 285000,
             "Fishing level-ticks", 6000 * Math.max(94,player.getLevel("Fishing"))), 1000, true, true));
-        database.add(new Action("Fishing wobbegongs", Arrays.asList(new Requirement("Fishing", 96), new Requirement("Arc I - Flag Fall", 1)), new HashMap(), ImmutableMap.of("Fishing", 137000,
+        database.add(new Action("Fishing wobbegongs", Arrays.asList(new Requirement("Fishing", 96), new Requirement("Flag Fall (miniquest)", 1)), new HashMap(), ImmutableMap.of("Fishing", 137000,
             "Fishing level-ticks", 6000 * Math.max(96,player.getLevel("Fishing"))), 1000, true, true));
 
         //Fletching (done)
@@ -1521,7 +1521,7 @@ public class ActionDatabase {
             68 + player.getLevel("Hunter"), true, true));
         database.add(new Action("Hunting tortles", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Hunter", 90)),
             new HashMap(), ImmutableMap.of("Hunter", 131600, "Tortoiseshell Plover", 2, "Shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(90, player.getLevel("Hunter"))), 400, true, true));
-        database.add(new Action("Hunting ornate tortles", Arrays.asList(new Requirement("Arc I - Flag Fall", 1), new Requirement("Hunter", 96)),
+        database.add(new Action("Hunting ornate tortles", Arrays.asList(new Requirement("Flag Fall (miniquest)", 1), new Requirement("Hunter", 96)),
             new HashMap(), ImmutableMap.of("Hunter", 279200, "Tortoiseshell Plover", 2, "Shiny shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(96, player.getLevel("Hunter"))),
             400, true, true));
         database.add(new Action("Big Game Hunter (tier 1)", Arrays.asList(new Requirement("Hunter", 75), new Requirement("Slayer", 55)), new HashMap(),

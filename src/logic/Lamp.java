@@ -32,7 +32,7 @@ public class Lamp {
         Reward maxReward = new Reward("Attack", 1);
         boolean cantUse = true;
         for (String choice : choices) {
-            if (player.getLevel(choice) >= minLevel) {
+            if (player.getLevel(choice) >= minLevel && !choice.equals("Archaeology")) {
                 cantUse = false;
                 if (player.getLevel(choice) < 99) {
                     int xpReward = xp;

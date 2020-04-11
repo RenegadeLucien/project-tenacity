@@ -155,7 +155,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Glacor", 1881, "Glacors", Collections.singletonList(new Requirement("Ritual of the Mahjarrat", 1))));
         slayerMonsters.add(new SlayerMonster("Goblin", 6.6, "Goblins", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Skoblin", 9.4, "Goblins", Collections.singletonList(new Requirement("The Blood Pact", 1))));
-        slayerMonsters.add(new SlayerMonster("Gorak", 49.8, "Goraks", Collections.singletonList(new Requirement("Fairy Tale II - Cure a Queen", 1))));
+        slayerMonsters.add(new SlayerMonster("Gorak", 49.8, "Goraks", Collections.singletonList(new Requirement("A Fairy Tale II - Cure a Queen", 1))));
         slayerMonsters.add(new SlayerMonster("Greater demon", 135.4, "Greater demons", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("K'ril Tsutsaroth", 2151.5, "Greater demons", Arrays.asList(new Requirement("Constitution", 70), new Requirement("Strength", 60),
             new Requirement("Troll Stronghold", 1))));
@@ -300,7 +300,7 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Ice troll runt", 24.8, "Trolls", Collections.singletonList(new Requirement("The Fremennik Isles", 1))));
         slayerMonsters.add(new SlayerMonster("Ice troll male", 41.5, "Trolls", Collections.singletonList(new Requirement("The Fremennik Isles", 1))));
         slayerMonsters.add(new SlayerMonster("Ice troll female", 41.5, "Trolls", Collections.singletonList(new Requirement("The Fremennik Isles", 1))));
-        slayerMonsters.add(new SlayerMonster("River troll", 89.4, "Trolls", Collections.singletonList(new Requirement("Fairy Tale II - Cure a Queen", 1))));
+        slayerMonsters.add(new SlayerMonster("River troll", 89.4, "Trolls", Collections.singletonList(new Requirement("A Fairy Tale II - Cure a Queen", 1))));
         slayerMonsters.add(new SlayerMonster("Turoth", 41.4, "Turoths", Collections.singletonList(new Requirement("Slayer", 55))));
         slayerMonsters.add(new SlayerMonster("Feral vampyre", 32.6, "Vampyres", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Lampenflora", 1332, "Vile blooms", Collections.singletonList(new Requirement("Slayer", 102))));

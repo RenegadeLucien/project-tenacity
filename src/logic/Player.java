@@ -35,7 +35,7 @@ public class Player {
     public static final LinkedHashSet<String> ALL_SKILLS = new LinkedHashSet<>(Arrays.asList("Attack", "Defence", "Strength", "Constitution",
         "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
         "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction", "Summoning",
-        "Dungeoneering", "Divination", "Invention"));
+        "Dungeoneering", "Divination", "Invention", "Archaeology"));
 
     public static final LinkedHashSet<String> PORTS_SKILLS = new LinkedHashSet<>(Arrays.asList("Agility", "Construction", "Cooking",
         "Divination", "Dungeoneering", "Fishing", "Herblore", "Hunter", "Prayer", "Runecrafting", "Slayer", "Thieving"));

@@ -77,7 +77,7 @@ public class Planner extends Application {
 
     private Pane root = new Pane();
 
-    private static final String CURRENT_VERSION = "v1.0.9";
+    private static final String CURRENT_VERSION = "v1.0.10";
 
     public static void main(String args[]) {
         launch(args);
@@ -871,6 +871,7 @@ public class Planner extends Application {
             try {
                 getPlayerXp(p);
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 Alert alert = new Alert(AlertType.WARNING, String.format("Failed to get player XP from RuneMetrics. Continuing with fresh account stats. Note that Project Tenacity cannot " +
                     "get data from private profiles. If you believe the name '%s' was valid, please raise a T99 issue.", p.getName()));
                 alert.showAndWait();
