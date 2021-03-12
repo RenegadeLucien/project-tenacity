@@ -11,7 +11,7 @@ Finally, run the .jar.
 # How to use
 To create a new player profile, select "New Profile" and input a player name to use. If you use a valid RSN and have a public RuneMetrics profile, this will also pull your stats and completed quests from RuneMetrics. Currently, only mainscape profile creation is supported, not Ironman or HCIM. (Sorry. I tried. But adding Ironman and HCIM support would probably take another 3 years to complete.) To load a previously created profile, input the name of the profile you wish to load, and select "Load Profile."
 
-It is important to note that if this is your first time using Project Tenacity, the tool must gather Grand Exchange data on all of the items in its item database. This takes approximately 12-15 minutes. Also, every time a profile is created or loaded, the tool will calculate the optimal path for the profile, which will take up to a minute depending on player progress.
+It is important to note that every time a profile is created or loaded, the tool will calculate the optimal path for the profile, which will take up to a minute depending on player progress.
 
 Once your profile is created or loaded, you will be on the main pathing screen. This screen consists of two tables: an achievement table that contains every achievement in RuneScape that your character has not yet completed, and a player table that includes details about your player, such as your player's skill levels, bank, gear, and the achievements they have completed.
 
