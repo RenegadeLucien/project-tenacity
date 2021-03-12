@@ -3,15 +3,16 @@ package data.dataobjects;
 import com.google.common.collect.ImmutableMap;
 import data.databases.AchievementDatabase;
 import data.databases.ArmourDatabase;
-import data.databases.ItemDatabase;
 import data.databases.WeaponDatabase;
 import logic.CombatParameters;
 import logic.CombatResults;
 import logic.Encounter;
 import logic.GoalResults;
 import logic.Lamp;
+import logic.LevelHelper;
 import logic.Loadout;
 import logic.Player;
+import logic.PriceFetcher;
 import logic.Requirement;
 import logic.Reward;
 
@@ -121,7 +122,7 @@ public class Achievement {
         for (Requirement requirement : newReqs) {
             if (WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()) != null || ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()) != null) {
                 reqsMap.put(requirement.getQualifier(), 1);
-            } else if (reqsMap.containsKey(requirement.getQualifier()) && ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+            } else if (reqsMap.containsKey(requirement.getQualifier()) && PriceFetcher.getPrice(requirement.getQualifier()) > 0) {
                 reqsMap.put(requirement.getQualifier(), reqsMap.get(requirement.getQualifier()) + requirement.getQuantifier());
             } else if (reqsMap.containsKey(requirement.getQualifier())) {
                 if (requirement.getQualifier().equals("Time spent on scripted fights")) {
@@ -176,35 +177,35 @@ public class Achievement {
                     if (meleeCombatResults.getHpLost() < 1000000 && meleeCombatResults.getHpLost() < rangedCombatResults.getHpLost() && meleeCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
                         loadout = meleeCombatResults.getLoadoutUsed();
                         if (loadout.getXp().get("Attack") > initialXP.get("Attack")) {
-                            singleEncounterRequirements.add(new Requirement("Attack", player.getLevel("Attack")));
+                            singleEncounterRequirements.add(new Requirement("Attack", LevelHelper.getLevel("Attack", loadout.getXp().get("Attack"))));
                         }
                         if (loadout.getXp().get("Strength") > initialXP.get("Strength")) {
-                            singleEncounterRequirements.add(new Requirement("Strength", player.getLevel("Strength")));
+                            singleEncounterRequirements.add(new Requirement("Strength", LevelHelper.getLevel("Strength", loadout.getXp().get("Strength"))));
                         }
                     }
                     else if (rangedCombatResults.getHpLost() < 1000000 && rangedCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
                         loadout = rangedCombatResults.getLoadoutUsed();
                         if (loadout.getXp().get("Ranged") > initialXP.get("Ranged")) {
-                            singleEncounterRequirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
+                            singleEncounterRequirements.add(new Requirement("Ranged", LevelHelper.getLevel("Ranged", loadout.getXp().get("Ranged"))));
                         }
                     }
                     else if (magicCombatResults.getHpLost() < 1000000) {
                         loadout = magicCombatResults.getLoadoutUsed();
                         if (loadout.getXp().get("Magic") > initialXP.get("Magic")) {
-                            singleEncounterRequirements.add(new Requirement("Magic", player.getLevel("Magic")));
+                            singleEncounterRequirements.add(new Requirement("Magic", LevelHelper.getLevel("Magic", loadout.getXp().get("Magic"))));
                         }
                     }
                     if (loadout.getXp().get("Defence") > initialXP.get("Defence")) {
-                        singleEncounterRequirements.add(new Requirement("Defence", player.getLevel("Defence")));
+                        singleEncounterRequirements.add(new Requirement("Defence", LevelHelper.getLevel("Defence", loadout.getXp().get("Defence"))));
                     }
                     if (loadout.getXp().get("Constitution") > initialXP.get("Constitution")) {
-                        singleEncounterRequirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
+                        singleEncounterRequirements.add(new Requirement("Constitution", LevelHelper.getLevel("Constitution", loadout.getXp().get("Constitution"))));
                     }
                     if (loadout.getXp().get("Summoning") > initialXP.get("Summoning")) {
-                        singleEncounterRequirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
+                        singleEncounterRequirements.add(new Requirement("Summoning", LevelHelper.getLevel("Summoning", loadout.getXp().get("Summoning"))));
                     }
                     if (loadout.getXp().get("Herblore") > initialXP.get("Herblore")) {
-                        singleEncounterRequirements.add(new Requirement("Herblore", player.getLevel("Herblore")));
+                        singleEncounterRequirements.add(new Requirement("Herblore", LevelHelper.getLevel("Herblore", loadout.getXp().get("Herblore"))));
                     }
                     if (!initialArmours.contains(loadout.getHead()) && !loadout.getHead().equals(ArmourDatabase.getArmourDatabase().getArmours().get("None"))) {
                         singleEncounterRequirements.add(new Requirement(loadout.getHead().getName(), 1));
@@ -282,8 +283,8 @@ public class Achievement {
         List<Requirement> trueReqs = getTrueRequirements(player);
         int totalCoinReq = 0;
         for (Requirement r : trueReqs) {
-            if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null) {
-                totalCoinReq += ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player)*r.getQuantifier();
+            if (PriceFetcher.getPrice(r.getQualifier()) > 0) {
+                totalCoinReq += PriceFetcher.getPrice(r.getQualifier()) * r.getQuantifier();
             } else {
                 GoalResults resultsForOneRequirement;
                 if (AchievementDatabase.getAchievementDatabase().getAchievements().get(r.getQualifier()) != null && !r.meetsRequirement(player)) {
@@ -321,7 +322,7 @@ public class Achievement {
         double totalGainFromAllRewards = 0;
         boolean itemRewards = false;
         for (Reward r : rewards) {
-            if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null) {
+            if (PriceFetcher.getPrice(r.getQualifier()) > 0) {
                 itemRewards = true;
             }
         }
@@ -329,14 +330,14 @@ public class Achievement {
         if (itemRewards) {
             List<Requirement> trueReqs = getTrueRequirements(player);
             for (Requirement r : trueReqs) {
-                if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null) {
-                    totalCoinReq += ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player) * r.getQuantifier();
+                if (PriceFetcher.getPrice(r.getQualifier()) > 0) {
+                    totalCoinReq += PriceFetcher.getPrice(r.getQualifier()) * r.getQuantifier();
                 }
             }
         }
         for (Reward r : rewards) {
-            if (ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null && totalCoinReq > 0) {
-                int coinReward = ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()).coinValue(player) * r.getQuantifier();
+            if (PriceFetcher.getPrice(r.getQualifier()) > 0 && totalCoinReq > 0) {
+                int coinReward = PriceFetcher.getPrice(r.getQualifier()) * r.getQuantifier();
                 if (totalCoinReq >= coinReward) {
                     totalCoinReq -= coinReward;
                 } else {

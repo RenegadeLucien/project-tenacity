@@ -53,7 +53,7 @@ public class AchievementDatabase {
             .encounter(new Encounter("Cerberus")).encounter(new Encounter("Monk of Zamorak")).reward("Quest points", 1)
             .lamp(Collections.singletonList("Prayer"), 1406, 10).build());
         achievements.add(new AchievementBuilder("Temple of Ikov", 0.75).requirement("Thieving", 42).requirement("Ranged", 40)
-            .requirement("Limpwurt root", 20).requirement("Candle", 0).encounter(new Encounter("Fire Warrior of Lesarkus"))
+            .requirement("Limpwurt root", 20).requirement("White candle", 0).encounter(new Encounter("Fire Warrior of Lesarkus"))
             .reward("Quest points", 1).reward("Ranged", 10500).reward("Fletching", 8000).build());
         achievements.add(new AchievementBuilder("The Tourist Trap", 1).requirement("Fletching", 10).requirement("Smithing", 20)
             .requirement("Desert shirt", 1).requirement("Desert robe", 1).requirement("Desert boots", 1).requirement("Waterskin (4)", 3)
@@ -96,7 +96,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("A Body in the Sewers", 0).requirement("Mithril bar", 5).requirement("Smithing", 68)
             .reward("Mithril platebody", 1).reward("Smithing", 250).build());
         achievements.add(new AchievementBuilder("A Bolt from the Blue", 0).requirement("Rune bar", 1).requirement("Feather", 10)
-            .requirement("Smithing", 88).requirement("Fletching", 69).reward("Smithing", 75).reward("Fletching", 100).build());
+            .requirement("Smithing", 50).requirement("Fletching", 69).reward("Smithing", 250).reward("Fletching", 100)
+            .reward("Rune bolts (unf)", 40).reward("Rune bolts", 10).build());
         achievements.add(new AchievementBuilder("A Bridge Not Far", 0).requirement("Agility", 8).requirement("Strength", 19)
             .requirement("Ranged", 37).build());
         achievements.add(new AchievementBuilder("Plague City", 0.5).requirement("Dwellberries", 1).requirement("Rope", 1)
@@ -646,10 +647,10 @@ public class AchievementDatabase {
             .reward("Mining", 100000).reward("Smithing", 100000).reward("Strength", 200000).reward("Mithril bar", 30)
             .reward("Adamant bar", 30).reward("Rune bar", 30).build());
         achievements.add(new AchievementBuilder("Death to the Dorgeshuun", 0.75).requirement("The Lost Tribe", 1)
-            .requirement("Thieving", 23).requirement("Agility", 23).requirement("H.a.m. hood", 1).requirement("H.a.m. shirt", 1)
-            .requirement("H.a.m. robe", 1).requirement("H.a.m. gloves", 1).requirement("H.a.m. boots", 1).requirement("H.a.m. cloak", 1)
-            .requirement("H.a.m. logo", 1).requirement("H.a.m. hood", 0).requirement("H.a.m. shirt", 0).requirement("H.a.m. robe", 0)
-            .requirement("H.a.m. gloves", 0).requirement("H.a.m. boots", 0).requirement("H.a.m. cloak", 0).requirement("H.a.m. logo", 0)
+            .requirement("Thieving", 23).requirement("Agility", 23).requirement("H.A.M. hood", 1).requirement("H.A.M. shirt", 1)
+            .requirement("H.A.M. robe", 1).requirement("H.A.M. gloves", 1).requirement("H.A.M. boots", 1).requirement("H.A.M. cloak", 1)
+            .requirement("H.A.M. logo", 1).requirement("H.A.M. hood", 0).requirement("H.A.M. shirt", 0).requirement("H.A.M. robe", 0)
+            .requirement("H.A.M. gloves", 0).requirement("H.A.M. boots", 0).requirement("H.A.M. cloak", 0).requirement("H.A.M. logo", 0)
             .requirement("Bullseye lantern (oil)", 0)
             .encounter(new Encounter(Collections.singletonList(Arrays.asList("Sigmund (DttD)", "Guard (DttD)", "Guard (DttD)",
                 "Guard (DttD)")))).reward("Quest points", 1).reward("Thieving", 2000).reward("Ranged", 2000).build());
@@ -694,7 +695,7 @@ public class AchievementDatabase {
                 75000, 79).build());
         achievements.add(new AchievementBuilder("Enakhra's Lament", 0.75).requirement("Crafting", 50).requirement("Firemaking", 45)
             .requirement("Magic", 13).requirement("Granite (5kg)", 2).requirement("Sandstone (10kg)", 5).requirement("Sandstone (2kg)", 1)
-            .requirement("Meat pizza", 1).requirement("Air rune", 2).requirement("Fire rune", 1).requirement("Candle", 1)
+            .requirement("Meat pizza", 1).requirement("Air rune", 2).requirement("Fire rune", 1).requirement("White candle", 1)
             .requirement("Logs", 1).requirement("Oak logs", 1).requirement("Willow logs", 1).requirement("Maple logs", 1)
             .requirement("Soft clay", 1).requirement("Coal", 1).reward("Quest points", 2).reward("Crafting", 7000).reward("Mining", 7000)
             .reward("Firemaking", 7000).reward("Magic", 7000).build());
@@ -1058,7 +1059,7 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Enlightened Journey", 0.75).requirement("Quest points", 21)
             .requirement("Firemaking", 20).requirement("Farming", 30).requirement("Crafting", 36).requirement("Logs", 10)
-            .requirement("Papyrus", 3).requirement("Ball of wool", 1).requirement("Candle", 1).requirement("Yellow dye", 1)
+            .requirement("Papyrus", 3).requirement("Ball of wool", 1).requirement("White candle", 1).requirement("Yellow dye", 1)
             .requirement("Red dye", 1).requirement("Empty sack", 9).requirement("Silk", 10).requirement("Bowl", 1)
             .requirement("Willow branch", 12).reward("Quest points", 1).reward("Crafting", 2000).reward("Farming", 3000)
             .reward("Woodcutting", 1500).reward("Firemaking", 4000).build());
@@ -2776,7 +2777,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Jute Alors!", 0).requirement("Farming", 13).requirement("Jute seed", 3)
             .reward("Farming", 13).build());
         achievements.add(new AchievementBuilder("Happy Hour", 0).requirement("Cider", 5).build());
-        achievements.add(new AchievementBuilder("Grand Candle", 0).requirement("Coins", 3).reward("Candle", 1).build());
+        achievements.add(new AchievementBuilder("Grand Candle", 0).requirement("Coins", 3).reward("White candle", 1).build());
         achievements.add(new AchievementBuilder("Seers' Village Set Tasks - Easy", 0).requirement("Reflax Actions", 1)
             .requirement("Why?", 1).requirement("Stir, Galahad", 1).requirement("La Morte D'Arthur", 1)
             .requirement("Another String to Your Bow", 1).requirement("Bunch of Flours", 1).requirement("Happy Hour", 1)
@@ -3484,7 +3485,7 @@ public class AchievementDatabase {
                 Collections.singletonList("Mosschin"), Collections.singletonList("Redeyes"), Collections.singletonList("Strongbones"))))
             .reward("Prayer", 13750).build());
         achievements.add(new AchievementBuilder("Yaktwee's a Charm", 0).requirement("Charm sprites", 1000).build());
-        achievements.add(new AchievementBuilder("Boric's Task I (miniquest)", 0.05).requirement("What's Mine is Yours", 1)
+        achievements.add(new AchievementBuilder("Boric's Task I (miniquest)", 0.1).requirement("What's Mine is Yours", 1)
             .requirement("Mining", 30).requirement("Coal", 30).reward("Mining", 30).lamp(Arrays.asList("Mining", "Smithing"), 4500, 1)
             .build());
         achievements.add(new AchievementBuilder("Boric's Task II (miniquest)", 0.1).requirement("Boric's Task I (miniquest)", 1)
@@ -3492,30 +3493,30 @@ public class AchievementDatabase {
             .encounter(new Encounter("Living rock brawler")).encounter(new Encounter("Living rock brawler"))
             .encounter(new Encounter("Living rock brawler")).reward("Mining", 3500).lamp(Arrays.asList("Mining", "Smithing"), 10500, 1)
             .build());
-        achievements.add(new AchievementBuilder("Boric's Task III (miniquest)", 0.1).requirement("Boric's Task II (miniquest)", 1)
-            .requirement("Mining", 60).reward("Mining", 9550).lamp(Arrays.asList("Mining", "Smithing"), 24000, 1).build());
+        achievements.add(new AchievementBuilder("Boric's Task III (miniquest)", 0.25).requirement("Boric's Task II (miniquest)", 1)
+            .requirement("Mining", 60).reward("Mining", 16376).lamp(Arrays.asList("Mining", "Smithing"), 24000, 1).build());
         achievements.add(new AchievementBuilder("Doric's Task I (miniquest)", 0.1).requirement("What's Mine is Yours", 1)
-            .requirement("Smithing", 12).requirement("Bronze bar", 10).reward("Smithing", 620)
+            .requirement("Smithing", 10).requirement("Iron bar", 4).reward("Smithing", 410)
             .lamp(Arrays.asList("Mining", "Smithing"), 750, 1).build());
         achievements.add(new AchievementBuilder("Doric's Task II (miniquest)", 0.1).requirement("Doric's Task I (miniquest)", 1)
-            .requirement("Death Plateau", 1).requirement("Smithing", 18).requirement("Bronze bar", 26).reward("Smithing", 825)
-            .lamp(Arrays.asList("Mining", "Smithing"), 1500, 1).build());
-        achievements.add(new AchievementBuilder("Doric's Task III (miniquest)", 0.1).requirement("Doric's Task II (miniquest)", 1)
-            .requirement("Smithing", 24).requirement("Iron bar", 25).reward("Smithing", 1375)
+            .requirement("Death Plateau", 1).requirement("Smithing", 20).requirement("Steel bar", 10)
+            .requirement("Bronze bar", 2).reward("Smithing", 1275).lamp(Arrays.asList("Mining", "Smithing"), 1500, 1).build());
+        achievements.add(new AchievementBuilder("Doric's Task III (miniquest)", 0.25).requirement("Doric's Task II (miniquest)", 1)
+            .requirement("Smithing", 30).requirement("Mithril bar", 8).reward("Smithing", 1710)
             .lamp(Arrays.asList("Mining", "Smithing"), 2250, 1).build());
-        achievements.add(new AchievementBuilder("Doric's Task IV (miniquest)", 0.1).requirement("Doric's Task III (miniquest)", 1)
-            .requirement("Smithing", 30).requirement("Iron ore", 20).reward("Smithing", 3520)
+        achievements.add(new AchievementBuilder("Doric's Task IV (miniquest)", 0.75).requirement("Doric's Task III (miniquest)", 1)
+            .requirement("Smithing", 40).requirement("Adamant bar", 48).reward("Smithing", 13944)
             .lamp(Arrays.asList("Mining", "Smithing"), 4500, 1).build());
-        achievements.add(new AchievementBuilder("Doric's Task V (miniquest)", 0.1).requirement("Doric's Task IV (miniquest)", 1)
-            .requirement("Smithing", 48).requirement("Steel bar", 10).requirement("Steel platebody", 8).reward("Smithing", 5375)
+        achievements.add(new AchievementBuilder("Doric's Task V (miniquest)", 0.25).requirement("Doric's Task IV (miniquest)", 1)
+            .requirement("Smithing", 50).requirement("Rune bar", 12).requirement("Steel platebody", 4).reward("Smithing", 8080)
             .lamp(Arrays.asList("Mining", "Smithing"), 15000, 1).build());
-        achievements.add(new AchievementBuilder("Doric's Task VI (miniquest)", 0.1).requirement("Doric's Task V (miniquest)", 1)
-            .requirement("Smithing", 59).requirement("Mithril bar", 60).reward("Smithing", 11000)
+        achievements.add(new AchievementBuilder("Doric's Task VI (miniquest)", 0.25).requirement("Doric's Task V (miniquest)", 1)
+            .requirement("Smithing", 60).requirement("Orikalkum bar", 16).reward("Smithing", 13600)
             .lamp(Arrays.asList("Mining", "Smithing"), 24000, 1).build());
-        achievements.add(new AchievementBuilder("Doric's Task VII (miniquest)", 0.1).requirement("Doric's Task VI (miniquest)", 1)
-            .requirement("Smithing", 64).reward("Smithing", 12000).lamp(Arrays.asList("Mining", "Smithing"), 36000, 1).build());
+        achievements.add(new AchievementBuilder("Doric's Task VII (miniquest)", 0.25).requirement("Doric's Task VI (miniquest)", 1)
+            .requirement("Smithing", 65).reward("Smithing", 12000).lamp(Arrays.asList("Mining", "Smithing"), 36000, 1).build());
         achievements.add(new AchievementBuilder("Doric's Task VIII (miniquest)", 0.1).requirement("Doric's Task VII (miniquest)", 1)
-            .requirement("Smithing", 75).requirement("Adamant bar", 50).reward("Smithing", 23125)
+            .requirement("Smithing", 70).requirement("Necronium bar", 20).reward("Smithing", 30000)
             .lamp(Arrays.asList("Mining", "Smithing"), 60000, 1).build());
         achievements.add(new AchievementBuilder("What's Mine Is Also Doric's", 0).requirement("Doric's Task VIII (miniquest)", 1)
             .requirement("Boric's Task III (miniquest)", 1).build());
@@ -3980,7 +3981,7 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Diddyzag", 0).requirement("Beastmaster Durzag", 130).build());
         achievements.add(new AchievementBuilder("Digging for Treasure", 0).requirement("Meerkats pouch", 1)
-            .requirement("Fetch casket scroll", 1).requirement("Summoning", 4).requirement("Sealed clue scroll (hard)", 1)
+            .requirement("Fetch Casket scroll", 1).requirement("Summoning", 4).requirement("Sealed clue scroll (hard)", 1)
             .reward("Summoning", 1).build());
         achievements.add(new AchievementBuilder("Zamorak hideout XP chest 1", 0).requirement("Dishonour among Thieves", 1)
             .requirement("Agility", 50).requirement("Attack", 50).requirement("Strength", 50).requirement("Defence", 50)
@@ -7326,7 +7327,7 @@ public class AchievementDatabase {
             .requirement("White ewe (unchecked)", 7).requirement("White ram (unchecked)", 7).requirement("POF bean", 6000)
             .reward("Farming", 9625).build());
         achievements.add(new AchievementBuilder("You Had A Spider", 0.7).requirement("Granny Knows Best", 1).requirement("Farming", 64)
-            .requirement("Spider egg (unchecked)", 12).requirement("Araxyte spider egg (unchecked)", 2).reward("Farming", 154000).build());
+            .requirement("Spider egg (unchecked)", 12).requirement("Araxxi", 710).reward("Farming", 154000).build());
         achievements.add(new AchievementBuilder("You Had A Zygomite", 0.5).requirement("Granny Knows Best", 1).requirement("Farming", 81)
             .requirement("Gloomshroom zygomite (unchecked)", 10).requirement("POF bean", 6000).reward("Farming", 440000).build());
         achievements.add(new AchievementBuilder("You Had A Cow", 0.5).requirement("Granny Knows Best", 1).requirement("Farming", 49)
@@ -7504,8 +7505,8 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Outflanked 'em in the Sanctum", 0.1).requirement("Impressing the Locals", 1)
             .encounter(new Encounter("The Sanctum Guardian")).build());
         achievements.add(new AchievementBuilder("Oops! Wrong Cult!", 0).requirement("Impressing the Locals", 1)
-            .requirement("H.a.m. boots", 0).requirement("H.a.m. cloak", 0).requirement("H.a.m. gloves", 0).requirement("H.a.m. hood", 0)
-            .requirement("H.a.m. robe", 0).requirement("H.a.m. shirt", 0).build());
+            .requirement("H.A.M. boots", 0).requirement("H.A.M. cloak", 0).requirement("H.A.M. gloves", 0).requirement("H.A.M. hood", 0)
+            .requirement("H.A.M. robe", 0).requirement("H.A.M. shirt", 0).build());
         achievements.add(new AchievementBuilder("Here Is My Handle", 0.1).requirement("Impressing the Locals", 1)
             .encounter(new Encounter("The Sanctum Guardian")).build());
         achievements.add(new AchievementBuilder("The Purple Dart", 0.2).requirement("Impressing the Locals", 1).requirement("Ranged", 88)
@@ -8309,7 +8310,7 @@ public class AchievementDatabase {
         achievements.add(new AchievementBuilder("Livid", 0).requirement("Lunar Master", 1)
             .requirement("Dimension of Disaster: Coin of the Realm", 1).build());
         achievements.add(new AchievementBuilder("Gnome More, I'm Full", 0).requirement("Toad crunchies", 1)
-            .requirement("Spicy crunchies", 1).requirement("Worm crunchies", 1).requirement("Chocolate chip crunchies", 1)
+            .requirement("Spicy crunchies", 1).requirement("Worm crunchies", 1).requirement("Chocchip crunchies", 1)
             .requirement("Fruit batta", 1).requirement("Toad batta", 1).requirement("Worm batta", 1).requirement("Vegetable batta", 1)
             .requirement("Cheese+tom batta", 1).requirement("Worm hole", 1).requirement("Veg ball", 1).requirement("Tangled toads' legs", 1)
             .requirement("Chocolate bomb", 1).requirement("Fruit Blast", 1).requirement("Pineapple Punch", 1)

@@ -139,6 +139,10 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Fever spider", 86.6, "Fever spiders", Collections.singletonList(new Requirement("Rum Deal", 1))));
         slayerMonsters.add(new SlayerMonster("Fire giant", 161.2, "Fire giants", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Flesh crawler", 50, "Flesh crawlers", new ArrayList<>()));
+        slayerMonsters.add(new SlayerMonster("Big frog", 14.4, "Frogs", new ArrayList<>()));
+        slayerMonsters.add(new SlayerMonster("Giant frog", 18.8, "Frogs", new ArrayList<>()));
+        slayerMonsters.add(new SlayerMonster("Plague frog", 19.2, "Frogs", Collections.singletonList(new Requirement("Icthlarin's Little Helper", 1))));
+        slayerMonsters.add(new SlayerMonster("Frog", 54.8, "Frogs", Collections.singletonList(new Requirement("Back to my Roots", 1))));
         slayerMonsters.add(new SlayerMonster("Fungal mage", 63.6, "Fungal mages", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Ganodermic runt", 565, "Ganodermic creatures", Collections.singletonList(new Requirement("Slayer", 95))));
         slayerMonsters.add(new SlayerMonster("Ganodermic beast", 565, "Ganodermic creatures", Collections.singletonList(new Requirement("Slayer", 95))));
@@ -295,6 +299,9 @@ public class SlayerMonsterDatabase {
         slayerMonsters.add(new SlayerMonster("Suqah", 47.4, "Suqahs", Collections.singletonList(new Requirement("Lunar Diplomacy", 1))));
         slayerMonsters.add(new SlayerMonster("Terror dog", 75.4, "Terror dogs", Collections.singletonList(new Requirement("Lair of Tarn Razorlor (miniquest)", 1))));
         slayerMonsters.add(new SlayerMonster("Tormented demon", 1136, "Tormented demons", Collections.singletonList(new Requirement("While Guthix Sleeps", 1))));
+        slayerMonsters.add(new SlayerMonster("Troll chucker", 6.4, "Trolls", new ArrayList<>()));
+        slayerMonsters.add(new SlayerMonster("Troll shaman", 6.4, "Trolls", new ArrayList<>()));
+        slayerMonsters.add(new SlayerMonster("Troll brute", 6.4, "Trolls", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Mountain troll", 55, "Trolls", new ArrayList<>()));
         slayerMonsters.add(new SlayerMonster("Troll general", 89.4, "Trolls", Collections.singletonList(new Requirement("Troll Stronghold", 1))));
         slayerMonsters.add(new SlayerMonster("Ice troll runt", 24.8, "Trolls", Collections.singletonList(new Requirement("The Fremennik Isles", 1))));

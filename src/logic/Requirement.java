@@ -2,7 +2,6 @@ package logic;
 
 import com.google.common.collect.ImmutableMap;
 import data.databases.AchievementDatabase;
-import data.databases.ItemDatabase;
 import data.dataobjects.Achievement;
 
 import java.util.HashMap;
@@ -27,9 +26,9 @@ public class Requirement {
 
     public boolean meetsRequirement(Player player) {
         if (Player.ALL_SKILLS.contains(qualifier)) {
-            return (player.getLevel(qualifier) >= quantifier);
-        } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
-            return player.getBankValue() >= ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier;
+            return (LevelHelper.getLevel(qualifier, player.getXp().get(qualifier)) >= quantifier);
+        } else if (PriceFetcher.getPrice(qualifier) > 0) {
+            return player.getBankValue() >= PriceFetcher.getPrice(qualifier) * quantifier;
         } else {
             return (player.getQualities().get(qualifier) != null && player.getQualities().get(qualifier) >= quantifier);
         }
@@ -43,15 +42,15 @@ public class Requirement {
         Map<String, Double> actions = new HashMap<>();
         GoalResults goalResults;
         if (qualifier.equals("Strength") || qualifier.equals("Attack")) {
-            goalResults = player.efficientGoalCompletion("mCombat", player.getXpToLevel(qualifier, quantifier));
+            goalResults = player.efficientGoalCompletion("mCombat", LevelHelper.getXpToLevel(qualifier, quantifier, player.getXp().get(qualifier)));
         } else if (qualifier.equals("Ranged")) {
-            goalResults = player.efficientGoalCompletion("rCombat", player.getXpToLevel(qualifier, quantifier));
+            goalResults = player.efficientGoalCompletion("rCombat", LevelHelper.getXpToLevel(qualifier, quantifier, player.getXp().get(qualifier)));
         } else if (qualifier.equals("Magic")) {
-            goalResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
+            goalResults = player.efficientGoalCompletion("aCombat", LevelHelper.getXpToLevel(qualifier, quantifier, player.getXp().get(qualifier)));
         } else if (qualifier.equals("Defence")) {
-            GoalResults meleeResults = player.efficientGoalCompletion("mCombat", player.getXpToLevel(qualifier, quantifier));
-            GoalResults rangedResults = player.efficientGoalCompletion("rCombat", player.getXpToLevel(qualifier, quantifier));
-            GoalResults magicResults = player.efficientGoalCompletion("aCombat", player.getXpToLevel(qualifier, quantifier));
+            GoalResults meleeResults = player.efficientGoalCompletion("mCombat", LevelHelper.getXpToLevel(qualifier, quantifier, player.getXp().get(qualifier)));
+            GoalResults rangedResults = player.efficientGoalCompletion("rCombat", LevelHelper.getXpToLevel(qualifier, quantifier, player.getXp().get(qualifier)));
+            GoalResults magicResults = player.efficientGoalCompletion("aCombat", LevelHelper.getXpToLevel(qualifier, quantifier, player.getXp().get(qualifier)));
             if (meleeResults.getTotalTime() < rangedResults.getTotalTime() && meleeResults.getTotalTime() < magicResults.getTotalTime()) {
                 goalResults = meleeResults;
             } else if (rangedResults.getTotalTime() < magicResults.getTotalTime()) {
@@ -60,9 +59,9 @@ public class Requirement {
                 goalResults = magicResults;
             }
         } else if (Player.ALL_SKILLS.contains(qualifier)) {
-            goalResults = player.efficientGoalCompletion(qualifier, player.getXpToLevel(qualifier, quantifier));
-        } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null && player.getStatus() == 0) {
-            goalResults = player.efficientGoalCompletion("Coins", Math.max(0, ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)*quantifier)-(int)Math.min(Integer.MAX_VALUE, player.getBankValue()));
+            goalResults = player.efficientGoalCompletion(qualifier, LevelHelper.getXpToLevel(qualifier, quantifier, player.getXp().get(qualifier)));
+        } else if (PriceFetcher.getPrice(qualifier) > 0) {
+            goalResults = player.efficientGoalCompletion("Coins", Math.max(0, PriceFetcher.getPrice(qualifier) * quantifier)-(int)Math.min(Integer.MAX_VALUE, player.getBankValue()));
         } else if (AchievementDatabase.getAchievementDatabase().getAchievements().get(qualifier) != null) {
             Achievement achievement = AchievementDatabase.getAchievementDatabase().getAchievements().get(qualifier);
             if (player.getAchievementResults().get(achievement) != null) {
@@ -76,15 +75,15 @@ public class Requirement {
         } else if (qualifier.equals("Flags unfurled")) {
             goalResults = new Requirement("Master Quester", 1).timeAndActionsToMeetRequirement(player);
             for (String skill : Player.ALL_SKILLS) {
-                GoalResults skillResults = player.efficientGoalCompletion(skill, player.getXpToLevel(skill, 99));
+                GoalResults skillResults = player.efficientGoalCompletion(skill, LevelHelper.getXpToLevel(skill, 99, player.getXp().get(skill)));
                 if (skillResults.getTotalTime() < goalResults.getTotalTime()) {
                     goalResults = skillResults;
                 }
             }
         } else if (qualifier.equals("Ports unlocked")) {
-            goalResults = player.efficientGoalCompletion("Agility", player.getXpToLevel("Agility", 90));
+            goalResults = player.efficientGoalCompletion("Agility", LevelHelper.getXpToLevel("Agility", 90, player.getXp().get("Agility")));
             for (String skill : Player.PORTS_SKILLS) {
-                GoalResults skillResults = player.efficientGoalCompletion(skill, player.getXpToLevel(skill, 90));
+                GoalResults skillResults = player.efficientGoalCompletion(skill, LevelHelper.getXpToLevel(skill, 90, player.getXp().get(skill)));
                 if (skillResults.getTotalTime() < goalResults.getTotalTime()) {
                     goalResults = skillResults;
                 }

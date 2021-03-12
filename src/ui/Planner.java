@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import data.databases.AchievementDatabase;
 import data.databases.ArmourDatabase;
-import data.databases.ItemDatabase;
 import data.databases.WeaponDatabase;
 import data.dataobjects.Achievement;
 import data.dataobjects.Armour;
@@ -51,7 +50,9 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import logic.GoalResults;
 import logic.Lamp;
+import logic.LevelHelper;
 import logic.Player;
+import logic.PriceFetcher;
 import logic.Reward;
 
 import java.io.File;
@@ -77,7 +78,7 @@ public class Planner extends Application {
 
     private Pane root = new Pane();
 
-    private static final String CURRENT_VERSION = "v1.0.10";
+    private static final String CURRENT_VERSION = "v1.1.0";
 
     public static void main(String args[]) {
         launch(args);
@@ -205,7 +206,7 @@ public class Planner extends Application {
                 "This involves performing the following actions for the given amounts of time: %s\n\n" +
                 "Lamps should be used on the following skills: %s",
             timeForRequirements.getTotalTime(), timeForRequirements.getListofAllRequirements().stream().filter(r -> (!r.meetsRequirement(player) ||
-                ItemDatabase.getItemDatabase().getItems().get(r.getQualifier()) != null)).collect(Collectors.toList()),
+                PriceFetcher.getPrice(r.getQualifier()) > 0)).collect(Collectors.toList()),
             timeForRequirements.getSortedActionsWithTimes().toString(), lampRewards.toString()));
         taskInformation.show();
         displayPlayer(player);
@@ -304,7 +305,7 @@ public class Planner extends Application {
         levelCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Entry<String, Double>, Integer>, ObservableValue<Integer>>() {
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Entry<String, Double>, Integer> a) {
-                return new SimpleIntegerProperty(p.getVirtualLevel(a.getValue().getKey())).asObject();
+                return new SimpleIntegerProperty(LevelHelper.getVirtualLevel(a.getValue().getKey(), a.getValue().getValue())).asObject();
             }
         });
         TableColumn<Entry<String, Long>, String> itemCol = new TableColumn<>("Item");
@@ -366,7 +367,7 @@ public class Planner extends Application {
         addToBankButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (ItemDatabase.getItemDatabase().getItems().get(addItem.getText()) == null) {
+                if (PriceFetcher.getPrice(addItem.getText()) == 0) {
                     Alert alert = new Alert(AlertType.WARNING, String.format("Input item %s is not present in the items database. Please note that the bank is only meant for tradeable items. " +
                         "If you believe this item is valid, please raise a T90 issue.", addItem.getText()));
                     alert.showAndWait();

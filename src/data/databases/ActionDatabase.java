@@ -10,6 +10,7 @@ import data.dataobjects.Weapon;
 import logic.CombatParameters;
 import logic.CombatResults;
 import logic.Encounter;
+import logic.LevelHelper;
 import logic.Loadout;
 import logic.Player;
 import logic.Requirement;
@@ -94,146 +95,146 @@ public class ActionDatabase {
             ImmutableMap.of("Royal dragon leather", 60000), 12, false, false));
 
         //Agility (done)
-        database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 7632, "Agility level-ticks", 6000 * player.getLevel("Agility")),
+        database.add(new Action("Burthorpe Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 7632, "Agility level-ticks", 6000 * LevelHelper.getLevel("Agility", player.getXp().get("Agility"))),
             96, true, true));
-        database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 7266, "Agility level-ticks", 6000 * player.getLevel("Agility")),
+        database.add(new Action("Gnome Stronghold Agility Course", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Agility", 7266, "Agility level-ticks", 6000 * LevelHelper.getLevel("Agility", player.getXp().get("Agility"))),
             84, true, true));
         database.add(new Action("Watchtower shortcut", Collections.singletonList(new Requirement("Agility", 18)), new HashMap(),
-            ImmutableMap.of("Agility", 9300, "Agility level-ticks", 6000 * Math.max(18, player.getLevel("Agility"))), 300, true, true));
+            ImmutableMap.of("Agility", 9300, "Agility level-ticks", 6000 * Math.max(18, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 300, true, true));
         database.add(new Action("Werewolf Skullball", Arrays.asList(new Requirement("Agility", 25), new Requirement("Creature of Fenkenstrain", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 21600, "Agility level-ticks", 6000 * Math.max(25, player.getLevel("Agility"))), 24, true, true));
+            ImmutableMap.of("Agility", 21600, "Agility level-ticks", 6000 * Math.max(25, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 24, true, true));
         database.add(new Action("Agility Pyramid", Collections.singletonList(new Requirement("Agility", 30)), ImmutableMap.of("Waterskin (4)", 10),
-            ImmutableMap.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 22, true, true));
+            ImmutableMap.of("Waterskin (0)", 10, "Agility", 26708, "Pyramid top", 22, "Agility level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 22, true, true));
         database.add(new Action("Anachronia Agility course (lv30 only)", Collections.singletonList(new Requirement("Agility", 30)), new HashMap(),
-            ImmutableMap.of("Agility", 32400, "Anachronia sections", 120, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 120, true, true));
+            ImmutableMap.of("Agility", 32400, "Anachronia sections", 120, "Agility level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 120, true, true));
         database.add(new Action("Clockwork suits", Arrays.asList(new Requirement("Agility", 30), new Requirement("Cold War", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 37500, "Agility level-ticks", 6000 * Math.max(30, player.getLevel("Agility"))), 3000, true, true));
+            ImmutableMap.of("Agility", 37500, "Agility level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 3000, true, true));
         database.add(new Action("Barbarian Outpost Agility Course", Collections.singletonList(new Requirement("Agility", 35)), new HashMap(),
-            ImmutableMap.of("Agility", 20880, "Agility level-ticks", 6000 * Math.max(35, player.getLevel("Agility"))), 120, true, true));
+            ImmutableMap.of("Agility", 20880, "Agility level-ticks", 6000 * Math.max(35, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 120, true, true));
         database.add(new Action("Brimhaven Agility Arena", Collections.singletonList(new Requirement("Agility", 40)), ImmutableMap.of("Coins", 200),
-            ImmutableMap.of("Agility arena ticket", 60, "Agility", 3000, "Agility level-ticks", 6000 * Math.max(40, player.getLevel("Agility"))), 60, true, true));
+            ImmutableMap.of("Agility arena ticket", 60, "Agility", 3000, "Agility level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 60, true, true));
         database.add(new Action("Ape Atoll Agility Course", Arrays.asList(new Requirement("Agility", 48), new Requirement("Monkey Madness", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 46400, "Agility level-ticks", 6000 * Math.max(48, player.getLevel("Agility"))), 80, true, true));
+            ImmutableMap.of("Agility", 46400, "Agility level-ticks", 6000 * Math.max(48, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course", Collections.singletonList(new Requirement("Agility", 52)), new HashMap(),
-            ImmutableMap.of("Agility", 45720, "Agility level-ticks", 6000 * Math.max(52, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 45720, "Agility level-ticks", 6000 * Math.max(52, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv52 xp rates)", Arrays.asList(new Requirement("Agility", 52), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 49377, "Agility level-ticks", 6000 * Math.max(52, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 49377, "Agility level-ticks", 6000 * Math.max(52, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv53 xp rates)", Arrays.asList(new Requirement("Agility", 53), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 51206, "Agility level-ticks", 6000 * Math.max(53, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 51206, "Agility level-ticks", 6000 * Math.max(53, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv54 xp rates)", Arrays.asList(new Requirement("Agility", 54), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 53035, "Agility level-ticks", 6000 * Math.max(54, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 53035, "Agility level-ticks", 6000 * Math.max(54, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv55 xp rates)", Arrays.asList(new Requirement("Agility", 55), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 54864, "Agility level-ticks", 6000 * Math.max(55, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 54864, "Agility level-ticks", 6000 * Math.max(55, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv56 xp rates)", Arrays.asList(new Requirement("Agility", 56), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 56692, "Agility level-ticks", 6000 * Math.max(56, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 56692, "Agility level-ticks", 6000 * Math.max(56, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv57 xp rates)", Arrays.asList(new Requirement("Agility", 57), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 58521, "Agility level-ticks", 6000 * Math.max(57, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 58521, "Agility level-ticks", 6000 * Math.max(57, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv58 xp rates)", Arrays.asList(new Requirement("Agility", 58), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 60350, "Agility level-ticks", 6000 * Math.max(58, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 60350, "Agility level-ticks", 6000 * Math.max(58, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv59 xp rates)", Arrays.asList(new Requirement("Agility", 59), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 62179, "Agility level-ticks", 6000 * Math.max(59, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 62179, "Agility level-ticks", 6000 * Math.max(59, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv60 xp rates)", Arrays.asList(new Requirement("Agility", 60), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 64008, "Agility level-ticks", 6000 * Math.max(60, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 64008, "Agility level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Bandos Agility Course", Arrays.asList(new Requirement("Agility", 60), new Requirement("The Chosen Commander", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 38000, "Ranged", 12500, "Strength", 12500, "Agility level-ticks", 6000 * Math.max(60, player.getLevel("Agility"))), 100, true, true));
+            ImmutableMap.of("Agility", 38000, "Ranged", 12500, "Strength", 12500, "Agility level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 100, true, true));
         database.add(new Action("Werewolf Agility Course", Arrays.asList(new Requirement("Agility", 60), new Requirement("Creature of Fenkenstrain", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 43200, "Agility level-ticks", 6000 * Math.max(60, player.getLevel("Agility"))), 80, true, true));
+            ImmutableMap.of("Agility", 43200, "Agility level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv61 xp rates)", Arrays.asList(new Requirement("Agility", 61), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 65836, "Agility level-ticks", 6000 * Math.max(61, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 65836, "Agility level-ticks", 6000 * Math.max(61, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv62 xp rates)", Arrays.asList(new Requirement("Agility", 62), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 67665, "Agility level-ticks", 6000 * Math.max(62, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 67665, "Agility level-ticks", 6000 * Math.max(62, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv63 xp rates)", Arrays.asList(new Requirement("Agility", 63), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 69494, "Agility level-ticks", 6000 * Math.max(63, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 69494, "Agility level-ticks", 6000 * Math.max(63, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv64 xp rates)", Arrays.asList(new Requirement("Agility", 64), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 71323, "Agility level-ticks", 6000 * Math.max(64, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 71323, "Agility level-ticks", 6000 * Math.max(64, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv65 xp rates)", Arrays.asList(new Requirement("Agility", 65), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 73152, "Agility level-ticks", 6000 * Math.max(65, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 73152, "Agility level-ticks", 6000 * Math.max(65, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Empty Throne Room agility", Arrays.asList(new Requirement("Agility", 65), new Requirement("The Dig Site", 1)),
-            new HashMap(), ImmutableMap.of("Agility", 68760, "Senntisten scroll", 17, "Agility level-ticks", 6000 * Math.max(65, player.getLevel("Agility"))), 1800, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 68760, "Senntisten scroll", 17, "Agility level-ticks", 6000 * Math.max(65, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 1800, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv66 xp rates)", Arrays.asList(new Requirement("Agility", 66), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 74980, "Agility level-ticks", 6000 * Math.max(66, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 74980, "Agility level-ticks", 6000 * Math.max(66, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv67 xp rates)", Arrays.asList(new Requirement("Agility", 67), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 76809, "Agility level-ticks", 6000 * Math.max(67, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 76809, "Agility level-ticks", 6000 * Math.max(67, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv68 xp rates)", Arrays.asList(new Requirement("Agility", 68), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 78638, "Agility level-ticks", 6000 * Math.max(68, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 78638, "Agility level-ticks", 6000 * Math.max(68, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv69 xp rates)", Arrays.asList(new Requirement("Agility", 69), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 80467, "Agility level-ticks", 6000 * Math.max(69, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 80467, "Agility level-ticks", 6000 * Math.max(69, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv70 xp rates)", Arrays.asList(new Requirement("Agility", 70), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 82296, "Agility level-ticks", 6000 * Math.max(70, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 82296, "Agility level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv71 xp rates)", Arrays.asList(new Requirement("Agility", 71), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 84124, "Agility level-ticks", 6000 * Math.max(71, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 84124, "Agility level-ticks", 6000 * Math.max(71, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv72 xp rates)", Arrays.asList(new Requirement("Agility", 72), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 85953, "Agility level-ticks", 6000 * Math.max(72, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 85953, "Agility level-ticks", 6000 * Math.max(72, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv73 xp rates)", Arrays.asList(new Requirement("Agility", 73), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 87782, "Agility level-ticks", 6000 * Math.max(73, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 87782, "Agility level-ticks", 6000 * Math.max(73, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv74 xp rates)", Arrays.asList(new Requirement("Agility", 74), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 89611, "Agility level-ticks", 6000 * Math.max(74, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 89611, "Agility level-ticks", 6000 * Math.max(74, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv75 xp rates)", Arrays.asList(new Requirement("Agility", 75), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 91440, "Agility level-ticks", 6000 * Math.max(75, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 91440, "Agility level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv76 xp rates)", Arrays.asList(new Requirement("Agility", 76), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 93268, "Agility level-ticks", 6000 * Math.max(76, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 93268, "Agility level-ticks", 6000 * Math.max(76, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv77 xp rates)", Arrays.asList(new Requirement("Agility", 77), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 95097, "Agility level-ticks", 6000 * Math.max(77, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 95097, "Agility level-ticks", 6000 * Math.max(77, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Hefin Agility Course (77-81 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 77)),
-            new HashMap(), ImmutableMap.of("Agility", 56320, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(77, player.getLevel("Agility"))), 80, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 56320, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(77, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv78 xp rates)", Arrays.asList(new Requirement("Agility", 78), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 96926, "Agility level-ticks", 6000 * Math.max(78, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 96926, "Agility level-ticks", 6000 * Math.max(78, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv79 xp rates)", Arrays.asList(new Requirement("Agility", 79), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 98755, "Agility level-ticks", 6000 * Math.max(79, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 98755, "Agility level-ticks", 6000 * Math.max(79, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv80 xp rates)", Arrays.asList(new Requirement("Agility", 80), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 100584, "Agility level-ticks", 6000 * Math.max(80, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 100584, "Agility level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Dorgesh-Kaan Agility Course", Arrays.asList(new Requirement("Agility", 80), new Requirement("Death to the Dorgeshuun", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 52250, "Agility level-ticks", 6000 * Math.max(80, player.getLevel("Agility"))), 80, true, true));
+            ImmutableMap.of("Agility", 52250, "Agility level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv81 xp rates)", Arrays.asList(new Requirement("Agility", 81), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 102412, "Agility level-ticks", 6000 * Math.max(81, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 102412, "Agility level-ticks", 6000 * Math.max(81, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv82 xp rates)", Arrays.asList(new Requirement("Agility", 82), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 104241, "Agility level-ticks", 6000 * Math.max(82, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 104241, "Agility level-ticks", 6000 * Math.max(82, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Hefin Agility Course (82-86 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 82)),
-            new HashMap(), ImmutableMap.of("Agility", 70800, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(82, player.getLevel("Agility"))), 80, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 70800, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(82, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv83 xp rates)", Arrays.asList(new Requirement("Agility", 83), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 106070, "Agility level-ticks", 6000 * Math.max(83, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 106070, "Agility level-ticks", 6000 * Math.max(83, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv84 xp rates)", Arrays.asList(new Requirement("Agility", 84), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 107899, "Agility level-ticks", 6000 * Math.max(84, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 107899, "Agility level-ticks", 6000 * Math.max(84, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv85 xp rates)", Arrays.asList(new Requirement("Agility", 85), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 109728, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 109728, "Agility level-ticks", 6000 * Math.max(85, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Advanced Gnome Stronghold Agility Course", Collections.singletonList(new Requirement("Agility", 85)),
-            new HashMap(), ImmutableMap.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 34, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 68150, "Advanced Gnome Stronghold laps", 94, "Agility level-ticks", 6000 * Math.max(85, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 34, true, true));
         database.add(new Action("Anachronia Agility course (full laps)", Collections.singletonList(new Requirement("Agility", 85)), new HashMap(),
-            ImmutableMap.of("Agility", 160320, "Anachronia sections", 64, "Agility level-ticks", 6000 * Math.max(85, player.getLevel("Agility"))), 8, true, true));
+            ImmutableMap.of("Agility", 160320, "Anachronia sections", 64, "Agility level-ticks", 6000 * Math.max(85, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 8, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv86 xp rates)", Arrays.asList(new Requirement("Agility", 86), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 111556, "Agility level-ticks", 6000 * Math.max(86, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 111556, "Agility level-ticks", 6000 * Math.max(86, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv87 xp rates)", Arrays.asList(new Requirement("Agility", 87), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 113385, "Agility level-ticks", 6000 * Math.max(87, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 113385, "Agility level-ticks", 6000 * Math.max(87, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Hefin Agility Course (87-91 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 87)),
-            new HashMap(), ImmutableMap.of("Agility", 84480, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(87, player.getLevel("Agility"))), 80, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 84480, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(87, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv88 xp rates)", Arrays.asList(new Requirement("Agility", 88), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 115214, "Agility level-ticks", 6000 * Math.max(88, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 115214, "Agility level-ticks", 6000 * Math.max(88, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv89 xp rates)", Arrays.asList(new Requirement("Agility", 89), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 117043, "Agility level-ticks", 6000 * Math.max(89, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 117043, "Agility level-ticks", 6000 * Math.max(89, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv90 xp rates)", Arrays.asList(new Requirement("Agility", 90), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 118872, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 118872, "Agility level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Advanced Barbarian Outpost Agility Course", Arrays.asList(new Requirement("Bar Crawl (miniquest)", 1), new Requirement("Agility", 90)),
-            new HashMap(), ImmutableMap.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96, "Agility level-ticks", 6000 * Math.max(90, player.getLevel("Agility"))), 96, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 72355, "Advanced Barbarian Outpost laps", 96, "Agility level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 96, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv91 xp rates)", Arrays.asList(new Requirement("Agility", 91), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 120700, "Agility level-ticks", 6000 * Math.max(91, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 120700, "Agility level-ticks", 6000 * Math.max(91, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv92 xp rates)", Arrays.asList(new Requirement("Agility", 92), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 122529, "Agility level-ticks", 6000 * Math.max(92, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 122529, "Agility level-ticks", 6000 * Math.max(92, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Hefin Agility Course (92-96 Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 92)),
-            new HashMap(), ImmutableMap.of("Agility", 94720, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(792, player.getLevel("Agility"))), 80, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 94720, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(792, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv93 xp rates)", Arrays.asList(new Requirement("Agility", 93), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 124358, "Agility level-ticks", 6000 * Math.max(93, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 124358, "Agility level-ticks", 6000 * Math.max(93, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv94 xp rates)", Arrays.asList(new Requirement("Agility", 94), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 126187, "Agility level-ticks", 6000 * Math.max(94, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 126187, "Agility level-ticks", 6000 * Math.max(94, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv95 xp rates)", Arrays.asList(new Requirement("Agility", 95), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 128016, "Agility level-ticks", 6000 * Math.max(95, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 128016, "Agility level-ticks", 6000 * Math.max(95, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv96 xp rates)", Arrays.asList(new Requirement("Agility", 96), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 129844, "Agility level-ticks", 6000 * Math.max(96, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 129844, "Agility level-ticks", 6000 * Math.max(96, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv97 xp rates)", Arrays.asList(new Requirement("Agility", 97), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 131673, "Agility level-ticks", 6000 * Math.max(97, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 131673, "Agility level-ticks", 6000 * Math.max(97, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Hefin Agility Course (97+ Agility)", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Agility", 97)),
-            new HashMap(), ImmutableMap.of("Agility", 106240, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(97, player.getLevel("Agility"))), 80, true, true));
+            new HashMap(), ImmutableMap.of("Agility", 106240, "Hefin Agility Course laps", 80, "Agility level-ticks", 6000 * Math.max(97, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, true));
         database.add(new Action("Wilderness Agility Course (w/skull, lv98 xp rates)", Arrays.asList(new Requirement("Agility", 98), new Requirement("Demonic skull", 1)), new HashMap(),
-            ImmutableMap.of("Agility", 133502, "Agility level-ticks", 6000 * Math.max(98, player.getLevel("Agility"))), 80, true, false));
+            ImmutableMap.of("Agility", 133502, "Agility level-ticks", 6000 * Math.max(98, LevelHelper.getLevel("Agility", player.getXp().get("Agility")))), 80, true, false));
         database.add(new Action("Wilderness Agility Course (w/skull, lv99 xp rates)", Arrays.asList(new Requirement("Agility", 99), new Requirement("Demonic skull", 1)), new HashMap(),
             ImmutableMap.of("Agility", 135331, "Agility level-ticks", 594000), 80, true, false));
 
@@ -345,60 +346,60 @@ public class ActionDatabase {
             "Coins", 450000), ImmutableMap.of("Construction", 2121600, "Construction pet points", totalPetPoints(player, "Construction", 2121600)), 684, true, true));
 
         //Cooking (done)
-        int beefCooked = (int) Math.floor(1260 * Math.min(1, 1 - (34 - player.getLevel("Cooking")) / 100.0));
-        int breadCooked = (int) Math.floor(1260 * Math.min(1, 1 - (37 - player.getLevel("Cooking")) / 100.0));
-        int sardineCooked = (int) Math.floor(1260 * Math.min(1, 1 - (38 - player.getLevel("Cooking")) / 100.0));
-        int caveEelCooked = (int) Math.floor(1260 * Math.min(1, 1 - (40 - Math.max(38,player.getLevel("Cooking"))) / 100.0));
-        int herringCooked = (int) Math.floor(1260 * Math.min(1, 1 - (41 - Math.max(5,player.getLevel("Cooking"))) / 100.0));
-        int mackerelCooked = (int) Math.floor(1260 * Math.min(1, 1 - (45 - Math.max(10,player.getLevel("Cooking"))) / 100.0));
-        int thinSnailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (47 - Math.max(12,player.getLevel("Cooking"))) / 100.0));
-        int scrambledEggCooked = (int) Math.floor(1260 * Math.min(1, 1 - (48 - Math.max(13,player.getLevel("Cooking"))) / 100.0));
-        int spiderCooked = (int) Math.floor(1260 * Math.min(1, 1 - (48 - Math.max(16,player.getLevel("Cooking"))) / 100.0));
-        int redberryPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (50 - Math.max(10,player.getLevel("Cooking"))) / 100.0));
-        int troutCooked = (int) Math.floor(1260 * Math.min(1, 1 - (50 - Math.max(15,player.getLevel("Cooking"))) / 100.0));
-        int leanSnailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (50 - Math.max(17,player.getLevel("Cooking"))) / 100.0));
-        int codCooked = (int) Math.floor(1260 * Math.min(1, 1 - (52 - Math.max(18,player.getLevel("Cooking"))) / 100.0));
-        int pikeCooked = (int) Math.floor(1260 * Math.min(1, 1 - (53 - Math.max(20,player.getLevel("Cooking"))) / 100.0));
-        int sweetcornCooked = (int) Math.floor(1260 * Math.min(1, 1 - (53 - Math.max(28,player.getLevel("Cooking"))) / 100.0));
-        int fatSnailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (56 - Math.max(22,player.getLevel("Cooking"))) / 100.0));
-        int salmonCooked = (int) Math.floor(1260 * Math.min(1, 1 - (58 - Math.max(25,player.getLevel("Cooking"))) / 100.0));
-        int slimyEelCooked = (int) Math.floor(1260 * Math.min(1, 1 - (58 - Math.max(28,player.getLevel("Cooking"))) / 100.0));
-        int rainbowFishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (60 - Math.max(35,player.getLevel("Cooking"))) / 100.0));
-        int mudPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (63 - Math.max(29,player.getLevel("Cooking"))) / 100.0));
-        int applePieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (63 - Math.max(30,player.getLevel("Cooking"))) / 100.0));
-        int tunaCooked = (int) Math.floor(1260 * Math.min(1, 1 - (65 - Math.max(30,player.getLevel("Cooking"))) / 100.0));
-        int wineCooked = (int) Math.floor(4662 * Math.min(1, 1 - (68 - Math.max(30,player.getLevel("Cooking"))) / 100.0));
-        int gardenPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (68 - Math.max(34,player.getLevel("Cooking"))) / 100.0));
-        int plainPizzaCooked = (int) Math.floor(1260 * Math.min(1, 1 - (68 - Math.max(35,player.getLevel("Cooking"))) / 100.0));
-        int lobsterCooked = (int) Math.floor(1260 * Math.min(1, 1 - (73 - Math.max(40,player.getLevel("Cooking"))) / 100.0));
-        int cakeCooked = (int) Math.floor(1260 * Math.min(1, 1 - (74 - Math.max(40,player.getLevel("Cooking"))) / 100.0));
-        int fishPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (74 - Math.max(47,player.getLevel("Cooking"))) / 100.0));
-        int curryCooked = (int) Math.floor(1260 * Math.min(1, 1 - (74 - Math.max(60,player.getLevel("Cooking"))) / 100.0));
-        int friedOnionCooked = (int) Math.floor(1260 * Math.min(1, 1 - (77 - Math.max(42,player.getLevel("Cooking"))) / 100.0));
-        int bassCooked = (int) Math.floor(1260 * Math.min(1, 1 - (79 - Math.max(43,player.getLevel("Cooking"))) / 100.0));
-        int swordfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (86 - Math.max(45,player.getLevel("Cooking"))) / 100.0));
-        int desertSoleCooked = (int) Math.floor(1260 * Math.min(1, 1 - (87 - Math.max(52,player.getLevel("Cooking"))) / 100.0));
-        int catfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (89 - Math.max(60,player.getLevel("Cooking"))) / 100.0));
-        int friedMushroomsCooked = (int) Math.floor(1260 * Math.min(1, 1 - (90 - Math.max(46,player.getLevel("Cooking"))) / 100.0));
-        int monkfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (92 - Math.max(62,player.getLevel("Cooking"))) / 100.0));
-        int admiralPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (94 - Math.max(70,player.getLevel("Cooking"))) / 100.0));
-        int birdCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(11,player.getLevel("Cooking"))) / 100.0));
-        int rabbitCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(16,player.getLevel("Cooking"))) / 100.0));
-        int beastCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(21,player.getLevel("Cooking"))) / 100.0));
-        int chompyCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(30,player.getLevel("Cooking"))) / 100.0));
-        int ugthankiCooked = (int) Math.floor(1260 * Math.min(1, 1 - (100 - player.getLevel("Cooking")) / 100.0));
-        int karambwanCooked = (int) Math.floor(1260 * Math.min(1, 1 - (100 - Math.max(30,player.getLevel("Cooking"))) / 100.0));
-        int jubblyCooked = (int) Math.floor(1260 * Math.min(1, 1 - (100 - Math.max(41,player.getLevel("Cooking"))) / 100.0));
-        int beltfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (102 - Math.max(72,player.getLevel("Cooking"))) / 100.0));
-        int sharkCooked = (int) Math.floor(1260 * Math.min(1, 1 - (110 - Math.max(80,player.getLevel("Cooking"))) / 100.0));
-        int seaTurtleCooked = (int) Math.floor(1260 * Math.min(1, 1 - (112 - Math.max(82,player.getLevel("Cooking"))) / 100.0));
-        int greatWhiteSharkCooked = (int) Math.floor(1260 * Math.min(1, 1 - (114 - Math.max(84,player.getLevel("Cooking"))) / 100.0));
-        int wildPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (115 - Math.max(85,player.getLevel("Cooking"))) / 100.0));
-        int cavefishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (118 - Math.max(88,player.getLevel("Cooking"))) / 100.0));
-        int wilderPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (120 - Math.max(90,player.getLevel("Cooking"))) / 100.0));
-        int mantaRayCooked = (int) Math.floor(1260 * Math.min(1, 1 - (121 - Math.max(91,player.getLevel("Cooking"))) / 100.0));
-        int rocktailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (123 - Math.max(93,player.getLevel("Cooking"))) / 100.0));
-        int blueBlubberJellyfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (125 - Math.max(95,player.getLevel("Cooking"))) / 100.0));
+        int beefCooked = (int) Math.floor(1260 * Math.min(1, 1 - (34 - LevelHelper.getLevel("Cooking", player.getXp().get("Cooking"))) / 100.0));
+        int breadCooked = (int) Math.floor(1260 * Math.min(1, 1 - (37 - LevelHelper.getLevel("Cooking", player.getXp().get("Cooking"))) / 100.0));
+        int sardineCooked = (int) Math.floor(1260 * Math.min(1, 1 - (38 - LevelHelper.getLevel("Cooking", player.getXp().get("Cooking"))) / 100.0));
+        int caveEelCooked = (int) Math.floor(1260 * Math.min(1, 1 - (40 - Math.max(38,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int herringCooked = (int) Math.floor(1260 * Math.min(1, 1 - (41 - Math.max(5,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int mackerelCooked = (int) Math.floor(1260 * Math.min(1, 1 - (45 - Math.max(10,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int thinSnailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (47 - Math.max(12,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int scrambledEggCooked = (int) Math.floor(1260 * Math.min(1, 1 - (48 - Math.max(13,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int spiderCooked = (int) Math.floor(1260 * Math.min(1, 1 - (48 - Math.max(16,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int redberryPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (50 - Math.max(10,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int troutCooked = (int) Math.floor(1260 * Math.min(1, 1 - (50 - Math.max(15,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int leanSnailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (50 - Math.max(17,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int codCooked = (int) Math.floor(1260 * Math.min(1, 1 - (52 - Math.max(18,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int pikeCooked = (int) Math.floor(1260 * Math.min(1, 1 - (53 - Math.max(20,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int sweetcornCooked = (int) Math.floor(1260 * Math.min(1, 1 - (53 - Math.max(28,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int fatSnailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (56 - Math.max(22,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int salmonCooked = (int) Math.floor(1260 * Math.min(1, 1 - (58 - Math.max(25,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int slimyEelCooked = (int) Math.floor(1260 * Math.min(1, 1 - (58 - Math.max(28,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int rainbowFishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (60 - Math.max(35,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int mudPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (63 - Math.max(29,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int applePieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (63 - Math.max(30,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int tunaCooked = (int) Math.floor(1260 * Math.min(1, 1 - (65 - Math.max(30,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int wineCooked = (int) Math.floor(4662 * Math.min(1, 1 - (68 - Math.max(30,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int gardenPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (68 - Math.max(34,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int plainPizzaCooked = (int) Math.floor(1260 * Math.min(1, 1 - (68 - Math.max(35,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int lobsterCooked = (int) Math.floor(1260 * Math.min(1, 1 - (73 - Math.max(40,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int cakeCooked = (int) Math.floor(1260 * Math.min(1, 1 - (74 - Math.max(40,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int fishPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (74 - Math.max(47,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int curryCooked = (int) Math.floor(1260 * Math.min(1, 1 - (74 - Math.max(60,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int friedOnionCooked = (int) Math.floor(1260 * Math.min(1, 1 - (77 - Math.max(42,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int bassCooked = (int) Math.floor(1260 * Math.min(1, 1 - (79 - Math.max(43,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int swordfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (86 - Math.max(45,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int desertSoleCooked = (int) Math.floor(1260 * Math.min(1, 1 - (87 - Math.max(52,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int catfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (89 - Math.max(60,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int friedMushroomsCooked = (int) Math.floor(1260 * Math.min(1, 1 - (90 - Math.max(46,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int monkfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (92 - Math.max(62,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int admiralPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (94 - Math.max(70,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int birdCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(11,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int rabbitCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(16,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int beastCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(21,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int chompyCooked = (int) Math.floor(1260 * Math.min(1, 1 - (99 - Math.max(30,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int ugthankiCooked = (int) Math.floor(1260 * Math.min(1, 1 - (100 - LevelHelper.getLevel("Cooking", player.getXp().get("Cooking"))) / 100.0));
+        int karambwanCooked = (int) Math.floor(1260 * Math.min(1, 1 - (100 - Math.max(30,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int jubblyCooked = (int) Math.floor(1260 * Math.min(1, 1 - (100 - Math.max(41,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int beltfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (102 - Math.max(72,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int sharkCooked = (int) Math.floor(1260 * Math.min(1, 1 - (110 - Math.max(80,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int seaTurtleCooked = (int) Math.floor(1260 * Math.min(1, 1 - (112 - Math.max(82,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int greatWhiteSharkCooked = (int) Math.floor(1260 * Math.min(1, 1 - (114 - Math.max(84,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int wildPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (115 - Math.max(85,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int cavefishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (118 - Math.max(88,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int wilderPieCooked = (int) Math.floor(1260 * Math.min(1, 1 - (120 - Math.max(90,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int mantaRayCooked = (int) Math.floor(1260 * Math.min(1, 1 - (121 - Math.max(91,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int rocktailCooked = (int) Math.floor(1260 * Math.min(1, 1 - (123 - Math.max(93,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
+        int blueBlubberJellyfishCooked = (int) Math.floor(1260 * Math.min(1, 1 - (125 - Math.max(95,LevelHelper.getLevel("Cooking", player.getXp().get("Cooking")))) / 100.0));
         database.add(new Action("Cooking raw beef", new ArrayList<>(), ImmutableMap.of("Raw beef", 1260), ImmutableMap.of("Cooked meat", beefCooked,
             "Cooking", 30 * beefCooked, "Cooking pet points", totalPetPoints(player, "Cooking", 30 * beefCooked)), beefCooked, true, true));
         database.add(new Action("Cooking chicken", new ArrayList<>(), ImmutableMap.of("Raw chicken", 1260), ImmutableMap.of("Cooked chicken", beefCooked,
@@ -597,17 +598,17 @@ public class ActionDatabase {
         database.add(new Action("Spinning flax", new ArrayList(), ImmutableMap.of("Flax", 1610), ImmutableMap.of("Bowstring", 1610, "Crafting", 24150,
             "Crafting pet points", totalPetPoints(player, "Crafting", 24150)), 1610, true, true));
 
-        database.add(new Action("Cutting opals", new ArrayList(), ImmutableMap.of("Uncut opal", 4928), ImmutableMap.of("Opal", (int) (4928 * (.5 + player.getLevel("Crafting") * .005)),
-            "Crafting", (int) (18726 + 11.2 * 4928 * (.5 + player.getLevel("Crafting") * .005)), "Crafting pet points",
-            totalPetPoints(player, "Crafting", (int) (18726 + 11.2 * 4928 * (.5 + player.getLevel("Crafting") * .005)))), 4928, true, true));
+        database.add(new Action("Cutting opals", new ArrayList(), ImmutableMap.of("Uncut opal", 4928), ImmutableMap.of("Opal", (int) (4928 * (.5 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .005)),
+            "Crafting", (int) (18726 + 11.2 * 4928 * (.5 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .005)), "Crafting pet points",
+            totalPetPoints(player, "Crafting", (int) (18726 + 11.2 * 4928 * (.5 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .005)))), 4928, true, true));
         database.add(new Action("Cutting jades", Collections.singletonList(new Requirement("Crafting", 13)),
-            ImmutableMap.of("Uncut jade", 4928), ImmutableMap.of("Jade", (int) (4928 * (.4 + player.getLevel("Crafting") * .006)),
-            "Crafting", (int) (24640 + 15 * 4928 * (.4 + player.getLevel("Crafting") * .006)), "Crafting pet points",
-            totalPetPoints(player, "Crafting", (int) (24640 + 15 * 4928 * (.4 + player.getLevel("Crafting") * .006)))), 4928, true, true));
+            ImmutableMap.of("Uncut jade", 4928), ImmutableMap.of("Jade", (int) (4928 * (.4 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .006)),
+            "Crafting", (int) (24640 + 15 * 4928 * (.4 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .006)), "Crafting pet points",
+            totalPetPoints(player, "Crafting", (int) (24640 + 15 * 4928 * (.4 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .006)))), 4928, true, true));
         database.add(new Action("Cutting red topaz", Collections.singletonList(new Requirement("Crafting", 16)),
-            ImmutableMap.of("Uncut red topaz", 4928), ImmutableMap.of("Red topaz", (int) (4928 * (.3 + player.getLevel("Crafting") * .007)),
-            "Crafting", (int) (31046 + 18.7 * 4928 * (.3 + player.getLevel("Crafting") * .007)), "Crafting pet points",
-            totalPetPoints(player, "Crafting", (int) (24640 + 18.7 * 4928 * (.3 + player.getLevel("Crafting") * .007)))), 4928, true, true));
+            ImmutableMap.of("Uncut red topaz", 4928), ImmutableMap.of("Red topaz", (int) (4928 * (.3 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .007)),
+            "Crafting", (int) (31046 + 18.7 * 4928 * (.3 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .007)), "Crafting pet points",
+            totalPetPoints(player, "Crafting", (int) (24640 + 18.7 * 4928 * (.3 + LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) * .007)))), 4928, true, true));
         database.add(new Action("Cutting sapphires", Collections.singletonList(new Requirement("Crafting", 20)), ImmutableMap.of("Uncut sapphire", 4928),
             ImmutableMap.of("Sapphire", 4928, "Crafting", 246400, "Crafting pet points", totalPetPoints(player, "Crafting", 246400)), 4928, true, true));
         database.add(new Action("Cutting emeralds", Collections.singletonList(new Requirement("Crafting", 27)), ImmutableMap.of("Uncut emerald", 4928),
@@ -640,9 +641,9 @@ public class ActionDatabase {
             ImmutableMap.of("Black dragonhide shield", 1500, "Crafting", 516000, "Crafting pet points", totalPetPoints(player, "Crafting", 516000)), 1500, true, true));
 
         database.add(new Action("Ithell harps (w/o VoS)", Collections.singletonList(new Requirement("Plague's End", 1)), new HashMap(),
-            ImmutableMap.of("Crafting", 560 * Math.max(75,player.getLevel("Crafting")), "Harmonic dust", 7 * Math.max(75,player.getLevel("Crafting")), "Construction", 10000,
-                "Crafting pet points", totalPetPoints(player, "Crafting", 560 * Math.max(75,player.getLevel("Crafting"))),
-                "Construction pet points", totalPetPoints(player, "Construction", 10000)), 7 * Math.max(75,player.getLevel("Crafting")), true, true));
+            ImmutableMap.of("Crafting", 560 * Math.max(75,LevelHelper.getLevel("Crafting", player.getXp().get("Crafting"))), "Harmonic dust", 7 * Math.max(75,LevelHelper.getLevel("Crafting", player.getXp().get("Crafting"))), "Construction", 10000,
+                "Crafting pet points", totalPetPoints(player, "Crafting", 560 * Math.max(75,LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")))),
+                "Construction pet points", totalPetPoints(player, "Construction", 10000)), 7 * Math.max(75,LevelHelper.getLevel("Crafting", player.getXp().get("Crafting"))), true, true));
 
         database.add(new Action("Making tortle shell bowls", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Crafting", 91)),
             ImmutableMap.of("Shell chippings", 6800), ImmutableMap.of("Tortle shell bowl", 1700, "Crafting", 127500, "Crafting pet points", totalPetPoints(player, "Crafting", 127500)), 1700, true, true));
@@ -652,152 +653,152 @@ public class ActionDatabase {
 
         //Divination (1300 harvests, 900 base conversions, 1100 effective conversions (w/ enr)) (done to lv19)
         database.add(new Action("Pale wisps (w/o bought energy)", new ArrayList<>(), new HashMap<>(),
-            ImmutableMap.of("Divination", 4000, "Pale energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, true));
+            ImmutableMap.of("Divination", 4000, "Pale energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * LevelHelper.getLevel("Divination", player.getXp().get("Divination"))), 1300, true, true));
         database.add(new Action("Pale wisps (w/ bought energy)", new ArrayList<>(), ImmutableMap.of("Pale energy", 3200),
-            ImmutableMap.of("Divination", 4630, "Memory strand", 288, "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, true));
+            ImmutableMap.of("Divination", 4630, "Memory strand", 288, "Divination level-ticks", 6000 * LevelHelper.getLevel("Divination", player.getXp().get("Divination"))), 1300, true, true));
         database.add(new Action("Flickering wisps (w/o bought energy)", Collections.singletonList(new Requirement("Business is Booning!", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 7700, "Flickering energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 7700, "Flickering energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Flickering wisps (w/ bought energy)", Collections.singletonList(new Requirement("Business is Booning!", 1)), ImmutableMap.of("Flickering energy", 4200),
-            ImmutableMap.of("Divination", 8910, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 8910, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Bright wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 20)), new HashMap<>(),
-            ImmutableMap.of("Divination", 9950, "Bright energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 9950, "Bright energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Bright wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 20)), ImmutableMap.of("Bright energy", 4200),
-            ImmutableMap.of("Divination", 11380, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 11380, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Glowing wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 30)), new HashMap<>(),
-            ImmutableMap.of("Divination", 13670, "Glowing energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 13670, "Glowing energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Glowing wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 30)), ImmutableMap.of("Glowing energy", 4200),
-            ImmutableMap.of("Divination", 15650, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 15650, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Sparkling wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 40)), new HashMap<>(),
-            ImmutableMap.of("Divination", 21020, "Sparkling energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 21020, "Sparkling energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Sparkling wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 40)), ImmutableMap.of("Sparkling energy", 4200),
-            ImmutableMap.of("Divination", 24650, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 24650, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Gleaming wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 50)), new HashMap<>(),
-            ImmutableMap.of("Divination", 30790, "Gleaming energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 30790, "Gleaming energy", 1300, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Gleaming wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 50)), ImmutableMap.of("Gleaming energy", 4200),
-            ImmutableMap.of("Divination", 36400, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 36400, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Gleaming wisps (w/o bought energy, 2 per harvest)", Collections.singletonList(new Requirement("Divination", 55)), new HashMap<>(),
-            ImmutableMap.of("Divination", 30790, "Gleaming energy", 2600, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 30790, "Gleaming energy", 2600, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Gleaming wisps (w/ bought energy, 2 per harvest)", Collections.singletonList(new Requirement("Divination", 55)), ImmutableMap.of("Gleaming energy", 2900),
-            ImmutableMap.of("Divination", 36400, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 36400, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Vibrant wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 60)), new HashMap<>(),
-            ImmutableMap.of("Divination", 39350, "Vibrant energy", 2600, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 39350, "Vibrant energy", 2600, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Vibrant wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 60)), ImmutableMap.of("Vibrant energy", 2900),
-            ImmutableMap.of("Divination", 46830, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 46830, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Lustrous wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 70)), new HashMap<>(),
             ImmutableMap.of("Divination", 49120, "Lustrous energy", 2600, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks",
-                6000 * Math.max(70, player.getLevel("Divination"))), 1300, true, true));
+                6000 * Math.max(70, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Lustrous wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 70)), ImmutableMap.of("Lustrous energy", 2900),
-            ImmutableMap.of("Divination", 58800, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(70, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 58800, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Elder wisps (w/o bought energy)", Collections.singletonList(new Requirement("Fate of the Gods", 1)), new HashMap(), ImmutableMap.builder().put("Divination", 51530)
-            .put("Elder energy", 3900).put("Elder chronicle fragment", 4).put("Hunter", player.getLevel("Hunter") * 40).put("Memory strand", 288)
-            .put("Divination level-ticks", 6000 * Math.max(75, player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 1300, true, true));
+            .put("Elder energy", 3900).put("Elder chronicle fragment", 4).put("Hunter", LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")) * 40).put("Memory strand", 288)
+            .put("Divination level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))).put("Divination fragments", 1200).build(), 1300, true, true));
         database.add(new Action("Elder wisps (w/ bought energy)", Collections.singletonList(new Requirement("Fate of the Gods", 1)), ImmutableMap.of("Elder energy", 1600),
-            ImmutableMap.builder().put("Divination", 61540).put("Elder chronicle fragment", 4).put("Hunter", player.getLevel("Hunter") * 40).put("Memory strand", 288)
-            .put("Divination level-ticks", 6000 * Math.max(75, player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 1300, true, true));
+            ImmutableMap.builder().put("Divination", 61540).put("Elder chronicle fragment", 4).put("Hunter", LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")) * 40).put("Memory strand", 288)
+            .put("Divination level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))).put("Divination fragments", 1200).build(), 1300, true, true));
         database.add(new Action("Brilliant wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 80)), new HashMap<>(),
             ImmutableMap.of("Divination", 54050, "Brilliant energy", 2600, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks",
-                6000 * Math.max(80, player.getLevel("Divination"))), 1300, true, true));
+                6000 * Math.max(80, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Brilliant wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 80)), ImmutableMap.of("Brilliant energy", 1600),
-            ImmutableMap.of("Divination", 64500, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(80, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 64500, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Radiant wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 85)), new HashMap<>(),
             ImmutableMap.of("Divination", 58980, "Radiant energy", 2600, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks",
-                6000 * Math.max(85, player.getLevel("Divination"))), 1300, true, true));
+                6000 * Math.max(85, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Radiant wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 85)), ImmutableMap.of("Radiant energy", 1600),
-            ImmutableMap.of("Divination", 70420, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(85, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 70420, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(85, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Luminous wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 90)),
             new HashMap(), ImmutableMap.builder().put("Divination", 65120).put("Luminous energy", 3900).put("Fly dragon", 1).put("Fruit fly", 1).put("Memory strand", 288)
-            .put("Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 1300, true, true));
+            .put("Divination level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))).put("Divination fragments", 1200).build(), 1300, true, true));
         database.add(new Action("Luminous wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 90)),
             ImmutableMap.of("Luminous energy", 1600), ImmutableMap.builder().put("Divination", 77770).put("Fly dragon", 1).put("Fruit fly", 1).put("Memory strand", 288)
-            .put("Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 1300, true, true));
+            .put("Divination level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))).put("Divination fragments", 1200).build(), 1300, true, true));
         database.add(new Action("Incandescent wisps (w/o bought energy)", Collections.singletonList(new Requirement("Divination", 95)), new HashMap<>(),
             ImmutableMap.of("Divination", 70050, "Incandescent energy", 2600, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks",
-                6000 * Math.max(95, player.getLevel("Divination"))), 1300, true, true));
+                6000 * Math.max(95, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
         database.add(new Action("Incandescent wisps (w/ bought energy)", Collections.singletonList(new Requirement("Divination", 95)), ImmutableMap.of("Incandescent energy", 1600),
-            ImmutableMap.of("Divination", 83580, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(95, player.getLevel("Divination"))), 1300, true, true));
+            ImmutableMap.of("Divination", 83580, "Memory strand", 288, "Divination fragments", 1200, "Divination level-ticks", 6000 * Math.max(95, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, true));
 
 
         database.add(new Action("Cursed wisps (level 1-9, w/o skull)", new ArrayList(), new HashMap<>(), ImmutableMap.of("Divination", 7650, "Pale energy", 1950, "Memory strand", 288,
-            "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, false));
+            "Divination level-ticks", 6000 * LevelHelper.getLevel("Divination", player.getXp().get("Divination"))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 1-9, w/ skull)", Collections.singletonList(new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 8790, "Pale energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * player.getLevel("Divination")), 1300, true, false));
+            ImmutableMap.of("Divination", 8790, "Pale energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * LevelHelper.getLevel("Divination", player.getXp().get("Divination"))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 10-19, w/o skull)", Collections.singletonList(new Requirement("Divination", 10)), new HashMap<>(),
-            ImmutableMap.of("Divination", 10050, "Flickering energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 10050, "Flickering energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 10-19, w/ skull)", Arrays.asList(new Requirement("Divination", 10), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 11670, "Flickering energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 11670, "Flickering energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(10, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 20-29, w/o skull)", Collections.singletonList(new Requirement("Divination", 20)), new HashMap<>(),
-            ImmutableMap.of("Divination", 12450, "Bright energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 12450, "Bright energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 20-29, w/ skull)", Arrays.asList(new Requirement("Divination", 20), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 14550, "Bright energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 14550, "Bright energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(20, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 30-39, w/o skull)", Collections.singletonList(new Requirement("Divination", 30)), new HashMap<>(),
-            ImmutableMap.of("Divination", 15950, "Glowing energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 15950, "Glowing energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 30-39, w/ skull)", Arrays.asList(new Requirement("Divination", 30), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 18750, "Glowing energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 18750, "Glowing energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 40-49, w/o skull)", Collections.singletonList(new Requirement("Divination", 40)), new HashMap<>(),
-            ImmutableMap.of("Divination", 22750, "Sparkling energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 22750, "Sparkling energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 40-49, w/ skull)", Arrays.asList(new Requirement("Divination", 40), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 26910, "Sparkling energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 26910, "Sparkling energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 50-54, w/o skull)", Collections.singletonList(new Requirement("Divination", 50)), new HashMap<>(),
-            ImmutableMap.of("Divination", 33950, "Gleaming energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 33950, "Gleaming energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 50-54, w/ skull)", Arrays.asList(new Requirement("Divination", 50), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 40350, "Gleaming energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 40350, "Gleaming energy", 1950, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 55-59, w/o skull)", Collections.singletonList(new Requirement("Divination", 55)), new HashMap<>(),
-            ImmutableMap.of("Divination", 35900, "Gleaming energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 35900, "Gleaming energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 55-59, w/ skull)", Arrays.asList(new Requirement("Divination", 55), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 42300, "Gleaming energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 42300, "Gleaming energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(55, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 60-69, w/o skull)", Collections.singletonList(new Requirement("Divination", 60)), new HashMap<>(),
-            ImmutableMap.of("Divination", 44900, "Vibrant energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 44900, "Vibrant energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 60-69, w/ skull)", Arrays.asList(new Requirement("Divination", 60), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 53100, "Vibrant energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 53100, "Vibrant energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 70-74, w/o skull)", Collections.singletonList(new Requirement("Divination", 70)), new HashMap<>(),
-            ImmutableMap.of("Divination", 53900, "Lustrous energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(70, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 53900, "Lustrous energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 70-74, w/ skull)", Arrays.asList(new Requirement("Divination", 70), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 63900, "Lustrous energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(70, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 63900, "Lustrous energy", 3900, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 75-79, w/o skull)", Collections.singletonList(new Requirement("Divination", 75)), new HashMap<>(),
-            ImmutableMap.of("Divination", 55850, "Lustrous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(75, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 55850, "Lustrous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 75-79, w/ skull)", Arrays.asList(new Requirement("Divination", 75), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 65850, "Lustrous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(75, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 65850, "Lustrous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 80-84, w/o skull)", Collections.singletonList(new Requirement("Divination", 80)), new HashMap<>(),
-            ImmutableMap.of("Divination", 62650, "Brilliant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(80, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 62650, "Brilliant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 80-84, w/ skull)", Arrays.asList(new Requirement("Divination", 80), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 74010, "Brilliant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(80, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 74010, "Brilliant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 85-89, w/o skull)", Collections.singletonList(new Requirement("Divination", 85)), new HashMap<>(),
-            ImmutableMap.of("Divination", 69450, "Radiant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(85, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 69450, "Radiant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(85, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 85-89, w/ skull)", Arrays.asList(new Requirement("Divination", 85), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 82170, "Radiant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(85, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 82170, "Radiant energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(85, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 90-94, w/o skull)", Collections.singletonList(new Requirement("Divination", 90)), new HashMap<>(),
-            ImmutableMap.of("Divination", 78450, "Luminous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 78450, "Luminous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 90-94, w/ skull)", Arrays.asList(new Requirement("Divination", 90), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 92970, "Luminous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 92970, "Luminous energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 95+, w/o skull)", Collections.singletonList(new Requirement("Divination", 95)), new HashMap<>(),
-            ImmutableMap.of("Divination", 91850, "Incandescent energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(95, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 91850, "Incandescent energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(95, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
         database.add(new Action("Cursed wisps (level 95+, w/ skull)", Arrays.asList(new Requirement("Divination", 95), new Requirement("Demonic skull", 1)), new HashMap<>(),
-            ImmutableMap.of("Divination", 109050, "Incandescent energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(95, player.getLevel("Divination"))), 1300, true, false));
+            ImmutableMap.of("Divination", 109050, "Incandescent energy", 5850, "Memory strand", 288, "Divination level-ticks", 6000 * Math.max(95, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1300, true, false));
 
         database.add(new Action("Empty Throne Room divination", Arrays.asList(new Requirement("Divination", 65), new Requirement("The Dig Site", 1)), new HashMap(),
-            ImmutableMap.of("Divination", 65000, "Divination level-ticks", 6000 * Math.max(65, player.getLevel("Divination"))), 1500, true, true));
+            ImmutableMap.of("Divination", 65000, "Divination level-ticks", 6000 * Math.max(65, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1500, true, true));
 
         database.add(new Action("Positive springs", Arrays.asList(new Requirement("Impressing the Locals", 1),
             new Requirement("Divination", 90)), new HashMap(), ImmutableMap.of("Divination", 60300, "Positive energy", 600, "Memory strand", 288,
-            "Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination")), "Divination fragments", 1200), 600, true, true));
+            "Divination level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Divination", player.getXp().get("Divination"))), "Divination fragments", 1200), 600, true, true));
         database.add(new Action("Ancestral springs", Arrays.asList(new Requirement("Impressing the Locals", 1),
             new Requirement("Divination", 95)), new HashMap(), ImmutableMap.builder().put("Divination", 96300).put("Ancestral energy", 600).put("Cyansoul Kakapo", 1).put("Memory strand", 288)
-            .put("Divination level-ticks", 6000 * Math.max(95, player.getLevel("Divination"))).put("Divination fragments", 1200).build(), 600, true, true));
+            .put("Divination level-ticks", 6000 * Math.max(95, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))).put("Divination fragments", 1200).build(), 600, true, true));
 
         database.add(new Action("Hall of Memories (lustrous)", Collections.singletonList(new Requirement("Divination", 70)), new HashMap(), ImmutableMap.of("Lustrous hall memories", 300,
-            "Divination", 60000, "Divination level-ticks", 6000 * Math.max(70, player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 60000, "Divination level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (brilliant)", Collections.singletonList(new Requirement("Divination", 80)), new HashMap(), ImmutableMap.of("Brilliant hall memories", 300,
-            "Divination", 90000, "Divination level-ticks", 6000 * Math.max(80, player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 90000, "Divination level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (radiant)", Collections.singletonList(new Requirement("Divination", 85)), new HashMap(), ImmutableMap.of("Radiant hall memories", 300,
-            "Divination", 135000, "Divination level-ticks", 6000 * Math.max(85, player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 135000, "Divination level-ticks", 6000 * Math.max(85, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (luminous)", Collections.singletonList(new Requirement("Divination", 90)), new HashMap(), ImmutableMap.of("Luminous hall memories", 300,
-            "Divination", 200000, "Divination level-ticks", 6000 * Math.max(90, player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 200000, "Divination level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1500, true, true));
 
         database.add(new Action("Hall of Memories (incandescent)", Collections.singletonList(new Requirement("Divination", 95)), new HashMap(), ImmutableMap.of("Incandescent hall memories", 300,
-            "Divination", 300000, "Divination level-ticks", 6000 * Math.max(95, player.getLevel("Divination"))), 1500, true, true));
+            "Divination", 300000, "Divination level-ticks", 6000 * Math.max(95, LevelHelper.getLevel("Divination", player.getXp().get("Divination")))), 1500, true, true));
 
         //Dungeoneering (done) (major approximation, assumes 7.5 minute floors)
         //4000 * Math.pow((player.getLevel("Dungeoneering") + 9.0) / 10.0, 2));
@@ -1050,121 +1051,121 @@ public class ActionDatabase {
 
         //Firemaking (done)
         database.add(new Action("Burning normal logs on bonfire", new ArrayList(), ImmutableMap.of("Logs", 952), ImmutableMap.of("Firemaking", 47600,
-            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 952, true, true));
+            "Firemaking level-ticks", 6000 * LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking"))), 952, true, true));
         database.add(new Action("Burning normal logs in lines", new ArrayList(), ImmutableMap.of("Logs", 1260), ImmutableMap.of("Firemaking", 50400,
-            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 1260, true, true));
+            "Firemaking level-ticks", 6000 * LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking"))), 1260, true, true));
         database.add(new Action("Burning normal logs in lines (w/pitch can)", new ArrayList(), ImmutableMap.of("Logs", 3429, "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2,
-            "Firemaking", 137160, "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 3429, true, true));
+            "Firemaking", 137160, "Firemaking level-ticks", 6000 * LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking"))), 3429, true, true));
         database.add(new Action("Burning achey logs on bonfire", new ArrayList(), ImmutableMap.of("Achey tree logs", 952), ImmutableMap.of("Firemaking", 47600,
-            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 976, true, true));
+            "Firemaking level-ticks", 6000 * LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking"))), 976, true, true));
         database.add(new Action("Burning achey logs in lines", new ArrayList(), ImmutableMap.of("Achey tree logs", 1260), ImmutableMap.of("Firemaking", 50400,
-            "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 1260, true, true));
+            "Firemaking level-ticks", 6000 * LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking"))), 1260, true, true));
         database.add(new Action("Burning achey logs in lines (w/pitch can)", new ArrayList(), ImmutableMap.of("Achey tree logs", 3429, "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2,
-            "Firemaking", 137160, "Firemaking level-ticks", 6000 * player.getLevel("Firemaking")), 3429, true, true));
+            "Firemaking", 137160, "Firemaking level-ticks", 6000 * LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking"))), 3429, true, true));
         database.add(new Action("Burning oak logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 15)), ImmutableMap.of("Oak logs", 952), ImmutableMap.of("Firemaking", 80920,
-            "Firemaking level-ticks", 6000 * Math.max(15, player.getLevel("Firemaking"))), 952, true, true));
+            "Firemaking level-ticks", 6000 * Math.max(15, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning oak logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 15)), ImmutableMap.of("Oak logs", 3429, "Pitch can (full)", 2),
-            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 205740, "Firemaking level-ticks", 6000 * Math.max(15, player.getLevel("Firemaking"))), 3429, true, true));
+            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 205740, "Firemaking level-ticks", 6000 * Math.max(15, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning willow logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 30)), ImmutableMap.of("Willow logs", 952), ImmutableMap.of("Firemaking", 99960,
-            "Firemaking level-ticks", 6000 * Math.max(30, player.getLevel("Firemaking"))), 952, true, true));
+            "Firemaking level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning willow logs in lines", Collections.singletonList(new Requirement("Firemaking", 30)), ImmutableMap.of("Willow logs", 1260), ImmutableMap.of("Firemaking", 113400,
-            "Firemaking level-ticks", 6000 * Math.max(30, player.getLevel("Firemaking"))), 1260, true, true));
+            "Firemaking level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning willow logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 30)), ImmutableMap.of("Willow logs", 3429, "Pitch can (full)", 2),
-            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 308610, "Firemaking level-ticks", 6000 * Math.max(30, player.getLevel("Firemaking"))), 3429, true, true));
+            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 308610, "Firemaking level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning teak logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 35)), ImmutableMap.of("Teak logs", 952), ImmutableMap.of("Firemaking", 114240,
-            "Firemaking level-ticks", 6000 * Math.max(35, player.getLevel("Firemaking"))), 952, true, true));
+            "Firemaking level-ticks", 6000 * Math.max(35, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning teak logs in lines", Collections.singletonList(new Requirement("Firemaking", 35)), ImmutableMap.of("Teak logs", 1260), ImmutableMap.of("Firemaking", 132300,
-            "Firemaking level-ticks", 6000 * Math.max(35, player.getLevel("Firemaking"))), 1260, true, true));
+            "Firemaking level-ticks", 6000 * Math.max(35, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning teak logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 35)), ImmutableMap.of("Teak logs", 3429, "Pitch can (full)", 2),
-            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 360045, "Firemaking level-ticks", 6000 * Math.max(35, player.getLevel("Firemaking"))), 3429, true, true));
+            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 360045, "Firemaking level-ticks", 6000 * Math.max(35, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning arctic pine logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 42)), ImmutableMap.of("Arctic pine logs", 952),
-            ImmutableMap.of("Firemaking", 123760, "Firemaking level-ticks", 6000 * Math.max(42, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 123760, "Firemaking level-ticks", 6000 * Math.max(42, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning arctic pine logs in lines", Collections.singletonList(new Requirement("Firemaking", 42)), ImmutableMap.of("Arctic pine logs", 1260),
-            ImmutableMap.of("Firemaking", 157500, "Firemaking level-ticks", 6000 * Math.max(42, player.getLevel("Firemaking"))), 1260, true, true));
+            ImmutableMap.of("Firemaking", 157500, "Firemaking level-ticks", 6000 * Math.max(42, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning arctic pine logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 42)), ImmutableMap.of("Arctic pine logs", 3429,
-            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 428625, "Firemaking level-ticks", 6000 * Math.max(42, player.getLevel("Firemaking"))), 3429, true, true));
+            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 428625, "Firemaking level-ticks", 6000 * Math.max(42, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning maple logs in lines", Collections.singletonList(new Requirement("Firemaking", 45)), ImmutableMap.of("Maple logs", 1260), ImmutableMap.of("Firemaking", 170100,
-            "Firemaking level-ticks", 6000 * Math.max(45, player.getLevel("Firemaking"))), 1260, true, true));
+            "Firemaking level-ticks", 6000 * Math.max(45, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning maple logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 45)), ImmutableMap.of("Maple logs", 3429, "Pitch can (full)", 2),
-            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 462915, "Firemaking level-ticks", 6000 * Math.max(45, player.getLevel("Firemaking"))), 3429, true, true));
+            ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 462915, "Firemaking level-ticks", 6000 * Math.max(45, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning acadia logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 47)), ImmutableMap.of("Acadia logs", 952),
-            ImmutableMap.of("Firemaking", 162316, "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000 * Math.max(47, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 162316, "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000 * Math.max(47, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning acadia logs in lines", Collections.singletonList(new Requirement("Firemaking", 47)), ImmutableMap.of("Acadia logs", 1260), ImmutableMap.of("Firemaking", 176400,
-            "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000 * Math.max(47, player.getLevel("Firemaking"))), 1260, true, true));
+            "Menaphite honey bee", 1, "Fruit fly in amber", 1, "Firemaking level-ticks", 6000 * Math.max(47, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning acadia logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 47)), ImmutableMap.of("Acadia logs", 3429, "Pitch can (full)", 2),
-            ImmutableMap.of("Pitch can (empty)", 2, "Menaphite honey bee", 3, "Fruit fly in amber", 3, "Firemaking", 480060, "Firemaking level-ticks", 6000 * Math.max(47, player.getLevel("Firemaking"))),
+            ImmutableMap.of("Pitch can (empty)", 2, "Menaphite honey bee", 3, "Fruit fly in amber", 3, "Firemaking", 480060, "Firemaking level-ticks", 6000 * Math.max(47, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))),
             3429, true, true));
         database.add(new Action("Burning mahogany logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 50)), ImmutableMap.of("Mahogany logs", 952),
-            ImmutableMap.of("Firemaking", 171360, "Firemaking level-ticks", 6000 * Math.max(50, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 171360, "Firemaking level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning mahogany logs in lines", Collections.singletonList(new Requirement("Firemaking", 50)), ImmutableMap.of("Mahogany logs", 1260),
-            ImmutableMap.of("Firemaking", 198450, "Firemaking level-ticks", 6000 * Math.max(50, player.getLevel("Firemaking"))), 1260, true, true));
+            ImmutableMap.of("Firemaking", 198450, "Firemaking level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning mahogany logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 50)), ImmutableMap.of("Mahogany logs", 3429,
-            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 540067, "Firemaking level-ticks", 6000 * Math.max(50, player.getLevel("Firemaking"))), 3429, true, true));
+            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 540067, "Firemaking level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning eucalyptus logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 58)), ImmutableMap.of("Eucalyptus logs", 952),
-            ImmutableMap.of("Firemaking", 185640, "Firemaking level-ticks", 6000 * Math.max(58, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 185640, "Firemaking level-ticks", 6000 * Math.max(58, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning eucalpytus logs in lines", Collections.singletonList(new Requirement("Firemaking", 58)), ImmutableMap.of("Eucalyptus logs", 1260),
-            ImmutableMap.of("Firemaking", 243180, "Firemaking level-ticks", 6000 * Math.max(58, player.getLevel("Firemaking"))), 1260, true, true));
+            ImmutableMap.of("Firemaking", 243180, "Firemaking level-ticks", 6000 * Math.max(58, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning eucalpytus logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 58)), ImmutableMap.of("Eucalpytus logs", 3429,
-            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 661797, "Firemaking level-ticks", 6000 * Math.max(58, player.getLevel("Firemaking"))), 3429, true, true));
+            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 661797, "Firemaking level-ticks", 6000 * Math.max(58, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning yew logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 60)), ImmutableMap.of("Yew logs", 952),
-            ImmutableMap.of("Firemaking", 209440, "Firemaking level-ticks", 6000 * Math.max(60, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 209440, "Firemaking level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning yew logs in lines", Collections.singletonList(new Requirement("Firemaking", 60)), ImmutableMap.of("Yew logs", 1260),
-            ImmutableMap.of("Firemaking", 255150, "Firemaking level-ticks", 6000 * Math.max(60, player.getLevel("Firemaking"))), 1260, true, true));
+            ImmutableMap.of("Firemaking", 255150, "Firemaking level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning yew logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 60)), ImmutableMap.of("Yew logs", 3429,
-            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 694372, "Firemaking level-ticks", 6000 * Math.max(60, player.getLevel("Firemaking"))), 3429, true, true));
+            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 694372, "Firemaking level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning magic logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 75)), ImmutableMap.of("Magic logs", 952),
-            ImmutableMap.of("Firemaking", 294644, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 294644, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning magic logs in lines", Collections.singletonList(new Requirement("Firemaking", 75)), ImmutableMap.of("Magic logs", 1260),
-            ImmutableMap.of("Firemaking", 382788, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 1260, true, true));
+            ImmutableMap.of("Firemaking", 382788, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning magic logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 75)), ImmutableMap.of("Magic logs", 3429,
-            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 1041730, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 3429, true, true));
+            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 1041730, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning corrupted magic logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 75)), ImmutableMap.of("Corrupted magic logs", 952),
-            ImmutableMap.of("Firemaking", 309876, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 309876, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning corrupted magic logs in lines", Collections.singletonList(new Requirement("Firemaking", 75)), ImmutableMap.of("Corrupted magic logs", 1260),
-            ImmutableMap.of("Firemaking", 401940, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 1260, true, true));
+            ImmutableMap.of("Firemaking", 401940, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning corrupted magic logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 75)), ImmutableMap.of("Corrupted magic logs", 3429,
-            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 1093851, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 3429, true, true));
+            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 1093851, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Burning elder logs on bonfire", Collections.singletonList(new Requirement("Firemaking", 90)), ImmutableMap.of("Elder logs", 952),
-            ImmutableMap.of("Firemaking", 428400, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 952, true, true));
+            ImmutableMap.of("Firemaking", 428400, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 952, true, true));
         database.add(new Action("Burning elder logs in lines", Collections.singletonList(new Requirement("Firemaking", 90)), ImmutableMap.of("Elder logs", 1260),
-            ImmutableMap.of("Firemaking", 547218, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 1260, true, true));
+            ImmutableMap.of("Firemaking", 547218, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 1260, true, true));
         database.add(new Action("Burning elder logs in lines (w/pitch can)", Collections.singletonList(new Requirement("Firemaking", 90)), ImmutableMap.of("Elder logs", 3429,
-            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 1489214, "Firemaking level-ticks", 6000 * Math.max(75, player.getLevel("Firemaking"))), 3429, true, true));
+            "Pitch can (full)", 2), ImmutableMap.of("Pitch can (empty)", 2, "Firemaking", 1489214, "Firemaking level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Firemaking", player.getXp().get("Firemaking")))), 3429, true, true));
         database.add(new Action("Char's training cave (XP maxing)", Arrays.asList(new Requirement("Firemaking", 91), new Requirement("The Firemaker's Curse", 1)),
             ImmutableMap.of("Pitch can (empty)", 5), ImmutableMap.of("Pitch can (full)", 5, "Firemaking", 728916), 12, true, true));
         database.add(new Action("Char's training cave (profit maxing)", Arrays.asList(new Requirement("Firemaking", 91), new Requirement("The Firemaker's Curse", 1)),
             ImmutableMap.of("Pitch can (empty)", 10), ImmutableMap.of("Pitch can (full)", 10, "Firemaking", 530304), 12, true, true));
 
         //Fishing (done)
-        int troutFished = 140 + 10*Math.max(20,player.getLevel("Fishing"));
-        int troutSalmonFished = 170 + 11*Math.min(80,Math.max(30,player.getLevel("Fishing")));
-        int desertSoleFished = 10 * Math.max(52, player.getLevel(("Fishing")));
-        int barbarianFished = 650 + 5 * Math.min(70,player.getLevel("Fishing"));
-        int menaphosFished = 11 * Math.max(72, player.getLevel(("Fishing")));
+        int troutFished = 140 + 10*Math.max(20,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")));
+        int troutSalmonFished = 170 + 11*Math.min(80,Math.max(30,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing"))));
+        int desertSoleFished = 10 * Math.max(52, LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")));
+        int barbarianFished = 650 + 5 * Math.min(70,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")));
+        int menaphosFished = 11 * Math.max(72, LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")));
         database.add(new Action("Fishing raw crayfish", new ArrayList<>(), new HashMap<>(), ImmutableMap.of("Fishing", 11500, "Prawn balls", 6,
-            "Fishing level-ticks", 6000 * player.getLevel("Fishing")), 1150, true, true));
+            "Fishing level-ticks", 6000 * LevelHelper.getLevel("Fishing", player.getXp().get("Fishing"))), 1150, true, true));
         database.add(new Action("Fishing raw trout", Collections.singletonList(new Requirement("Fishing", 20)), new HashMap(), ImmutableMap.of("Fishing", 50*troutFished,
-            "Prawn balls", troutFished/93, "Fishing level-ticks", 6000 * Math.max(20,player.getLevel("Fishing"))), troutFished, true, true));
+            "Prawn balls", troutFished/93, "Fishing level-ticks", 6000 * Math.max(20,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))), troutFished, true, true));
         database.add(new Action("Fishing raw trout/salmon", Collections.singletonList(new Requirement("Fishing", 30)), new HashMap(), ImmutableMap.of("Fishing", 60*troutSalmonFished,
-            "Prawn balls", troutSalmonFished/70, "Fishing level-ticks", 6000 * Math.max(30,player.getLevel("Fishing"))), troutSalmonFished, true, true));
+            "Prawn balls", troutSalmonFished/70, "Fishing level-ticks", 6000 * Math.max(30,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))), troutSalmonFished, true, true));
         database.add(new Action("Fishing raw trout/salmon (w/C+LF)", Arrays.asList(new Requirement("Fishing", 30), new Requirement("The Light Within", 1), new Requirement("Magic", 88)),
-            new HashMap(), ImmutableMap.of("Fishing", (int)(112.5*troutSalmonFished), "Fishing level-ticks", 6000 * Math.max(30,player.getLevel("Fishing"))), troutSalmonFished, true, true));
+            new HashMap(), ImmutableMap.of("Fishing", (int)(112.5*troutSalmonFished), "Fishing level-ticks", 6000 * Math.max(30,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))), troutSalmonFished, true, true));
         database.add(new Action("Fishing/dropping desert sole", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 52)),
             new HashMap(), ImmutableMap.builder().put("Fishing", 60 * desertSoleFished).put("Menaphos reputation", 3 * desertSoleFished)
             .put("Prawn balls", desertSoleFished / 25).put("Clicker kalphite in amber", 1).put("Desert locust in amber", 1)
-            .put("Fishing level-ticks", 6000 * Math.max(52, player.getLevel("Fishing"))).put("Wavecrest opal", 1).put("Maw coral", 1).build(), desertSoleFished, true, true));
+            .put("Fishing level-ticks", 6000 * Math.max(52, LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))).put("Wavecrest opal", 1).put("Maw coral", 1).build(), desertSoleFished, true, true));
         database.add(new Action("Barbarian fly fishing", Arrays.asList(new Requirement("Fishing", 70), new Requirement("Strength", 45), new Requirement("Agility", 45),
             new Requirement("Barbarian Fishing", 1)), new HashMap<>(), ImmutableMap.of("Fishing", 64 * barbarianFished, "Strength", (int) Math.floor(4.9 * barbarianFished),
-            "Agility", (int) Math.floor(4.9 * barbarianFished), "Shark fragment", 1200, "Fishing level-ticks", 6000 * Math.max(70, player.getLevel("Fishing"))),
-            (650 + 5 * player.getLevel("Fishing")), true, true));
+            "Agility", (int) Math.floor(4.9 * barbarianFished), "Shark fragment", 1200, "Fishing level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))),
+            (650 + 5 * LevelHelper.getLevel("Fishing", player.getXp().get("Fishing"))), true, true));
         database.add(new Action("Fishing in Menaphos (w/ beltfish)", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Fishing", 72)),
             new HashMap(), ImmutableMap.builder().put("Fishing", 79 * menaphosFished).put("Menaphos reputation", (int)(4.4 * menaphosFished))
             .put("Prawn balls", menaphosFished / 23).put("Clicker kalphite in amber", 1).put("Desert locust in amber", 1)
-            .put("Fishing level-ticks", 6000 * Math.max(72, player.getLevel("Fishing"))).put("Wavecrest opal", 1).put("Maw coral", 1).build(), menaphosFished, true, true));
+            .put("Fishing level-ticks", 6000 * Math.max(72, LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))).put("Wavecrest opal", 1).put("Maw coral", 1).build(), menaphosFished, true, true));
         database.add(new Action("Fishing Frenzy", Collections.singletonList(new Requirement("Fishing", 94)), new HashMap(), ImmutableMap.of("Fishing", 285000,
-            "Fishing level-ticks", 6000 * Math.max(94,player.getLevel("Fishing"))), 1000, true, true));
+            "Fishing level-ticks", 6000 * Math.max(94,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))), 1000, true, true));
         database.add(new Action("Fishing wobbegongs", Arrays.asList(new Requirement("Fishing", 96), new Requirement("Flag Fall (miniquest)", 1)), new HashMap(), ImmutableMap.of("Fishing", 137000,
-            "Fishing level-ticks", 6000 * Math.max(96,player.getLevel("Fishing"))), 1000, true, true));
+            "Fishing level-ticks", 6000 * Math.max(96,LevelHelper.getLevel("Fishing", player.getXp().get("Fishing")))), 1000, true, true));
 
         //Fletching (done)
         database.add(new Action("Fletching arrow shafts with normal logs", new ArrayList(), ImmutableMap.of("Logs", 2688), ImmutableMap.of("Arrow shaft", 40320,
@@ -1463,82 +1464,82 @@ public class ActionDatabase {
         database.add(new Action("Making overloads", Collections.singletonList(new Requirement("Herblore", 96)), ImmutableMap.builder().put("Extreme attack (3)", 1998).put("Extreme strength (3)", 1998)
             .put("Extreme defence (3)", 1998).put("Extreme magic (3)", 1998).put("Extreme ranging (3)", 1998).put("Clean torstol", 1998).build(),
             ImmutableMap.of("Herblore", 1998000, "Herblore pet points", totalPetPoints(player, "Herblore", 1998000)), 1998, true, true));
-
-        //Hunter (60 base per snare, 90 base ber trap)
-        int tropicalWagtailsCaught = 100 + Math.max(20, player.getLevel("Hunter"));
-        int cobaltSkillchompasCaught2 = 154 + Math.max(26, player.getLevel("Hunter"));
-        int cobaltSkillchompasCaught3 = 244 + Math.max(26, player.getLevel("Hunter"));
-        int viridianSkillchompasCaught3 = 224 + Math.max(46, player.getLevel("Hunter"));
-        int viridianSkillchompasCaught4 = 314 + Math.max(46, player.getLevel("Hunter"));
-        int azureSkillchompasCaught4 = 292 + Math.max(68, player.getLevel("Hunter"));
-        int azureSkillchompasCaught5 = 382 + Math.max(68, player.getLevel("Hunter"));
-        int crimsonSkillchompasCaught = 361 + Math.max(89, player.getLevel("Hunter"));
-        int crystalSkillchompasCaught = 353 + Math.max(97, player.getLevel("Hunter"));
-        int grenwallsCaught4 = 283 + Math.max(77, player.getLevel("Hunter"));
-        int grenwallsCaught5 = 373 + Math.max(77, player.getLevel("Hunter"));
-        database.add(new Action("Feeding ogleroots to rabbits", new ArrayList(), ImmutableMap.of("Coins", 3000), ImmutableMap.of("Hunter", 9000,
-            "Hunter level-ticks", 6000 * player.getLevel("Hunter")), 300, true, true));
-        database.add(new Action("Hunting tropical wagtails", Collections.singletonList(new Requirement("Hunter", 20)), new HashMap(), ImmutableMap.of("Hunter",
-            (int)(95.8*tropicalWagtailsCaught), "Hunter level-ticks", 6000 * Math.max(20, player.getLevel("Hunter"))), tropicalWagtailsCaught, true, true));
-        database.add(new Action("Hunting cobalt skillchompas (2 traps)", Collections.singletonList(new Requirement("Hunter", 27)), new HashMap(), ImmutableMap.of("Hunter",
-            (int)(121*cobaltSkillchompasCaught2), "Cobalt skillchompa", 2*cobaltSkillchompasCaught2, "Hunter level-ticks", 6000 * Math.max(26, player.getLevel("Hunter"))),
-            cobaltSkillchompasCaught2, true, true));
-        database.add(new Action("Hunting cobalt skillchompas (3 traps)", Collections.singletonList(new Requirement("Hunter", 40)), new HashMap(), ImmutableMap.of("Hunter",
-            (int)(121*cobaltSkillchompasCaught3), "Cobalt skillchompa", 2*cobaltSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(40, player.getLevel("Hunter"))),
-            cobaltSkillchompasCaught3, true, true));
-        database.add(new Action("Hunting viridian skillchompas (3 traps)", Collections.singletonList(new Requirement("Hunter", 46)), new HashMap(), ImmutableMap.of("Hunter",
-            176*viridianSkillchompasCaught3, "Viridian skillchompa", 2*viridianSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(46, player.getLevel("Hunter"))),
-            viridianSkillchompasCaught3, true, true));
-        database.add(new Action("Hunting viridian skillchompas (4 traps)", Collections.singletonList(new Requirement("Hunter", 60)), new HashMap(), ImmutableMap.of("Hunter",
-            176*viridianSkillchompasCaught4, "Viridian skillchompa", 2*viridianSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(60, player.getLevel("Hunter"))),
-            viridianSkillchompasCaught4, true, true));
-        database.add(new Action("Hunting azure skillchompas (4 traps)", Collections.singletonList(new Requirement("Hunter", 68)), new HashMap(), ImmutableMap.of("Hunter",
-            199*azureSkillchompasCaught4, "Azure skillchompa", 2*azureSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(68, player.getLevel("Hunter"))),
-            azureSkillchompasCaught4, true, true));
-        database.add(new Action("Hunting azure skillchompas (5 traps)", Collections.singletonList(new Requirement("Hunter", 80)), new HashMap(), ImmutableMap.of("Hunter",
-            199*azureSkillchompasCaught5, "Azure skillchompa", 2*azureSkillchompasCaught5, "Hunter level-ticks", 6000 * Math.max(80, player.getLevel("Hunter"))),
-            azureSkillchompasCaught5, true, true));
-        database.add(new Action("Hunting crimson skillchompas", Collections.singletonList(new Requirement("Hunter", 89)), new HashMap(), ImmutableMap.of("Hunter",
-            382*crimsonSkillchompasCaught, "Crimson skillchompa", 2*crimsonSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(89, player.getLevel("Hunter"))),
-            crimsonSkillchompasCaught, true, true));
-        database.add(new Action("Hunting crystal skillchompas", Arrays.asList(new Requirement("Hunter", 97), new Requirement("Regicide", 1)), new HashMap(), ImmutableMap.of("Hunter",
-            476*crystalSkillchompasCaught, "Crystal skillchompa", 2*crystalSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(97, player.getLevel("Hunter"))),
-            crystalSkillchompasCaught, true, true));
-        database.add(new Action("Hunting grenwalls (w/C+LF+quiver2), 4 traps", Arrays.asList(new Requirement("Hunter", 77), new Requirement("The Light Within", 1),
-            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(1361.25*grenwallsCaught4), "Grenwall spikes", 20*grenwallsCaught4,
-            "Hunter level-ticks", 6000 * Math.max(77, player.getLevel("Hunter"))), grenwallsCaught4, true, true));
-        database.add(new Action("Hunting grenwalls (w/C+LF+quiver2), 5 traps", Arrays.asList(new Requirement("Hunter", 80), new Requirement("The Light Within", 1),
-            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(1361.25*grenwallsCaught5), "Grenwall spikes", 20*grenwallsCaught5,
-            "Hunter level-ticks", 6000 * Math.max(80, player.getLevel("Hunter"))), grenwallsCaught5, true, true));
-        database.add(new Action("Hunting common jadinkos", Arrays.asList(new Requirement("Hunter", 70), new Requirement("Farming", 54)), new HashMap(), ImmutableMap.of("Hunter", 38500,
-            "Lergberry seed", 2, "Kalferberry seed", 2, "Hunter level-ticks", 6000 * Math.max(70, player.getLevel("Hunter"))), 110, true, true));
-        database.add(new Action("Catching charm sprites", Collections.singletonList(new Requirement("Hunter", 72)), new HashMap(),
-            ImmutableMap.builder().put("Hunter", 60000).put("Crimson charm", 40).put("Blue charm", 28).put("Green charm", 17).put("Gold charm", 6).put("Charm sprites", 435)
-                .put("Hunter level-ticks", 6000 * Math.max(72, player.getLevel("Hunter"))).build(), 435, true, true));
-        database.add(new Action("Catching plover birds", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Hunter", 73)),
-            ImmutableMap.of("Logs", 200), ImmutableMap.builder().put("Plover bird", 68 + player.getLevel("Hunter")).put("Hunter", 510 * (68 + player.getLevel("Hunter")))
-            .put("Menaphos reputaton", 30 * (68 + player.getLevel("Hunter"))).put("Pygmy giant scarab", 1).put("Clicker kalphite", 1).put("Hunter level-ticks", 6000 * Math.max(73, player.getLevel("Hunter"))).build(),
-            68 + player.getLevel("Hunter"), true, true));
-        database.add(new Action("Hunting tortles", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Hunter", 90)),
-            new HashMap(), ImmutableMap.of("Hunter", 131600, "Tortoiseshell Plover", 2, "Shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(90, player.getLevel("Hunter"))), 400, true, true));
-        database.add(new Action("Hunting ornate tortles", Arrays.asList(new Requirement("Flag Fall (miniquest)", 1), new Requirement("Hunter", 96)),
-            new HashMap(), ImmutableMap.of("Hunter", 279200, "Tortoiseshell Plover", 2, "Shiny shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(96, player.getLevel("Hunter"))),
-            400, true, true));
-        database.add(new Action("Big Game Hunter (tier 1)", Arrays.asList(new Requirement("Hunter", 75), new Requirement("Slayer", 55)), new HashMap(),
-            ImmutableMap.builder().put("Hunter", 96000).put("Slayer", 16800).put("Fletching", 600).put("Woodcutting", player.getLevel("Woodcutting")*144)
-            .put("Herblore", player.getLevel("Herblore")*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 16800))
-            .put("Hunter level-ticks", 6000 * Math.max(75, player.getLevel("Hunter"))).build(), 12, true, true));
-        database.add(new Action("Big Game Hunter (tier 2)", Arrays.asList(new Requirement("Hunter", 90), new Requirement("Slayer", 70)), new HashMap(),
-            ImmutableMap.builder().put("Hunter", 168000).put("Slayer", 31800).put("Fletching", 600).put("Woodcutting", player.getLevel("Woodcutting")*144)
-                .put("Herblore", player.getLevel("Herblore")*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 31800))
-                .put("Hunter level-ticks", 6000 * Math.max(90, player.getLevel("Hunter"))).build(), 12, true, true));
-        database.add(new Action("Big Game Hunter (tier 3)", Arrays.asList(new Requirement("Hunter", 96), new Requirement("Slayer", 76)), new HashMap(),
-            ImmutableMap.builder().put("Hunter", 276000).put("Slayer", 52800).put("Fletching", 600).put("Woodcutting", player.getLevel("Woodcutting")*144)
-                .put("Herblore", player.getLevel("Herblore")*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 52800))
-                .put("Hunter level-ticks", 6000 * Math.max(96, player.getLevel("Hunter"))).build(), 12, true, true));
     }
 
     private void addSkillingActionsToDatabasePart2(Player player) {
+        //Hunter (60 base per snare, 90 base ber trap)
+        int tropicalWagtailsCaught = 100 + Math.max(20, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int cobaltSkillchompasCaught2 = 154 + Math.max(26, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int cobaltSkillchompasCaught3 = 244 + Math.max(26, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int viridianSkillchompasCaught3 = 224 + Math.max(46, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int viridianSkillchompasCaught4 = 314 + Math.max(46, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int azureSkillchompasCaught4 = 292 + Math.max(68, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int azureSkillchompasCaught5 = 382 + Math.max(68, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int crimsonSkillchompasCaught = 361 + Math.max(89, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int crystalSkillchompasCaught = 353 + Math.max(97, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int grenwallsCaught4 = 283 + Math.max(77, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        int grenwallsCaught5 = 373 + Math.max(77, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")));
+        database.add(new Action("Feeding ogleroots to rabbits", new ArrayList(), ImmutableMap.of("Coins", 3000), ImmutableMap.of("Hunter", 9000,
+            "Hunter level-ticks", 6000 * LevelHelper.getLevel("Hunter", player.getXp().get("Hunter"))), 300, true, true));
+        database.add(new Action("Hunting tropical wagtails", Collections.singletonList(new Requirement("Hunter", 20)), new HashMap(), ImmutableMap.of("Hunter",
+            (int)(95.8*tropicalWagtailsCaught), "Hunter level-ticks", 6000 * Math.max(20, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))), tropicalWagtailsCaught, true, true));
+        database.add(new Action("Hunting cobalt skillchompas (2 traps)", Collections.singletonList(new Requirement("Hunter", 27)), new HashMap(), ImmutableMap.of("Hunter",
+            (int)(121*cobaltSkillchompasCaught2), "Cobalt skillchompa", 2*cobaltSkillchompasCaught2, "Hunter level-ticks", 6000 * Math.max(26, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            cobaltSkillchompasCaught2, true, true));
+        database.add(new Action("Hunting cobalt skillchompas (3 traps)", Collections.singletonList(new Requirement("Hunter", 40)), new HashMap(), ImmutableMap.of("Hunter",
+            (int)(121*cobaltSkillchompasCaught3), "Cobalt skillchompa", 2*cobaltSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            cobaltSkillchompasCaught3, true, true));
+        database.add(new Action("Hunting viridian skillchompas (3 traps)", Collections.singletonList(new Requirement("Hunter", 46)), new HashMap(), ImmutableMap.of("Hunter",
+            176*viridianSkillchompasCaught3, "Viridian skillchompa", 2*viridianSkillchompasCaught3, "Hunter level-ticks", 6000 * Math.max(46, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            viridianSkillchompasCaught3, true, true));
+        database.add(new Action("Hunting viridian skillchompas (4 traps)", Collections.singletonList(new Requirement("Hunter", 60)), new HashMap(), ImmutableMap.of("Hunter",
+            176*viridianSkillchompasCaught4, "Viridian skillchompa", 2*viridianSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            viridianSkillchompasCaught4, true, true));
+        database.add(new Action("Hunting azure skillchompas (4 traps)", Collections.singletonList(new Requirement("Hunter", 68)), new HashMap(), ImmutableMap.of("Hunter",
+            199*azureSkillchompasCaught4, "Azure skillchompa", 2*azureSkillchompasCaught4, "Hunter level-ticks", 6000 * Math.max(68, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            azureSkillchompasCaught4, true, true));
+        database.add(new Action("Hunting azure skillchompas (5 traps)", Collections.singletonList(new Requirement("Hunter", 80)), new HashMap(), ImmutableMap.of("Hunter",
+            199*azureSkillchompasCaught5, "Azure skillchompa", 2*azureSkillchompasCaught5, "Hunter level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            azureSkillchompasCaught5, true, true));
+        database.add(new Action("Hunting crimson skillchompas", Collections.singletonList(new Requirement("Hunter", 89)), new HashMap(), ImmutableMap.of("Hunter",
+            382*crimsonSkillchompasCaught, "Crimson skillchompa", 2*crimsonSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(89, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            crimsonSkillchompasCaught, true, true));
+        database.add(new Action("Hunting crystal skillchompas", Arrays.asList(new Requirement("Hunter", 97), new Requirement("Regicide", 1)), new HashMap(), ImmutableMap.of("Hunter",
+            476*crystalSkillchompasCaught, "Crystal skillchompa", 2*crystalSkillchompasCaught, "Hunter level-ticks", 6000 * Math.max(97, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            crystalSkillchompasCaught, true, true));
+        database.add(new Action("Hunting grenwalls (w/C+LF+quiver2), 4 traps", Arrays.asList(new Requirement("Hunter", 77), new Requirement("The Light Within", 1),
+            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(1361.25*grenwallsCaught4), "Grenwall spikes", 20*grenwallsCaught4,
+            "Hunter level-ticks", 6000 * Math.max(77, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))), grenwallsCaught4, true, true));
+        database.add(new Action("Hunting grenwalls (w/C+LF+quiver2), 5 traps", Arrays.asList(new Requirement("Hunter", 80), new Requirement("The Light Within", 1),
+            new Requirement("Tirannwn Set Tasks - Medium", 1)), new HashMap(), ImmutableMap.of("Hunter", (int)(1361.25*grenwallsCaught5), "Grenwall spikes", 20*grenwallsCaught5,
+            "Hunter level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))), grenwallsCaught5, true, true));
+        database.add(new Action("Hunting common jadinkos", Arrays.asList(new Requirement("Hunter", 70), new Requirement("Farming", 54)), new HashMap(), ImmutableMap.of("Hunter", 38500,
+            "Lergberry seed", 2, "Kalferberry seed", 2, "Hunter level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))), 110, true, true));
+        database.add(new Action("Catching charm sprites", Collections.singletonList(new Requirement("Hunter", 72)), new HashMap(),
+            ImmutableMap.builder().put("Hunter", 60000).put("Crimson charm", 40).put("Blue charm", 28).put("Green charm", 17).put("Gold charm", 6).put("Charm sprites", 435)
+                .put("Hunter level-ticks", 6000 * Math.max(72, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))).build(), 435, true, true));
+        database.add(new Action("Catching plover birds", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Hunter", 73)),
+            ImmutableMap.of("Logs", 200), ImmutableMap.builder().put("Plover bird", 68 + LevelHelper.getLevel("Hunter", player.getXp().get("Hunter"))).put("Hunter", 510 * (68 + LevelHelper.getLevel("Hunter", player.getXp().get("Hunter"))))
+            .put("Menaphos reputaton", 30 * (68 + LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))).put("Pygmy giant scarab", 1).put("Clicker kalphite", 1).put("Hunter level-ticks", 6000 * Math.max(73, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))).build(),
+            68 + LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")), true, true));
+        database.add(new Action("Hunting tortles", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Hunter", 90)),
+            new HashMap(), ImmutableMap.of("Hunter", 131600, "Tortoiseshell Plover", 2, "Shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))), 400, true, true));
+        database.add(new Action("Hunting ornate tortles", Arrays.asList(new Requirement("Flag Fall (miniquest)", 1), new Requirement("Hunter", 96)),
+            new HashMap(), ImmutableMap.of("Hunter", 279200, "Tortoiseshell Plover", 2, "Shiny shell chippings", 400, "Hunter level-ticks", 6000 * Math.max(96, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))),
+            400, true, true));
+        database.add(new Action("Big Game Hunter (tier 1)", Arrays.asList(new Requirement("Hunter", 75), new Requirement("Slayer", 55)), new HashMap(),
+            ImmutableMap.builder().put("Hunter", 96000).put("Slayer", 16800).put("Fletching", 600).put("Woodcutting", LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))*144)
+                .put("Herblore", LevelHelper.getLevel("Herblore", player.getXp().get("Herblore"))*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 16800))
+                .put("Hunter level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))).build(), 12, true, true));
+        database.add(new Action("Big Game Hunter (tier 2)", Arrays.asList(new Requirement("Hunter", 90), new Requirement("Slayer", 70)), new HashMap(),
+            ImmutableMap.builder().put("Hunter", 168000).put("Slayer", 31800).put("Fletching", 600).put("Woodcutting", LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))*144)
+                .put("Herblore", LevelHelper.getLevel("Herblore", player.getXp().get("Herblore"))*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 31800))
+                .put("Hunter level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))).build(), 12, true, true));
+        database.add(new Action("Big Game Hunter (tier 3)", Arrays.asList(new Requirement("Hunter", 96), new Requirement("Slayer", 76)), new HashMap(),
+            ImmutableMap.builder().put("Hunter", 276000).put("Slayer", 52800).put("Fletching", 600).put("Woodcutting", LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))*144)
+                .put("Herblore", LevelHelper.getLevel("Herblore", player.getXp().get("Herblore"))*60).put("Big game hunted", 12).put("Slayer pet points", totalPetPoints(player, "Slayer", 52800))
+                .put("Hunter level-ticks", 6000 * Math.max(96, LevelHelper.getLevel("Hunter", player.getXp().get("Hunter")))).build(), 12, true, true));
+
         //Invention
         database.add(new Action("Refining junk", new ArrayList(), ImmutableMap.of("Junk refiner", 130, "Junk", 117000), ImmutableMap.of("Refined components", 1170, "Invention", 11700),
             1170, true, true));
@@ -1562,7 +1563,7 @@ public class ActionDatabase {
             .put("Crafted parts", 3448).put("Enhancing components", 344).put("Healthy components", 114).put("Junk", 504).put("Invention pet points", totalPetPoints(player, "Invention", 6600) / 10).build(),
             3000, true, true));
         database.add(new Action("Disassembling rune bull rush scrolls", Collections.singletonList(new Requirement("Invention tutorial", 1)),
-            ImmutableMap.of("Rune bull rush scroll", 30000), ImmutableMap.builder().put("Invention", 7500).put("Spiritual parts", 3571)
+            ImmutableMap.of("Rune Bull Rush scroll", 30000), ImmutableMap.builder().put("Invention", 7500).put("Spiritual parts", 3571)
             .put("Crafted parts", 2202).put("Powerful components", 178).put("Junk", 48).put("Invention pet points", totalPetPoints(player, "Invention", 7500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling portents of restoration IX", Collections.singletonList(new Requirement("Invention tutorial", 1)),
             ImmutableMap.of("Portent of restoration IX", 3000), ImmutableMap.builder().put("Invention", 7500).put("Magic parts", 7588)
@@ -1685,313 +1686,313 @@ public class ActionDatabase {
         //Mining (done)
         database.add(new Action("Mining copper with bronze pickaxe", new ArrayList(), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.1, 5, 0.66), "Copper ore", miningDamage(player, 5, 0.1, 5) / 40,
-            "Copper mined", miningDamage(player, 5, 0.1, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
+            "Copper mined", miningDamage(player, 5, 0.1, 5) / 40, "Mining level-ticks", 6000 * LevelHelper.getLevel("Mining", player.getXp().get("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining tin with bronze pickaxe", new ArrayList(), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.1, 5, 0.66), "Tin ore", miningDamage(player, 5, 0.1, 5) / 40,
-            "Tin mined", miningDamage(player, 5, 0.1, 5) / 40, "Mining level-ticks", 6000 * player.getLevel("Mining")), 1500, true, true));
+            "Tin mined", miningDamage(player, 5, 0.1, 5) / 40, "Mining level-ticks", 6000 * LevelHelper.getLevel("Mining", player.getXp().get("Mining"))), 1500, true, true));
 
         database.add(new Action("Mining copper with bronze pickaxe (20% crit rate)", Collections.singletonList(new Requirement("Mining", 2)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 5, 0.66), "Copper ore", miningDamage(player, 5, 0.2, 5) / 40,
-                "Copper mined", miningDamage(player, 5, 0.2, 5) / 40, "Mining level-ticks", 6000 * Math.max(2, player.getLevel("Mining"))), 1500, true, true));
+                "Copper mined", miningDamage(player, 5, 0.2, 5) / 40, "Mining level-ticks", 6000 * Math.max(2, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining tin with bronze pickaxe (20% crit rate)", Collections.singletonList(new Requirement("Mining", 2)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 5, 0.66), "Tin ore", miningDamage(player, 5, 0.2, 5) / 40,
-                "Tin mined", miningDamage(player, 5, 0.2, 5) / 40, "Mining level-ticks", 6000 * Math.max(2, player.getLevel("Mining"))), 1500, true, true));
+                "Tin mined", miningDamage(player, 5, 0.2, 5) / 40, "Mining level-ticks", 6000 * Math.max(2, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining copper with bronze pickaxe (10 crit bonus)", Collections.singletonList(new Requirement("Mining", 3)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 10, 0.66), "Copper ore", miningDamage(player, 5, 0.2, 10) / 40,
-                "Copper mined", miningDamage(player, 5, 0.2, 10) / 40, "Mining level-ticks", 6000 * Math.max(3, player.getLevel("Mining"))), 1500, true, true));
+                "Copper mined", miningDamage(player, 5, 0.2, 10) / 40, "Mining level-ticks", 6000 * Math.max(3, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining tin with bronze pickaxe (10 crit bonus)", Collections.singletonList(new Requirement("Mining", 3)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.2, 10, 0.66), "Tin ore", miningDamage(player, 5, 0.2, 10) / 40,
-                "Tin mined", miningDamage(player, 5, 0.2, 10) / 40, "Mining level-ticks", 6000 * Math.max(3, player.getLevel("Mining"))), 1500, true, true));
+                "Tin mined", miningDamage(player, 5, 0.2, 10) / 40, "Mining level-ticks", 6000 * Math.max(3, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining copper with bronze pickaxe (30% crit rate)", Collections.singletonList(new Requirement("Mining", 8)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 10, 0.66), "Copper ore", miningDamage(player, 5, 0.3, 10) / 40,
-                "Copper mined", miningDamage(player, 5, 0.3, 10) / 40, "Mining level-ticks", 6000 * Math.max(8, player.getLevel("Mining"))), 1500, true, true));
+                "Copper mined", miningDamage(player, 5, 0.3, 10) / 40, "Mining level-ticks", 6000 * Math.max(8, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining tin with bronze pickaxe (30# crit rate)", Collections.singletonList(new Requirement("Mining", 8)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 10, 0.66), "Tin ore", miningDamage(player, 5, 0.3, 10) / 40,
-                "Tin mined", miningDamage(player, 5, 0.3, 10) / 40, "Mining level-ticks", 6000 * Math.max(8, player.getLevel("Mining"))), 1500, true, true));
+                "Tin mined", miningDamage(player, 5, 0.3, 10) / 40, "Mining level-ticks", 6000 * Math.max(8, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining copper with bronze pickaxe (15 crit bonus)", Collections.singletonList(new Requirement("Mining", 9)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 15, 0.66), "Copper ore", miningDamage(player, 5, 0.3, 15) / 40,
-                "Copper mined", miningDamage(player, 5, 0.3, 15) / 40, "Mining level-ticks", 6000 * Math.max(9, player.getLevel("Mining"))), 1500, true, true));
+                "Copper mined", miningDamage(player, 5, 0.3, 15) / 40, "Mining level-ticks", 6000 * Math.max(9, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining tin with bronze pickaxe (15 crit bonus)", Collections.singletonList(new Requirement("Mining", 9)), new HashMap<>(),
             ImmutableMap.of("Mining", miningXP(player, 5, 0.3, 15, 0.66), "Tin ore", miningDamage(player, 5, 0.3, 15) / 40,
-                "Tin mined", miningDamage(player, 5, 0.3, 15) / 40, "Mining level-ticks", 6000 * Math.max(9, player.getLevel("Mining"))), 1500, true, true));
+                "Tin mined", miningDamage(player, 5, 0.3, 15) / 40, "Mining level-ticks", 6000 * Math.max(9, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining iron with iron pickaxe + 1", Arrays.asList(new Requirement("Mining", 10), new Requirement("Iron pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.1, 15, 0.68), "Iron ore", miningDamage(player, 11, 0.1, 15) / 120,
-            "Iron mined", miningDamage(player, 11, 0.1, 15) / 120, "Mining level-ticks", 6000 * Math.max(10, player.getLevel("Mining"))), 1500, true, true));
+            "Iron mined", miningDamage(player, 11, 0.1, 15) / 120, "Mining level-ticks", 6000 * Math.max(10, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining iron with iron pickaxe + 1 (20 crit bonus)", Arrays.asList(new Requirement("Mining", 11), new Requirement("Iron pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.1, 20, 0.68), "Iron ore", miningDamage(player, 11, 0.1, 20) / 120,
-            "Iron mined", miningDamage(player, 11, 0.1, 20) / 120, "Mining level-ticks", 6000 * Math.max(11, player.getLevel("Mining"))), 1500, true, true));
+            "Iron mined", miningDamage(player, 11, 0.1, 20) / 120, "Mining level-ticks", 6000 * Math.max(11, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining iron with iron pickaxe + 1 (20% crit chance)", Arrays.asList(new Requirement("Mining", 12), new Requirement("Iron pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.2, 20, 0.68), "Iron ore", miningDamage(player, 11, 0.2, 20) / 120,
-            "Iron mined", miningDamage(player, 11, 0.2, 20) / 120, "Mining level-ticks", 6000 * Math.max(12, player.getLevel("Mining"))), 1500, true, true));
+            "Iron mined", miningDamage(player, 11, 0.2, 20) / 120, "Mining level-ticks", 6000 * Math.max(12, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining iron with iron pickaxe + 1 (25 crit bonus)", Arrays.asList(new Requirement("Mining", 17), new Requirement("Iron pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 11, 0.2, 25, 0.68), "Iron ore", miningDamage(player, 11, 0.2, 25) / 120,
-            "Iron mined", miningDamage(player, 11, 0.2, 25) / 120, "Mining level-ticks", 6000 * Math.max(17, player.getLevel("Mining"))), 1500, true, true));
+            "Iron mined", miningDamage(player, 11, 0.2, 25) / 120, "Mining level-ticks", 6000 * Math.max(17, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining coal with steel pickaxe + 1", Arrays.asList(new Requirement("Mining", 20), new Requirement("Steel pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.1, 25, 0.7), "Coal", miningDamage(player, 21, 0.1, 25) / 140,
-            "Coal mined", miningDamage(player, 21, 0.1, 25) / 140, "Mining level-ticks", 6000 * Math.max(20, player.getLevel("Mining"))), 1500, true, true));
+            "Coal mined", miningDamage(player, 21, 0.1, 25) / 140, "Mining level-ticks", 6000 * Math.max(20, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining coal with steel pickaxe + 1 (30 crit bonus)", Arrays.asList(new Requirement("Mining", 22), new Requirement("Steel pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.1, 30, 0.7), "Coal", miningDamage(player, 21, 0.1, 30) / 140,
-            "Coal mined", miningDamage(player, 21, 0.1, 30) / 140, "Mining level-ticks", 6000 * Math.max(22, player.getLevel("Mining"))), 1500, true, true));
+            "Coal mined", miningDamage(player, 21, 0.1, 30) / 140, "Mining level-ticks", 6000 * Math.max(22, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining coal with steel pickaxe + 1 (35 crit bonus)", Arrays.asList(new Requirement("Mining", 24), new Requirement("Steel pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.1, 35, 0.7), "Coal", miningDamage(player, 21, 0.1, 35) / 140,
-            "Coal mined", miningDamage(player, 21, 0.1, 35) / 140, "Mining level-ticks", 6000 * Math.max(24, player.getLevel("Mining"))), 1500, true, true));
+            "Coal mined", miningDamage(player, 21, 0.1, 35) / 140, "Mining level-ticks", 6000 * Math.max(24, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining coal with steel pickaxe + 1 (20% crit chance)", Arrays.asList(new Requirement("Mining", 25), new Requirement("Steel pickaxe + 1", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 21, 0.2, 35, 0.7), "Coal", miningDamage(player, 21, 0.2, 35) / 140,
-            "Coal mined", miningDamage(player, 21, 0.2, 35) / 140, "Mining level-ticks", 6000 * Math.max(25, player.getLevel("Mining"))), 1500, true, true));
+            "Coal mined", miningDamage(player, 21, 0.2, 35) / 140, "Mining level-ticks", 6000 * Math.max(25, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining mithril with mithril pickaxe + 2", Arrays.asList(new Requirement("Mining", 30), new Requirement("Mithril pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.1, 35, 0.72), "Mithril ore", miningDamage(player, 32, 0.1, 35) / 240,
-            "Mithril mined", miningDamage(player, 32, 0.1, 35) / 240, "Mining level-ticks", 6000 * Math.max(30, player.getLevel("Mining"))), 1500, true, true));
+            "Mithril mined", miningDamage(player, 32, 0.1, 35) / 240, "Mining level-ticks", 6000 * Math.max(30, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining mithril with mithril pickaxe + 2 (20% crit chance)", Arrays.asList(new Requirement("Mining", 31), new Requirement("Mithril pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.2, 35, 0.72), "Mithril ore", miningDamage(player, 32, 0.2, 35) / 240,
-            "Mithril mined", miningDamage(player, 32, 0.2, 35) / 240, "Mining level-ticks", 6000 * Math.max(31, player.getLevel("Mining"))), 1500, true, true));
+            "Mithril mined", miningDamage(player, 32, 0.2, 35) / 240, "Mining level-ticks", 6000 * Math.max(31, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining mithril with mithril pickaxe + 2 (40 crit bonus)", Arrays.asList(new Requirement("Mining", 32), new Requirement("Mithril pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.2, 40, 0.72), "Mithril ore", miningDamage(player, 32, 0.2, 40) / 240,
-            "Mithril mined", miningDamage(player, 32, 0.2, 40) / 240, "Mining level-ticks", 6000 * Math.max(32, player.getLevel("Mining"))), 1500, true, true));
+            "Mithril mined", miningDamage(player, 32, 0.2, 40) / 240, "Mining level-ticks", 6000 * Math.max(32, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining mithril with mithril pickaxe + 2 (45 crit bonus)", Arrays.asList(new Requirement("Mining", 34), new Requirement("Mithril pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.2, 45, 0.72), "Mithril ore", miningDamage(player, 32, 0.2, 45) / 240,
-            "Mithril mined", miningDamage(player, 32, 0.2, 45) / 240, "Mining level-ticks", 6000 * Math.max(34, player.getLevel("Mining"))), 1500, true, true));
+            "Mithril mined", miningDamage(player, 32, 0.2, 45) / 240, "Mining level-ticks", 6000 * Math.max(34, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining mithril with mithril pickaxe + 2 (30% crit chance)", Arrays.asList(new Requirement("Mining", 35), new Requirement("Mithril pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 32, 0.3, 45, 0.72), "Mithril ore", miningDamage(player, 32, 0.3, 45) / 240,
-            "Mithril mined", miningDamage(player, 32, 0.3, 45) / 240, "Mining level-ticks", 6000 * Math.max(35, player.getLevel("Mining"))), 1500, true, true));
+            "Mithril mined", miningDamage(player, 32, 0.3, 45) / 240, "Mining level-ticks", 6000 * Math.max(35, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining adamantite with adamant pickaxe + 2", Arrays.asList(new Requirement("Mining", 40), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 45, 0.74), "Adamantite ore", miningDamage(player, 42, 0.1, 45) / 380,
-            "Adamantite mined", miningDamage(player, 42, 0.1, 45) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
+            "Adamantite mined", miningDamage(player, 42, 0.1, 45) / 380, "Mining level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining luminite with adamant pickaxe + 2", Arrays.asList(new Requirement("Mining", 40), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 45, 0.74), "Luminite", miningDamage(player, 42, 0.1, 45) / 380,
-            "Luminite mined", miningDamage(player, 42, 0.1, 45) / 380, "Mining level-ticks", 6000 * Math.max(40, player.getLevel("Mining"))), 1500, true, true));
+            "Luminite mined", miningDamage(player, 42, 0.1, 45) / 380, "Mining level-ticks", 6000 * Math.max(40, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining adamantite with adamant pickaxe + 2 (50 crit bonus)", Arrays.asList(new Requirement("Mining", 43), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 50, 0.74), "Adamantite ore", miningDamage(player, 42, 0.1, 50) / 380,
-            "Adamantite mined", miningDamage(player, 42, 0.1, 50) / 380, "Mining level-ticks", 6000 * Math.max(43, player.getLevel("Mining"))), 1500, true, true));
+            "Adamantite mined", miningDamage(player, 42, 0.1, 50) / 380, "Mining level-ticks", 6000 * Math.max(43, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining luminite with adamant pickaxe + 2 (50 crit bonus)", Arrays.asList(new Requirement("Mining", 43), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 50, 0.74), "Luminite", miningDamage(player, 42, 0.1, 50) / 380,
-            "Luminite mined", miningDamage(player, 42, 0.1, 50) / 380, "Mining level-ticks", 6000 * Math.max(43, player.getLevel("Mining"))), 1500, true, true));
+            "Luminite mined", miningDamage(player, 42, 0.1, 50) / 380, "Mining level-ticks", 6000 * Math.max(43, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining adamantite with adamant pickaxe + 2 (55 crit bonus)", Arrays.asList(new Requirement("Mining", 44), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 55, 0.74), "Adamantite ore", miningDamage(player, 42, 0.1, 55) / 380,
-            "Adamantite mined", miningDamage(player, 42, 0.1, 55) / 380, "Mining level-ticks", 6000 * Math.max(44, player.getLevel("Mining"))), 1500, true, true));
+            "Adamantite mined", miningDamage(player, 42, 0.1, 55) / 380, "Mining level-ticks", 6000 * Math.max(44, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining luminite with adamant pickaxe + 2 (55 crit bonus)", Arrays.asList(new Requirement("Mining", 44), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.1, 55, 0.74), "Luminite", miningDamage(player, 42, 0.1, 55) / 380,
-            "Luminite mined", miningDamage(player, 42, 0.1, 55) / 380, "Mining level-ticks", 6000 * Math.max(44, player.getLevel("Mining"))), 1500, true, true));
+            "Luminite mined", miningDamage(player, 42, 0.1, 55) / 380, "Mining level-ticks", 6000 * Math.max(44, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining adamantite with adamant pickaxe + 2 (20% crit chance)", Arrays.asList(new Requirement("Mining", 45), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.2, 55, 0.74), "Adamantite ore", miningDamage(player, 42, 0.2, 55) / 380,
-            "Adamantite mined", miningDamage(player, 42, 0.2, 55) / 380, "Mining level-ticks", 6000 * Math.max(45, player.getLevel("Mining"))), 1500, true, true));
+            "Adamantite mined", miningDamage(player, 42, 0.2, 55) / 380, "Mining level-ticks", 6000 * Math.max(45, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining luminite with adamant pickaxe + 2 (20% crit chance)", Arrays.asList(new Requirement("Mining", 45), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.2, 55, 0.74), "Luminite", miningDamage(player, 42, 0.2, 55) / 380,
-            "Luminite mined", miningDamage(player, 42, 0.2, 55) / 380, "Mining level-ticks", 6000 * Math.max(45, player.getLevel("Mining"))), 1500, true, true));
+            "Luminite mined", miningDamage(player, 42, 0.2, 55) / 380, "Mining level-ticks", 6000 * Math.max(45, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining adamantite with adamant pickaxe + 2 (30% crit chance)", Arrays.asList(new Requirement("Mining", 48), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.3, 55, 0.74), "Adamantite ore", miningDamage(player, 42, 0.3, 55) / 380,
-            "Adamantite mined", miningDamage(player, 42, 0.3, 55) / 380, "Mining level-ticks", 6000 * Math.max(48, player.getLevel("Mining"))), 1500, true, true));
+            "Adamantite mined", miningDamage(player, 42, 0.3, 55) / 380, "Mining level-ticks", 6000 * Math.max(48, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining luminite with adamant pickaxe + 2 (30% crit chance)", Arrays.asList(new Requirement("Mining", 48), new Requirement("Adamant pickaxe + 2", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 42, 0.3, 55, 0.74), "Luminite", miningDamage(player, 42, 0.3, 55) / 380,
-            "Luminite mined", miningDamage(player, 42, 0.23, 55) / 380, "Mining level-ticks", 6000 * Math.max(48, player.getLevel("Mining"))), 1500, true, true));
+            "Luminite mined", miningDamage(player, 42, 0.23, 55) / 380, "Mining level-ticks", 6000 * Math.max(48, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining runite with rune pickaxe + 3", Arrays.asList(new Requirement("Mining", 50), new Requirement("Rune pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.1, 55, 0.76), "Runite ore", miningDamage(player, 53, 0.1, 55) / 600,
-            "Runite mined", miningDamage(player, 53, 0.1, 55) / 600, "Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))), 1500, true, true));
+            "Runite mined", miningDamage(player, 53, 0.1, 55) / 600, "Mining level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining runite with rune pickaxe + 3 (60 crit bonus)", Arrays.asList(new Requirement("Mining", 52), new Requirement("Rune pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.1, 60, 0.76), "Runite ore", miningDamage(player, 53, 0.1, 60) / 600,
-            "Runite mined", miningDamage(player, 53, 0.1, 60) / 600, "Mining level-ticks", 6000 * Math.max(52, player.getLevel("Mining"))), 1500, true, true));
+            "Runite mined", miningDamage(player, 53, 0.1, 60) / 600, "Mining level-ticks", 6000 * Math.max(52, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining runite with rune pickaxe + 3 (20% crit chance)", Arrays.asList(new Requirement("Mining", 56), new Requirement("Rune pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.2, 60, 0.76), "Runite ore", miningDamage(player, 53, 0.2, 60) / 600,
-            "Runite mined", miningDamage(player, 53, 0.2, 60) / 600, "Mining level-ticks", 6000 * Math.max(56, player.getLevel("Mining"))), 1500, true, true));
+            "Runite mined", miningDamage(player, 53, 0.2, 60) / 600, "Mining level-ticks", 6000 * Math.max(56, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining runite with rune pickaxe + 3 (30% crit chance)", Arrays.asList(new Requirement("Mining", 58), new Requirement("Rune pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.3, 60, 0.76), "Runite ore", miningDamage(player, 53, 0.3, 60) / 600,
-            "Runite mined", miningDamage(player, 53, 0.3, 60) / 600, "Mining level-ticks", 6000 * Math.max(58, player.getLevel("Mining"))), 1500, true, true));
+            "Runite mined", miningDamage(player, 53, 0.3, 60) / 600, "Mining level-ticks", 6000 * Math.max(58, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining runite with rune pickaxe + 3 (65 crit bonus)", Arrays.asList(new Requirement("Mining", 59), new Requirement("Rune pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 53, 0.3, 65, 0.76), "Runite ore", miningDamage(player, 53, 0.3, 65) / 600,
-            "Runite mined", miningDamage(player, 53, 0.3, 65) / 600, "Mining level-ticks", 6000 * Math.max(59, player.getLevel("Mining"))), 1500, true, true));
+            "Runite mined", miningDamage(player, 53, 0.3, 65) / 600, "Mining level-ticks", 6000 * Math.max(59, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3", Arrays.asList(new Requirement("Mining", 60), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 65, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.1, 65) / 1400,
-            "Orichalcite mined", miningDamage(player, 63, 0.1, 65) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
+            "Orichalcite mined", miningDamage(player, 63, 0.1, 65) / 1400, "Mining level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining drakolith with orikalkum pickaxe + 3", Arrays.asList(new Requirement("Mining", 60), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 65, 0.78), "Drakolith", miningDamage(player, 63, 0.1, 65) / 1400,
-            "Drakolith mined", miningDamage(player, 63, 0.1, 65) / 1400, "Mining level-ticks", 6000 * Math.max(60, player.getLevel("Mining"))), 1500, true, true));
+            "Drakolith mined", miningDamage(player, 63, 0.1, 65) / 1400, "Mining level-ticks", 6000 * Math.max(60, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3 (70 crit bonus)", Arrays.asList(new Requirement("Mining", 61), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 70, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.1, 70) / 1400,
-            "Orichalcite mined", miningDamage(player, 63, 0.1, 70) / 1400, "Mining level-ticks", 6000 * Math.max(61, player.getLevel("Mining"))), 1500, true, true));
+            "Orichalcite mined", miningDamage(player, 63, 0.1, 70) / 1400, "Mining level-ticks", 6000 * Math.max(61, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining drakolith with orikalkum pickaxe + 3 (70 crit bonus)", Arrays.asList(new Requirement("Mining", 61), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.1, 70, 0.78), "Drakolith", miningDamage(player, 63, 0.1, 70) / 1400,
-            "Drakolith mined", miningDamage(player, 63, 0.1, 70) / 1400, "Mining level-ticks", 6000 * Math.max(61, player.getLevel("Mining"))), 1500, true, true));
+            "Drakolith mined", miningDamage(player, 63, 0.1, 70) / 1400, "Mining level-ticks", 6000 * Math.max(61, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3 (20% crit chance)", Arrays.asList(new Requirement("Mining", 64), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 70, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.2, 70) / 1400,
-            "Orichalcite mined", miningDamage(player, 63, 0.2, 70) / 1400, "Mining level-ticks", 6000 * Math.max(64, player.getLevel("Mining"))), 1500, true, true));
+            "Orichalcite mined", miningDamage(player, 63, 0.2, 70) / 1400, "Mining level-ticks", 6000 * Math.max(64, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining drakolith with orikalkum pickaxe + 3 (20% crit chance)", Arrays.asList(new Requirement("Mining", 64), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 70, 0.78), "Drakolith", miningDamage(player, 63, 0.2, 70) / 1400,
-            "Drakolith mined", miningDamage(player, 63, 0.2, 70) / 1400, "Mining level-ticks", 6000 * Math.max(64, player.getLevel("Mining"))), 1500, true, true));
+            "Drakolith mined", miningDamage(player, 63, 0.2, 70) / 1400, "Mining level-ticks", 6000 * Math.max(64, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining orichalcite with orikalkum pickaxe + 3 (75 crit bonus)", Arrays.asList(new Requirement("Mining", 65), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 75, 0.78), "Orichalcite ore", miningDamage(player, 63, 0.2, 75) / 1400,
-            "Orichalcite mined", miningDamage(player, 63, 0.2, 75) / 1400, "Mining level-ticks", 6000 * Math.max(65, player.getLevel("Mining"))), 1500, true, true));
+            "Orichalcite mined", miningDamage(player, 63, 0.2, 75) / 1400, "Mining level-ticks", 6000 * Math.max(65, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining drakolith with orikalkum pickaxe + 3 (75 crit bonus)", Arrays.asList(new Requirement("Mining", 65), new Requirement("Orikalkum pickaxe + 3", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 63, 0.2, 75, 0.78), "Drakolith", miningDamage(player, 63, 0.2, 75) / 1400,
-            "Drakolith mined", miningDamage(player, 63, 0.2, 75) / 1400, "Mining level-ticks", 6000 * Math.max(65, player.getLevel("Mining"))), 1500, true, true));
+            "Drakolith mined", miningDamage(player, 63, 0.2, 75) / 1400, "Mining level-ticks", 6000 * Math.max(65, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining necrite with necronium pickaxe", Arrays.asList(new Requirement("Mining", 70), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 75, 0.8), "Necrite ore", miningDamage(player, 70, 0.1, 75) / 1300,
-            "Necrite mined", miningDamage(player, 70, 0.1, 75) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
+            "Necrite mined", miningDamage(player, 70, 0.1, 75) / 1300, "Mining level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining phasmatite with necronium pickaxe", Arrays.asList(new Requirement("Mining", 70), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 75, 0.8), "Phasmatite", miningDamage(player, 70, 0.1, 75) / 1300,
-            "Phasmatite mined", miningDamage(player, 70, 0.1, 75) / 1300, "Mining level-ticks", 6000 * Math.max(70, player.getLevel("Mining")),
+            "Phasmatite mined", miningDamage(player, 70, 0.1, 75) / 1300, "Mining level-ticks", 6000 * Math.max(70, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining necrite with necronium pickaxe (80 crit bonus)", Arrays.asList(new Requirement("Mining", 74), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 80, 0.8), "Necrite ore", miningDamage(player, 70, 0.1, 80) / 1300,
-            "Necrite mined", miningDamage(player, 70, 0.1, 80) / 1300, "Mining level-ticks", 6000 * Math.max(74, player.getLevel("Mining")),
+            "Necrite mined", miningDamage(player, 70, 0.1, 80) / 1300, "Mining level-ticks", 6000 * Math.max(74, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining phasmatite with necronium pickaxe (80 crit bonus)", Arrays.asList(new Requirement("Mining", 74), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 80, 0.8), "Phasmatite", miningDamage(player, 70, 0.1, 80) / 1300,
-            "Phasmatite mined", miningDamage(player, 70, 0.1, 80) / 1300, "Mining level-ticks", 6000 * Math.max(74, player.getLevel("Mining")),
+            "Phasmatite mined", miningDamage(player, 70, 0.1, 80) / 1300, "Mining level-ticks", 6000 * Math.max(74, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining necrite with necronium pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 75), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 80, 0.8), "Necrite ore", miningDamage(player, 70, 0.2, 80) / 1300,
-            "Necrite mined", miningDamage(player, 70, 0.2, 80) / 1300, "Mining level-ticks", 6000 * Math.max(75, player.getLevel("Mining")),
+            "Necrite mined", miningDamage(player, 70, 0.2, 80) / 1300, "Mining level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining phasmatite with necronium pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 75), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 80, 0.8), "Phasmatite", miningDamage(player, 70, 0.2, 80) / 1300,
-            "Phasmatite mined", miningDamage(player, 70, 0.2, 80) / 1300, "Mining level-ticks", 6000 * Math.max(75, player.getLevel("Mining")),
+            "Phasmatite mined", miningDamage(player, 70, 0.2, 80) / 1300, "Mining level-ticks", 6000 * Math.max(75, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining necrite with necronium pickaxe (85 crit bonus)", Arrays.asList(new Requirement("Mining", 79), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 85, 0.8), "Necrite ore", miningDamage(player, 70, 0.2, 85) / 1300,
-            "Necrite mined", miningDamage(player, 70, 0.2, 85) / 1300, "Mining level-ticks", 6000 * Math.max(79, player.getLevel("Mining")),
+            "Necrite mined", miningDamage(player, 70, 0.2, 85) / 1300, "Mining level-ticks", 6000 * Math.max(79, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining phasmatite with necronium pickaxe (85 crit bonus)", Arrays.asList(new Requirement("Mining", 79), new Requirement("Necronium pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 70, 0.2, 85, 0.8), "Phasmatite", miningDamage(player, 70, 0.2, 85) / 1300,
-            "Phasmatite mined", miningDamage(player, 70, 0.2, 85) / 1300, "Mining level-ticks", 6000 * Math.max(79, player.getLevel("Mining")),
+            "Phasmatite mined", miningDamage(player, 70, 0.2, 85) / 1300, "Mining level-ticks", 6000 * Math.max(79, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining banite with bane pickaxe", Arrays.asList(new Requirement("Mining", 80), new Requirement("Bane pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.1, 85, 0.82), "Banite ore", miningDamage(player, 80, 0.1, 85) / 1700,
-            "Banite mined", miningDamage(player, 80, 0.1, 85) / 1700, "Mining level-ticks", 6000 * Math.max(80, player.getLevel("Mining")),
+            "Banite mined", miningDamage(player, 80, 0.1, 85) / 1700, "Mining level-ticks", 6000 * Math.max(80, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining banite with bane pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 81), new Requirement("Bane pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.2, 85, 0.82), "Banite ore", miningDamage(player, 80, 0.2, 85) / 1700,
-            "Banite mined", miningDamage(player, 80, 0.2, 85) / 1700, "Mining level-ticks", 6000 * Math.max(81, player.getLevel("Mining")),
+            "Banite mined", miningDamage(player, 80, 0.2, 85) / 1700, "Mining level-ticks", 6000 * Math.max(81, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining banite with bane pickaxe (90 crit bonus)", Arrays.asList(new Requirement("Mining", 84), new Requirement("Bane pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.2, 90, 0.82), "Banite ore", miningDamage(player, 80, 0.2, 90) / 1700,
-            "Banite mined", miningDamage(player, 80, 0.2, 90) / 1700, "Mining level-ticks", 6000 * Math.max(84, player.getLevel("Mining")),
+            "Banite mined", miningDamage(player, 80, 0.2, 90) / 1700, "Mining level-ticks", 6000 * Math.max(84, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining banite with bane pickaxe (95 crit bonus)", Arrays.asList(new Requirement("Mining", 87), new Requirement("Bane pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 80, 0.2, 95, 0.82), "Banite ore", miningDamage(player, 80, 0.2, 95) / 1700,
-            "Banite mined", miningDamage(player, 80, 0.2, 95) / 1700, "Mining level-ticks", 6000 * Math.max(87, player.getLevel("Mining")),
+            "Banite mined", miningDamage(player, 80, 0.2, 95) / 1700, "Mining level-ticks", 6000 * Math.max(87, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining light animica with elder rune pickaxe", Arrays.asList(new Requirement("Mining", 90), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.1, 95, 0.84), "Light animica", miningDamage(player, 90, 0.1, 95) / 2000,
-            "Light animica mined", miningDamage(player, 90, 0.1, 95) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
+            "Light animica mined", miningDamage(player, 90, 0.1, 95) / 2000, "Mining level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining dark animica with elder rune pickaxe", Arrays.asList(new Requirement("Mining", 90), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.1, 95, 0.84), "Dark animica", miningDamage(player, 90, 0.1, 95) / 2000,
-            "Dark animica mined", miningDamage(player, 90, 0.1, 95) / 2000, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
+            "Dark animica mined", miningDamage(player, 90, 0.1, 95) / 2000, "Mining level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining light animica with elder rune pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 91), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.2, 95, 0.84), "Light animica", miningDamage(player, 90, 0.2, 95) / 2000,
-            "Light animica mined", miningDamage(player, 90, 0.2, 95) / 2000, "Mining level-ticks", 6000 * Math.max(91, player.getLevel("Mining")),
+            "Light animica mined", miningDamage(player, 90, 0.2, 95) / 2000, "Mining level-ticks", 6000 * Math.max(91, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining dark animica with elder rune pickaxe (20% crit chance)", Arrays.asList(new Requirement("Mining", 91), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.2, 95, 0.84), "Dark animica", miningDamage(player, 90, 0.2, 95) / 2000,
-            "Dark animica mined", miningDamage(player, 90, 0.2, 95) / 2000, "Mining level-ticks", 6000 * Math.max(91, player.getLevel("Mining")),
+            "Dark animica mined", miningDamage(player, 90, 0.2, 95) / 2000, "Mining level-ticks", 6000 * Math.max(91, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining light animica with elder rune pickaxe (30% crit chance)", Arrays.asList(new Requirement("Mining", 97), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 95, 0.84), "Light animica", miningDamage(player, 90, 0.3, 95) / 2000,
-            "Light animica mined", miningDamage(player, 90, 0.3, 95) / 2000, "Mining level-ticks", 6000 * Math.max(97, player.getLevel("Mining")),
+            "Light animica mined", miningDamage(player, 90, 0.3, 95) / 2000, "Mining level-ticks", 6000 * Math.max(97, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining dark animica with elder rune pickaxe (30% crit chance)", Arrays.asList(new Requirement("Mining", 97), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 95, 0.84), "Dark animica", miningDamage(player, 90, 0.3, 95) / 2000,
-            "Dark animica mined", miningDamage(player, 90, 0.3, 95) / 2000, "Mining level-ticks", 6000 * Math.max(97, player.getLevel("Mining")),
+            "Dark animica mined", miningDamage(player, 90, 0.3, 95) / 2000, "Mining level-ticks", 6000 * Math.max(97, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining light animica with elder rune pickaxe (100 crit bonus)", Arrays.asList(new Requirement("Mining", 99), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 100, 0.84), "Light animica", miningDamage(player, 90, 0.3, 100) / 2000,
-            "Light animica mined", miningDamage(player, 90, 0.3, 100) / 2000, "Mining level-ticks", 6000 * Math.max(99, player.getLevel("Mining")),
+            "Light animica mined", miningDamage(player, 90, 0.3, 100) / 2000, "Mining level-ticks", 6000 * Math.max(99, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining dark animica with elder rune pickaxe (100 crit bonus)", Arrays.asList(new Requirement("Mining", 99), new Requirement("Elder rune pickaxe", 1)),
             new HashMap<>(), ImmutableMap.of("Mining", miningXP(player, 90, 0.3, 100, 0.84), "Dark animica", miningDamage(player, 90, 0.3, 100) / 2000,
-            "Dark animica mined", miningDamage(player, 90, 0.3, 100) / 2000, "Mining level-ticks", 6000 * Math.max(99, player.getLevel("Mining")),
+            "Dark animica mined", miningDamage(player, 90, 0.3, 100) / 2000, "Mining level-ticks", 6000 * Math.max(99, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
 
         database.add(new Action("Mining/dropping concentrated sandstone with rune pickaxe", Arrays.asList(new Requirement("The Jack of Spades", 1),
             new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1)), new HashMap(), ImmutableMap.builder().put("Mining", miningXP(player, 50, 0.1, 55, 0.76))
             .put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.1, 55, 0.76) / 45.6)).put("Menaphite honey bee in amber", 1)
-            .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining"))).put("Umesco arpos", 1)
+            .put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))).put("Umesco arpos", 1)
             .put("Crondite", 1).build(), 1500, true, true));
 
         database.add(new Action("Mining/dropping concentrated sandstone with rune pickaxe (VIP area)", Arrays.asList(new Requirement("The Jack of Spades", 1),
             new Requirement("Mining", 50), new Requirement("Rune pickaxe", 1), new Requirement("Menaphos reputation", 141900)), new HashMap(), ImmutableMap.builder()
             .put("Mining", miningXP(player, 50, 0.1, 55, 0.76)).put("Menaphos reputation", (int) Math.floor(miningXP(player, 50, 0.1, 55, 0.76) / 45.6))
-            .put("Menaphite honey bee in amber", 1).put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, player.getLevel("Mining")))
+            .put("Menaphite honey bee in amber", 1).put("Pygmy giant scarab in amber", 1).put("Mining level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))))
             .put("Phenakite", 1).put("Crondite", 1).put("Umesco arpos", 1).build(), 1500, true, true));
 
         database.add(new Action("Lava Flow Mine with necronium pickaxe", Arrays.asList(new Requirement("King of the Dwarves", 1), new Requirement("Necronium pickaxe", 1)),
             new HashMap(), ImmutableMap.of("Mining", miningXP(player, 70, 0.1, 75, 0.78), "Imcando pickaxe fragment", 1, "Lava Flow Mine damage", miningDamage(player, 70, 0.1, 75),
-            "Mining level-ticks", 6000 * Math.max(68, player.getLevel("Mining"))), 1500, true, true));
+            "Mining level-ticks", 6000 * Math.max(68, LevelHelper.getLevel("Mining", player.getXp().get("Mining")))), 1500, true, true));
 
         database.add(new Action("Mining Seren stones with bane pickaxe", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Mining", 89),
             new Requirement("Bane pickaxe", 1)), new HashMap(), ImmutableMap.of("Corrupted ore", miningDamage(player, 80, 0.1, 95) / 240,
-            "Mining", miningXP(player, 80, 0.1, 95, 1.2), "Mining level-ticks", 6000 * Math.max(89, player.getLevel("Mining")),
+            "Mining", miningXP(player, 80, 0.1, 95, 1.2), "Mining level-ticks", 6000 * Math.max(89, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         database.add(new Action("Mining salty crablets with elder rune pickaxe", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Mining", 90),
             new Requirement("Elder rune pickaxe", 1)), new HashMap(), ImmutableMap.of("Sea salt", miningDamage(player, 90, 0.1, 95) / 1200,
-            "Mining", miningXP(player, 90, 0.1, 95, 0.82), "Awah Guan", 1, "Mining level-ticks", 6000 * Math.max(90, player.getLevel("Mining")),
+            "Mining", miningXP(player, 90, 0.1, 95, 0.82), "Awah Guan", 1, "Mining level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Mining", player.getXp().get("Mining"))),
             "Gemstone golem fragments", 1200), 1500, true, true));
 
         //Prayer (done)
@@ -2601,214 +2602,214 @@ public class ActionDatabase {
             "Summoning pet points", totalPetPoints(player, "Summoning", 1187460)), 2700, true, true));
 
         //Thieving
-        double menSuccessRate = Math.min(0.9, (0.49+0.01*player.getLevel("Thieving")));
+        double menSuccessRate = Math.min(0.9, (0.49+0.01*LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))));
         int menPockets = (int)Math.floor((6000*menSuccessRate) / (2*menSuccessRate + 9*(1-menSuccessRate)));
-        double farmerSuccessRate = Math.min(0.9, (0.4+0.01*Math.max(10,player.getLevel("Thieving"))));
+        double farmerSuccessRate = Math.min(0.9, (0.4+0.01*Math.max(10,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int farmerPockets = (int)Math.floor((6000*farmerSuccessRate) / (2*farmerSuccessRate + 9*(1-farmerSuccessRate)));
-        double femaleHAMSuccessRate = Math.min(0.9, (0.35+0.01*Math.max(15,player.getLevel("Thieving"))));
+        double femaleHAMSuccessRate = Math.min(0.9, (0.35+0.01*Math.max(15,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int femaleHAMPockets = (int)Math.floor((6000*femaleHAMSuccessRate) / (2*femaleHAMSuccessRate + 7*(1-femaleHAMSuccessRate)));
-        double maleHAMSuccessRate = Math.min(0.9, (0.3+0.01*Math.max(20,player.getLevel("Thieving"))));
+        double maleHAMSuccessRate = Math.min(0.9, (0.3+0.01*Math.max(20,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int maleHAMPockets = (int)Math.floor((6000*maleHAMSuccessRate) / (2*maleHAMSuccessRate + 7*(1-maleHAMSuccessRate)));
-        double warriorWomanSuccessRate = Math.min(0.9, (0.25+0.01*Math.max(25,player.getLevel("Thieving"))));
+        double warriorWomanSuccessRate = Math.min(0.9, (0.25+0.01*Math.max(25,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int warriorWomanPockets = (int)Math.floor((6000*warriorWomanSuccessRate) / (2*warriorWomanSuccessRate + 9*(1-warriorWomanSuccessRate)));
-        double caveGoblinSuccessRate = Math.min(0.9, (0.14+0.01*Math.max(36,player.getLevel("Thieving"))));
+        double caveGoblinSuccessRate = Math.min(0.9, (0.14+0.01*Math.max(36,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int caveGoblinPockets = (int)Math.floor((6000*caveGoblinSuccessRate) / (2*caveGoblinSuccessRate + 9*(1-caveGoblinSuccessRate)));
-        double masterFarmerSuccessRate = Math.min(0.9, (0.12+0.01*Math.max(38,player.getLevel("Thieving"))));
+        double masterFarmerSuccessRate = Math.min(0.9, (0.12+0.01*Math.max(38,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int masterFarmerPockets = (int)Math.floor((6000*masterFarmerSuccessRate) / (2*masterFarmerSuccessRate + 9*(1-masterFarmerSuccessRate)));
-        double guardSuccessRate = Math.min(0.9, (0.1+0.01*Math.max(40,player.getLevel("Thieving"))));
+        double guardSuccessRate = Math.min(0.9, (0.1+0.01*Math.max(40,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int guardPockets = (int)Math.floor((6000*guardSuccessRate) / (2*guardSuccessRate + 9*(1-guardSuccessRate)));
-        double bpbSuccessRate = Math.min(0.9, (0.05+0.01*Math.max(45,player.getLevel("Thieving"))));
+        double bpbSuccessRate = Math.min(0.9, (0.05+0.01*Math.max(45,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int bpbPockets = (int)Math.floor((6000*bpbSuccessRate) / (2*bpbSuccessRate + 9*(1-bpbSuccessRate)));
-        double menapiteMarketeerSuccessRate = Math.min(0.9, (0.04+0.01*Math.max(46,player.getLevel("Thieving"))));
+        double menapiteMarketeerSuccessRate = Math.min(0.9, (0.04+0.01*Math.max(46,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int menapiteMarketeerPockets = (int)Math.floor((6000*menapiteMarketeerSuccessRate) / (2*menapiteMarketeerSuccessRate + 5*(1-menapiteMarketeerSuccessRate)));
-        double desertBanditSuccessRate = Math.min(0.9, (-0.03+0.01*Math.max(53,player.getLevel("Thieving"))));
+        double desertBanditSuccessRate = Math.min(0.9, (-0.03+0.01*Math.max(53,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int desertBanditPockets = (int)Math.floor((6000*desertBanditSuccessRate) / (2*desertBanditSuccessRate + 9*(1-desertBanditSuccessRate)));
-        double KoASuccessRate = Math.min(0.9, (-0.05+0.01*Math.max(55,player.getLevel("Thieving"))));
+        double KoASuccessRate = Math.min(0.9, (-0.05+0.01*Math.max(55,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))));
         int KoAPockets = (int)Math.floor((6000*KoASuccessRate) / (2*KoASuccessRate + 9*(1-KoASuccessRate)));
-        double watchmanSuccessRate = 0.01*Math.max(65,player.getLevel("Thieving")) - 0.15;
+        double watchmanSuccessRate = 0.01*Math.max(65,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))) - 0.15;
         int watchmanPockets = (int)Math.floor((6000*watchmanSuccessRate) / (2*watchmanSuccessRate + 9*(1-watchmanSuccessRate)));
-        double paladinSuccessRate = 0.01*Math.max(70,player.getLevel("Thieving")) - 0.2;
+        double paladinSuccessRate = 0.01*Math.max(70,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))) - 0.2;
         int paladinPockets = (int)Math.floor((6000*paladinSuccessRate) / (2*paladinSuccessRate + 9*(1-paladinSuccessRate)));
-        double gnomeSuccessRate = 0.01*Math.max(75,player.getLevel("Thieving")) - 0.25;
+        double gnomeSuccessRate = 0.01*Math.max(75,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))) - 0.25;
         int gnomePockets = (int)Math.floor((6000*gnomeSuccessRate) / (2*gnomeSuccessRate + 9*(1-gnomeSuccessRate)));
-        double heroSuccessRate = 0.01*Math.max(80,player.getLevel("Thieving")) - 0.3;
+        double heroSuccessRate = 0.01*Math.max(80,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))) - 0.3;
         int heroPockets = (int)Math.floor((6000*heroSuccessRate) / (2*heroSuccessRate + 10*(1-heroSuccessRate)));
-        double elfSuccessRate = 0.01*Math.max(85,player.getLevel("Thieving")) - 0.35;
+        double elfSuccessRate = 0.01*Math.max(85,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))) - 0.35;
         int elfPockets = (int)Math.floor((6000*elfSuccessRate) / (2*elfSuccessRate + 10*(1-elfSuccessRate)));
-        double dwarfTraderSuccessRate = 0.01*Math.max(90,player.getLevel("Thieving")) - 0.4;
+        double dwarfTraderSuccessRate = 0.01*Math.max(90,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))) - 0.4;
         int dwarfTraderPockets = (int)Math.floor((6000*dwarfTraderSuccessRate) / (2*dwarfTraderSuccessRate + 9*(1-dwarfTraderSuccessRate)));
-        double dwarfTraderSuccessRateCMLF = 0.01*Math.max(90,player.getLevel("Thieving")) - 0.2;
+        double dwarfTraderSuccessRateCMLF = 0.01*Math.max(90,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))) - 0.2;
         int dwarfTraderPocketsCMLF = (int)Math.floor((6000*dwarfTraderSuccessRateCMLF) / (2*dwarfTraderSuccessRateCMLF + 9*(1-dwarfTraderSuccessRateCMLF)));
 
         database.add(new Action("Pickpocketing men/women", new ArrayList(), new HashMap(), ImmutableMap.of("Coins", 3 * menPockets,
-            "Thieving", 8 * menPockets, "Thieving level-ticks", 6000 * player.getLevel("Thieving")), menPockets, true, true));
+            "Thieving", 8 * menPockets, "Thieving level-ticks", 6000 * LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))), menPockets, true, true));
         database.add(new Action("Pickpocketing the Gullible tourist", Collections.singletonList(new Requirement("The Jack of Spades", 1)), new HashMap(),
             ImmutableMap.builder().put("Thieving", (int)(29.5*menPockets)).put("Coins", 30*menPockets).put("Menaphos reputation", (int)(1.3*menPockets)).put("Hornless fly in amber", 1)
-                .put("Kalphite wanderer in amber", 1).put("Waikonite", 1).put("Thieving level-ticks", 6000 * player.getLevel("Thieving")).build(), 3000, true, true));
+                .put("Kalphite wanderer in amber", 1).put("Waikonite", 1).put("Thieving level-ticks", 6000 * LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))).build(), 3000, true, true));
         database.add(new Action("Pickpocketing farmers", Collections.singletonList(new Requirement("Thieving", 10)), new HashMap(), ImmutableMap.of("Coins", 9 * farmerPockets,
-            "Thieving", (int)(14.5 * farmerPockets), "Thieving level-ticks", 6000 * Math.max(10,player.getLevel("Thieving"))), farmerPockets, true, true));
+            "Thieving", (int)(14.5 * farmerPockets), "Thieving level-ticks", 6000 * Math.max(10,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), farmerPockets, true, true));
         database.add(new Action("Pickpocketing female HAM members", Collections.singletonList(new Requirement("Thieving", 15)), new HashMap(), ImmutableMap.of("Coins", 11 * femaleHAMPockets,
-            "Thieving", (int)(18.5 * femaleHAMPockets), "Thieving level-ticks", 6000 * Math.max(15,player.getLevel("Thieving"))), femaleHAMPockets, true, true));
+            "Thieving", (int)(18.5 * femaleHAMPockets), "Thieving level-ticks", 6000 * Math.max(15,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), femaleHAMPockets, true, true));
         database.add(new Action("Pickpocketing male HAM members", Collections.singletonList(new Requirement("Thieving", 20)), new HashMap(), ImmutableMap.of("Coins", 11 * maleHAMPockets,
-            "Thieving", (int)(22.5 * maleHAMPockets), "Thieving level-ticks", 6000 * Math.max(20,player.getLevel("Thieving"))), maleHAMPockets, true, true));
+            "Thieving", (int)(22.5 * maleHAMPockets), "Thieving level-ticks", 6000 * Math.max(20,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), maleHAMPockets, true, true));
         database.add(new Action("Pickpocketing warrior women", Collections.singletonList(new Requirement("Thieving", 25)), new HashMap(), ImmutableMap.of("Coins", 18 * warriorWomanPockets,
-            "Thieving", 26 * warriorWomanPockets, "Thieving level-ticks", 6000 * Math.max(25,player.getLevel("Thieving"))), warriorWomanPockets, true, true));
+            "Thieving", 26 * warriorWomanPockets, "Thieving level-ticks", 6000 * Math.max(25,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), warriorWomanPockets, true, true));
         database.add(new Action("Pickpocketing cave goblins", Arrays.asList(new Requirement("Thieving", 36), new Requirement("Death to the Dorgeshuun", 1)), new HashMap(),
-            ImmutableMap.of("Coins", 30 * caveGoblinPockets, "Thieving", 40 * caveGoblinPockets, "Thieving level-ticks", 6000 * Math.max(36,player.getLevel("Thieving"))),
+            ImmutableMap.of("Coins", 30 * caveGoblinPockets, "Thieving", 40 * caveGoblinPockets, "Thieving level-ticks", 6000 * Math.max(36,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))),
             caveGoblinPockets, true, true));
         database.add(new Action("Pickpocketing master farmers", Collections.singletonList(new Requirement("Thieving", 38)), new HashMap(), ImmutableMap.of("Potato seed", masterFarmerPockets,
-            "Thieving", 43 * masterFarmerPockets, "Thieving level-ticks", 6000 * Math.max(38,player.getLevel("Thieving"))), masterFarmerPockets, true, true));
+            "Thieving", 43 * masterFarmerPockets, "Thieving level-ticks", 6000 * Math.max(38,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), masterFarmerPockets, true, true));
         database.add(new Action("Pickpocketing guards", Collections.singletonList(new Requirement("Thieving", 40)), new HashMap(), ImmutableMap.of("Coins", 30 * guardPockets,
-            "Thieving", (int)(46.5 * guardPockets), "Thieving level-ticks", 6000 * Math.max(40,player.getLevel("Thieving"))), guardPockets, true, true));
+            "Thieving", (int)(46.5 * guardPockets), "Thieving level-ticks", 6000 * Math.max(40,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), guardPockets, true, true));
         database.add(new Action("Pickpocketing bearded Pollinivian bandits", Collections.singletonList(new Requirement("Thieving", 45)), new HashMap(), ImmutableMap.of("Coins", 40 * bpbPockets,
-            "Thieving", 65 * bpbPockets, "Thieving level-ticks", 6000 * Math.max(45,player.getLevel("Thieving"))), bpbPockets, true, true));
+            "Thieving", 65 * bpbPockets, "Thieving level-ticks", 6000 * Math.max(45,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), bpbPockets, true, true));
         database.add(new Action("Pickpocketing Menaphite marketeers", Arrays.asList(new Requirement("The Jack of Spades", 1),
             new Requirement("Thieving", 46)), new HashMap(), ImmutableMap.builder().put("Thieving", (int) (29.5 * menapiteMarketeerPockets)).put("Menaphos reputation",
             (int) (1.3 * menapiteMarketeerPockets)).put("Coins", 30 * menapiteMarketeerPockets).put("Kalphite wanderer in amber", 1).put("Hornless unicornfly in amber", 1)
-            .put("Thieving level-ticks", 6000 * Math.max(46, player.getLevel("Thieving"))).build(), menapiteMarketeerPockets, true, true));
+            .put("Thieving level-ticks", 6000 * Math.max(46, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))).build(), menapiteMarketeerPockets, true, true));
         database.add(new Action("Pickpocketing desert bandits", Collections.singletonList(new Requirement("Thieving", 53)), new HashMap(), ImmutableMap.of("Coins", 30 * desertBanditPockets,
-            "Thieving", (int)(79.5 * desertBanditPockets), "Thieving level-ticks", 6000 * Math.max(53,player.getLevel("Thieving"))), desertBanditPockets, true, true));
+            "Thieving", (int)(79.5 * desertBanditPockets), "Thieving level-ticks", 6000 * Math.max(53,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), desertBanditPockets, true, true));
         database.add(new Action("Pickpocketing knights of Ardougne", Collections.singletonList(new Requirement("Thieving", 55)), new HashMap(), ImmutableMap.of("Coins", 50 * KoAPockets,
-            "Thieving", (int)(84.3 * KoAPockets), "Thieving level-ticks", 6000 * Math.max(55,player.getLevel("Thieving"))), KoAPockets, true, true));
+            "Thieving", (int)(84.3 * KoAPockets), "Thieving level-ticks", 6000 * Math.max(55,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), KoAPockets, true, true));
         database.add(new Action("Pickpocketing watchmen", Collections.singletonList(new Requirement("Thieving", 65)), new HashMap(), ImmutableMap.of("Coins", 60 * watchmanPockets,
-            "Thieving", (int)(137.5 * watchmanPockets), "Thieving level-ticks", 6000 * Math.max(65,player.getLevel("Thieving"))), watchmanPockets, true, true));
+            "Thieving", (int)(137.5 * watchmanPockets), "Thieving level-ticks", 6000 * Math.max(65,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), watchmanPockets, true, true));
         database.add(new Action("Pickpocketing paladins", Collections.singletonList(new Requirement("Thieving", 70)), new HashMap(), ImmutableMap.of("Coins", 80 * paladinPockets,
-            "Thieving", (int)(151.75 * paladinPockets), "Thieving level-ticks", 6000 * Math.max(70,player.getLevel("Thieving"))), paladinPockets, true, true));
+            "Thieving", (int)(151.75 * paladinPockets), "Thieving level-ticks", 6000 * Math.max(70,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), paladinPockets, true, true));
         database.add(new Action("Pickpocketing gnomes", Collections.singletonList(new Requirement("Thieving", 75)), new HashMap(), ImmutableMap.of("Coins", 300 * gnomePockets,
-            "Thieving", (int)(198.5 * gnomePockets), "Thieving level-ticks", 6000 * Math.max(75,player.getLevel("Thieving"))), gnomePockets, true, true));
+            "Thieving", (int)(198.5 * gnomePockets), "Thieving level-ticks", 6000 * Math.max(75,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), gnomePockets, true, true));
         database.add(new Action("Pickpocketing heroes", Collections.singletonList(new Requirement("Thieving", 80)), new HashMap(), ImmutableMap.of("Coins", 250 * heroPockets,
-            "Thieving", (int)(273.3 * heroPockets), "Thieving level-ticks", 6000 * Math.max(80,player.getLevel("Thieving"))), heroPockets, true, true));
+            "Thieving", (int)(273.3 * heroPockets), "Thieving level-ticks", 6000 * Math.max(80,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), heroPockets, true, true));
         database.add(new Action("Pickpocketing elves", Arrays.asList(new Requirement("Thieving", 85), new Requirement("Mourning's End Part I", 1)), new HashMap(),
-            ImmutableMap.of("Coins", 280 * elfPockets, "Thieving", (int)(353.3*elfPockets), "Thieving level-ticks", 6000 * Math.max(85,player.getLevel("Thieving"))), elfPockets, true, true));
+            ImmutableMap.of("Coins", 280 * elfPockets, "Thieving", (int)(353.3*elfPockets), "Thieving level-ticks", 6000 * Math.max(85,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), elfPockets, true, true));
         database.add(new Action("Pickpocketing dwarf traders", Arrays.asList(new Requirement("Thieving", 90), new Requirement("The Giant Dwarf", 1)), new HashMap(),
-            ImmutableMap.of("Coins", 250 * dwarfTraderPockets, "Thieving", (int)(556.5*dwarfTraderPockets), "Thieving level-ticks", 6000 * Math.max(90,player.getLevel("Thieving"))),
+            ImmutableMap.of("Coins", 250 * dwarfTraderPockets, "Thieving", (int)(556.5*dwarfTraderPockets), "Thieving level-ticks", 6000 * Math.max(90,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))),
             dwarfTraderPockets, true, true));
         database.add(new Action("Pickpocketing dwarf traders (w/CM+LF)", Arrays.asList(new Requirement("Thieving", 90), new Requirement("The Giant Dwarf", 1),
             new Requirement("The Light Within", 1), new Requirement("Magic", 90)), new HashMap(), ImmutableMap.of("Coins", 250 * dwarfTraderPocketsCMLF,
-            "Thieving", (int)(556.5*dwarfTraderPocketsCMLF), "Thieving level-ticks", 6000 * Math.max(90,player.getLevel("Thieving"))), dwarfTraderPocketsCMLF, true, true));
+            "Thieving", (int)(556.5*dwarfTraderPocketsCMLF), "Thieving level-ticks", 6000 * Math.max(90,LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), dwarfTraderPocketsCMLF, true, true));
         database.add(new Action("Iorwerth workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 91)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 250000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Iorwerth symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(91, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Iorwerth symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(91, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Ithell workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 92)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 260000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Ithell symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(92, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Ithell symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(92, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Cadarn workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 93)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 270000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Cadarn symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(93, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Cadarn symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(93, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Amlodd workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 94)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 280000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Amlodd symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(94, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Amlodd symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(94, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Trahearn workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 95)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 290000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Trahearn symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(95, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Trahearn symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(95, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Hefin workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 96)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 300000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Hefin symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(96, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Hefin symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(96, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Crwys workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 97)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 310000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Crwys symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(97, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Crwys symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(97, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
         database.add(new Action("Meilyr workers", Arrays.asList(new Requirement("Plague's End", 1), new Requirement("Thieving", 98)), new HashMap(),
             ImmutableMap.builder().put("Thieving", 340000).put("Sealed clue scroll (hard)", 6).put("Sealed clue scroll (elite)", 3)
-                .put("Prifddinian musician's robe pieces", 1).put("Meilyr symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(98, player.getLevel("Thieving")))
+                .put("Prifddinian musician's robe pieces", 1).put("Meilyr symbol piece", 1).put("Thieving level-ticks", 6000 * Math.max(98, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))))
                 .put("Crystal acorn points", 1).build(), 2000, true, true));
 
         database.add(new Action("Vegetable stalls", Collections.singletonList(new Requirement("Thieving", 2)), new HashMap(), ImmutableMap.of("Thieving", 18000,
-            "Thieving level-ticks", 6000 * Math.max(2, player.getLevel("Thieving"))), 1800, true, true));
+            "Thieving level-ticks", 6000 * Math.max(2, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 1800, true, true));
         database.add(new Action("Bakery stalls", Collections.singletonList(new Requirement("Thieving", 5)), new HashMap(), ImmutableMap.of("Thieving", 23040,
-            "Thieving level-ticks", 6000 * Math.max(5, player.getLevel("Thieving"))), 1440, true, true));
+            "Thieving level-ticks", 6000 * Math.max(5, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 1440, true, true));
         database.add(new Action("Menaphos silk stall (drop silk)", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Thieving", 20)),
-            new HashMap(), ImmutableMap.of("Thieving", 9600, "Menaphos reputation", 2400, "Fly dragon in amber", 1, "Thieving level-ticks", 6000 * Math.max(20, player.getLevel("Thieving"))),
+            new HashMap(), ImmutableMap.of("Thieving", 9600, "Menaphos reputation", 2400, "Fly dragon in amber", 1, "Thieving level-ticks", 6000 * Math.max(20, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))),
             400, true, true));
 
         database.add(new Action("Thieves' Guild jail doors (no lockpick)", Arrays.asList(new Requirement("Thieving", 15), new Requirement("Buyers and Cellars", 1)), new HashMap(),
-            ImmutableMap.of("Thieving", 63000, "Thieving level-ticks", 6000 * Math.max(15, player.getLevel("Thieving"))), 300, true, true));
+            ImmutableMap.of("Thieving", 63000, "Thieving level-ticks", 6000 * Math.max(15, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 300, true, true));
         database.add(new Action("Thieves' Guild jail doors (w/lv35 door)", Arrays.asList(new Requirement("Thieving", 35), new Requirement("Buyers and Cellars", 1),
-            new Requirement("Lockpick", 1)), new HashMap(), ImmutableMap.of("Thieving", 91000, "Thieving level-ticks", 6000 * Math.max(35, player.getLevel("Thieving"))), 400, true, true));
+            new Requirement("Lockpick", 1)), new HashMap(), ImmutableMap.of("Thieving", 91000, "Thieving level-ticks", 6000 * Math.max(35, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 400, true, true));
         database.add(new Action("Thieves' Guild jail doors (w/lv41 door)", Arrays.asList(new Requirement("Thieving", 41), new Requirement("Buyers and Cellars", 1),
-            new Requirement("Lockpick", 1)), new HashMap(), ImmutableMap.of("Thieving", 119000, "Thieving level-ticks", 6000 * Math.max(41, player.getLevel("Thieving"))), 500, true, true));
+            new Requirement("Lockpick", 1)), new HashMap(), ImmutableMap.of("Thieving", 119000, "Thieving level-ticks", 6000 * Math.max(41, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 500, true, true));
         database.add(new Action("Thieves' Guild jail doors (w/lv50 door)", Arrays.asList(new Requirement("Thieving", 50), new Requirement("Buyers and Cellars", 1),
-            new Requirement("Lockpick", 1)), new HashMap(), ImmutableMap.of("Thieving", 147000, "Thieving level-ticks", 6000 * Math.max(50, player.getLevel("Thieving"))), 600, true, true));
+            new Requirement("Lockpick", 1)), new HashMap(), ImmutableMap.of("Thieving", 147000, "Thieving level-ticks", 6000 * Math.max(50, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 600, true, true));
 
         database.add(new Action("Safecracking (Misthalin)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 62)), new HashMap(),
-            ImmutableMap.of("Thieving", 300000, "Pilfer Points", 800, "Coins", 200000, "Thieving level-ticks", 6000 * Math.max(62, player.getLevel("Thieving"))), 60, true, true));
+            ImmutableMap.of("Thieving", 300000, "Pilfer Points", 800, "Coins", 200000, "Thieving level-ticks", 6000 * Math.max(62, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 60, true, true));
         database.add(new Action("Safecracking (Asgarnia)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 76)), new HashMap(),
-            ImmutableMap.of("Thieving", 400000, "Pilfer Points", 600, "Coins", 150000, "Thieving level-ticks", 6000 * Math.max(76, player.getLevel("Thieving"))), 60, true, true));
+            ImmutableMap.of("Thieving", 400000, "Pilfer Points", 600, "Coins", 150000, "Thieving level-ticks", 6000 * Math.max(76, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 60, true, true));
         database.add(new Action("Safecracking (Kandarin)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 83)), new HashMap(),
-            ImmutableMap.of("Thieving", 575000, "Pilfer Points", 500, "Coins", 125000, "Thieving level-ticks", 6000 * Math.max(83, player.getLevel("Thieving"))), 60, true, true));
+            ImmutableMap.of("Thieving", 575000, "Pilfer Points", 500, "Coins", 125000, "Thieving level-ticks", 6000 * Math.max(83, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 60, true, true));
         database.add(new Action("Safecracking (Hidden)", Arrays.asList(new Requirement("A Guild of Our Own (miniquest)", 1), new Requirement("Thieving", 94)), new HashMap(),
-            ImmutableMap.of("Thieving", 700000, "Pilfer Points", 400, "Coins", 100000, "Thieving level-ticks", 6000 * Math.max(90, player.getLevel("Thieving"))), 60, true, true));
+            ImmutableMap.of("Thieving", 700000, "Pilfer Points", 400, "Coins", 100000, "Thieving level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving")))), 60, true, true));
 
         database.add(new Action("Pyramid Plunder (to room 1)", Arrays.asList(new Requirement("Icthlarin's Little Helper", 1), new Requirement("Thieving", 21)),
-            new HashMap(), ImmutableMap.of("Thieving", 17000, "Jenifurr", 1, "Thieving level-ticks", 6000 * Math.max(21, player.getLevel("Thieving")), "Menaphyrite", 1), 12, true, true));
+            new HashMap(), ImmutableMap.of("Thieving", 17000, "Jenifurr", 1, "Thieving level-ticks", 6000 * Math.max(21, LevelHelper.getLevel("Thieving", player.getXp().get("Thieving"))), "Menaphyrite", 1), 12, true, true));
 
         //Woodcutting (done)
-        int normalTreesCutDAA = (int)(Math.floor(530 * (1.1 + .01*player.getLevel("Woodcutting"))));
-        int normalTreesCutBlack = (int)(Math.floor(530 * (1.15 + .01*Math.max(6,player.getLevel("Woodcutting")))));
-        int oakTreesCutBlack = (int)(Math.floor(390 * (1.15 + .01*Math.max(15,player.getLevel("Woodcutting")))));
-        int oakTreesCutMithril = (int)(Math.floor(390 * (1.2 + .01*Math.max(21,player.getLevel("Woodcutting")))));
-        int willowTreesCutMithril = (int)(Math.floor(265 * (1.2 + .01*Math.max(30,player.getLevel("Woodcutting")))));
-        int willowTreesCutAdamant = (int)(Math.floor(265 * (1.25 + .01*Math.max(31,player.getLevel("Woodcutting")))));
-        int teakTreesCutAdamant = (int)(Math.floor(300 * (1.25 + .01*Math.max(35,player.getLevel("Woodcutting")))));
-        int teakTreesCutRune = (int)(Math.floor(300 * (1.3 + .01*Math.max(41,player.getLevel("Woodcutting")))));
-        int acadiaTreesCutRune = (int)(Math.floor(340 * (1.3 + .01*Math.max(47,player.getLevel("Woodcutting")))));
-        int acadiaTreesCutDragon = (int)(Math.floor(340 * (1.4 + .01*Math.max(61,player.getLevel("Woodcutting")))));
-        int overgrownIdolsCutDragon = (int)(Math.floor(105 * (1.4 + .01*Math.max(81,player.getLevel("Woodcutting")))));
-        int crystalCutDragon = (int)(Math.floor(100 * (1.4 + .01*Math.max(94,player.getLevel("Woodcutting")))));
-        int goldenBambooCutDragon = (int)(Math.floor(80 * (1.4 + .01*Math.max(96,player.getLevel("Woodcutting")))));
-        int bambooCutDragon = (int)(Math.floor(145 * (1.4 + .01*Math.max(90,player.getLevel("Woodcutting")))));
+        int normalTreesCutDAA = (int)(Math.floor(530 * (1.1 + .01*LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))));
+        int normalTreesCutBlack = (int)(Math.floor(530 * (1.15 + .01*Math.max(6,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int oakTreesCutBlack = (int)(Math.floor(390 * (1.15 + .01*Math.max(15,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int oakTreesCutMithril = (int)(Math.floor(390 * (1.2 + .01*Math.max(21,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int willowTreesCutMithril = (int)(Math.floor(265 * (1.2 + .01*Math.max(30,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int willowTreesCutAdamant = (int)(Math.floor(265 * (1.25 + .01*Math.max(31,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int teakTreesCutAdamant = (int)(Math.floor(300 * (1.25 + .01*Math.max(35,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int teakTreesCutRune = (int)(Math.floor(300 * (1.3 + .01*Math.max(41,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int acadiaTreesCutRune = (int)(Math.floor(340 * (1.3 + .01*Math.max(47,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int acadiaTreesCutDragon = (int)(Math.floor(340 * (1.4 + .01*Math.max(61,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int overgrownIdolsCutDragon = (int)(Math.floor(105 * (1.4 + .01*Math.max(81,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int crystalCutDragon = (int)(Math.floor(100 * (1.4 + .01*Math.max(94,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int goldenBambooCutDragon = (int)(Math.floor(80 * (1.4 + .01*Math.max(96,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
+        int bambooCutDragon = (int)(Math.floor(145 * (1.4 + .01*Math.max(90,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))))));
 
         database.add(new Action("Cutting regular trees with dwarven army axe", new ArrayList(), new HashMap(), ImmutableMap.of("Woodcutting", 25 * normalTreesCutDAA,
-            "Woodcutting level-ticks", 6000 * player.getLevel("Woodcutting")), normalTreesCutDAA, true, true));
+            "Woodcutting level-ticks", 6000 * LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))), normalTreesCutDAA, true, true));
         database.add(new Action("Cutting regular trees with black hatchet", Arrays.asList(new Requirement("Woodcutting", 6), new Requirement("Black hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", 25 * normalTreesCutBlack, "Woodcutting level-ticks", 6000 * Math.max(6,player.getLevel("Woodcutting"))), normalTreesCutBlack, true, true));
+            ImmutableMap.of("Woodcutting", 25 * normalTreesCutBlack, "Woodcutting level-ticks", 6000 * Math.max(6,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), normalTreesCutBlack, true, true));
         database.add(new Action("Cutting oak trees with black hatchet", Arrays.asList(new Requirement("Woodcutting", 15), new Requirement("Black hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int)(37.5 * oakTreesCutBlack), "Woodcutting level-ticks", 6000 * Math.max(15,player.getLevel("Woodcutting"))), oakTreesCutBlack, true, true));
+            ImmutableMap.of("Woodcutting", (int)(37.5 * oakTreesCutBlack), "Woodcutting level-ticks", 6000 * Math.max(15,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), oakTreesCutBlack, true, true));
         database.add(new Action("Cutting oak trees with mithril hatchet", Arrays.asList(new Requirement("Woodcutting", 21), new Requirement("Mithril hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int)(37.5 * oakTreesCutMithril), "Woodcutting level-ticks", 6000 * Math.max(21,player.getLevel("Woodcutting"))), oakTreesCutMithril, true, true));
+            ImmutableMap.of("Woodcutting", (int)(37.5 * oakTreesCutMithril), "Woodcutting level-ticks", 6000 * Math.max(21,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), oakTreesCutMithril, true, true));
         database.add(new Action("Cutting willow trees with mithril hatchet", Arrays.asList(new Requirement("Woodcutting", 30), new Requirement("Mithril hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int)(67.5 * willowTreesCutMithril), "Woodcutting level-ticks", 6000 * Math.max(30,player.getLevel("Woodcutting"))), willowTreesCutMithril, true, true));
+            ImmutableMap.of("Woodcutting", (int)(67.5 * willowTreesCutMithril), "Woodcutting level-ticks", 6000 * Math.max(30,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), willowTreesCutMithril, true, true));
         database.add(new Action("Cutting willow trees with adamant hatchet", Arrays.asList(new Requirement("Woodcutting", 31), new Requirement("Adamant hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int)(67.5 * willowTreesCutAdamant), "Woodcutting level-ticks", 6000 * Math.max(31,player.getLevel("Woodcutting"))), willowTreesCutAdamant, true, true));
+            ImmutableMap.of("Woodcutting", (int)(67.5 * willowTreesCutAdamant), "Woodcutting level-ticks", 6000 * Math.max(31,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), willowTreesCutAdamant, true, true));
         database.add(new Action("Cutting teak trees with adamant hatchet", Arrays.asList(new Requirement("Woodcutting", 35), new Requirement("Adamant hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", 85 * teakTreesCutAdamant, "Woodcutting level-ticks", 6000 * Math.max(35,player.getLevel("Woodcutting"))), teakTreesCutAdamant, true, true));
+            ImmutableMap.of("Woodcutting", 85 * teakTreesCutAdamant, "Woodcutting level-ticks", 6000 * Math.max(35,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), teakTreesCutAdamant, true, true));
         database.add(new Action("Cutting teak trees with rune hatchet", Arrays.asList(new Requirement("Woodcutting", 41), new Requirement("Rune hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", 85 * teakTreesCutRune, "Woodcutting level-ticks", 6000 * Math.max(41,player.getLevel("Woodcutting"))), teakTreesCutRune, true, true));
+            ImmutableMap.of("Woodcutting", 85 * teakTreesCutRune, "Woodcutting level-ticks", 6000 * Math.max(41,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), teakTreesCutRune, true, true));
         database.add(new Action("Cutting acadia trees with rune hatchet", Arrays.asList(new Requirement("Woodcutting", 47), new Requirement("Rune hatchet", 1),
             new Requirement("The Jack of Spades", 1)), new HashMap(), ImmutableMap.of("Woodcutting", 92 * acadiaTreesCutRune, "Woodcutting level-ticks",
-            6000 * Math.max(47,player.getLevel("Woodcutting")), "Menaphos reputation", (int) 4.5 * acadiaTreesCutRune, "Desert locust", 1, "Kalphite wanderer", 1),
+            6000 * Math.max(47,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))), "Menaphos reputation", (int) 4.5 * acadiaTreesCutRune, "Desert locust", 1, "Kalphite wanderer", 1),
             acadiaTreesCutRune, true, true));
         database.add(new Action("Cutting acadia logs with rune hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Rune hatchet", 1),
             new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 47)), new HashMap(), ImmutableMap.builder().put("Woodcutting", 92 * acadiaTreesCutRune)
             .put("Menaphos reputation", (int) 4.5 * acadiaTreesCutRune).put("Desert locust", 1).put("Hornless unicornfly", 1).put("Kalphite wanderer", 1)
-            .put("Woodcutting level-ticks", 6000 * Math.max(47, player.getLevel("Woodcutting"))).build(), acadiaTreesCutRune, true, true));
+            .put("Woodcutting level-ticks", 6000 * Math.max(47, LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))).build(), acadiaTreesCutRune, true, true));
         database.add(new Action("Cutting acadia trees with dragon hatchet", Arrays.asList(new Requirement("Woodcutting", 61), new Requirement("Dragon hatchet", 1),
             new Requirement("The Jack of Spades", 1)), new HashMap(), ImmutableMap.of("Woodcutting", 92 * acadiaTreesCutDragon, "Woodcutting level-ticks",
-            6000 * Math.max(61,player.getLevel("Woodcutting")), "Menaphos reputation", (int) 4.5 * acadiaTreesCutDragon, "Desert locust", 1, "Kalphite wanderer", 1),
+            6000 * Math.max(61,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting"))), "Menaphos reputation", (int) 4.5 * acadiaTreesCutDragon, "Desert locust", 1, "Kalphite wanderer", 1),
             acadiaTreesCutDragon, true, true));
         database.add(new Action("Cutting acadia logs with dragon hatchet in VIP skilling area", Arrays.asList(new Requirement("The Jack of Spades", 1), new Requirement("Dragon hatchet", 1),
             new Requirement("Menaphos reputation", 141900), new Requirement("Woodcutting", 61)), new HashMap(), ImmutableMap.builder().put("Woodcutting", 92 * acadiaTreesCutDragon)
             .put("Menaphos reputation", (int) 4.5 * acadiaTreesCutDragon).put("Desert locust", 1).put("Hornless unicornfly", 1).put("Kalphite wanderer", 1)
-            .put("Woodcutting level-ticks", 6000 * Math.max(61, player.getLevel("Woodcutting"))).build(), acadiaTreesCutDragon, true, true));
+            .put("Woodcutting level-ticks", 6000 * Math.max(61, LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))).build(), acadiaTreesCutDragon, true, true));
         database.add(new Action("Cutting overgrown idols with dragon hatchet", Arrays.asList(new Requirement("Woodcutting", 81), new Requirement("Dragon hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int)383.5 * overgrownIdolsCutDragon, "Woodcutting level-ticks", 6000 * Math.max(81,player.getLevel("Woodcutting"))),
+            ImmutableMap.of("Woodcutting", (int)383.5 * overgrownIdolsCutDragon, "Woodcutting level-ticks", 6000 * Math.max(81,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))),
             overgrownIdolsCutDragon, true, true));
         database.add(new Action("Cutting crystal trees with dragon hatchet", Collections.singletonList(new Requirement("Woodcutting", 94)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int) 434.5 * crystalCutDragon, "Crystal geode", 10, "Woodcutting level-ticks", 6000 * Math.max(94, player.getLevel("Woodcutting"))),
+            ImmutableMap.of("Woodcutting", (int) 434.5 * crystalCutDragon, "Crystal geode", 10, "Woodcutting level-ticks", 6000 * Math.max(94, LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))),
             crystalCutDragon, true, true));
         database.add(new Action("Cutting golden bamboo with dragon hatchet", Arrays.asList(new Requirement("Woodcutting", 96), new Requirement("Dragon hatchet", 1)), new HashMap(),
-            ImmutableMap.of("Woodcutting", (int)655.5 * goldenBambooCutDragon, "Woodcutting level-ticks", 6000 * Math.max(96,player.getLevel("Woodcutting"))),
+            ImmutableMap.of("Woodcutting", (int)655.5 * goldenBambooCutDragon, "Woodcutting level-ticks", 6000 * Math.max(96,LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))),
             goldenBambooCutDragon, true, true));
 
         database.add(new Action("Cutting bamboo with dragon hatchet", Arrays.asList(new Requirement("Impressing the Locals", 1), new Requirement("Woodcutting", 90),
             new Requirement("Dragon hatchet", 1)), new HashMap(), ImmutableMap.of("Bamboo", bambooCutDragon, "Woodcutting", (int) 202.5 * bambooCutDragon,
-            "Great Pecker", 1, "Woodcutting level-ticks", 6000 * Math.max(90, player.getLevel("Woodcutting"))), bambooCutDragon, true, true));
+            "Great Pecker", 1, "Woodcutting level-ticks", 6000 * Math.max(90, LevelHelper.getLevel("Woodcutting", player.getXp().get("Woodcutting")))), bambooCutDragon, true, true));
 
         //Multi-skill
         database.add(new Action("Cremating vyre corpses", Arrays.asList(new Requirement("Legacy of Seergaze", 1),
@@ -3842,31 +3843,31 @@ public class ActionDatabase {
                 Loadout loadout = combatResults.getLoadoutUsed();
                 player.setXp(loadout.getXp());
                 if (player.getXp().get("Defence") > initialXP.get("Defence")) {
-                    requirements.add(new Requirement("Defence", player.getLevel("Defence")));
+                    requirements.add(new Requirement("Defence", LevelHelper.getLevel("Defence", player.getXp().get("Defence"))));
                 }
                 if (player.getXp().get("Constitution") > initialXP.get("Constitution")) {
-                    requirements.add(new Requirement("Constitution", player.getLevel("Constitution")));
+                    requirements.add(new Requirement("Constitution", LevelHelper.getLevel("Constitution", player.getXp().get("Constitution"))));
                 }
                 if (player.getXp().get("Prayer") > initialXP.get("Prayer")) {
-                    requirements.add(new Requirement("Prayer", player.getLevel("Prayer")));
+                    requirements.add(new Requirement("Prayer", LevelHelper.getLevel("Prayer", player.getXp().get("Prayer"))));
                 }
                 if (player.getXp().get("Attack") > initialXP.get("Attack")) {
-                    requirements.add(new Requirement("Attack", player.getLevel("Attack")));
+                    requirements.add(new Requirement("Attack", LevelHelper.getLevel("Attack", player.getXp().get("Attack"))));
                 }
                 if (player.getXp().get("Strength") > initialXP.get("Strength")) {
-                    requirements.add(new Requirement("Strength", player.getLevel("Strength")));
+                    requirements.add(new Requirement("Strength", LevelHelper.getLevel("Strength", player.getXp().get("Strength"))));
                 }
                 if (player.getXp().get("Ranged") > initialXP.get("Ranged")) {
-                    requirements.add(new Requirement("Ranged", player.getLevel("Ranged")));
+                    requirements.add(new Requirement("Ranged", LevelHelper.getLevel("Ranged", player.getXp().get("Ranged"))));
                 }
                 if (player.getXp().get("Magic") > initialXP.get("Magic")) {
-                    requirements.add(new Requirement("Magic", player.getLevel("Magic")));
+                    requirements.add(new Requirement("Magic", LevelHelper.getLevel("Magic", player.getXp().get("Magic"))));
                 }
                 if (player.getXp().get("Summoning") > initialXP.get("Summoning")) {
-                    requirements.add(new Requirement("Summoning", player.getLevel("Summoning")));
+                    requirements.add(new Requirement("Summoning", LevelHelper.getLevel("Summoning", player.getXp().get("Summoning"))));
                 }
                 if (player.getXp().get("Herblore") > initialXP.get("Herblore")) {
-                    requirements.add(new Requirement("Herblore", player.getLevel("Herblore")));
+                    requirements.add(new Requirement("Herblore", LevelHelper.getLevel("Herblore", player.getXp().get("Herblore"))));
                 }
                 if (!initialWeapons.contains(loadout.getMainWep())) {
                     requirements.add(new Requirement(loadout.getMainWep().getName(), 1));
@@ -3935,7 +3936,7 @@ public class ActionDatabase {
             combatReqs = getRequirementsForCombat(combatEncounter, player, invenSpaces, combatStyle);
             for (Requirement requirement : combatReqs) {
                 if (Player.ALL_SKILLS.contains(requirement.getQualifier())) {
-                    player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + player.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+                    player.getXp().put(requirement.getQualifier(), player.getXp().get(requirement.getQualifier()) + LevelHelper.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier(), player.getXp().get(requirement.getQualifier())));
                 }
                 else if (WeaponDatabase.getWeaponDatabase().getWeapons().values().stream().map(Weapon::getName).collect(Collectors.toList()).contains(requirement.getQualifier())) {
                     player.getWeapons().add(WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()));
@@ -3965,8 +3966,8 @@ public class ActionDatabase {
     }
 
     private int miningDamage(Player player, int pickDamage, double critRate, int critBonus) {
-        return (int)Math.floor(((1-critRate)*(player.getLevel("Mining") + player.getLevel("Strength")/10 + pickDamage) +
-            (critRate)*(player.getLevel("Mining") + player.getLevel("Strength")/10 + pickDamage + critBonus))*1500);
+        return (int)Math.floor(((1-critRate)*(LevelHelper.getLevel("Mining", player.getXp().get("Mining")) + LevelHelper.getLevel("Strength", player.getXp().get("Strength"))/10 + pickDamage) +
+            (critRate)*(LevelHelper.getLevel("Mining", player.getXp().get("Mining")) + LevelHelper.getLevel("Strength", player.getXp().get("Strength"))/10 + pickDamage + critBonus))*1500);
     }
 
     private int miningXP(Player player, int pickDamage, double critRate, int critBonus, double rockXPFactor) {
@@ -3976,7 +3977,7 @@ public class ActionDatabase {
     @Deprecated
     private int resourcesGained(int levelAtMaxRate, double minTicks, Player player, double ticksToBank, String skill) {
         double time = TICKS_PER_HOUR;
-        int playerLevel = player.getLevel(skill);
+        int playerLevel = LevelHelper.getLevel(skill, player.getXp().get(skill));
         double timePerResource = (minTicks + 0.2) * Math.pow(1.04, Math.max(0, levelAtMaxRate - playerLevel));
         int resources = 0;
         int inv = 0;
@@ -3998,13 +3999,13 @@ public class ActionDatabase {
 
     private int totalPetPoints(Player player, String skill, int xp) {
         int petPoints = 0;
-        int currentLevel = player.getLevel(skill);
+        int currentLevel = LevelHelper.getLevel(skill, player.getXp().get(skill));
         int usedXp = 0;
         while (usedXp < xp) {
             if (currentLevel == 120) {
                 return petPoints + (xp-usedXp)*120;
             }
-            int xpToNextLevel = player.getXpToLevel(skill, currentLevel+1);
+            int xpToNextLevel = LevelHelper.getXpToLevel(skill, currentLevel+1, player.getXp().get(skill));
             if (xpToNextLevel > xp) {
                 petPoints += (xp - usedXp) * currentLevel;
                 usedXp = xp;

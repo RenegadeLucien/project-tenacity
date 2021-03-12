@@ -85,9 +85,9 @@ public class Encounter {
         double minHpLost = 1000000001;
         int maxKills = 0;
         Loadout loadout = generateOptimalLoadout(p, parameters.getCombatStyle());
-        double myLp = p.getLevel("Constitution") * 100 + loadout.totalLp();
-        int maxLpHealedPerFood = p.getLevel("Constitution") * 25;
-        if (p.getLevel("Constitution") == 99) {
+        double myLp = LevelHelper.getLevel("Constitution", p.getXp().get("Constitution")) * 100 + loadout.totalLp();
+        int maxLpHealedPerFood = LevelHelper.getLevel("Constitution", p.getXp().get("Constitution")) * 25;
+        if (LevelHelper.getLevel("Constitution", p.getXp().get("Constitution")) == 99) {
             maxLpHealedPerFood = 2600;
         }
         int ticks = -1;
@@ -180,13 +180,13 @@ public class Encounter {
                         enemyMagicDamage = Math.min(1, (myMagicAffinity * (enemy.getAccmage() + (0.0008 * Math.pow(enemy.getMagic(), 3) + 4 * enemy.getMagic() + 40))
                             / combatStats.getArmour()) / 100) * enemy.getMaxhitmagic() / 2.0;
                     }
-                    double enemyDamage = ((enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles) * (1 - (loadout.totalReduc() + p.getLevel("Defence")/1000.0));
+                    double enemyDamage = ((enemyMeleeDamage + enemyRangedDamage + enemyMagicDamage) / enemyAttackStyles) * (1 - (loadout.totalReduc() + LevelHelper.getLevel("Defence", p.getXp().get("Defence"))/1000.0));
                     double enemyLp = enemy.getLp()*1.0 / partySize;
                     while (myLp > 0 && enemyLp > 0 && ticks <= TICKS_PER_HOUR) {
                         boolean uselessTick = true;
                         ticks+=ticksToNext;
                         monsterTicks+=ticksToNext;
-                        if (p.getLevel("Herblore") >= 96 && ticks % 2000 == 0) {
+                        if (LevelHelper.getLevel("Herblore", p.getXp().get("Herblore")) >= 96 && ticks % 2000 == 0) {
                             invenUsed++;
                             uselessTick = false;
                         }
@@ -294,7 +294,7 @@ public class Encounter {
                 }
                 //hide in safespot and heal w/regen between enemy groups/waves
                 if (myLp > 0 && safespot) {
-                    myLp += (p.getLevel("Constitution") * adren) / 5.0;
+                    myLp += (LevelHelper.getLevel("Constitution", p.getXp().get("Constitution")) * adren) / 5.0;
                     adren = 0;
                     //System.out.println("LP Remaining after Regenerate: " + myLp);
                 }
@@ -398,7 +398,7 @@ public class Encounter {
             }
         }
         for (Familiar f : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
-            if (player.getLevel("Summoning") >= f.getSummonReq() && f.getInvenSpaces() > familiar.getInvenSpaces()) {
+            if (LevelHelper.getLevel("Summoning", player.getXp().get("Summoning")) >= f.getSummonReq() && f.getInvenSpaces() > familiar.getInvenSpaces()) {
                 familiar = f;
             }
         }

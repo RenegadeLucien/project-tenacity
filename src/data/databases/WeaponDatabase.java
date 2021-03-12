@@ -353,6 +353,7 @@ public class WeaponDatabase {
 
         //Magic two-hand (done)
         weapons.add(new Weapon("Staff", "Magic", "Magic", "Two-handed", 0, 150, 6, 112, 0, 0, new ArrayList<>()));
+        weapons.add(new Weapon("Tower mindspike", "Magic", "Magic", "Two-handed", 0, 160, 6, 134, 0, 0, new ArrayList<>()));
         weapons.add(new Weapon("White magic staff", "Magic", "Magic", "Two-handed", 0, 381, 6, 559, 0, 0, Arrays.asList(new Requirement("Magic", 25), new Requirement("Herblore", 3),
             new Requirement("Agility", 13), new Requirement("Mining", 17), new Requirement("Thieving", 13))));
         weapons.add(new Weapon("Air battlestaff", "Magic", "Magic", "Two-handed", 0, 454, 6, 671, 0, 0, Collections.singletonList(new Requirement("Magic", 30))));

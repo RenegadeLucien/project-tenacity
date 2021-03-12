@@ -26,6 +26,7 @@ public class ArmourDatabase {
         armours.add(new Armour("None", "None", "None", 0, 0, 0, 0, 0, new ArrayList<>()));
 
         //Melee head (done)
+        armours.add(new Armour("Bronze med helm", "Melee", "Head", 30, 0, 0, 0.0002, 0, new ArrayList<>()));
         armours.add(new Armour("Bronze full helm", "Melee", "Head", 30, 0, 0, 0.0002, 0, new ArrayList<>()));
         armours.add(new Armour("Spiny helmet", "Melee", "Head", 40, 0, 0, 0.001, 0, Collections.singletonList(new Requirement("Defence", 5))));
         armours.add(new Armour("Steel full helm", "Melee", "Head", 63, 0, 0, 0.004, 0, Collections.singletonList(new Requirement("Defence", 20))));
@@ -117,7 +118,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Hood of subjugation", "Magic", "Head", 259, 0, 1, 0, 17, Collections.singletonList(new Requirement("Defence", 70))));
         armours.add(new Armour("Ganodermic visor", "Magic", "Head", 338, 0, 0, 0.015, 0, Collections.singletonList(new Requirement("Defence", 75))));
         armours.add(new Armour("Zuriel's hood", "Magic", "Head", 384, 0, 0, 0, 20, Arrays.asList(new Requirement("Defence", 78), new Requirement("Magic", 78))));
-        armours.add(new Armour("Anima Core helm of Seren", "Magic", "Head", 338, 0, 0, 0, 20, Collections.singletonList(new Requirement("Defence", 80))));
+        armours.add(new Armour("Anima core helm of Seren", "Magic", "Head", 338, 0, 0, 0, 20, Collections.singletonList(new Requirement("Defence", 80))));
         armours.add(new Armour("Second-Age mage mask", "Magic", "Head", 384, 0, 0, 0.016, 0, Collections.singletonList(new Requirement("Defence", 80))));
         armours.add(new Armour("Virtus mask", "Magic", "Head", 338, 110, 2, 0, 20, Arrays.asList(new Requirement("Defence", 80), new Requirement("Constitution", 80))));
         armours.add(new Armour("Seasinger's hood", "Magic", "Head", 414, 280, 0, 0.0166, 0, Collections.singletonList(new Requirement("Defence", 85))));
@@ -187,6 +188,7 @@ public class ArmourDatabase {
         armours.add(new Armour("Elite sirenic hauberk", "Ranged", "Torso", 526, 0, 3, 0, 36, Collections.singletonList(new Requirement("Defence", 92))));
 
         //Magic torso (done)
+        armours.add(new Armour("Wizard robe top", "Magic", "Torso", 25, 0, 0, 0.0002, 0, new ArrayList<>()));
         armours.add(new Armour("Zamorak robe (top)", "Magic", "Torso", 34, 0, 3, 0.001, 0, new ArrayList<>()));
         armours.add(new Armour("Imphide robe top", "Magic", "Torso", 46, 0, 0, 0.002, 0, Collections.singletonList(new Requirement("Defence", 10))));
         armours.add(new Armour("Spider silk robe top", "Magic", "Torso", 72, 0, 0, 0.004, 0, Collections.singletonList(new Requirement("Defence", 20))));

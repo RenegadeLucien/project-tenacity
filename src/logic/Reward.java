@@ -1,7 +1,5 @@
 package logic;
 
-import data.databases.ItemDatabase;
-
 public class Reward {
     private String qualifier;
     private int quantifier;
@@ -30,15 +28,16 @@ public class Reward {
             return Math.min(player.efficientGoalCompletion("mCombat", quantifier).getTotalTime(),
                 Math.min(player.efficientGoalCompletion("rCombat", quantifier).getTotalTime(),
                     player.efficientGoalCompletion("aCombat", quantifier).getTotalTime()));
-        }  else if (qualifier.equals("Invention") && !(player.getLevel("Divination") >= 80 && player.getLevel("Crafting") >= 80 && player.getLevel("Smithing") >= 80)) {
+        }  else if (qualifier.equals("Invention") && !(LevelHelper.getLevel("Divination", player.getXp().get("Divination")) >= 80
+            && LevelHelper.getLevel("Crafting", player.getXp().get("Crafting")) >= 80 && LevelHelper.getLevel("Smithing", player.getXp().get("Smithing")) >= 80)) {
            return 0;
         }  else if (Player.ALL_SKILLS.contains(qualifier)) {
             return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();
         } else if (qualifier.equals("Coins")) {
             return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();
-        } else if (ItemDatabase.getItemDatabase().getItems().get(qualifier) != null) {
+        } else if (PriceFetcher.getPrice(qualifier) > 0) {
             if (player.getStatus() == 0) {
-                return player.efficientGoalCompletion("Coins", quantifier * ItemDatabase.getItemDatabase().getItems().get(qualifier).coinValue(player)).getTotalTime();
+                return player.efficientGoalCompletion("Coins", quantifier * PriceFetcher.getPrice(qualifier)).getTotalTime();
             } else {
                 return player.efficientGoalCompletion(qualifier, quantifier).getTotalTime();
             }

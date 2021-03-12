@@ -125,11 +125,11 @@ public class Loadout {
         } else {
             accuracySkill = damageSkill = "Magic";
         }
-        int damageSkillLevel = player.getLevel(damageSkill);
-        int accSkillLevel = player.getLevel(accuracySkill);
-        int defLevel = player.getLevel("Defence");
+        int damageSkillLevel = LevelHelper.getLevel(damageSkill, player.getXp().get(damageSkill));
+        int accSkillLevel = LevelHelper.getLevel(accuracySkill, player.getXp().get(accuracySkill));
+        int defLevel = LevelHelper.getLevel("Defence", player.getXp().get("Defence"));
         //Standard overload used
-        if (player.getLevel("Herblore") >= 96) {
+        if (LevelHelper.getLevel("Herblore", player.getXp().get("Herblore")) >= 96) {
             damageSkillLevel = (int)(Math.floor(damageSkillLevel * 1.15 + 3));
             accSkillLevel = (int)(Math.floor(accSkillLevel * 1.15 + 3));
             defLevel = (int)(Math.floor(defLevel * 1.15 + 3));

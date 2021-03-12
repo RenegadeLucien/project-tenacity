@@ -22,6 +22,7 @@ public enum SlayerMaster {
         .put(new SlayerAssignment("Desert lizards", 33), 30)
         .put(new SlayerAssignment("Dogs", 33), 15)
         .put(new SlayerAssignment("Dwarves", 33), 10)
+        .put(new SlayerAssignment("Frogs", 33), 10)
         .put(new SlayerAssignment("Gelatinous abominations", 33), 10)
         .put(new SlayerAssignment("Ghosts", 33), 15)
         .put(new SlayerAssignment("Goblins", 33), 10)
@@ -49,6 +50,7 @@ public enum SlayerMaster {
         .put(new SlayerAssignment("Desert lizards", 55), 10)
         .put(new SlayerAssignment("Dogs", 55), 10)
         .put(new SlayerAssignment("Flesh crawlers", 55), 10)
+        .put(new SlayerAssignment("Frogs", 55), 10)
         .put(new SlayerAssignment("Ghouls", 55), 10)
         .put(new SlayerAssignment("Ghosts", 55), 10)
         .put(new SlayerAssignment("Grotworms", 30), 10)
@@ -76,6 +78,7 @@ public enum SlayerMaster {
         .put(new SlayerAssignment("Cyclopes", 90), 10)
         .put(new SlayerAssignment("Dust devils", 90), 25)
         .put(new SlayerAssignment("Earth warriors", 45), 15)
+        .put(new SlayerAssignment("Frogs", 42), 10)
         .put(new SlayerAssignment("Ghouls", 90), 10)
         .put(new SlayerAssignment("Green dragons", 45), 10)
         .put(new SlayerAssignment("Grotworms", 90), 15)
@@ -413,7 +416,6 @@ public enum SlayerMaster {
                 }
             }
             if (categoryXp > 1) {
-                //System.out.println(assignment.getCategory() + " " + categoryXp);
                 totalXp += categoryXp * assignmentAndWeight.getValue();
                 totalPoints += categoryPoints * assignmentAndWeight.getValue();
                 totalWeights += assignmentAndWeight.getValue();

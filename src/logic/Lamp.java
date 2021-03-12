@@ -32,40 +32,40 @@ public class Lamp {
         Reward maxReward = new Reward("Attack", 1);
         boolean cantUse = true;
         for (String choice : choices) {
-            if (player.getLevel(choice) >= minLevel && !choice.equals("Archaeology")) {
+            if (LevelHelper.getLevel(choice, player.getXp().get(choice)) >= minLevel && !choice.equals("Archaeology")) {
                 cantUse = false;
-                if (player.getLevel(choice) < 99) {
+                if (LevelHelper.getLevel(choice, player.getXp().get(choice)) < 99) {
                     int xpReward = xp;
                     //-5: Shattered Heart (gold)
                     if (xp == -5) {
-                        xpReward = (int)(Math.floor(player.getLevel(choice)*player.getLevel(choice)*1.2 - player.getLevel(choice)*2.4 + 120));
+                        xpReward = (int)(Math.floor(LevelHelper.getLevel(choice, player.getXp().get(choice))*LevelHelper.getLevel(choice, player.getXp().get(choice))*1.2 - LevelHelper.getLevel(choice, player.getXp().get(choice))*2.4 + 120));
                     }
                     //-6: Shattered Heart
                     else if (xp == -6) {
-                        xpReward = player.getLevel(choice)*player.getLevel(choice) - player.getLevel(choice)*2 + 100;
+                        xpReward = LevelHelper.getLevel(choice, player.getXp().get(choice))*LevelHelper.getLevel(choice, player.getXp().get(choice)) - LevelHelper.getLevel(choice, player.getXp().get(choice))*2 + 100;
                     }
                     //-7: Troll Invasion
                     else if (xp == -7) {
-                        xpReward = 8*(player.getLevel(choice)*player.getLevel(choice) - player.getLevel(choice)*2 + 100);
+                        xpReward = 8*(LevelHelper.getLevel(choice, player.getXp().get(choice))*LevelHelper.getLevel(choice, player.getXp().get(choice)) - LevelHelper.getLevel(choice, player.getXp().get(choice))*2 + 100);
                     }
                     //-1: small pris, -2: med pris, -4: large pris, -8: huge pris, -3: other rewards that use pris formula
                     else if (xp < 0 && xp > -9) {
-                        xpReward = PRISMATIC_LAMP_EXP_VALUES[player.getLevel(choice)] * -1 * xp;
+                        xpReward = PRISMATIC_LAMP_EXP_VALUES[LevelHelper.getLevel(choice, player.getXp().get(choice))] * -1 * xp;
                     }
                     //-9: dragonkin lamp
                     else if (xp == -9) {
-                        xpReward = (int) Math.floor((Math.pow(player.getLevel(choice), 3) - 2 * Math.pow(player.getLevel(choice), 2) + 100 * player.getLevel(choice)) / 20);
+                        xpReward = (int) Math.floor((Math.pow(LevelHelper.getLevel(choice, player.getXp().get(choice)), 3) - 2 * Math.pow(LevelHelper.getLevel(choice, player.getXp().get(choice)), 2) + 100 * LevelHelper.getLevel(choice, player.getXp().get(choice))) / 20);
                     }
                     //-11: Guthixian Caches
                     else if (xp == -11) {
-                        xpReward = GUTHIXIAN_CACHE_EXP_VALUES[player.getLevel(choice)];
+                        xpReward = GUTHIXIAN_CACHE_EXP_VALUES[LevelHelper.getLevel(choice, player.getXp().get(choice))];
                     }
                     //-10/-12+: flat level multiplier (ex. goulash, peng points)
                     else if (xp == -10) {
-                        xpReward = player.getLevel(choice) * -1 * xp;
+                        xpReward = LevelHelper.getLevel(choice, player.getXp().get(choice)) * -1 * xp;
                     }
                     else if (xp <= -12) {
-                        xpReward = player.getLevel(choice) * -1 * xp;
+                        xpReward = LevelHelper.getLevel(choice, player.getXp().get(choice)) * -1 * xp;
                     }
                     Reward choiceReward = new Reward(choice, xpReward);
                     double gain = choiceReward.getGainFromReward(player);

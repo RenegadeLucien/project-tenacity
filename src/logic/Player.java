@@ -7,14 +7,12 @@ import data.databases.AchievementDatabase;
 import data.databases.ActionDatabase;
 import data.databases.ArmourDatabase;
 import data.databases.FamiliarDatabase;
-import data.databases.ItemDatabase;
 import data.databases.WeaponDatabase;
 import data.dataobjects.Achievement;
 import data.dataobjects.Action;
 import data.dataobjects.Armour;
 import data.dataobjects.Enemy;
 import data.dataobjects.Familiar;
-import data.dataobjects.Item;
 import data.dataobjects.Weapon;
 
 import java.util.ArrayList;
@@ -41,24 +39,6 @@ public class Player {
         "Divination", "Dungeoneering", "Fishing", "Herblore", "Hunter", "Prayer", "Runecrafting", "Slayer", "Thieving"));
 
     private static final HashSet<String> COMBAT_STYLES = new HashSet<>(Arrays.asList("Melee", "Ranged", "Magic"));
-
-    private static final int[] XP_TO_LEVELS = {0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
-        3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247, 20224, 22406, 24815, 27473, 30408, 33648,
-        37224, 41171, 45529, 50339, 55649, 61512, 67983, 75127, 83014, 91721, 101333, 111945, 123660, 136954, 150872, 166636, 184040, 203254, 224466,
-        247886, 273742, 302288, 333804, 368599, 407015, 449428, 496254, 547953, 605032, 668051, 737627, 814445, 899257, 992895, 1086278, 1210421,
-        1336443, 1475581, 1629200, 1798808, 1986068, 2192818, 2421087, 2673114, 2951373, 3258594, 3597792, 3972294, 4385776, 4842295, 5346332, 5902831,
-        6517253, 7195629, 7944614, 8771558, 9684577, 10692629, 11805606, 13034431, 14391160, 15889109, 17542976, 19368992, 21385073, 23611006, 26068632,
-        28782069, 31777943, 35085654, 38737661, 42769801, 47221641, 52136869, 57563718, 63555443, 70170840, 77474828, 85539082, 94442737, 104273167};
-
-    private static final int[] XP_TO_LEVELS_ELITE = {0, 830, 1861, 2902, 3980, 5126, 6390, 7787, 9400, 11275, 13605, 16372, 19656, 23546, 28138, 33520, 39809, 47109,
-        55535, 64802, 77190, 90811, 106221, 123573, 143025, 164742, 188893, 215651, 245196, 277713, 316311, 358547, 404634, 454796, 509259, 568254, 632019, 700797, 774834,
-        854383, 946227, 1044569, 1149696, 1261903, 1381488, 1508756, 1644015, 1787581, 1939773, 2100917, 2283490, 2476369, 2679907, 2894505, 3120508, 3358307, 3608290, 3870846,
-        4146374, 4435275, 4758122, 5096111, 5449685, 5819299, 6205407, 6608473, 7028964, 7467354, 7924122, 8399751, 8925664, 9472665, 10041285, 10632061, 11245538,
-        11882262, 12542789, 13227679, 13937496, 14672812, 15478994, 16313404, 17176661, 18069395, 18992239, 19945833, 20930821, 21947856, 22997593, 24080695, 25259906,
-        26475754, 27728955, 29020233, 30350318, 31719944, 33129852, 34580790, 36073511, 37608773, 39270442, 40978509, 42733789, 44537107, 46389292, 48291180,
-        50243611, 52247435, 54303504, 56412678, 58575823, 60793812, 63067521, 65397835, 67785643, 70231841, 72737330, 75303019, 77929820, 80618654, 83370445, 86186124,
-        89066630, 92012904, 95025896, 98106559, 101255855, 104474750, 107764216, 111125230, 114558777, 118065845, 121647430, 125304532, 129038159, 132849323, 136739041,
-        140708338, 144758242, 148889790, 153104021, 157401983, 161784728, 166253312, 170808801, 175452262, 180184770, 185007406, 189921255, 194927409};
 
     @Expose private String name;
     @Expose private int status; //0 = mainscape, 1 = ironman, 2 = HCIM
@@ -164,62 +144,6 @@ public class Player {
         return initialXP;
     }
 
-    public int getLevel(String skill) {
-        double skillXp = xp.get(skill);
-        if (skill.equals("Invention")) {
-            for (int i = 1; i < XP_TO_LEVELS_ELITE.length; i++) {
-                if (skillXp < XP_TO_LEVELS_ELITE[i]) {
-                    return i;
-                }
-                if (i == 120) {
-                    return 120;
-                }
-            }
-        } else {
-            for (int i = 1; i < XP_TO_LEVELS.length; i++) {
-                if (skillXp < XP_TO_LEVELS[i]) {
-                    return i;
-                }
-                if (i == 99 && !(skill.equals("Dungeoneering") || skill.equals("Slayer"))) {
-                    return 99;
-                }
-            }
-        }
-        return 120;
-    }
-
-    public int getVirtualLevel(String skill) {
-        double skillXp = xp.get(skill);
-        if (skill.equals("Invention")) {
-            for (int i = 1; i < XP_TO_LEVELS_ELITE.length; i++) {
-                if (skillXp < XP_TO_LEVELS_ELITE[i]) {
-                    return i;
-                }
-            }
-            return 150;
-        } else {
-            for (int i = 1; i < XP_TO_LEVELS.length; i++) {
-                if (skillXp < XP_TO_LEVELS[i]) {
-                    return i;
-                }
-            }
-            return 120;
-        }
-    }
-
-    public double calcCombatLevel() {
-        return (13 * Math.max(getLevel("Attack") + getLevel("Strength"), Math.max(getLevel("Ranged") * 2, getLevel("Magic") * 2)) / 10.0 +
-            getLevel("Defence") + getLevel("Constitution") + getLevel("Prayer") / 2.0 + getLevel("Summoning") / 2.0) / 4.0;
-    }
-
-    public int getXpToLevel(String skill, int level) {
-        if (skill.equals("Invention")) {
-            return Math.max(0, XP_TO_LEVELS_ELITE[level - 1] - xp.get(skill).intValue());
-        } else {
-            return Math.max(0, XP_TO_LEVELS[level - 1] - xp.get(skill).intValue());
-        }
-    }
-
     public Map<String, Double> nextGear(String combatStyle) {
         if (!COMBAT_STYLES.contains(combatStyle)) {
             throw new IllegalArgumentException(String.format("Combat style provided was %s. Must be Melee, Ranged, or Magic.", combatStyle));
@@ -229,7 +153,7 @@ public class Player {
         int nextSummonReq = 100;
         String nextFamiliar = null;
         for (Familiar familiar : FamiliarDatabase.getFamiliarDatabase().getFamiliars()) {
-            if (familiar.getSummonReq() > getLevel("Summoning") && familiar.getSummonReq() < nextSummonReq) {
+            if (familiar.getSummonReq() > LevelHelper.getLevel("Summoning", xp.get("Summoning")) && familiar.getSummonReq() < nextSummonReq) {
                 nextSummonReq = familiar.getSummonReq();
                 nextFamiliar = familiar.getName();
             }
@@ -252,8 +176,8 @@ public class Player {
             skills = Arrays.asList("Magic", "Defence", "Constitution");
         }
         for (String skill : skills) {
-            if (getLevel(skill) < 99) {
-                int targetLevel = Math.min(99, getLevel(skill) + 10);
+            if (LevelHelper.getLevel(skill, xp.get(skill)) < 99) {
+                int targetLevel = Math.min(99, LevelHelper.getLevel(skill, xp.get(skill)) + 10);
                 double skillTime = new Requirement(skill, targetLevel).timeAndActionsToMeetRequirement(this).getTotalTime();
                 if (minTimeToGear > skillTime) {
                     minTimeToGear = skillTime;
@@ -261,7 +185,7 @@ public class Player {
                 }
             }
         }
-        if (getLevel("Herblore") < 96) {
+        if (LevelHelper.getLevel("Herblore", xp.get("Herblore")) < 96) {
             double herbTime = new Requirement("Herblore", 96).timeAndActionsToMeetRequirement(this).getTotalTime();
             if (minTimeToGear > herbTime) {
                 minTimeToGear = herbTime;
@@ -271,8 +195,8 @@ public class Player {
         for (Weapon weapon : WeaponDatabase.getWeaponDatabase().getWeapons().values().stream().filter(w -> w.getWeaponClass().equals(combatStyle)).collect(Collectors.toList())) {
             if (!weapons.contains(weapon) && !checkIfHaveBetterWeapon(weapon)) {
                 double weaponTime = 0;
-                if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
-                    weaponTime += efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(weapon.getName()).coinValue(this)).getTotalTime();
+                if (PriceFetcher.getPrice(weapon.getName()) > 0) {
+                    weaponTime += efficientGoalCompletion("Coins", PriceFetcher.getPrice(weapon.getName())).getTotalTime();
                 }
                 else {
                     //Getting time to untradeable gear that aren't already owned is unsupported
@@ -296,8 +220,8 @@ public class Player {
         for (Armour armourPiece : ArmourDatabase.getArmourDatabase().getArmours().values().stream().filter(a -> a.getType().equals(combatStyle) || a.getType().equals("All")).collect(Collectors.toList())) {
             if (!armour.contains(armourPiece) && !checkIfHaveBetterArmour(armourPiece)) {
                 double armourTime = 0;
-                if (ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()) != null) {
-                    armourTime += efficientGoalCompletion("Coins", ItemDatabase.getItemDatabase().getItems().get(armourPiece.getName()).coinValue(this)).getTotalTime();
+                if (PriceFetcher.getPrice(armourPiece.getName()) > 0) {
+                    armourTime += efficientGoalCompletion("Coins", PriceFetcher.getPrice(armourPiece.getName())).getTotalTime();
                 }
                 else {
                     //Getting time to untradeable gear that aren't already owned is unsupported
@@ -344,7 +268,7 @@ public class Player {
         }
         weapons.removeAll(weaponsToRemove);
         for (Weapon weapon : weaponsToRemove) {
-            if (ItemDatabase.getItemDatabase().getItems().get(weapon.getName()) != null) {
+            if (PriceFetcher.getPrice(weapon.getName()) > 0) {
                 bank.put(weapon.getName(), 1L);
             }
         }
@@ -371,7 +295,7 @@ public class Player {
         }
         armour.removeAll(armoursToRemove);
         for (Armour armour : armoursToRemove) {
-            if (ItemDatabase.getItemDatabase().getItems().get(armour.getName()) != null) {
+            if (PriceFetcher.getPrice(armour.getName()) > 0) {
                 bank.put(armour.getName(), 1L);
             }
         }
@@ -403,24 +327,24 @@ public class Player {
         Familiar familiar = Familiar.getFamiliarByName(gear);
         if (weapon != null) {
             for (Requirement requirement : weapon.getReqs()) {
-                getXp().put(requirement.getQualifier(), getXp().get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+                getXp().put(requirement.getQualifier(), getXp().get(requirement.getQualifier()) + LevelHelper.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier(), xp.get(requirement.getQualifier())));
             }
             addWeapon(weapon);
         }
         else if (armour != null) {
             for (Requirement requirement : armour.getReqs()) {
-                getXp().put(requirement.getQualifier(), getXp().get(requirement.getQualifier()) + getXpToLevel(requirement.getQualifier(), requirement.getQuantifier()));
+                getXp().put(requirement.getQualifier(), getXp().get(requirement.getQualifier()) + LevelHelper.getXpToLevel(requirement.getQualifier(), requirement.getQuantifier(), xp.get(requirement.getQualifier())));
             }
             addArmour(armour);
         }
         else if (familiar != null) {
-            getXp().put("Summoning", getXp().get("Summoning") + getXpToLevel("Summoning", familiar.getSummonReq()));
+            getXp().put("Summoning", getXp().get("Summoning") + LevelHelper.getXpToLevel("Summoning", familiar.getSummonReq(), xp.get("Summoning")));
         }
         else if (Player.ALL_SKILLS.contains(gear)) {
             if (gear.equals("Herblore")) {
-                getXp().put(gear, getXp().get(gear) + getXpToLevel(gear, 96));
+                getXp().put(gear, getXp().get(gear) + LevelHelper.getXpToLevel(gear, 96, xp.get(gear)));
             } else {
-                getXp().put(gear, getXp().get(gear) + getXpToLevel(gear, Math.min(99, getLevel(gear) + 10)));
+                getXp().put(gear, getXp().get(gear) + LevelHelper.getXpToLevel(gear, Math.min(99, LevelHelper.getLevel(gear, xp.get(gear)) + 10), xp.get(gear)));
             }
         }
         else {
@@ -485,22 +409,22 @@ public class Player {
                         int steps = (int)Math.ceil(action.getValue()*actionWithGraph.getActionsPerHour());
                         int totalInputCoins = 0;
                         for (Entry<String, Integer> input : actionWithGraph.getInputs().entrySet()) {
-                            if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
-                                long inputItems = (long) input.getValue() * ItemDatabase.getItemDatabase().getItems().get(input.getKey()).coinValue(this) * steps;
+                            if (PriceFetcher.getPrice(input.getKey()) > 0) {
+                                long inputItems = (long) input.getValue() * PriceFetcher.getPrice(input.getKey()) * steps;
                                 totalInputCoins += (int) (inputItems / actionWithGraph.getActionsPerHour());
                             }
                         }
                         for (Requirement requirement : actionWithGraph.getReqs()) {
-                            if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null &&
+                            if (PriceFetcher.getPrice(requirement.getQualifier()) > 0 &&
                                 WeaponDatabase.getWeaponDatabase().getWeapons().get(requirement.getQualifier()) == null &&
                                 ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()) == null &&
-                                bankValue < requirement.getQuantifier() * ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this)) {
-                                totalInputCoins -= requirement.getQuantifier() * ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()).coinValue(this);
+                                bankValue < requirement.getQuantifier() * PriceFetcher.getPrice(requirement.getQualifier())) {
+                                totalInputCoins -= requirement.getQuantifier() * PriceFetcher.getPrice(requirement.getQualifier());
                             }
                         }
                         for (Entry<String, Integer> output : actionWithGraph.getOutputs().entrySet()) {
-                            if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null) {
-                                long outputItems = (long) output.getValue() * ItemDatabase.getItemDatabase().getItems().get(output.getKey()).coinValue(this) * steps;
+                            if (PriceFetcher.getPrice(output.getKey()) > 0) {
+                                long outputItems = (long) output.getValue() * PriceFetcher.getPrice(output.getKey()) * steps;
                                 totalInputCoins -= (int) (outputItems / actionWithGraph.getActionsPerHour());
                             }
                         }
@@ -547,7 +471,7 @@ public class Player {
                         addArmourAndMoveToBank(ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()));
                     }
                 }
-                if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                if (PriceFetcher.getPrice(requirement.getQualifier()) > 0) {
                     updateBank(requirement.getQualifier(), requirement.getQuantifier());
                 }
             }
@@ -566,7 +490,7 @@ public class Player {
                         this.getXp().put("Ranged", this.getXp().get("Ranged") + enemy.getCbxp());
                     }
                     else if (meleeCombatResults.getHpLost() < magicCombatResults.getHpLost()) {
-                        if (getLevel("Attack") <= getLevel("Strength")) {
+                        if (LevelHelper.getLevel("Attack", xp.get("Attack")) <= LevelHelper.getLevel("Strength", xp.get("Strength"))) {
                             this.getXp().put("Attack", this.getXp().get("Attack") + enemy.getCbxp());
                         }
                         else {
@@ -585,7 +509,7 @@ public class Player {
                 xp.put(reward.getQualifier(), xp.get(reward.getQualifier()) + reward.getQuantifier());
             } else if (ArmourDatabase.getArmourDatabase().getArmours().get(reward.getQualifier()) != null) {
                 armour.add(ArmourDatabase.getArmourDatabase().getArmours().get(reward.getQualifier()));
-            } else if (ItemDatabase.getItemDatabase().getItems().get(reward.getQualifier()) != null) {
+            } else if (PriceFetcher.getPrice(reward.getQualifier()) > 0) {
                 if (bank.containsKey(reward.getQualifier()))
                     bank.put(reward.getQualifier(), bank.get(reward.getQualifier()) + reward.getQuantifier());
                 else
@@ -684,11 +608,11 @@ public class Player {
             return result;
         } else if (qualifier.equals("Combat")) {
             int targetLevel = (int) Math.floor(quantifier / 1.4);
-            GoalResults attack = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Attack", targetLevel));
-            GoalResults strength = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Strength", targetLevel));
-            GoalResults meleeDefence = this.efficientGoalCompletion("mCombat", this.getXpToLevel("Defence", targetLevel));
-            GoalResults rangedDefence = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Defence", targetLevel));
-            GoalResults magicDefence = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Defence", targetLevel));
+            GoalResults attack = this.efficientGoalCompletion("mCombat", LevelHelper.getXpToLevel("Attack", targetLevel, xp.get("Attack")));
+            GoalResults strength = this.efficientGoalCompletion("mCombat", LevelHelper.getXpToLevel("Strength", targetLevel, xp.get("Strength")));
+            GoalResults meleeDefence = this.efficientGoalCompletion("mCombat", LevelHelper.getXpToLevel("Defence", targetLevel, xp.get("Defence")));
+            GoalResults rangedDefence = this.efficientGoalCompletion("rCombat", LevelHelper.getXpToLevel("Defence", targetLevel, xp.get("Defence")));
+            GoalResults magicDefence = this.efficientGoalCompletion("aCombat", LevelHelper.getXpToLevel("Defence", targetLevel, xp.get("Defence")));
             GoalResults trueDefence;
             if (meleeDefence.getTotalTime() < Math.min(rangedDefence.getTotalTime(), magicDefence.getTotalTime())) {
                 trueDefence = meleeDefence;
@@ -697,11 +621,11 @@ public class Player {
             } else {
                 trueDefence = magicDefence;
             }
-            GoalResults ranged = this.efficientGoalCompletion("rCombat", this.getXpToLevel("Ranged", targetLevel));
-            GoalResults magic = this.efficientGoalCompletion("aCombat", this.getXpToLevel("Magic", targetLevel));
-            GoalResults hp = this.efficientGoalCompletion("Constitution", this.getXpToLevel("Constitution", targetLevel));
-            GoalResults prayer = this.efficientGoalCompletion("Prayer", this.getXpToLevel("Prayer", targetLevel));
-            GoalResults summ = this.efficientGoalCompletion("Summoning", this.getXpToLevel("Summoning", targetLevel));
+            GoalResults ranged = this.efficientGoalCompletion("rCombat", LevelHelper.getXpToLevel("Ranged", targetLevel, xp.get("Ranged")));
+            GoalResults magic = this.efficientGoalCompletion("aCombat", LevelHelper.getXpToLevel("Magic", targetLevel, xp.get("Magic")));
+            GoalResults hp = this.efficientGoalCompletion("Constitution", LevelHelper.getXpToLevel("Constitution", targetLevel, xp.get("Constitution")));
+            GoalResults prayer = this.efficientGoalCompletion("Prayer", LevelHelper.getXpToLevel("Prayer", targetLevel, xp.get("Prayer")));
+            GoalResults summ = this.efficientGoalCompletion("Summoning", LevelHelper.getXpToLevel("Summoning", targetLevel, xp.get("Summoning")));
             Map<String, Double> meleeMap = new HashMap<>();
             Map<String, Double> rangedMap = new HashMap<>();
             Map<String, Double> magicMap = new HashMap<>();
@@ -801,16 +725,14 @@ public class Player {
             boolean validAction = false;
             double coinGain = 0;
             for (Map.Entry<String, Integer> output : action.getOutputs().entrySet()) {
-                Item item = ItemDatabase.getItemDatabase().getItems().get(output.getKey());
-                if (item != null) {
-                    coinGain += output.getValue()*item.coinValue(this);
+                if (PriceFetcher.getPrice(output.getKey()) > 0) {
+                    coinGain += output.getValue()*PriceFetcher.getPrice(output.getKey());
                 }
             }
             long inputLoss = 0;
             for (Map.Entry<String, Integer> input : action.getInputs().entrySet()) {
-                Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
-                if (item != null) {
-                    inputLoss += (long)input.getValue()*item.coinValue(this);
+                if (PriceFetcher.getPrice(input.getKey()) > 0) {
+                    inputLoss += (long)input.getValue()*PriceFetcher.getPrice(input.getKey());
                 }
             }
             coinGain -= inputLoss;
@@ -828,7 +750,7 @@ public class Player {
             if (validAction) {
                 for (Requirement r : action.getReqs()) {
                     if (ALL_SKILLS.contains(r.getQualifier())) {
-                        if (currentTargets.stream().anyMatch(targ -> targ.getQualifier().equals(r.getQualifier()) && getXpToLevel(r.getQualifier(), r.getQuantifier()) >= targ.getQuantifier())) {
+                        if (currentTargets.stream().anyMatch(targ -> targ.getQualifier().equals(r.getQualifier()) && LevelHelper.getXpToLevel(r.getQualifier(), r.getQuantifier(), xp.get(r.getQualifier())) >= targ.getQuantifier())) {
                             validAction = false;
                             break;
                         } else if (currentTargets.stream().anyMatch(targ -> targ.getQualifier().equals(r.getQualifier()) && r.getQuantifier() > targ.getQuantifier())) {
@@ -838,7 +760,7 @@ public class Player {
                     }
                 }
             }
-            if (validAction && ALL_SKILLS.contains(qualifier) && action.getReqs().stream().anyMatch(r -> r.getQualifier().equals(qualifier) && getXpToLevel(qualifier, r.getQuantifier()) >= quantifierWithCoinRounding)) {
+            if (validAction && ALL_SKILLS.contains(qualifier) && action.getReqs().stream().anyMatch(r -> r.getQualifier().equals(qualifier) && LevelHelper.getXpToLevel(qualifier, r.getQuantifier(), xp.get(qualifier)) >= quantifierWithCoinRounding)) {
                 validAction = false;
             }
             if (validAction) {
@@ -850,7 +772,7 @@ public class Player {
                 int trueQuantifier = quantifier;
                 //Items first, then others. This is so that when the others are calculated, they use the items gained in their calculations
                 for (Requirement requirement : action.getReqs()) {
-                    if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+                    if (PriceFetcher.getPrice(requirement.getQualifier()) > 0) {
                         GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                         effectiveTimeThisAction += reqResults.getTotalTime();
                         addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
@@ -859,12 +781,12 @@ public class Player {
                     }
                 }
                 for (Requirement requirement : action.getReqs()) {
-                    if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) == null) {
+                    if (PriceFetcher.getPrice(requirement.getQualifier()) > 0) {
                         GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                         effectiveTimeThisAction += reqResults.getTotalTime();
                         addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());
                         if (requirement.getQualifier().equals(qualifier) && ALL_SKILLS.contains(qualifier) && !requirement.meetsRequirement(this)) {
-                            trueQuantifier = quantifier - getXpToLevel(qualifier, requirement.getQuantifier());
+                            trueQuantifier = quantifier - LevelHelper.getXpToLevel(qualifier, requirement.getQuantifier(), xp.get(qualifier));
                         }
                     }
                 }
@@ -885,10 +807,9 @@ public class Player {
                 addItemsToMap(efficiencyThisAction, ImmutableMap.of(action.getName(), timeToReachGoal));
                 long minInputsLong = 0;
                 for (Entry<String, Integer> input : action.getInputs().entrySet()) {
-                    Item item = ItemDatabase.getItemDatabase().getItems().get(input.getKey());
-                    if (item != null) {
+                    if (PriceFetcher.getPrice(input.getKey()) > 0) {
                         int inputsUsed = (int)Math.ceil((input.getValue()*1.0)/action.getActionsPerHour());
-                        minInputsLong += (long)inputsUsed*item.coinValue(this);
+                        minInputsLong += (long)inputsUsed*PriceFetcher.getPrice(input.getKey());
                     }
                 }
                 int minInputs;
@@ -913,7 +834,7 @@ public class Player {
                 }
                 for (Entry<String, Integer> input : action.getInputs().entrySet()) {
                     GoalResults timeToInput = null;
-                    if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) == null) {
+                    if (PriceFetcher.getPrice(input.getKey()) == 0) {
                         timeToInput = efficientGoalCompletion(input.getKey(), (int)Math.ceil(input.getValue()*timeToReachGoal));
                     }
                     if (timeToInput != null) {
@@ -964,7 +885,7 @@ public class Player {
     public void setBankValue() {
         long bankVal = 0;
         for (Map.Entry<String, Long> entry : bank.entrySet()) {
-            bankVal += ((long) ItemDatabase.getItemDatabase().getItems().get(entry.getKey()).coinValue(this)) * entry.getValue();
+            bankVal += ((long) PriceFetcher.getPrice(entry.getKey())) * entry.getValue();
         }
         bankValue = bankVal;
     }
@@ -996,7 +917,7 @@ public class Player {
                 if (canUse) {
                     addArmourAndMoveToBank(ArmourDatabase.getArmourDatabase().getArmours().get(requirement.getQualifier()));
                 }
-            } else if (ItemDatabase.getItemDatabase().getItems().get(requirement.getQualifier()) != null) {
+            } else if (PriceFetcher.getPrice(requirement.getQualifier()) > 0) {
                 updateBank(requirement.getQualifier(), requirement.getQuantifier());
                 if (bank.containsKey(requirement.getQualifier())) {
                     bank.put(requirement.getQualifier(), bank.get(requirement.getQualifier()) + requirement.getQuantifier());
@@ -1014,17 +935,17 @@ public class Player {
             if (output.getKey().equals("aCombat")) {
                 for (Requirement combatReq : combatRequirements) {
                     if (combatReq.getQualifier().equals("Defence")) {
-                        if (totalXp > getXpToLevel("Defence", combatReq.getQuantifier())) {
-                            totalXp -= getXpToLevel("Defence", combatReq.getQuantifier());
-                            xp.put("Defence", xp.get("Defence") + getXpToLevel("Defence", combatReq.getQuantifier()));
+                        if (totalXp > LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence"))) {
+                            totalXp -= LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence"));
+                            xp.put("Defence", xp.get("Defence") + LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence")));
                         } else {
                             xp.put("Defence", xp.get("Defence") + totalXp);
                             totalXp = 0;
                         }
                     } else if (combatReq.getQualifier().equals("Magic")) {
-                        if (totalXp > getXpToLevel("Magic", combatReq.getQuantifier())) {
-                            totalXp -= getXpToLevel("Magic", combatReq.getQuantifier());
-                            xp.put("Magic", xp.get("Magic") + getXpToLevel("Magic", combatReq.getQuantifier()));
+                        if (totalXp > LevelHelper.getXpToLevel("Magic", combatReq.getQuantifier(), xp.get("Magic"))) {
+                            totalXp -= LevelHelper.getXpToLevel("Magic", combatReq.getQuantifier(), xp.get("Magic"));
+                            xp.put("Magic", xp.get("Magic") + LevelHelper.getXpToLevel("Magic", combatReq.getQuantifier(), xp.get("Magic")));
                         } else {
                             xp.put("Magic", xp.get("Magic") + totalXp);
                             totalXp = 0;
@@ -1043,17 +964,17 @@ public class Player {
             } else if (output.getKey().equals("rCombat")) {
                 for (Requirement combatReq : combatRequirements) {
                     if (combatReq.getQualifier().equals("Defence")) {
-                        if (totalXp > getXpToLevel("Defence", combatReq.getQuantifier())) {
-                            totalXp -= getXpToLevel("Defence", combatReq.getQuantifier());
-                            xp.put("Defence", xp.get("Defence") + getXpToLevel("Defence", combatReq.getQuantifier()));
+                        if (totalXp > LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence"))) {
+                            totalXp -= LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence"));
+                            xp.put("Defence", xp.get("Defence") + LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence")));
                         } else {
                             xp.put("Defence", xp.get("Defence") + totalXp);
                             totalXp = 0;
                         }
                     } else if (combatReq.getQualifier().equals("Ranged")) {
-                        if (totalXp > getXpToLevel("Ranged", combatReq.getQuantifier())) {
-                            totalXp -= getXpToLevel("Ranged", combatReq.getQuantifier());
-                            xp.put("Ranged", xp.get("Ranged") + getXpToLevel("Ranged", combatReq.getQuantifier()));
+                        if (totalXp > LevelHelper.getXpToLevel("Ranged", combatReq.getQuantifier(), xp.get("Ranged"))) {
+                            totalXp -= LevelHelper.getXpToLevel("Ranged", combatReq.getQuantifier(), xp.get("Ranged"));
+                            xp.put("Ranged", xp.get("Ranged") + LevelHelper.getXpToLevel("Ranged", combatReq.getQuantifier(), xp.get("Ranged")));
                         } else {
                             xp.put("Ranged", xp.get("Ranged") + totalXp);
                             totalXp = 0;
@@ -1072,25 +993,25 @@ public class Player {
             } else if (output.getKey().equals("mCombat")) {
                 for (Requirement combatReq : combatRequirements) {
                     if (combatReq.getQualifier().equals("Defence")) {
-                        if (totalXp > getXpToLevel("Defence", combatReq.getQuantifier())) {
-                            totalXp -= getXpToLevel("Defence", combatReq.getQuantifier());
-                            xp.put("Defence", xp.get("Defence") + getXpToLevel("Defence", combatReq.getQuantifier()));
+                        if (totalXp > LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence"))) {
+                            totalXp -= LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence"));
+                            xp.put("Defence", xp.get("Defence") + LevelHelper.getXpToLevel("Defence", combatReq.getQuantifier(), xp.get("Defence")));
                         } else {
                             xp.put("Defence", xp.get("Defence") + totalXp);
                             totalXp = 0;
                         }
                     } else if (combatReq.getQualifier().equals("Attack")) {
-                        if (totalXp > getXpToLevel("Attack", combatReq.getQuantifier())) {
-                            totalXp -= getXpToLevel("Attack", combatReq.getQuantifier());
-                            xp.put("Attack", xp.get("Attack") + getXpToLevel("Attack", combatReq.getQuantifier()));
+                        if (totalXp > LevelHelper.getXpToLevel("Attack", combatReq.getQuantifier(), xp.get("Attack"))) {
+                            totalXp -= LevelHelper.getXpToLevel("Attack", combatReq.getQuantifier(), xp.get("Attack"));
+                            xp.put("Attack", xp.get("Attack") + LevelHelper.getXpToLevel("Attack", combatReq.getQuantifier(), xp.get("Attack")));
                         } else {
                             xp.put("Attack", xp.get("Attack") + totalXp);
                             totalXp = 0;
                         }
                     } else if (combatReq.getQualifier().equals("Strength")) {
-                        if (totalXp > getXpToLevel("Strength", combatReq.getQuantifier())) {
-                            totalXp -= getXpToLevel("Strength", combatReq.getQuantifier());
-                            xp.put("Strength", xp.get("Strength") + getXpToLevel("Strength", combatReq.getQuantifier()));
+                        if (totalXp > LevelHelper.getXpToLevel("Strength", combatReq.getQuantifier(), xp.get("Strength"))) {
+                            totalXp -= LevelHelper.getXpToLevel("Strength", combatReq.getQuantifier(), xp.get("Strength"));
+                            xp.put("Strength", xp.get("Strength") + LevelHelper.getXpToLevel("Strength", combatReq.getQuantifier(), xp.get("Strength")));
                         } else {
                             xp.put("Strength", xp.get("Strength") + totalXp);
                             totalXp = 0;
@@ -1130,7 +1051,7 @@ public class Player {
             else if (ALL_SKILLS.contains(output.getKey())) {
                 xp.put(output.getKey(), xp.get(output.getKey()) + (int)(outputItems/action.getActionsPerHour()));
             }
-            else if (ItemDatabase.getItemDatabase().getItems().get(output.getKey()) != null && (int)(outputItems/action.getActionsPerHour()) > 0) {
+            else if (PriceFetcher.getPrice(output.getKey()) > 0 && (int)(outputItems/action.getActionsPerHour()) > 0) {
                 if (bank.containsKey(output.getKey())) {
                     bank.put(output.getKey(), bank.get(output.getKey()) + (int)(outputItems / action.getActionsPerHour()));
                 } else {
@@ -1143,7 +1064,7 @@ public class Player {
             }
         }
         for (Entry<String, Integer> input : action.getInputs().entrySet()) {
-            if (ItemDatabase.getItemDatabase().getItems().get(input.getKey()) != null) {
+            if (PriceFetcher.getPrice(input.getKey()) > 0) {
                 long inputItems = (long)input.getValue() * steps;
                 updateBank(input.getKey(), (int)(inputItems / action.getActionsPerHour()));
             }
@@ -1154,50 +1075,47 @@ public class Player {
         if (!item.equals("Coins") && bank.containsKey(item)) {
             if (bank.get(item) > quantity) {
                 bank.put(item, (bank.get(item) - quantity));
-            } else if (bank.containsKey("Coins") && bank.get("Coins") >= (quantity-bank.get(item))
-                *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
-                bank.put("Coins", bank.get("Coins")-(quantity-bank.get(item))
-                    *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+            } else if (bank.containsKey("Coins") && bank.get("Coins") >= (quantity-bank.get(item))*PriceFetcher.getPrice(item)) {
+                bank.put("Coins", bank.get("Coins")-(quantity-bank.get(item))*PriceFetcher.getPrice(item));
                 bank.remove(item);
             } else {
                 List<String> entriesToRemove = new ArrayList<>();
                 for (Entry<String, Long> bankEntry : bank.entrySet()) {
                     if (!bankEntry.getKey().equals("Coins") && !bankEntry.getKey().equals(item)) {
                         if (bank.get("Coins") != null) {
-                            bank.put("Coins", bank.get("Coins") + ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
+                            bank.put("Coins", bank.get("Coins") + PriceFetcher.getPrice(bankEntry.getKey()) * bankEntry.getValue());
                         }
                         else {
-                            bank.put("Coins", ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue());
+                            bank.put("Coins", PriceFetcher.getPrice(bankEntry.getKey()) * bankEntry.getValue());
                         }
                         entriesToRemove.add(bankEntry.getKey());
                     }
-                    if (bank.get("Coins") >= (quantity-bank.get(item))*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                    if (bank.get("Coins") >= (quantity-bank.get(item))*PriceFetcher.getPrice(item)) {
                         break;
                     }
                 }
                 for (String removal : entriesToRemove) {
                     bank.remove(removal);
                 }
-                bank.put("Coins", bank.get("Coins")-(quantity-bank.get(item))
-                    *ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+                bank.put("Coins", bank.get("Coins")-(quantity-bank.get(item))*PriceFetcher.getPrice(item));
                 bank.remove(item);
             }
-        } else if (bank.containsKey("Coins") && bank.get("Coins") >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
-                bank.put("Coins", bank.get("Coins")-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
-        } else if (bankValue > quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+        } else if (bank.containsKey("Coins") && bank.get("Coins") >= quantity*PriceFetcher.getPrice(item)) {
+                bank.put("Coins", bank.get("Coins")-quantity*PriceFetcher.getPrice(item));
+        } else if (bankValue > quantity*PriceFetcher.getPrice(item)) {
             List<String> entriesToRemove = new ArrayList<>();
             long coinsToAdd = 0;
             for (Entry<String, Long> bankEntry : bank.entrySet()) {
                 if (!bankEntry.getKey().equals("Coins")) {
-                    coinsToAdd += ItemDatabase.getItemDatabase().getItems().get(bankEntry.getKey()).coinValue(this) * bankEntry.getValue();
+                    coinsToAdd += PriceFetcher.getPrice(bankEntry.getKey()) * bankEntry.getValue();
                     entriesToRemove.add(bankEntry.getKey());
                 }
                 if (bank.get("Coins") != null) {
-                    if (bank.get("Coins") + coinsToAdd >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                    if (bank.get("Coins") + coinsToAdd >= quantity*PriceFetcher.getPrice(item)) {
                         break;
                     }
                 } else {
-                    if (coinsToAdd >= quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this)) {
+                    if (coinsToAdd >= quantity*PriceFetcher.getPrice(item)) {
                         break;
                     }
                 }
@@ -1206,9 +1124,9 @@ public class Player {
                 bank.remove(removal);
             }
             if (bank.get("Coins") != null) {
-                bank.put("Coins", bank.get("Coins")+coinsToAdd-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+                bank.put("Coins", bank.get("Coins")+coinsToAdd-quantity*PriceFetcher.getPrice(item));
             } else {
-                bank.put("Coins", coinsToAdd-quantity*ItemDatabase.getItemDatabase().getItems().get(item).coinValue(this));
+                bank.put("Coins", coinsToAdd-quantity*PriceFetcher.getPrice(item));
             }
         }
         setBankValue();
