@@ -59,6 +59,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -78,7 +79,7 @@ public class Planner extends Application {
 
     private Pane root = new Pane();
 
-    private static final String CURRENT_VERSION = "v1.1.0";
+    private static final String CURRENT_VERSION = "v1.1.0a";
 
     public static void main(String args[]) {
         launch(args);
@@ -909,7 +910,10 @@ public class Planner extends Application {
         String alteredName = player.getName().replace(' ', '_');
         Scanner runeMetricsSkillScanner;
         try {
-            runeMetricsSkillScanner = new Scanner(new URL("https://apps.runescape.com/runemetrics/profile/profile?user=" + alteredName).openStream());
+            URL runeMetricsUrl = new URL("https://apps.runescape.com/runemetrics/profile/profile?user=" + alteredName);
+            HttpURLConnection httpCon = (HttpURLConnection) runeMetricsUrl.openConnection();
+            httpCon.addRequestProperty("User-Agent", "Mozilla/4.0");
+            runeMetricsSkillScanner = new Scanner(httpCon.getInputStream());
         }
         catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR, String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName));
@@ -919,7 +923,6 @@ public class Planner extends Application {
         JsonObject jsonObject = new JsonParser().parse(runeMetricsSkillScanner.nextLine()).getAsJsonObject();
         runeMetricsSkillScanner.close();
         JsonArray skillValues = (jsonObject.get("skillvalues").getAsJsonArray());
-        Iterator skillIterator = Player.ALL_SKILLS.iterator();
         for (JsonElement skill : skillValues) {
             JsonObject skillObject = (JsonObject) skill;
             List<String> skillList = new ArrayList<>(Player.ALL_SKILLS);
@@ -932,7 +935,10 @@ public class Planner extends Application {
         String alteredName = player.getName().replace(' ', '_');
         Scanner runeMetricsQuestScanner;
         try {
-            runeMetricsQuestScanner = new Scanner(new URL("https://apps.runescape.com/runemetrics/quests?user=" + alteredName).openStream());
+            URL runeMetricsUrl = new URL("https://apps.runescape.com/runemetrics/quests?user=" + alteredName);
+            HttpURLConnection httpCon = (HttpURLConnection) runeMetricsUrl.openConnection();
+            httpCon.addRequestProperty("User-Agent", "Mozilla/4.0");
+            runeMetricsQuestScanner = new Scanner(httpCon.getInputStream());
         }
         catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR, String.format("Looks like the name %s doesn't fit into a URL for some reason. Please raise a T99 issue.", alteredName));

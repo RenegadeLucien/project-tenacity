@@ -3194,7 +3194,7 @@ public class AchievementDatabase {
             .requirement("Woodcutting", 75).requirement("Farming", 75).reward("Farming", 13914).reward("Woodcutting", 250)
             .reward("Magic logs", 1).build());
         achievements.add(new AchievementBuilder("I've Changed My Mind!", 0).requirement("Summoning", 80).requirement("Farming", 15)
-            .requirement("Hydra pouch", 1).requirement("Regrowth scroll", 1).reward("Summoning", 3).build());
+            .requirement("Hydra pouch", 1).requirement("Hydra scroll (Regrowth)", 1).reward("Summoning", 3).build());
         achievements.add(new AchievementBuilder("Concentration is Key", 0).requirement("Mining", 80).reward("Gold ore", 1)
             .reward("Mining", 65).build());
         achievements.add(new AchievementBuilder("Falador Set Tasks - Elite", 0).requirement("When This Cavern's Rockin'...", 1)
@@ -3731,7 +3731,7 @@ public class AchievementDatabase {
             .requirement("The Prisoner of Glouphrie", 1).requirement("Farming", 89).reward("Farming", 108503).build());
         achievements.add(new AchievementBuilder("Elven Titles", 8.75).requirement("Hefin Agility Course laps", 200)
             .requirement("Corrupted ore", 100).requirement("Combat", 120).requirement("Slayer", 90).requirement("Cadarn magus", 1000)
-            .requirement("Elder tree grown", 1).requirement("Light creature pouch", 1).requirement("Enlightenment scroll", 1)
+            .requirement("Elder tree grown", 1).requirement("Light creature pouch", 1).requirement("Light Creature scroll (Enlightenment)", 1)
             .requirement("As A First Resort", 1).requirement("Mining", 81).requirement("Crafting", 89).requirement("Farming", 75)
             .requirement("Harmony moss seed", 15).reward("Farming", 59140).reward("Mining", 3280).reward("Crafting", 15000).build());
         achievements.add(new AchievementBuilder("Diaries of the Clans", 0).requirement("Hefin Agility Course laps", 160).build());
@@ -3981,7 +3981,7 @@ public class AchievementDatabase {
             .build());
         achievements.add(new AchievementBuilder("Diddyzag", 0).requirement("Beastmaster Durzag", 130).build());
         achievements.add(new AchievementBuilder("Digging for Treasure", 0).requirement("Meerkats pouch", 1)
-            .requirement("Fetch Casket scroll", 1).requirement("Summoning", 4).requirement("Sealed clue scroll (hard)", 1)
+            .requirement("Meerkat scroll (Fetch Casket)", 1).requirement("Summoning", 4).requirement("Sealed clue scroll (hard)", 1)
             .reward("Summoning", 1).build());
         achievements.add(new AchievementBuilder("Zamorak hideout XP chest 1", 0).requirement("Dishonour among Thieves", 1)
             .requirement("Agility", 50).requirement("Attack", 50).requirement("Strength", 50).requirement("Defence", 50)
@@ -5484,7 +5484,7 @@ public class AchievementDatabase {
             .requirement("Moonlight mead (m)", 0).requirement("Pigswill", 0).requirement("Mature pigswill", 0)
             .requirement("Ranger's aid", 0).requirement("Ranger's aid (m)", 0).requirement("Slayer's respite", 0)
             .requirement("Slayer's respite (m)", 0).requirement("Squeck juice", 0).requirement("Wizard's mind bomb", 0
-            ).requirement("Mature wmb", 0).build());
+            ).requirement("Wizard's mind bomb (m)", 0).build());
         achievements.add(new AchievementBuilder("Order of Slayers", 8).requirement("While Guthix Sleeps", 1)
             .requirement("Smoking Kills", 1).requirement("Plague's End", 1).requirement("Barbarian Training", 1).requirement("Slayer", 85)
             .requirement("Combat", 120).build());
@@ -8202,7 +8202,7 @@ public class AchievementDatabase {
             .requirement("Dragonstone ring", 0).requirement("Dragonstone necklace", 0).requirement("Dragonstone bakriminel bolts", 1)
             .requirement("Dragonstone", -28).encounter(new Encounter("Dragonstone dragon")).build());
         achievements.add(new AchievementBuilder("Unlocking Expertise", 0).requirement("Ultimate Codex", 1).requirement("The World Wakes", 1)
-            .requirement("Scare Tactics", 1).requirement("Reprisal Ability Codex", 1).requirement("Mazcab ability codex", 4)
+            .requirement("Scare Tactics", 1).requirement("Reprisal ability codex", 1).requirement("Mazcab ability codex", 4)
             .requirement("Greater Fury ability codex", 1).requirement("Greater Flurry ability codex", 1)
             .requirement("Greater Barge ability codex", 1).requirement("Shattering Worlds V", 1)
             .requirement("Anima Islands Reward Currency", 14500).build());
@@ -8234,7 +8234,7 @@ public class AchievementDatabase {
             .encounter(new Encounter(Arrays.asList(Collections.singletonList("Araxxor 300"), Collections.singletonList("Araxxi 300"))))
             .build());
         achievements.add(new AchievementBuilder("A Swift Two Fifty", 0.1).requirement("Master Quester", 1).requirement("Summoning", 88)
-            .requirement("Light creature pouch", 1).requirement("Enlightenment scroll", 1).reward("Farming", 45000).build());
+            .requirement("Light creature pouch", 1).requirement("Light Creature scroll (Enlightenment)", 1).reward("Farming", 45000).build());
         achievements.add(new AchievementBuilder("Ultimate Birdwatcher", 5).lamp(Player.ALL_SKILLS, -1250, 1).build());
         achievements.add(new AchievementBuilder("I C U K G P", 1).requirement("Back to the Freezer", 1).lamp(Player.ALL_SKILLS, -840, 1)
             .build());

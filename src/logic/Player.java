@@ -541,7 +541,7 @@ public class Player {
 
     public GoalResults efficientGoalCompletion(String qualifier, int quantifier) {
         //Rounding coins to the next thousand for the sake of time
-        if (qualifier.equals("Coins") && quantifier+bankValue < 2147483000) {
+        if (qualifier.equals("Coins") && quantifier+bankValue < 2147482600) {
             quantifier = ((quantifier + 999)/1000)*1000;
         }
         //Because lambdas are picky jerks that must have a final variable or else they throw a tantrum
@@ -781,7 +781,7 @@ public class Player {
                     }
                 }
                 for (Requirement requirement : action.getReqs()) {
-                    if (PriceFetcher.getPrice(requirement.getQualifier()) > 0) {
+                    if (PriceFetcher.getPrice(requirement.getQualifier()) <= 0) {
                         GoalResults reqResults = requirement.timeAndActionsToMeetRequirement(this);
                         effectiveTimeThisAction += reqResults.getTotalTime();
                         addItemsToMap(efficiencyThisAction, reqResults.getActionsWithTimes());

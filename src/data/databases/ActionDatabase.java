@@ -1563,7 +1563,7 @@ public class ActionDatabase {
             .put("Crafted parts", 3448).put("Enhancing components", 344).put("Healthy components", 114).put("Junk", 504).put("Invention pet points", totalPetPoints(player, "Invention", 6600) / 10).build(),
             3000, true, true));
         database.add(new Action("Disassembling rune bull rush scrolls", Collections.singletonList(new Requirement("Invention tutorial", 1)),
-            ImmutableMap.of("Rune Bull Rush scroll", 30000), ImmutableMap.builder().put("Invention", 7500).put("Spiritual parts", 3571)
+            ImmutableMap.of("Rune Minotaur scroll (Rune Bull Rush)", 30000), ImmutableMap.builder().put("Invention", 7500).put("Spiritual parts", 3571)
             .put("Crafted parts", 2202).put("Powerful components", 178).put("Junk", 48).put("Invention pet points", totalPetPoints(player, "Invention", 7500) / 10).build(), 3000, true, true));
         database.add(new Action("Disassembling portents of restoration IX", Collections.singletonList(new Requirement("Invention tutorial", 1)),
             ImmutableMap.of("Portent of restoration IX", 3000), ImmutableMap.builder().put("Invention", 7500).put("Magic parts", 7588)
